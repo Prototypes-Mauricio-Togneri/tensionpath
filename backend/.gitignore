@@ -71,4 +71,4 @@ functions/firebase-export-***
 
 # Custom
 !.vscode/
-!.scripts/
+!scripts/
