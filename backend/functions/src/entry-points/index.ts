@@ -3,6 +3,7 @@ import {AuthData} from 'firebase-functions/lib/common/providers/tasks'
 import {Logger} from '../utils/logger'
 import {CallableOptions} from 'firebase-functions/v2/https'
 import {CustomInternalError} from '../utils/custom-internal-error'
+import {callableResponseFromArray, callableResponseFromObject} from '../utils/callable-mapper'
 
 type CallableHandler = (data: any, context?: Context) => any
 
@@ -22,7 +23,13 @@ export const registerCallable = (handler: CallableHandler, options: CallableOpti
 
       const context = new Context(request.auth)
 
-      return await handler(context.withData(request.data), context)
+      const response = await handler(context.withData(request.data), context)
+
+      if (Array.isArray(response)) {
+        return callableResponseFromArray(response)
+      } else {
+        return callableResponseFromObject(response)
+      }
     } catch (e) {
       handleCallableError(e, request.data)
     }

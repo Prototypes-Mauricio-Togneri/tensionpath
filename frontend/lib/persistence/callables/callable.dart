@@ -20,7 +20,7 @@ abstract class Callable {
           .useFunctionsEmulator(Environment.get.host, 5001);
 
       return FirebaseFunctions.instance.httpsCallableFromUrl(
-        'http://${Environment.get.host}:5001/tensionpath/us-central1/$name',
+        'http://${Environment.get.host}:5001/tension-path/europe-west6/$name',
       );
     } else {
       return FirebaseFunctions.instance.httpsCallable(
