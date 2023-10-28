@@ -8,20 +8,21 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
-  String get matchServerUrl => 'ws://10.0.2.2:3000';
+  String get matchServerUrl => 'ws://$host:3000';
 
   @override
   Future configure() async {
-    FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
+    FirebaseAuth.instance.useAuthEmulator(Environment.get.host, 9099);
 
-    FirebaseFirestore.instance.settings = const Settings(
-      host: '10.0.2.2:8080',
+    FirebaseFirestore.instance.settings = Settings(
+      host: '${Environment.get.host}:8080',
       sslEnabled: false,
       persistenceEnabled: false,
     );
 
-    FirebaseFirestore.instance.useFirestoreEmulator('10.0.2.2', 8080);
+    FirebaseFirestore.instance.useFirestoreEmulator(Environment.get.host, 8080);
 
-    await FirebaseStorage.instance.useStorageEmulator('10.0.2.2', 9199);
+    await FirebaseStorage.instance
+        .useStorageEmulator(Environment.get.host, 9199);
   }
 }

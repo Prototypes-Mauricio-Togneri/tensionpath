@@ -15,6 +15,7 @@ class RoomsManager {
     required JsonJoinRoom json,
     required WebSocket socket,
   }) {
+    // TODO(momo): Allow specific user IDs into room
     if (rooms.has(json.roomId)) {
       final Room room = rooms.get(json.roomId);
       room.join(
