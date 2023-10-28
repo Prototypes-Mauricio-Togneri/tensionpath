@@ -1,7 +1,7 @@
 import {COLLECTIONS, Database, WriteOptionMerge} from '../../database/database'
 import Room from '../../models/room'
 
-export const setBankAccountDocument = async (params: {
+export const createRoomDocument = async (params: {
   database: Database,
   room: Room,
 }) => {
