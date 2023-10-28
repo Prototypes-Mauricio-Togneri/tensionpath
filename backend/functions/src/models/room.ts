@@ -1,5 +1,6 @@
 import {FirebaseDocument} from '../database/firebase-document'
 import {RoomStatus} from '../types/room-status'
+import {merge} from '../utils/merge'
 
 export interface IRoom {
   id: string
@@ -24,12 +25,8 @@ export default class Room implements IRoom {
     this.playerIds = data.playerIds
   }
 
-  public with(params: Partial<IRoom>): Room {
-    return new Room({
-      ...this,
-      ...params.id && {id: params.id},
-      ...params.numberOfPlayers && {numberOfPlayers: params.numberOfPlayers},
-    })
+  public with(data: Partial<IRoom>): Room {
+    return new Room(merge(this, data))
   }
 
   public static parse(document: FirebaseDocument): Room {

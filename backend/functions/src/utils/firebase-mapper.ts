@@ -1,4 +1,4 @@
-import {DocumentData, Timestamp} from 'firebase-admin/firestore'
+import {Timestamp} from 'firebase-admin/firestore'
 import {isDate, isTimestamp} from './dates'
 
 export const mapToFirebaseDocument = (o: any): any => {
@@ -10,7 +10,7 @@ export const mapToFirebaseDocument = (o: any): any => {
     } else {
       return {
         ...Object.keys(o).reduce(
-            (acc: DocumentData, key) => {
+            (acc: any, key) => {
               acc[key] = mapToFirebaseDocument(o[key])
               return acc
             },
@@ -19,6 +19,7 @@ export const mapToFirebaseDocument = (o: any): any => {
       }
     }
   }
+
   return o
 }
 
@@ -40,5 +41,6 @@ export const mapFromFirebaseDocument = (o: any): any => {
       }
     }
   }
+
   return o
 }
