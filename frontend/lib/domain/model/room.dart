@@ -26,7 +26,7 @@ class Room {
         list: RoomStatus.values,
         mapper: (e) => e.code,
       )!,
-      document.getStringList('playerIds.enabled'),
+      document.getStringList('playerIds'),
     );
   }
 }

@@ -8,28 +8,16 @@ abstract class Callable {
   const Callable(this.name);
 
   Future<HttpsCallableResult<T>> invoke<T>([dynamic parameters]) async {
-    final HttpsCallable callable = _callable(name: name);
+    final HttpsCallable callable = CallableConfig.functions.httpsCallable(name);
 
     return callable.call(parameters);
-  }
-
-  HttpsCallable _callable({
-    required String name,
-  }) {
-    if (Environment.get.isLocal) {
-      return CallableConfig.functions().httpsCallableFromUrl(
-        'http://${Environment.get.host}:5001/tension-path/europe-west6/$name',
-      );
-    } else {
-      return CallableConfig.functions().httpsCallable(name);
-    }
   }
 }
 
 class CallableConfig {
   static FirebaseFunctions? _functions;
 
-  static FirebaseFunctions functions() {
+  static FirebaseFunctions get functions {
     if (_functions == null) {
       _functions = FirebaseFunctions.instanceFor(
         app: Firebase.app(),
