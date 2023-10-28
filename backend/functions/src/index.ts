@@ -10,6 +10,7 @@ setGlobalOptions({
   timeoutSeconds: 60,
 })
 
-export const helloWorld = onRequest((request, response) => {
+export const matchFinished = onRequest((request, response) => {
+  console.log(request.body)
   response.send('Hello from Firebase 6')
 })
