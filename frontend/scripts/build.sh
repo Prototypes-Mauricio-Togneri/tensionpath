@@ -4,13 +4,13 @@ set -e
 
 flutter clean
 dart lib/build/generate_version.dart
-flutter build web -t lib/main/main.dart --web-renderer canvaskit
+flutter build web -t lib/main/main_remote.dart --web-renderer canvaskit
 
-OUTPUT="../website/public"
+OUTPUT="../backend/public"
 rm -r ${OUTPUT}
 mkdir ${OUTPUT}
 cp -r build/web/** ${OUTPUT}
 
-cd ../website
+cd ../backend
 firebase deploy
 cd ../frontend
