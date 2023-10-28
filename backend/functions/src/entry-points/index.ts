@@ -7,7 +7,12 @@ import {CustomInternalError} from '../utils/custom-internal-error'
 type CallableHandler = (data: any, context: Context) => any
 
 export const registerCallable = (handler: CallableHandler, options: CallableOptions = {}, authenticated = true) => {
-  return functionsV2.https.onCall(options, async (request) => {
+  const newOptions = {
+    ...options,
+    region: 'europe-west6',
+  }
+
+  return functionsV2.https.onCall(newOptions, async (request) => {
     try {
       if (authenticated && !request.auth) {
         throw new CustomInternalError({

@@ -1,7 +1,7 @@
 import {LogData, Logger} from '../utils/logger'
 import {FunctionsErrorCode} from 'firebase-functions/v2/https'
 
-type ErrorCause = any;
+type ErrorCause = any
 
 export class CustomInternalError extends Error {
   readonly originalMessage: string
