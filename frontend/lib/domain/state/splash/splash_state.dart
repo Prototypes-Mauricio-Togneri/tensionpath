@@ -1,9 +1,11 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/persistence/callables/matchmaking_callable.dart';
 
 class SplashState extends BaseState {
-  @override
-  void onLoad() {
-    Navigation.gameScreen();
+  Future onMatchmaking() async {
+    final result = await const MatchmakingCallable()(
+      numberOfPlayers: 2,
+    );
+    print(result);
   }
 }

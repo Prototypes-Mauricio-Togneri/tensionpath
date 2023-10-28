@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/utils/locator.dart';
+import 'package:tensionpath/utils/platform.dart';
 
 abstract class Environment {
   String get name;
@@ -16,7 +17,7 @@ abstract class Environment {
 
   bool get isRemote => name == 'remote';
 
-  String get platform => defaultTargetPlatform.name;
+  String get host => Platform.isWeb ? 'localhost' : '10.0.2.2';
 
   Future configure() async {}
 
