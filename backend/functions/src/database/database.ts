@@ -4,9 +4,6 @@ import {Logger} from '../utils/logger'
 import {mapToFirebaseDocument} from '../utils/firebase-mapper'
 import {IRoom} from '../models/room'
 
-const fs = admin.firestore()
-fs.settings({ignoreUndefinedProperties: true})
-
 type FirestoreWriteable = IRoom
 
 export class Database {
