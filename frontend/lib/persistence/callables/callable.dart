@@ -1,4 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:tensionpath/environments/environment.dart';
 
 abstract class Callable {
@@ -16,16 +17,30 @@ abstract class Callable {
     required String name,
   }) {
     if (Environment.get.isLocal) {
-      FirebaseFunctions.instance
-          .useFunctionsEmulator(Environment.get.host, 5001);
-
-      return FirebaseFunctions.instance.httpsCallableFromUrl(
+      return CallableConfig.functions().httpsCallableFromUrl(
         'http://${Environment.get.host}:5001/tension-path/europe-west6/$name',
       );
     } else {
-      return FirebaseFunctions.instance.httpsCallable(
-        name,
-      );
+      return CallableConfig.functions().httpsCallable(name);
     }
+  }
+}
+
+class CallableConfig {
+  static FirebaseFunctions? _functions;
+
+  static FirebaseFunctions functions() {
+    if (_functions == null) {
+      _functions = FirebaseFunctions.instanceFor(
+        app: Firebase.app(),
+        region: 'europe-west6',
+      );
+
+      if (Environment.get.isLocal) {
+        _functions!.useFunctionsEmulator(Environment.get.host, 5001);
+      }
+    }
+
+    return _functions!;
   }
 }
