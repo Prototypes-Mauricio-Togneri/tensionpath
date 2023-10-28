@@ -18,8 +18,16 @@ class SplashState extends BaseState {
     print(signedUser);
   }
 
-  Future<User> _getSignedUser(User? user) async =>
-      user ?? (await FirebaseAuth.instance.signInAnonymously()).user!;
+  Future<User> _getSignedUser(User? user) async {
+    if (user != null) {
+      return user;
+    } else {
+      final UserCredential credential =
+          await FirebaseAuth.instance.signInAnonymously();
+
+      return credential.user!;
+    }
+  }
 
   Future onMatchmaking() async {
     final result = await const MatchmakingCallable()(
