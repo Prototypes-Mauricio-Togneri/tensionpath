@@ -19,5 +19,5 @@ export const createRoomDocument = async (params: {
 
   await params.database.setDocument(docRef, newRoom, WriteOptionMerge)
 
-  return docRef
+  return newRoom
 }
