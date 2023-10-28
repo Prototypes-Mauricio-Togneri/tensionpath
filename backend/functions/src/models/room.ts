@@ -1,13 +1,15 @@
-interface TRoom {
+import {FirebaseDocument} from '../database/firebase-document'
+
+export interface IRoom {
   id: string
   numberOfPlayers: number
 }
 
-export default class Room implements TRoom {
+export default class Room implements IRoom {
   readonly id: string
   readonly numberOfPlayers: number
 
-  constructor(data: TRoom) {
+  constructor(data: IRoom) {
     this.id = data.id
     this.numberOfPlayers = data.numberOfPlayers
   }
@@ -21,5 +23,9 @@ export default class Room implements TRoom {
       ...params.id && {id: params.id},
       ...params.numberOfPlayers && {numberOfPlayers: params.numberOfPlayers},
     })
+  }
+
+  public static parse(document: FirebaseDocument): Room {
+    return new Room(document.data())
   }
 }

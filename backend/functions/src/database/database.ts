@@ -1,15 +1,13 @@
 import * as admin from 'firebase-admin'
-import {CollectionGroup, CollectionReference, DocumentData, DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot, SetOptions, Transaction, UpdateData, WithFieldValue, WriteBatch} from 'firebase-admin/firestore'
-import Room from '../models/room'
+import {CollectionGroup, CollectionReference, DocumentData, DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot, SetOptions, Transaction, UpdateData, WriteBatch} from 'firebase-admin/firestore'
 import {Logger} from '../utils/logger'
 import {mapToFirebaseDocument} from '../utils/firebase-mapper'
+import {IRoom} from '../models/room'
 
 const fs = admin.firestore()
 fs.settings({ignoreUndefinedProperties: true})
 
-type FirestoreWriteable = Room
-
-export type SuperType<T> = WithFieldValue<T>
+type FirestoreWriteable = IRoom
 
 export class Database {
   private constructor(
