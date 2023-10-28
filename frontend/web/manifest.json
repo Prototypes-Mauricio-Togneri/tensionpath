@@ -1,6 +1,6 @@
 {
-    "name": "tensionbase",
-    "short_name": "tensionbase",
+    "name": "tensionpath",
+    "short_name": "tensionpath",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

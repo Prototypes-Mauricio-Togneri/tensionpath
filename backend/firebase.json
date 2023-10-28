@@ -11,6 +11,7 @@
         "source": "functions"
     },
     "hosting": {
+        "site": "tension-path",
         "public": "public",
         "ignore": [
             "firebase.json",

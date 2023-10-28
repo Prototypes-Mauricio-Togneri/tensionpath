@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionbase/presentation/game/game_screen.dart';
-import 'package:tensionbase/utils/locator.dart';
+import 'package:tensionpath/presentation/game/game_screen.dart';
+import 'package:tensionpath/utils/locator.dart';
 
 class Navigation {
   final Routes routes = Routes();

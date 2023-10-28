@@ -1,4 +1,4 @@
-import 'package:tensionbase/environments/environment.dart';
+import 'package:tensionpath/environments/environment.dart';
 
 class RemoteEnvironment extends Environment {
   @override

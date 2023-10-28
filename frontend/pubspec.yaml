@@ -1,7 +1,7 @@
-name: tensionbase
-description: Frontend app for Tension Base
+name: tensionpath
+description: Frontend app for Tension Path
 publish_to: none
-version: 1.0.0+1
+version: 0.0.1+1
 
 environment:
   sdk: '>=3.1.4 <4.0.0'

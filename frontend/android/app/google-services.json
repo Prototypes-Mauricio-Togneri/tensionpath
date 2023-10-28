@@ -1,36 +1,26 @@
 {
     "project_info": {
-        "project_number": "1033661841987",
-        "project_id": "tensionbase",
-        "storage_bucket": "tensionbase.appspot.com"
+        "project_number": "183502893220",
+        "project_id": "tension-path",
+        "storage_bucket": "tension-path.appspot.com"
     },
     "client": [
         {
             "client_info": {
-                "mobilesdk_app_id": "1:1033661841987:android:330bb163305421d2754af6",
+                "mobilesdk_app_id": "1:183502893220:android:fe58fd0295de9865ecb631",
                 "android_client_info": {
-                    "package_name": "com.mauriciotogneri.tensionbase"
+                    "package_name": "com.mauriciotogneri.tensionpath"
                 }
             },
-            "oauth_client": [
-                {
-                    "client_id": "1033661841987-it31ondqb2aa689b985kfao3qnjdr2ab.apps.googleusercontent.com",
-                    "client_type": 3
-                }
-            ],
+            "oauth_client": [],
             "api_key": [
                 {
-                    "current_key": "AIzaSyBkFk6p3vtQFUYNkhql_0hgkzhbkbhLNsc"
+                    "current_key": "AIzaSyAiM4KSUiByzBLRp3X8sJh0AyUmby8xai4"
                 }
             ],
             "services": {
                 "appinvite_service": {
-                    "other_platform_oauth_client": [
-                        {
-                            "client_id": "1033661841987-it31ondqb2aa689b985kfao3qnjdr2ab.apps.googleusercontent.com",
-                            "client_type": 3
-                        }
-                    ]
+                    "other_platform_oauth_client": []
                 }
             }
         }

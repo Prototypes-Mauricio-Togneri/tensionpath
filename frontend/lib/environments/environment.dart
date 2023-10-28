@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:tensionbase/utils/locator.dart';
+import 'package:tensionpath/utils/locator.dart';
 
 abstract class Environment {
   String get name;

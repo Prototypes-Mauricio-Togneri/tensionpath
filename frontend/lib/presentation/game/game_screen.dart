@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionbase/domain/state/game/game_state.dart';
-import 'package:tensionbase/utils/palette.dart';
-import 'package:tensionbase/widgets/base_screen.dart';
-import 'package:tensionbase/widgets/label.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/utils/palette.dart';
+import 'package:tensionpath/widgets/base_screen.dart';
+import 'package:tensionpath/widgets/label.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;

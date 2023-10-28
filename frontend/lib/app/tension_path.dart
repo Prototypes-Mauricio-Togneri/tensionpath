@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tensionbase/presentation/splash/splash_screen.dart';
-import 'package:tensionbase/utils/navigation.dart';
-import 'package:tensionbase/utils/palette.dart';
+import 'package:tensionpath/presentation/splash/splash_screen.dart';
+import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/palette.dart';
 
-class TensionBase extends StatelessWidget {
-  const TensionBase();
+class TensionPath extends StatelessWidget {
+  const TensionPath();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tension Base',
+      title: 'Tension Path',
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(
