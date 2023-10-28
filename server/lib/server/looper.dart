@@ -1,4 +1,4 @@
-import 'package:tensionbase/rooms/rooms_manager.dart';
+import 'package:tensionpath/rooms/rooms_manager.dart';
 
 class Looper {
   final RoomsManager roomsManager;

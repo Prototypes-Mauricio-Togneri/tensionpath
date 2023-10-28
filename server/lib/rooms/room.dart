@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:tensionbase/extensions/web_socket_extension.dart';
-import 'package:tensionbase/json/json_message.dart';
-import 'package:tensionbase/utils/logger.dart';
+import 'package:tensionpath/extensions/web_socket_extension.dart';
+import 'package:tensionpath/json/json_message.dart';
+import 'package:tensionpath/utils/logger.dart';
 
 class Room {
   final String id;

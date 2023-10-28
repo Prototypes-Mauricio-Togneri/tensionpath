@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:tensionbase/json/json_create_room.dart';
-import 'package:tensionbase/json/json_join_room.dart';
-import 'package:tensionbase/rooms/room.dart';
-import 'package:tensionbase/utils/map_list.dart';
+import 'package:tensionpath/json/json_create_room.dart';
+import 'package:tensionpath/json/json_join_room.dart';
+import 'package:tensionpath/rooms/room.dart';
+import 'package:tensionpath/utils/map_list.dart';
 
 class RoomsManager {
   final MapList<String, Room> rooms = MapList();

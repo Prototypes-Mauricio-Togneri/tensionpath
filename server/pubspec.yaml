@@ -1,7 +1,7 @@
-name: tensionbase
-description: Battle server for Tension Base
+name: tensionpath
+description: Battle server for Tension Path
 publish_to: none
-version: 0.0.1
+version: 0.0.1+1
 
 environment:
   sdk: '>=3.1.5 <4.0.0'

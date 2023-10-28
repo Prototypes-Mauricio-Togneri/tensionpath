@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:tensionbase/extensions/web_socket_extension.dart';
-import 'package:tensionbase/json/json_join_room.dart';
-import 'package:tensionbase/json/json_message.dart';
-import 'package:tensionbase/rooms/rooms_manager.dart';
-import 'package:tensionbase/utils/logger.dart';
+import 'package:tensionpath/extensions/web_socket_extension.dart';
+import 'package:tensionpath/json/json_join_room.dart';
+import 'package:tensionpath/json/json_message.dart';
+import 'package:tensionpath/rooms/rooms_manager.dart';
+import 'package:tensionpath/utils/logger.dart';
 
 class Handler {
   final RoomsManager roomsManager;

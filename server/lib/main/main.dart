@@ -1,7 +1,7 @@
-import 'package:tensionbase/rooms/rooms_manager.dart';
-import 'package:tensionbase/server/handler.dart';
-import 'package:tensionbase/server/looper.dart';
-import 'package:tensionbase/server/server.dart';
+import 'package:tensionpath/rooms/rooms_manager.dart';
+import 'package:tensionpath/server/handler.dart';
+import 'package:tensionpath/server/looper.dart';
+import 'package:tensionpath/server/server.dart';
 
 Future main(List<String> args) async {
   final RoomsManager roomsManager = RoomsManager();

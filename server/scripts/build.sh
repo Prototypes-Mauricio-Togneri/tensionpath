@@ -2,4 +2,4 @@
 
 set -e
 
-dart compile exe lib/main/main.dart -o output/tensionbase
+dart compile exe lib/main/main.dart -o output/tensionpath

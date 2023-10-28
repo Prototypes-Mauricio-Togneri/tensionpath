@@ -1,7 +1,6 @@
 import 'dart:io';
-
-import 'package:tensionbase/json/json_message.dart';
-import 'package:tensionbase/utils/logger.dart';
+import 'package:tensionpath/json/json_message.dart';
+import 'package:tensionpath/utils/logger.dart';
 
 extension WebSocketExtension on WebSocket {
   void send(JsonMessage json) {

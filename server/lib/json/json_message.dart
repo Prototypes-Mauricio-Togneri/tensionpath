@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionbase/json/json_join_room.dart';
+import 'package:tensionpath/json/json_join_room.dart';
 
 part 'json_message.g.dart';
 
