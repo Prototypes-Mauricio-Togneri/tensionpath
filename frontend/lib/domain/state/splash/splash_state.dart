@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/persistence/callables/matchmaking_callable.dart';
 
 class SplashState extends BaseState {
@@ -30,7 +31,7 @@ class SplashState extends BaseState {
   }
 
   Future onMatchmaking() async {
-    final result = await const MatchmakingCallable()(
+    final Room result = await const MatchmakingCallable()(
       numberOfPlayers: 2,
     );
     print(result);
