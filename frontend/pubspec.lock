@@ -141,10 +141,10 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
-      sha256: "7dd7e9505e4e895c87e7bc0c4cf49a2c0b0255fae900ab7fcac3c5daa9f422d5"
+      sha256: "666ae6914f5d9dde04d7fb49c5983d3bf7b887021a79a3ac17de2e95386b8006"
       url: "https://pub.dev"
     source: hosted
-    version: "4.12.0"
+    version: "4.12.1"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -834,22 +834,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  socket_io_client:
-    dependency: "direct main"
-    description:
-      name: socket_io_client
-      sha256: ede469f3e4c55e8528b4e023bdedbc20832e8811ab9b61679d1ba3ed5f01f23b
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3+1"
-  socket_io_common:
-    dependency: transitive
-    description:
-      name: socket_io_common
-      sha256: "2ab92f8ff3ebbd4b353bf4a98bee45cc157e3255464b2f90f66e09c4472047eb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
   source_gen:
     dependency: transitive
     description:
@@ -1003,5 +987,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.1.4 <4.0.0"
+  dart: ">=3.1.5 <4.0.0"
   flutter: ">=3.7.0"
