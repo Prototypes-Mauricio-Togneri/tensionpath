@@ -4,7 +4,7 @@ import {Logger} from '../utils/logger'
 import {CallableOptions} from 'firebase-functions/v2/https'
 import {CustomInternalError} from '../utils/custom-internal-error'
 
-type CallableHandler = (data: any, context: Context) => any
+type CallableHandler = (data: any, context?: Context) => any
 
 export const registerCallable = (handler: CallableHandler, options: CallableOptions = {}, authenticated = true) => {
   const newOptions = {
@@ -20,7 +20,9 @@ export const registerCallable = (handler: CallableHandler, options: CallableOpti
         })
       }
 
-      return await handler(request.data, new Context(request.auth))
+      const context = new Context(request.auth)
+
+      return await handler(context.withData(request.data), context)
     } catch (e) {
       handleCallableError(e, request.data)
     }
@@ -61,7 +63,7 @@ export class Context {
   ) {
   }
 
-  public get userId(): string {
+  public get playerId(): string {
     if (!this.auth) {
       throw new CustomInternalError({
         message: 'Trying to access missing auth property in context',
@@ -74,7 +76,7 @@ export class Context {
   public withData(data: any) {
     return {
       ...data,
-      userId: this.userId,
+      playerId: this.playerId,
     }
   }
 }
