@@ -136,3 +136,8 @@ export class Database {
 export const WriteOptionMerge: SetOptions = {
   merge: true,
 }
+
+export const COLLECTIONS = {
+  PLAYERS: 'players',
+  ROOMS: 'rooms',
+}
