@@ -7,5 +7,5 @@ setGlobalOptions({
 });
 
 export const helloWorld = onRequest((request, response) => {
-  response.send("Hello from Firebase 3");
+  response.send("Hello from Firebase 4");
 });
