@@ -4,6 +4,8 @@ import 'package:tensionpath/utils/locator.dart';
 abstract class Environment {
   String get name;
 
+  String get matchServerUrl;
+
   bool get isDebugMode => kDebugMode;
 
   bool get isReleaseMode => kReleaseMode;

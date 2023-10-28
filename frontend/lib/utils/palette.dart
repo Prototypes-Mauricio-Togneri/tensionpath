@@ -8,7 +8,4 @@ class Palette {
   static const Color grey = Colors.grey;
   static const Color green = Colors.green;
   static const Color red = Colors.red;
-
-  static const Color screenBackground = Color(0x80000000);
-  static const Color tooltipBackground = Color(0xff333333);
 }
