@@ -1,4 +1,4 @@
 export enum RoomStatus {
   open = 'open',
-  closed = 'close',
+  closed = 'closed',
 }
