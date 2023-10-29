@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/presentation/game/game_screen.dart';
+import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
 class Navigation {
@@ -13,6 +14,13 @@ class Navigation {
         BasicRoute(
           GameScreen.instance(),
           name: 'game',
+        ),
+      );
+
+  static void lobbyScreen() => get.routes.push(
+        BasicRoute(
+          LobbyScreen.instance(),
+          name: 'lobby',
         ),
       );
 }

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tensionpath/domain/model/room.dart';
-import 'package:tensionpath/persistence/callables/matchmaking_callable.dart';
+import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
+  bool userLoggedIn = false;
+
   @override
   Future onLoad() async {
     StreamSubscription? subscription;
@@ -17,6 +18,8 @@ class SplashState extends BaseState {
   Future _processUser(User? user) async {
     final User signedUser = await _getSignedUser(user);
     print(signedUser);
+    userLoggedIn = true;
+    notify();
   }
 
   Future<User> _getSignedUser(User? user) async {
@@ -30,10 +33,5 @@ class SplashState extends BaseState {
     }
   }
 
-  Future onMatchmaking() async {
-    final Room result = await const MatchmakingCallable()(
-      numberOfPlayers: 2,
-    );
-    print(result);
-  }
+  void onMatchmaking() => Navigation.lobbyScreen();
 }
