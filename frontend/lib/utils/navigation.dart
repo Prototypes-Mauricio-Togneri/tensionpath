@@ -1,7 +1,8 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/presentation/game/game_screen.dart';
+import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/main/main_screen.dart';
+import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/presentation/set_name/set_name_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
@@ -39,9 +40,9 @@ class Navigation {
         ),
       );
 
-  static void gameScreen() => get.routes.pushAlone(
+  static void matchScreen(Room room) => get.routes.pushAlone(
         BasicRoute(
-          GameScreen.instance(),
+          MatchScreen.instance(room),
           name: 'game',
         ),
       );

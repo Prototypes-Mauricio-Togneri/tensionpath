@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/model/user_logged.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/persistence/callables/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/callables/stop_matchmaking_callable.dart';
+import 'package:tensionpath/utils/navigation.dart';
 
 class LobbyState extends BaseState {
   StreamSubscription? subscription;
@@ -16,7 +17,7 @@ class LobbyState extends BaseState {
   Future onLoad() async {
     final Room room = await const StartMatchmakingCallable()(
       playerName: LoggedUser.get.name,
-      matchType: 'test',
+      matchType: 'undervoltage',
       numberOfPlayers: 2,
     );
 
@@ -41,17 +42,22 @@ class LobbyState extends BaseState {
 
       if (room.status == RoomStatus.closed) {
         subscription?.cancel();
+        _onRoomReady(room);
       }
     }
   }
 
-  Future<bool> onLeave() async {
+  void _onRoomReady(Room room) => Navigation.matchScreen(room);
+
+  Future onLeave() async {
+    subscription?.cancel();
+
     if (roomId.isNotEmpty) {
       await const StopMatchmakingCallable()(
         roomId: roomId,
       );
     }
 
-    return true;
+    Navigation.pop();
   }
 }

@@ -1,20 +1,21 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/model/room.dart';
+import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
 import 'package:tensionpath/widgets/label.dart';
 
-class GameScreen extends StatelessWidget {
-  final GameState state;
+class MatchScreen extends StatelessWidget {
+  final MatchState state;
 
-  const GameScreen._(this.state);
+  const MatchScreen._(this.state);
 
-  factory GameScreen.instance() => GameScreen._(GameState());
+  factory MatchScreen.instance(Room room) => MatchScreen._(MatchState(room));
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<GameState>(
+    return StateProvider<MatchState>(
       state: state,
       builder: (context, state) => Body(state),
     );
@@ -22,7 +23,7 @@ class GameScreen extends StatelessWidget {
 }
 
 class Body extends StatelessWidget {
-  final GameState state;
+  final MatchState state;
 
   const Body(this.state);
 
