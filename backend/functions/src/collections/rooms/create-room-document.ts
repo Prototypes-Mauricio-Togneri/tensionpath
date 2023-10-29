@@ -1,5 +1,5 @@
 import {COLLECTIONS, Database, WriteOptionMerge} from '../../database/database'
-import Room from '../../models/room'
+import {Room} from '../../models/room'
 
 export const createRoomDocument = async (params: {
   database: Database,
