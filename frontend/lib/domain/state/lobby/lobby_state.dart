@@ -15,6 +15,7 @@ class LobbyState extends BaseState {
 
   @override
   Future onLoad() async {
+    // TODO(momo): handle error and show popup
     final Room room = await const StartMatchmakingCallable()(
       playerName: LoggedUser.get.name,
       matchType: 'undervoltage',
