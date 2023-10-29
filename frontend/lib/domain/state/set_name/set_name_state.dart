@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/model/user_logged.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/platform.dart';
 
@@ -11,14 +12,17 @@ class SetNameState extends BaseState {
   SetNameState() {
     nameController.text = LoggedUser.get.name;
 
-    if (nameController.text.isEmpty) {
+    if (Environment.get.isLocal && nameController.text.isEmpty) {
       nameController.text = Platform.isWeb ? 'Web' : 'Mobile';
       buttonEnabled = true;
     }
   }
 
-  void setName() {
-    LoggedUser.get.updateName(nameController.text.trim());
+  Future setName() async {
+    buttonEnabled = false;
+    notify();
+
+    await LoggedUser.get.updateName(nameController.text.trim());
     Navigation.mainScreen();
   }
 

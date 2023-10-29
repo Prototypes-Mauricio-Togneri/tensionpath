@@ -50,7 +50,7 @@ class Navigation {
         ),
       );
 
-  static void matchScreen(Room room) => get.routes.pushAlone(
+  static void matchScreen(Room room) => get.routes.pushReplacement(
         BasicRoute(
           MatchScreen.instance(room),
           name: 'game',
