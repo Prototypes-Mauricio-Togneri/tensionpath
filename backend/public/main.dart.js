@@ -71397,7 +71397,7 @@ return s.jC(A.Vc(new A.Ho(r,null),"lobby",t.z))}}
 A.jZ.prototype={
 hk(a){var s,r=this
 $.ig().$1$0(t.vr)
-s=A.azB(A.eB("ws://zeronest.com:8888/ws"),null).r.b
+s=A.azB(A.eB("wss://zeronest.com:8888"),null).r.b
 s===$&&A.a()
 s=s.b
 s===$&&A.a()
@@ -76019,7 +76019,7 @@ B.wH=new A.bV(B.hm,1,B.a9,-1)
 B.hv=new A.hJ(4,B.ct,B.wH)
 B.FD=new A.xi(null)
 B.zG=new A.aO(0,0,0,20)
-B.AR=new A.li("Version 15",B.hm,14,null,null)
+B.AR=new A.li("Version 16",B.hm,14,null,null)
 B.FE=new A.d2(B.zG,B.AR,null)
 B.bM=new A.Ip(0,"fill")
 B.aM=new A.Ip(1,"stroke")

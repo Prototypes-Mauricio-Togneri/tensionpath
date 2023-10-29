@@ -13,8 +13,22 @@ class Server {
   const Server(this.roomsManager, this.handler);
 
   Future start(int port) async {
-    final HttpServer server =
-        await HttpServer.bind(InternetAddress.anyIPv4, port);
+    final String chain =
+        Platform.script.resolve('/home/max/fullchain.pem').toFilePath();
+    final String key =
+        Platform.script.resolve('/home/max/privkey.pem').toFilePath();
+    final SecurityContext context = SecurityContext()
+      ..useCertificateChain(chain)
+      ..usePrivateKey(
+        key,
+        password: '',
+      );
+
+    final HttpServer server = await HttpServer.bindSecure(
+      InternetAddress.anyIPv4,
+      port,
+      context,
+    );
     print('Server running on ${server.port}');
 
     server.listen(_handleRequest);

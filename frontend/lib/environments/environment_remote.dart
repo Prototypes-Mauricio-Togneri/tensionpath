@@ -5,5 +5,5 @@ class RemoteEnvironment extends Environment {
   String get name => 'remote';
 
   @override
-  String get matchServerUrl => 'ws://zeronest.com:8888/ws';
+  String get matchServerUrl => 'wss://zeronest.com:8888';
 }
