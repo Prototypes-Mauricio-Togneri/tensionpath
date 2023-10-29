@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/build/build_version.dart';
 import 'package:tensionpath/domain/state/main/main_state.dart';
@@ -57,11 +58,76 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: state.onMatchmaking,
-        child: const Text('FIGHT!'),
+    return StateProvider<MainState>(
+      state: state,
+      builder: (context, state) => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Undervoltage(state),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class Undervoltage extends StatelessWidget {
+  final MainState state;
+
+  const Undervoltage(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ToggleButtons(
+          direction: Axis.horizontal,
+          onPressed: state.onSelectPlayers,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          selectedBorderColor: Colors.blue[500],
+          selectedColor: Colors.white,
+          fillColor: Colors.blue[200],
+          color: Colors.blue[400],
+          isSelected: state.selectedPlayers,
+          children: const [
+            PlayerSelectorEntry('2 Players'),
+            PlayerSelectorEntry('3 Players'),
+            PlayerSelectorEntry('4 Players'),
+          ],
+        ),
+        const VBox(20),
+        ElevatedButton(
+          onPressed: state.onMatchmaking,
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.bolt,
+                size: 14,
+                color: Palette.white,
+              ),
+              HBox(10),
+              Text('Undervoltage'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PlayerSelectorEntry extends StatelessWidget {
+  final String text;
+
+  const PlayerSelectorEntry(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Text(text),
     );
   }
 }
