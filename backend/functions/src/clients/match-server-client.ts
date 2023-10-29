@@ -9,7 +9,7 @@ export const createMatchServerRoom = async (room: Room): Promise<boolean> => {
     url: '/rooms',
     method: 'POST',
     headers: {
-      apikey: 'API_KEY', // TODO(momo): externalize
+      ['X-API-Key']: 'API_KEY', // TODO(momo): externalize
     },
     data: {
       roomId: room.id,
