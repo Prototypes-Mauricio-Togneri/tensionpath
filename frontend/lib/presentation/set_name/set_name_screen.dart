@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/set_name/set_name_state.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
 import 'package:tensionpath/widgets/custom_form_field.dart';
+import 'package:tensionpath/widgets/primary_button.dart';
 
 class SetNameScreen extends StatelessWidget {
   final SetNameState state;
@@ -31,9 +32,9 @@ class SetNameScreen extends StatelessWidget {
                   onTextChanged: state.onTextChanged,
                 ),
                 const VBox(20),
-                ElevatedButton(
+                PrimaryButton(
+                  text: 'SAVE',
                   onPressed: state.buttonEnabled ? state.setName : null,
-                  child: const Text('SAVE'),
                 ),
               ],
             ),

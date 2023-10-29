@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
 import 'package:tensionpath/widgets/label.dart';
+import 'package:tensionpath/widgets/primary_button.dart';
 
 class LobbyScreen extends StatelessWidget {
   final LobbyState state;
@@ -46,12 +47,11 @@ class LobbyScreen extends StatelessWidget {
                 },
               ),
               const VBox(50),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Palette.red),
-                ),
+              PrimaryButton(
+                text: 'CANCEL',
+                icon: Icons.close,
+                backgroundColor: Palette.red,
                 onPressed: state.onLeave,
-                child: const Text('CANCEL'),
               ),
             ],
           ),

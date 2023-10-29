@@ -4,8 +4,8 @@ import 'package:tensionpath/utils/palette.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
   final Color backgroundColor;
+  final VoidCallback? onPressed;
   final IconData? icon;
 
   const PrimaryButton({
