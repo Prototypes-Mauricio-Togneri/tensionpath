@@ -2,8 +2,7 @@ import {createRoomDocument} from '../../../collections/rooms/create-room-documen
 import {getAvailableRoomDocument} from '../../../collections/rooms/get-available-room-document'
 import {updateRoomDocument} from '../../../collections/rooms/update-room-document'
 import {Database} from '../../../database/database'
-import Room from '../../../models/room'
-import {RoomStatus} from '../../../types/room-status'
+import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
 
 interface matchmakingCallableParams {
@@ -20,11 +19,7 @@ export const matchmakingCallable = registerCallable(async (params: matchmakingCa
     })
 
     if (room) {
-      const roomFull = room.numberOfPlayers === (room.playerIds.length + 1)
-      const newRoom = room.with({
-        status: roomFull ? RoomStatus.closed : RoomStatus.open,
-        playerIds: [...room.playerIds, params.playerId],
-      })
+      const newRoom = room.join(params.playerId)
 
       await updateRoomDocument({
         database: database,
@@ -33,12 +28,9 @@ export const matchmakingCallable = registerCallable(async (params: matchmakingCa
 
       return newRoom
     } else {
-      const newRoom = new Room({
-        id: '',
-        createdAt: new Date(),
+      const newRoom = Room.create({
+        playerId: params.playerId,
         numberOfPlayers: params.numberOfPlayers,
-        status: RoomStatus.open,
-        playerIds: [params.playerId],
       })
 
       const result = await createRoomDocument({

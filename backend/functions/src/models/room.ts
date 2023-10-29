@@ -10,7 +10,7 @@ export interface IRoom {
   playerIds: string[]
 }
 
-export default class Room implements IRoom {
+export class Room implements IRoom {
   readonly id: string
   readonly createdAt: Date
   readonly numberOfPlayers: number
@@ -27,6 +27,36 @@ export default class Room implements IRoom {
 
   public with(data: Partial<IRoom>): Room {
     return new Room(merge(this, data))
+  }
+
+  public join(playerId: string): Room {
+    const playerInRoom = this.playerIds.includes(playerId)
+    const roomFull = !playerInRoom && (this.numberOfPlayers === (this.playerIds.length + 1))
+
+    const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
+    const newPlayerIds = this.playerIds
+
+    if (!playerInRoom) {
+      newPlayerIds.push(playerId)
+    }
+
+    return this.with({
+      status: newStatus,
+      playerIds: newPlayerIds,
+    })
+  }
+
+  public static create(params: {
+    playerId: string,
+    numberOfPlayers: number,
+  }): Room {
+    return new Room({
+      id: '',
+      createdAt: new Date(),
+      numberOfPlayers: params.numberOfPlayers,
+      status: RoomStatus.open,
+      playerIds: [params.playerId],
+    })
   }
 
   public static parse(document: FirebaseDocument): Room {
