@@ -24,12 +24,15 @@ class SetNameScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                CustomFormField(
-                  label: 'Nickname',
-                  autofocus: true,
-                  controller: state.nameController,
-                  maxLength: 20,
-                  onTextChanged: state.onTextChanged,
+                SizedBox(
+                  width: 300,
+                  child: CustomFormField(
+                    label: 'Nickname',
+                    autofocus: true,
+                    controller: state.nameController,
+                    maxLength: 20,
+                    onTextChanged: state.onTextChanged,
+                  ),
                 ),
                 const VBox(20),
                 PrimaryButton(

@@ -16,6 +16,8 @@ class SetNameState extends BaseState {
       nameController.text = Platform.isWeb ? 'Web' : 'Mobile';
       buttonEnabled = true;
     }
+
+    buttonEnabled = nameController.text.isNotEmpty;
   }
 
   Future setName() async {
