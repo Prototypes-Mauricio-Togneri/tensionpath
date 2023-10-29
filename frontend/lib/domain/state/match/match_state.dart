@@ -5,6 +5,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MatchState extends BaseState {
   final Room room;
+  final List<String> events = ['Connecting'];
 
   MatchState(this.room);
 
@@ -17,18 +18,23 @@ class MatchState extends BaseState {
       onDone: _onDisconnected,
       onError: _onError,
     );
+    events.add('Connected');
+    notify();
   }
 
   void _onMessageReceived(dynamic message) {
-    print(message);
     // channel.sink.add('Received: $message');
+    events.add('Received: $message');
+    notify();
   }
 
   void _onDisconnected() {
-    print('Disconnected');
+    events.add('Disconnected');
+    notify();
   }
 
   void _onError(dynamic error) {
-    print(error);
+    events.add('Error $error');
+    notify();
   }
 }

@@ -29,12 +29,16 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseScreen(
+    return BaseScreen(
       child: Center(
-        child: Label(
-          text: 'YES!',
-          color: Palette.black,
-          size: 14,
+        child: StateProvider<MatchState>(
+          state: state,
+          builder: (context, state) => Label(
+            text: state.events.join('\n'),
+            color: Palette.black,
+            align: TextAlign.center,
+            size: 14,
+          ),
         ),
       ),
     );
