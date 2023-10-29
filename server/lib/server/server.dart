@@ -12,26 +12,44 @@ class Server {
 
   const Server(this.roomsManager, this.handler);
 
-  Future start(int port) async {
-    final String chain =
-        Platform.script.resolve('/home/max/fullchain.pem').toFilePath();
-    final String key =
-        Platform.script.resolve('/home/max/privkey.pem').toFilePath();
-    final SecurityContext context = SecurityContext()
-      ..useCertificateChain(chain)
-      ..usePrivateKey(
-        key,
-        password: '',
-      );
-
-    final HttpServer server = await HttpServer.bindSecure(
-      InternetAddress.anyIPv4,
-      port,
-      context,
+  Future start({
+    required int port,
+    String? chain,
+    String? key,
+  }) async {
+    final HttpServer server = await _server(
+      port: port,
+      chain: chain,
+      key: key,
     );
-    print('Server running on ${server.port}');
-
     server.listen(_handleRequest);
+    print('Server running on ${server.port}');
+  }
+
+  Future<HttpServer> _server({
+    required int port,
+    required String? chain,
+    required String? key,
+  }) async {
+    if ((chain != null) && (key != null)) {
+      final SecurityContext context = SecurityContext()
+        ..useCertificateChain(chain)
+        ..usePrivateKey(
+          key,
+          password: '',
+        );
+
+      return HttpServer.bindSecure(
+        InternetAddress.anyIPv4,
+        port,
+        context,
+      );
+    } else {
+      return HttpServer.bind(
+        InternetAddress.anyIPv4,
+        port,
+      );
+    }
   }
 
   Future _handleRequest(HttpRequest request) async {
