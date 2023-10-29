@@ -4,6 +4,9 @@ import {updateRoomDocument} from '../../../collections/rooms/update-room-documen
 import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
+import {RoomStatus} from '../../../types/room-status'
+import {createMatchServerRoom} from '../../../clients/match-server-client'
+import {CustomInternalError} from '../../../utils/custom-internal-error'
 
 interface StartMatchmakingCallableParams {
   playerId: string
@@ -22,31 +25,76 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
     })
 
     if (room) {
-      const newRoom = room.join({
+      return joinExistingRoom({
+        database: database,
+        room: room,
         playerId: params.playerId,
         playerName: params.playerName,
       })
-
-      await updateRoomDocument({
-        database: database,
-        room: newRoom,
-      })
-
-      return newRoom
     } else {
-      const newRoom = Room.create({
+      return createNewRoom({
+        database: database,
         playerId: params.playerId,
         playerName: params.playerName,
         matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,
       })
-
-      const result = await createRoomDocument({
-        database: database,
-        room: newRoom,
-      })
-
-      return result
     }
   })
 })
+
+const joinExistingRoom = async (params: {
+  database: Database,
+  room: Room,
+  playerId: string,
+  playerName: string,
+}) => {
+  const newRoom = params.room.join({
+    playerId: params.playerId,
+    playerName: params.playerName,
+  })
+
+  if (newRoom.status === RoomStatus.closed) {
+    const created = await createMatchServerRoom(newRoom)
+
+    if (!created) {
+      throw new CustomInternalError({
+        message: 'Cannot create remote room',
+        data: {
+          room: JSON.stringify(params.room),
+          playerId: params.playerId,
+          playerName: params.playerName,
+        },
+      })
+    }
+  }
+
+  await updateRoomDocument({
+    database: params.database,
+    room: newRoom,
+  })
+
+  return newRoom
+}
+
+const createNewRoom = async (params: {
+  database: Database,
+  playerId: string,
+  playerName: string,
+  matchType: string,
+  numberOfPlayers: number,
+}) => {
+  const newRoom = Room.create({
+    playerId: params.playerId,
+    playerName: params.playerName,
+    matchType: params.matchType,
+    numberOfPlayers: params.numberOfPlayers,
+  })
+
+  const result = await createRoomDocument({
+    database: params.database,
+    room: newRoom,
+  })
+
+  return result
+}

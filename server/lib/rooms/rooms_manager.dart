@@ -9,6 +9,7 @@ class RoomsManager {
 
   void create(JsonCreateRoom json) {
     rooms.add(json.roomId, Room.fromJson(json));
+    print(rooms);
   }
 
   bool join({
