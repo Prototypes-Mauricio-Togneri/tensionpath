@@ -1,15 +1,34 @@
 import 'dart:io';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
+import 'package:tensionpath/json/json_create_room.dart';
 import 'package:tensionpath/json/json_message.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Room {
   final String id;
+  final DateTime createdAt;
+  final int numberOfPlayers;
+  final String matchType;
+  final Map<String, String> players;
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
   double timeSpent = 0;
 
-  Room(this.id);
+  Room._({
+    required this.id,
+    required this.createdAt,
+    required this.numberOfPlayers,
+    required this.matchType,
+    required this.players,
+  });
+
+  factory Room.fromJson(JsonCreateRoom json) => Room._(
+        id: json.roomId,
+        createdAt: json.createdAt,
+        numberOfPlayers: json.numberOfPlayers,
+        matchType: json.matchType,
+        players: json.players,
+      );
 
   void join({
     required String playerId,

@@ -8,7 +8,7 @@ class RoomsManager {
   final MapList<String, Room> rooms = MapList();
 
   void create(JsonCreateRoom json) {
-    rooms.add(json.roomId, Room(json.roomId));
+    rooms.add(json.roomId, Room.fromJson(json));
   }
 
   bool join({

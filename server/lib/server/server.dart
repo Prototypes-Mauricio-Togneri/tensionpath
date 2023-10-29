@@ -13,9 +13,6 @@ class Server {
   const Server(this.roomsManager, this.handler);
 
   Future start(int port) async {
-    // TODO: only for testing
-    roomsManager.create(const JsonCreateRoom(roomId: 'abc'));
-
     final HttpServer server =
         await HttpServer.bind(InternetAddress.anyIPv4, port);
     print('Server running on ${server.port}');
