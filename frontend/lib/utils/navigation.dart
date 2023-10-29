@@ -36,9 +36,16 @@ class Navigation {
     }
   }
 
-  static void lobbyScreen() => get.routes.push(
+  static void lobbyScreen({
+    required String matchType,
+    required int numberOfPlayers,
+  }) =>
+      get.routes.push(
         BasicRoute(
-          LobbyScreen.instance(),
+          LobbyScreen.instance(
+            matchType: matchType,
+            numberOfPlayers: numberOfPlayers,
+          ),
           name: 'lobby',
         ),
       );

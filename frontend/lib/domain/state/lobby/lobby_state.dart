@@ -11,16 +11,20 @@ import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class LobbyState extends BaseState {
+  final String matchType;
+  final int numberOfPlayers;
   StreamSubscription? subscription;
   String roomId = '';
+
+  LobbyState(this.matchType, this.numberOfPlayers);
 
   @override
   Future onLoad() async {
     try {
       final Room room = await const StartMatchmakingCallable()(
         playerName: LoggedUser.get.name,
-        matchType: 'undervoltage',
-        numberOfPlayers: 2,
+        matchType: matchType,
+        numberOfPlayers: numberOfPlayers,
       );
 
       roomId = room.id;

@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class MainState extends BaseState {
+  int numberOfPlayers = 2;
   final List<bool> selectedPlayers = [
     true,
     false,
@@ -13,10 +14,14 @@ class MainState extends BaseState {
       selectedPlayers[i] = i == index;
     }
 
+    numberOfPlayers = index + 2;
     notify();
   }
 
   void onSettings() => Navigation.setNameScreen(false);
 
-  void onMatchmaking() => Navigation.lobbyScreen();
+  void onMatchmaking() => Navigation.lobbyScreen(
+        matchType: 'undervoltage',
+        numberOfPlayers: numberOfPlayers,
+      );
 }
