@@ -48,11 +48,20 @@ class Server {
   }
 
   Future _handleRoomCreation(HttpRequest request) async {
-    final String content = await utf8.decodeStream(request);
-    final JsonCreateRoom json = JsonCreateRoom.fromString(content);
-    roomsManager.create(json);
+    final String? apiKey = request.headers['X-API-Key']?[0];
 
-    request.response.statusCode = HttpStatus.created;
+    // TODO(momo): externalize
+    if (apiKey == 'API_KEY') {
+      final String content = await utf8.decodeStream(request);
+      final JsonCreateRoom json = JsonCreateRoom.fromString(content);
+
+      roomsManager.create(json);
+
+      request.response.statusCode = HttpStatus.created;
+    } else {
+      request.response.statusCode = HttpStatus.unauthorized;
+    }
+
     request.response.close();
   }
 }
