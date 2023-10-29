@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/state/main/main_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
 import 'package:tensionpath/widgets/label.dart';
+import 'package:tensionpath/widgets/primary_button.dart';
 
 class MainScreen extends StatelessWidget {
   final MainState state;
@@ -98,20 +99,10 @@ class Undervoltage extends StatelessWidget {
           ],
         ),
         const VBox(20),
-        ElevatedButton(
+        PrimaryButton(
+          text: 'Undervoltage',
+          icon: Icons.bolt,
           onPressed: state.onMatchmaking,
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.bolt,
-                size: 14,
-                color: Palette.white,
-              ),
-              HBox(10),
-              Text('Undervoltage'),
-            ],
-          ),
         ),
       ],
     );
@@ -126,7 +117,12 @@ class PlayerSelectorEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(
+        top: 5,
+        bottom: 5,
+        left: 15,
+        right: 15,
+      ),
       child: Text(text),
     );
   }
