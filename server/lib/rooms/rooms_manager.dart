@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/json/json_create_room.dart';
 import 'package:tensionpath/json/json_join_room.dart';
+import 'package:tensionpath/json/json_message.dart';
 import 'package:tensionpath/rooms/room.dart';
 import 'package:tensionpath/utils/map_list.dart';
 
 class RoomsManager {
   final MapList<String, Room> rooms = MapList();
+  final Map<WebSocket, Room> websocketToRoom = {};
 
   void create(JsonCreateRoom json) {
     final Room room = Room.fromJson(json);
@@ -13,27 +16,40 @@ class RoomsManager {
     print(rooms);
   }
 
-  bool join({
+  void join({
     required JsonJoinRoom json,
     required WebSocket socket,
   }) {
-    // TODO(momo): Allow specific user IDs into room
     if (rooms.has(json.roomId)) {
       final Room room = rooms.get(json.roomId);
-      room.join(
+      final bool joined = room.join(
         playerId: json.playerId,
         socket: socket,
       );
 
-      return true;
+      if (joined) {
+        websocketToRoom[socket] = room;
+      } else {
+        socket.send(
+          JsonMessage.error(
+            'Player ${json.playerId} cannot join room with ID ${json.roomId}',
+          ),
+        );
+      }
     } else {
-      return false;
+      socket.send(
+        JsonMessage.error('Room with ID ${json.roomId} does not exist'),
+      );
     }
   }
 
   void leave(WebSocket socket) {
-    for (final Room room in rooms.list) {
+    if (websocketToRoom.containsKey(socket)) {
+      final Room room = websocketToRoom[socket]!;
       room.leave(socket);
+      websocketToRoom.remove(socket);
+    } else {
+      socket.send(JsonMessage.error('Connection not linked with any room'));
     }
   }
 

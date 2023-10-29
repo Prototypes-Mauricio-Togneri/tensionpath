@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/json/json_join_room.dart';
 import 'package:tensionpath/json/json_message.dart';
@@ -17,14 +16,10 @@ class Handler {
     final dynamic message = json.message;
 
     if (message is JsonJoinRoom) {
-      final bool joined = roomsManager.join(
+      roomsManager.join(
         json: message,
         socket: socket,
       );
-
-      if (!joined) {
-        socket.send(JsonMessage.error('Could not join room ${message.roomId}'));
-      }
     }
   }
 

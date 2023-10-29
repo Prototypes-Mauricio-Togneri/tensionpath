@@ -30,17 +30,23 @@ class Room {
         players: json.players,
       );
 
-  void join({
+  bool join({
     required String playerId,
     required WebSocket socket,
   }) {
-    playerIdToWebSocket[playerId] = socket;
-    webSocketToPlayerId[socket] = playerId;
+    if (players.containsKey(playerId)) {
+      playerIdToWebSocket[playerId] = socket;
+      webSocketToPlayerId[socket] = playerId;
 
-    Logger.log(socket, 'Player $playerId joined room $id');
+      Logger.log(socket, 'Player $playerId joined room $id');
+
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  void leave(WebSocket socket) {
+  bool leave(WebSocket socket) {
     final String? playerId = webSocketToPlayerId[socket];
 
     if (playerId != null) {
@@ -48,6 +54,10 @@ class Room {
       webSocketToPlayerId.remove(socket);
 
       Logger.log(socket, 'Player $playerId left room $id');
+
+      return true;
+    } else {
+      return false;
     }
   }
 
