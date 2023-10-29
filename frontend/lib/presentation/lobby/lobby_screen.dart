@@ -14,19 +14,22 @@ class LobbyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseScreen(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(),
-            VBox(20),
-            Label(
-              text: 'Waiting for players…',
-              color: Palette.black,
-              size: 14,
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: state.onLeave,
+      child: const BaseScreen(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              VBox(20),
+              Label(
+                text: 'Waiting for players…',
+                color: Palette.black,
+                size: 14,
+              ),
+            ],
+          ),
         ),
       ),
     );

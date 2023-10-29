@@ -5,16 +5,19 @@ import 'package:tensionpath/domain/model/document.dart';
 import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/persistence/callables/start_matchmaking_callable.dart';
+import 'package:tensionpath/persistence/callables/stop_matchmaking_callable.dart';
 
 class LobbyState extends BaseState {
   StreamSubscription? subscription;
-  String status = 'loading';
+  String roomId = '';
 
   @override
   Future onLoad() async {
     final Room room = await const StartMatchmakingCallable()(
       numberOfPlayers: 2,
     );
+
+    roomId = room.id;
 
     subscription = FirebaseFirestore.instance
         .collection('rooms')
@@ -29,16 +32,25 @@ class LobbyState extends BaseState {
   }
 
   void _onRoomChanged(DocumentSnapshot snapshot) {
-    final Document document = Document.load(snapshot);
-    final Room room = Room.fromDocument(document);
+    if (snapshot.exists) {
+      final Document document = Document.load(snapshot);
+      final Room room = Room.fromDocument(document);
 
-    if (room.status == RoomStatus.closed) {
-      status = 'ready';
-      subscription?.cancel();
-    } else {
-      status = 'waiting';
+      if (room.status == RoomStatus.closed) {
+        subscription?.cancel();
+      } else {
+        print('not ready');
+      }
+    }
+  }
+
+  Future<bool> onLeave() async {
+    if (roomId.isNotEmpty) {
+      await const StopMatchmakingCallable()(
+        roomId: roomId,
+      );
     }
 
-    notify();
+    return true;
   }
 }
