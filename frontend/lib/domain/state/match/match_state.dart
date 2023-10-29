@@ -1,4 +1,6 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:tensionpath/domain/json/json_message.dart';
+import 'package:tensionpath/domain/json/json_welcome.dart';
 import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -22,10 +24,17 @@ class MatchState extends BaseState {
     notify();
   }
 
+  void _onHandleMessage(JsonMessage json) {
+    if (json is JsonWelcome) {
+      channel.sink.add('Received: $message');
+    }
+  }
+
   void _onMessageReceived(dynamic message) {
-    // channel.sink.add('Received: $message');
     events.add('Received: $message');
-    notify();
+
+    final JsonMessage json = JsonMessage.fromString(message);
+    _onHandleMessage(json.message);
   }
 
   void _onDisconnected() {
