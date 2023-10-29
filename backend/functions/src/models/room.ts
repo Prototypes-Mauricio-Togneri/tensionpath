@@ -25,13 +25,21 @@ export class Room implements IRoom {
     this.playerIds = data.playerIds
   }
 
+  public get joinedPlayers(): number {
+    return this.playerIds.length
+  }
+
   public with(data: Partial<IRoom>): Room {
     return new Room(merge(this, data))
   }
 
+  public hasPlayer(playerId: string): boolean {
+    return this.playerIds.includes(playerId)
+  }
+
   public join(playerId: string): Room {
-    const playerInRoom = this.playerIds.includes(playerId)
-    const roomFull = !playerInRoom && (this.numberOfPlayers === (this.playerIds.length + 1))
+    const playerInRoom = this.hasPlayer(playerId)
+    const roomFull = !playerInRoom && (this.numberOfPlayers === (this.joinedPlayers + 1))
 
     const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
     const newPlayerIds = this.playerIds
@@ -42,6 +50,14 @@ export class Room implements IRoom {
 
     return this.with({
       status: newStatus,
+      playerIds: newPlayerIds,
+    })
+  }
+
+  public leave(playerId: string): Room {
+    const newPlayerIds = this.playerIds.filter((p) => p !== playerId)
+
+    return this.with({
       playerIds: newPlayerIds,
     })
   }

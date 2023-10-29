@@ -5,12 +5,12 @@ import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
 
-interface matchmakingCallableParams {
+interface StartMatchmakingCallableParams {
   playerId: string
   numberOfPlayers: number
 }
 
-export const matchmakingCallable = registerCallable(async (params: matchmakingCallableParams) => {
+export const startMatchmakingCallable = registerCallable(async (params: StartMatchmakingCallableParams) => {
   return Database.runTransaction(async (database) => {
     const room = await getAvailableRoomDocument({
       database: database,

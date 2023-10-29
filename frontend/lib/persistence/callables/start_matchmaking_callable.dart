@@ -4,8 +4,8 @@ import 'package:tensionpath/domain/model/document.dart';
 import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/persistence/callables/callable.dart';
 
-class MatchmakingCallable extends Callable {
-  const MatchmakingCallable() : super('matchmakingCallable');
+class StartMatchmakingCallable extends Callable {
+  const StartMatchmakingCallable() : super('startMatchmakingCallable');
 
   Future<Room> call<T>({
     required int numberOfPlayers,

@@ -4,7 +4,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/model/document.dart';
 import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
-import 'package:tensionpath/persistence/callables/matchmaking_callable.dart';
+import 'package:tensionpath/persistence/callables/start_matchmaking_callable.dart';
 
 class LobbyState extends BaseState {
   StreamSubscription? subscription;
@@ -12,7 +12,7 @@ class LobbyState extends BaseState {
 
   @override
   Future onLoad() async {
-    final Room room = await const MatchmakingCallable()(
+    final Room room = await const StartMatchmakingCallable()(
       numberOfPlayers: 2,
     );
 
