@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/json_start.dart';
 import 'package:tensionpath/domain/json/json_welcome.dart';
 
 part 'json_message.g.dart';
@@ -20,6 +21,8 @@ class JsonMessage {
   dynamic get message {
     if (type == 'WELCOME') {
       return JsonWelcome.fromJson(payload);
+    } else if (type == 'START') {
+      return JsonStart.fromJson(payload);
     } else {
       throw Exception('Invalid type: $type');
     }
@@ -31,13 +34,16 @@ class JsonMessage {
   factory JsonMessage.fromJson(Map<String, dynamic> json) =>
       _$JsonMessageFromJson(json);
 
-  factory JsonMessage.welcome() => const JsonMessage(type: 'WELCOME');
-
-  factory JsonMessage.start() => const JsonMessage(type: 'START');
-
-  factory JsonMessage.error(String message) => JsonMessage(
-        type: 'ERROR',
-        payload: message,
+  factory JsonMessage.joinRoom({
+    required String roomId,
+    required String playerId,
+  }) =>
+      JsonMessage(
+        type: 'JOIN',
+        payload: {
+          roomId: roomId,
+          playerId: playerId,
+        },
       );
 
   Map<String, dynamic> toJson() => _$JsonMessageToJson(this);
