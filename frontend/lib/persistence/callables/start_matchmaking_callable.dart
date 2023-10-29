@@ -8,9 +8,13 @@ class StartMatchmakingCallable extends Callable {
   const StartMatchmakingCallable() : super('startMatchmakingCallable');
 
   Future<Room> call<T>({
+    required String playerName,
+    required String matchType,
     required int numberOfPlayers,
   }) async {
     final Map<String, Object?> parameters = {
+      'playerName': playerName,
+      'matchType': matchType,
       'numberOfPlayers': numberOfPlayers,
     };
 

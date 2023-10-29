@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/model/document.dart';
 import 'package:tensionpath/domain/model/room.dart';
+import 'package:tensionpath/domain/model/user_logged.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/persistence/callables/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/callables/stop_matchmaking_callable.dart';
@@ -14,6 +15,8 @@ class LobbyState extends BaseState {
   @override
   Future onLoad() async {
     final Room room = await const StartMatchmakingCallable()(
+      playerName: LoggedUser.get.name,
+      matchType: 'test',
       numberOfPlayers: 2,
     );
 
@@ -38,8 +41,6 @@ class LobbyState extends BaseState {
 
       if (room.status == RoomStatus.closed) {
         subscription?.cancel();
-      } else {
-        print('not ready');
       }
     }
   }
