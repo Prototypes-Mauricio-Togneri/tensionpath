@@ -26,6 +26,23 @@ class LobbyScreen extends StatelessWidget {
               color: Palette.black,
               size: 14,
             ),
+            StateProvider<LobbyState>(
+              state: state,
+              builder: (context, state) {
+                if (state.roomId.isNotEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Label(
+                      text: 'Room ID: ${state.roomId}',
+                      color: Palette.black,
+                      size: 14,
+                    ),
+                  );
+                } else {
+                  return const Empty();
+                }
+              },
+            ),
             const VBox(50),
             ElevatedButton(
               style: ButtonStyle(

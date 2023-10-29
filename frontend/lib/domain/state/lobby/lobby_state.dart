@@ -22,6 +22,7 @@ class LobbyState extends BaseState {
     );
 
     roomId = room.id;
+    notify();
 
     subscription = FirebaseFirestore.instance
         .collection('rooms')
