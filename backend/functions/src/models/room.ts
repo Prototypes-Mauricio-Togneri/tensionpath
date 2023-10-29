@@ -7,7 +7,9 @@ export interface IRoom {
   createdAt: Date,
   numberOfPlayers: number
   status: RoomStatus
+  matchType: string
   playerIds: string[]
+  players: Record<string, string>
 }
 
 export class Room implements IRoom {
@@ -15,14 +17,18 @@ export class Room implements IRoom {
   readonly createdAt: Date
   readonly numberOfPlayers: number
   readonly status: RoomStatus
+  readonly matchType: string
   readonly playerIds: string[]
+  readonly players: Record<string, string>
 
   constructor(data: IRoom) {
     this.id = data.id
     this.createdAt = data.createdAt
     this.numberOfPlayers = data.numberOfPlayers
     this.status = data.status
+    this.matchType = data.matchType
     this.playerIds = data.playerIds
+    this.players = data.players
   }
 
   public get joinedPlayers(): number {
@@ -37,33 +43,49 @@ export class Room implements IRoom {
     return this.playerIds.includes(playerId)
   }
 
-  public join(playerId: string): Room {
-    const playerInRoom = this.hasPlayer(playerId)
+  public join(params: {
+    playerId: string,
+    playerName: string
+  }): Room {
+    const playerInRoom = this.hasPlayer(params.playerId)
     const roomFull = !playerInRoom && (this.numberOfPlayers === (this.joinedPlayers + 1))
 
     const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
     const newPlayerIds = this.playerIds
+    const newPlayers = this.players
 
     if (!playerInRoom) {
-      newPlayerIds.push(playerId)
+      newPlayerIds.push(params.playerId)
+      newPlayers[params.playerId] = params.playerName
     }
 
     return this.with({
       status: newStatus,
       playerIds: newPlayerIds,
+      players: newPlayers,
     })
   }
 
   public leave(playerId: string): Room {
     const newPlayerIds = this.playerIds.filter((p) => p !== playerId)
+    const newPlayers: Record<string, string> = {}
+
+    for (const mapPlayerId of Object.keys(this.players)) {
+      if (mapPlayerId !== playerId) {
+        newPlayers[mapPlayerId] = this.players[mapPlayerId]
+      }
+    }
 
     return this.with({
       playerIds: newPlayerIds,
+      players: newPlayers,
     })
   }
 
   public static create(params: {
     playerId: string,
+    playerName: string,
+    matchType: string,
     numberOfPlayers: number,
   }): Room {
     return new Room({
@@ -71,7 +93,11 @@ export class Room implements IRoom {
       createdAt: new Date(),
       numberOfPlayers: params.numberOfPlayers,
       status: RoomStatus.open,
+      matchType: params.matchType,
       playerIds: [params.playerId],
+      players: {
+        [params.playerId]: params.playerName,
+      },
     })
   }
 

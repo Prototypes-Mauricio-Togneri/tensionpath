@@ -7,6 +7,8 @@ import {registerCallable} from '../../index'
 
 interface StartMatchmakingCallableParams {
   playerId: string
+  playerName: string
+  matchType: string
   numberOfPlayers: number
 }
 
@@ -15,11 +17,15 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
     const room = await getAvailableRoomDocument({
       database: database,
       playerId: params.playerId,
+      matchType: params.matchType,
       numberOfPlayers: params.numberOfPlayers,
     })
 
     if (room) {
-      const newRoom = room.join(params.playerId)
+      const newRoom = room.join({
+        playerId: params.playerId,
+        playerName: params.playerName,
+      })
 
       await updateRoomDocument({
         database: database,
@@ -30,6 +36,8 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
     } else {
       const newRoom = Room.create({
         playerId: params.playerId,
+        playerName: params.playerName,
+        matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,
       })
 
