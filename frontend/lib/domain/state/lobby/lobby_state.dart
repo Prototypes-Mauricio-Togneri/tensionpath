@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/model/user_logged.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/persistence/callables/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/callables/stop_matchmaking_callable.dart';
+import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class LobbyState extends BaseState {
@@ -15,21 +16,27 @@ class LobbyState extends BaseState {
 
   @override
   Future onLoad() async {
-    // TODO(momo): handle error and show popup
-    final Room room = await const StartMatchmakingCallable()(
-      playerName: LoggedUser.get.name,
-      matchType: 'undervoltage',
-      numberOfPlayers: 2,
-    );
+    try {
+      final Room room = await const StartMatchmakingCallable()(
+        playerName: LoggedUser.get.name,
+        matchType: 'undervoltage',
+        numberOfPlayers: 2,
+      );
 
-    roomId = room.id;
-    notify();
+      roomId = room.id;
+      notify();
 
-    subscription = FirebaseFirestore.instance
-        .collection('rooms')
-        .doc(room.id)
-        .snapshots()
-        .listen(_onRoomChanged);
+      subscription = FirebaseFirestore.instance
+          .collection('rooms')
+          .doc(room.id)
+          .snapshots()
+          .listen(_onRoomChanged);
+    } catch (e) {
+      InfoDialog.error(
+        text: 'Error starting matchmaking',
+        onAccept: Navigation.pop,
+      );
+    }
   }
 
   @override
