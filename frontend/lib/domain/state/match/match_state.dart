@@ -25,7 +25,7 @@ class MatchState extends BaseState {
     notify();
   }
 
-  void _onMessage(JsonMessage json) {
+  void _onMessage(dynamic json) {
     events.add('Received: $json');
 
     if (json is JsonWelcome) {

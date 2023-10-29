@@ -20,9 +20,9 @@ class JsonMessage {
 
   dynamic get message {
     if (type == 'WELCOME') {
-      return JsonWelcome.fromJson(payload);
+      return const JsonWelcome();
     } else if (type == 'START') {
-      return JsonStart.fromJson(payload);
+      return const JsonStart();
     } else {
       throw Exception('Invalid type: $type');
     }

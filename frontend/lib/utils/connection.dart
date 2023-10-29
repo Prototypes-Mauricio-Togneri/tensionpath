@@ -4,7 +4,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Connection {
   late final WebSocketChannel channel;
-  final Function(JsonMessage) onMessage;
+  final Function(dynamic) onMessage;
   final Function() onDisconnected;
   final Function(dynamic) onError;
 
