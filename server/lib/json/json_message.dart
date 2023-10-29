@@ -33,6 +33,8 @@ class JsonMessage {
 
   factory JsonMessage.welcome() => const JsonMessage(type: 'WELCOME');
 
+  factory JsonMessage.start() => const JsonMessage(type: 'START');
+
   factory JsonMessage.error(String message) => JsonMessage(
         type: 'ERROR',
         payload: message,

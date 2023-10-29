@@ -36,6 +36,8 @@ class LobbyState extends BaseState {
           .snapshots()
           .listen(_onRoomChanged);
     } catch (e) {
+      print(e);
+
       InfoDialog.error(
         text: 'Error starting matchmaking',
         onAccept: Navigation.pop,

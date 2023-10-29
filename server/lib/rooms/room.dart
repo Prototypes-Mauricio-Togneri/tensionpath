@@ -40,6 +40,10 @@ class Room {
 
       Logger.log(socket, 'Player $playerId joined room $id');
 
+      if (playerIdToWebSocket.length == numberOfPlayers) {
+        _broadcast(JsonMessage.start());
+      }
+
       return true;
     } else {
       return false;
@@ -58,6 +62,12 @@ class Room {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void _broadcast(JsonMessage json) {
+    for (final WebSocket socket in webSocketToPlayerId.keys) {
+      socket.send(json);
     }
   }
 
