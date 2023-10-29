@@ -1,6 +1,9 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
+import 'package:tensionpath/widgets/label.dart';
 
 class LobbyScreen extends StatelessWidget {
   final LobbyState state;
@@ -11,9 +14,20 @@ class LobbyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseScreen(
+    return BaseScreen(
       child: Center(
-        child: CircularProgressIndicator(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CircularProgressIndicator(),
+            const VBox(20),
+            Label(
+              text: state.status,
+              color: Palette.black,
+              size: 14,
+            ),
+          ],
+        ),
       ),
     );
   }

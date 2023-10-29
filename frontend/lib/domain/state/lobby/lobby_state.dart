@@ -8,6 +8,7 @@ import 'package:tensionpath/persistence/callables/matchmaking_callable.dart';
 
 class LobbyState extends BaseState {
   StreamSubscription? subscription;
+  String status = 'loading';
 
   @override
   Future onLoad() async {
@@ -32,10 +33,12 @@ class LobbyState extends BaseState {
     final Room room = Room.fromDocument(document);
 
     if (room.status == RoomStatus.closed) {
-      print('ready');
+      status = 'ready';
       subscription?.cancel();
     } else {
-      print('not ready');
+      status = 'waiting';
     }
+
+    notify();
   }
 }
