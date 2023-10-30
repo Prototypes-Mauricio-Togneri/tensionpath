@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
         child: StateProvider<MatchState>(
           state: state,
           builder: (context, state) => Label(
-            text: state.events.join('\n'),
+            text: state.events.join('\n\n'),
             color: Palette.black,
             align: TextAlign.center,
             size: 14,

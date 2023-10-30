@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/json/json_message.dart';
+import 'package:tensionpath/domain/json/json_start.dart';
 import 'package:tensionpath/domain/json/json_welcome.dart';
 import 'package:tensionpath/domain/model/room.dart';
 import 'package:tensionpath/domain/model/user_logged.dart';
@@ -26,14 +27,18 @@ class MatchState extends BaseState {
   }
 
   void _onMessage(dynamic json) {
-    events.add('Received: $json');
-
     if (json is JsonWelcome) {
+      events.add('Received welcome');
+
       connection.send(JsonMessage.joinRoom(
         roomId: room.id,
         playerId: LoggedUser.get.id,
       ));
+    } else if (json is JsonStart) {
+      events.add('Received start');
     }
+
+    notify();
   }
 
   void _onDisconnected() {
