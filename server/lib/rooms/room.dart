@@ -74,10 +74,10 @@ class Room {
   void update(double dt) {
     timeSpent += dt;
 
-    if (timeSpent.toInt() % 5 == 0) {
+    /*if (timeSpent.toInt() % 5 == 0) {
       for (final WebSocket socket in playerIdToWebSocket.values) {
         socket.send(JsonMessage(type: timeSpent.toString()));
       }
-    }
+    }*/
   }
 }
