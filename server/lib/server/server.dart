@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:tensionpath/json/json_create_room.dart';
-import 'package:tensionpath/json/json_message.dart';
+import 'package:tensionpath/domain/json/json_create_room.dart';
+import 'package:tensionpath/domain/json/json_message.dart';
 import 'package:tensionpath/rooms/rooms_manager.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/utils/logger.dart';
