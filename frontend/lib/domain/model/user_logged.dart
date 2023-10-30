@@ -16,9 +16,13 @@ class LoggedUser {
 
   void load(User user) => _user = user;
 
-  Future updateName(String name) async {
-    _user.updateDisplayName(name);
+  Future _reload() async {
     await _user.reload();
     load(FirebaseAuth.instance.currentUser!);
+  }
+
+  Future updateName(String name) async {
+    await _user.updateDisplayName(name);
+    await _reload();
   }
 }
