@@ -25,7 +25,7 @@ class Navigation {
 
   static void setNameScreen(bool pushAlone) {
     final FadeRoute route = FadeRoute(
-      SetNameScreen.instance(),
+      SetNameScreen.instance(pushAlone),
       name: 'set_name',
     );
 

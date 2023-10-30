@@ -6,10 +6,11 @@ import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/platform.dart';
 
 class SetNameState extends BaseState {
-  bool buttonEnabled = false;
+  final bool isSetup;
   final TextEditingController nameController = TextEditingController();
+  bool buttonEnabled = false;
 
-  SetNameState() {
+  SetNameState(this.isSetup) {
     nameController.text = LoggedUser.get.name;
 
     if (Environment.get.isLocal && nameController.text.isEmpty) {
@@ -25,7 +26,12 @@ class SetNameState extends BaseState {
     notify();
 
     await LoggedUser.get.updateName(nameController.text.trim());
-    Navigation.mainScreen();
+
+    if (isSetup) {
+      Navigation.mainScreen();
+    } else {
+      Navigation.pop();
+    }
   }
 
   void onTextChanged(String text) {
