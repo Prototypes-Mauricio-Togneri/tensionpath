@@ -28,17 +28,18 @@ class SetNameScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  onPressed: Navigation.pop,
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Palette.grey,
-                    size: 25,
+              if (!state.isSetup)
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    onPressed: Navigation.pop,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Palette.grey,
+                      size: 25,
+                    ),
                   ),
                 ),
-              ),
               const Spacer(),
               SizedBox(
                 width: 300,
