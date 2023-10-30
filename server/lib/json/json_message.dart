@@ -61,6 +61,18 @@ class JsonMessage {
         start: JsonStart(),
       );
 
+  factory JsonMessage.joinRoom({
+    required String roomId,
+    required String playerId,
+  }) =>
+      JsonMessage(
+        type: MessageType.joinRoom,
+        joinRoom: JsonJoinRoom(
+          roomId: roomId,
+          playerId: playerId,
+        ),
+      );
+
   factory JsonMessage.error(String message) => JsonMessage(
         type: MessageType.error,
         error: JsonError(message: message),
