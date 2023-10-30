@@ -15,7 +15,6 @@ class SetNameState extends BaseState {
 
     if (Environment.get.isLocal && nameController.text.isEmpty) {
       nameController.text = Platform.isWeb ? 'Web' : 'Mobile';
-      buttonEnabled = true;
     }
 
     buttonEnabled = nameController.text.isNotEmpty;
