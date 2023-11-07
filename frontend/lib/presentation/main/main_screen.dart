@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/game/game.dart';
+import 'package:tensionpath/domain/game/game_container.dart';
 import 'package:tensionpath/domain/state/main/main_state.dart';
 
 class MainScreen extends StatelessWidget {
@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
     return DarkStatusBar(
       child: Scaffold(
           body: GameWidget(
-        game: FixedResolutionExample(),
+        game: GameContainer(),
       )),
     );
   }
