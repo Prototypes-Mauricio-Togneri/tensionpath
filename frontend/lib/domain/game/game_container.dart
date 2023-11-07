@@ -16,7 +16,7 @@ class GameContainer extends FlameGame {
 
 class GameWorld extends World with HasGameReference {
   @override
-  Future<void> onLoad() async {
+  Future onLoad() async {
     final Sprite sprite = await game.loadSprite('player.png');
 
     add(Background());
@@ -28,7 +28,7 @@ class Background extends PositionComponent {
   @override
   int priority = -1;
 
-  late Paint white;
+  late Paint backgroundColor;
   late final Rect hugeRect;
 
   Background()
@@ -39,17 +39,20 @@ class Background extends PositionComponent {
 
   @override
   Future<void> onLoad() async {
-    white = BasicPalette.red.paint();
+    backgroundColor = BasicPalette.red.paint();
     hugeRect = size.toRect();
   }
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(hugeRect, white);
+    canvas.drawRect(hugeRect, backgroundColor);
   }
 }
 
 class Player extends SpriteComponent {
   Player({super.sprite})
-      : super(size: Vector2(149, 211), anchor: Anchor.center);
+      : super(
+          size: Vector2(149, 211),
+          anchor: Anchor.center,
+        );
 }
