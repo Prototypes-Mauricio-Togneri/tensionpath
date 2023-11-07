@@ -2,26 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run (LOCAL)",
+            "name": "Run",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main/main_local.dart",
-            "flutterMode": "debug",
-            "args": [
-                "--flavor",
-                "local"
-            ]
-        },
-        {
-            "name": "Run (REMOTE)",
-            "request": "launch",
-            "type": "dart",
-            "program": "lib/main/main_remote.dart",
-            "flutterMode": "debug",
-            "args": [
-                "--flavor",
-                "local"
-            ]
+            "program": "lib/main/main.dart",
+            "flutterMode": "debug"
         }
     ]
 }
