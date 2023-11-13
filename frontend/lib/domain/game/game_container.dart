@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame {
@@ -13,6 +14,9 @@ class GameContainer extends FlameGame {
           ),
           world: GameWorld(),
         );
+
+  @override
+  Color backgroundColor() => Palette.black;
 }
 
 class GameWorld extends World {
