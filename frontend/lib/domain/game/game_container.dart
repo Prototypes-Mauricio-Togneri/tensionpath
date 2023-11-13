@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/utils/assets.dart';
 
 class GameContainer extends FlameGame {
   GameContainer()
@@ -17,7 +18,7 @@ class GameContainer extends FlameGame {
 class GameWorld extends World with HasGameReference {
   @override
   Future onLoad() async {
-    final Sprite sprite = await game.loadSprite('player.png');
+    final Sprite sprite = await game.loadSprite(Assets.IMAGES_PLAYER);
 
     add(Background());
     add(Player(sprite: sprite));

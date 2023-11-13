@@ -1,3 +1,3 @@
 class Assets {
-  static const String IMAGES_PLAYER = 'assets/images/player.png';
+  static const String IMAGES_PLAYER = 'player.png';
 }
