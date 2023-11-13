@@ -8,7 +8,7 @@ class GameContainer extends FlameGame {
       : super(
           camera: CameraComponent.withFixedResolution(
             width: 1000,
-            height: 1770,
+            height: 1777,
           ),
           world: GameWorld(),
         );
@@ -38,7 +38,7 @@ class Background extends PositionComponent {
         );
 
   @override
-  Future<void> onLoad() async {
+  Future onLoad() async {
     backgroundColor = BasicPalette.red.paint();
     hugeRect = size.toRect();
   }

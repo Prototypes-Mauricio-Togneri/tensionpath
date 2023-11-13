@@ -29,9 +29,10 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return DarkStatusBar(
       child: Scaffold(
-          body: GameWidget(
-        game: GameContainer(),
-      )),
+        body: GameWidget(
+          game: GameContainer(),
+        ),
+      ),
     );
   }
 }
