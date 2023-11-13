@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame {
   GameContainer()
@@ -18,24 +18,20 @@ class GameContainer extends FlameGame {
 class GameWorld extends World with HasGameReference {
   @override
   Future onLoad() async {
-    final Sprite sprite = await game.loadSprite(Assets.IMAGES_PLAYER);
-
     add(Background());
-    add(Player(sprite: sprite));
+    add(Player());
   }
 }
 
 class Background extends PositionComponent {
-  @override
-  int priority = -1;
-
-  late Paint backgroundColor;
+  late final Paint backgroundColor;
   late final Rect hugeRect;
 
   Background()
       : super(
           size: Vector2.all(100000),
           anchor: Anchor.center,
+          priority: -1,
         );
 
   @override
@@ -51,8 +47,9 @@ class Background extends PositionComponent {
 }
 
 class Player extends SpriteComponent {
-  Player({super.sprite})
+  Player()
       : super(
+          sprite: Sprites.PLAYER,
           size: Vector2(149, 211),
           anchor: Anchor.center,
         );

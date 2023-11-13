@@ -1,7 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/sprites.dart';
 
 class SplashState extends BaseState {
   @override
-  void onLoad() => Delayed.post(Navigation.mainScreen);
+  Future onLoad() async {
+    await Sprites.load();
+    Delayed.post(Navigation.mainScreen);
+  }
 }
