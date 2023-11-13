@@ -15,7 +15,7 @@ class GameContainer extends FlameGame {
         );
 }
 
-class GameWorld extends World with HasGameReference {
+class GameWorld extends World {
   @override
   Future onLoad() async {
     add(Background());
