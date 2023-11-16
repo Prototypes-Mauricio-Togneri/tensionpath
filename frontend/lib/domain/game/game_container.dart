@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
-class GameContainer extends FlameGame with ScrollDetector {
+class GameContainer extends FlameGame with PanDetector {
   static const double MAP_WIDTH = 1000;
 
   GameContainer(double screenAspectRatio)
@@ -17,17 +19,28 @@ class GameContainer extends FlameGame with ScrollDetector {
         );
 
   @override
-  void onScroll(PointerScrollInfo info) {
-    print(info);
-    camera.moveBy(Vector2(0, info.scrollDelta.global.y * 5));
+  void onPanUpdate(DragUpdateInfo info) {
+    camera.moveBy(
+      Vector2(0, -info.delta.global.y * 5),
+      speed: 2000,
+    );
   }
 
   @override
   FutureOr onLoad() {
+    camera.setBounds(Rectangle.fromLTWH(
+      0,
+      1082,
+      1000,
+      1000,
+    ));
     camera.moveTo(Vector2(500, 1082));
 
     return super.onLoad();
   }
+
+  @override
+  Color backgroundColor() => Colors.green;
 }
 
 class GameWorld extends World {
