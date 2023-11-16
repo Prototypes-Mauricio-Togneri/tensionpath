@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/sprites.dart';
@@ -11,17 +12,17 @@ class GameContainer extends FlameGame with PanDetector {
 
   GameContainer(double screenAspectRatio)
       : super(
-          /*camera: CameraComponent.withFixedResolution(
+          camera: CameraComponent.withFixedResolution(
             width: MAP_WIDTH,
             height: MAP_WIDTH / screenAspectRatio,
-          ),*/
+          ),
           world: GameWorld(),
         );
 
   @override
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
-      Vector2(0, -info.delta.global.y),
+      Vector2(0, -info.delta.global.y * 5),
       speed: 3000,
     );
   }
@@ -31,10 +32,10 @@ class GameContainer extends FlameGame with PanDetector {
     camera.setBounds(Rectangle.fromLTWH(
       0,
       1082,
-      1000,
-      1000,
+      MAP_WIDTH,
+      2600,
     ));
-    camera.moveTo(Vector2(0, 1082));
+    camera.moveTo(Vector2(MAP_WIDTH / 2, 1082));
 
     return super.onLoad();
   }
@@ -46,22 +47,17 @@ class GameContainer extends FlameGame with PanDetector {
 class GameWorld extends World with HasGameRef {
   @override
   Future onLoad() async {
-    add(Background(
-      size: Vector2(
-        gameRef.camera.viewport.size.x,
-        gameRef.camera.viewport.size.x * 4.773,
-      ),
-    ));
+    add(Background());
     add(Player());
   }
 }
 
 class Background extends SpriteComponent {
-  Background({super.size})
+  Background()
       : super(
           sprite: Sprites.MAP,
           position: Vector2(0, 0),
-          //size: Vector2(gameRef.camera.viewport.size.x, 3165),
+          size: Sprites.MAP.image.size,
           anchor: Anchor.topLeft,
           priority: -1,
         );
