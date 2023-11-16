@@ -48,7 +48,7 @@ class GameContainer extends FlameGame with PanDetector {
   }
 
   @override
-  Color backgroundColor() => Colors.pink;
+  Color backgroundColor() => Colors.black;
 }
 
 class GameWorld extends World with HasGameRef {
