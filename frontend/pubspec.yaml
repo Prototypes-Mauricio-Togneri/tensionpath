@@ -4,7 +4,7 @@ publish_to: none
 version: 0.0.1+1
 
 environment:
-  sdk: '>=3.1.5 <4.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 
 dependencies:
   get_it: ^7.6.4
@@ -14,9 +14,8 @@ dependencies:
   url_strategy: ^0.2.0
 
   firebase_core: ^2.22.0
-  firebase_analytics: ^10.6.4
+  firebase_analytics: ^10.7.0
   firebase_crashlytics: ^3.4.4
-  firebase_remote_config: ^4.3.4
 
   flutter:
     sdk: flutter
