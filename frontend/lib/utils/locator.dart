@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/set_url_strategy.dart';
@@ -11,11 +11,6 @@ final GetIt locator = GetIt.instance;
 class Locator {
   static Future load() async {
     WidgetsFlutterBinding.ensureInitialized();
-
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
 
     if (kIsWeb) {
       await Firebase.initializeApp(
@@ -34,6 +29,8 @@ class Locator {
     }
 
     SetUrlStrategy.set();
+    //await Flame.device.fullScreen();
+    await Flame.device.setPortrait();
 
     locator.registerSingleton<Navigation>(Navigation());
   }
