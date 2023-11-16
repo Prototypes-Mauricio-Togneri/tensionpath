@@ -19,6 +19,9 @@ class GameContainer extends FlameGame with PanDetector {
           world: GameWorld(),
         );
 
+  double get effectiveScreenHeight =>
+      (camera.viewport.size.y * MAP_WIDTH) / camera.viewport.size.x;
+
   @override
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
@@ -31,17 +34,17 @@ class GameContainer extends FlameGame with PanDetector {
   FutureOr onLoad() {
     camera.setBounds(Rectangle.fromLTWH(
       0,
-      1082,
+      1081,
       MAP_WIDTH,
       2600,
     ));
-    camera.moveTo(Vector2(MAP_WIDTH / 2, 1082));
+    camera.moveTo(Vector2(MAP_WIDTH / 2, effectiveScreenHeight / 2));
 
     return super.onLoad();
   }
 
   @override
-  Color backgroundColor() => Colors.green;
+  Color backgroundColor() => Colors.pink;
 }
 
 class GameWorld extends World with HasGameRef {
