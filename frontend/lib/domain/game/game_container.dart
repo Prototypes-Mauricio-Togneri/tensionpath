@@ -16,7 +16,7 @@ class GameContainer extends FlameGame {
         );
 
   @override
-  Color backgroundColor() => Palette.black;
+  Color backgroundColor() => Palette.green;
 }
 
 class GameWorld extends World {
