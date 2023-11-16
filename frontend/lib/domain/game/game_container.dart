@@ -32,13 +32,17 @@ class GameContainer extends FlameGame with PanDetector {
 
   @override
   FutureOr onLoad() {
+    final double halfScreenHeight = effectiveScreenHeight / 2;
+    final double bottomBoundary =
+        Sprites.MAP.image.size.y - effectiveScreenHeight;
+
     camera.setBounds(Rectangle.fromLTWH(
       0,
-      1081,
+      halfScreenHeight,
       MAP_WIDTH,
-      2600,
+      bottomBoundary,
     ));
-    camera.moveTo(Vector2(MAP_WIDTH / 2, effectiveScreenHeight / 2));
+    camera.moveTo(Vector2(MAP_WIDTH / 2, halfScreenHeight));
 
     return super.onLoad();
   }
