@@ -29,6 +29,20 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
+    /*return DarkStatusBar(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: size.width,
+            height: 3165,
+            child: GameWidget(
+              game: GameContainer(size.aspectRatio),
+            ),
+          ),
+        ),
+      ),
+    );*/
+
     return DarkStatusBar(
       child: Scaffold(
         body: GameWidget(
