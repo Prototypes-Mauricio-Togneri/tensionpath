@@ -6,11 +6,13 @@ import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame {
-  GameContainer()
+  static const double MAP_WIDTH = 1000;
+
+  GameContainer(double screenAspectRatio)
       : super(
           camera: CameraComponent.withFixedResolution(
-            width: 1000,
-            height: 1777,
+            width: MAP_WIDTH,
+            height: MAP_WIDTH / screenAspectRatio,
           ),
           world: GameWorld(),
         );
@@ -27,34 +29,23 @@ class GameWorld extends World {
   }
 }
 
-class Background extends PositionComponent {
-  late final Paint backgroundColor;
-  late final Rect hugeRect;
-
+class Background extends SpriteComponent {
   Background()
       : super(
-          size: Vector2.all(100000),
-          anchor: Anchor.center,
+          sprite: Sprites.MAP,
+          position: Vector2(0, 0),
+          size: Vector2(1000, 3165),
+          anchor: Anchor.topLeft,
           priority: -1,
         );
-
-  @override
-  Future onLoad() async {
-    backgroundColor = BasicPalette.red.paint();
-    hugeRect = size.toRect();
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(hugeRect, backgroundColor);
-  }
 }
 
 class Player extends SpriteComponent {
   Player()
       : super(
           sprite: Sprites.PLAYER,
-          size: Vector2(149, 211),
+          position: Vector2(100, 100),
+          size: Vector2(150, 210),
           anchor: Anchor.center,
         );
 }
