@@ -50,10 +50,13 @@ class GameContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(
-      game: GameContainer(
-        gameState: state.gameState,
-        mediaQueryData: MediaQuery.of(context),
+    return LayoutBuilder(
+      builder: (context, constraints) => GameWidget(
+        game: GameContainer(
+          gameState: state.gameState,
+          aspectRatio: constraints.maxWidth / constraints.maxHeight,
+          pixelRatio: MediaQuery.of(context).devicePixelRatio,
+        ),
       ),
     );
   }

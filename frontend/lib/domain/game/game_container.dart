@@ -10,17 +10,19 @@ import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame with PanDetector {
   final GameState gameState;
-  final MediaQueryData mediaQueryData;
+  final double aspectRatio;
+  final double pixelRatio;
 
   static const double CONTAINER_WIDTH = 1000;
 
   GameContainer({
     required this.gameState,
-    required this.mediaQueryData,
+    required this.aspectRatio,
+    required this.pixelRatio,
   }) : super(
           camera: CameraComponent.withFixedResolution(
             width: CONTAINER_WIDTH,
-            height: CONTAINER_WIDTH / mediaQueryData.size.aspectRatio,
+            height: CONTAINER_WIDTH / aspectRatio,
           ),
           world: GameWorld(gameState),
         );
@@ -31,8 +33,8 @@ class GameContainer extends FlameGame with PanDetector {
   @override
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
-      Vector2(0, -info.delta.global.y * mediaQueryData.devicePixelRatio),
-      speed: mediaQueryData.devicePixelRatio * 1000,
+      Vector2(0, -info.delta.global.y * pixelRatio),
+      speed: pixelRatio * 1000,
     );
   }
 
