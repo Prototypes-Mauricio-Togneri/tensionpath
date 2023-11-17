@@ -5,19 +5,24 @@ import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame with PanDetector {
-  static const double CONTAINER_WIDTH = 1000;
+  final GameState gameState;
   final MediaQueryData mediaQueryData;
 
-  GameContainer(this.mediaQueryData)
-      : super(
+  static const double CONTAINER_WIDTH = 1000;
+
+  GameContainer({
+    required this.gameState,
+    required this.mediaQueryData,
+  }) : super(
           camera: CameraComponent.withFixedResolution(
             width: CONTAINER_WIDTH,
             height: CONTAINER_WIDTH / mediaQueryData.size.aspectRatio,
           ),
-          world: GameWorld(),
+          world: GameWorld(gameState),
         );
 
   double get effectiveScreenHeight =>
@@ -35,7 +40,7 @@ class GameContainer extends FlameGame with PanDetector {
   FutureOr onLoad() {
     final double halfScreenHeight = effectiveScreenHeight / 2;
     final double bottomBoundary =
-        Sprites.MAP.image.size.y - effectiveScreenHeight;
+        gameState.mapSprite.image.size.y - effectiveScreenHeight;
 
     camera.setBounds(Rectangle.fromLTWH(
       0,
@@ -56,19 +61,24 @@ class GameContainer extends FlameGame with PanDetector {
 }
 
 class GameWorld extends World with HasGameRef {
+  final GameState gameState;
+
+  GameWorld(this.gameState);
+
   @override
   Future onLoad() async {
-    add(Background());
+    add(Background(
+      sprite: gameState.mapSprite,
+    ));
     add(Player());
   }
 }
 
 class Background extends SpriteComponent {
-  Background()
+  Background({required super.sprite})
       : super(
-          sprite: Sprites.MAP,
           position: Vector2(0, 0),
-          size: Sprites.MAP.image.size,
+          size: sprite!.image.size,
           anchor: Anchor.topLeft,
           priority: -1,
         );
