@@ -29,7 +29,7 @@ class Locator {
     }
 
     SetUrlStrategy.set();
-    //await Flame.device.fullScreen();
+    await Flame.device.fullScreen();
     await Flame.device.setPortrait();
 
     locator.registerSingleton<Navigation>(Navigation());
