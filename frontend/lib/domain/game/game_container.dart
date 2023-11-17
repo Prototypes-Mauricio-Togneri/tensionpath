@@ -8,26 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame with PanDetector {
-  static const double MAP_WIDTH = 1000;
+  static const double CONTAINER_WIDTH = 1000;
   final MediaQueryData mediaQueryData;
 
   GameContainer(this.mediaQueryData)
       : super(
           camera: CameraComponent.withFixedResolution(
-            width: MAP_WIDTH,
-            height: MAP_WIDTH / mediaQueryData.size.aspectRatio,
+            width: CONTAINER_WIDTH,
+            height: CONTAINER_WIDTH / mediaQueryData.size.aspectRatio,
           ),
           world: GameWorld(),
         );
 
   double get effectiveScreenHeight =>
-      (camera.viewport.size.y * MAP_WIDTH) / camera.viewport.size.x;
+      (camera.viewport.size.y * CONTAINER_WIDTH) / camera.viewport.size.x;
 
   @override
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
       Vector2(0, -info.delta.global.y * mediaQueryData.devicePixelRatio),
-      speed: 3000,
+      speed: mediaQueryData.devicePixelRatio * 1000,
     );
   }
 
@@ -40,10 +40,13 @@ class GameContainer extends FlameGame with PanDetector {
     camera.setBounds(Rectangle.fromLTWH(
       0,
       halfScreenHeight,
-      MAP_WIDTH,
+      CONTAINER_WIDTH,
       bottomBoundary,
     ));
-    camera.moveTo(Vector2(MAP_WIDTH / 2, halfScreenHeight));
+    camera.moveTo(Vector2(
+      CONTAINER_WIDTH / 2,
+      halfScreenHeight + bottomBoundary,
+    ));
 
     return super.onLoad();
   }
