@@ -27,12 +27,12 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return DarkStatusBar(
       child: Scaffold(
         body: GameWidget(
-          game: GameContainer(size.aspectRatio),
+          game: GameContainer(mediaQueryData),
         ),
       ),
     );
