@@ -65,7 +65,7 @@ class GameComponent extends FlameGame with PanDetector {
   }
 
   void deployUnit(Unit unit) {
-    add(UnitComponent(
+    world.add(UnitComponent(
       state: state,
       unit: unit,
     ));

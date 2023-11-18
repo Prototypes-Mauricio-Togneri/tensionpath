@@ -35,7 +35,7 @@ class UnitComponent extends SpriteComponent {
   void update(double dt) {
     unit.update(dt);
 
-    //position = unit.position;
+    position = unit.position;
     //print(position);
 
     super.update(dt);
