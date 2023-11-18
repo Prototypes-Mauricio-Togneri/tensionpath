@@ -10,14 +10,14 @@ import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame with PanDetector {
-  final GameState gameState;
+  final GameState state;
   final double aspectRatio;
   final double pixelRatio;
 
   static const double CONTAINER_WIDTH = 1000;
 
   GameContainer({
-    required this.gameState,
+    required this.state,
     required this.aspectRatio,
     required this.pixelRatio,
   }) : super(
@@ -25,7 +25,7 @@ class GameContainer extends FlameGame with PanDetector {
             width: CONTAINER_WIDTH,
             height: CONTAINER_WIDTH / aspectRatio,
           ),
-          world: GameWorld(gameState),
+          world: GameWorld(state),
         );
 
   double get effectiveScreenHeight =>
@@ -43,7 +43,7 @@ class GameContainer extends FlameGame with PanDetector {
   FutureOr onLoad() {
     final double halfScreenHeight = effectiveScreenHeight / 2;
     final double bottomBoundary =
-        gameState.battlefield.sprite.image.size.y - effectiveScreenHeight;
+        state.battlefield.sprite.image.size.y - effectiveScreenHeight;
 
     camera.setBounds(Rectangle.fromLTWH(
       0,

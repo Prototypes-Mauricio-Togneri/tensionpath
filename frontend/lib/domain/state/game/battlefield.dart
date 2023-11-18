@@ -19,6 +19,9 @@ class Battlefield {
         id: 'test',
         lanes: 5,
         sprite: Sprites.BATTLEFIELD,
-        nodes: [],
+        nodes: [
+          Node(id: '1', position: Vector2(300, 500)),
+          Node(id: '2', position: Vector2(700, 500)),
+        ],
       );
 }

@@ -53,7 +53,7 @@ class GameContent extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) => GameWidget(
         game: GameContainer(
-          gameState: state.gameState,
+          state: state.gameState,
           aspectRatio: constraints.maxWidth / constraints.maxHeight,
           pixelRatio: MediaQuery.of(context).devicePixelRatio,
         ),
