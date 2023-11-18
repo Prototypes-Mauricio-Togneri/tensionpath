@@ -62,7 +62,7 @@ class GameContainer extends FlameGame with PanDetector {
   Color backgroundColor() => Colors.black;
 }
 
-class GameWorld extends World with HasGameRef {
+class GameWorld extends World {
   final GameState gameState;
 
   GameWorld(this.gameState);
@@ -73,6 +73,9 @@ class GameWorld extends World with HasGameRef {
       sprite: gameState.mapSprite,
     ));
     add(Player());
+    add(Node(
+      position: Vector2(100, 100),
+    ));
   }
 }
 
@@ -92,6 +95,15 @@ class Player extends SpriteComponent {
           sprite: Sprites.PLAYER,
           position: Vector2(100, 100),
           size: Vector2(150, 210),
+          anchor: Anchor.center,
+        );
+}
+
+class Node extends SpriteComponent {
+  Node({super.position})
+      : super(
+          sprite: Sprites.NODE,
+          size: Vector2(200, 200),
           anchor: Anchor.center,
         );
 }
