@@ -1,9 +1,9 @@
-import 'package:flame/components.dart';
+import 'package:tensionpath/domain/state/game/battlefield.dart';
 
 class GameState {
-  final Sprite mapSprite;
+  final Battlefield battlefield;
 
   const GameState({
-    required this.mapSprite,
+    required this.battlefield,
   });
 }
