@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/game/lane_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 
 class BattlefieldComponent extends SpriteComponent {
   final GameState state;
@@ -18,7 +19,7 @@ class BattlefieldComponent extends SpriteComponent {
           sprite: battlefield.sprite,
           size: battlefield.sprite.image.size,
           anchor: Anchor.topLeft,
-          priority: -1,
+          priority: Priority.battlefield.value,
         );
 
   @override

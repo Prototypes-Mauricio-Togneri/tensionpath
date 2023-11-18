@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
@@ -17,6 +18,7 @@ class UnitComponent extends SpriteComponent {
           size: Vector2(200, 200),
           position: unit.position,
           anchor: Anchor.center,
+          priority: Priority.units.value,
         );
 
   @override

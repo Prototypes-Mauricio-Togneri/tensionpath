@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 
 class LaneComponent extends PositionComponent with TapCallbacks {
   final GameState state;
@@ -14,6 +15,7 @@ class LaneComponent extends PositionComponent with TapCallbacks {
           position: lane.position,
           size: lane.size,
           anchor: Anchor.topLeft,
+          priority: Priority.lanes.value,
         );
 
   @override
