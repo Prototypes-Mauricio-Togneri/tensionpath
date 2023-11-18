@@ -83,7 +83,7 @@ class Controls extends StatelessWidget {
           for (int i = 1; i <= 10; i++)
             DeployButton(
               value: i,
-              onPressed: () => state.onDeployUnits(i),
+              onPressed: () => state.onCommandPointsSelected(i),
             ),
         ],
       ),
