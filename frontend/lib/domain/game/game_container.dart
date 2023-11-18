@@ -67,21 +67,21 @@ class GameContainer extends FlameGame with PanDetector {
 }
 
 class GameWorld extends World {
-  final GameState gameState;
+  final GameState state;
 
-  GameWorld(this.gameState);
+  GameWorld(this.state);
 
   @override
   Future onLoad() async {
     add(Background(
-      sprite: gameState.battlefield.sprite,
+      sprite: state.battlefield.sprite,
     ));
     add(Player());
 
-    for (final Node node in gameState.battlefield.nodes) {
+    for (final Node node in state.battlefield.nodes) {
       add(NodeComponent(
-        id: node.id,
-        position: node.position,
+        state: state,
+        node: node,
       ));
     }
   }
@@ -108,14 +108,16 @@ class Player extends SpriteComponent {
 }
 
 class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
-  final String id;
+  final GameState state;
+  final Node node;
 
   NodeComponent({
-    required super.position,
-    required this.id,
+    required this.state,
+    required this.node,
   }) : super(
           sprite: Sprites.NODE,
           size: Vector2(200, 200),
+          position: node.position,
           anchor: Anchor.center,
         );
 
@@ -123,7 +125,7 @@ class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
   Future onLoad() async {
     add(
       TextComponent(
-        text: id,
+        text: node.id,
         anchor: Anchor.center,
         position: size / 2,
         textRenderer: TextPaint(
@@ -144,7 +146,5 @@ class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
   }
 
   @override
-  void onTapUp(TapUpEvent event) {
-    print(id);
-  }
+  void onTapUp(TapUpEvent event) => state.onNodeSelected(node);
 }
