@@ -20,8 +20,11 @@ class Battlefield {
         id: 'test',
         sprite: Sprites.BATTLEFIELD,
         lanes: [
-          //Lane(id: '1', position: Vector2(0, 0), size: Vector2(200, 3000)),
-          Lane(id: '2', position: Vector2(100, 0), size: Vector2(200, 3000)),
+          Lane(id: '1', position: Vector2(0, 0), size: Vector2(200, 3000)),
+          Lane(id: '2', position: Vector2(200, 0), size: Vector2(200, 3000)),
+          Lane(id: '3', position: Vector2(400, 0), size: Vector2(200, 3000)),
+          Lane(id: '4', position: Vector2(600, 0), size: Vector2(200, 3000)),
+          Lane(id: '5', position: Vector2(800, 0), size: Vector2(200, 3000)),
         ],
         nodes: [
           Node(id: '1', position: Vector2(300, 500)),

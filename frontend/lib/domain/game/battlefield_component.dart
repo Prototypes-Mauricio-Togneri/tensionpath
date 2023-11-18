@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/palette.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -49,18 +47,18 @@ class LaneListener extends PositionComponent with TapCallbacks {
           anchor: Anchor.topLeft,
         );
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     canvas.drawRect(
       Rect.fromLTWH(
-        position.x,
-        position.y,
+        0,
+        0,
         size.x,
         size.y,
       ),
-      BasicPalette.yellow.paint(),
+      BasicPalette.yellow.withAlpha(120).paint(),
     );
-  }
+  }*/
 
   @override
   void onTapUp(TapUpEvent event) => state.onLaneSelected(lane);
