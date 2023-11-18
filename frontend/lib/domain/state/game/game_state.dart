@@ -1,4 +1,6 @@
+import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
@@ -6,15 +8,15 @@ import 'package:tensionpath/domain/state/game/unit.dart';
 
 class GameState {
   final Battlefield battlefield;
+  late final World world;
   int commandPointsSelected = 0;
-  Function(Unit)? deployUnit;
 
   GameState({
     required this.battlefield,
   });
 
-  void setCallbacks(Function(Unit) deploy) {
-    deployUnit = deploy;
+  void setWorld(World newWorld) {
+    world = newWorld;
   }
 
   void onCommandPointsSelected(int amount) {
@@ -45,10 +47,14 @@ class GameState {
     required Lane lane,
   }) {
     final Unit unit = Unit.create(
+      world: world,
       commandPoints: commandPoints,
       nodes: nodes,
       lane: lane,
     );
-    deployUnit?.call(unit);
+    world.add(UnitComponent(
+      state: this,
+      unit: unit,
+    ));
   }
 }

@@ -16,6 +16,7 @@ class Node {
       lockedUnit = unit;
     } else {
       lockedUnit?.merge(unit);
+      unit.destroy();
     }
   }
 
