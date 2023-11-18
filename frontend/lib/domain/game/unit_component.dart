@@ -9,6 +9,7 @@ import 'package:tensionpath/utils/sprites.dart';
 class UnitComponent extends SpriteComponent {
   final GameState state;
   final Unit unit;
+  LabelComponent? labelComponent;
 
   UnitComponent({
     required this.state,
@@ -23,12 +24,7 @@ class UnitComponent extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    add(LabelComponent(
-      text: unit.power.toString(),
-      position: size / 2,
-      size: size.x / 3,
-      color: Palette.white,
-    ));
+    refresh();
 
     super.onLoad();
   }
@@ -38,8 +34,21 @@ class UnitComponent extends SpriteComponent {
     unit.update(dt);
 
     position = unit.position;
-    //print(position);
 
     super.update(dt);
+  }
+
+  void refresh() {
+    if (labelComponent != null) {
+      remove(labelComponent!);
+    }
+
+    labelComponent = LabelComponent(
+      text: unit.power.toString(),
+      position: size / 2,
+      size: size.x / 3,
+      color: Palette.white,
+    );
+    add(labelComponent!);
   }
 }

@@ -19,6 +19,19 @@ class Unit {
     required this.position,
   });
 
+  UnitComponent get component {
+    final List<UnitComponent> unitComponents =
+        world.children.query<UnitComponent>();
+
+    for (final UnitComponent component in unitComponents) {
+      if (component.unit == this) {
+        return component;
+      }
+    }
+
+    throw Exception('Associated component not found');
+  }
+
   void update(double dt) {
     if (lockedNode == null) {
       position.y -= speed * dt;
@@ -32,6 +45,7 @@ class Unit {
 
   void merge(Unit unit) {
     power += unit.power;
+    component.refresh();
   }
 
   void _checkNodeLocking() {
@@ -45,14 +59,7 @@ class Unit {
   }
 
   void destroy() {
-    final List<UnitComponent> unitComponents =
-        world.children.query<UnitComponent>();
-
-    for (final UnitComponent component in unitComponents) {
-      if (component.unit == this) {
-        world.remove(component);
-      }
-    }
+    world.remove(component);
   }
 
   factory Unit.create({
