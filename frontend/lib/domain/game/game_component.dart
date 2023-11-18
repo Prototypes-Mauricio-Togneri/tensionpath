@@ -7,8 +7,10 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
+import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 
 class GameComponent extends FlameGame with PanDetector {
   final GameState state;
@@ -42,6 +44,8 @@ class GameComponent extends FlameGame with PanDetector {
 
   @override
   FutureOr onLoad() {
+    state.setCallbacks(deployUnit);
+
     final double halfScreenHeight = effectiveScreenHeight / 2;
     final double bottomBoundary =
         state.battlefield.sprite.image.size.y - effectiveScreenHeight;
@@ -58,6 +62,13 @@ class GameComponent extends FlameGame with PanDetector {
     ));
 
     return super.onLoad();
+  }
+
+  void deployUnit(Unit unit) {
+    add(UnitComponent(
+      state: state,
+      unit: unit,
+    ));
   }
 
   @override
