@@ -23,10 +23,14 @@ class Unit {
     }
   }
 
+  void unlock() {
+    lockedNode = null;
+  }
+
   void _checkNodeLocking() {
     for (final Node node in nodes) {
       if (node.isEmpty && node.isAligned(this)) {
-        node.linkUnit(this);
+        node.lockUnit(this);
         lockedNode = node;
         break;
       }

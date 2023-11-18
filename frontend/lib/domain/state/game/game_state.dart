@@ -23,6 +23,8 @@ class GameState {
 
   void onNodeSelected(Node node) {
     debugPrint('Clicked node: ${node.id}');
+
+    node.onSelect();
   }
 
   void onLaneSelected(Lane lane) {

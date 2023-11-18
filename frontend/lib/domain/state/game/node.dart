@@ -4,23 +4,26 @@ import 'package:tensionpath/domain/state/game/unit.dart';
 class Node {
   final String id;
   final Vector2 position;
-  Unit? unit;
+  Unit? lockedUnit;
 
   Node({
     required this.id,
     required this.position,
   });
 
-  bool get isEmpty => unit == null;
+  bool get isEmpty => lockedUnit == null;
 
-  void linkUnit(Unit newUnit) {
+  void lockUnit(Unit unit) {
     if (isEmpty) {
-      unit = newUnit;
+      lockedUnit = unit;
     }
   }
 
-  void unlinkUnit() {
-    unit = null;
+  void onSelect() {
+    if (lockedUnit != null) {
+      lockedUnit?.unlock();
+      lockedUnit = null;
+    }
   }
 
   bool isAligned(Unit unit) => (position - unit.position).length < 1;
