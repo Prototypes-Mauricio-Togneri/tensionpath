@@ -10,6 +10,6 @@ class Unit {
   });
 
   void update(double dt) {
-    position -= Vector2(10 * dt, 10 * dt);
+    //position.y -= 100 * dt;
   }
 }

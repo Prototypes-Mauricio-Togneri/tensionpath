@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
@@ -22,11 +23,11 @@ class GameState {
   }
 
   void onNodeSelected(Node node) {
-    print('Clicked node: ${node.id}');
+    debugPrint('Clicked node: ${node.id}');
   }
 
   void onLaneSelected(Lane lane) {
-    print('Clicked lane: ${lane.id}');
+    debugPrint('Clicked lane: ${lane.id}');
 
     if (commandPointsSelected > 0) {
       _deployUnit(commandPointsSelected, lane);
@@ -36,7 +37,7 @@ class GameState {
   void _deployUnit(int cp, Lane lane) {
     final Unit unit = Unit(
       power: cp,
-      position: Vector2(lane.position.x + 100, 3000),
+      position: Vector2(lane.position.x + 100, 1500),
     );
     deployUnit?.call(unit);
   }
