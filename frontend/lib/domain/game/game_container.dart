@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
@@ -106,7 +107,7 @@ class Player extends SpriteComponent {
         );
 }
 
-class NodeComponent extends SpriteComponent {
+class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
   final String id;
 
   NodeComponent({
@@ -119,7 +120,7 @@ class NodeComponent extends SpriteComponent {
         );
 
   @override
-  void onLoad() {
+  Future onLoad() async {
     add(
       TextComponent(
         text: id,
@@ -133,5 +134,17 @@ class NodeComponent extends SpriteComponent {
         ),
       ),
     );
+    add(CircleHitbox(
+      radius: size.x / 2,
+      position: size / 2,
+      anchor: Anchor.center,
+    ));
+
+    super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    print(id);
   }
 }
