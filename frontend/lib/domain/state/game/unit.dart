@@ -9,5 +9,7 @@ class Unit {
     required this.position,
   });
 
-  void update(double dt) {}
+  void update(double dt) {
+    position -= Vector2(10 * dt, 10 * dt);
+  }
 }

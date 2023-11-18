@@ -36,7 +36,7 @@ class GameState {
   void _deployUnit(int cp, Lane lane) {
     final Unit unit = Unit(
       power: cp,
-      position: lane.position + Vector2(0, 3000),
+      position: Vector2(lane.position.x + 100, 3000),
     );
     deployUnit?.call(unit);
   }

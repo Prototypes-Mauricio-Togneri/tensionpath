@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/text.dart';
+import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -24,19 +24,13 @@ class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
 
   @override
   Future onLoad() async {
-    add(
-      TextComponent(
-        text: node.id,
-        anchor: Anchor.center,
-        position: size / 2,
-        textRenderer: TextPaint(
-          style: TextStyle(
-            fontSize: size.x / 3,
-            color: Palette.grey,
-          ),
-        ),
-      ),
-    );
+    add(LabelComponent(
+      text: node.id,
+      position: size / 2,
+      size: size.x / 3,
+      color: Palette.grey,
+    ));
+
     add(CircleHitbox(
       radius: size.x / 2,
       position: size / 2,

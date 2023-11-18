@@ -1,6 +1,8 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class UnitComponent extends SpriteComponent {
@@ -16,6 +18,18 @@ class UnitComponent extends SpriteComponent {
           position: unit.position,
           anchor: Anchor.center,
         );
+
+  @override
+  Future onLoad() async {
+    add(LabelComponent(
+      text: unit.power.toString(),
+      position: size / 2,
+      size: size.x / 3,
+      color: Palette.white,
+    ));
+
+    super.onLoad();
+  }
 
   @override
   void update(double dt) {
