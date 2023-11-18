@@ -1,9 +1,10 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/log.dart';
+import 'package:tensionpath/utils/platform.dart';
 
 class ErrorHandler {
-  static Future process(Object exception) {
+  static Future process(Object exception) async {
     _logError(
       exception.toString(),
       exception,
@@ -12,15 +13,17 @@ class ErrorHandler {
 
     _logAnalytics(exception);
 
-    return FirebaseCrashlytics.instance.recordError(
-      exception,
-      null,
-      reason: exception.toString(),
-      fatal: false,
-    );
+    if (!Platform.isWeb) {
+      FirebaseCrashlytics.instance.recordError(
+        exception,
+        null,
+        reason: exception.toString(),
+        fatal: false,
+      );
+    }
   }
 
-  static Future onUncaughtError(Object exception, StackTrace stackTrace) {
+  static Future onUncaughtError(Object exception, StackTrace stackTrace) async {
     _logError(
       'Uncaught Error',
       exception,
@@ -29,11 +32,13 @@ class ErrorHandler {
 
     _logAnalytics(exception);
 
-    return FirebaseCrashlytics.instance.recordError(
-      exception,
-      stackTrace,
-      fatal: true,
-    );
+    if (!Platform.isWeb) {
+      FirebaseCrashlytics.instance.recordError(
+        exception,
+        stackTrace,
+        fatal: true,
+      );
+    }
   }
 
   static void _logError(

@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/platform.dart';
 import 'package:tensionpath/utils/set_url_strategy.dart';
 
 final GetIt locator = GetIt.instance;
@@ -26,6 +28,15 @@ class Locator {
       );
     } else {
       await Firebase.initializeApp();
+    }
+
+    if (!Platform.isWeb) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+      PlatformDispatcher.instance.onError = (error, stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return true;
+      };
     }
 
     SetUrlStrategy.set();
