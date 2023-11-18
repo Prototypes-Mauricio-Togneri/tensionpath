@@ -4,9 +4,11 @@ import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
+import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame with PanDetector {
@@ -115,4 +117,21 @@ class NodeComponent extends SpriteComponent {
           size: Vector2(200, 200),
           anchor: Anchor.center,
         );
+
+  @override
+  void onLoad() {
+    add(
+      TextComponent(
+        text: id,
+        anchor: Anchor.center,
+        position: size / 2,
+        textRenderer: TextPaint(
+          style: TextStyle(
+            fontSize: size.x / 3,
+            color: Palette.grey,
+          ),
+        ),
+      ),
+    );
+  }
 }
