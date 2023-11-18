@@ -71,7 +71,12 @@ class Controls extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.green,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+        left: 5,
+        right: 5,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -100,8 +105,8 @@ class DeployButton extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
-        color: Palette.red,
-        height: 40,
+        color: Palette.orange,
+        height: 35,
         child: Material(
           color: Palette.transparent,
           child: InkWell(
