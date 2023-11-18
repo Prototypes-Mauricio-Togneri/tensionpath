@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/game/game_container.dart';
+import 'package:tensionpath/domain/game/game_component.dart';
 import 'package:tensionpath/domain/state/main/main_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
@@ -52,7 +52,7 @@ class GameContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => GameWidget(
-        game: GameContainer(
+        game: GameComponent(
           state: state.gameState,
           aspectRatio: constraints.maxWidth / constraints.maxHeight,
           pixelRatio: MediaQuery.of(context).devicePixelRatio,

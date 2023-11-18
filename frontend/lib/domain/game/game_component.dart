@@ -11,14 +11,14 @@ import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
-class GameContainer extends FlameGame with PanDetector {
+class GameComponent extends FlameGame with PanDetector {
   final GameState state;
   final double aspectRatio;
   final double pixelRatio;
 
   static const double CONTAINER_WIDTH = 1000;
 
-  GameContainer({
+  GameComponent({
     required this.state,
     required this.aspectRatio,
     required this.pixelRatio,
