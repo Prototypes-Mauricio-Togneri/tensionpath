@@ -3,16 +3,16 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 
 class Unit {
-  final int power;
   final double speed;
   final List<Node> nodes;
+  int power;
   Node? lockedNode;
   Vector2 position;
 
   Unit._({
-    required this.power,
     required this.speed,
     required this.nodes,
+    required this.power,
     required this.position,
   });
 
@@ -27,10 +27,14 @@ class Unit {
     lockedNode = null;
   }
 
+  void merge(Unit unit) {
+    power += unit.power;
+  }
+
   void _checkNodeLocking() {
     for (final Node node in nodes) {
-      if (node.isEmpty && node.isAligned(this)) {
-        node.lockUnit(this);
+      if (node.isAligned(this)) {
+        node.onUnitEnter(this);
         lockedNode = node;
         break;
       }

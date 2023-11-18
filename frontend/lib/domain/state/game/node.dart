@@ -11,11 +11,11 @@ class Node {
     required this.position,
   });
 
-  bool get isEmpty => lockedUnit == null;
-
-  void lockUnit(Unit unit) {
-    if (isEmpty) {
+  void onUnitEnter(Unit unit) {
+    if (lockedUnit == null) {
       lockedUnit = unit;
+    } else {
+      lockedUnit?.merge(unit);
     }
   }
 
