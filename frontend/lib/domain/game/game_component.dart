@@ -9,7 +9,6 @@ import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class GameComponent extends FlameGame with PanDetector {
   final GameState state;
@@ -37,7 +36,7 @@ class GameComponent extends FlameGame with PanDetector {
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
       Vector2(0, -info.delta.global.y * pixelRatio),
-      speed: pixelRatio * 1000,
+      speed: pixelRatio * 3000,
     );
   }
 
@@ -73,7 +72,6 @@ class GameWorld extends World {
   @override
   Future onLoad() async {
     add(BattlefieldComponent(battlefield: state.battlefield));
-    add(Player());
 
     for (final Node node in state.battlefield.nodes) {
       add(NodeComponent(
@@ -82,14 +80,4 @@ class GameWorld extends World {
       ));
     }
   }
-}
-
-class Player extends SpriteComponent {
-  Player()
-      : super(
-          sprite: Sprites.PLAYER,
-          position: Vector2(100, 100),
-          size: Vector2(150, 210),
-          anchor: Anchor.center,
-        );
 }
