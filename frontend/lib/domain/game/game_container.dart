@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/game/battlefield_component.dart';
+import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
-import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class GameContainer extends FlameGame with PanDetector {
@@ -73,9 +72,7 @@ class GameWorld extends World {
 
   @override
   Future onLoad() async {
-    add(Background(
-      sprite: state.battlefield.sprite,
-    ));
+    add(BattlefieldComponent(battlefield: state.battlefield));
     add(Player());
 
     for (final Node node in state.battlefield.nodes) {
@@ -87,16 +84,6 @@ class GameWorld extends World {
   }
 }
 
-class Background extends SpriteComponent {
-  Background({required super.sprite})
-      : super(
-          position: Vector2(0, 0),
-          size: sprite!.image.size,
-          anchor: Anchor.topLeft,
-          priority: -1,
-        );
-}
-
 class Player extends SpriteComponent {
   Player()
       : super(
@@ -105,46 +92,4 @@ class Player extends SpriteComponent {
           size: Vector2(150, 210),
           anchor: Anchor.center,
         );
-}
-
-class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
-  final GameState state;
-  final Node node;
-
-  NodeComponent({
-    required this.state,
-    required this.node,
-  }) : super(
-          sprite: Sprites.NODE,
-          size: Vector2(200, 200),
-          position: node.position,
-          anchor: Anchor.center,
-        );
-
-  @override
-  Future onLoad() async {
-    add(
-      TextComponent(
-        text: node.id,
-        anchor: Anchor.center,
-        position: size / 2,
-        textRenderer: TextPaint(
-          style: TextStyle(
-            fontSize: size.x / 3,
-            color: Palette.grey,
-          ),
-        ),
-      ),
-    );
-    add(CircleHitbox(
-      radius: size.x / 2,
-      position: size / 2,
-      anchor: Anchor.center,
-    ));
-
-    super.onLoad();
-  }
-
-  @override
-  void onTapUp(TapUpEvent event) => state.onNodeSelected(node);
 }

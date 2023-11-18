@@ -1,0 +1,17 @@
+import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
+import 'package:tensionpath/domain/state/game/battlefield.dart';
+
+class BattlefieldComponent extends SpriteComponent {
+  final Battlefield battlefield;
+
+  BattlefieldComponent({
+    required this.battlefield,
+  }) : super(
+          position: Vector2(0, 0),
+          sprite: battlefield.sprite,
+          size: battlefield.sprite.image.size,
+          anchor: Anchor.topLeft,
+          priority: -1,
+        );
+}
