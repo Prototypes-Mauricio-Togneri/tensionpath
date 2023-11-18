@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/state/game/battlefield.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 
 class GameState {
@@ -9,6 +10,10 @@ class GameState {
   });
 
   void onNodeSelected(Node node) {
-    print('Clicked: ${node.id}');
+    print('Clicked node: ${node.id}');
+  }
+
+  void onLaneSelected(Lane lane) {
+    print('Clicked lane: ${lane.id}');
   }
 }

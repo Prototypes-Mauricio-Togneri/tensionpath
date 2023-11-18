@@ -71,7 +71,10 @@ class GameWorld extends World {
 
   @override
   Future onLoad() async {
-    add(BattlefieldComponent(battlefield: state.battlefield));
+    add(BattlefieldComponent(
+      state: state,
+      battlefield: state.battlefield,
+    ));
 
     for (final Node node in state.battlefield.nodes) {
       add(NodeComponent(
