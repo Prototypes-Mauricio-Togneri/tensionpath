@@ -16,10 +16,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<MainState>(
-      state: state,
-      builder: (context, state) => Body(state),
-    );
+    return Body(state);
   }
 }
 
@@ -36,7 +33,10 @@ class Body extends StatelessWidget {
           Expanded(
             child: GameContent(state),
           ),
-          Controls(state),
+          StateProvider<MainState>(
+            state: state,
+            builder: (context, state) => Controls(state),
+          ),
         ],
       ),
     );
@@ -84,6 +84,7 @@ class Controls extends StatelessWidget {
             DeployButton(
               value: i,
               onPressed: () => state.onCommandPointsSelected(i),
+              selected: state.gameState.commandPointsSelected == i,
             ),
         ],
       ),
@@ -94,10 +95,12 @@ class Controls extends StatelessWidget {
 class DeployButton extends StatelessWidget {
   final int value;
   final VoidCallback onPressed;
+  final bool selected;
 
   const DeployButton({
     required this.value,
     required this.onPressed,
+    required this.selected,
   });
 
   @override
@@ -105,7 +108,13 @@ class DeployButton extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
-        color: Palette.orange,
+        decoration: BoxDecoration(
+          color: Palette.orange,
+          border: Border.all(
+            color: selected ? Palette.red : Palette.orange,
+            width: 3,
+          ),
+        ),
         height: 35,
         child: Material(
           color: Palette.transparent,

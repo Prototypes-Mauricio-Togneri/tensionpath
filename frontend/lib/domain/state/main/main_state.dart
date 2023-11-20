@@ -9,6 +9,13 @@ class MainState extends BaseState {
     gameState = GameState(battlefield: Battlefield.test());
   }
 
-  void onCommandPointsSelected(int amount) =>
+  void onCommandPointsSelected(int amount) {
+    if (gameState.commandPointsSelected != amount) {
       gameState.onCommandPointsSelected(amount);
+    } else {
+      gameState.onCommandPointsSelected(0);
+    }
+
+    notify();
+  }
 }
