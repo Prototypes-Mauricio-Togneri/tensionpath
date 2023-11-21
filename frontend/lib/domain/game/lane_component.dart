@@ -1,5 +1,7 @@
+import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/palette.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -20,4 +22,9 @@ class LaneComponent extends PositionComponent with TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent event) => state.onLaneSelected(lane);
+
+  @override
+  void render(Canvas canvas) {
+    canvas.drawRect(lane.area, BasicPalette.green.withAlpha(128).paint());
+  }
 }

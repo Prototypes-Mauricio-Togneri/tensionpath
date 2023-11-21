@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
@@ -31,34 +32,19 @@ class Battlefield {
         id: 'test',
         sprite: Sprites.BATTLEFIELD,
         lanes: [
-          Lane(
+          const Lane(
             id: '1',
-            position: Vector2(0, 0),
-            size: Vector2(200, 3000),
+            area: Rect.fromLTWH(50, 0, 200, 3000),
             waypoints: [],
           ),
-          Lane(
+          const Lane(
             id: '2',
-            position: Vector2(200, 0),
-            size: Vector2(200, 3000),
+            area: Rect.fromLTWH(200, 0, 200, 3000),
             waypoints: [],
           ),
-          Lane(
+          const Lane(
             id: '3',
-            position: Vector2(400, 0),
-            size: Vector2(200, 3000),
-            waypoints: [],
-          ),
-          Lane(
-            id: '4',
-            position: Vector2(600, 0),
-            size: Vector2(200, 3000),
-            waypoints: [],
-          ),
-          Lane(
-            id: '5',
-            position: Vector2(800, 0),
-            size: Vector2(200, 3000),
+            area: Rect.fromLTWH(350, 0, 200, 3000),
             waypoints: [],
           ),
         ],
