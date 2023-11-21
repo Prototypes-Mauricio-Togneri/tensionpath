@@ -25,6 +25,14 @@ class LaneComponent extends PositionComponent with TapCallbacks {
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(lane.area, BasicPalette.green.withAlpha(128).paint());
+    canvas.drawRect(
+      Rect.fromLTWH(
+        100,
+        0,
+        width,
+        height,
+      ),
+      BasicPalette.green.withAlpha(128).paint(),
+    );
   }
 }
