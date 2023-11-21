@@ -34,19 +34,19 @@ class Battlefield {
         lanes: [
           const Lane(
             id: '1',
-            area: Rect.fromLTWH(0, 0, 200, 3000),
+            area: Rect.fromLTWH(100, 0, 200, 3000),
             waypoints: [],
           ),
-          /*const Lane(
+          const Lane(
             id: '2',
-            area: Rect.fromLTWH(200, 0, 200, 3000),
+            area: Rect.fromLTWH(400, 0, 200, 3000),
             waypoints: [],
           ),
           const Lane(
             id: '3',
-            area: Rect.fromLTWH(350, 0, 200, 3000),
+            area: Rect.fromLTWH(700, 0, 200, 3000),
             waypoints: [],
-          ),*/
+          ),
         ],
       );
 }
