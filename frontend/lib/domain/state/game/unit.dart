@@ -17,7 +17,7 @@ class Unit {
     required this.waypoints,
     required this.power,
   }) {
-    position = waypoints[0].position;
+    position = Vector2.copy(waypoints[0].position);
     nextWaypointIndex = 1;
   }
 
