@@ -35,12 +35,14 @@ class LaneComponent extends PositionComponent {
 
   @override
   void render(Canvas canvas) {
-    for (final Waypoint waypoint in lane.waypoints) {
-      canvas.drawCircle(
-        waypoint.position.toOffset(),
-        20,
-        BasicPalette.green.paint()..style = PaintingStyle.fill,
-      );
+    if (debugMode) {
+      for (final Waypoint waypoint in lane.waypoints) {
+        canvas.drawCircle(
+          waypoint.position.toOffset(),
+          20,
+          BasicPalette.green.paint()..style = PaintingStyle.fill,
+        );
+      }
     }
   }
 }
