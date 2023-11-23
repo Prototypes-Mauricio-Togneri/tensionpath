@@ -98,10 +98,47 @@ class Battlefield {
               ),
             ],
           ),
-          const Lane(
+          Lane(
             id: 'l3',
-            area: Rect.fromLTWH(700, 0, 200, 3000),
-            waypoints: [],
+            area: const Rect.fromLTWH(700, 0, 200, 3000),
+            waypoints: [
+              Waypoint(
+                id: 'w3a',
+                position: Vector2(800, 2925),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w3b',
+                position: Vector2(800, 2500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w3c',
+                position: Vector2(200, 2050),
+                node: Node(
+                  id: 'n1c',
+                  position: Vector2(200, 2050),
+                ),
+              ),
+              Waypoint(
+                id: 'w3d',
+                position: Vector2(200, 950),
+                node: Node(
+                  id: 'n1d',
+                  position: Vector2(200, 950),
+                ),
+              ),
+              Waypoint(
+                id: 'w3e',
+                position: Vector2(800, 500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w3f',
+                position: Vector2(800, 75),
+                node: null,
+              ),
+            ],
           ),
         ],
       );
