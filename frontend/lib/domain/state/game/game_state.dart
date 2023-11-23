@@ -25,7 +25,6 @@ class GameState {
 
   void onNodeSelected(Node node) {
     debugPrint('Clicked node: ${node.id}');
-
     node.onSelect();
   }
 
