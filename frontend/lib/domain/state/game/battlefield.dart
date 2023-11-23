@@ -38,28 +38,38 @@ class Battlefield {
             waypoints: [
               Waypoint(
                 id: 'w1a',
-                position: Vector2(200, 2500),
+                position: Vector2(200, 2925),
                 node: null,
               ),
               Waypoint(
                 id: 'w1b',
+                position: Vector2(200, 2500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w1c',
                 position: Vector2(800, 2050),
                 node: Node(
-                  id: 'n1b',
+                  id: 'n1c',
                   position: Vector2(800, 2050),
                 ),
               ),
               Waypoint(
-                id: 'w1c',
+                id: 'w1d',
                 position: Vector2(800, 950),
                 node: Node(
-                  id: 'n1c',
+                  id: 'n1d',
                   position: Vector2(800, 950),
                 ),
               ),
               Waypoint(
-                id: 'w1d',
+                id: 'w1e',
                 position: Vector2(200, 500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w1f',
+                position: Vector2(200, 75),
                 node: null,
               ),
             ],
