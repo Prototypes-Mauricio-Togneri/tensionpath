@@ -34,11 +34,15 @@ class Battlefield {
         lanes: [
           Lane(
             id: 'l1',
-            area: const Rect.fromLTWH(100, 0, 200, 3000),
+            area: Rect.fromCenter(
+              center: const Offset(200, 2900),
+              width: 200,
+              height: 200,
+            ),
             waypoints: [
               Waypoint(
                 id: 'w1a',
-                position: Vector2(200, 2925),
+                position: Vector2(200, 2900),
                 node: null,
               ),
               Waypoint(
@@ -69,18 +73,22 @@ class Battlefield {
               ),
               Waypoint(
                 id: 'w1f',
-                position: Vector2(200, 75),
+                position: Vector2(200, 100),
                 node: null,
               ),
             ],
           ),
           Lane(
             id: 'l2',
-            area: const Rect.fromLTWH(400, 0, 200, 3000),
+            area: Rect.fromCenter(
+              center: const Offset(500, 2900),
+              width: 200,
+              height: 200,
+            ),
             waypoints: [
               Waypoint(
                 id: 'w2a',
-                position: Vector2(500, 2925),
+                position: Vector2(500, 2900),
                 node: null,
               ),
               Waypoint(
@@ -93,18 +101,22 @@ class Battlefield {
               ),
               Waypoint(
                 id: 'w2c',
-                position: Vector2(500, 75),
+                position: Vector2(500, 100),
                 node: null,
               ),
             ],
           ),
           Lane(
             id: 'l3',
-            area: const Rect.fromLTWH(700, 0, 200, 3000),
+            area: Rect.fromCenter(
+              center: const Offset(800, 2900),
+              width: 200,
+              height: 200,
+            ),
             waypoints: [
               Waypoint(
                 id: 'w3a',
-                position: Vector2(800, 2925),
+                position: Vector2(800, 2900),
                 node: null,
               ),
               Waypoint(
@@ -135,7 +147,7 @@ class Battlefield {
               ),
               Waypoint(
                 id: 'w3f',
-                position: Vector2(800, 75),
+                position: Vector2(800, 100),
                 node: null,
               ),
             ],

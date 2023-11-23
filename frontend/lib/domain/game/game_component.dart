@@ -42,6 +42,7 @@ class GameComponent extends FlameGame with PanDetector {
 
   @override
   FutureOr onLoad() {
+    debugMode = true;
     state.setWorld(world);
 
     final double halfScreenHeight = effectiveScreenHeight / 2;
