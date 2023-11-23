@@ -2,22 +2,26 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Unit {
   final World world;
   final double speed;
-  final List<Node> nodes;
+  final List<Waypoint> waypoints;
+  late Waypoint nextWaypoint;
+  late Vector2 position;
   int power;
   Node? lockedNode;
-  Vector2 position;
 
   Unit._({
     required this.world,
     required this.speed,
-    required this.nodes,
+    required this.waypoints,
     required this.power,
-    required this.position,
-  });
+  }) {
+    position = waypoints[0].position;
+    nextWaypoint = waypoints[1];
+  }
 
   UnitComponent get component {
     final List<UnitComponent> unitComponents =
@@ -34,7 +38,7 @@ class Unit {
 
   void update(double dt) {
     if (lockedNode == null) {
-      position.y -= speed * dt;
+      position.moveToTarget(nextWaypoint.position, speed * dt);
       _checkNodeLocking();
     }
   }
@@ -49,13 +53,13 @@ class Unit {
   }
 
   void _checkNodeLocking() {
-    for (final Node node in nodes) {
+    /*for (final Node node in nodes) {
       if (node.isAligned(this)) {
         node.onUnitEnter(this);
         lockedNode = node;
         break;
       }
-    }
+    }*/
   }
 
   void destroy() {
@@ -71,7 +75,6 @@ class Unit {
         world: world,
         power: commandPoints,
         speed: 200,
-        nodes: lane.nodes,
-        position: Vector2(lane.position.x + 100, 3000),
+        waypoints: lane.waypoints,
       );
 }
