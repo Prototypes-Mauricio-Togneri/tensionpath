@@ -1,4 +1,5 @@
 import 'package:flame/extensions.dart';
+import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Lane {
@@ -11,6 +12,9 @@ class Lane {
     required this.area,
     required this.waypoints,
   });
+
+  List<Node> get nodes =>
+      waypoints.where((e) => e.hasNode).map((e) => e.node!).toList();
 
   Vector2 get position => area.topLeft.toVector2();
 

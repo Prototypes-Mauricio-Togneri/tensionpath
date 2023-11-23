@@ -35,7 +35,6 @@ class GameState {
     if (commandPointsSelected > 0) {
       _deployUnit(
         commandPoints: commandPointsSelected,
-        nodes: battlefield.nodes,
         lane: lane,
       );
     }
@@ -43,13 +42,11 @@ class GameState {
 
   void _deployUnit({
     required int commandPoints,
-    required List<Node> nodes,
     required Lane lane,
   }) {
     final Unit unit = Unit.create(
       world: world,
       commandPoints: commandPoints,
-      nodes: nodes,
       lane: lane,
     );
     world.add(UnitComponent(

@@ -65,14 +65,13 @@ class Unit {
   factory Unit.create({
     required World world,
     required int commandPoints,
-    required List<Node> nodes,
     required Lane lane,
   }) =>
       Unit._(
         world: world,
         power: commandPoints,
         speed: 200,
-        nodes: nodes,
+        nodes: lane.nodes,
         position: Vector2(lane.position.x + 100, 3000),
       );
 }
