@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/waypoint.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class LaneComponent extends PositionComponent with TapCallbacks {
@@ -11,6 +13,37 @@ class LaneComponent extends PositionComponent with TapCallbacks {
   final Lane lane;
 
   LaneComponent({
+    required this.state,
+    required this.lane,
+  }) : super(
+          position: Vector2(0, 0),
+          size: state.battlefield.sprite.image.size,
+          anchor: Anchor.topLeft,
+          priority: Priority.lanes.value,
+        );
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    print(event.localPosition);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    for (final Waypoint waypoint in lane.waypoints) {
+      canvas.drawCircle(
+        waypoint.position.toOffset(),
+        20,
+        BasicPalette.green.paint()..style = PaintingStyle.fill,
+      );
+    }
+  }
+}
+
+class LaneTapDetectorComponent extends PositionComponent with TapCallbacks {
+  final GameState state;
+  final Lane lane;
+
+  LaneTapDetectorComponent({
     required this.state,
     required this.lane,
   }) : super(

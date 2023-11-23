@@ -32,18 +32,45 @@ class Battlefield {
         id: 'test',
         sprite: Sprites.BATTLEFIELD,
         lanes: [
-          const Lane(
-            id: '1',
-            area: Rect.fromLTWH(100, 0, 200, 3000),
-            waypoints: [],
+          Lane(
+            id: 'l1',
+            area: const Rect.fromLTWH(100, 0, 200, 3000),
+            waypoints: [
+              Waypoint(
+                id: 'w1a',
+                position: Vector2(200, 2500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w1b',
+                position: Vector2(800, 2050),
+                node: Node(
+                  id: 'n1b',
+                  position: Vector2(800, 2050),
+                ),
+              ),
+              Waypoint(
+                id: 'w1c',
+                position: Vector2(800, 950),
+                node: Node(
+                  id: 'n1c',
+                  position: Vector2(800, 950),
+                ),
+              ),
+              Waypoint(
+                id: 'w1d',
+                position: Vector2(200, 500),
+                node: null,
+              ),
+            ],
           ),
           const Lane(
-            id: '2',
+            id: 'l2',
             area: Rect.fromLTWH(400, 0, 200, 3000),
             waypoints: [],
           ),
           const Lane(
-            id: '3',
+            id: 'l3',
             area: Rect.fromLTWH(700, 0, 200, 3000),
             waypoints: [],
           ),
