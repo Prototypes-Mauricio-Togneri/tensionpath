@@ -36,19 +36,24 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       radius: size.x / 2,
       position: size / 2,
       anchor: Anchor.center,
+      isSolid: true,
     ));
 
     super.onLoad();
   }
 
   @override
-  void onCollisionEnd(PositionComponent other) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is UnitComponent) {
-      owner = other.unit.owner;
-      paint.color = owner!.color;
+      final double distance = other.unit.position.distanceTo(position);
+
+      if (distance < 3) {
+        owner = other.unit.owner;
+        paint.color = owner!.color;
+      }
     }
 
-    super.onCollisionEnd(other);
+    super.onCollision(intersectionPoints, other);
   }
 
   @override
