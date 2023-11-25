@@ -59,7 +59,6 @@ class Unit {
     required String owner,
     required World world,
     required int power,
-    required Vector2 startingPosition,
     required List<Waypoint> waypoints,
   }) =>
       Unit._(
@@ -67,7 +66,7 @@ class Unit {
         world: world,
         power: power,
         speed: Constants.UNIT_SPEED,
-        startingPosition: startingPosition,
-        waypoints: waypoints,
+        startingPosition: waypoints.first.position,
+        waypoints: waypoints.sublist(1, waypoints.length),
       );
 }

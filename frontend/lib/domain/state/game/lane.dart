@@ -15,9 +15,9 @@ class Lane {
 
   List<Waypoint> getWaypoints(bool forward) {
     if (forward) {
-      return waypoints.sublist(1, waypoints.length);
+      return waypoints;
     } else {
-      return waypoints.sublist(0, waypoints.length - 1).reversed.toList();
+      return waypoints.reversed.toList();
     }
   }
 }

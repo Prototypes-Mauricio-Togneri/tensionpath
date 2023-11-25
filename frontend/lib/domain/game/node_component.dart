@@ -60,7 +60,7 @@ class NodeComponent extends SpriteComponent with CollisionCallbacks {
       labelComponent = LabelComponent(
         text: owner!,
         position: size / 2,
-        size: size.x / 3,
+        size: size.x / 4,
         color: (owner == Constants.PLAYER_SELF) ? Palette.blue : Palette.red,
       );
 

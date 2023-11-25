@@ -25,14 +25,13 @@ class GameState {
     commandPointsSelected = amount;
   }
 
-  void onLauncherSelected(Lane lane, Waypoint waypoint, String owner) {
+  void onLauncherSelected(Lane lane, String owner) {
     debugPrint('Clicked lane: ${lane.id}');
 
     _deployUnit(
       owner: owner,
       power: Random().nextInt(10) + 1,
       waypoints: lane.getWaypoints(owner == Constants.PLAYER_SELF),
-      startingPosition: waypoint.position,
     );
   }
 
@@ -48,14 +47,12 @@ class GameState {
     required String owner,
     required int power,
     required List<Waypoint> waypoints,
-    required Vector2 startingPosition,
   }) {
     final Unit unit = Unit.create(
       owner: owner,
       world: world,
       power: power,
       waypoints: waypoints,
-      startingPosition: startingPosition,
     );
     world.add(UnitComponent(
       state: this,
