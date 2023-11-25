@@ -19,7 +19,7 @@ class Battlefield {
     for (final Lane lane in lanes) {
       waypoints.addAll(lane.waypoints);
 
-      for (final Waypoint waypoint in waypoints) {
+      for (final Waypoint waypoint in lane.waypoints) {
         if (waypoint.hasNode) {
           nodes.add(waypoint.node!);
         }
@@ -112,7 +112,7 @@ class Battlefield {
                 id: 'w3c',
                 position: Vector2(200, 2050),
                 node: Node(
-                  id: 'n1c',
+                  id: 'n3c',
                   position: Vector2(200, 2050),
                 ),
               ),
@@ -120,7 +120,7 @@ class Battlefield {
                 id: 'w3d',
                 position: Vector2(200, 950),
                 node: Node(
-                  id: 'n1d',
+                  id: 'n3d',
                   position: Vector2(200, 950),
                 ),
               ),
