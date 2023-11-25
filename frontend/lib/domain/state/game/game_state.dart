@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
@@ -28,15 +30,13 @@ class GameState {
     node.onSelect();
   }
 
-  void onLaneSelected(Lane lane) {
+  void onLauncherSelected(Lane lane) {
     debugPrint('Clicked lane: ${lane.id}');
 
-    if (commandPointsSelected > 0) {
-      _deployUnit(
-        commandPoints: commandPointsSelected,
-        lane: lane,
-      );
-    }
+    _deployUnit(
+      commandPoints: Random().nextInt(10) + 1,
+      lane: lane,
+    );
   }
 
   void _deployUnit({

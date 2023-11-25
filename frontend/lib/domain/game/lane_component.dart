@@ -62,7 +62,7 @@ class LaneLauncherComponent extends PositionComponent with TapCallbacks {
         );
 
   @override
-  void onTapUp(TapUpEvent event) => state.onLaneSelected(lane);
+  void onTapUp(TapUpEvent event) => state.onLauncherSelected(lane);
 
   @override
   void render(Canvas canvas) {
