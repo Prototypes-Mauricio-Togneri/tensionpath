@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
@@ -29,7 +30,15 @@ class LaneComponent extends PositionComponent {
     add(LaneLauncherComponent(
       state: state,
       lane: lane,
-      waypoint: lane.waypoints[0],
+      waypoint: lane.waypoints.first,
+      owner: Constants.PLAYER_SELF,
+    ));
+
+    add(LaneLauncherComponent(
+      state: state,
+      lane: lane,
+      waypoint: lane.waypoints.last,
+      owner: Constants.PLAYER_ENEMY,
     ));
 
     return super.onLoad();
@@ -53,15 +62,17 @@ class LaneLauncherComponent extends PositionComponent with TapCallbacks {
   final GameState state;
   final Lane lane;
   final Waypoint waypoint;
+  final String owner;
 
   LaneLauncherComponent({
     required this.state,
     required this.lane,
     required this.waypoint,
+    required this.owner,
   }) : super(
           position: waypoint.position,
           size: Vector2(200, 200),
-          anchor: Anchor.topLeft,
+          anchor: Anchor.center,
           priority: Priority.lanes.value,
         );
 
@@ -77,7 +88,11 @@ class LaneLauncherComponent extends PositionComponent with TapCallbacks {
   }
 
   @override
-  void onTapUp(TapUpEvent event) => state.onLauncherSelected(lane, waypoint);
+  void onTapUp(TapUpEvent event) {
+    if (owner == Constants.PLAYER_SELF) {
+      state.onLauncherSelected(lane, waypoint);
+    }
+  }
 
   @override
   void render(Canvas canvas) {

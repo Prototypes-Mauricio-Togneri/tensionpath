@@ -1,5 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/lane_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -42,8 +43,9 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if (other is LaneLauncherComponent) {
-      print(other.lane.id);
+    if ((other is LaneLauncherComponent) &&
+        (other.owner == Constants.PLAYER_ENEMY)) {
+      print('Collided with enemy base ${other.lane.id}');
     }
 
     super.onCollisionStart(intersectionPoints, other);
