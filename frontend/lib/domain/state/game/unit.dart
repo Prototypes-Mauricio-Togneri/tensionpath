@@ -6,11 +6,11 @@ import 'package:tensionpath/domain/state/game/waypoint.dart';
 class Unit {
   final String owner;
   final World world;
+  final int power;
   final double speed;
   final List<Waypoint> waypoints;
   late Vector2 position;
   late int nextWaypointIndex;
-  int power;
 
   Unit._({
     required this.owner,
@@ -41,15 +41,10 @@ class Unit {
 
   void update(double dt) {
     position.moveToTarget(nextWaypoint.position, speed * dt);
-    _checkNodeLocking();
+    _checkNextWaypoint();
   }
 
-  void merge(Unit unit) {
-    power += unit.power;
-    component.refresh();
-  }
-
-  void _checkNodeLocking() {
+  void _checkNextWaypoint() {
     if (nextWaypoint.isAligned(this) &&
         (nextWaypointIndex < (waypoints.length - 1))) {
       nextWaypointIndex++;
