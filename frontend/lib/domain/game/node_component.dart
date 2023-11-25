@@ -43,10 +43,7 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
   }
 
   @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
+  void onCollisionEnd(PositionComponent other) {
     if (other is UnitComponent) {
       owner = other.unit.owner;
 
@@ -57,7 +54,7 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       }
     }
 
-    super.onCollisionStart(intersectionPoints, other);
+    super.onCollisionEnd(other);
   }
 
   @override
