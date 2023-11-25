@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Unit {
+  final String owner;
   final World world;
   final double speed;
   final List<Waypoint> waypoints;
@@ -13,6 +14,7 @@ class Unit {
   int power;
 
   Unit._({
+    required this.owner,
     required this.world,
     required this.speed,
     required this.waypoints,
@@ -60,12 +62,14 @@ class Unit {
   }
 
   factory Unit.create({
+    required String owner,
     required World world,
     required int commandPoints,
     required Lane lane,
     required Waypoint waypoint,
   }) =>
       Unit._(
+        owner: owner,
         world: world,
         power: commandPoints,
         speed: Constants.UNIT_SPEED,
