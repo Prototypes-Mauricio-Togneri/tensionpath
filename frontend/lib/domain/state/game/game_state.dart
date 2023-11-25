@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
@@ -25,26 +25,26 @@ class GameState {
     commandPointsSelected = amount;
   }
 
-  void onLauncherSelected(Lane lane, String owner) {
+  void onLauncherSelected(Lane lane, Player owner) {
     debugPrint('Clicked lane: ${lane.id}');
 
     _deployUnit(
       owner: owner,
       power: Random().nextInt(10) + 1,
-      waypoints: lane.getWaypoints(owner == Constants.PLAYER_SELF),
+      waypoints: lane.getWaypoints(owner.isSelf),
     );
   }
 
   void onUnitCollidedWithBase({
     required Unit unit,
-    required String baseOwner,
+    required Player baseOwner,
   }) {
     unit.destroy();
-    print('Base of $baseOwner got hit by ${unit.power}');
+    debugPrint('Base of ${baseOwner.id} got hit by ${unit.power}');
   }
 
   void _deployUnit({
-    required String owner,
+    required Player owner,
     required int power,
     required List<Waypoint> waypoints,
   }) {

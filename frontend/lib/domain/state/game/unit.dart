@@ -1,11 +1,11 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class Unit {
-  final String owner;
+  final Player owner;
   final World world;
   final int power;
   final double speed;
@@ -25,8 +25,7 @@ class Unit {
     nextWaypointIndex = 0;
   }
 
-  Sprite get sprite =>
-      (owner == Constants.PLAYER_SELF) ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
+  Sprite get sprite => owner.unitSprite;
 
   Waypoint get nextWaypoint => waypoints[nextWaypointIndex];
 
@@ -60,7 +59,7 @@ class Unit {
   }
 
   factory Unit.create({
-    required String owner,
+    required Player owner,
     required World world,
     required int power,
     required List<Waypoint> waypoints,

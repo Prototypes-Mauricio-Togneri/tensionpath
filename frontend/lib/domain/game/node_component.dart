@@ -6,13 +6,14 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent extends PositionComponent with CollisionCallbacks {
   final GameState state;
   final Node node;
-  String? owner;
+  Player? owner;
   Paint paint = Paint();
 
   NodeComponent({
@@ -31,8 +32,6 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
     paint.strokeWidth = 10;
     paint.style = PaintingStyle.stroke;
 
-    print('${node.id} $position');
-
     add(CircleHitbox(
       radius: size.x / 2,
       position: size / 2,
@@ -46,12 +45,7 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
   void onCollisionEnd(PositionComponent other) {
     if (other is UnitComponent) {
       owner = other.unit.owner;
-
-      if (owner == Constants.PLAYER_SELF) {
-        paint.color = Palette.blue;
-      } else {
-        paint.color = Palette.red;
-      }
+      paint.color = owner!.color;
     }
 
     super.onCollisionEnd(other);

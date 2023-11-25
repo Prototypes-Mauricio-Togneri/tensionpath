@@ -8,6 +8,7 @@ import 'package:flame/palette.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
@@ -28,14 +29,14 @@ class LaneComponent extends PositionComponent {
       state: state,
       lane: lane,
       waypoint: lane.waypoints.first,
-      owner: Constants.PLAYER_SELF,
+      owner: Player.self(),
     ));
 
     add(LaneLauncherComponent(
       state: state,
       lane: lane,
       waypoint: lane.waypoints.last,
-      owner: Constants.PLAYER_ENEMY,
+      owner: Player.enemy(),
     ));
 
     return super.onLoad();
@@ -59,7 +60,7 @@ class LaneLauncherComponent extends PositionComponent with TapCallbacks {
   final GameState state;
   final Lane lane;
   final Waypoint waypoint;
-  final String owner;
+  final Player owner;
 
   LaneLauncherComponent({
     required this.state,
