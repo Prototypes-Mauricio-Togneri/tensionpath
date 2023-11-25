@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
-import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Unit {
@@ -16,9 +15,9 @@ class Unit {
   Unit._({
     required this.owner,
     required this.world,
+    required this.power,
     required this.speed,
     required this.waypoints,
-    required this.power,
     required Vector2 startingPosition,
   }) {
     position = Vector2.copy(startingPosition);
@@ -64,16 +63,16 @@ class Unit {
   factory Unit.create({
     required String owner,
     required World world,
-    required int commandPoints,
-    required Lane lane,
-    required Waypoint waypoint,
+    required int power,
+    required Vector2 startingPosition,
+    required List<Waypoint> waypoints,
   }) =>
       Unit._(
         owner: owner,
         world: world,
-        power: commandPoints,
+        power: power,
         speed: Constants.UNIT_SPEED,
-        waypoints: lane.waypoints,
-        startingPosition: waypoint.position,
+        startingPosition: startingPosition,
+        waypoints: waypoints,
       );
 }

@@ -12,4 +12,12 @@ class Lane {
 
   List<Node> get nodes =>
       waypoints.where((e) => e.hasNode).map((e) => e.node!).toList();
+
+  List<Waypoint> getWaypoints(bool forward) {
+    if (forward) {
+      return waypoints.sublist(1, waypoints.length);
+    } else {
+      return waypoints.sublist(0, waypoints.length - 1).reversed.toList();
+    }
+  }
 }
