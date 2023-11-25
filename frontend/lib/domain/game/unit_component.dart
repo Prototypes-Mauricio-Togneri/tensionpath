@@ -19,7 +19,7 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     required this.unit,
   }) : super(
           sprite: Sprites.UNIT,
-          size: Vector2(200, 200),
+          size: Constants.NODE_SIZE,
           position: unit.position,
           anchor: Anchor.center,
           priority: Priority.units.value,

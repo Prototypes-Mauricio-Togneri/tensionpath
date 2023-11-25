@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
@@ -18,7 +19,7 @@ class NodeComponent extends SpriteComponent with TapCallbacks, GestureHitboxes {
     required this.node,
   }) : super(
           sprite: Sprites.NODE,
-          size: Vector2(200, 200),
+          size: Constants.NODE_SIZE,
           position: node.position,
           anchor: Anchor.center,
           priority: Priority.nodes.value,

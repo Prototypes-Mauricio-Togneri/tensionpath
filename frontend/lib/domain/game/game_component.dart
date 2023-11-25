@@ -5,6 +5,7 @@ import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -36,7 +37,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
       Vector2(0, -info.delta.global.y * pixelRatio),
-      speed: pixelRatio * 3000,
+      speed: pixelRatio * Constants.PAN_SPEED,
     );
   }
 

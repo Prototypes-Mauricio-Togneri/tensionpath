@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
@@ -67,7 +68,7 @@ class Unit {
       Unit._(
         world: world,
         power: commandPoints,
-        speed: 200,
+        speed: Constants.UNIT_SPEED,
         waypoints: lane.waypoints,
         startingPosition: waypoint.position,
       );

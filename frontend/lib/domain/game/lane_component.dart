@@ -71,7 +71,7 @@ class LaneLauncherComponent extends PositionComponent with TapCallbacks {
     required this.owner,
   }) : super(
           position: waypoint.position,
-          size: Vector2(200, 200),
+          size: Constants.NODE_SIZE,
           anchor: Anchor.center,
           priority: Priority.lanes.value,
         );
