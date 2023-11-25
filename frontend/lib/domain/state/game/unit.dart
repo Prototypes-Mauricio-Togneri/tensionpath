@@ -7,11 +7,11 @@ import 'package:tensionpath/domain/state/game/waypoint.dart';
 class Unit {
   final Player owner;
   final World world;
-  final int power;
   final double speed;
   final List<Waypoint> waypoints;
   late Vector2 position;
   late int nextWaypointIndex;
+  int power;
 
   Unit._({
     required this.owner,
@@ -52,6 +52,10 @@ class Unit {
         (nextWaypointIndex < (waypoints.length - 1))) {
       nextWaypointIndex++;
     }
+  }
+
+  void reducePower(int value) {
+    power -= value;
   }
 
   void destroy() {

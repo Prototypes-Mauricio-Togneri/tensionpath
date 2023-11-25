@@ -4,6 +4,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/lane_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -23,6 +24,8 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
           anchor: Anchor.center,
           priority: Priority.units.value,
         );
+
+  Player get owner => unit.owner;
 
   @override
   Future onLoad() async {
@@ -47,6 +50,13 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
         unit: unit,
         baseOwner: other.owner,
       );
+    } else if ((other is UnitComponent) && (other.owner != unit.owner)) {
+      if (unit.power > other.unit.power) {
+        unit.reducePower(other.unit.power);
+        refresh();
+      } else {
+        unit.destroy();
+      }
     }
 
     super.onCollisionStart(intersectionPoints, other);
