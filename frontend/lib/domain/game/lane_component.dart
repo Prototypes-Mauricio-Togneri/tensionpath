@@ -19,9 +19,6 @@ class LaneComponent extends PositionComponent {
     required this.state,
     required this.lane,
   }) : super(
-          position: Vector2(0, 0),
-          size: state.battlefield.sprite.image.size,
-          anchor: Anchor.topLeft,
           priority: Priority.lanes.value,
         );
 
