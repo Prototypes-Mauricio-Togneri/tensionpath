@@ -31,6 +31,8 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
     paint.strokeWidth = 10;
     paint.style = PaintingStyle.stroke;
 
+    print('${node.id} $position');
+
     add(CircleHitbox(
       radius: size.x / 2,
       position: size / 2,
@@ -61,7 +63,7 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     canvas.drawCircle(
-      position.toOffset(),
+      (size / 2).toOffset(),
       Constants.NODE_SIZE.x / 2,
       paint,
     );
