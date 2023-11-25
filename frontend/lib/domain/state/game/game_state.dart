@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class GameState {
   final Battlefield battlefield;
@@ -30,23 +31,26 @@ class GameState {
     node.onSelect();
   }
 
-  void onLauncherSelected(Lane lane) {
+  void onLauncherSelected(Lane lane, Waypoint waypoint) {
     debugPrint('Clicked lane: ${lane.id}');
 
     _deployUnit(
       commandPoints: Random().nextInt(10) + 1,
       lane: lane,
+      waypoint: waypoint,
     );
   }
 
   void _deployUnit({
     required int commandPoints,
     required Lane lane,
+    required Waypoint waypoint,
   }) {
     final Unit unit = Unit.create(
       world: world,
       commandPoints: commandPoints,
       lane: lane,
+      waypoint: waypoint,
     );
     world.add(UnitComponent(
       state: this,

@@ -16,8 +16,9 @@ class Unit {
     required this.speed,
     required this.waypoints,
     required this.power,
+    required Vector2 startingPosition,
   }) {
-    position = Vector2.copy(waypoints[0].position);
+    position = Vector2.copy(startingPosition);
     nextWaypointIndex = 1;
   }
 
@@ -61,11 +62,13 @@ class Unit {
     required World world,
     required int commandPoints,
     required Lane lane,
+    required Waypoint waypoint,
   }) =>
       Unit._(
         world: world,
         power: commandPoints,
         speed: 200,
         waypoints: lane.waypoints,
+        startingPosition: waypoint.position,
       );
 }

@@ -1,12 +1,14 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
+import 'package:tensionpath/domain/game/lane_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
-class UnitComponent extends SpriteComponent {
+class UnitComponent extends SpriteComponent with CollisionCallbacks {
   final GameState state;
   final Unit unit;
   LabelComponent? labelComponent;
@@ -26,7 +28,25 @@ class UnitComponent extends SpriteComponent {
   Future onLoad() async {
     refresh();
 
+    add(CircleHitbox(
+      radius: size.x / 2,
+      position: size / 2,
+      anchor: Anchor.center,
+    ));
+
     super.onLoad();
+  }
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    if (other is LaneLauncherComponent) {
+      print(other.lane.id);
+    }
+
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override
@@ -49,6 +69,7 @@ class UnitComponent extends SpriteComponent {
       size: size.x / 3,
       color: Palette.white,
     );
+
     add(labelComponent!);
   }
 }

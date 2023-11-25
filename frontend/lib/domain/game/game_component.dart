@@ -10,7 +10,7 @@ import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 
-class GameComponent extends FlameGame with PanDetector {
+class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final GameState state;
   final double aspectRatio;
   final double pixelRatio;

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -28,6 +29,7 @@ class LaneComponent extends PositionComponent {
     add(LaneLauncherComponent(
       state: state,
       lane: lane,
+      waypoint: lane.waypoints[0],
     ));
 
     return super.onLoad();
@@ -50,19 +52,32 @@ class LaneComponent extends PositionComponent {
 class LaneLauncherComponent extends PositionComponent with TapCallbacks {
   final GameState state;
   final Lane lane;
+  final Waypoint waypoint;
 
   LaneLauncherComponent({
     required this.state,
     required this.lane,
+    required this.waypoint,
   }) : super(
-          position: lane.position,
-          size: lane.size,
+          position: waypoint.position,
+          size: Vector2(200, 200),
           anchor: Anchor.topLeft,
           priority: Priority.lanes.value,
         );
 
   @override
-  void onTapUp(TapUpEvent event) => state.onLauncherSelected(lane);
+  FutureOr onLoad() {
+    add(CircleHitbox(
+      radius: size.x / 2,
+      position: size / 2,
+      anchor: Anchor.center,
+    ));
+
+    return super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) => state.onLauncherSelected(lane, waypoint);
 
   @override
   void render(Canvas canvas) {
