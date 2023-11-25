@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
@@ -34,11 +33,6 @@ class Battlefield {
         lanes: [
           Lane(
             id: 'l1',
-            area: Rect.fromCenter(
-              center: const Offset(200, 2900),
-              width: 200,
-              height: 200,
-            ),
             waypoints: [
               Waypoint(
                 id: 'w1a',
@@ -80,11 +74,6 @@ class Battlefield {
           ),
           Lane(
             id: 'l2',
-            area: Rect.fromCenter(
-              center: const Offset(500, 2900),
-              width: 200,
-              height: 200,
-            ),
             waypoints: [
               Waypoint(
                 id: 'w2a',
@@ -108,11 +97,6 @@ class Battlefield {
           ),
           Lane(
             id: 'l3',
-            area: Rect.fromCenter(
-              center: const Offset(800, 2900),
-              width: 200,
-              height: 200,
-            ),
             waypoints: [
               Waypoint(
                 id: 'w3a',
