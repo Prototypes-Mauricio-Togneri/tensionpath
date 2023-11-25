@@ -21,7 +21,7 @@ class Unit {
     required Vector2 startingPosition,
   }) {
     position = Vector2.copy(startingPosition);
-    nextWaypointIndex = 1;
+    nextWaypointIndex = 0;
   }
 
   Waypoint get nextWaypoint => waypoints[nextWaypointIndex];
