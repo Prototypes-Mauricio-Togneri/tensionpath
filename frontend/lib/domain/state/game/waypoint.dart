@@ -14,6 +14,6 @@ class Waypoint {
   });
 
   bool get hasNode => node != null;
-  
+
   bool isAligned(Unit unit) => (position - unit.position).length < 1;
 }

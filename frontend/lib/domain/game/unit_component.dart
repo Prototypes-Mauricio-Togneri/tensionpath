@@ -7,7 +7,6 @@ import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class UnitComponent extends SpriteComponent with CollisionCallbacks {
   final GameState state;
@@ -18,7 +17,7 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     required this.state,
     required this.unit,
   }) : super(
-          sprite: Sprites.UNIT,
+          sprite: unit.sprite,
           size: Constants.NODE_SIZE,
           position: unit.position,
           anchor: Anchor.center,

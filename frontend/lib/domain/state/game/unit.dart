@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
+import 'package:tensionpath/utils/sprites.dart';
 
 class Unit {
   final String owner;
@@ -23,6 +24,9 @@ class Unit {
     position = Vector2.copy(startingPosition);
     nextWaypointIndex = 0;
   }
+
+  Sprite get sprite =>
+      (owner == Constants.PLAYER_SELF) ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
 
   Waypoint get nextWaypoint => waypoints[nextWaypointIndex];
 
