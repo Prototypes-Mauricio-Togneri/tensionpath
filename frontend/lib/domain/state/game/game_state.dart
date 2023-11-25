@@ -41,6 +41,14 @@ class GameState {
     );
   }
 
+  void onUnitCollidedWithBase({
+    required Unit unit,
+    required String baseOwner,
+  }) {
+    unit.destroy();
+    print('Base of $baseOwner got hit by ${unit.power}');
+  }
+
   void _deployUnit({
     required int commandPoints,
     required Lane lane,

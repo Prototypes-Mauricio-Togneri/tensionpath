@@ -45,7 +45,7 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
   ) {
     if ((other is LaneLauncherComponent) &&
         (other.owner == Constants.PLAYER_ENEMY)) {
-      print('Collided with enemy base ${other.lane.id}');
+      state.onUnitCollidedWithBase(unit: unit, baseOwner: other.owner);
     }
 
     super.onCollisionStart(intersectionPoints, other);
