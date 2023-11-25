@@ -43,9 +43,11 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is LaneLauncherComponent) &&
-        (other.owner == Constants.PLAYER_ENEMY)) {
-      state.onUnitCollidedWithBase(unit: unit, baseOwner: other.owner);
+    if ((other is LaneLauncherComponent) && (other.owner != unit.owner)) {
+      state.onUnitCollidedWithBase(
+        unit: unit,
+        baseOwner: other.owner,
+      );
     }
 
     super.onCollisionStart(intersectionPoints, other);
