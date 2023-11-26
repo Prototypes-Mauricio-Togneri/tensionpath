@@ -50,12 +50,18 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
         unit: unit,
         baseOwner: other.owner,
       );
-    } else if ((other is UnitComponent) && (other.owner != unit.owner)) {
+    } else if ((other is UnitComponent) &&
+        unit.owner.isSelf &&
+        other.unit.owner.isEnemy) {
       if (unit.power > other.unit.power) {
         unit.reducePower(other.unit.power);
-        refresh();
+        other.unit.destroy();
+      } else if (unit.power < other.unit.power) {
+        other.unit.reducePower(unit.power);
+        unit.destroy();
       } else {
         unit.destroy();
+        other.unit.destroy();
       }
     }
 

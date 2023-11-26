@@ -56,6 +56,7 @@ class Unit {
 
   void reducePower(int value) {
     power -= value;
+    component.refresh();
   }
 
   void destroy() {
