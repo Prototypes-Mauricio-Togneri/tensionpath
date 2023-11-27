@@ -6,16 +6,18 @@ import 'package:tensionpath/utils/sprites.dart';
 
 class Player {
   final String id;
-  double commandPoints = 0;
-  double commandPointsExtraRatio = 0;
+  double _commandPoints = 0;
+  double _commandPointsExtraRatio = 0;
 
   static final Player SELF = Player._(Constants.PLAYER_SELF);
   static final Player ENEMY = Player._(Constants.PLAYER_ENEMY);
 
   Player._(this.id);
 
+  double get commandPoints => _commandPoints;
+
   double get commandPointsRatio =>
-      Constants.COMMAND_POINTS_RATIO + commandPointsExtraRatio;
+      Constants.COMMAND_POINTS_RATIO + _commandPointsExtraRatio;
 
   bool get isSelf => id == Constants.PLAYER_SELF;
 
@@ -24,6 +26,15 @@ class Player {
   Color get color => isSelf ? Palette.blue : Palette.red;
 
   Sprite get unitSprite => isSelf ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
+
+  void update(double dt) {
+    _commandPoints += commandPointsRatio * dt;
+    //print('$id $_commandPoints $commandPointsRatio');
+  }
+
+  void updateCommandPointsExtraRatio(double value) {
+    _commandPointsExtraRatio += Constants.COMMAND_POINTS_EXTRA_RATIO;
+  }
 
   @override
   bool operator ==(Object other) => other is Player && (id == other.id);

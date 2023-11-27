@@ -29,8 +29,8 @@ class GameState {
   }
 
   void update(double dt) {
-    self.commandPoints += self.commandPointsRatio * dt;
-    print('${self.commandPoints} ${self.commandPointsRatio}');
+    self.update(dt);
+    enemy.update(dt);
   }
 
   void onCommandPointsSelected(int amount) {
@@ -61,13 +61,10 @@ class GameState {
     required Player newOwner,
   }) {
     if (node.type == NodeType.cp_generator) {
-      if (newOwner.isSelf) {
-        self.commandPointsExtraRatio += Constants.COMMAND_POINTS_EXTRA_RATIO;
-      }
-
-      if (previousOwner?.isSelf ?? false) {
-        self.commandPointsExtraRatio -= Constants.COMMAND_POINTS_EXTRA_RATIO;
-      }
+      newOwner
+          .updateCommandPointsExtraRatio(Constants.COMMAND_POINTS_EXTRA_RATIO);
+      previousOwner?.updateCommandPointsExtraRatio(
+          -Constants.COMMAND_POINTS_EXTRA_RATIO);
     }
   }
 
