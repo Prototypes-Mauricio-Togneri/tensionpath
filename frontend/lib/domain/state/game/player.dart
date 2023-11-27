@@ -29,11 +29,10 @@ class Player {
 
   void update(double dt) {
     _commandPoints += commandPointsRatio * dt;
-    //print('$id $_commandPoints $commandPointsRatio');
   }
 
   void updateCommandPointsExtraRatio(double value) {
-    _commandPointsExtraRatio += Constants.COMMAND_POINTS_EXTRA_RATIO;
+    _commandPointsExtraRatio += value;
   }
 
   @override
