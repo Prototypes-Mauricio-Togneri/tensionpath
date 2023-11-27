@@ -84,6 +84,24 @@ class GameState {
     }
   }
 
+  void destroyUnit(Unit unit) {
+    final UnitComponent component = getUnitComponent(unit);
+    world.remove(component);
+  }
+
+  UnitComponent getUnitComponent(Unit unit) {
+    final List<UnitComponent> unitComponents =
+        world.children.query<UnitComponent>();
+
+    for (final UnitComponent component in unitComponents) {
+      if (component.unit == unit) {
+        return component;
+      }
+    }
+
+    throw Exception('Associated component not found');
+  }
+
   void _onNodeCommandPointGeneratorCaptured({
     required Node node,
     required Player? previousOwner,
@@ -107,8 +125,8 @@ class GameState {
     required List<Waypoint> waypoints,
   }) {
     final Unit unit = Unit.create(
+      state: this,
       owner: owner,
-      world: world,
       power: power,
       waypoints: waypoints,
     );

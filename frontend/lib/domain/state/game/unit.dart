@@ -1,12 +1,13 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/updatable.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
-class Unit {
+class Unit with Updatable {
+  final GameState state;
   final Player owner;
-  final World world;
   final double speed;
   final List<Waypoint> waypoints;
   late Vector2 position;
@@ -14,8 +15,8 @@ class Unit {
   int power;
 
   Unit._({
+    required this.state,
     required this.owner,
-    required this.world,
     required this.power,
     required this.speed,
     required this.waypoints,
@@ -28,19 +29,6 @@ class Unit {
   Sprite get sprite => owner.unitSprite;
 
   Waypoint get nextWaypoint => waypoints[nextWaypointIndex];
-
-  UnitComponent get component {
-    final List<UnitComponent> unitComponents =
-        world.children.query<UnitComponent>();
-
-    for (final UnitComponent component in unitComponents) {
-      if (component.unit == this) {
-        return component;
-      }
-    }
-
-    throw Exception('Associated component not found');
-  }
 
   void update(double dt) {
     position.moveToTarget(nextWaypoint.position, speed * dt);
@@ -56,22 +44,22 @@ class Unit {
 
   void reducePower(int value) {
     power -= value;
-    component.refresh();
+    setUpdate();
   }
 
   void destroy() {
-    world.remove(component);
+    state.destroyUnit(this);
   }
 
   factory Unit.create({
+    required GameState state,
     required Player owner,
-    required World world,
     required int power,
     required List<Waypoint> waypoints,
   }) =>
       Unit._(
+        state: state,
         owner: owner,
-        world: world,
         power: power,
         speed: Constants.UNIT_SPEED,
         startingPosition: waypoints.first.position,
