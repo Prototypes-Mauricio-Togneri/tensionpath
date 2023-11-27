@@ -10,7 +10,7 @@ class Constants {
   static const double COMMAND_POINTS_RATIO = 1;
   static const double COMMAND_POINTS_EXTRA_RATIO = 0.5;
 
-  static const double NODE_COMMAND_POINTS_RATIO = 0.1;
+  static const double NODE_COMMAND_POINTS_RATIO = 0.3; //0.1;
 
   static const String PLAYER_SELF = 'self';
   static const String PLAYER_ENEMY = 'enemy';

@@ -5,6 +5,5 @@ enum NodeType {
   unit_generator,
   checkpoint;
 
-  bool get canAccumulate =>
-      (this == command_point_generator) || (this == unit_generator);
+  bool get canAccumulate => (this == chest) || (this == unit_generator);
 }

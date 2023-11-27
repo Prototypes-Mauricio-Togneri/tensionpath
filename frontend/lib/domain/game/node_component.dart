@@ -88,7 +88,7 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       paint,
     );
 
-    if (node.type == NodeType.chest) {
+    if (node.type.canAccumulate) {
       const textStyle = TextStyle(
         color: Colors.white,
         fontSize: 30,

@@ -33,7 +33,10 @@ class Node {
 
   void update(double dt) {
     if (type.canAccumulate) {
-      _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
+      if ((type == NodeType.chest) ||
+          ((_owner != null) && (type == NodeType.unit_generator))) {
+        _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
+      }
 
       if ((_owner != null) &&
           (type == NodeType.unit_generator) &&
