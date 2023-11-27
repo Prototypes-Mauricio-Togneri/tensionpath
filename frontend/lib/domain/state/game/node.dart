@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 
@@ -7,6 +8,7 @@ class Node {
   final String id;
   final Vector2 position;
   final NodeType type;
+  late World world;
   Player? _owner;
   double _commandPointsAccumulated = 0;
 
@@ -20,6 +22,23 @@ class Node {
 
   double get commandPointsAccumulated =>
       _commandPointsAccumulated.floorToDouble();
+
+  NodeComponent get component {
+    final List<NodeComponent> unitComponents =
+        world.children.query<NodeComponent>();
+
+    for (final NodeComponent component in unitComponents) {
+      if (component.node == this) {
+        return component;
+      }
+    }
+
+    throw Exception('Associated component not found');
+  }
+
+  void setWorld(World newWorld) {
+    world = newWorld;
+  }
 
   void setOwner(Player player) {
     _owner = player;

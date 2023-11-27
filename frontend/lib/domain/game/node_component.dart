@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -86,5 +87,26 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       Constants.NODE_SIZE.x / 2,
       paint,
     );
+
+    if (node.type == NodeType.chest) {
+      const textStyle = TextStyle(
+        color: Colors.white,
+        fontSize: 30,
+      );
+      final textSpan = TextSpan(
+        text: node.commandPointsAccumulated.toString(),
+        style: textStyle,
+      );
+      final textPainter = TextPainter(
+        text: textSpan,
+        textDirection: TextDirection.ltr,
+      );
+      textPainter.layout(
+        minWidth: 0,
+        maxWidth: 100,
+      );
+      final offset = (size / 2).toOffset();
+      textPainter.paint(canvas, Offset(offset.dx - 10, offset.dy + 20));
+    }
   }
 }

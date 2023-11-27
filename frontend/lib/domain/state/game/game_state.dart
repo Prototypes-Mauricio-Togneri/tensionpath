@@ -26,6 +26,7 @@ class GameState {
 
   void setWorld(World newWorld) {
     world = newWorld;
+    battlefield.nodes.forEach((node) => node.setWorld(newWorld));
   }
 
   void update(double dt) {
