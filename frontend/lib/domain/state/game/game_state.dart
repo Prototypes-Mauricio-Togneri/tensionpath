@@ -84,7 +84,7 @@ class GameState {
   }) {
     switch (node.type) {
       case NodeType.victory:
-      // TODO: Handle this case.
+      // TODO(momo): Handle this case.
       case NodeType.chest:
         _onNodeChestCaptured(
           node: node,
@@ -96,10 +96,10 @@ class GameState {
           previousOwner: previousOwner,
           newOwner: newOwner,
         );
-      case NodeType.unit_generator:
-      // TODO: Handle this case.
       case NodeType.checkpoint:
-      // TODO: Handle this case.
+      // TODO(momo): Handle this case.
+      case NodeType.unit_generator:
+      // ignore
     }
   }
 

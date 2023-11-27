@@ -25,10 +25,12 @@ class Lane {
     required Node node,
     required bool forward,
   }) {
+    final List<Waypoint> list =
+        forward ? waypoints : waypoints.reversed.toList();
     final List<Waypoint> result = [];
     bool found = false;
 
-    for (final Waypoint waypoint in waypoints) {
+    for (final Waypoint waypoint in list) {
       if (waypoint.node == node) {
         found = true;
       }
@@ -38,10 +40,6 @@ class Lane {
       }
     }
 
-    if (forward) {
-      return result;
-    } else {
-      return result.reversed.toList();
-    }
+    return result;
   }
 }
