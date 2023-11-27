@@ -32,11 +32,19 @@ class Node {
   }
 
   void update(double dt) {
-    _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
+    if (type.canAccumulate) {
+      _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
 
-    if ((type == NodeType.unit_generator) && (_commandPointsAccumulated >= 1)) {
-      _commandPointsAccumulated -= 1;
-      // TODO(momo): launch unit
+      if ((_owner != null) &&
+          (type == NodeType.unit_generator) &&
+          (_commandPointsAccumulated >= 1)) {
+        _commandPointsAccumulated -= 1;
+        state.onNodeSpawnUnit(
+          node: this,
+          owner: owner!,
+          power: 1,
+        );
+      }
     }
   }
 }

@@ -28,6 +28,18 @@ class Battlefield {
     }
   }
 
+  Lane laneOf(Node node) {
+    for (final Lane lane in lanes) {
+      for (final Waypoint waypoint in lane.waypoints) {
+        if (waypoint.node == node) {
+          return lane;
+        }
+      }
+    }
+
+    throw Exception('Lane not found for node: ${node.id}');
+  }
+
   factory Battlefield.test() => Battlefield(
         id: 'test',
         sprite: Sprites.BATTLEFIELD,

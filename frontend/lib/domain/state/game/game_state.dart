@@ -52,6 +52,23 @@ class GameState {
     );
   }
 
+  void onNodeSpawnUnit({
+    required Node node,
+    required Player owner,
+    required int power,
+  }) {
+    final Lane lane = battlefield.laneOf(node);
+
+    _deployUnit(
+      owner: owner,
+      power: power,
+      waypoints: lane.getWaypointsFrom(
+        node: node,
+        forward: owner.isSelf,
+      ),
+    );
+  }
+
   void onUnitCollidedWithBase({
     required Unit unit,
     required Player baseOwner,

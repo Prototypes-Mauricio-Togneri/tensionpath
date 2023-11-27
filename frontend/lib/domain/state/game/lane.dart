@@ -20,4 +20,28 @@ class Lane {
       return waypoints.reversed.toList();
     }
   }
+
+  List<Waypoint> getWaypointsFrom({
+    required Node node,
+    required bool forward,
+  }) {
+    final List<Waypoint> result = [];
+    bool found = false;
+
+    for (final Waypoint waypoint in waypoints) {
+      if (waypoint.node == node) {
+        found = true;
+      }
+
+      if (found) {
+        result.add(waypoint);
+      }
+    }
+
+    if (forward) {
+      return result;
+    } else {
+      return result.reversed.toList();
+    }
+  }
 }
