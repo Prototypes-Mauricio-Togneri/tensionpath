@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -22,11 +23,12 @@ class GameState {
     required this.self,
     required this.enemy,
     required this.battlefield,
-  });
+  }) {
+    battlefield.nodes.forEach((node) => node.setGameState(this));
+  }
 
   void setWorld(World newWorld) {
     world = newWorld;
-    battlefield.nodes.forEach((node) => node.setWorld(newWorld));
   }
 
   void update(double dt) {
@@ -95,6 +97,19 @@ class GameState {
 
     for (final UnitComponent component in unitComponents) {
       if (component.unit == unit) {
+        return component;
+      }
+    }
+
+    throw Exception('Associated component not found');
+  }
+
+  NodeComponent getNodeComponent(Node node) {
+    final List<NodeComponent> unitComponents =
+        world.children.query<NodeComponent>();
+
+    for (final NodeComponent component in unitComponents) {
+      if (component.node == node) {
         return component;
       }
     }
