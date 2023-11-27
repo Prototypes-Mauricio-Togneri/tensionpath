@@ -1,7 +1,7 @@
 enum NodeType {
   victory,
   chest,
-  cp_generator,
+  command_point_generator,
   unit_generator,
   checkpoint,
 }

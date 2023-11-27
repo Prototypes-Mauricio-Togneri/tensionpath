@@ -68,7 +68,7 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       final Player? previousOwner = node.owner;
       final Player newOwner = unit.owner;
 
-      node.owner = newOwner;
+      node.setOwner(newOwner);
       paint.color = newOwner.color;
 
       state.onNodeCaptured(

@@ -31,6 +31,8 @@ class GameState {
   void update(double dt) {
     self.update(dt);
     enemy.update(dt);
+
+    battlefield.nodes.forEach((node) => node.update(dt));
   }
 
   void onCommandPointsSelected(int amount) {
@@ -60,12 +62,43 @@ class GameState {
     required Player? previousOwner,
     required Player newOwner,
   }) {
-    if (node.type == NodeType.cp_generator) {
-      newOwner
-          .updateCommandPointsExtraRatio(Constants.COMMAND_POINTS_EXTRA_RATIO);
-      previousOwner?.updateCommandPointsExtraRatio(
-          -Constants.COMMAND_POINTS_EXTRA_RATIO);
+    switch (node.type) {
+      case NodeType.victory:
+      // TODO: Handle this case.
+      case NodeType.chest:
+        _onNodeChestCaptured(
+          node: node,
+          newOwner: newOwner,
+        );
+      case NodeType.command_point_generator:
+        _onNodeCommandPointGeneratorCaptured(
+          node: node,
+          previousOwner: previousOwner,
+          newOwner: newOwner,
+        );
+      case NodeType.unit_generator:
+      // TODO: Handle this case.
+      case NodeType.checkpoint:
+      // TODO: Handle this case.
     }
+  }
+
+  void _onNodeCommandPointGeneratorCaptured({
+    required Node node,
+    required Player? previousOwner,
+    required Player newOwner,
+  }) {
+    newOwner
+        .updateCommandPointsExtraRatio(Constants.COMMAND_POINTS_EXTRA_RATIO);
+    previousOwner
+        ?.updateCommandPointsExtraRatio(-Constants.COMMAND_POINTS_EXTRA_RATIO);
+  }
+
+  void _onNodeChestCaptured({
+    required Node node,
+    required Player newOwner,
+  }) {
+    newOwner.addCommandPoints(node.commandPointsAccumulated);
   }
 
   void _deployUnit({

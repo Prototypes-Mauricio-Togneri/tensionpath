@@ -35,6 +35,10 @@ class Player {
     _commandPointsExtraRatio += value;
   }
 
+  void addCommandPoints(double value) {
+    _commandPoints += value;
+  }
+
   @override
   bool operator ==(Object other) => other is Player && (id == other.id);
 
