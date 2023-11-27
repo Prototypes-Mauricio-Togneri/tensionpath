@@ -6,8 +6,16 @@ import 'package:tensionpath/utils/sprites.dart';
 
 class Player {
   final String id;
+  double commandPoints = 0;
+  double commandPointsExtraRatio = 0;
 
-  const Player._(this.id);
+  static final Player SELF = Player._(Constants.PLAYER_SELF);
+  static final Player ENEMY = Player._(Constants.PLAYER_ENEMY);
+
+  Player._(this.id);
+
+  double get commandPointsRatio =>
+      Constants.COMMAND_POINTS_RATIO + commandPointsExtraRatio;
 
   bool get isSelf => id == Constants.PLAYER_SELF;
 
@@ -16,10 +24,6 @@ class Player {
   Color get color => isSelf ? Palette.blue : Palette.red;
 
   Sprite get unitSprite => isSelf ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
-
-  factory Player.self() => const Player._(Constants.PLAYER_SELF);
-
-  factory Player.enemy() => const Player._(Constants.PLAYER_ENEMY);
 
   @override
   bool operator ==(Object other) => other is Player && (id == other.id);

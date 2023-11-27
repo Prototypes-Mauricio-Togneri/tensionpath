@@ -29,14 +29,14 @@ class LaneComponent extends PositionComponent {
       state: state,
       lane: lane,
       waypoint: lane.waypoints.first,
-      owner: Player.self(),
+      owner: Player.SELF,
     ));
 
     add(LaneLauncherComponent(
       state: state,
       lane: lane,
       waypoint: lane.waypoints.last,
-      owner: Player.enemy(),
+      owner: Player.ENEMY,
     ));
 
     return super.onLoad();

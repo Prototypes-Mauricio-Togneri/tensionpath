@@ -66,6 +66,13 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
   @override
   Color backgroundColor() => Colors.black;
+
+  @override
+  void update(double dt) {
+    state.update(dt);
+
+    super.update(dt);
+  }
 }
 
 class GameWorld extends World {

@@ -8,13 +8,13 @@ import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent extends PositionComponent with CollisionCallbacks {
   final GameState state;
   final Node node;
-  Player? owner;
   Paint paint = Paint();
 
   NodeComponent({
@@ -56,12 +56,27 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       final double distance = other.unit.position.distanceTo(position);
 
       if (distance < 3) {
-        owner = other.unit.owner;
-        paint.color = owner!.color;
+        _captureNode(other.unit);
       }
     }
 
     super.onCollision(intersectionPoints, other);
+  }
+
+  void _captureNode(Unit unit) {
+    if (node.owner != unit.owner) {
+      final Player? previousOwner = node.owner;
+      final Player newOwner = unit.owner;
+
+      node.owner = newOwner;
+      paint.color = newOwner.color;
+
+      state.onNodeCaptured(
+        node: node,
+        previousOwner: previousOwner,
+        newOwner: newOwner,
+      );
+    }
   }
 
   @override

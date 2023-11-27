@@ -1,24 +1,36 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 
 class GameState {
+  final Player self;
+  final Player enemy;
   final Battlefield battlefield;
   late final World world;
   int commandPointsSelected = 0;
 
   GameState({
+    required this.self,
+    required this.enemy,
     required this.battlefield,
   });
 
   void setWorld(World newWorld) {
     world = newWorld;
+  }
+
+  void update(double dt) {
+    self.commandPoints += self.commandPointsRatio * dt;
+    print('${self.commandPoints} ${self.commandPointsRatio}');
   }
 
   void onCommandPointsSelected(int amount) {
@@ -41,6 +53,22 @@ class GameState {
   }) {
     unit.destroy();
     debugPrint('Base of ${baseOwner.id} got hit by ${unit.power}');
+  }
+
+  void onNodeCaptured({
+    required Node node,
+    required Player? previousOwner,
+    required Player newOwner,
+  }) {
+    if (node.type == NodeType.cp_generator) {
+      if (newOwner.isSelf) {
+        self.commandPointsExtraRatio += Constants.COMMAND_POINTS_EXTRA_RATIO;
+      }
+
+      if (previousOwner?.isSelf ?? false) {
+        self.commandPointsExtraRatio -= Constants.COMMAND_POINTS_EXTRA_RATIO;
+      }
+    }
   }
 
   void _deployUnit({
