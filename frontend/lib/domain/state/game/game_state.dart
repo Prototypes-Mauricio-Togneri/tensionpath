@@ -88,10 +88,9 @@ class GameState {
     required Player? previousOwner,
     required Player newOwner,
   }) {
-    newOwner
-        .updateCommandPointsExtraRatio(Constants.COMMAND_POINTS_EXTRA_RATIO);
-    previousOwner
-        ?.updateCommandPointsExtraRatio(-Constants.COMMAND_POINTS_EXTRA_RATIO);
+    const double extra = Constants.COMMAND_POINTS_EXTRA_RATIO;
+    newOwner.addCommandPointsExtraRatio(extra);
+    previousOwner?.removeCommandPointsExtraRatio(extra);
   }
 
   void _onNodeChestCaptured({

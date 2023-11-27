@@ -31,8 +31,12 @@ class Player {
     _commandPoints += commandPointsRatio * dt;
   }
 
-  void updateCommandPointsExtraRatio(double value) {
+  void addCommandPointsExtraRatio(double value) {
     _commandPointsExtraRatio += value;
+  }
+
+  void removeCommandPointsExtraRatio(double value) {
+    _commandPointsExtraRatio -= value;
   }
 
   void addCommandPoints(double value) {
