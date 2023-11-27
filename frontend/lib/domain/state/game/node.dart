@@ -46,5 +46,10 @@ class Node {
 
   void update(double dt) {
     _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
+
+    if ((type == NodeType.unit_generator) && (_commandPointsAccumulated >= 1)) {
+      _commandPointsAccumulated -= 1;
+      // TODO(momo): launch unit
+    }
   }
 }

@@ -60,8 +60,8 @@ class GameState {
 
   void onNodeCaptured({
     required Node node,
-    required Player? previousOwner,
     required Player newOwner,
+    required Player? previousOwner,
   }) {
     switch (node.type) {
       case NodeType.victory:

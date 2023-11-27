@@ -74,8 +74,8 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
 
       state.onNodeCaptured(
         node: node,
-        previousOwner: previousOwner,
         newOwner: newOwner,
+        previousOwner: previousOwner,
       );
     }
   }
