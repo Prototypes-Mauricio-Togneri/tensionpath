@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
@@ -37,6 +38,13 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
       position: size / 2,
       anchor: Anchor.center,
       isSolid: true,
+    ));
+
+    add(LabelComponent(
+      text: node.type.name,
+      position: size / 2,
+      size: size.x / 8,
+      color: Palette.white,
     ));
 
     super.onLoad();

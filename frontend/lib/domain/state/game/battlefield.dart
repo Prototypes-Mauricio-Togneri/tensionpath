@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class Battlefield {
@@ -50,6 +51,7 @@ class Battlefield {
                 node: Node(
                   id: 'n1c',
                   position: Vector2(800, 2050),
+                  type: NodeType.checkpoint,
                 ),
               ),
               Waypoint(
@@ -58,6 +60,7 @@ class Battlefield {
                 node: Node(
                   id: 'n1d',
                   position: Vector2(800, 950),
+                  type: NodeType.chest,
                 ),
               ),
               Waypoint(
@@ -86,6 +89,7 @@ class Battlefield {
                 node: Node(
                   id: 'n2b',
                   position: Vector2(500, 1500),
+                  type: NodeType.victory,
                 ),
               ),
               Waypoint(
@@ -114,6 +118,7 @@ class Battlefield {
                 node: Node(
                   id: 'n3c',
                   position: Vector2(200, 2050),
+                  type: NodeType.cp_generator,
                 ),
               ),
               Waypoint(
@@ -122,6 +127,7 @@ class Battlefield {
                 node: Node(
                   id: 'n3d',
                   position: Vector2(200, 950),
+                  type: NodeType.unit_generator,
                 ),
               ),
               Waypoint(
