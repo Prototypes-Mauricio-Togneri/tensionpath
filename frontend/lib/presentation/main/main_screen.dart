@@ -105,27 +105,30 @@ class DeployButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        decoration: BoxDecoration(
-          color: Palette.orange,
-          border: Border.all(
-            color: selected ? Palette.red : Palette.orange,
-            width: 3,
-          ),
+    return Container(
+      width: 30,
+      height: 30,
+      margin: const EdgeInsets.symmetric(horizontal: 2),
+      decoration: BoxDecoration(
+        color: Palette.orange,
+        borderRadius: const BorderRadius.all(Radius.circular(200)),
+        border: Border.all(
+          color: selected ? Palette.red : Palette.orange,
+          width: 3,
         ),
-        height: 35,
-        child: Material(
-          color: Palette.transparent,
-          child: InkWell(
-            onTap: onPressed,
-            child: Center(
-              child: Label(
-                text: value.toString(),
-                color: Palette.white,
-                size: 20,
-              ),
+      ),
+      child: Material(
+        color: Palette.transparent,
+        borderRadius: const BorderRadius.all(Radius.circular(200)),
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(200)),
+          onTap: onPressed,
+          child: Center(
+            child: Label(
+              text: value.toString(),
+              color: Palette.white,
+              weight: FontWeight.bold,
+              size: 16,
             ),
           ),
         ),
