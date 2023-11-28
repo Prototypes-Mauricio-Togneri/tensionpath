@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -68,7 +69,7 @@ class NodeComponent extends PositionComponent
 
   @override
   void onTapUp(TapUpEvent event) {
-    if (node.hasOwner) {
+    if ((node.type == NodeType.checkpoint) && node.hasOwner) {
       state.onNodeSpawnUnit(
         node: node,
         power: Random().nextInt(10) + 1,
