@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
@@ -12,7 +14,8 @@ import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodeComponent extends PositionComponent with CollisionCallbacks {
+class NodeComponent extends PositionComponent
+    with CollisionCallbacks, TapCallbacks {
   final GameState state;
   final Node node;
   Paint paint = Paint();
@@ -61,6 +64,16 @@ class NodeComponent extends PositionComponent with CollisionCallbacks {
     }
 
     super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    if (node.hasOwner) {
+      state.onNodeSpawnUnit(
+        node: node,
+        power: Random().nextInt(10) + 1,
+      );
+    }
   }
 
   void _captureNode(Unit unit) {

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/app/constants.dart';
@@ -42,29 +41,32 @@ class GameState {
     commandPointsSelected = amount;
   }
 
-  void onLauncherSelected(Lane lane, Player owner) {
+  void onLauncherSelected({
+    required Lane lane,
+    required Player owner,
+    required int power,
+  }) {
     debugPrint('Clicked lane: ${lane.id}');
 
     _deployUnit(
       owner: owner,
-      power: Random().nextInt(10) + 1,
+      power: power,
       waypoints: lane.getWaypoints(owner.isSelf),
     );
   }
 
   void onNodeSpawnUnit({
     required Node node,
-    required Player owner,
     required int power,
   }) {
     final Lane lane = battlefield.laneOf(node);
 
     _deployUnit(
-      owner: owner,
+      owner: node.owner!,
       power: power,
       waypoints: lane.getWaypointsFrom(
         node: node,
-        forward: owner.isSelf,
+        forward: node.owner!.isSelf,
       ),
     );
   }
@@ -97,7 +99,6 @@ class GameState {
           newOwner: newOwner,
         );
       case NodeType.checkpoint:
-      // TODO(momo): Handle this case.
       case NodeType.unit_generator:
       // ignore
     }

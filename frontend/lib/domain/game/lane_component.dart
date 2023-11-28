@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -87,7 +88,11 @@ class LaneLauncherComponent extends PositionComponent with TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent event) {
-    state.onLauncherSelected(lane, owner);
+    state.onLauncherSelected(
+      lane: lane,
+      owner: owner,
+      power: Random().nextInt(10) + 1,
+    );
   }
 
   @override

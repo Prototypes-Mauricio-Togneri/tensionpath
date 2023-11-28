@@ -18,6 +18,8 @@ class Node {
     required this.type,
   });
 
+  bool get hasOwner => _owner != null;
+
   Player? get owner => _owner;
 
   double get commandPointsAccumulated =>
@@ -44,7 +46,6 @@ class Node {
         _commandPointsAccumulated -= 1;
         state.onNodeSpawnUnit(
           node: this,
-          owner: owner!,
           power: 1,
         );
       }
