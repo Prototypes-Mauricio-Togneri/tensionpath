@@ -3,17 +3,17 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"main.dart.js": "2839a9fddb4fca80f316df1c055382c8",
+const RESOURCES = {"main.dart.js": "cf6f21f0b527739cc35afb79679b43cf",
 "assets/NOTICES": "2cf8f52c2678c9e85694f3516ea5b0f9",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
-"assets/assets/images/battlefield.jpg": "92ae944261f0fa9933fd703c71a5c041",
-"assets/assets/images/unit.png": "30ccdd5b03c82de5007e40864a16bc41",
-"assets/assets/images/node.png": "91a5084902f01feec3edf386842604f7",
+"assets/assets/images/battlefield.jpg": "b36b3b3879fe239f4dfe67e3d1f8a786",
+"assets/assets/images/unit_self.png": "7a64b6da885444989d4fcf2ff6cfecd4",
+"assets/assets/images/unit_enemy.png": "46015031581fd02015ed385590344979",
 "assets/fonts/MaterialIcons-Regular.otf": "32fce58e2acb9c420eab0fe7b828b761",
 "assets/shaders/ink_sparkle.frag": "4096b5150bac93c41cbc9b45276bd90f",
-"assets/AssetManifest.bin": "a00e97ac4189085b65a4d1f0d35c2852",
-"assets/AssetManifest.json": "0e59b8650f5baebe11d12de92a09a2bb",
-"assets/AssetManifest.bin.json": "aae42e16483d647ad9fa383c593421d8",
+"assets/AssetManifest.bin": "549fe86dcd28aeae624cc8b99cbd2f63",
+"assets/AssetManifest.json": "d6bcb40d43ec771913104d61792c8af3",
+"assets/AssetManifest.bin.json": "3b0a4d42112c105dd80d1301ba8f45a0",
 "manifest.json": "74c32056085cdb35db58d9f620d1a39e",
 "canvaskit/canvaskit.wasm": "64edb91684bdb3b879812ba2e48dd487",
 "canvaskit/skwasm.js": "87063acf45c5e1ab9565dcf06b0c18b8",
@@ -26,8 +26,8 @@ const RESOURCES = {"main.dart.js": "2839a9fddb4fca80f316df1c055382c8",
 "firebase-messaging-sw.js": "3ec9c9df6895090b45a98525f0b3c564",
 "favicon.ico": "7d5e71d98847316dae878429e3334569",
 "version.json": "3ad0174b52ec3d255487c16af4957e57",
-"index.html": "50b63a9af0cbb8684ce5c284f3e0113e",
-"/": "50b63a9af0cbb8684ce5c284f3e0113e"};
+"index.html": "e3d79bc9966fa95b7a9ad23a6e8fd348",
+"/": "e3d79bc9966fa95b7a9ad23a6e8fd348"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
