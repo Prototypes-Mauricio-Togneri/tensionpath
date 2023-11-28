@@ -31,6 +31,7 @@ class Node {
 
   void setOwner(Player player) {
     _owner = player;
+    _commandPointsAccumulated = 0;
   }
 
   void update(double dt) {
