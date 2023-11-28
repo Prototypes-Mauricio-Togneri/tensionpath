@@ -41,13 +41,11 @@ class GameState {
     commandPointsSelected = amount;
   }
 
-  void onLauncherSelected({
+  void onLaneSpawnUnit({
     required Lane lane,
     required Player owner,
     required int power,
   }) {
-    debugPrint('Clicked lane: ${lane.id}');
-
     _deployUnit(
       owner: owner,
       power: power,
