@@ -13,17 +13,18 @@ import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
+import 'package:tensionpath/utils/sprites.dart';
 
-class NodeComponent extends PositionComponent
+class NodeComponent extends SpriteComponent
     with CollisionCallbacks, TapCallbacks {
   final GameState state;
   final Node node;
-  Paint paint = Paint();
 
   NodeComponent({
     required this.state,
     required this.node,
   }) : super(
+          sprite: Sprites.NODE_NEUTRAL,
           size: Constants.NODE_SIZE,
           position: node.position,
           anchor: Anchor.center,
@@ -32,10 +33,6 @@ class NodeComponent extends PositionComponent
 
   @override
   Future onLoad() async {
-    paint.color = Palette.grey;
-    paint.strokeWidth = 10;
-    paint.style = PaintingStyle.stroke;
-
     add(CircleHitbox(
       radius: size.x / 2,
       position: size / 2,
@@ -82,7 +79,12 @@ class NodeComponent extends PositionComponent
       final Player newOwner = unit.owner;
 
       node.setOwner(newOwner);
-      paint.color = newOwner.color;
+
+      if (newOwner.isEnemy) {
+        sprite = Sprites.NODE_ENEMY;
+      } else if (newOwner.isSelf) {
+        sprite = Sprites.NODE_SELF;
+      }
 
       if (node.type.isVictory) {
         state.onNodeVictoryCaptured(node);
@@ -103,11 +105,7 @@ class NodeComponent extends PositionComponent
 
   @override
   void render(Canvas canvas) {
-    canvas.drawCircle(
-      (size / 2).toOffset(),
-      Constants.NODE_SIZE.x / 2,
-      paint,
-    );
+    super.render(canvas);
 
     if (node.type.canAccumulate) {
       const textStyle = TextStyle(

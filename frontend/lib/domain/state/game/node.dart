@@ -16,7 +16,10 @@ class Node {
     required this.id,
     required this.position,
     required this.type,
-  });
+    Player? owner,
+  }) {
+    _owner = owner;
+  }
 
   bool get hasOwner => _owner != null;
 

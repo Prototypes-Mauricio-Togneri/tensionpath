@@ -1,9 +1,12 @@
 enum NodeType {
+  launcher,
   victory,
   chest,
   command_points_generator,
   unit_generator,
   checkpoint;
+
+  bool get isLauncher => this == launcher;
 
   bool get isVictory => this == victory;
 
