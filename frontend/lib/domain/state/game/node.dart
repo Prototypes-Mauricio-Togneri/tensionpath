@@ -3,6 +3,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/utils/sprites.dart';
 
 class Node {
   final String id;
@@ -19,6 +20,28 @@ class Node {
     Player? owner,
   }) {
     _owner = owner;
+  }
+
+  Sprite get sprite {
+    if (_owner == null) {
+      return Sprites.NODE_NEUTRAL;
+    } else {
+      if (type.isLauncher) {
+        if (owner!.isEnemy) {
+          return Sprites.LAUNCHER_ENEMY;
+        } else if (owner!.isSelf) {
+          return Sprites.LAUNCHER_SELF;
+        }
+      } else {
+        if (owner!.isEnemy) {
+          return Sprites.NODE_ENEMY;
+        } else if (owner!.isSelf) {
+          return Sprites.NODE_SELF;
+        }
+      }
+    }
+
+    throw Exception('Cannot determine node sprite');
   }
 
   bool get hasOwner => _owner != null;

@@ -24,7 +24,7 @@ class NodeComponent extends SpriteComponent
     required this.state,
     required this.node,
   }) : super(
-          sprite: Sprites.NODE_NEUTRAL,
+          sprite: node.sprite,
           size: Constants.NODE_SIZE,
           position: node.position,
           anchor: Anchor.center,
