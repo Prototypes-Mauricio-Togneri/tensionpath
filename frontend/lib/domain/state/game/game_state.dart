@@ -9,7 +9,6 @@ import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 
 class GameState {
   final Player self;
@@ -77,33 +76,26 @@ class GameState {
     debugPrint('Base of ${baseOwner.id} got hit by ${unit.power}');
   }
 
-  void onNodeCaptured({
-    required Node node,
-    required Player newOwner,
-    required Player? previousOwner,
-  }) {
-    switch (node.type) {
-      case NodeType.victory:
-      // TODO(momo): Handle this case.
-      case NodeType.command_points_generator:
-        _onNodeCommandPointGeneratorCaptured(
-          node: node,
-          previousOwner: previousOwner,
-          newOwner: newOwner,
-        );
-      case NodeType.chest:
-      case NodeType.checkpoint:
-      case NodeType.unit_generator:
-      // ignore
-    }
+  void onNodeVictoryCaptured(Node node) {
+    // TODO(momo): implement
   }
 
-  void onChestAcquired({
+  void onNodeChestAcquired({
     required Node node,
     required Player player,
   }) {
     player.addCommandPoints(node.commandPointsAccumulated);
     node.resetCommandPointsAccumulated();
+  }
+
+  void onNodeCommandPointsGeneratorCaptured({
+    required Node node,
+    required Player? previousOwner,
+    required Player newOwner,
+  }) {
+    const double extra = Constants.COMMAND_POINTS_EXTRA_RATIO;
+    newOwner.addCommandPointsExtraRatio(extra);
+    previousOwner?.removeCommandPointsExtraRatio(extra);
   }
 
   void destroyUnit(Unit unit) {
@@ -135,16 +127,6 @@ class GameState {
     }
 
     throw Exception('Associated component not found');
-  }
-
-  void _onNodeCommandPointGeneratorCaptured({
-    required Node node,
-    required Player? previousOwner,
-    required Player newOwner,
-  }) {
-    const double extra = Constants.COMMAND_POINTS_EXTRA_RATIO;
-    newOwner.addCommandPointsExtraRatio(extra);
-    previousOwner?.removeCommandPointsExtraRatio(extra);
   }
 
   void _deployUnit({

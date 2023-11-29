@@ -77,20 +77,24 @@ class NodeComponent extends PositionComponent
   }
 
   void _captureNode(Unit unit) {
-    if ((node.owner != unit.owner) && !node.type.isChest) {
+    if (node.type.canBeCaptured && (node.owner != unit.owner)) {
       final Player? previousOwner = node.owner;
       final Player newOwner = unit.owner;
 
       node.setOwner(newOwner);
       paint.color = newOwner.color;
 
-      state.onNodeCaptured(
-        node: node,
-        newOwner: newOwner,
-        previousOwner: previousOwner,
-      );
+      if (node.type.isVictory) {
+        state.onNodeVictoryCaptured(node);
+      } else if (node.type.isCommandPointsGenerator) {
+        state.onNodeCommandPointsGeneratorCaptured(
+          node: node,
+          previousOwner: previousOwner,
+          newOwner: newOwner,
+        );
+      }
     } else if (node.type.isChest) {
-      state.onChestAcquired(
+      state.onNodeChestAcquired(
         node: node,
         player: unit.owner,
       );
