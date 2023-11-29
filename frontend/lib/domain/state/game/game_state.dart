@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flutter/foundation.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
@@ -73,7 +72,6 @@ class GameState {
     required Player baseOwner,
   }) {
     unit.destroy();
-    debugPrint('Base of ${baseOwner.id} got hit by ${unit.power}');
   }
 
   void onNodeVictoryCaptured(Node node) {
