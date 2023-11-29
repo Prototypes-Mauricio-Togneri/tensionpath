@@ -40,7 +40,7 @@ class Node {
 
   void update(double dt) {
     if (type.canAccumulate) {
-      if ((type.isCheckpoint) || ((_owner != null) && (type.isUnitGenerator))) {
+      if (type.isChest || ((_owner != null) && (type.isUnitGenerator))) {
         _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
       }
 
