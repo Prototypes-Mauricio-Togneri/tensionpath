@@ -40,13 +40,12 @@ class Node {
 
   void update(double dt) {
     if (type.canAccumulate) {
-      if ((type == NodeType.chest) ||
-          ((_owner != null) && (type == NodeType.unit_generator))) {
+      if ((type.isCheckpoint) || ((_owner != null) && (type.isUnitGenerator))) {
         _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
       }
 
       if ((_owner != null) &&
-          (type == NodeType.unit_generator) &&
+          (type.isUnitGenerator) &&
           (_commandPointsAccumulated >= 1)) {
         _commandPointsAccumulated -= 1;
         state.onNodeSpawnUnit(

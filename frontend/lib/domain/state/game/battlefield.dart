@@ -130,7 +130,7 @@ class Battlefield {
                 node: Node(
                   id: 'n3c',
                   position: Vector2(200, 2050),
-                  type: NodeType.command_point_generator,
+                  type: NodeType.command_points_generator,
                 ),
               ),
               Waypoint(

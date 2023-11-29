@@ -1,11 +1,19 @@
 enum NodeType {
   victory,
   chest,
-  command_point_generator,
+  command_points_generator,
   unit_generator,
   checkpoint;
 
+  bool get isVictory => this == victory;
+
   bool get isChest => this == chest;
+
+  bool get isCommandPointsGenerator => this == command_points_generator;
+
+  bool get isUnitGenerator => this == unit_generator;
+
+  bool get isCheckpoint => this == checkpoint;
 
   bool get canAccumulate => (this == chest) || (this == unit_generator);
 }

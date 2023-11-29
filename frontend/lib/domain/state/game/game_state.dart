@@ -85,7 +85,7 @@ class GameState {
     switch (node.type) {
       case NodeType.victory:
       // TODO(momo): Handle this case.
-      case NodeType.command_point_generator:
+      case NodeType.command_points_generator:
         _onNodeCommandPointGeneratorCaptured(
           node: node,
           previousOwner: previousOwner,
