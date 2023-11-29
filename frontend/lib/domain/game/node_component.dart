@@ -53,6 +53,23 @@ class NodeComponent extends SpriteComponent
   }
 
   @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    if (node.type.isLauncher &&
+        (other is UnitComponent) &&
+        (node.owner != other.owner)) {
+      state.onUnitCollidedWithBase(
+        unit: other.unit,
+        baseOwner: node.owner!,
+      );
+    }
+
+    super.onCollisionStart(intersectionPoints, other);
+  }
+
+  @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is UnitComponent) {
       final double distance = other.unit.position.distanceTo(position);

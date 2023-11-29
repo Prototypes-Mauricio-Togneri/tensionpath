@@ -44,14 +44,6 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    // TODO(momo): implement
-    /*if ((other is LaneLauncherComponent) && (other.owner != unit.owner)) {
-      state.onUnitCollidedWithBase(
-        unit: unit,
-        baseOwner: other.owner,
-      );
-    } else*/
-
     if ((other is UnitComponent) &&
         unit.owner.isSelf &&
         other.unit.owner.isEnemy) {
