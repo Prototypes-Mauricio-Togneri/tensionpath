@@ -78,7 +78,7 @@ class NodeComponent extends PositionComponent
   }
 
   void _captureNode(Unit unit) {
-    if (node.owner != unit.owner) {
+    if ((node.owner != unit.owner) && !node.type.isChest) {
       final Player? previousOwner = node.owner;
       final Player newOwner = unit.owner;
 
@@ -89,6 +89,11 @@ class NodeComponent extends PositionComponent
         node: node,
         newOwner: newOwner,
         previousOwner: previousOwner,
+      );
+    } else if (node.type.isChest) {
+      state.onChestAcquired(
+        node: node,
+        player: unit.owner,
       );
     }
   }

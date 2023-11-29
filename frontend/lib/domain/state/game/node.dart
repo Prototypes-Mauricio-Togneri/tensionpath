@@ -34,6 +34,10 @@ class Node {
     _commandPointsAccumulated = 0;
   }
 
+  void resetCommandPointsAccumulated() {
+    _commandPointsAccumulated = 0;
+  }
+
   void update(double dt) {
     if (type.canAccumulate) {
       if ((type == NodeType.chest) ||

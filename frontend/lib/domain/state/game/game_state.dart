@@ -85,21 +85,25 @@ class GameState {
     switch (node.type) {
       case NodeType.victory:
       // TODO(momo): Handle this case.
-      case NodeType.chest:
-        _onNodeChestCaptured(
-          node: node,
-          newOwner: newOwner,
-        );
       case NodeType.command_point_generator:
         _onNodeCommandPointGeneratorCaptured(
           node: node,
           previousOwner: previousOwner,
           newOwner: newOwner,
         );
+      case NodeType.chest:
       case NodeType.checkpoint:
       case NodeType.unit_generator:
       // ignore
     }
+  }
+
+  void onChestAcquired({
+    required Node node,
+    required Player player,
+  }) {
+    player.addCommandPoints(node.commandPointsAccumulated);
+    node.resetCommandPointsAccumulated();
   }
 
   void destroyUnit(Unit unit) {
@@ -141,13 +145,6 @@ class GameState {
     const double extra = Constants.COMMAND_POINTS_EXTRA_RATIO;
     newOwner.addCommandPointsExtraRatio(extra);
     previousOwner?.removeCommandPointsExtraRatio(extra);
-  }
-
-  void _onNodeChestCaptured({
-    required Node node,
-    required Player newOwner,
-  }) {
-    newOwner.addCommandPoints(node.commandPointsAccumulated);
   }
 
   void _deployUnit({
