@@ -13,14 +13,6 @@ class Lane {
   List<Node> get nodes =>
       waypoints.where((e) => e.hasNode).map((e) => e.node!).toList();
 
-  List<Waypoint> getWaypoints(bool forward) {
-    if (forward) {
-      return waypoints;
-    } else {
-      return waypoints.reversed.toList();
-    }
-  }
-
   List<Waypoint> getWaypointsFrom({
     required Node node,
     required bool forward,

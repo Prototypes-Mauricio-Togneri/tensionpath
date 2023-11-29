@@ -40,12 +40,14 @@ class NodeComponent extends SpriteComponent
       isSolid: true,
     ));
 
-    add(LabelComponent(
-      text: node.type.name,
-      position: size / 2,
-      size: size.x / 8,
-      color: Palette.white,
-    ));
+    if (!node.type.isLauncher) {
+      add(LabelComponent(
+        text: node.type.name,
+        position: size / 2,
+        size: size.x / 8,
+        color: Palette.white,
+      ));
+    }
 
     super.onLoad();
   }
@@ -65,7 +67,7 @@ class NodeComponent extends SpriteComponent
 
   @override
   void onTapUp(TapUpEvent event) {
-    if ((node.type.isCheckpoint) && node.hasOwner) {
+    if ((node.type.canLaunch) && node.hasOwner) {
       state.onNodeSpawnUnit(
         node: node,
         power: Random().nextInt(10) + 1,

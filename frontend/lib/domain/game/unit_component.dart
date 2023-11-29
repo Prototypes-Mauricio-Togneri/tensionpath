@@ -2,7 +2,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
-import 'package:tensionpath/domain/game/lane_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
@@ -45,12 +44,15 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is LaneLauncherComponent) && (other.owner != unit.owner)) {
+    // TODO(momo): implement
+    /*if ((other is LaneLauncherComponent) && (other.owner != unit.owner)) {
       state.onUnitCollidedWithBase(
         unit: unit,
         baseOwner: other.owner,
       );
-    } else if ((other is UnitComponent) &&
+    } else*/
+
+    if ((other is UnitComponent) &&
         unit.owner.isSelf &&
         other.unit.owner.isEnemy) {
       if (unit.power > other.unit.power) {

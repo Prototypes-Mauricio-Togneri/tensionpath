@@ -39,18 +39,6 @@ class GameState {
     commandPointsSelected = amount;
   }
 
-  void onLaneSpawnUnit({
-    required Lane lane,
-    required Player owner,
-    required int power,
-  }) {
-    _deployUnit(
-      owner: owner,
-      power: power,
-      waypoints: lane.getWaypoints(owner.isSelf),
-    );
-  }
-
   void onNodeSpawnUnit({
     required Node node,
     required int power,
