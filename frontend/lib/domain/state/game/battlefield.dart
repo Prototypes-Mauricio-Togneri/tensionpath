@@ -308,42 +308,76 @@ class Battlefield {
             ],
           ),
           Lane(
-            id: 'l3',
+            id: 'l4',
             waypoints: [
               Waypoint(
-                id: 'w3a',
+                id: 'w4a',
                 position: Vector2(684, 1625),
                 node: Node(
-                  id: 'n3a',
+                  id: 'n4a',
                   position: Vector2(684, 1625),
                   type: NodeType.launcher,
                   owner: Player.SELF,
                 ),
               ),
               Waypoint(
-                id: 'w3b',
+                id: 'w4b',
                 position: Vector2(684, 1200),
                 node: Node(
-                  id: 'n3b',
+                  id: 'n4b',
                   position: Vector2(684, 1200),
                   type: NodeType.command_points_generator,
                 ),
               ),
               Waypoint(
-                id: 'w3c',
+                id: 'w4c',
                 position: Vector2(684, 500),
                 node: Node(
-                  id: 'n3c',
+                  id: 'n4c',
                   position: Vector2(684, 500),
                   type: NodeType.unit_generator,
                 ),
               ),
               Waypoint(
-                id: 'w3d',
+                id: 'w4d',
                 position: Vector2(684, 75),
                 node: Node(
-                  id: 'n3d',
+                  id: 'n4d',
                   position: Vector2(684, 75),
+                  type: NodeType.launcher,
+                  owner: Player.ENEMY,
+                ),
+              ),
+            ],
+          ),
+          Lane(
+            id: 'l5',
+            waypoints: [
+              Waypoint(
+                id: 'w5a',
+                position: Vector2(867, 1625),
+                node: Node(
+                  id: 'n5a',
+                  position: Vector2(867, 1625),
+                  type: NodeType.launcher,
+                  owner: Player.SELF,
+                ),
+              ),
+              Waypoint(
+                id: 'w5b',
+                position: Vector2(867, 850),
+                node: Node(
+                  id: 'n5b',
+                  position: Vector2(867, 850),
+                  type: NodeType.checkpoint,
+                ),
+              ),
+              Waypoint(
+                id: 'w5c',
+                position: Vector2(867, 75),
+                node: Node(
+                  id: 'n5c',
+                  position: Vector2(867, 75),
                   type: NodeType.launcher,
                   owner: Player.ENEMY,
                 ),
