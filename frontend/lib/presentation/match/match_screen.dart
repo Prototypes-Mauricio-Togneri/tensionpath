@@ -32,6 +32,10 @@ class Body extends StatelessWidget {
     return BaseScreen(
       child: Column(
         children: [
+          StateProvider<MatchState>(
+            state: state,
+            builder: (context, state) => Controls(state),
+          ),
           Expanded(
             child: GameContent(state),
           ),
@@ -72,6 +76,7 @@ class Controls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 45,
       color: Palette.green,
       padding: const EdgeInsets.only(
         top: 10,
