@@ -307,6 +307,49 @@ class Battlefield {
               ),
             ],
           ),
+          Lane(
+            id: 'l3',
+            waypoints: [
+              Waypoint(
+                id: 'w3a',
+                position: Vector2(684, 1625),
+                node: Node(
+                  id: 'n3a',
+                  position: Vector2(684, 1625),
+                  type: NodeType.launcher,
+                  owner: Player.SELF,
+                ),
+              ),
+              Waypoint(
+                id: 'w3b',
+                position: Vector2(684, 1200),
+                node: Node(
+                  id: 'n3b',
+                  position: Vector2(684, 1200),
+                  type: NodeType.command_points_generator,
+                ),
+              ),
+              Waypoint(
+                id: 'w3c',
+                position: Vector2(684, 500),
+                node: Node(
+                  id: 'n3c',
+                  position: Vector2(684, 500),
+                  type: NodeType.unit_generator,
+                ),
+              ),
+              Waypoint(
+                id: 'w3d',
+                position: Vector2(684, 75),
+                node: Node(
+                  id: 'n3d',
+                  position: Vector2(684, 75),
+                  type: NodeType.launcher,
+                  owner: Player.ENEMY,
+                ),
+              ),
+            ],
+          ),
         ],
       );
 }
