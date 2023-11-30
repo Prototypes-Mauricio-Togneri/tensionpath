@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/main/main_state.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
@@ -28,8 +29,13 @@ class Body extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              onPressed: state.onStart,
+              onPressed: state.onStart3Lanes,
               child: const Text('3 lanes'),
+            ),
+            const VBox(20),
+            ElevatedButton(
+              onPressed: state.onStart5Lanes,
+              child: const Text('5 lanes'),
             ),
           ],
         ),
