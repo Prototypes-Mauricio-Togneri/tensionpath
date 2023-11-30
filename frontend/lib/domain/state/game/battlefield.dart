@@ -12,11 +12,13 @@ class Battlefield {
   final List<Lane> lanes;
   final List<Waypoint> waypoints = [];
   final List<Node> nodes = [];
+  final Vector2 nodeSize;
 
   Battlefield({
     required this.id,
     required this.sprite,
     required this.lanes,
+    required this.nodeSize,
   }) {
     for (final Lane lane in lanes) {
       waypoints.addAll(lane.waypoints);
@@ -44,6 +46,7 @@ class Battlefield {
   factory Battlefield.lanes3() => Battlefield(
         id: 'lanes5',
         sprite: Sprites.BATTLEFIELD3,
+        nodeSize: Vector2(200, 200),
         lanes: [
           Lane(
             id: 'l1',
@@ -191,6 +194,7 @@ class Battlefield {
   factory Battlefield.lanes5() => Battlefield(
         id: 'lanes5',
         sprite: Sprites.BATTLEFIELD5,
+        nodeSize: Vector2(150, 150),
         lanes: [
           Lane(
             id: 'l1',

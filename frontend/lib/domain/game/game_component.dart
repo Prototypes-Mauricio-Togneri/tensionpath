@@ -91,6 +91,7 @@ class GameWorld extends World {
       add(NodeComponent(
         state: state,
         node: node,
+        size: state.battlefield.nodeSize,
       ));
     }
   }

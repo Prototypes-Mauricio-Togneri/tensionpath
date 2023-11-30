@@ -129,6 +129,7 @@ class GameState {
     world.add(UnitComponent(
       state: this,
       unit: unit,
+      size: battlefield.nodeSize,
     ));
   }
 }

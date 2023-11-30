@@ -4,7 +4,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -23,9 +22,9 @@ class NodeComponent extends SpriteComponent
   NodeComponent({
     required this.state,
     required this.node,
+    required super.size,
   }) : super(
           sprite: node.sprite,
-          size: Constants.NODE_SIZE,
           position: node.position,
           anchor: Anchor.center,
           priority: Priority.nodes.value,

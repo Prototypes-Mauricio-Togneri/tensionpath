@@ -1,9 +1,5 @@
-import 'package:flame/components.dart';
-
 class Constants {
   static const int PAN_SPEED = 3000;
-
-  static Vector2 NODE_SIZE = Vector2(150, 150);
 
   static const double UNIT_SPEED = 200;
 
