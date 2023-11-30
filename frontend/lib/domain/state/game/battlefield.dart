@@ -215,7 +215,7 @@ class Battlefield {
                 node: Node(
                   id: 'n1b',
                   position: Vector2(133, 850),
-                  type: NodeType.checkpoint,
+                  type: NodeType.chest,
                 ),
               ),
               Waypoint(
@@ -235,29 +235,38 @@ class Battlefield {
             waypoints: [
               Waypoint(
                 id: 'w2a',
-                position: Vector2(500, 2900),
+                position: Vector2(316, 1625),
                 node: Node(
                   id: 'n2a',
-                  position: Vector2(500, 2900),
+                  position: Vector2(316, 1625),
                   type: NodeType.launcher,
                   owner: Player.SELF,
                 ),
               ),
               Waypoint(
                 id: 'w2b',
-                position: Vector2(500, 1500),
+                position: Vector2(316, 1200),
                 node: Node(
                   id: 'n2b',
-                  position: Vector2(500, 1500),
-                  type: NodeType.victory,
+                  position: Vector2(316, 1200),
+                  type: NodeType.unit_generator,
                 ),
               ),
               Waypoint(
                 id: 'w2c',
-                position: Vector2(500, 100),
+                position: Vector2(316, 500),
                 node: Node(
                   id: 'n2c',
-                  position: Vector2(500, 100),
+                  position: Vector2(316, 500),
+                  type: NodeType.command_points_generator,
+                ),
+              ),
+              Waypoint(
+                id: 'w2d',
+                position: Vector2(316, 75),
+                node: Node(
+                  id: 'n2d',
+                  position: Vector2(316, 75),
                   type: NodeType.launcher,
                   owner: Player.ENEMY,
                 ),
