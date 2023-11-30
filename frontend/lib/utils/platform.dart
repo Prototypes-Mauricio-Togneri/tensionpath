@@ -12,4 +12,8 @@ class Platform {
   static final bool isMobile = isAndroid || isIOS;
 
   static final bool isMobileNative = isMobile && !isWeb;
+
+  static const bool isDebugMode = kDebugMode;
+
+  static const bool isReleaseMode = kReleaseMode;
 }
