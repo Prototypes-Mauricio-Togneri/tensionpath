@@ -41,7 +41,154 @@ class Battlefield {
     throw Exception('Lane not found for node: ${node.id}');
   }
 
-  factory Battlefield.test() => Battlefield(
+  factory Battlefield.lanes3() => Battlefield(
+        id: 'test',
+        sprite: Sprites.BATTLEFIELD,
+        lanes: [
+          Lane(
+            id: 'l1',
+            waypoints: [
+              Waypoint(
+                id: 'w1a',
+                position: Vector2(200, 2900),
+                node: Node(
+                  id: 'n1a',
+                  position: Vector2(200, 2900),
+                  type: NodeType.launcher,
+                  owner: Player.SELF,
+                ),
+              ),
+              Waypoint(
+                id: 'w1b',
+                position: Vector2(200, 2500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w1c',
+                position: Vector2(800, 2050),
+                node: Node(
+                  id: 'n1c',
+                  position: Vector2(800, 2050),
+                  type: NodeType.checkpoint,
+                ),
+              ),
+              Waypoint(
+                id: 'w1d',
+                position: Vector2(800, 950),
+                node: Node(
+                  id: 'n1d',
+                  position: Vector2(800, 950),
+                  type: NodeType.chest,
+                ),
+              ),
+              Waypoint(
+                id: 'w1e',
+                position: Vector2(200, 500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w1f',
+                position: Vector2(200, 100),
+                node: Node(
+                  id: 'n1f',
+                  position: Vector2(200, 100),
+                  type: NodeType.launcher,
+                  owner: Player.ENEMY,
+                ),
+              ),
+            ],
+          ),
+          Lane(
+            id: 'l2',
+            waypoints: [
+              Waypoint(
+                id: 'w2a',
+                position: Vector2(500, 2900),
+                node: Node(
+                  id: 'n2a',
+                  position: Vector2(500, 2900),
+                  type: NodeType.launcher,
+                  owner: Player.SELF,
+                ),
+              ),
+              Waypoint(
+                id: 'w2b',
+                position: Vector2(500, 1500),
+                node: Node(
+                  id: 'n2b',
+                  position: Vector2(500, 1500),
+                  type: NodeType.victory,
+                ),
+              ),
+              Waypoint(
+                id: 'w2c',
+                position: Vector2(500, 100),
+                node: Node(
+                  id: 'n2c',
+                  position: Vector2(500, 100),
+                  type: NodeType.launcher,
+                  owner: Player.ENEMY,
+                ),
+              ),
+            ],
+          ),
+          Lane(
+            id: 'l3',
+            waypoints: [
+              Waypoint(
+                id: 'w3a',
+                position: Vector2(800, 2900),
+                node: Node(
+                  id: 'n3a',
+                  position: Vector2(800, 2900),
+                  type: NodeType.launcher,
+                  owner: Player.SELF,
+                ),
+              ),
+              Waypoint(
+                id: 'w3b',
+                position: Vector2(800, 2500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w3c',
+                position: Vector2(200, 2050),
+                node: Node(
+                  id: 'n3c',
+                  position: Vector2(200, 2050),
+                  type: NodeType.command_points_generator,
+                ),
+              ),
+              Waypoint(
+                id: 'w3d',
+                position: Vector2(200, 950),
+                node: Node(
+                  id: 'n3d',
+                  position: Vector2(200, 950),
+                  type: NodeType.unit_generator,
+                ),
+              ),
+              Waypoint(
+                id: 'w3e',
+                position: Vector2(800, 500),
+                node: null,
+              ),
+              Waypoint(
+                id: 'w3f',
+                position: Vector2(800, 100),
+                node: Node(
+                  id: 'n3f',
+                  position: Vector2(800, 100),
+                  type: NodeType.launcher,
+                  owner: Player.ENEMY,
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+
+  factory Battlefield.lanes5() => Battlefield(
         id: 'test',
         sprite: Sprites.BATTLEFIELD,
         lanes: [

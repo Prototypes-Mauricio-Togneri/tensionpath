@@ -6,11 +6,11 @@ import 'package:tensionpath/domain/state/game/player.dart';
 class MatchState extends BaseState {
   late final GameState gameState;
 
-  MatchState() {
+  MatchState(Battlefield battlefield) {
     gameState = GameState(
       self: Player.SELF,
       enemy: Player.ENEMY,
-      battlefield: Battlefield.test(),
+      battlefield: battlefield,
     );
   }
 
