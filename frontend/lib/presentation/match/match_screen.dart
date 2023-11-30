@@ -2,17 +2,17 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/game_component.dart';
-import 'package:tensionpath/domain/state/main/main_state.dart';
+import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
 import 'package:tensionpath/widgets/label.dart';
 
-class MainScreen extends StatelessWidget {
-  final MainState state;
+class MatchScreen extends StatelessWidget {
+  final MatchState state;
 
-  const MainScreen._(this.state);
+  const MatchScreen._(this.state);
 
-  factory MainScreen.instance() => MainScreen._(MainState());
+  factory MatchScreen.instance() => MatchScreen._(MatchState());
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class Body extends StatelessWidget {
-  final MainState state;
+  final MatchState state;
 
   const Body(this.state);
 
@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
           Expanded(
             child: GameContent(state),
           ),
-          StateProvider<MainState>(
+          StateProvider<MatchState>(
             state: state,
             builder: (context, state) => Controls(state),
           ),
@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
 }
 
 class GameContent extends StatelessWidget {
-  final MainState state;
+  final MatchState state;
 
   const GameContent(this.state);
 
@@ -63,7 +63,7 @@ class GameContent extends StatelessWidget {
 }
 
 class Controls extends StatelessWidget {
-  final MainState state;
+  final MatchState state;
 
   const Controls(this.state);
 

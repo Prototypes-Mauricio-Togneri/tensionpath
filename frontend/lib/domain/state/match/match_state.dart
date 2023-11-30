@@ -3,10 +3,10 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 
-class MainState extends BaseState {
+class MatchState extends BaseState {
   late final GameState gameState;
 
-  MainState() {
+  MatchState() {
     gameState = GameState(
       self: Player.SELF,
       enemy: Player.ENEMY,

@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionpath/presentation/main/main_screen.dart';
+import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
 class Navigation {
@@ -14,7 +14,7 @@ class Navigation {
 
   static void mainScreen() => get.routes.pushAlone(
         BasicRoute(
-          MainScreen.instance(),
+          MatchScreen.instance(),
           name: 'main',
         ),
       );
