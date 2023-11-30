@@ -278,48 +278,29 @@ class Battlefield {
             waypoints: [
               Waypoint(
                 id: 'w3a',
-                position: Vector2(800, 2900),
+                position: Vector2(500, 1625),
                 node: Node(
                   id: 'n3a',
-                  position: Vector2(800, 2900),
+                  position: Vector2(500, 1625),
                   type: NodeType.launcher,
                   owner: Player.SELF,
                 ),
               ),
               Waypoint(
                 id: 'w3b',
-                position: Vector2(800, 2500),
-                node: null,
+                position: Vector2(500, 850),
+                node: Node(
+                  id: 'n3b',
+                  position: Vector2(500, 850),
+                  type: NodeType.victory,
+                ),
               ),
               Waypoint(
                 id: 'w3c',
-                position: Vector2(200, 2050),
+                position: Vector2(500, 75),
                 node: Node(
                   id: 'n3c',
-                  position: Vector2(200, 2050),
-                  type: NodeType.command_points_generator,
-                ),
-              ),
-              Waypoint(
-                id: 'w3d',
-                position: Vector2(200, 950),
-                node: Node(
-                  id: 'n3d',
-                  position: Vector2(200, 950),
-                  type: NodeType.unit_generator,
-                ),
-              ),
-              Waypoint(
-                id: 'w3e',
-                position: Vector2(800, 500),
-                node: null,
-              ),
-              Waypoint(
-                id: 'w3f',
-                position: Vector2(800, 100),
-                node: Node(
-                  id: 'n3f',
-                  position: Vector2(800, 100),
+                  position: Vector2(500, 75),
                   type: NodeType.launcher,
                   owner: Player.ENEMY,
                 ),
