@@ -42,8 +42,8 @@ class Battlefield {
   }
 
   factory Battlefield.lanes3() => Battlefield(
-        id: 'test',
-        sprite: Sprites.BATTLEFIELD,
+        id: 'lanes5',
+        sprite: Sprites.BATTLEFIELD3,
         lanes: [
           Lane(
             id: 'l1',
@@ -189,8 +189,8 @@ class Battlefield {
       );
 
   factory Battlefield.lanes5() => Battlefield(
-        id: 'test',
-        sprite: Sprites.BATTLEFIELD,
+        id: 'lanes5',
+        sprite: Sprites.BATTLEFIELD5,
         lanes: [
           Lane(
             id: 'l1',

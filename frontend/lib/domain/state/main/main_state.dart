@@ -5,5 +5,5 @@ import 'package:tensionpath/utils/navigation.dart';
 class MainState extends BaseState {
   void onStart3Lanes() => Navigation.matchScreen(Battlefield.lanes3());
 
-  void onStart5Lanes() => Navigation.matchScreen(Battlefield.lanes3());
+  void onStart5Lanes() => Navigation.matchScreen(Battlefield.lanes5());
 }

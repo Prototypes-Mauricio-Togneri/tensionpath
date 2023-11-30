@@ -12,7 +12,7 @@ class SplashState extends BaseState {
     if (Platform.isReleaseMode) {
       Delayed.post(Navigation.mainScreen);
     } else {
-      Delayed.post(() => Navigation.matchScreen(Battlefield.lanes3()));
+      Delayed.post(() => Navigation.matchScreen(Battlefield.lanes5()));
     }
   }
 }

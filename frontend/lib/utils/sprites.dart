@@ -2,7 +2,8 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class Sprites {
-  static late Sprite BATTLEFIELD;
+  static late Sprite BATTLEFIELD3;
+  static late Sprite BATTLEFIELD5;
   static late Sprite UNIT_ENEMY;
   static late Sprite UNIT_SELF;
   static late Sprite LAUNCHER_ENEMY;
@@ -12,7 +13,8 @@ class Sprites {
   static late Sprite NODE_SELF;
 
   static Future load() async {
-    Sprites.BATTLEFIELD = await Sprite.load(Assets.IMAGES_BATTLEFIELD);
+    Sprites.BATTLEFIELD3 = await Sprite.load(Assets.IMAGES_BATTLEFIELD3);
+    Sprites.BATTLEFIELD5 = await Sprite.load(Assets.IMAGES_BATTLEFIELD5);
     Sprites.UNIT_ENEMY = await Sprite.load(Assets.IMAGES_UNIT_ENEMY);
     Sprites.UNIT_SELF = await Sprite.load(Assets.IMAGES_UNIT_SELF);
     Sprites.LAUNCHER_ENEMY = await Sprite.load(Assets.IMAGES_LAUNCHER_ENEMY);
