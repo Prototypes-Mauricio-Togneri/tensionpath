@@ -1,5 +1,5 @@
 abstract class PlatformMethodsBase {
   void urlStrategy() {}
-  
-  void webFullscreen() {}
+
+  Future? webFullscreen() => null;
 }

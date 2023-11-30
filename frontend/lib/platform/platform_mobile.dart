@@ -5,5 +5,5 @@ class PlatformMethods extends PlatformMethodsBase {
   void urlStrategy() {}
 
   @override
-  void webFullscreen() {}
+  Future? webFullscreen() => null;
 }

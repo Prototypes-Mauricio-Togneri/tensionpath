@@ -7,7 +7,7 @@ class PlatformMethods extends PlatformMethodsBase {
   void urlStrategy() => setUrlStrategy(EmptyUrlStrategy());
 
   @override
-  void webFullscreen() => document.documentElement?.requestFullscreen();
+  Future? webFullscreen() => document.documentElement?.requestFullscreen();
 }
 
 class EmptyUrlStrategy extends HashUrlStrategy {

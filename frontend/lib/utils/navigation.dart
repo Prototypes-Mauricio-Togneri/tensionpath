@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionpath/presentation/main/main_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
@@ -14,8 +15,15 @@ class Navigation {
 
   static void mainScreen() => get.routes.pushAlone(
         BasicRoute(
-          MatchScreen.instance(),
+          MainScreen.instance(),
           name: 'main',
+        ),
+      );
+
+  static void matchScreen() => get.routes.pushAlone(
+        BasicRoute(
+          MatchScreen.instance(),
+          name: 'match',
         ),
       );
 }
