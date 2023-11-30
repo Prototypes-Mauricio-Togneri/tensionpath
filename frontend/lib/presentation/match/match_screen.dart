@@ -76,7 +76,7 @@ class Controls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 45,
+      height: 42,
       color: Palette.green,
       padding: const EdgeInsets.only(
         top: 10,
@@ -114,7 +114,7 @@ class DeployButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 30,
-      height: 30,
+      height: 25,
       margin: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(
         color: Palette.orange,
@@ -135,7 +135,7 @@ class DeployButton extends StatelessWidget {
               text: value.toString(),
               color: Palette.white,
               weight: FontWeight.bold,
-              size: 16,
+              size: 12,
             ),
           ),
         ),

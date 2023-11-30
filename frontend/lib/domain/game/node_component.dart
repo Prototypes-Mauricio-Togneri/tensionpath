@@ -125,7 +125,7 @@ class NodeComponent extends SpriteComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (node.type.canAccumulate) {
+    if (node.type.isChest) {
       const textStyle = TextStyle(
         color: Colors.white,
         fontSize: 30,
@@ -143,7 +143,7 @@ class NodeComponent extends SpriteComponent
         maxWidth: 100,
       );
       final offset = (size / 2).toOffset();
-      textPainter.paint(canvas, Offset(offset.dx - 10, offset.dy + 20));
+      textPainter.paint(canvas, Offset(offset.dx - 10, offset.dy + 10));
     }
   }
 }
