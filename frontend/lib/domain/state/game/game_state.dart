@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
-import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';

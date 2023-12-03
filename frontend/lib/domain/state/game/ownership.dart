@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/utils/palette.dart';
 

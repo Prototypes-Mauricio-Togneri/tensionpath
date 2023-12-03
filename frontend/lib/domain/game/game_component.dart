@@ -14,7 +14,13 @@ import 'package:tensionpath/domain/game/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_unit_generator.dart';
 import 'package:tensionpath/domain/game/nodes/node_victory_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
-import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_credit_generator.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_launcher.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_unit_generator.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
 
 class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final GameState state;
@@ -93,32 +99,32 @@ class GameWorld extends World {
     ));
 
     for (final Node node in state.battlefield.nodes) {
-      if (node.type.isLauncher) {
+      if (node is NodeLauncher) {
         add(NodeLauncherComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));
-      } else if (node.type.isVictory) {
+      } else if (node is NodeVictory) {
         add(NodeVictoryComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));
-      } else if (node.type.isChest) {
+      } else if (node is NodeChest) {
         add(NodeChestComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));
-      } else if (node.type.isCreditsGenerator) {
+      } else if (node is NodeCreditGenerator) {
         add(NodeCreditGeneratorComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));
-      } else if (node.type.isUnitGenerator) {
+      } else if (node is NodeUnitGenerator) {
         add(NodeUnitGeneratorComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));
-      } else if (node.type.isCheckpoint) {
+      } else if (node is NodeCheckpoint) {
         add(NodeCheckpointComponent(
           node: node,
           size: state.battlefield.nodeSize,

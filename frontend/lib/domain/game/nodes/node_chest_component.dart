@@ -4,10 +4,12 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
 import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
+class NodeChestComponent extends NodeBaseComponent<NodeChest>
+    with CollisionCallbacks {
   NodeChestComponent({
     required super.node,
     required super.size,
@@ -33,7 +35,7 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     if ((other is UnitComponent) && node.hasCreditsAccumulated) {
-      node.onChestAcquired(other.owner);
+      node.onAcquired(other.owner);
     }
 
     super.onCollisionStart(intersectionPoints, other);

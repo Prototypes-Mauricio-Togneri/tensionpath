@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/node.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class NodeBaseComponent extends SpriteComponent {
-  final Node node;
+class NodeBaseComponent<T extends Node> extends SpriteComponent {
+  final T node;
 
   NodeBaseComponent({
     required this.node,

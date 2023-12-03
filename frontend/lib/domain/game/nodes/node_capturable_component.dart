@@ -5,11 +5,12 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_capturable.dart';
 import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
-class NodeCapturableComponent extends NodeBaseComponent
-    with CollisionCallbacks {
+class NodeCapturableComponent<T extends NodeCapturable>
+    extends NodeBaseComponent<T> with CollisionCallbacks {
   final Paint ownershipPaint = Paint();
 
   NodeCapturableComponent({
