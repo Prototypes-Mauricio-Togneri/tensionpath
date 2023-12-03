@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 
@@ -88,6 +89,13 @@ class GameWorld extends World {
     ));
 
     for (final Node node in state.battlefield.nodes) {
+      if (node.type.isLauncher) {
+        add(NodeLauncherComponent(
+          node: node,
+          size: state.battlefield.nodeSize,
+        ));
+      }
+
       add(NodeComponent(
         node: node,
         size: state.battlefield.nodeSize,
