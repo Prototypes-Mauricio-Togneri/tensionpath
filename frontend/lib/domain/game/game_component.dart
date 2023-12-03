@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_chest_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_credit_generator.dart';
 import 'package:tensionpath/domain/game/nodes/node_launcher_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_unit_generator.dart';
 import 'package:tensionpath/domain/game/nodes/node_victory_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
@@ -109,6 +110,11 @@ class GameWorld extends World {
         ));
       } else if (node.type.isCreditsGenerator) {
         add(NodeCreditGeneratorComponent(
+          node: node,
+          size: state.battlefield.nodeSize,
+        ));
+      } else if (node.type.isUnitGenerator) {
+        add(NodeUnitGeneratorComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));

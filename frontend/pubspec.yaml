@@ -35,4 +35,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
+    - assets/images/battlefield/
+    - assets/images/launcher/
+    - assets/images/node/
+    - assets/images/node/icon/
+    - assets/images/unit/
