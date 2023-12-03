@@ -16,10 +16,6 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
   @override
   FutureOr onLoad() {
     add(circleHitbox);
-    /*add(NodeIconComponent(
-      sprite: Sprites.NODE_ICON_VICTORY,
-      parent: this,
-    ));*/
 
     return super.onLoad();
   }
