@@ -8,7 +8,7 @@ class Player {
   final String id;
   final int ownershipDirection;
   double _credits = 0;
-  double _creditsExtraRatio = 0;
+  double _creditsExtraRate = 0;
 
   static final Player SELF = Player._(Constants.PLAYER_SELF, 1);
   static final Player ENEMY = Player._(Constants.PLAYER_ENEMY, -1);
@@ -17,7 +17,7 @@ class Player {
 
   double get credits => _credits;
 
-  double get creditsRatio => Constants.CREDITS_RATIO + _creditsExtraRatio;
+  double get creditsRate => Constants.CREDITS_RATE + _creditsExtraRate;
 
   bool get isSelf => id == Constants.PLAYER_SELF;
 
@@ -28,15 +28,15 @@ class Player {
   Sprite get unitSprite => isSelf ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
 
   void update(double dt) {
-    _credits += creditsRatio * dt;
+    _credits += creditsRate * dt;
   }
 
-  void addCreditsExtraRatio(double value) {
-    _creditsExtraRatio += value;
+  void addCreditsExtraRate(double value) {
+    _creditsExtraRate += value;
   }
 
-  void removeCreditsExtraRatio(double value) {
-    _creditsExtraRatio -= value;
+  void removeCreditsExtraRate(double value) {
+    _creditsExtraRate -= value;
   }
 
   void addCredits(double value) {

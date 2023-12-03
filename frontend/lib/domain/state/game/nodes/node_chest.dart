@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_accumulator.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
@@ -9,7 +10,7 @@ class NodeChest extends Node with NodeAccumulator {
     required super.id,
     required super.position,
     super.owner,
-  }) : super(rate: 0.1);
+  }) : super(rate: Constants.NODE_CHEST_CAPTURE_RATE);
 
   @override
   Sprite get sprite => Sprites.NODE_NEUTRAL;

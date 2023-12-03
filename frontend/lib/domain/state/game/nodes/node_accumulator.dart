@@ -16,6 +16,6 @@ mixin NodeAccumulator {
   }
 
   void accumulate(double dt) {
-    _creditsAccumulated += Constants.NODE_CREDITS_RATIO * dt;
+    _creditsAccumulated += Constants.NODE_CREDITS_RATE * dt;
   }
 }

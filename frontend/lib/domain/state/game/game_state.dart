@@ -76,9 +76,9 @@ class GameState {
     required Player? previousOwner,
     required Player newOwner,
   }) {
-    const double extra = Constants.CREDITS_EXTRA_RATIO;
-    newOwner.addCreditsExtraRatio(extra);
-    previousOwner?.removeCreditsExtraRatio(extra);
+    const double extra = Constants.CREDITS_EXTRA_RATE;
+    newOwner.addCreditsExtraRate(extra);
+    previousOwner?.removeCreditsExtraRate(extra);
   }
 
   void destroyUnit(Unit unit) {

@@ -3,10 +3,16 @@ class Constants {
 
   static const double UNIT_SPEED = 200;
 
-  static const double CREDITS_RATIO = 1;
-  static const double CREDITS_EXTRA_RATIO = 0.5;
+  static const double CREDITS_RATE = 1;
+  static const double CREDITS_EXTRA_RATE = 0.5;
 
-  static const double NODE_CREDITS_RATIO = 0.1;
+  static const double NODE_CREDITS_RATE = 0.1;
+
+  static const double NODE_CHECKPOINT_CAPTURE_RATE = 0.1;
+  static const double NODE_CHEST_CAPTURE_RATE = 0.1;
+  static const double NODE_CREDIT_GENERATOR_CAPTURE_RATE = 0.1;
+  static const double NODE_UNIT_GENERATOR_CAPTURE_RATE = 0.1;
+  static const double NODE_VICTORY_CAPTURE_RATE = 0.01;
 
   static const String PLAYER_SELF = 'self';
   static const String PLAYER_ENEMY = 'enemy';
