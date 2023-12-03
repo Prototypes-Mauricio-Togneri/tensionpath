@@ -33,6 +33,7 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
       radius: size.x / 2,
       position: size / 2,
       anchor: Anchor.center,
+      isSolid: true,
     ));
 
     super.onLoad();

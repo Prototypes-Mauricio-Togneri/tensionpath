@@ -89,7 +89,6 @@ class GameWorld extends World {
 
     for (final Node node in state.battlefield.nodes) {
       add(NodeComponent(
-        state: state,
         node: node,
         size: state.battlefield.nodeSize,
       ));

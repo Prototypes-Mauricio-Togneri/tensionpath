@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -14,11 +12,9 @@ import 'package:tensionpath/utils/sprites.dart';
 
 class NodeComponent extends SpriteComponent
     with CollisionCallbacks, TapCallbacks {
-  final GameState state;
   final Node node;
 
   NodeComponent({
-    required this.state,
     required this.node,
     required super.size,
   }) : super(
@@ -67,15 +63,12 @@ class NodeComponent extends SpriteComponent
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if (node.type.isLauncher &&
-        (other is UnitComponent) &&
-        (node.owner != other.owner)) {
-      state.onUnitCollidedWithBase(
-        unit: other.unit,
-        baseOwner: node.owner!,
-      );
-    } else if ((other is UnitComponent) && node.type.canBeCaptured) {
-      node.setLastTouched(other.owner);
+    if (other is UnitComponent) {
+      if (node.type.isLauncher && (node.owner != other.owner)) {
+        node.onUnitCollidedWithBase(other.unit);
+      } else if (node.type.canBeCaptured) {
+        node.onTouched(other.owner);
+      }
     }
 
     super.onCollisionStart(intersectionPoints, other);
@@ -83,11 +76,8 @@ class NodeComponent extends SpriteComponent
 
   @override
   void onTapUp(TapUpEvent event) {
-    if ((node.type.canLaunch) && node.hasOwner) {
-      state.onNodeSpawnUnit(
-        node: node,
-        power: Random().nextInt(10) + 1,
-      );
+    if (node.type.canLaunch && node.hasOwner) {
+      node.onSpawnUnit();
     }
   }
 

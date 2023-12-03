@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/ownership.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
@@ -56,11 +59,21 @@ class Node {
   double get commandPointsAccumulated =>
       _commandPointsAccumulated.floorToDouble();
 
-  void setLastTouched(Player player) => ownership.touched(player);
-
   void setGameState(GameState gameState) {
     state = gameState;
   }
+
+  void onTouched(Player player) => ownership.touched(player);
+
+  void onUnitCollidedWithBase(Unit unit) => state.onUnitCollidedWithBase(
+        unit: unit,
+        baseOwner: owner!,
+      );
+
+  void onSpawnUnit() => state.onNodeSpawnUnit(
+        node: this,
+        power: Random().nextInt(10) + 1,
+      );
 
   void onNewOwner({
     required Player? previousOwner,
