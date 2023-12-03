@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
   NodeChestComponent({
@@ -45,8 +46,8 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
     super.render(canvas);
 
     const textStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 30,
+      color: Palette.yellow,
+      fontSize: 70,
     );
     final textSpan = TextSpan(
       text: node.commandPointsAccumulated.toString(),
@@ -55,12 +56,13 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
     final textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
     );
     textPainter.layout(
       minWidth: 0,
       maxWidth: 100,
     );
     final offset = (size / 2).toOffset();
-    textPainter.paint(canvas, Offset(offset.dx - 10, offset.dy + 10));
+    textPainter.paint(canvas, Offset(offset.dx - 20, offset.dy - 40));
   }
 }

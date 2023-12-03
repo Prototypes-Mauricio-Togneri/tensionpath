@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -92,16 +91,14 @@ class Node {
   }) {
     _commandPointsAccumulated = 0;
 
-    if (type.canBeCaptured) {
-      if (type.isVictory) {
-        state.onNodeVictoryCaptured(this);
-      } else if (type.isCommandPointsGenerator) {
-        state.onNodeCommandPointsGeneratorCaptured(
-          node: this,
-          previousOwner: previousOwner,
-          newOwner: newOwner,
-        );
-      }
+    if (type.isVictory) {
+      state.onNodeVictoryCaptured(this);
+    } else if (type.isCommandPointsGenerator) {
+      state.onNodeCommandPointsGeneratorCaptured(
+        node: this,
+        previousOwner: previousOwner,
+        newOwner: newOwner,
+      );
     }
   }
 
