@@ -159,7 +159,7 @@ class Battlefield {
                 node: Node(
                   id: 'n3c',
                   position: Vector2(200, 2050),
-                  type: NodeType.command_points_generator,
+                  type: NodeType.credits_generator,
                 ),
               ),
               Waypoint(
@@ -258,7 +258,7 @@ class Battlefield {
                 node: Node(
                   id: 'n2c',
                   position: Vector2(306, 500),
-                  type: NodeType.command_points_generator,
+                  type: NodeType.credits_generator,
                 ),
               ),
               Waypoint(
@@ -326,7 +326,7 @@ class Battlefield {
                 node: Node(
                   id: 'n4b',
                   position: Vector2(694, 1200),
-                  type: NodeType.command_points_generator,
+                  type: NodeType.credits_generator,
                 ),
               ),
               Waypoint(

@@ -90,8 +90,8 @@ class Controls extends StatelessWidget {
           for (int i = 1; i <= 10; i++)
             DeployButton(
               value: i,
-              onPressed: () => state.onCommandPointsSelected(i),
-              selected: state.gameState.commandPointsSelected == i,
+              onPressed: () => state.onCreditsSelected(i),
+              selected: state.gameState.creditsSelected == i,
             ),
         ],
       ),

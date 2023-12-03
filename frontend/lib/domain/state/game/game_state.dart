@@ -14,7 +14,7 @@ class GameState {
   final Player enemy;
   final Battlefield battlefield;
   late final World world;
-  int commandPointsSelected = 0;
+  int creditsSelected = 0;
 
   GameState({
     required this.self,
@@ -33,8 +33,8 @@ class GameState {
     enemy.update(dt);
   }
 
-  void onCommandPointsSelected(int amount) {
-    commandPointsSelected = amount;
+  void onCreditsSelected(int amount) {
+    creditsSelected = amount;
   }
 
   void onNodeSpawnUnit({
@@ -64,21 +64,21 @@ class GameState {
     // TODO(momo): implement
   }
 
-  void onAddCommandPoints({
+  void onAddCredits({
     required Player player,
-    required double commandPoints,
+    required double credits,
   }) {
-    player.addCommandPoints(commandPoints);
+    player.addCredits(credits);
   }
 
-  void onNodeCommandPointsGeneratorCaptured({
+  void onNodeCreditsGeneratorCaptured({
     required Node node,
     required Player? previousOwner,
     required Player newOwner,
   }) {
-    const double extra = Constants.COMMAND_POINTS_EXTRA_RATIO;
-    newOwner.addCommandPointsExtraRatio(extra);
-    previousOwner?.removeCommandPointsExtraRatio(extra);
+    const double extra = Constants.CREDITS_EXTRA_RATIO;
+    newOwner.addCreditsExtraRatio(extra);
+    previousOwner?.removeCreditsExtraRatio(extra);
   }
 
   void destroyUnit(Unit unit) {

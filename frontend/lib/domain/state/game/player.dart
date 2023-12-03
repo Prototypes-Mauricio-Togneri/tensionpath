@@ -7,18 +7,17 @@ import 'package:tensionpath/utils/sprites.dart';
 class Player {
   final String id;
   final int ownershipDirection;
-  double _commandPoints = 0;
-  double _commandPointsExtraRatio = 0;
+  double _credits = 0;
+  double _creditsExtraRatio = 0;
 
   static final Player SELF = Player._(Constants.PLAYER_SELF, 1);
   static final Player ENEMY = Player._(Constants.PLAYER_ENEMY, -1);
 
   Player._(this.id, this.ownershipDirection);
 
-  double get commandPoints => _commandPoints;
+  double get credits => _credits;
 
-  double get commandPointsRatio =>
-      Constants.COMMAND_POINTS_RATIO + _commandPointsExtraRatio;
+  double get creditsRatio => Constants.CREDITS_RATIO + _creditsExtraRatio;
 
   bool get isSelf => id == Constants.PLAYER_SELF;
 
@@ -29,19 +28,19 @@ class Player {
   Sprite get unitSprite => isSelf ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
 
   void update(double dt) {
-    _commandPoints += commandPointsRatio * dt;
+    _credits += creditsRatio * dt;
   }
 
-  void addCommandPointsExtraRatio(double value) {
-    _commandPointsExtraRatio += value;
+  void addCreditsExtraRatio(double value) {
+    _creditsExtraRatio += value;
   }
 
-  void removeCommandPointsExtraRatio(double value) {
-    _commandPointsExtraRatio -= value;
+  void removeCreditsExtraRatio(double value) {
+    _creditsExtraRatio -= value;
   }
 
-  void addCommandPoints(double value) {
-    _commandPoints += value;
+  void addCredits(double value) {
+    _credits += value;
   }
 
   @override

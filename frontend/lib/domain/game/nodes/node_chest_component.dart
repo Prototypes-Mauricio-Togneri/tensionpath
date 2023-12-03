@@ -32,7 +32,7 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is UnitComponent) && node.hasCommandPointsAccumulated) {
+    if ((other is UnitComponent) && node.hasCreditsAccumulated) {
       node.onChestAcquired(other.owner);
     }
 
@@ -48,7 +48,7 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
       fontSize: 70,
     );
     final textSpan = TextSpan(
-      text: node.commandPointsAccumulated.toString(),
+      text: node.creditsAccumulated.toString(),
       style: textStyle,
     );
     final textPainter = TextPainter(

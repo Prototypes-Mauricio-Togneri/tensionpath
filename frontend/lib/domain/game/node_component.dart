@@ -96,7 +96,7 @@ class NodeComponent extends SpriteComponent
         fontSize: 30,
       );
       final textSpan = TextSpan(
-        text: node.commandPointsAccumulated.toString(),
+        text: node.creditsAccumulated.toString(),
         style: textStyle,
       );
       final textPainter = TextPainter(

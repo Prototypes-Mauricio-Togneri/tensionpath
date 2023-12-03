@@ -14,7 +14,7 @@ class Node {
   final NodeType type;
   late final Ownership ownership;
   late GameState state;
-  double _commandPointsAccumulated = 0;
+  double _creditsAccumulated = 0;
 
   Node({
     required this.id,
@@ -55,10 +55,9 @@ class Node {
 
   Player? get owner => ownership.owner;
 
-  bool get hasCommandPointsAccumulated => commandPointsAccumulated > 0;
+  bool get hasCreditsAccumulated => creditsAccumulated > 0;
 
-  double get commandPointsAccumulated =>
-      _commandPointsAccumulated.floorToDouble();
+  double get creditsAccumulated => _creditsAccumulated.floorToDouble();
 
   void setGameState(GameState gameState) {
     state = gameState;
@@ -77,24 +76,24 @@ class Node {
       );
 
   void onChestAcquired(Player player) {
-    state.onAddCommandPoints(
+    state.onAddCredits(
       player: player,
-      commandPoints: commandPointsAccumulated,
+      credits: creditsAccumulated,
     );
 
-    resetCommandPointsAccumulated();
+    resetCreditsAccumulated();
   }
 
   void onNewOwner({
     required Player? previousOwner,
     required Player newOwner,
   }) {
-    _commandPointsAccumulated = 0;
+    _creditsAccumulated = 0;
 
     if (type.isVictory) {
       state.onNodeVictoryCaptured(this);
-    } else if (type.isCommandPointsGenerator) {
-      state.onNodeCommandPointsGeneratorCaptured(
+    } else if (type.isCreditsGenerator) {
+      state.onNodeCreditsGeneratorCaptured(
         node: this,
         previousOwner: previousOwner,
         newOwner: newOwner,
@@ -102,20 +101,18 @@ class Node {
     }
   }
 
-  void resetCommandPointsAccumulated() {
-    _commandPointsAccumulated = 0;
+  void resetCreditsAccumulated() {
+    _creditsAccumulated = 0;
   }
 
   bool update(double dt) {
     if (type.canAccumulate) {
       if (type.isChest || (hasOwner && (type.isUnitGenerator))) {
-        _commandPointsAccumulated += Constants.NODE_COMMAND_POINTS_RATIO * dt;
+        _creditsAccumulated += Constants.NODE_CREDITS_RATIO * dt;
       }
 
-      if (hasOwner &&
-          (type.isUnitGenerator) &&
-          (_commandPointsAccumulated >= 1)) {
-        _commandPointsAccumulated -= 1;
+      if (hasOwner && (type.isUnitGenerator) && (_creditsAccumulated >= 1)) {
+        _creditsAccumulated -= 1;
         state.onNodeSpawnUnit(
           node: this,
           power: 1,

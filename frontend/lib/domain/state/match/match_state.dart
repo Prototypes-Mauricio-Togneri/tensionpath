@@ -14,11 +14,11 @@ class MatchState extends BaseState {
     );
   }
 
-  void onCommandPointsSelected(int amount) {
-    if (gameState.commandPointsSelected != amount) {
-      gameState.onCommandPointsSelected(amount);
+  void onCreditsSelected(int amount) {
+    if (gameState.creditsSelected != amount) {
+      gameState.onCreditsSelected(amount);
     } else {
-      gameState.onCommandPointsSelected(0);
+      gameState.onCreditsSelected(0);
     }
 
     notify();

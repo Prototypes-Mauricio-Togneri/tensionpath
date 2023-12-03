@@ -2,8 +2,8 @@ import 'package:tensionpath/domain/game/nodes/node_capturable_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_icon_component.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
-class NodeCommandPointsGeneratorComponent extends NodeCapturableComponent {
-  NodeCommandPointsGeneratorComponent({
+class NodeCreditGeneratorComponent extends NodeCapturableComponent {
+  NodeCreditGeneratorComponent({
     required super.node,
     required super.size,
   });
@@ -11,7 +11,7 @@ class NodeCommandPointsGeneratorComponent extends NodeCapturableComponent {
   @override
   Future onLoad() {
     add(NodeIconComponent(
-      sprite: Sprites.NODE_ICON_GENERATOR,
+      sprite: Sprites.NODE_ICON_CREDIT_GENERATOR,
       parent: this,
     ));
 
