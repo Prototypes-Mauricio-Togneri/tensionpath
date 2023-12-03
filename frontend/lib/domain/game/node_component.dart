@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -105,5 +106,17 @@ class NodeComponent extends SpriteComponent
       final offset = (size / 2).toOffset();
       textPainter.paint(canvas, Offset(offset.dx - 10, offset.dy + 10));
     }
+
+    final Paint paint = Paint();
+    paint.color = Palette.blue;
+    paint..strokeWidth = 10;
+
+    canvas.drawArc(
+      Rect.fromLTWH(0, 0, size.x, size.y),
+      -pi / 2,
+      2 * pi * node.ownership.value,
+      false,
+      paint,
+    );
   }
 }

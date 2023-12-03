@@ -25,6 +25,8 @@ class Ownership {
 
   bool get hasOwner => _owner != null;
 
+  double get value => _value;
+
   bool isOwner(Player player) => _owner == player;
 
   void touched(Player player) => _lastTouched = player;
