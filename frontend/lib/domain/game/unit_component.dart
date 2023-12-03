@@ -66,8 +66,6 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     unit.update(dt);
 
     position = unit.position;
-
-    super.update(dt);
   }
 
   void refresh() {
