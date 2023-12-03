@@ -14,6 +14,7 @@ import 'package:tensionpath/utils/sprites.dart';
 class NodeComponent extends SpriteComponent
     with CollisionCallbacks, TapCallbacks {
   final Node node;
+  final Paint ownershipPaint = Paint();
 
   NodeComponent({
     required this.node,
@@ -27,6 +28,9 @@ class NodeComponent extends SpriteComponent
 
   @override
   Future onLoad() async {
+    ownershipPaint.style = PaintingStyle.stroke;
+    ownershipPaint.strokeWidth = 10;
+
     add(CircleHitbox(
       radius: size.x / 2,
       position: size / 2,
@@ -112,16 +116,14 @@ class NodeComponent extends SpriteComponent
     }
 
     if (node.ownership.hasTouched) {
-      final Paint paint = Paint();
       paint.color = node.ownership.color;
-      paint..strokeWidth = 10;
 
       canvas.drawArc(
         Rect.fromLTWH(0, 0, size.x, size.y),
         -pi / 2,
         2 * pi * node.ownership.value,
         false,
-        paint,
+        ownershipPaint,
       );
     }
   }
