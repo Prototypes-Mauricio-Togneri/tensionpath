@@ -116,7 +116,7 @@ class NodeComponent extends SpriteComponent
     }
 
     if (node.ownership.hasTouched) {
-      paint.color = node.ownership.color;
+      ownershipPaint.color = node.ownership.color;
 
       canvas.drawArc(
         Rect.fromLTWH(0, 0, size.x, size.y),
