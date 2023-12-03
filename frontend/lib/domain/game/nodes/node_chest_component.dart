@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
@@ -14,6 +15,7 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
 
   @override
   FutureOr onLoad() {
+    add(circleHitbox);
     /*add(NodeIconComponent(
       sprite: Sprites.NODE_ICON_VICTORY,
       parent: this,
@@ -35,7 +37,7 @@ class NodeChestComponent extends NodeBaseComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     if ((other is UnitComponent) && node.hasCommandPointsAccumulated) {
-      node.onChestAcquired();
+      node.onChestAcquired(other.owner);
     }
 
     super.onCollisionStart(intersectionPoints, other);

@@ -76,9 +76,9 @@ class Node {
         power: Random().nextInt(10) + 1,
       );
 
-  void onChestAcquired() {
+  void onChestAcquired(Player player) {
     state.onAddCommandPoints(
-      player: ownership.owner!,
+      player: player,
       commandPoints: commandPointsAccumulated,
     );
 
