@@ -30,7 +30,10 @@ class Ownership {
   void touched(Player player) => _lastTouched = player;
 
   bool update(double dt) {
-    if ((_lastTouched != _owner) && (_value < 1) && (_value > -1)) {
+    if ((_lastTouched != null) &&
+        (_lastTouched != _owner) &&
+        (_value < 1) &&
+        (_value > -1)) {
       _value += (dt * rate) * _lastTouched!.ownershipDirection;
 
       if ((_value >= 1) || (_value < -1)) {
