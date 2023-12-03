@@ -64,12 +64,11 @@ class GameState {
     // TODO(momo): implement
   }
 
-  void onNodeChestAcquired({
-    required Node node,
+  void onAddCommandPoints({
     required Player player,
+    required double commandPoints,
   }) {
-    player.addCommandPoints(node.commandPointsAccumulated);
-    node.resetCommandPointsAccumulated();
+    player.addCommandPoints(commandPoints);
   }
 
   void onNodeCommandPointsGeneratorCaptured({

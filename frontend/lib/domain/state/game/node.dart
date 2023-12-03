@@ -56,6 +56,8 @@ class Node {
 
   Player? get owner => ownership.owner;
 
+  bool get hasCommandPointsAccumulated => commandPointsAccumulated > 0;
+
   double get commandPointsAccumulated =>
       _commandPointsAccumulated.floorToDouble();
 
@@ -75,6 +77,15 @@ class Node {
         power: Random().nextInt(10) + 1,
       );
 
+  void onChestAcquired() {
+    state.onAddCommandPoints(
+      player: ownership.owner!,
+      commandPoints: commandPointsAccumulated,
+    );
+
+    resetCommandPointsAccumulated();
+  }
+
   void onNewOwner({
     required Player? previousOwner,
     required Player newOwner,
@@ -91,11 +102,6 @@ class Node {
           newOwner: newOwner,
         );
       }
-    } else if (type.isChest) {
-      state.onNodeChestAcquired(
-        node: this,
-        player: ownership.owner!,
-      );
     }
   }
 
