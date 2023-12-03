@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends SpriteComponent with CollisionCallbacks {
@@ -26,12 +27,7 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
   Future onLoad() async {
     refresh();
 
-    add(CircleHitbox(
-      radius: size.x / 2,
-      position: size / 2,
-      anchor: Anchor.center,
-      isSolid: true,
-    ));
+    add(circleHitbox);
 
     super.onLoad();
   }

@@ -4,8 +4,9 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/extensions/sprite_component_extension.dart';
 
-class NodeLauncherComponent extends NodeBaseLauncherComponent
+class NodeLauncherComponent extends NodeBaseComponent
     with CollisionCallbacks, TapCallbacks {
   NodeLauncherComponent({
     required super.node,
@@ -14,12 +15,7 @@ class NodeLauncherComponent extends NodeBaseLauncherComponent
 
   @override
   Future onLoad() async {
-    add(CircleHitbox(
-      radius: size.x / 2,
-      position: size / 2,
-      anchor: Anchor.center,
-      isSolid: true,
-    ));
+    add(circleHitbox);
 
     super.onLoad();
   }

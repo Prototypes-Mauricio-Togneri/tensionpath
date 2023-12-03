@@ -9,6 +9,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_launcher_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_victory_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 
@@ -94,12 +95,17 @@ class GameWorld extends World {
           node: node,
           size: state.battlefield.nodeSize,
         ));
+      } else if (node.type.isVictory) {
+        add(NodeVictoryComponent(
+          node: node,
+          size: state.battlefield.nodeSize,
+        ));
+      } else {
+        add(NodeComponent(
+          node: node,
+          size: state.battlefield.nodeSize,
+        ));
       }
-
-      add(NodeComponent(
-        node: node,
-        size: state.battlefield.nodeSize,
-      ));
     }
   }
 }

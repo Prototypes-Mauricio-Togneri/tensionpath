@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
@@ -31,12 +32,7 @@ class NodeComponent extends SpriteComponent
     ownershipPaint.style = PaintingStyle.stroke;
     ownershipPaint.strokeWidth = 10;
 
-    add(CircleHitbox(
-      radius: size.x / 2,
-      position: size / 2,
-      anchor: Anchor.center,
-      isSolid: true,
-    ));
+    add(circleHitbox);
 
     if (!node.type.isLauncher) {
       add(LabelComponent(
