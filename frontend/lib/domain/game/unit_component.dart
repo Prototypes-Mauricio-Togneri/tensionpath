@@ -1,19 +1,16 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/game/label_component.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends SpriteComponent with CollisionCallbacks {
-  final GameState state;
   final Unit unit;
   LabelComponent? labelComponent;
 
   UnitComponent({
-    required this.state,
     required this.unit,
     required super.size,
   }) : super(

@@ -125,7 +125,6 @@ class GameState {
       waypoints: waypoints,
     );
     world.add(UnitComponent(
-      state: this,
       unit: unit,
       size: battlefield.nodeSize,
     ));
