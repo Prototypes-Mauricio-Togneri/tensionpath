@@ -48,9 +48,11 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
         other.unit.owner.isEnemy) {
       if (unit.power > other.unit.power) {
         unit.reducePower(other.unit.power);
+        refresh();
         other.unit.destroy();
       } else if (unit.power < other.unit.power) {
         other.unit.reducePower(unit.power);
+        other.refresh();
         unit.destroy();
       } else {
         unit.destroy();
@@ -66,10 +68,6 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     unit.update(dt);
 
     position = unit.position;
-
-    if (unit.shouldUpdate) {
-      refresh();
-    }
 
     super.update(dt);
   }

@@ -31,8 +31,6 @@ class GameState {
   void update(double dt) {
     self.update(dt);
     enemy.update(dt);
-
-    battlefield.nodes.forEach((node) => node.update(dt));
   }
 
   void onCommandPointsSelected(int amount) {

@@ -1,10 +1,14 @@
 enum NodeType {
-  launcher,
-  victory,
-  chest,
-  command_points_generator,
-  unit_generator,
-  checkpoint;
+  launcher(rate: 0.1),
+  victory(rate: 0.01),
+  chest(rate: 0.1),
+  command_points_generator(rate: 0.1),
+  unit_generator(rate: 0.1),
+  checkpoint(rate: 0.1);
+
+  final double rate;
+
+  const NodeType({required this.rate});
 
   bool get isLauncher => this == launcher;
 

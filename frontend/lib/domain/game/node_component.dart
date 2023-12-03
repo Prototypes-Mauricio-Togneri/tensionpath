@@ -8,8 +8,6 @@ import 'package:tensionpath/domain/game/label_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/node.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/sprites.dart';
@@ -52,6 +50,19 @@ class NodeComponent extends SpriteComponent
   }
 
   @override
+  void update(double dt) {
+    final bool shouldUpdate = node.update(dt);
+
+    if (shouldUpdate && node.type.canBeCaptured) {
+      if (node.owner!.isEnemy) {
+        sprite = Sprites.NODE_ENEMY;
+      } else if (node.owner!.isSelf) {
+        sprite = Sprites.NODE_SELF;
+      }
+    }
+  }
+
+  @override
   void onCollisionStart(
     Set<Vector2> intersectionPoints,
     PositionComponent other,
@@ -63,22 +74,11 @@ class NodeComponent extends SpriteComponent
         unit: other.unit,
         baseOwner: node.owner!,
       );
+    } else if ((other is UnitComponent) && node.type.canBeCaptured) {
+      node.setLastTouched(other.owner);
     }
 
     super.onCollisionStart(intersectionPoints, other);
-  }
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is UnitComponent) {
-      final double distance = other.unit.position.distanceTo(position);
-
-      if (distance < 3) {
-        _captureNode(other.unit);
-      }
-    }
-
-    super.onCollision(intersectionPoints, other);
   }
 
   @override
@@ -87,36 +87,6 @@ class NodeComponent extends SpriteComponent
       state.onNodeSpawnUnit(
         node: node,
         power: Random().nextInt(10) + 1,
-      );
-    }
-  }
-
-  void _captureNode(Unit unit) {
-    if (node.type.canBeCaptured && (node.owner != unit.owner)) {
-      final Player? previousOwner = node.owner;
-      final Player newOwner = unit.owner;
-
-      node.setOwner(newOwner);
-
-      if (newOwner.isEnemy) {
-        sprite = Sprites.NODE_ENEMY;
-      } else if (newOwner.isSelf) {
-        sprite = Sprites.NODE_SELF;
-      }
-
-      if (node.type.isVictory) {
-        state.onNodeVictoryCaptured(node);
-      } else if (node.type.isCommandPointsGenerator) {
-        state.onNodeCommandPointsGeneratorCaptured(
-          node: node,
-          previousOwner: previousOwner,
-          newOwner: newOwner,
-        );
-      }
-    } else if (node.type.isChest) {
-      state.onNodeChestAcquired(
-        node: node,
-        player: unit.owner,
       );
     }
   }

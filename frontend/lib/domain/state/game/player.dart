@@ -6,13 +6,14 @@ import 'package:tensionpath/utils/sprites.dart';
 
 class Player {
   final String id;
+  final int ownershipDirection;
   double _commandPoints = 0;
   double _commandPointsExtraRatio = 0;
 
-  static final Player SELF = Player._(Constants.PLAYER_SELF);
-  static final Player ENEMY = Player._(Constants.PLAYER_ENEMY);
+  static final Player SELF = Player._(Constants.PLAYER_SELF, 1);
+  static final Player ENEMY = Player._(Constants.PLAYER_ENEMY, -1);
 
-  Player._(this.id);
+  Player._(this.id, this.ownershipDirection);
 
   double get commandPoints => _commandPoints;
 

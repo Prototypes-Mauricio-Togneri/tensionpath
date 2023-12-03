@@ -2,10 +2,9 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/domain/state/game/updatable.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
-class Unit with Updatable {
+class Unit {
   final GameState state;
   final Player owner;
   final double speed;
@@ -44,7 +43,6 @@ class Unit with Updatable {
 
   void reducePower(int value) {
     power -= value;
-    setUpdate();
   }
 
   void destroy() {
