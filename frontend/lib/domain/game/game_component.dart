@@ -7,7 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
-import 'package:tensionpath/domain/game/node_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_checkpoint_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_chest_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_credit_generator.dart';
 import 'package:tensionpath/domain/game/nodes/node_launcher_component.dart';
@@ -118,8 +118,8 @@ class GameWorld extends World {
           node: node,
           size: state.battlefield.nodeSize,
         ));
-      } else {
-        add(NodeComponent(
+      } else if (node.type.isCheckpoint) {
+        add(NodeCheckpointComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));

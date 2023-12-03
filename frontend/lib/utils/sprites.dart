@@ -14,6 +14,7 @@ class Sprites {
   static late Sprite NODE_ICON_VICTORY;
   static late Sprite NODE_ICON_CREDIT_GENERATOR;
   static late Sprite NODE_ICON_UNIT_GENERATOR;
+  static late Sprite NODE_ICON_CHECKPOINT;
 
   static Future load() async {
     BATTLEFIELD_LANES_3 = await Sprite.load(Assets.IMAGES_BATTLEFIELD_LANES_3);
@@ -30,5 +31,7 @@ class Sprites {
         await Sprite.load(Assets.IMAGES_NODE_ICON_CREDIT_GENERATOR);
     NODE_ICON_UNIT_GENERATOR =
         await Sprite.load(Assets.IMAGES_NODE_ICON_UNIT_GENERATOR);
+    NODE_ICON_CHECKPOINT =
+        await Sprite.load(Assets.IMAGES_NODE_ICON_CHECKPOINT);
   }
 }

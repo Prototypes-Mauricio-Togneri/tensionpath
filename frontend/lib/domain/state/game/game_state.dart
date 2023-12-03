@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/game/node_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
 import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -99,11 +99,11 @@ class GameState {
     throw Exception('Associated component not found');
   }
 
-  NodeComponent getNodeComponent(Node node) {
-    final List<NodeComponent> unitComponents =
-        world.children.query<NodeComponent>();
+  NodeBaseComponent getNodeComponent(Node node) {
+    final List<NodeBaseComponent> unitComponents =
+        world.children.query<NodeBaseComponent>();
 
-    for (final NodeComponent component in unitComponents) {
+    for (final NodeBaseComponent component in unitComponents) {
       if (component.node == node) {
         return component;
       }

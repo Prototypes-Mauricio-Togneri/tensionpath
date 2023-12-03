@@ -5,6 +5,7 @@ class Assets {
   static const String IMAGES_LAUNCHER_ENEMY = 'launcher/enemy.png';
   static const String IMAGES_NODE_ICON_CREDIT_GENERATOR =
       'node/icon/credit_generator.png';
+  static const String IMAGES_NODE_ICON_CHECKPOINT = 'node/icon/checkpoint.png';
   static const String IMAGES_NODE_ICON_UNIT_GENERATOR =
       'node/icon/unit_generator.png';
   static const String IMAGES_NODE_ICON_VICTORY = 'node/icon/victory.png';
