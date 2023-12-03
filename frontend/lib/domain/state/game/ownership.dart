@@ -1,5 +1,7 @@
+import 'dart:ui';
 import 'package:tensionpath/domain/state/game/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class Ownership {
   final Node node;
@@ -23,7 +25,19 @@ class Ownership {
 
   Player? get owner => _owner;
 
+  bool get hasTouched => _lastTouched != null;
+
   bool get hasOwner => _owner != null;
+
+  Color get color {
+    if (value > 0) {
+      return Player.SELF.color;
+    } else if (value < 0) {
+      return Player.ENEMY.color;
+    } else {
+      return Palette.transparent;
+    }
+  }
 
   double get value => _value;
 
@@ -32,10 +46,7 @@ class Ownership {
   void touched(Player player) => _lastTouched = player;
 
   bool update(double dt) {
-    if ((_lastTouched != null) &&
-        (_lastTouched != _owner) &&
-        (_value < 1) &&
-        (_value > -1)) {
+    if ((_lastTouched != null) && (_lastTouched != _owner)) {
       _value += (dt * rate) * _lastTouched!.ownershipDirection;
 
       if ((_value >= 1) || (_value < -1)) {

@@ -107,16 +107,18 @@ class NodeComponent extends SpriteComponent
       textPainter.paint(canvas, Offset(offset.dx - 10, offset.dy + 10));
     }
 
-    final Paint paint = Paint();
-    paint.color = Palette.blue;
-    paint..strokeWidth = 10;
+    if (node.ownership.hasTouched) {
+      final Paint paint = Paint();
+      paint.color = node.ownership.color;
+      paint..strokeWidth = 10;
 
-    canvas.drawArc(
-      Rect.fromLTWH(0, 0, size.x, size.y),
-      -pi / 2,
-      2 * pi * node.ownership.value,
-      false,
-      paint,
-    );
+      canvas.drawArc(
+        Rect.fromLTWH(0, 0, size.x, size.y),
+        -pi / 2,
+        2 * pi * node.ownership.value,
+        false,
+        paint,
+      );
+    }
   }
 }
