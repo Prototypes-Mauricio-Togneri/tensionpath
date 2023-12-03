@@ -11,6 +11,7 @@ class Sprites {
   static late Sprite NODE_ENEMY;
   static late Sprite NODE_NEUTRAL;
   static late Sprite NODE_SELF;
+  static late Sprite NODE_ICON_VICTORY;
 
   static Future load() async {
     Sprites.BATTLEFIELD3 = await Sprite.load(Assets.IMAGES_BATTLEFIELD3);
@@ -22,5 +23,6 @@ class Sprites {
     Sprites.NODE_ENEMY = await Sprite.load(Assets.IMAGES_NODE_ENEMY);
     Sprites.NODE_NEUTRAL = await Sprite.load(Assets.IMAGES_NODE_NEUTRAL);
     Sprites.NODE_SELF = await Sprite.load(Assets.IMAGES_NODE_SELF);
+    Sprites.NODE_ICON_VICTORY = await Sprite.load(Assets.IMAGES_NODE_ICON_VICTORY);
   }
 }
