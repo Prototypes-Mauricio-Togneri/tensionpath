@@ -59,9 +59,11 @@ class Ownership {
           previousOwner: previousOwner,
           newOwner: newOwner,
         );
-
-        return true;
+      } else {
+        _owner = null;
       }
+
+      return true;
     }
 
     return false;

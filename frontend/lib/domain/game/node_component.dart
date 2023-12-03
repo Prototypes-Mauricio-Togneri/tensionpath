@@ -51,10 +51,14 @@ class NodeComponent extends SpriteComponent
     final bool shouldUpdate = node.update(dt);
 
     if (shouldUpdate && node.type.canBeCaptured) {
-      if (node.owner!.isEnemy) {
-        sprite = Sprites.NODE_ENEMY;
-      } else if (node.owner!.isSelf) {
-        sprite = Sprites.NODE_SELF;
+      if (node.hasOwner) {
+        if (node.owner!.isEnemy) {
+          sprite = Sprites.NODE_ENEMY;
+        } else if (node.owner!.isSelf) {
+          sprite = Sprites.NODE_SELF;
+        }
+      } else {
+        sprite = Sprites.NODE_NEUTRAL;
       }
     }
   }
