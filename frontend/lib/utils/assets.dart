@@ -1,5 +1,6 @@
 class Assets {
   static const String IMAGES_LAUNCHER_ENEMY = 'launcher_enemy.png';
+  static const String IMAGES_NODE_ICON_GENERATOR = 'node_icon_generator.png';
   static const String IMAGES_BATTLEFIELD5 = 'battlefield5.png';
   static const String IMAGES_NODE_ENEMY = 'node_enemy.png';
   static const String IMAGES_NODE_ICON_VICTORY = 'node_icon_victory.png';

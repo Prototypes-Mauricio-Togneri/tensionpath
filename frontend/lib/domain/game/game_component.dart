@@ -9,6 +9,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/node_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_chest_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_command_points_generator.dart';
 import 'package:tensionpath/domain/game/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_victory_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -103,6 +104,11 @@ class GameWorld extends World {
         ));
       } else if (node.type.isChest) {
         add(NodeChestComponent(
+          node: node,
+          size: state.battlefield.nodeSize,
+        ));
+      } else if (node.type.isCommandPointsGenerator) {
+        add(NodeCommandPointsGeneratorComponent(
           node: node,
           size: state.battlefield.nodeSize,
         ));
