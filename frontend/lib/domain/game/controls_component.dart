@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -27,16 +27,22 @@ class ControlsComponent extends PositionComponent {
       BasicPalette.green.paint(),
     );
 
+    const double bubbleSize = 80;
+    final double gap = (size.x - (bubbleSize * 10)) / 11;
+
     for (int i = 0; i < 10; i++) {
+      final Offset center =
+          Offset((i * (bubbleSize + gap)) + (bubbleSize / 2) + gap, size.y / 2);
+
       canvas.drawCircle(
-        Offset((i * 75) + 100, 75),
-        50,
+        center,
+        bubbleSize / 2,
         BasicPalette.red.paint(),
       );
 
       canvas.drawText(
-        text: player.credits.toInt().toString(),
-        position: size / 2,
+        text: (i + 1).toString(),
+        position: center.toVector2(),
         size: 50,
         color: Palette.white,
       );
