@@ -27,7 +27,7 @@ class ControlsComponent extends PositionComponent {
       BasicPalette.green.paint(),
     );
 
-    const double bubbleSize = 80;
+    final double bubbleSize = size.y / 1.4;
     final double gap = (size.x - (bubbleSize * 10)) / 11;
 
     for (int i = 0; i < 10; i++) {
@@ -45,7 +45,7 @@ class ControlsComponent extends PositionComponent {
       canvas.drawText(
         text: (i + 1).toString(),
         position: center.toVector2(),
-        size: 50,
+        size: bubbleSize / 2,
         color: Palette.white,
       );
     }
