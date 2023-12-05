@@ -1,8 +1,8 @@
-import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/nodes/node_capturable_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeChestComponent extends NodeCapturableComponent<NodeChest>
@@ -23,24 +23,11 @@ class NodeChestComponent extends NodeCapturableComponent<NodeChest>
   void render(Canvas canvas) {
     super.render(canvas);
 
-    const textStyle = TextStyle(
-      color: Palette.yellow,
-      fontSize: 70,
-    );
-    final textSpan = TextSpan(
+    canvas.drawText(
       text: node.creditsAccumulated.toString(),
-      style: textStyle,
+      position: size / 2,
+      size: 70,
+      color: Palette.yellow,
     );
-    final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.center,
-    );
-    textPainter.layout(
-      minWidth: 0,
-      maxWidth: 100,
-    );
-    final offset = (size / 2).toOffset();
-    textPainter.paint(canvas, Offset(offset.dx - 20, offset.dy - 40));
   }
 }

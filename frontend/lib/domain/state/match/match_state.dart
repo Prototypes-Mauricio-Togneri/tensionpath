@@ -16,7 +16,7 @@ class MatchState extends BaseState {
   }
 
   void onUpdate() {
-    //Delayed.post(notify);
+    // TODO(momo): remove Delayed.post(notify);
   }
 
   void onCreditsSelected(int amount) {
