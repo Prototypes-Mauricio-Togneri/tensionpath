@@ -74,6 +74,8 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       halfScreenHeight + bottomBoundary,
     ));
 
+    // TODO(momo): show FPS component
+
     camera.viewport.add(ControlsComponent(
       player: state.enemy,
       position: Vector2(0, 0),
