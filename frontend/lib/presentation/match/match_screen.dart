@@ -34,7 +34,10 @@ class Body extends StatelessWidget {
         children: [
           StateProvider<MatchState>(
             state: state,
-            builder: (context, state) => Controls(state),
+            builder: (context, state) => RotatedBox(
+              quarterTurns: 2,
+              child: Controls(state),
+            ),
           ),
           Expanded(
             child: GameContent(state),
