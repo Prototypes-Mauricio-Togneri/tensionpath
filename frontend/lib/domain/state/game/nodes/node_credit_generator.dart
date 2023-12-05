@@ -1,9 +1,8 @@
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_accumulator.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_capturable.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 
-class NodeCreditGenerator extends NodeCapturable with NodeAccumulator {
+class NodeCreditGenerator extends NodeAccumulator {
   NodeCreditGenerator({
     required super.id,
     required super.position,
@@ -19,14 +18,5 @@ class NodeCreditGenerator extends NodeCapturable with NodeAccumulator {
       previousOwner: previousOwner,
       newOwner: newOwner,
     );
-  }
-
-  @override
-  bool update(double dt) {
-    if (hasOwner) {
-      accumulate(dt);
-    }
-
-    return super.update(dt);
   }
 }

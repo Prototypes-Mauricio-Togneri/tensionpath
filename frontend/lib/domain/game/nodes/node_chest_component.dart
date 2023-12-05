@@ -1,44 +1,22 @@
-import 'dart:async';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
-import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/game/nodes/node_capturable_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
-import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodeChestComponent extends NodeBaseComponent<NodeChest>
-    with CollisionCallbacks {
+class NodeChestComponent extends NodeCapturableComponent<NodeChest>
+    with TapCallbacks {
   NodeChestComponent({
     required super.node,
     required super.size,
   });
 
   @override
-  FutureOr onLoad() {
-    add(circleHitbox);
-
-    return super.onLoad();
-  }
-
-  @override
-  void update(double dt) {
-    node.update(dt);
-
-    super.update(dt);
-  }
-
-  @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
-    if ((other is UnitComponent) && node.hasCreditsAccumulated) {
-      node.onAcquired(other.owner);
+  void onTapUp(TapUpEvent event) {
+    if (node.hasOwner && node.hasCreditsAccumulated) {
+      node.onAcquired();
     }
-
-    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override

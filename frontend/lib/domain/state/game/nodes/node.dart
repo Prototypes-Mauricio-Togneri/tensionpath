@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/ownership.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
@@ -39,5 +40,6 @@ abstract class Node {
     required Player newOwner,
   }) {}
 
+  @mustCallSuper
   bool update(double dt) => ownership.update(dt);
 }
