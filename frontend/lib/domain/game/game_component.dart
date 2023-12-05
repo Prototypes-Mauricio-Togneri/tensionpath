@@ -7,6 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
+import 'package:tensionpath/domain/game/controls_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_checkpoint_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_chest_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_credit_generator.dart';
@@ -65,11 +66,17 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       0,
       halfScreenHeight,
       CONTAINER_WIDTH,
-      bottomBoundary,
+      bottomBoundary + 150,
     ));
     camera.moveTo(Vector2(
       CONTAINER_WIDTH / 2,
       halfScreenHeight + bottomBoundary,
+    ));
+
+    camera.viewport.add(ControlsComponent(
+      player: state.self,
+      position: Vector2(0, effectiveScreenHeight - 150),
+      size: Vector2(CONTAINER_WIDTH, 150),
     ));
 
     return super.onLoad();

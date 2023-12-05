@@ -1,4 +1,3 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/game_component.dart';
@@ -31,7 +30,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      child: Column(
+      child: GameContent(state),
+      /*child: Column(
         children: [
           StateProvider<MatchState>(
             state: state,
@@ -54,7 +54,7 @@ class Body extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
