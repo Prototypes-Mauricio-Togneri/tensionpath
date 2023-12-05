@@ -74,6 +74,12 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     ));
 
     camera.viewport.add(ControlsComponent(
+      player: state.enemy,
+      position: Vector2(0, 0),
+      size: Vector2(CONTAINER_WIDTH, 150),
+    ));
+
+    camera.viewport.add(ControlsComponent(
       player: state.self,
       position: Vector2(0, effectiveScreenHeight - 150),
       size: Vector2(CONTAINER_WIDTH, 150),
