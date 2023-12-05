@@ -29,6 +29,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final double pixelRatio;
 
   static const double CONTAINER_WIDTH = 1000;
+  static const double CONTROLS_HEIGHT = 102;
 
   GameComponent({
     required this.state,
@@ -66,7 +67,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       0,
       halfScreenHeight,
       CONTAINER_WIDTH,
-      bottomBoundary + 150,
+      bottomBoundary + CONTROLS_HEIGHT,
     ));
     camera.moveTo(Vector2(
       CONTAINER_WIDTH / 2,
@@ -76,13 +77,13 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     camera.viewport.add(ControlsComponent(
       player: state.enemy,
       position: Vector2(0, 0),
-      size: Vector2(CONTAINER_WIDTH, 150),
+      size: Vector2(CONTAINER_WIDTH, CONTROLS_HEIGHT),
     ));
 
     camera.viewport.add(ControlsComponent(
       player: state.self,
-      position: Vector2(0, effectiveScreenHeight - 150),
-      size: Vector2(CONTAINER_WIDTH, 150),
+      position: Vector2(0, effectiveScreenHeight - CONTROLS_HEIGHT),
+      size: Vector2(CONTAINER_WIDTH, CONTROLS_HEIGHT),
     ));
 
     return super.onLoad();
