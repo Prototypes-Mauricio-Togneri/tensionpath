@@ -14,13 +14,7 @@ class NodeAccumulator extends NodeCapturable {
 
   double get creditsAccumulated => _creditsAccumulated.floorToDouble();
 
-  void reset() {
-    _creditsAccumulated = 0;
-  }
-
-  void removeAccumulated(double value) {
-    _creditsAccumulated -= value;
-  }
+  void removeAccumulated(double value) => _creditsAccumulated -= value;
 
   @override
   bool update(double dt) {

@@ -9,7 +9,7 @@ class NodeUnitGenerator extends NodeAccumulator {
 
   @override
   bool update(double dt) {
-    if (hasOwner && (creditsAccumulated >= 1)) {
+    if (hasOwner && hasCreditsAccumulated) {
       removeAccumulated(1);
       spawnUnit(1);
     }

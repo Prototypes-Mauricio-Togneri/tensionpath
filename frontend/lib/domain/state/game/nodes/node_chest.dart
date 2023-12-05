@@ -13,6 +13,6 @@ class NodeChest extends NodeAccumulator {
       credits: creditsAccumulated,
     );
 
-    reset();
+    removeAccumulated(creditsAccumulated);
   }
 }
