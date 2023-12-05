@@ -8,10 +8,8 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
-import 'package:tensionpath/domain/state/match/match_state.dart';
 
 class GameState {
-  final MatchState matchState;
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
@@ -19,7 +17,6 @@ class GameState {
   int creditsSelected = 0;
 
   GameState({
-    required this.matchState,
     required this.self,
     required this.enemy,
     required this.battlefield,
@@ -34,7 +31,6 @@ class GameState {
   void update(double dt) {
     self.update(dt);
     enemy.update(dt);
-    matchState.onUpdate();
   }
 
   void onCreditsSelected(int amount) {

@@ -31,8 +31,10 @@ class ControlsComponent extends PositionComponent {
     final double gap = (size.x - (bubbleSize * 10)) / 11;
 
     for (int i = 0; i < 10; i++) {
-      final Offset center =
-          Offset((i * (bubbleSize + gap)) + (bubbleSize / 2) + gap, size.y / 2);
+      final Offset center = Offset(
+        (i * (bubbleSize + gap)) + (bubbleSize / 2) + gap,
+        size.y / 2,
+      );
 
       canvas.drawCircle(
         center,
