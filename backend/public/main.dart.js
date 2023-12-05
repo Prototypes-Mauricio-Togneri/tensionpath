@@ -50396,21 +50396,22 @@ A.MG(p.gpm(p))
 return new A.qF(r.a,new A.Ch(s),"Tension Path",q,!1,s)}}
 A.wU.prototype={}
 A.xE.prototype={
-eD(a){var s,r,q,p,o,n,m,l
+eD(a){var s,r,q,p,o,n,m,l,k,j
 this.GG(a)
 s=this.ax.a
 a.hj(new A.Y(0,0,0+s[0],0+s[1]),B.BF.kh())
-r=(s[0]-800)/11
-for(q=80+r,p=0;p<10;){o=p*q+40+r
-n=s[1]/2
-m=$.az().aI()
-m.sad(0,B.vU)
-a.ih(new A.I(o,n),40,m);++p
-m=B.f.j(p)
-l=new Float64Array(2)
-l[0]=o
-l[1]=n
-A.a5Z(a,B.h,new A.A(l),50,m)}}}
+r=s[1]/1.4
+q=(s[0]-r*10)/11
+for(p=r/2,o=r+q,n=0;n<10;){m=n*o+p+q
+l=s[1]/2
+k=$.az().aI()
+k.sad(0,B.vU)
+a.ih(new A.I(m,l),p,k);++n
+k=B.f.j(n)
+j=new Float64Array(2)
+j[0]=m
+j[1]=l
+A.a5Z(a,B.h,new A.A(j),p,k)}}}
 A.fZ.prototype={
 gtP(){var s=this.k4.at
 return s.gC(s).a[1]*1000/s.gC(s).a[0]},
@@ -50427,7 +50428,7 @@ o=new Float64Array(2)
 new A.A(o).J(p,q)
 n=o[1]-l.gtP()
 o=l.k4
-q=r+(n+103)
+q=r+(n+102)
 p=new A.Tl(0,r,1000,q)
 if(r>q){p.b=q
 p.d=r}o.FT(p)
@@ -50446,13 +50447,13 @@ q=o.at
 p=new A.A(new Float64Array(2))
 p.J(0,0)
 o=new A.A(new Float64Array(2))
-o.J(1000,103)
+o.J(1000,102)
 q.bd(A.a6c(s.b,p,o))
 o=l.gtP()
 p=new A.A(new Float64Array(2))
-p.J(0,o-103)
+p.J(0,o-102)
 o=new A.A(new Float64Array(2))
-o.J(1000,103)
+o.J(1000,102)
 q.bd(A.a6c(s.a,p,o))
 return l.GY(0)},
 aj(a,b){var s=this.bO
