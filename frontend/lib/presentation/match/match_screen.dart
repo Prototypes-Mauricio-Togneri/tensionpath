@@ -3,6 +3,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/game/game_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
@@ -36,7 +37,10 @@ class Body extends StatelessWidget {
             state: state,
             builder: (context, state) => RotatedBox(
               quarterTurns: 2,
-              child: Controls(state),
+              child: Controls(
+                state: state,
+                player: state.gameState.enemy,
+              ),
             ),
           ),
           Expanded(
@@ -44,7 +48,10 @@ class Body extends StatelessWidget {
           ),
           StateProvider<MatchState>(
             state: state,
-            builder: (context, state) => Controls(state),
+            builder: (context, state) => Controls(
+              state: state,
+              player: state.gameState.self,
+            ),
           ),
         ],
       ),
@@ -73,8 +80,12 @@ class GameContent extends StatelessWidget {
 
 class Controls extends StatelessWidget {
   final MatchState state;
+  final Player player;
 
-  const Controls(this.state);
+  const Controls({
+    required this.state,
+    required this.player,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +101,11 @@ class Controls extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Label(
+            text: player.credits.toInt().toString(),
+            color: Palette.white,
+            size: 12,
+          ),
           for (int i = 1; i <= 10; i++)
             DeployButton(
               value: i,

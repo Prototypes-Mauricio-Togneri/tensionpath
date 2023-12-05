@@ -8,10 +8,15 @@ class MatchState extends BaseState {
 
   MatchState(Battlefield battlefield) {
     gameState = GameState(
+      matchState: this,
       self: Player.SELF,
       enemy: Player.ENEMY,
       battlefield: battlefield,
     );
+  }
+
+  void onUpdate() {
+    //Delayed.post(notify);
   }
 
   void onCreditsSelected(int amount) {
