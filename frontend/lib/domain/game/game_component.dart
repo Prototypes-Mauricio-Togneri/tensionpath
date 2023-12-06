@@ -26,7 +26,6 @@ import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
 
 class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final GameState state;
-  final double aspectRatio;
   final double pixelRatio;
 
   static const double CONTAINER_WIDTH = 1000;
@@ -34,15 +33,8 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
   GameComponent({
     required this.state,
-    required this.aspectRatio,
     required this.pixelRatio,
-  }) : super(
-          camera: CameraComponent.withFixedResolution(
-            width: CONTAINER_WIDTH,
-            height: CONTAINER_WIDTH / aspectRatio,
-          ),
-          world: GameWorld(state),
-        );
+  }) : super(world: GameWorld(state));
 
   double get effectiveScreenHeight =>
       (camera.viewport.size.y * CONTAINER_WIDTH) / camera.viewport.size.x;
@@ -57,6 +49,11 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
   @override
   FutureOr onLoad() {
+    camera = CameraComponent.withFixedResolution(
+      width: CONTAINER_WIDTH,
+      height: CONTAINER_WIDTH / (size.x / size.y),
+    );
+
     debugMode = false;
     state.setWorld(world);
 
