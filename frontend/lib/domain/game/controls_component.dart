@@ -29,10 +29,10 @@ class ControlsComponent extends PositionComponent {
     backgroundPaint.color = Palette.green;
 
     chipPaint.style = PaintingStyle.fill;
-    chipPaint.color = Palette.red;
+    chipPaint.color = Palette.grey;
 
     fillingPaint.style = PaintingStyle.fill;
-    fillingPaint.color = Palette.blue;
+    fillingPaint.color = Palette.orange;
 
     return super.onLoad();
   }
