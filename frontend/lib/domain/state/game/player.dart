@@ -29,6 +29,7 @@ class Player {
 
   void update(double dt) {
     _credits += creditsRate * dt;
+    _credits = _credits.clamp(0, 10);
   }
 
   void addCreditsExtraRate(double value) {
@@ -41,6 +42,7 @@ class Player {
 
   void addCredits(double value) {
     _credits += value;
+    _credits = _credits.clamp(0, 10);
   }
 
   @override
