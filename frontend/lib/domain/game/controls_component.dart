@@ -1,6 +1,7 @@
+import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/palette.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -8,6 +9,9 @@ import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
+  final Paint backgroundPaint = Paint();
+  final Paint chipPaint = Paint();
+  final Paint fillingPaint = Paint();
 
   ControlsComponent({
     required this.player,
@@ -20,12 +24,26 @@ class ControlsComponent extends PositionComponent {
         );
 
   @override
+  FutureOr onLoad() {
+    backgroundPaint.style = PaintingStyle.fill;
+    backgroundPaint.color = Palette.green;
+
+    chipPaint.style = PaintingStyle.fill;
+    chipPaint.color = Palette.red;
+
+    fillingPaint.style = PaintingStyle.fill;
+    fillingPaint.color = Palette.blue;
+
+    return super.onLoad();
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
     canvas.drawRect(
       Rect.fromLTWH(0, 0, width, height),
-      BasicPalette.green.paint(),
+      backgroundPaint,
     );
 
     final double bubbleSize = size.y / 1.4;
@@ -40,7 +58,23 @@ class ControlsComponent extends PositionComponent {
       canvas.drawCircle(
         center,
         bubbleSize / 2,
-        BasicPalette.red.paint(),
+        chipPaint,
+      );
+
+      double fillValue = 0;
+
+      if (player.credits < i) {
+        fillValue = 0;
+      } else if (player.credits > (i + 1)) {
+        fillValue = 1;
+      } else {
+        fillValue = player.credits - i;
+      }
+
+      canvas.drawCircle(
+        center,
+        (bubbleSize / 2) * fillValue,
+        fillingPaint,
       );
 
       canvas.drawText(

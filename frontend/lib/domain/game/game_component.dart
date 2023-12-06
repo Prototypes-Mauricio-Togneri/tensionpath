@@ -5,7 +5,6 @@ import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/game/battlefield_component.dart';
 import 'package:tensionpath/domain/game/controls_component.dart';
@@ -23,6 +22,7 @@ import 'package:tensionpath/domain/state/game/nodes/node_credit_generator.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_launcher.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_unit_generator.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final GameState state;
@@ -106,7 +106,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   }
 
   @override
-  Color backgroundColor() => Colors.black;
+  Color backgroundColor() => Palette.black;
 
   @override
   void update(double dt) {
