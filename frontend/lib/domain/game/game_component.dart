@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
@@ -78,14 +79,28 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
     camera.viewport.add(ControlsComponent(
       player: state.enemy,
-      position: Vector2(0, 0),
-      size: Vector2(CONTAINER_WIDTH, CONTROLS_HEIGHT),
+      position: Vector2(
+        CONTAINER_WIDTH / 2,
+        CONTROLS_HEIGHT / 2,
+      ),
+      size: Vector2(
+        CONTAINER_WIDTH,
+        CONTROLS_HEIGHT,
+      ),
+      angle: pi,
     ));
 
     camera.viewport.add(ControlsComponent(
       player: state.self,
-      position: Vector2(0, effectiveScreenHeight - CONTROLS_HEIGHT),
-      size: Vector2(CONTAINER_WIDTH, CONTROLS_HEIGHT),
+      position: Vector2(
+        CONTAINER_WIDTH / 2,
+        effectiveScreenHeight - (CONTROLS_HEIGHT / 2),
+      ),
+      size: Vector2(
+        CONTAINER_WIDTH,
+        CONTROLS_HEIGHT,
+      ),
+      angle: 0,
     ));
 
     return super.onLoad();
