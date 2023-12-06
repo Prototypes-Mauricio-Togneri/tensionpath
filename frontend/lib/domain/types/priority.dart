@@ -1,8 +1,7 @@
 enum Priority {
   battlefield(0),
-  lanes(1),
-  nodes(2),
-  units(3);
+  nodes(1),
+  units(2);
 
   final int value;
 

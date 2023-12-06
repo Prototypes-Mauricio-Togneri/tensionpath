@@ -1,15 +1,15 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/game/label_component.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends SpriteComponent with CollisionCallbacks {
   final Unit unit;
-  LabelComponent? labelComponent;
 
   UnitComponent({
     required this.unit,
@@ -25,8 +25,6 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
 
   @override
   Future onLoad() async {
-    refresh();
-
     add(circleHitbox);
 
     super.onLoad();
@@ -42,11 +40,9 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
         other.unit.owner.isEnemy) {
       if (unit.power > other.unit.power) {
         unit.reducePower(other.unit.power);
-        refresh();
         other.unit.destroy();
       } else if (unit.power < other.unit.power) {
         other.unit.reducePower(unit.power);
-        other.refresh();
         unit.destroy();
       } else {
         unit.destroy();
@@ -64,18 +60,15 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     position = unit.position;
   }
 
-  void refresh() {
-    if (labelComponent != null) {
-      remove(labelComponent!);
-    }
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
 
-    labelComponent = LabelComponent(
+    canvas.drawText(
       text: unit.power.toString(),
       position: size / 2,
       size: size.x / 3,
       color: Palette.white,
     );
-
-    add(labelComponent!);
   }
 }
