@@ -50,6 +50,11 @@ class Player {
     _credits = _credits.clamp(0, 10);
   }
 
+  void spendCredits(int value) {
+    _creditsSelected = 0;
+    _credits -= value;
+  }
+
   void selectCredits(int value) {
     if (_creditsSelected != value) {
       _creditsSelected = value;

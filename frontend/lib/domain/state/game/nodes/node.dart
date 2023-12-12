@@ -34,8 +34,9 @@ abstract class Node {
   }
 
   void spawnUnitOfPlayer(Player player) {
-    spawnUnit(player.creditsSelected);
-    player.selectCredits(0);
+    final int power = player.creditsSelected;
+    spawnUnit(power);
+    player.spendCredits(power);
   }
 
   void spawnUnit(int power) {
