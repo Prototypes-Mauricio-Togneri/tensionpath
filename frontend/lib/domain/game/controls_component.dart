@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -56,11 +57,12 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class CreditSelectorComponent extends PositionComponent {
+class CreditSelectorComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final int value;
   final Paint chipPaint = Paint();
   final Paint fillingPaint = Paint();
+  final Paint borderPaint = Paint();
 
   CreditSelectorComponent({
     required this.player,
@@ -80,7 +82,18 @@ class CreditSelectorComponent extends PositionComponent {
     fillingPaint.style = PaintingStyle.fill;
     fillingPaint.color = Palette.orange;
 
+    borderPaint.style = PaintingStyle.stroke;
+    borderPaint.color = Palette.red;
+    borderPaint.strokeWidth = size.y / 10;
+
     return super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    if (player.credits >= value) {
+      player.selectCredits(value);
+    }
   }
 
   @override
@@ -118,5 +131,13 @@ class CreditSelectorComponent extends PositionComponent {
       size: radius,
       color: Palette.white,
     );
+
+    if (player.creditsSelected == value) {
+      canvas.drawCircle(
+        center,
+        radius,
+        borderPaint,
+      );
+    }
   }
 }

@@ -9,6 +9,7 @@ class Player {
   final int ownershipDirection;
   double _credits = 0;
   double _creditsExtraRate = 0;
+  int _creditsSelected = 0;
 
   static final Player SELF = Player._(Constants.PLAYER_SELF, 1);
   static final Player ENEMY = Player._(Constants.PLAYER_ENEMY, -1);
@@ -18,6 +19,8 @@ class Player {
   double get credits => _credits;
 
   double get creditsRate => Constants.CREDITS_RATE + _creditsExtraRate;
+
+  int get creditsSelected => _creditsSelected;
 
   bool get isSelf => id == Constants.PLAYER_SELF;
 
@@ -43,6 +46,14 @@ class Player {
   void addCredits(double value) {
     _credits += value;
     _credits = _credits.clamp(0, 10);
+  }
+
+  void selectCredits(int value) {
+    if (_creditsSelected != value) {
+      _creditsSelected = value;
+    } else {
+      _creditsSelected = 0;
+    }
   }
 
   @override
