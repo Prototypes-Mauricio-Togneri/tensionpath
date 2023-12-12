@@ -48,8 +48,9 @@ class Ownership {
   bool update(double dt) {
     if ((_lastTouched != null) && (_lastTouched != _owner)) {
       _value += (dt * rate) * _lastTouched!.ownershipDirection;
+      _value = _value.clamp(-1, 1);
 
-      if ((_value >= 1) || (_value < -1)) {
+      if ((_value == 1) || (_value == -1)) {
         final Player? previousOwner = _owner;
         final Player newOwner = _lastTouched!;
 
