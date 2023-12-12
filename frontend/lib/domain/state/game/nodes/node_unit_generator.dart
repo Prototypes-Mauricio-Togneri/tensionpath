@@ -8,6 +8,9 @@ class NodeUnitGenerator extends NodeAccumulator {
   }) : super(rate: Constants.NODE_UNIT_GENERATOR_CAPTURE_RATE);
 
   @override
+  bool get canAccumulate => hasOwner;
+
+  @override
   bool update(double dt) {
     if (hasOwner && hasCreditsAccumulated) {
       removeAccumulated(1);

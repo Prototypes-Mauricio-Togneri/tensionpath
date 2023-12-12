@@ -7,6 +7,9 @@ class NodeChest extends NodeAccumulator {
     required super.position,
   }) : super(rate: Constants.NODE_CHEST_CAPTURE_RATE);
 
+  @override
+  bool get canAccumulate => true;
+
   void onAcquired() {
     state.onAddCredits(
       player: owner!,

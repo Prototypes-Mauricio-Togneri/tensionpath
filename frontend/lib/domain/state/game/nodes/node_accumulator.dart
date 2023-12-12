@@ -1,7 +1,7 @@
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_capturable.dart';
 
-class NodeAccumulator extends NodeCapturable {
+abstract class NodeAccumulator extends NodeCapturable {
   NodeAccumulator({
     required super.id,
     required super.position,
@@ -14,11 +14,13 @@ class NodeAccumulator extends NodeCapturable {
 
   double get creditsAccumulated => _creditsAccumulated.floorToDouble();
 
+  bool get canAccumulate;
+
   void removeAccumulated(double value) => _creditsAccumulated -= value;
 
   @override
   bool update(double dt) {
-    if (hasOwner) {
+    if (canAccumulate) {
       _creditsAccumulated += Constants.NODE_CREDITS_RATE * dt;
     }
 

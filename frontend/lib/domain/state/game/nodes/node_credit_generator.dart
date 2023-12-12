@@ -9,6 +9,9 @@ class NodeCreditGenerator extends NodeAccumulator {
   }) : super(rate: Constants.NODE_CREDIT_GENERATOR_CAPTURE_RATE);
 
   @override
+  bool get canAccumulate => hasOwner;
+
+  @override
   void onNewOwner({
     required Player? previousOwner,
     required Player newOwner,
