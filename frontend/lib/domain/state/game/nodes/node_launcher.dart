@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
@@ -26,6 +25,4 @@ class NodeLauncher extends Node {
         unit: unit,
         baseOwner: owner!,
       );
-
-  void onSpawnUnit() => spawnUnit(Random().nextInt(10) + 1);
 }

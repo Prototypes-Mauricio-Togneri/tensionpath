@@ -35,8 +35,9 @@ class NodeLauncherComponent extends NodeBaseComponent<NodeLauncher>
 
   @override
   void onTapUp(TapUpEvent event) {
-    if (node.hasOwner) {
-      node.onSpawnUnit();
+    if (node.hasOwner && node.owner!.hasCreditsSelected) {
+      node.spawnUnit(node.owner!.creditsSelected);
+      node.owner!.selectCredits(0);
     }
   }
 }

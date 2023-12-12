@@ -22,6 +22,8 @@ class Player {
 
   int get creditsSelected => _creditsSelected;
 
+  bool get hasCreditsSelected => _creditsSelected > 0;
+
   bool get isSelf => id == Constants.PLAYER_SELF;
 
   bool get isEnemy => id == Constants.PLAYER_ENEMY;
