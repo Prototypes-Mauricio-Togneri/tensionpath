@@ -109,15 +109,8 @@ class CreditSelectorComponent extends PositionComponent with TapCallbacks {
       chipPaint,
     );
 
-    double fillValue = 0;
-
-    if (player.credits < (value - 1)) {
-      fillValue = 0;
-    } else if (player.credits > value) {
-      fillValue = 1;
-    } else {
-      fillValue = value - player.credits - 1;
-    }
+    double fillValue = 1 - (value - player.credits);
+    fillValue = fillValue.clamp(0, 1);
 
     canvas.drawCircle(
       center,
