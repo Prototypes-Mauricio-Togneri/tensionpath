@@ -10,8 +10,6 @@ import 'package:tensionpath/utils/palette.dart';
 class ControlsComponent extends PositionComponent {
   final Player player;
   final Paint backgroundPaint = Paint();
-  final Paint chipPaint = Paint();
-  final Paint fillingPaint = Paint();
 
   ControlsComponent({
     required this.player,
@@ -28,6 +26,54 @@ class ControlsComponent extends PositionComponent {
     backgroundPaint.style = PaintingStyle.fill;
     backgroundPaint.color = Palette.green;
 
+    for (int i = 0; i < 10; i++) {
+      final double bubbleSize = size.y / 1.4;
+      final double gap = (size.x - (bubbleSize * 10)) / 11;
+      final Vector2 position = Vector2(
+        (i * (bubbleSize + gap)) + (bubbleSize / 2) + gap,
+        size.y / 2,
+      );
+
+      add(CreditSelectorComponent(
+        player: player,
+        value: i + 1,
+        position: position,
+        size: Vector2(bubbleSize, bubbleSize),
+      ));
+    }
+
+    return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, width, height),
+      backgroundPaint,
+    );
+  }
+}
+
+class CreditSelectorComponent extends PositionComponent {
+  final Player player;
+  final int value;
+  final Paint chipPaint = Paint();
+  final Paint fillingPaint = Paint();
+
+  CreditSelectorComponent({
+    required this.player,
+    required this.value,
+    required super.position,
+    required super.size,
+  }) : super(
+          anchor: Anchor.center,
+          priority: Priority.battlefield.value,
+        );
+
+  @override
+  FutureOr onLoad() {
     chipPaint.style = PaintingStyle.fill;
     chipPaint.color = Palette.grey;
 
@@ -41,48 +87,36 @@ class ControlsComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      backgroundPaint,
+    final double radius = size.y / 2;
+    final Offset center = (size / 2).toOffset();
+
+    canvas.drawCircle(
+      center,
+      radius,
+      chipPaint,
     );
 
-    final double bubbleSize = size.y / 1.4;
-    final double gap = (size.x - (bubbleSize * 10)) / 11;
+    double fillValue = 0;
 
-    for (int i = 0; i < 10; i++) {
-      final Offset center = Offset(
-        (i * (bubbleSize + gap)) + (bubbleSize / 2) + gap,
-        size.y / 2,
-      );
-
-      canvas.drawCircle(
-        center,
-        bubbleSize / 2,
-        chipPaint,
-      );
-
-      double fillValue = 0;
-
-      if (player.credits < i) {
-        fillValue = 0;
-      } else if (player.credits > (i + 1)) {
-        fillValue = 1;
-      } else {
-        fillValue = player.credits - i;
-      }
-
-      canvas.drawCircle(
-        center,
-        (bubbleSize / 2) * fillValue,
-        fillingPaint,
-      );
-
-      canvas.drawText(
-        text: (i + 1).toString(),
-        position: center.toVector2(),
-        size: bubbleSize / 2,
-        color: Palette.white,
-      );
+    if (player.credits < (value - 1)) {
+      fillValue = 0;
+    } else if (player.credits > value) {
+      fillValue = 1;
+    } else {
+      fillValue = value - player.credits - 1;
     }
+
+    canvas.drawCircle(
+      center,
+      radius * fillValue,
+      fillingPaint,
+    );
+
+    canvas.drawText(
+      text: value.toString(),
+      position: center.toVector2(),
+      size: radius,
+      color: Palette.white,
+    );
   }
 }
