@@ -9,9 +9,5 @@ class NodeVictory extends NodeCapturable {
   }) : super(rate: Constants.NODE_VICTORY_CAPTURE_RATE);
 
   @override
-  void onNewOwner({
-    required Player? previousOwner,
-    required Player newOwner,
-  }) =>
-      state.onNodeVictoryCaptured(this);
+  void onOwnerAssigned(Player owner) => state.onNodeVictoryCaptured(this);
 }

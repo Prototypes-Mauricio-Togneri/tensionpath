@@ -73,12 +73,18 @@ class GameState {
 
   void onNodeCreditsGeneratorCaptured({
     required Node node,
-    required Player? previousOwner,
-    required Player newOwner,
+    required Player owner,
   }) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
-    newOwner.addCreditsExtraRate(extra);
-    previousOwner?.removeCreditsExtraRate(extra);
+    owner.addCreditsExtraRate(extra);
+  }
+
+  void onNodeCreditsGeneratorLost({
+    required Node node,
+    required Player owner,
+  }) {
+    const double extra = Constants.CREDITS_EXTRA_RATE;
+    owner.removeCreditsExtraRate(extra);
   }
 
   void destroyUnit(Unit unit) {

@@ -12,14 +12,18 @@ class NodeCreditGenerator extends NodeAccumulator {
   bool get canAccumulate => hasOwner;
 
   @override
-  void onNewOwner({
-    required Player? previousOwner,
-    required Player newOwner,
-  }) {
+  void onOwnerAssigned(Player owner) {
     state.onNodeCreditsGeneratorCaptured(
       node: this,
-      previousOwner: previousOwner,
-      newOwner: newOwner,
+      owner: owner,
+    );
+  }
+
+  @override
+  void onOwnerUnassigned(Player owner) {
+    state.onNodeCreditsGeneratorLost(
+      node: this,
+      owner: owner,
     );
   }
 }

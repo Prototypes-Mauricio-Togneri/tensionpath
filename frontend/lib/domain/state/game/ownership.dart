@@ -51,16 +51,13 @@ class Ownership {
       _value = _value.clamp(-1, 1);
 
       if ((_value == 1) || (_value == -1)) {
-        final Player? previousOwner = _owner;
-        final Player newOwner = _lastTouched!;
-
-        _owner = newOwner;
-
-        node.onNewOwner(
-          previousOwner: previousOwner,
-          newOwner: newOwner,
-        );
+        _owner = _lastTouched!;
+        node.onOwnerAssigned(_owner!);
       } else {
+        if (_owner != null) {
+          node.onOwnerUnassigned(_owner!);
+        }
+
         _owner = null;
       }
 

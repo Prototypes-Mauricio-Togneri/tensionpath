@@ -46,10 +46,9 @@ abstract class Node {
     );
   }
 
-  void onNewOwner({
-    required Player? previousOwner,
-    required Player newOwner,
-  }) {}
+  void onOwnerAssigned(Player owner) {}
+
+  void onOwnerUnassigned(Player owner) {}
 
   @mustCallSuper
   bool update(double dt) => ownership.update(dt);
