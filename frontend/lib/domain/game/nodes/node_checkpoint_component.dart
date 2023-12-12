@@ -23,8 +23,8 @@ class NodeCheckpointComponent extends NodeCapturableComponent<NodeCheckpoint>
 
   @override
   void onTapUp(TapUpEvent event) {
-    if (node.hasOwner) {
-      node.onSpawnUnit();
+    if (node.hasOwner && node.owner!.hasCreditsSelected) {
+      node.spawnUnitOfPlayer(node.owner!);
     }
   }
 }

@@ -33,7 +33,17 @@ abstract class Node {
     state = gameState;
   }
 
-  void spawnUnit(int power) => state.onNodeSpawnUnit(node: this, power: power);
+  void spawnUnitOfPlayer(Player player) {
+    spawnUnit(player.creditsSelected);
+    player.selectCredits(0);
+  }
+
+  void spawnUnit(int power) {
+    state.onNodeSpawnUnit(
+      node: this,
+      power: power,
+    );
+  }
 
   void onNewOwner({
     required Player? previousOwner,
