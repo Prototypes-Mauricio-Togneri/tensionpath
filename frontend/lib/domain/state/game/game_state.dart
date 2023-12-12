@@ -58,6 +58,7 @@ class GameState {
     required Player baseOwner,
   }) {
     unit.destroy();
+    baseOwner.reduceHp(unit.power);
   }
 
   void onNodeVictoryCaptured(Node node) {
