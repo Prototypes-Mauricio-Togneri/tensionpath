@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {argv} from 'process'
+import {v4} from 'uuid'
 import {createServer} from 'https'
 import {readFileSync} from 'fs'
 import {WebSocket, WebSocketServer} from 'ws'
@@ -23,24 +25,33 @@ const onMessage = (ws: WebSocket, message: string) => {
 }
 
 wss.on('connection', (ws: WebSocket) => {
-  log('Client connected')
+  const id = v4()
 
-  ws.on('error', console.error)
+  log(`Client connected: ${id}`)
 
-  ws.on('message', (data: object) => {
+  ws.on('error', (data: any) => {
+    log(`Error: ${id}. ${data}`)
+  })
+
+  ws.on('message', (data: any) => {
     onMessage(ws, data.toString())
   })
 
   ws.on('close', () => {
-    log('Client disconnected')
+    log(`Client disconnected: ${id}`)
   })
 
-  ws.send('welcome')
+  send(ws, 'welcome')
 })
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+export const send = (ws: WebSocket, data: string) => {
+  ws.send(data)
+  log(`>>> ${data}`)
+}
 
 export const log = (data: string) => {
   console.log(`${new Date().toISOString()} ${data}`)
