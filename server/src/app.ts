@@ -23,12 +23,16 @@ const onMessage = (ws: WebSocket, message: string) => {
 }
 
 wss.on('connection', (ws: WebSocket) => {
-  log('New connection')
+  log('Client connected')
 
   ws.on('error', console.error)
 
   ws.on('message', (data: object) => {
     onMessage(ws, data.toString())
+  })
+
+  ws.on('close', () => {
+    log('Client disconnected')
   })
 
   ws.send('welcome')
