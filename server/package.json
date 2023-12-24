@@ -1,0 +1,28 @@
+{
+  "name": "node-bank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/app.ts",
+  "engines": {
+    "node": "18"
+  },
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "lint:fix": "eslint --ext .js,.ts . --fix",
+    "build": "npx tsc",
+    "start": "node build/app.js",
+    "build:watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/ws": "^8.5.10",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "eslint": "^8.49.0",
+    "eslint-plugin-import": "^2.28.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "ws": "^8.15.1"
+  }
+}
