@@ -1,10 +1,16 @@
 import {createServer} from 'https';
 import {readFileSync} from 'fs';
 import {WebSocket, WebSocketServer} from 'ws'
+import {argv} from 'process';
+
+// const API_KEY = argv[2]
+const PORT = argv[3]
+const FULLCHAIN = argv[4]
+const PRIVKEY = argv[5]
 
 const server = createServer({
-  cert: readFileSync('cert/fullchain.pem'),
-  key: readFileSync('cert/privkey.pem'),
+  cert: readFileSync(FULLCHAIN),
+  key: readFileSync(PRIVKEY),
 });
 
 const wss = new WebSocketServer({
@@ -28,6 +34,6 @@ wss.on('connection', (ws: WebSocket) => {
   ws.send('welcome')
 })
 
-server.listen(7777, () => {
-  console.log('Server running on port 7777');
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
