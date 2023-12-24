@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "npm run build && npm run start API_KEY 7777 cert/fullchain.pem cert/privkey.pem",
+      "name": "Bakcend",
+      "request": "launch",
+      "type": "node-terminal",
+    }
+  ]
+}
