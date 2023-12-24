@@ -1,3 +1,3 @@
-# Tension Path
+# Tension Pathx
 
 https://tension-path.web.app
