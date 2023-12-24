@@ -1,7 +1,7 @@
-import {createServer} from 'https';
-import {readFileSync} from 'fs';
+import {argv} from 'process'
+import {createServer} from 'https'
+import {readFileSync} from 'fs'
 import {WebSocket, WebSocketServer} from 'ws'
-import {argv} from 'process';
 
 // const API_KEY = argv[2]
 const PORT = argv[3]
@@ -11,19 +11,19 @@ const PRIVKEY = argv[5]
 const server = createServer({
   cert: readFileSync(FULLCHAIN),
   key: readFileSync(PRIVKEY),
-});
+})
 
 const wss = new WebSocketServer({
   server: server,
 })
 
 const onMessage = (ws: WebSocket, message: string) => {
-  console.log(`<<< ${message}`)
+  log(`<<< ${message}`)
   ws.send(message)
 }
 
 wss.on('connection', (ws: WebSocket) => {
-  console.log('New connection')
+  log('New connection')
 
   ws.on('error', console.error)
 
@@ -35,5 +35,9 @@ wss.on('connection', (ws: WebSocket) => {
 })
 
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
+
+export const log = (data: string) => {
+  console.log(`${new Date().toISOString()} ${data}`)
+}
