@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import * as path from 'path';
 import {argv} from 'process'
 import {v4} from 'uuid'
 import {createServer} from 'https'
 import {readFileSync} from 'fs'
 import {WebSocket, WebSocketServer} from 'ws'
+
+export const baseDir = path.resolve()
 
 // const API_KEY = argv[2]
 const PORT = argv[3]
@@ -11,8 +14,8 @@ const FULLCHAIN = argv[4]
 const PRIVKEY = argv[5]
 
 const server = createServer({
-  cert: readFileSync(FULLCHAIN),
-  key: readFileSync(PRIVKEY),
+  cert: readFileSync(`${baseDir}/${FULLCHAIN}`),
+  key: readFileSync(`${baseDir}/${PRIVKEY}`),
 })
 
 const wss = new WebSocketServer({
