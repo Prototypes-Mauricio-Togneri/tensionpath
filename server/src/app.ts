@@ -1,9 +1,9 @@
 import {argv} from 'process'
 import {Environment} from './server/environment'
-import {RoomsManager} from './rooms/rooms-manager';
-import {Handler} from './server/handler';
-import {Looper} from './server/looper';
-import {Server} from './server/server';
+import {RoomsManager} from './rooms/rooms-manager'
+import {Handler} from './server/handler'
+import {Looper} from './server/looper'
+import {Server} from './server/server'
 
 export const environment = new Environment(
   argv[2],

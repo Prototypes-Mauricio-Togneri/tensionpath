@@ -8,6 +8,8 @@ import {WebSocket, WebSocketServer} from 'ws'
 import {environment} from '../app'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Handler} from './handler'
+import {v4} from 'uuid'
+import {Socket} from './socket'
 
 const X_API_KEY_HEADER = 'x-api-key'
 
@@ -73,18 +75,19 @@ export class Server {
       server: server,
     })
     
-    wss.on('connection', (socket: WebSocket) => {
+    wss.on('connection', (webSocket: WebSocket) => {
+      const socket = new Socket(v4(), webSocket)
       this.handler.onConnect(socket)
     
-      socket.on('error', (data: unknown) => {
+      webSocket.on('error', (data: unknown) => {
         this.handler.onError(socket, data)
       })
     
-      socket.on('message', (data: any) => {
+      webSocket.on('message', (data: any) => {
         this.handler.onMessage(socket, JSON.parse(data.toString()))
       })
     
-      socket.on('close', () => {
+      webSocket.on('close', () => {
         this.handler.onDisconnect(socket)
       })
     })

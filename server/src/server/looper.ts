@@ -1,4 +1,4 @@
-import {RoomsManager} from "../rooms/rooms-manager";
+import {RoomsManager} from "../rooms/rooms-manager"
 
 export class Looper {
   constructor(
@@ -7,13 +7,13 @@ export class Looper {
   
   public start() {
     /*while (true) {
-      final double current = currentTime;
-      final double dt = current - previous;
-      previous = current;
+      final double current = currentTime
+      final double dt = current - previous
+      previous = current
 
-      roomsManager.update(dt);
+      roomsManager.update(dt)
 
-      await Future.delayed(const Duration(milliseconds: 16));
+      await Future.delayed(const Duration(milliseconds: 16))
     }*/
   }
 }
