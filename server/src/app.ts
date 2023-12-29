@@ -4,7 +4,7 @@ import {argv} from 'process'
 import {v4} from 'uuid'
 import {createServer} from 'https'
 import {IncomingMessage, ServerResponse} from 'http'
-import url from 'url'
+import {parse} from 'url'
 import {readFileSync} from 'fs'
 import {WebSocket, WebSocketServer} from 'ws'
 
@@ -16,8 +16,8 @@ const FULLCHAIN = argv[4]
 const PRIVKEY = argv[5]
 
 const handleRequest = async (request: IncomingMessage, response: ServerResponse) => {
-  const parsedUrl = url.parse(request.url ?? '', true)
-  const {method, headers}  = request
+  const {method, url, headers}  = request
+  const parsedUrl = parse(url ?? '', true)
   const {pathname, query} = parsedUrl
 
   console.log(headers)
@@ -26,14 +26,16 @@ const handleRequest = async (request: IncomingMessage, response: ServerResponse)
     case '/rooms':
       if (method === 'POST') {
         if (typeof query.startDate === 'string' && typeof query.endDate === 'string') {
-          response.writeHead(200, { 'Content-Type': 'application/json' })
-          response.end(JSON.stringify({}))
+          response.statusCode = 200
+          response.setHeader('Content-Type', 'application/json')
+          response.write(JSON.stringify({}))
+          response.end()
         } else {
-          response.writeHead(400, { 'Content-Type': 'application/json' })
-          response.end('Missing startDate or enDate')
+          response.statusCode = 400
+          response.end()
         }
       } else {
-        response.writeHead(404)
+        response.statusCode = 404
         response.end()
       }
 
