@@ -8,7 +8,6 @@ import {WebSocket, WebSocketServer} from 'ws'
 import {environment} from '../app'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Handler} from './handler'
-import {v4} from 'uuid'
 import {Socket} from './socket'
 
 const X_API_KEY_HEADER = 'x-api-key'
@@ -75,8 +74,9 @@ export class Server {
       server: server,
     })
     
-    wss.on('connection', (webSocket: WebSocket) => {
-      const socket = new Socket(v4(), webSocket)
+    wss.on('connection', (webSocket: WebSocket, request: IncomingMessage) => {
+      const id = request.headers['sec-websocket-key'] as string
+      const socket = new Socket(id, webSocket)
       this.handler.onConnect(socket)
     
       webSocket.on('error', (data: unknown) => {
