@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as path from 'path';
+import * as path from 'path'
 import {argv} from 'process'
 import {v4} from 'uuid'
 import {createServer} from 'https'
-import {IncomingMessage, ServerResponse} from 'http';
-import url from 'url';
+import {IncomingMessage, ServerResponse} from 'http'
+import url from 'url'
 import {readFileSync} from 'fs'
 import {WebSocket, WebSocketServer} from 'ws'
 
@@ -16,9 +16,9 @@ const FULLCHAIN = argv[4]
 const PRIVKEY = argv[5]
 
 const handleRequest = async (request: IncomingMessage, response: ServerResponse) => {
-  const parsedUrl = url.parse(request.url ?? '', true);
-  const {method, headers}  = request;
-  const {pathname, query} = parsedUrl;
+  const parsedUrl = url.parse(request.url ?? '', true)
+  const {method, headers}  = request
+  const {pathname, query} = parsedUrl
 
   console.log(headers)
 
@@ -26,21 +26,21 @@ const handleRequest = async (request: IncomingMessage, response: ServerResponse)
     case '/rooms':
       if (method === 'POST') {
         if (typeof query.startDate === 'string' && typeof query.endDate === 'string') {
-          response.writeHead(200, { 'Content-Type': 'application/json' });
-          response.end(JSON.stringify({}));
+          response.writeHead(200, { 'Content-Type': 'application/json' })
+          response.end(JSON.stringify({}))
         } else {
-          response.writeHead(400, { 'Content-Type': 'application/json' });
-          response.end('Missing startDate or enDate');
+          response.writeHead(400, { 'Content-Type': 'application/json' })
+          response.end('Missing startDate or enDate')
         }
       } else {
-        response.writeHead(404);
-        response.end();
+        response.writeHead(404)
+        response.end()
       }
 
-      return;
+      return
     default:
-      response.writeHead(404);
-      response.end();
+      response.writeHead(404)
+      response.end()
   }
 }
 
@@ -49,7 +49,7 @@ const server = createServer({
   key: readFileSync(`${baseDir}/${PRIVKEY}`),
 })
 
-server.on('request', handleRequest);
+server.on('request', handleRequest)
 
 const wss = new WebSocketServer({
   server: server,
