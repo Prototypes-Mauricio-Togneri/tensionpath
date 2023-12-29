@@ -51,7 +51,6 @@ export class Server {
           this.roomsManager.create(json)
 
           response.statusCode = 201
-          response.setHeader('Content-Type', 'application/json')
         } else {
           response.statusCode = 401
         }
@@ -74,19 +73,19 @@ export class Server {
       server: server,
     })
     
-    wss.on('connection', (ws: WebSocket) => {
-      this.handler.onConnect(ws)
+    wss.on('connection', (socket: WebSocket) => {
+      this.handler.onConnect(socket)
     
-      ws.on('error', (data: unknown) => {
-        this.handler.onError(ws, data)
+      socket.on('error', (data: unknown) => {
+        this.handler.onError(socket, data)
       })
     
-      ws.on('message', (data: any) => {
-        this.handler.onMessage(ws, JSON.parse(data.toString()))
+      socket.on('message', (data: any) => {
+        this.handler.onMessage(socket, JSON.parse(data.toString()))
       })
     
-      ws.on('close', () => {
-        this.handler.onDisconnect(ws)
+      socket.on('close', () => {
+        this.handler.onDisconnect(socket)
       })
     })
     
