@@ -15,7 +15,7 @@ const PORT = argv[3]
 const FULLCHAIN = argv[4]
 const PRIVKEY = argv[5]
 
-const handleRequest = async (request: IncomingMessage, response: ServerResponse) => {
+const handleRequest = (request: IncomingMessage, response: ServerResponse) => {
   const {method, url, headers}  = request
   const parsedUrl = parse(url ?? '', true)
   const {pathname, query} = parsedUrl
@@ -25,7 +25,7 @@ const handleRequest = async (request: IncomingMessage, response: ServerResponse)
   switch (pathname) {
     case '/rooms':
       if (method === 'POST') {
-        if (typeof query.startDate === 'string' && typeof query.endDate === 'string') {
+        if (typeof query.startDate === 'string') {
           response.statusCode = 200
           response.setHeader('Content-Type', 'application/json')
           response.write(JSON.stringify({}))
@@ -38,8 +38,8 @@ const handleRequest = async (request: IncomingMessage, response: ServerResponse)
         response.statusCode = 404
         response.end()
       }
+      break
 
-      return
     default:
       response.writeHead(404)
       response.end()
