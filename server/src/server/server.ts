@@ -25,7 +25,7 @@ export class Server {
       switch (url) {
         case '/rooms':
           if (method === 'POST') {
-            this.handleRoomCreation(request, response)
+            handleRoomCreation(request, response, this.roomsManager)
           }
           break
     
@@ -34,35 +34,11 @@ export class Server {
           response.end()
       }
     } catch (e) {
-      Logger.error(`${e}`)
+      Logger.error(e)
 
       response.writeHead(500)
       response.end()
     }
-  }
-
-  private handleRoomCreation(request: IncomingMessage, response: ServerResponse) {
-    const apiKey = request.headers[X_API_KEY_HEADER]
-
-    let body: any = []
-    request
-      .on('data', chunk => {
-        body.push(chunk)
-      })
-      .on('end', () => {
-        body = Buffer.concat(body).toString()
-
-        if (apiKey == environment.apiKey) {
-          const json = JSON.parse(body)
-          this.roomsManager.create(json)
-
-          response.statusCode = 201
-        } else {
-          response.statusCode = 401
-        }
-
-        response.end()
-      })
   }
 
   public start() {
@@ -102,4 +78,34 @@ export class Server {
       console.log(`Server running on port ${info.port}`)
     })
   }
+}
+
+const handleRoomCreation = (request: IncomingMessage, response: ServerResponse, roomsManager: RoomsManager) => {
+  const apiKey = request.headers[X_API_KEY_HEADER]
+
+  let body: any = []
+  request
+    .on('data', chunk => {
+      body.push(chunk)
+    })
+    .on('end', () => {
+      body = Buffer.concat(body).toString()
+
+      try {
+        if (apiKey == environment.apiKey) {
+          const json = JSON.parse(body)
+          roomsManager.create(json)
+
+          response.statusCode = 201
+        } else {
+          response.statusCode = 401
+        }
+      } catch (e) {
+        Logger.error(e)
+
+        response.statusCode = 500
+      }
+
+      response.end()
+    })
 }

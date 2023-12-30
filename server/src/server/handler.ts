@@ -50,7 +50,7 @@ export class Handler {
       //Logger.log(socket, 'Connected')
       //socket.send(JsonMessage.welcome())
     } catch (e) {
-      Logger.error(`${e}`, socket)
+      Logger.error(e, socket)
     }
   }
 
@@ -60,15 +60,15 @@ export class Handler {
       Logger.log('[${}] Disconnected', socket)
       //roomsManager.leave(socket)
     } catch (e) {
-      Logger.error(`${e}`, socket)
+      Logger.error(e, socket)
     }
   }
 
   public onError(socket: Socket, error: unknown) {
     try {
-      Logger.error(`${error}`, socket)
+      Logger.error(error, socket)
     } catch (e) {
-      Logger.error(`${e}`, socket)
+      Logger.error(e, socket)
     }
   }
 }

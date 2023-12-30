@@ -9,7 +9,7 @@ export class Logger {
     }
   }
 
-  public static error(data: string, socket: Socket | undefined = undefined) {
+  public static error(data: unknown, socket: Socket | undefined = undefined) {
     if (socket) {
       console.error(`[${socket.id} ${new Date().toISOString()}] Error: ${data}`)
     } else {
