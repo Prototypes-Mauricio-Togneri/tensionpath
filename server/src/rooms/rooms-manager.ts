@@ -1,3 +1,4 @@
+import {CreateRoom} from '../json/create_room'
 import {Socket} from '../server/socket'
 import {Room} from './room'
 
@@ -5,7 +6,7 @@ export class RoomsManager {
   private rooms: Record<string, Room> = {}
   private websocketToRoom: Record<string, Room> = {}
 
-  public create(json: JSON) {
+  public create(json: CreateRoom) {
     console.log(json)
     console.log(this.rooms)
     console.log(this.websocketToRoom)
