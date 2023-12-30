@@ -10,11 +10,10 @@ export class Handler {
   ) {}
 
   public onMessage(socket: Socket, data: string) {
-    Logger.log(`<<< ${data}`, socket)
-
-    const json = JSON.parse(data)
-
     try {
+      Logger.log(`<<< ${data}`, socket)
+      const json = JSON.parse(data)
+
       if (json.join) {
         this.roomsManager.join(json.join as JsonJoinRoom, socket)
       } else if (json.launchUnit) {
