@@ -12,7 +12,7 @@ export class Match {
 
     for (const entry of Object.entries(room.players)) {
       players[entry[0]] = new Player(entry[0], entry[1])
-  }
+    }
 
     return new Match(room, players)
   }

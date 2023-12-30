@@ -1,15 +1,19 @@
 import {JsonError} from './json_error'
+import {JsonStarted} from './json_started'
 import {JsonWelcome} from './json_welcome'
 
 export class JsonMessage {
   constructor(
     readonly error?: JsonError,
     readonly welcome?: JsonWelcome,
+    readonly started?: JsonStarted,
   ) {}
 
   static error(message: string) {
     return new JsonMessage(
       new JsonError(message),
+      undefined,
+      undefined,
     )
   }
 
@@ -17,13 +21,15 @@ export class JsonMessage {
     return new JsonMessage(
       undefined,
       new JsonWelcome(),
+      undefined,
     )
   }
 
   static started() {
     return new JsonMessage(
       undefined,
-      new JsonWelcome(),
+      undefined,
+      new JsonStarted(),
     )
   }
 
