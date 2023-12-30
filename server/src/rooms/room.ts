@@ -27,9 +27,9 @@ export class Room {
 
   get getMatch(): Match {
     if (this.match != null) {
-      return this.match;
+      return this.match
     } else {
-      throw JsonMessage.error('Match not started');
+      throw JsonMessage.error('Match not started')
     }
   }
 
@@ -37,70 +37,70 @@ export class Room {
     console.log(playerId)
     console.log(socket)
     /*if ((_match == null) && players.containsKey(playerId)) {
-      playerIdToWebSocket[playerId] = socket;
-      webSocketToPlayerId[socket] = playerId;
+      playerIdToWebSocket[playerId] = socket
+      webSocketToPlayerId[socket] = playerId
 
-      Logger.log(socket, 'Player $playerId joined room $id');
+      Logger.log(socket, 'Player $playerId joined room $id')
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
-        _match = Match.create(this);
+        _match = Match.create(this)
 
         for (final Player player in _match!.players) {
           direct(
             playerId: player.id,
             json: JsonMessage.update(_match!.json(player)),
-          );
+          )
         }
       }
     } else {
-      throw JsonMessage.error('Player $playerId cannot join room $id');
+      throw JsonMessage.error('Player $playerId cannot join room $id')
     }*/
   }
 
   public leave(socket: Socket) {
     console.log(socket)
     /*if (webSocketToPlayerId.containsKey(socket)) {
-      final String playerId = webSocketToPlayerId[socket]!;
-      playerIdToWebSocket.remove(playerId);
-      webSocketToPlayerId.remove(socket);
+      final String playerId = webSocketToPlayerId[socket]!
+      playerIdToWebSocket.remove(playerId)
+      webSocketToPlayerId.remove(socket)
 
-      Logger.log(socket, 'Player $playerId left room $id');
+      Logger.log(socket, 'Player $playerId left room $id')
     } else {
-      throw JsonMessage.error('Cannot find player for socket ${socket.id}');
+      throw JsonMessage.error('Cannot find player for socket ${socket.id}')
     }*/
   }
 
   public increaseMine(socket: Socket) {
     console.log(socket)
-    //final String playerId = _getPlayerId(socket);
-    //match.increaseMine(playerId);
+    //final String playerId = _getPlayerId(socket)
+    //match.increaseMine(playerId)
   }
 
   /*private getPlayerId(socket: Socket): string {
-    final String? playerId = webSocketToPlayerId[socket];
+    final String? playerId = webSocketToPlayerId[socket]
 
     if (playerId != null) {
-      return playerId;
+      return playerId
     } else {
-      throw JsonMessage.error('Player not in room');
+      throw JsonMessage.error('Player not in room')
     }
   }*/
 
   public direct(playerId: string, json: JSON) {
     console.log(playerId)
     console.log(json)
-    //final WebSocket socket = playerIdToWebSocket[playerId]!;
-    //socket.send(json);
+    //final WebSocket socket = playerIdToWebSocket[playerId]!
+    //socket.send(json)
   }
 
   public broadcast(json: JSON) {
     console.log(json)
     //for (final WebSocket socket in webSocketToPlayerId.keys) {
-    //  socket.send(json);
+    //  socket.send(json)
     //}
   }
 
   public update(dt: number) {
-    this.match?.update(dt);
+    this.match?.update(dt)
   }
 }

@@ -1,30 +1,26 @@
 import {JsonCreateRoom} from '../json/client_server/json_create_room'
 import {JsonJoinRoom} from '../json/client_server/json_join_room'
+import {JsonMessage} from '../json/server_client/json_message'
 import {Socket} from '../server/socket'
 import {Room} from './room'
 
 export class RoomsManager {
-  private rooms: Record<string, Room> = {}
+  private roomIdToRoom: Record<string, Room> = {}
   private websocketToRoom: Record<string, Room> = {}
 
   public create(json: JsonCreateRoom) {
     const room = Room.fromJson(json)
-    this.rooms[room.id] = room
+    this.roomIdToRoom[room.id] = room
   }
 
   public join(json: JsonJoinRoom, socket: Socket) {
+    const room = this.getRoom(json.roomId)
+    room.join(json.playerId, socket)
+    this.websocketToRoom[socket.id] = room
+
     console.log(json)
     console.log(socket)
     console.log(this.websocketToRoom)
-    /*final Room room = _getRoom(
-      roomId: json.roomId,
-      socket: socket,
-    )
-    room.join(
-      playerId: json.playerId,
-      socket: socket,
-    )
-    websocketToRoom[socket] = room*/
   }
 
   public leave(socket: Socket) {
@@ -62,15 +58,13 @@ export class RoomsManager {
     room.increaseAttack(socket)*/
   }
 
-  /*private getRoom(roomId: string, socket: Socket): Room {
-    if (rooms.has(roomId)) {
-      return rooms.get(roomId)
+  private getRoom(roomId: string): Room {
+    if (this.roomIdToRoom[roomId]) {
+      return this.roomIdToRoom[roomId]
     } else {
       throw JsonMessage.error('Room with ID $roomId does not exist')
     }
-
-    return new Room()
-  }*/
+  }
 
   public update(dt: number) {
     console.log(dt)
