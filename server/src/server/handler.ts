@@ -22,6 +22,8 @@ export class Handler {
           json: message,
           socket: socket,
         )*/
+      } else {
+        socket.send(JsonMessage.error(`Unknown incoming message ${data}`))
       }
     } catch (e) {
       if (e instanceof JsonMessage) {

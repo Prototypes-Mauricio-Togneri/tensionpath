@@ -17,10 +17,6 @@ export class RoomsManager {
     const room = this.getRoom(json.roomId)
     room.join(json.playerId, socket)
     this.socketToRoom[socket.id] = room
-
-    console.log(json)
-    console.log(socket)
-    console.log(this.socketToRoom)
   }
 
   public leave(socket: Socket) {

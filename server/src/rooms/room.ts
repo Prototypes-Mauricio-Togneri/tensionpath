@@ -23,6 +23,7 @@ export class Room {
       new Date(json.createdAt),
       json.numberOfPlayers,
       json.matchType,
+      json.players,
     )
   }
 
@@ -35,9 +36,6 @@ export class Room {
   }
 
   public join(playerId: string, socket: Socket) {
-    console.log(playerId)
-    console.log(socket)
-    
     if (!this.match && this.players[playerId]) {
       this.playerIdToSocket[playerId] = socket
       this.socketToPlayerId[socket.id] = playerId
