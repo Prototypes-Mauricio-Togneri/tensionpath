@@ -9,6 +9,6 @@ export class Socket {
 
   public send(data: string) {
     this.socket.send(data)
-    Logger.log(`>>> ${data}`)
+    Logger.log(`>>> ${data}`, this)
   }
 }
