@@ -47,7 +47,7 @@ export class Server {
   
     let body: any = []
     request
-      .on('data', chunk => {
+      .on('data', (chunk) => {
         body.push(chunk)
       })
       .on('end', () => {
