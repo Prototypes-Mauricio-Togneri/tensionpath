@@ -41,11 +41,10 @@ export class Room {
       Logger.log(`Player ${playerId} joined room ${this.id}`, socket)
 
       if (Object.keys(this.playerIdToSocket).length === this.numberOfPlayers) {
-        /*this.match = Match.create(this)
+        Logger.log(`Room ${this.id} completed`, socket)
 
-        for (const player of this.match?.players) {
-          this.direct(player.id, JsonMessage.update(_match!.json(player))
-        }*/
+        this.match = Match.create(this)
+        this.broadcast(JsonMessage.started())
       }
     } else {
       throw JsonMessage.error(`Player ${playerId} cannot join room ${this.id}`)
@@ -94,7 +93,7 @@ export class Room {
     socket.send(json)
   }
 
-  public broadcast(json: JSON) {
+  public broadcast(json: JsonMessage) {
     for (const socket of Object.values(this.playerIdToSocket)) {
       socket.send(json)
     }

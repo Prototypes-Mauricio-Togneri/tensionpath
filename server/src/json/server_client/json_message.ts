@@ -20,6 +20,13 @@ export class JsonMessage {
     )
   }
 
+  static started() {
+    return new JsonMessage(
+      undefined,
+      new JsonWelcome(),
+    )
+  }
+
   static unitCreated() {
     return new JsonMessage(
       undefined,
