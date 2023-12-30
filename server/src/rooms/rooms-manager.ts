@@ -6,11 +6,16 @@ export class RoomsManager {
   private websocketToRoom: Record<string, Room> = {}
 
   public create(json: JSON) {
+    console.log(json)
+    console.log(this.rooms)
+    console.log(this.websocketToRoom)
     //final Room room = Room.fromJson(json)
     //rooms.add(json.roomId, room)
   }
 
   public join(json: JSON, socket: Socket) {
+    console.log(json)
+    console.log(socket)
     /*final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
@@ -23,6 +28,7 @@ export class RoomsManager {
   }
 
   public leave(socket: Socket) {
+    console.log(socket)
     /*if (websocketToRoom.containsKey(socket)) {
       final Room room = websocketToRoom[socket]!
       room.leave(socket)
@@ -37,6 +43,8 @@ export class RoomsManager {
   }
 
   public increaseMine(json: JSON, socket: Socket) {
+    console.log(json)
+    console.log(socket)
     /*final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
@@ -45,6 +53,8 @@ export class RoomsManager {
   }
 
   public increaseAttack(json: JSON, socket: Socket) {
+    console.log(json)
+    console.log(socket)
     /*final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,
@@ -52,25 +62,18 @@ export class RoomsManager {
     room.increaseAttack(socket)*/
   }
 
-  public launchUnits(json: JSON, socket: Socket) {
-    /*final Room room = _getRoom(
-      roomId: json.roomId,
-      socket: socket,
-    )
-    room.launchUnits(socket, json.laneId, json.amount)*/
-  }
-
-  private getRoom(roomId: string, socket: Socket): Room {
-    /*if (rooms.has(roomId)) {
+  /*private getRoom(roomId: string, socket: Socket): Room {
+    if (rooms.has(roomId)) {
       return rooms.get(roomId)
     } else {
       throw JsonMessage.error('Room with ID $roomId does not exist')
-    }*/
+    }
 
     return new Room()
-  }
+  }*/
 
   public update(dt: number) {
+    console.log(dt)
     /*for (final Room room in rooms.list) {
       room.update(dt)
     }*/

@@ -22,6 +22,9 @@ export class Server {
     const {method, url}  = request
     const parsedUrl = parse(url ?? '', true)
     const {pathname} = parsedUrl
+
+    console.log(pathname)
+    console.log(url)
   
     switch (pathname) {
       case '/rooms':

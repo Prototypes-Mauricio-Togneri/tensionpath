@@ -1,4 +1,5 @@
 import {RoomsManager} from '../rooms/rooms-manager'
+import {log} from '../utils/logger'
 import {Socket} from './socket'
 
 export class Handler {
@@ -7,6 +8,9 @@ export class Handler {
   ) {}
 
   public onMessage(socket: Socket, json: JSON) {
+    log(`>>> ${JSON.stringify(json)}`)
+
+    console.log(socket)
     /*Logger.log(socket, '<<< $json')
 
     final dynamic message = json.message
@@ -42,6 +46,7 @@ export class Handler {
 
   public onConnect(socket: Socket) {
     try {
+      console.log(socket)
       //Logger.log(socket, 'Connected')
       //socket.send(JsonMessage.welcome())
     } catch (e) {
@@ -51,6 +56,7 @@ export class Handler {
 
   public onDisconnect(socket: Socket) {
     try {
+      console.log(socket)
       //Logger.log(socket, 'Disconnected')
       //roomsManager.leave(socket)
     } catch (e) {
@@ -60,6 +66,8 @@ export class Handler {
 
   public onError(socket: Socket, error: unknown) {
     try {
+      console.log(socket)
+      console.log(error)
       //Logger.log(socket, 'Error: $error')
     } catch (e) {
       //Logger.error(e)
