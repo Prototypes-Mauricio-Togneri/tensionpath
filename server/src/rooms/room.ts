@@ -2,6 +2,7 @@ import {Match} from '../domain/match'
 import {JsonCreateRoom} from '../json/client_server/json_create_room'
 import {JsonMessage} from '../json/server_client/json_message'
 import {Socket} from '../server/socket'
+import {Logger} from '../utils/logger'
 
 export class Room {
   match: Match | undefined 
@@ -12,8 +13,8 @@ export class Room {
     readonly numberOfPlayers: number,
     readonly matchType: string,
     readonly players: Record<string, string> = {},
-    readonly playerIdToWebSocket: Record<string, string> = {},
-    readonly webSocketToPlayerId: Record<string, string> = {},
+    readonly playerIdToSocket: Record<string, Socket> = {},
+    readonly socketToPlayerId: Record<string, string> = {},
   ) {}
 
   static fromJson(json: JsonCreateRoom) {
@@ -36,25 +37,23 @@ export class Room {
   public join(playerId: string, socket: Socket) {
     console.log(playerId)
     console.log(socket)
-    /*if ((_match == null) && players.containsKey(playerId)) {
-      playerIdToWebSocket[playerId] = socket
-      webSocketToPlayerId[socket] = playerId
+    
+    if ((this.match == null) && this.players[playerId]) {
+      this.playerIdToSocket[playerId] = socket
+      this.socketToPlayerId[socket.id] = playerId
 
-      Logger.log(socket, 'Player $playerId joined room $id')
+      Logger.log(`Player ${playerId} joined room ${this.id}`, socket)
 
-      if (playerIdToWebSocket.length == numberOfPlayers) {
-        _match = Match.create(this)
+      if (Object.keys(this.playerIdToSocket).length === this.numberOfPlayers) {
+        /*this.match = Match.create(this)
 
-        for (final Player player in _match!.players) {
-          direct(
-            playerId: player.id,
-            json: JsonMessage.update(_match!.json(player)),
-          )
-        }
+        for (const player of this.match?.players) {
+          this.direct(player.id, JsonMessage.update(_match!.json(player))
+        }*/
       }
     } else {
-      throw JsonMessage.error('Player $playerId cannot join room $id')
-    }*/
+      throw JsonMessage.error(`Player ${playerId} cannot join room ${this.id}`)
+    }
   }
 
   public leave(socket: Socket) {

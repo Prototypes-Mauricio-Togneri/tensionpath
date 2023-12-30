@@ -6,7 +6,7 @@ import {Room} from './room'
 
 export class RoomsManager {
   private roomIdToRoom: Record<string, Room> = {}
-  private websocketToRoom: Record<string, Room> = {}
+  private socketToRoom: Record<string, Room> = {}
 
   public create(json: JsonCreateRoom) {
     const room = Room.fromJson(json)
@@ -16,11 +16,11 @@ export class RoomsManager {
   public join(json: JsonJoinRoom, socket: Socket) {
     const room = this.getRoom(json.roomId)
     room.join(json.playerId, socket)
-    this.websocketToRoom[socket.id] = room
+    this.socketToRoom[socket.id] = room
 
     console.log(json)
     console.log(socket)
-    console.log(this.websocketToRoom)
+    console.log(this.socketToRoom)
   }
 
   public leave(socket: Socket) {
