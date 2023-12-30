@@ -35,6 +35,9 @@ export class Server {
       }
     } catch (e) {
       Logger.error(`${e}`)
+
+      response.writeHead(500)
+      response.end()
     }
   }
 
