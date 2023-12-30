@@ -2,9 +2,7 @@ import {argv} from 'process'
 import {Environment} from './server/environment'
 import {RoomsManager} from './rooms/rooms-manager'
 import {Handler} from './server/handler'
-import {Looper} from './server/looper'
 import {Server} from './server/server'
-import {Logger} from './utils/logger'
 
 export const environment = new Environment(
   argv[2],
@@ -15,9 +13,9 @@ export const environment = new Environment(
 
 const roomsManager = new RoomsManager()
 const handler = new Handler(roomsManager)
-const looper = new Looper(roomsManager)
 
 const server = new Server(roomsManager, handler)
 server.start()
 
-looper.start().catch(Logger.error)
+//const looper = new Looper(roomsManager)
+//looper.start().catch(Logger.error)
