@@ -19,4 +19,4 @@ const looper = new Looper(roomsManager)
 const server = new Server(roomsManager, handler)
 server.start()
 
-looper.start()
+looper.start().catch(console.log)
