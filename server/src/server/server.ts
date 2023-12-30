@@ -26,7 +26,7 @@ export class Server {
       switch (url) {
         case '/rooms':
           if (method === 'POST') {
-            handleRoomCreation(request, response, this.roomsManager)
+            this.handleRoomCreation(request, response)
           }
           break
     
@@ -42,6 +42,36 @@ export class Server {
     }
   }
 
+  private handleRoomCreation(request: IncomingMessage, response: ServerResponse) {
+    const apiKey = request.headers[X_API_KEY_HEADER]
+  
+    let body: any = []
+    request
+      .on('data', chunk => {
+        body.push(chunk)
+      })
+      .on('end', () => {
+        body = Buffer.concat(body).toString()
+  
+        try {
+          if (apiKey == environment.apiKey) {
+            const json = JSON.parse(body) as CreateRoom
+            this.roomsManager.create(json)
+  
+            response.statusCode = 201
+          } else {
+            response.statusCode = 401
+          }
+        } catch (e) {
+          Logger.error(e)
+  
+          response.statusCode = 500
+        }
+  
+        response.end()
+      })
+  }
+
   public start() {
     const baseDir = path.resolve()
 
@@ -50,7 +80,9 @@ export class Server {
       key: readFileSync(`${baseDir}/${environment.privkey}`),
     })
     
-    server.on('request', this.handleRequest)
+    server.on('request', (request: IncomingMessage, response: ServerResponse) => {
+      this.handleRequest(request, response)
+    })
     
     const wss = new WebSocketServer({
       server: server,
@@ -79,34 +111,4 @@ export class Server {
       console.log(`Server running on port ${info.port}`)
     })
   }
-}
-
-const handleRoomCreation = (request: IncomingMessage, response: ServerResponse, roomsManager: RoomsManager) => {
-  const apiKey = request.headers[X_API_KEY_HEADER]
-
-  let body: any = []
-  request
-    .on('data', chunk => {
-      body.push(chunk)
-    })
-    .on('end', () => {
-      body = Buffer.concat(body).toString()
-
-      try {
-        if (apiKey == environment.apiKey) {
-          const json = JSON.parse(body) as CreateRoom
-          roomsManager.create(json)
-
-          response.statusCode = 201
-        } else {
-          response.statusCode = 401
-        }
-      } catch (e) {
-        Logger.error(e)
-
-        response.statusCode = 500
-      }
-
-      response.end()
-    })
 }
