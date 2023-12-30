@@ -1,5 +1,5 @@
 import {WebSocket} from 'ws'
-import {log} from '../utils/logger'
+import {Logger} from '../utils/logger'
 
 export class Socket {
   constructor(
@@ -9,6 +9,6 @@ export class Socket {
 
   public send(data: string) {
     this.socket.send(data)
-    log(`>>> ${data}`)
+    Logger.log(`>>> ${data}`)
   }
 }

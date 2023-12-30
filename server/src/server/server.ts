@@ -8,6 +8,7 @@ import {environment} from '../app'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Handler} from './handler'
 import {Socket} from './socket'
+import {Logger} from '../utils/logger'
 
 const X_API_KEY_HEADER = 'x-api-key'
 
@@ -18,18 +19,22 @@ export class Server {
   ) {}
 
   private handleRequest(request: IncomingMessage, response: ServerResponse) {
-    const {method, url}  = request
+    try {
+      const {method, url}  = request
 
-    switch (url) {
-      case '/rooms':
-        if (method === 'POST') {
-          this.handleRoomCreation(request, response)
-        }
-        break
-  
-      default:
-        response.writeHead(404)
-        response.end()
+      switch (url) {
+        case '/rooms':
+          if (method === 'POST') {
+            this.handleRoomCreation(request, response)
+          }
+          break
+    
+        default:
+          response.writeHead(404)
+          response.end()
+      }
+    } catch (e) {
+      Logger.error(`${e}`)
     }
   }
 

@@ -1,5 +1,5 @@
 import {RoomsManager} from '../rooms/rooms-manager'
-import {log} from '../utils/logger'
+import {Logger} from '../utils/logger'
 import {Socket} from './socket'
 
 export class Handler {
@@ -8,7 +8,7 @@ export class Handler {
   ) {}
 
   public onMessage(socket: Socket, json: JSON) {
-    log(`>>> ${JSON.stringify(json)}`)
+    Logger.log(`>>> ${JSON.stringify(json)}`)
 
     console.log(socket)
     /*Logger.log(socket, '<<< $json')
