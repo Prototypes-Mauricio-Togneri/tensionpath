@@ -3,6 +3,7 @@ import {JsonJoinRoom} from '../json/client_server/json_join_room'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Logger} from '../utils/logger'
 import {Socket} from './socket'
+import {JsonLaunchUnit} from '../json/client_server/json_launch_unit'
 
 export class Handler {
   constructor(
@@ -17,10 +18,7 @@ export class Handler {
       if (json.join) {
         this.roomsManager.join(json.join as JsonJoinRoom, socket)
       } else if (json.launchUnit) {
-        /*this.roomsManager.launchUnits(
-          json: message,
-          socket: socket,
-        )*/
+        this.roomsManager.launchUnit(json.launchUnit as JsonLaunchUnit, socket)
       } else {
         socket.send(JsonMessage.error(`Unknown incoming message ${data}`))
       }
@@ -44,9 +42,8 @@ export class Handler {
 
   public onDisconnect(socket: Socket) {
     try {
-      console.log(socket)
-      Logger.log('[${}] Disconnected', socket)
-      //roomsManager.leave(socket)
+      Logger.log('Disconnected', socket)
+      this.roomsManager.leave(socket)
     } catch (e) {
       Logger.error(e, socket)
     }

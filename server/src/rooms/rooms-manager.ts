@@ -1,5 +1,6 @@
 import {JsonCreateRoom} from '../json/client_server/json_create_room'
 import {JsonJoinRoom} from '../json/client_server/json_join_room'
+import {JsonLaunchUnit} from '../json/client_server/json_launch_unit'
 import {JsonMessage} from '../json/server_client/json_message'
 import {Socket} from '../server/socket'
 import {Room} from './room'
@@ -34,7 +35,7 @@ export class RoomsManager {
     }*/
   }
 
-  public increaseMine(json: JSON, socket: Socket) {
+  public launchUnit(json: JsonLaunchUnit, socket: Socket) {
     console.log(json)
     console.log(socket)
     /*final Room room = _getRoom(
@@ -42,16 +43,6 @@ export class RoomsManager {
       socket: socket,
     )
     room.increaseMine(socket)*/
-  }
-
-  public increaseAttack(json: JSON, socket: Socket) {
-    console.log(json)
-    console.log(socket)
-    /*final Room room = _getRoom(
-      roomId: json.roomId,
-      socket: socket,
-    )
-    room.increaseAttack(socket)*/
   }
 
   private getRoom(roomId: string): Room {
@@ -63,9 +54,8 @@ export class RoomsManager {
   }
 
   public update(dt: number) {
-    console.log(dt)
-    /*for (final Room room in rooms.list) {
+    for (const room of Object.values(this.roomIdToRoom)) {
       room.update(dt)
-    }*/
+    }
   }
 }

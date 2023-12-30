@@ -11,7 +11,6 @@ export class JsonMessage {
   //final JsonJoinRoom? joinRoom
   //final JsonIncreaseMine? increaseMine
   //final JsonIncreaseAttack? increaseAttack
-  //final JsonLaunchUnits? launchUnits
 
   constructor(
     readonly error?: JsonError,
