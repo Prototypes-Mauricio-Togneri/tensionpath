@@ -2,16 +2,6 @@ import {JsonError} from './json_error'
 import {JsonWelcome} from './json_welcome'
 
 export class JsonMessage {
-  //final JsonUpdate? update
-  //final JsonLaneRewardWon? laneRewardWon
-  //final JsonLaneRewardLost? laneRewardLost
-  //final JsonLaneWon? laneWon
-  //final JsonLaneLost? laneLost
-  //final JsonUnitsLaunched? unitsLaunched
-  //final JsonJoinRoom? joinRoom
-  //final JsonIncreaseMine? increaseMine
-  //final JsonIncreaseAttack? increaseAttack
-
   constructor(
     readonly error?: JsonError,
     readonly welcome?: JsonWelcome,
@@ -24,6 +14,20 @@ export class JsonMessage {
   }
 
   static welcome() {
+    return new JsonMessage(
+      undefined,
+      new JsonWelcome(),
+    )
+  }
+
+  static unitCreated() {
+    return new JsonMessage(
+      undefined,
+      new JsonWelcome(),
+    )
+  }
+
+  static unitDestroyed() {
     return new JsonMessage(
       undefined,
       new JsonWelcome(),

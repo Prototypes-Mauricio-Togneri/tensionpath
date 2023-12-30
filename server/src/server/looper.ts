@@ -8,7 +8,7 @@ export class Looper {
   constructor(
     readonly roomsManager: RoomsManager,
   ) {
-    this.previous = this.currentTime;
+    this.previous = this.currentTime
   }
   
   private get currentTime(): number {
@@ -28,6 +28,6 @@ export class Looper {
   }
 
   private delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 }

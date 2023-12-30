@@ -65,10 +65,10 @@ export class Room {
     }
   }
 
-  public launchUnit(socket: Socket) {
+  public createUnit(socket: Socket) {
     const playerId = this.getPlayerId(socket)
     const match = this.getMatch()
-    match.launchUnit(playerId)
+    match.createUnit(playerId)
   }
 
   private getPlayerId(socket: Socket): string {

@@ -1,3 +1,3 @@
-export type JsonLaunchUnit = {
+export type JsonCreateUnit = {
   roomId: string,
 }

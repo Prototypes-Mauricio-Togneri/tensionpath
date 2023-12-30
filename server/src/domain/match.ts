@@ -1,5 +1,5 @@
 export class Match {
-  public launchUnit(playerId: string) {
+  public createUnit(playerId: string) {
     console.log(playerId)
   }
 

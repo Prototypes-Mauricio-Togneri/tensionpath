@@ -1,6 +1,6 @@
 import {JsonCreateRoom} from '../json/client_server/json_create_room'
 import {JsonJoinRoom} from '../json/client_server/json_join_room'
-import {JsonLaunchUnit} from '../json/client_server/json_launch_unit'
+import {JsonCreateUnit} from '../json/client_server/json_launch_unit'
 import {JsonMessage} from '../json/server_client/json_message'
 import {Socket} from '../server/socket'
 import {Room} from './room'
@@ -35,9 +35,9 @@ export class RoomsManager {
     }
   }
 
-  public launchUnit(json: JsonLaunchUnit, socket: Socket) {
+  public createUnit(json: JsonCreateUnit, socket: Socket) {
     const room = this.getRoom(json.roomId)
-    room.launchUnit(socket)
+    room.createUnit(socket)
   }
 
   private getRoom(roomId: string): Room {
