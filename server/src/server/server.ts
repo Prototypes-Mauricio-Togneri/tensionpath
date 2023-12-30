@@ -3,7 +3,7 @@ import * as path from 'path'
 import {createServer} from 'https'
 import {IncomingMessage, ServerResponse} from 'http'
 import {readFileSync} from 'fs'
-import {WebSocket, WebSocketServer} from 'ws'
+import {AddressInfo, WebSocket, WebSocketServer} from 'ws'
 import {environment} from '../app'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Handler} from './handler'
@@ -98,7 +98,8 @@ export class Server {
     })
     
     server.listen(environment.port, () => {
-      console.log(`Server running on port ${environment.port}`)
+      const info = server.address() as AddressInfo
+      console.log(`Server running on port ${info.port}`)
     })
   }
 }
