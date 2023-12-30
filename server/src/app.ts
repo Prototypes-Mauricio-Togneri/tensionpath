@@ -4,6 +4,7 @@ import {RoomsManager} from './rooms/rooms-manager'
 import {Handler} from './server/handler'
 import {Looper} from './server/looper'
 import {Server} from './server/server'
+import {Logger} from './utils/logger'
 
 export const environment = new Environment(
   argv[2],
@@ -19,4 +20,4 @@ const looper = new Looper(roomsManager)
 const server = new Server(roomsManager, handler)
 server.start()
 
-looper.start().catch(console.log)
+looper.start().catch(Logger.error)

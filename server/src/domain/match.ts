@@ -11,7 +11,10 @@ export class Match {
     const players: Record<string, Player> = {}
 
     for (const entry of Object.entries(room.players)) {
-      players[entry[0]] = new Player(entry[0], entry[1])
+      const playerId = entry[0]
+      const playerName = entry[1]
+
+      players[playerId] = new Player(playerId, playerName)
     }
 
     return new Match(room, players)

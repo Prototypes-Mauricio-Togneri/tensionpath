@@ -108,7 +108,7 @@ export class Server {
     
     server.listen(environment.port, () => {
       const info = server.address() as AddressInfo
-      console.log(`Server running on port ${info.port}`)
+      Logger.log(`Server running on port ${info.port}`)
     })
   }
 }
