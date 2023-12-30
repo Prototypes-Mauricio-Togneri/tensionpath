@@ -53,16 +53,16 @@ export class Room {
   }
 
   public leave(socket: Socket) {
-    console.log(socket)
-    /*if (webSocketToPlayerId.containsKey(socket)) {
-      final String playerId = webSocketToPlayerId[socket]!
-      playerIdToWebSocket.remove(playerId)
-      webSocketToPlayerId.remove(socket)
+    const playerId = this.socketToPlayerId[socket.id]
 
-      Logger.log(socket, 'Player $playerId left room $id')
+    if (playerId) {
+      delete this.playerIdToSocket[playerId]
+      delete this.socketToPlayerId[socket.id]
+
+      Logger.log(`Player ${playerId} left room ${this.id}`, socket)
     } else {
-      throw JsonMessage.error('Cannot find player for socket ${socket.id}')
-    }*/
+      throw JsonMessage.error(`Cannot find player for socket ${socket.id}`)
+    }
   }
 
   public launchUnit(socket: Socket) {
