@@ -3,7 +3,7 @@ import {JsonJoinRoom} from '../json/client_server/json_join_room'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Logger} from '../utils/logger'
 import {Socket} from './socket'
-import {JsonCreateUnit} from '../json/client_server/json_launch_unit'
+import {JsonCreateUnit} from '../json/client_server/json_create_unit'
 
 export class Handler {
   constructor(
