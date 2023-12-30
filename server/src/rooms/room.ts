@@ -1,6 +1,6 @@
 import {Match} from '../domain/match'
 import {CreateRoom} from '../json/create_room'
-import {JsonError} from '../json/json_error'
+import {JsonMessage} from '../json/json_message'
 import {Socket} from '../server/socket'
 
 export class Room {
@@ -29,7 +29,7 @@ export class Room {
     if (this.match != null) {
       return this.match;
     } else {
-      throw new JsonError('Match not started');
+      throw JsonMessage.error('Match not started');
     }
   }
 

@@ -1,3 +1,4 @@
+import {JsonMessage} from '../json/json_message'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Logger} from '../utils/logger'
 import {Socket} from './socket'
@@ -46,9 +47,8 @@ export class Handler {
 
   public onConnect(socket: Socket) {
     try {
-      console.log(socket)
-      //Logger.log(socket, 'Connected')
-      //socket.send(JsonMessage.welcome())
+      Logger.log('Connected', socket)
+      socket.send(JsonMessage.welcome())
     } catch (e) {
       Logger.error(e, socket)
     }

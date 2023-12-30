@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {WebSocket} from 'ws'
 import {Logger} from '../utils/logger'
+import {JsonMessage} from '../json/json_message'
 
 export class Socket {
   constructor(
@@ -7,8 +9,8 @@ export class Socket {
     readonly socket: WebSocket,
   ) {}
 
-  public send(data: string) {
-    this.socket.send(data)
-    Logger.log(`>>> ${data}`, this)
+  public send(json: JsonMessage) {
+    this.socket.send(json.toString())
+    Logger.log(`>>> ${json.toString()}`, this)
   }
 }
