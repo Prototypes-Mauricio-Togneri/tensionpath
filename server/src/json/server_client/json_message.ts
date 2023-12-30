@@ -1,5 +1,5 @@
-import {JsonError} from "./json_error"
-import {JsonWelcome} from "./json_welcome"
+import {JsonError} from './json_error'
+import {JsonWelcome} from './json_welcome'
 
 export class JsonMessage {
   //final JsonUpdate? update

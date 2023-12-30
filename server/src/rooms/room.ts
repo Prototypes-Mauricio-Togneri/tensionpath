@@ -33,14 +33,6 @@ export class Room {
            (Object.keys(this.socketToPlayerId).length === 0)
   }
 
-  private getMatch(): Match {
-    if (this.match) {
-      return this.match
-    } else {
-      throw JsonMessage.error('Match not started')
-    }
-  }
-
   public join(playerId: string, socket: Socket) {
     if (!this.match && this.players[playerId]) {
       this.playerIdToSocket[playerId] = socket
@@ -88,6 +80,14 @@ export class Room {
       throw JsonMessage.error('Player not in room')
     }
   }*/
+
+  private getMatch(): Match {
+    if (this.match) {
+      return this.match
+    } else {
+      throw JsonMessage.error('Match not started')
+    }
+  }
 
   public direct(playerId: string, json: JSON) {
     console.log(playerId)
