@@ -66,20 +66,20 @@ export class Room {
   }
 
   public launchUnit(socket: Socket) {
-    console.log(socket)
-    //final String playerId = _getPlayerId(socket)
-    //match.increaseMine(playerId)
+    const playerId = this.getPlayerId(socket)
+    const match = this.getMatch()
+    match.launchUnit(playerId)
   }
 
-  /*private getPlayerId(socket: Socket): string {
-    final String? playerId = webSocketToPlayerId[socket]
+  private getPlayerId(socket: Socket): string {
+    const playerId = this.socketToPlayerId[socket.id]
 
     if (playerId) {
       return playerId
     } else {
       throw JsonMessage.error('Player not in room')
     }
-  }*/
+  }
 
   private getMatch(): Match {
     if (this.match) {
@@ -89,18 +89,15 @@ export class Room {
     }
   }
 
-  public direct(playerId: string, json: JSON) {
-    console.log(playerId)
-    console.log(json)
-    //final WebSocket socket = playerIdToWebSocket[playerId]!
-    //socket.send(json)
+  public direct(playerId: string, json: JsonMessage) {
+    const socket = this.playerIdToSocket[playerId]
+    socket.send(json)
   }
 
   public broadcast(json: JSON) {
-    console.log(json)
-    //for (final WebSocket socket in webSocketToPlayerId.keys) {
-    //  socket.send(json)
-    //}
+    for (const socket of Object.values(this.playerIdToSocket)) {
+      socket.send(json)
+    }
   }
 
   public update(dt: number) {
