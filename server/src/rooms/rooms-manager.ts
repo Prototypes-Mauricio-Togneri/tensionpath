@@ -4,6 +4,7 @@ import {JsonCreateUnit} from '../json/client_server/json_create_unit'
 import {JsonMessage} from '../json/server_client/json_message'
 import {Socket} from '../server/socket'
 import {Room} from './room'
+import {JsonDestroyUnit} from '../json/client_server/json_destroy_unit'
 
 export class RoomsManager {
   private roomIdToRoom: Record<string, Room> = {}
@@ -38,6 +39,11 @@ export class RoomsManager {
   public createUnit(json: JsonCreateUnit, socket: Socket) {
     const room = this.getRoom(json.roomId)
     room.createUnit(socket)
+  }
+
+  public destroyUnit(json: JsonDestroyUnit, socket: Socket) {
+    const room = this.getRoom(json.roomId)
+    room.destroyUnit(socket)
   }
 
   private getRoom(roomId: string): Room {

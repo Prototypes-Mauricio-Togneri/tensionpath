@@ -70,6 +70,12 @@ export class Room {
     match.createUnit(playerId)
   }
 
+  public destroyUnit(socket: Socket) {
+    const playerId = this.getPlayerId(socket)
+    const match = this.getMatch()
+    match.destroyUnit(playerId)
+  }
+
   private getPlayerId(socket: Socket): string {
     const playerId = this.socketToPlayerId[socket.id]
 

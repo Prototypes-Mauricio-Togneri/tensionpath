@@ -4,6 +4,7 @@ import {RoomsManager} from '../rooms/rooms-manager'
 import {Logger} from '../utils/logger'
 import {Socket} from './socket'
 import {JsonCreateUnit} from '../json/client_server/json_create_unit'
+import {JsonDestroyUnit} from '../json/client_server/json_destroy_unit'
 
 export class Handler {
   constructor(
@@ -19,6 +20,8 @@ export class Handler {
         this.roomsManager.join(json.join as JsonJoinRoom, socket)
       } else if (json.createUnit) {
         this.roomsManager.createUnit(json.createUnit as JsonCreateUnit, socket)
+      } else if (json.destroyUnit) {
+        this.roomsManager.destroyUnit(json.destroyUnit as JsonDestroyUnit, socket)
       } else {
         socket.send(JsonMessage.error(`Unknown incoming message ${data}`))
       }
