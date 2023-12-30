@@ -2,7 +2,6 @@
 import * as path from 'path'
 import {createServer} from 'https'
 import {IncomingMessage, ServerResponse} from 'http'
-import {parse} from 'url'
 import {readFileSync} from 'fs'
 import {WebSocket, WebSocketServer} from 'ws'
 import {environment} from '../app'
@@ -20,13 +19,8 @@ export class Server {
 
   private handleRequest(request: IncomingMessage, response: ServerResponse) {
     const {method, url}  = request
-    const parsedUrl = parse(url ?? '', true)
-    const {pathname} = parsedUrl
 
-    console.log(pathname)
-    console.log(url)
-  
-    switch (pathname) {
+    switch (url) {
       case '/rooms':
         if (method === 'POST') {
           this.handleRoomCreation(request, response)
