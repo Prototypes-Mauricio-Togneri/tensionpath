@@ -27,7 +27,13 @@ export class Room {
     )
   }
 
-  get getMatch(): Match {
+  public get isEmpty(): boolean {
+    return (this.match !== undefined) &&
+           (Object.keys(this.playerIdToSocket).length === 0) &&
+           (Object.keys(this.socketToPlayerId).length === 0)
+  }
+
+  private getMatch(): Match {
     if (this.match) {
       return this.match
     } else {
@@ -67,7 +73,7 @@ export class Room {
     }*/
   }
 
-  public increaseMine(socket: Socket) {
+  public launchUnit(socket: Socket) {
     console.log(socket)
     //final String playerId = _getPlayerId(socket)
     //match.increaseMine(playerId)

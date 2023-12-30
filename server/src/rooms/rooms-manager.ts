@@ -21,35 +21,30 @@ export class RoomsManager {
   }
 
   public leave(socket: Socket) {
-    console.log(socket)
-    /*if (websocketToRoom.containsKey(socket)) {
-      final Room room = websocketToRoom[socket]!
+    const room = this.socketToRoom[socket.id]
+
+    if (room) {
       room.leave(socket)
-      websocketToRoom.remove(socket)
+      delete this.socketToRoom[socket.id]
 
       if (room.isEmpty) {
-        rooms.remove(room.id, room)
+        delete this.roomIdToRoom[room.id]
       }
     } else {
       throw JsonMessage.error('Connection not linked with any room')
-    }*/
+    }
   }
 
   public launchUnit(json: JsonLaunchUnit, socket: Socket) {
-    console.log(json)
-    console.log(socket)
-    /*final Room room = _getRoom(
-      roomId: json.roomId,
-      socket: socket,
-    )
-    room.increaseMine(socket)*/
+    const room = this.getRoom(json.roomId)
+    room.launchUnit(socket)
   }
 
   private getRoom(roomId: string): Room {
     if (this.roomIdToRoom[roomId]) {
       return this.roomIdToRoom[roomId]
     } else {
-      throw JsonMessage.error('Room with ID $roomId does not exist')
+      throw JsonMessage.error(`Room with ID ${roomId} does not exist`)
     }
   }
 
