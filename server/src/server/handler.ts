@@ -1,4 +1,4 @@
-import {JsonMessage} from '../json/json_message'
+import {JsonMessage} from '../json/server_client/json_message'
 import {RoomsManager} from '../rooms/rooms-manager'
 import {Logger} from '../utils/logger'
 import {Socket} from './socket'

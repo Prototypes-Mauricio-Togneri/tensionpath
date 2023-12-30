@@ -1,6 +1,6 @@
 import {Match} from '../domain/match'
-import {CreateRoom} from '../json/create_room'
-import {JsonMessage} from '../json/json_message'
+import {JsonCreateRoom} from '../json/client_server/json_create_room'
+import {JsonMessage} from '../json/server_client/json_message'
 import {Socket} from '../server/socket'
 
 export class Room {
@@ -16,7 +16,7 @@ export class Room {
     readonly webSocketToPlayerId: Record<string, string> = {},
   ) {}
 
-  static fromJson(json: CreateRoom) {
+  static fromJson(json: JsonCreateRoom) {
     return new Room(
       json.roomId,
       new Date(json.createdAt),

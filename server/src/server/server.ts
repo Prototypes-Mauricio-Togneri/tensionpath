@@ -9,7 +9,7 @@ import {RoomsManager} from '../rooms/rooms-manager'
 import {Handler} from './handler'
 import {Socket} from './socket'
 import {Logger} from '../utils/logger'
-import {CreateRoom} from '../json/create_room'
+import {JsonCreateRoom} from '../json/client_server/json_create_room'
 
 const X_API_KEY_HEADER = 'x-api-key'
 
@@ -55,7 +55,7 @@ export class Server {
   
         try {
           if (apiKey == environment.apiKey) {
-            const json = JSON.parse(body) as CreateRoom
+            const json = JSON.parse(body) as JsonCreateRoom
             this.roomsManager.create(json)
   
             response.statusCode = 201

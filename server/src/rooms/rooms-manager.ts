@@ -1,4 +1,5 @@
-import {CreateRoom} from '../json/create_room'
+import {JsonCreateRoom} from '../json/client_server/json_create_room'
+import {JsonJoinRoom} from '../json/client_server/json_join_room'
 import {Socket} from '../server/socket'
 import {Room} from './room'
 
@@ -6,12 +7,12 @@ export class RoomsManager {
   private rooms: Record<string, Room> = {}
   private websocketToRoom: Record<string, Room> = {}
 
-  public create(json: CreateRoom) {
+  public create(json: JsonCreateRoom) {
     const room = Room.fromJson(json)
     this.rooms[room.id] = room
   }
 
-  public join(json: JSON, socket: Socket) {
+  public join(json: JsonJoinRoom, socket: Socket) {
     console.log(json)
     console.log(socket)
     console.log(this.websocketToRoom)

@@ -1,4 +1,4 @@
-export type CreateRoom = {
+export type JsonCreateRoom = {
   roomId: string,
   createdAt: string,
   numberOfPlayers: number,
