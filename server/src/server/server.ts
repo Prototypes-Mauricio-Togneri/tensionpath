@@ -98,7 +98,7 @@ export class Server {
       })
     
       webSocket.on('message', (data: any) => {
-        this.handler.onMessage(socket, JSON.parse(data.toString()))
+        this.handler.onMessage(socket, data.toString())
       })
     
       webSocket.on('close', () => {
