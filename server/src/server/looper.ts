@@ -1,4 +1,4 @@
-import {RoomsManager} from "../rooms/rooms-manager"
+import {RoomsManager} from '../rooms/rooms-manager'
 
 export class Looper {
   constructor(

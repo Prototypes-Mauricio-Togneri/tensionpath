@@ -7,16 +7,14 @@ export class RoomsManager {
   private websocketToRoom: Record<string, Room> = {}
 
   public create(json: CreateRoom) {
-    console.log(json)
-    console.log(this.rooms)
-    console.log(this.websocketToRoom)
-    //final Room room = Room.fromJson(json)
-    //rooms.add(json.roomId, room)
+    const room = Room.fromJson(json)
+    this.rooms[room.id] = room
   }
 
   public join(json: JSON, socket: Socket) {
     console.log(json)
     console.log(socket)
+    console.log(this.websocketToRoom)
     /*final Room room = _getRoom(
       roomId: json.roomId,
       socket: socket,

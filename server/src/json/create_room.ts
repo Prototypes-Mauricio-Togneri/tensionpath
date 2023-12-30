@@ -1,3 +1,7 @@
 export type CreateRoom = {
-  numberOfPlayers: number
+  roomId: string,
+  createdAt: string,
+  numberOfPlayers: number,
+  matchType: string,
+  players: Record<string, string>,
 }
