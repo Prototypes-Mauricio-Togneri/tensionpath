@@ -97,8 +97,3 @@ export class Server {
     })
   }
 }
-
-/*export const send = (ws: WebSocket, data: string) => {
-  ws.send(data)
-  log(`>>> ${data}`)
-}*/
