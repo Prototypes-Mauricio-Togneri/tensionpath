@@ -54,7 +54,7 @@ export class Server {
         body = Buffer.concat(body).toString()
   
         try {
-          if (apiKey == environment.apiKey) {
+          if (apiKey === environment.apiKey) {
             const json = JSON.parse(body) as JsonCreateRoom
             this.roomsManager.create(json)
   

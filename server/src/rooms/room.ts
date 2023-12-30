@@ -27,7 +27,7 @@ export class Room {
   }
 
   get getMatch(): Match {
-    if (this.match != null) {
+    if (this.match) {
       return this.match
     } else {
       throw JsonMessage.error('Match not started')
@@ -38,7 +38,7 @@ export class Room {
     console.log(playerId)
     console.log(socket)
     
-    if ((this.match == null) && this.players[playerId]) {
+    if (!this.match && this.players[playerId]) {
       this.playerIdToSocket[playerId] = socket
       this.socketToPlayerId[socket.id] = playerId
 
@@ -78,7 +78,7 @@ export class Room {
   /*private getPlayerId(socket: Socket): string {
     final String? playerId = webSocketToPlayerId[socket]
 
-    if (playerId != null) {
+    if (playerId) {
       return playerId
     } else {
       throw JsonMessage.error('Player not in room')
