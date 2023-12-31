@@ -48,5 +48,7 @@ class Locator {
     locator.registerSingleton<Environment>(environment);
     locator.registerSingleton<Navigation>(Navigation());
     locator.registerSingleton<LoggedUser>(LoggedUser());
+
+    await environment.configure();
   }
 }
