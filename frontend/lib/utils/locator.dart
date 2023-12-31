@@ -16,7 +16,7 @@ class Locator {
   static Future load(Environment environment) async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (kIsWeb) {
+    if (Platform.isWeb) {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
           apiKey: 'AIzaSyBpGR88tMBiVA1Tvk48qQXqs1es7FaS2ac',
@@ -30,9 +30,7 @@ class Locator {
       );
     } else {
       await Firebase.initializeApp();
-    }
 
-    if (!Platform.isWeb) {
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
       PlatformDispatcher.instance.onError = (error, stack) {
