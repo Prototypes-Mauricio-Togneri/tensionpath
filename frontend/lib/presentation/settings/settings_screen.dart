@@ -24,45 +24,48 @@ class SettingsScreen extends StatelessWidget {
       child: BaseScreen(
         child: StateProvider<SettingsState>(
           state: state,
-          builder: (context, state) => Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (!state.isSetup)
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    onPressed: Navigation.pop,
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Palette.grey,
-                      size: 25,
+          builder: (context, state) => SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (!state.isSetup)
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      onPressed: Navigation.pop,
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Palette.grey,
+                        size: 25,
+                      ),
                     ),
                   ),
+                const Spacer(),
+                SizedBox(
+                  width: 300,
+                  child: CustomFormField(
+                    label: 'Nickname',
+                    autofocus: true,
+                    controller: state.nameController,
+                    maxLength: 20,
+                    onTextChanged: state.onTextChanged,
+                  ),
                 ),
-              const Spacer(),
-              SizedBox(
-                width: 300,
-                child: CustomFormField(
-                  label: 'Nickname',
-                  autofocus: true,
-                  controller: state.nameController,
-                  maxLength: 20,
-                  onTextChanged: state.onTextChanged,
+                const VBox(20),
+                PrimaryButton(
+                  text: 'SAVE',
+                  onPressed: state.buttonEnabled ? state.onSave : null,
                 ),
-              ),
-              const VBox(20),
-              PrimaryButton(
-                text: 'SAVE',
-                onPressed: state.buttonEnabled ? state.onSave : null,
-              ),
-              const Spacer(),
-              Label(
-                text: LoggedUser.get.id,
-                color: Palette.grey,
-                size: 14,
-              ),
-              const VBox(20),
-            ],
+                const Spacer(),
+                Label(
+                  text: LoggedUser.get.id,
+                  color: Palette.grey,
+                  size: 14,
+                ),
+                const VBox(20),
+              ],
+            ),
           ),
         ),
       ),

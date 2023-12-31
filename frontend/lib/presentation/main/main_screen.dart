@@ -76,13 +76,13 @@ class Content extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: state.onStart3Lanes,
-          child: const Text('3 lanes'),
+          onPressed: state.pve,
+          child: const Text('PvE'),
         ),
         const VBox(20),
         ElevatedButton(
-          onPressed: state.onStart5Lanes,
-          child: const Text('5 lanes'),
+          onPressed: state.pvp,
+          child: const Text('PvP'),
         ),
       ],
     );
