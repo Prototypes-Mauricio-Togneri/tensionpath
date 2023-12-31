@@ -22,6 +22,9 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(backgroundColor),
+          foregroundColor: (onPressed != null)
+              ? MaterialStateProperty.all(Palette.white)
+              : null,
         ),
         onPressed: onPressed,
         child: (icon != null)
