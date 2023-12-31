@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionpath/domain/models/user_logged.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/platform.dart';
 import 'package:tensionpath/utils/set_url_strategy.dart';
@@ -12,7 +13,7 @@ import 'package:tensionpath/utils/set_url_strategy.dart';
 final GetIt locator = GetIt.instance;
 
 class Locator {
-  static Future load() async {
+  static Future load(Environment environment) async {
     WidgetsFlutterBinding.ensureInitialized();
 
     if (kIsWeb) {
@@ -44,6 +45,7 @@ class Locator {
     await Flame.device.fullScreen();
     await Flame.device.setPortrait();
 
+    locator.registerSingleton<Environment>(environment);
     locator.registerSingleton<Navigation>(Navigation());
     locator.registerSingleton<LoggedUser>(LoggedUser());
   }
