@@ -8,14 +8,14 @@ environment:
 
 dependencies:
   get_it: ^7.6.4
-  flame: ^1.11.0
+  flame: ^1.13.1
   logger: ^2.0.2+1
   dafluta: ^5.1.1
   url_strategy: ^0.2.0
 
-  firebase_core: ^2.24.0
-  firebase_analytics: ^10.7.2
-  firebase_crashlytics: ^3.4.6
+  firebase_core: ^2.24.2
+  firebase_analytics: ^10.7.4
+  firebase_crashlytics: ^3.4.8
 
   flutter:
     sdk: flutter
