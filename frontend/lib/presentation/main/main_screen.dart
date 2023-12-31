@@ -31,6 +31,7 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Spacer(),
             ElevatedButton(
               onPressed: state.onStart3Lanes,
               child: const Text('3 lanes'),

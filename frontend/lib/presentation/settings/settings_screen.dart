@@ -26,7 +26,6 @@ class SettingsScreen extends StatelessWidget {
           state: state,
           builder: (context, state) => Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
             children: [
               if (!state.isSetup)
                 const Align(
