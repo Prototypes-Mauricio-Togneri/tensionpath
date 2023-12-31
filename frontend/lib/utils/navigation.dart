@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/presentation/main/main_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
+import 'package:tensionpath/presentation/settings/settings_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
 class Navigation {
@@ -20,6 +21,19 @@ class Navigation {
           name: 'main',
         ),
       );
+
+  static void settingsScreen(bool pushAlone) {
+    final FadeRoute route = FadeRoute(
+      SettingsScreen.instance(pushAlone),
+      name: 'settings',
+    );
+
+    if (pushAlone) {
+      get.routes.pushAlone(route);
+    } else {
+      get.routes.push(route);
+    }
+  }
 
   static void matchScreen(Battlefield battlefield) => get.routes.pushAlone(
         BasicRoute(

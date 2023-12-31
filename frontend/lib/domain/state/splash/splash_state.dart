@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tensionpath/domain/models/user_logged.dart';
-import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
@@ -25,7 +24,7 @@ class SplashState extends BaseState {
     if (LoggedUser.get.hasName) {
       Navigation.mainScreen();
     } else {
-      Navigation.matchScreen(Battlefield.lanes5());
+      Navigation.settingsScreen(true);
     }
   }
 
