@@ -29,23 +29,62 @@ class Body extends StatelessWidget {
     return BaseScreen(
       child: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Header(state),
             const Spacer(),
-            ElevatedButton(
-              onPressed: state.onStart3Lanes,
-              child: const Text('3 lanes'),
-            ),
-            const VBox(20),
-            ElevatedButton(
-              onPressed: state.onStart5Lanes,
-              child: const Text('5 lanes'),
-            ),
+            Content(state),
             const Spacer(),
             const Footer(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  final MainState state;
+
+  const Header(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Spacer(),
+        IconButton(
+          onPressed: state.onSettings,
+          icon: const Icon(
+            Icons.settings,
+            color: Palette.grey,
+            size: 25,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Content extends StatelessWidget {
+  final MainState state;
+
+  const Content(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: state.onStart3Lanes,
+          child: const Text('3 lanes'),
+        ),
+        const VBox(20),
+        ElevatedButton(
+          onPressed: state.onStart5Lanes,
+          child: const Text('5 lanes'),
+        ),
+      ],
     );
   }
 }

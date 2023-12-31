@@ -39,6 +39,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              const Spacer(),
               SizedBox(
                 width: 300,
                 child: CustomFormField(
