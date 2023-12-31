@@ -4,6 +4,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tensionpath/domain/models/user_logged.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/platform.dart';
 import 'package:tensionpath/utils/set_url_strategy.dart';
@@ -44,5 +45,6 @@ class Locator {
     await Flame.device.setPortrait();
 
     locator.registerSingleton<Navigation>(Navigation());
+    locator.registerSingleton<LoggedUser>(LoggedUser());
   }
 }

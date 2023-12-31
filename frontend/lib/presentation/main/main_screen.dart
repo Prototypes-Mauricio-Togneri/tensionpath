@@ -1,7 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/build/build_version.dart';
 import 'package:tensionpath/domain/state/main/main_state.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/base_screen.dart';
+import 'package:tensionpath/widgets/label.dart';
 
 class MainScreen extends StatelessWidget {
   final MainState state;
@@ -37,8 +40,26 @@ class Body extends StatelessWidget {
               onPressed: state.onStart5Lanes,
               child: const Text('5 lanes'),
             ),
+            const Spacer(),
+            const Footer(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: Label(
+        text: 'Version $BUILD_VERSION',
+        color: Palette.grey,
+        size: 14,
       ),
     );
   }

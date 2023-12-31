@@ -14,8 +14,11 @@ dependencies:
   url_strategy: ^0.2.0
 
   firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
   firebase_analytics: ^10.7.4
   firebase_crashlytics: ^3.4.8
+  cloud_functions: ^4.5.8
+  cloud_firestore: ^4.13.6
 
   flutter:
     sdk: flutter
