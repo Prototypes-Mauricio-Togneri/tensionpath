@@ -1,6 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionpath/domain/models/room.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
+import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/main/main_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/presentation/settings/settings_screen.dart';
@@ -35,9 +37,32 @@ class Navigation {
     }
   }
 
-  static void matchScreen(Battlefield battlefield) => get.routes.pushAlone(
+  static void lobbyScreen({
+    required int version,
+    required String matchType,
+    required int numberOfPlayers,
+  }) =>
+      get.routes.push(
         BasicRoute(
-          MatchScreen.instance(battlefield),
+          LobbyScreen.instance(
+            version: version,
+            matchType: matchType,
+            numberOfPlayers: numberOfPlayers,
+          ),
+          name: 'lobby',
+        ),
+      );
+
+  static void matchScreen({
+    required Room room,
+    required Battlefield battlefield,
+  }) =>
+      get.routes.pushReplacement(
+        BasicRoute(
+          MatchScreen.instance(
+            room: room,
+            battlefield: battlefield,
+          ),
           name: 'match',
         ),
       );
