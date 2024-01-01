@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "npm run build && npm run start API_KEY 3000 cert/fullchain.pem cert/privkey.pem",
-      "name": "Bakcend",
+      "command": "npm run build && npm run start foo 3000",
+      "name": "Server",
       "request": "launch",
       "type": "node-terminal",
     }

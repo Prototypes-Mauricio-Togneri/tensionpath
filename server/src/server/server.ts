@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as path from 'path'
-import {createServer} from 'https'
-import {IncomingMessage, ServerResponse} from 'http'
+import {createServer as createHttpsServer} from 'https'
+import {IncomingMessage, ServerResponse, createServer as createHttpServer} from 'http'
 import {readFileSync} from 'fs'
 import {AddressInfo, WebSocket, WebSocketServer} from 'ws'
 import {environment} from '../app'
@@ -73,12 +73,7 @@ export class Server {
   }
 
   public start() {
-    const baseDir = path.resolve()
-
-    const server = createServer({
-      cert: readFileSync(`${baseDir}/${environment.fullchain}`),
-      key: readFileSync(`${baseDir}/${environment.privkey}`),
-    })
+    const server = this.createServer()
     
     server.on('request', (request: IncomingMessage, response: ServerResponse) => {
       this.handleRequest(request, response)
@@ -110,5 +105,18 @@ export class Server {
       const info = server.address() as AddressInfo
       Logger.log(`Server running on port ${info.port}`)
     })
+  }
+
+  private createServer() {
+    const baseDir = path.resolve()
+
+    if (environment.hasCertificate) {
+      return createHttpsServer({
+        cert: readFileSync(`${baseDir}/${environment.fullchain}`),
+        key: readFileSync(`${baseDir}/${environment.privkey}`),
+      })
+    } else {
+      return createHttpServer()
+    }
   }
 }

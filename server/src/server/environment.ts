@@ -5,4 +5,8 @@ export class Environment {
     readonly fullchain: string,
     readonly privkey: string,
   ) {}
+
+  get hasCertificate() {
+    return this.fullchain && this.privkey
+  }
 }
