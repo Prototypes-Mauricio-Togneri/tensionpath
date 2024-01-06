@@ -7,8 +7,8 @@ environment:
   sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
-  get_it: ^7.6.4
-  flame: ^1.13.1
+  get_it: ^7.6.6
+  flame: ^1.14.0
   logger: ^2.0.2+1
   dafluta: ^5.1.1
   url_strategy: ^0.2.0
@@ -17,11 +17,11 @@ dependencies:
   shared_preferences: ^2.2.2
 
   firebase_core: ^2.24.2
-  firebase_auth: ^4.15.3
-  firebase_analytics: ^10.7.4
-  firebase_crashlytics: ^3.4.8
-  cloud_functions: ^4.5.8
-  cloud_firestore: ^4.13.6
+  firebase_auth: ^4.16.0
+  firebase_analytics: ^10.8.0
+  firebase_crashlytics: ^3.4.9
+  cloud_functions: ^4.6.0
+  cloud_firestore: ^4.14.0
 
   flutter:
     sdk: flutter
