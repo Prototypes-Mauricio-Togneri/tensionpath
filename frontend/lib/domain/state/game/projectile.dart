@@ -5,11 +5,13 @@ import 'package:tensionpath/utils/sprites.dart';
 
 class Projectile {
   final Unit target;
+  final double attackPower;
   final ProjectileEffect effect;
   final Vector2 position;
 
   const Projectile({
     required this.target,
+    required this.attackPower,
     required this.effect,
     required this.position,
   });
