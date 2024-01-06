@@ -22,10 +22,10 @@ class NodeCapturableComponent<T extends NodeCapturable>
   }
 
   @override
-  Future onLoad() async {
+  FutureOr onLoad() {
     add(circleHitbox);
 
-    super.onLoad();
+    return super.onLoad();
   }
 
   @override

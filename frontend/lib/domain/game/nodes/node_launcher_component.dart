@@ -15,10 +15,10 @@ class NodeLauncherComponent extends NodeBaseComponent<NodeLauncher>
   });
 
   @override
-  Future onLoad() async {
+  FutureOr onLoad() {
     add(circleHitbox);
 
-    super.onLoad();
+    return super.onLoad();
   }
 
   @override

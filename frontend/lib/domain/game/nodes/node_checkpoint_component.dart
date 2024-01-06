@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/events.dart';
 import 'package:tensionpath/domain/game/nodes/node_capturable_component.dart';
 import 'package:tensionpath/domain/game/nodes/node_icon_component.dart';
@@ -12,7 +13,7 @@ class NodeCheckpointComponent extends NodeCapturableComponent<NodeCheckpoint>
   });
 
   @override
-  Future onLoad() {
+  FutureOr onLoad() {
     add(NodeIconComponent(
       sprite: Sprites.NODE_ICON_CHECKPOINT,
       parent: this,

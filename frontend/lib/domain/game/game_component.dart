@@ -122,7 +122,7 @@ class GameWorld extends World {
   GameWorld(this.state);
 
   @override
-  Future onLoad() async {
+  FutureOr onLoad() {
     add(BattlefieldComponent(
       state: state,
       battlefield: state.battlefield,
@@ -161,5 +161,7 @@ class GameWorld extends World {
         ));
       }
     }
+
+    return super.onLoad();
   }
 }

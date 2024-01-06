@@ -19,6 +19,15 @@ class Room {
     this.playerIds,
   );
 
+  factory Room.empty() => Room._(
+        '123',
+        DateTime.now(),
+        2,
+        RoomVisibility.private,
+        RoomStatus.open,
+        ['1', '2'],
+      );
+
   factory Room.fromDocument(Document document) {
     return Room._(
       document.getString('id')!,

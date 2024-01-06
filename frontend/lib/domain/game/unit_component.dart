@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
@@ -24,10 +25,10 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
   Player get owner => unit.owner;
 
   @override
-  Future onLoad() async {
+  FutureOr onLoad() {
     add(circleHitbox);
 
-    super.onLoad();
+    return super.onLoad();
   }
 
   @override

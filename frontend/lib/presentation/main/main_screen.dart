@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/build/build_version.dart';
 import 'package:tensionpath/domain/state/main/main_state.dart';
@@ -74,11 +75,11 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        /*ElevatedButton(
+        ElevatedButton(
           onPressed: state.pve,
           child: const Text('PvE'),
         ),
-        const VBox(20),*/
+        const VBox(20),
         ElevatedButton(
           onPressed: state.pvp,
           child: const Text('PvP'),
