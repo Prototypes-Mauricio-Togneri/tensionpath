@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/projectile_effect.dart';
 import 'package:tensionpath/utils/sprites.dart';
 

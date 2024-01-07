@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 class Waypoint {

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/events.dart';
-import 'package:tensionpath/domain/game/nodes/node_capturable_component.dart';
-import 'package:tensionpath/domain/game/nodes/node_icon_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_capturable_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
 import 'package:tensionpath/utils/sprites.dart';
 

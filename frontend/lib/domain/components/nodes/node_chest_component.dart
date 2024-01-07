@@ -1,6 +1,6 @@
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/game/nodes/node_capturable_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_capturable_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';

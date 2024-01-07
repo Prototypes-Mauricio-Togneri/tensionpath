@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/game/nodes/node_base_component.dart';
-import 'package:tensionpath/domain/game/unit_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_base_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';

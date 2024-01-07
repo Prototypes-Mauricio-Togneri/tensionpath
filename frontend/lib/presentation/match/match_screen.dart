@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/game/game_component.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/models/room.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
