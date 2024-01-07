@@ -9,6 +9,6 @@ class NodeIconComponent extends SpriteComponent {
           position: parent.size / 2,
           size: parent.size / 2,
           anchor: Anchor.center,
-          priority: Priority.nodes.value,
+          priority: Priority.node.value,
         );
 }

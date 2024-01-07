@@ -19,7 +19,7 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
           sprite: unit.sprite,
           position: unit.position,
           anchor: Anchor.center,
-          priority: Priority.units.value,
+          priority: Priority.unit.value,
         );
 
   Player get owner => unit.owner;

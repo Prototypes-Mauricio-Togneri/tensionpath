@@ -12,6 +12,6 @@ class NodeBaseComponent<T extends Node> extends SpriteComponent {
           sprite: node.sprite,
           position: node.position,
           anchor: Anchor.center,
-          priority: Priority.nodes.value,
+          priority: Priority.node.value,
         );
 }

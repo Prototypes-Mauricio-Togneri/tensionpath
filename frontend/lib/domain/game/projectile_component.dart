@@ -15,7 +15,7 @@ class ProjectileComponent extends SpriteComponent with CollisionCallbacks {
           sprite: projectile.sprite,
           position: projectile.position,
           anchor: Anchor.center,
-          priority: Priority.projectiles.value,
+          priority: Priority.projectile.value,
         );
 
   @override

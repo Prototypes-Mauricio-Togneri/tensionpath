@@ -15,7 +15,7 @@ class DamageComponent extends SpriteComponent with CollisionCallbacks {
           sprite: damage.sprite,
           position: damage.position,
           anchor: Anchor.center,
-          priority: Priority.damages.value,
+          priority: Priority.damage.value,
         );
 
   @override
