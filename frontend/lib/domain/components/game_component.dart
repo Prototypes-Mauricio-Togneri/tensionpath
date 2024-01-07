@@ -8,20 +8,8 @@ import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_checkpoint_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_chest_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_credit_generator.dart';
-import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_unit_generator.dart';
-import 'package:tensionpath/domain/components/nodes/node_victory_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_credit_generator.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_launcher.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_unit_generator.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
@@ -127,38 +115,8 @@ class GameWorld extends World {
       battlefield: state.battlefield,
     ));
 
-    for (final Node node in state.battlefield.nodes) {
-      if (node is NodeLauncher) {
-        add(NodeLauncherComponent(
-          node: node,
-          size: state.battlefield.nodeSize,
-        ));
-      } else if (node is NodeVictory) {
-        add(NodeVictoryComponent(
-          node: node,
-          size: state.battlefield.nodeSize,
-        ));
-      } else if (node is NodeChest) {
-        add(NodeChestComponent(
-          node: node,
-          size: state.battlefield.nodeSize,
-        ));
-      } else if (node is NodeCreditGenerator) {
-        add(NodeCreditGeneratorComponent(
-          node: node,
-          size: state.battlefield.nodeSize,
-        ));
-      } else if (node is NodeUnitGenerator) {
-        add(NodeUnitGeneratorComponent(
-          node: node,
-          size: state.battlefield.nodeSize,
-        ));
-      } else if (node is NodeCheckpoint) {
-        add(NodeCheckpointComponent(
-          node: node,
-          size: state.battlefield.nodeSize,
-        ));
-      }
+    for (final NodeComponent node in state.battlefield.nodes) {
+      add(node);
     }
 
     return super.onLoad();

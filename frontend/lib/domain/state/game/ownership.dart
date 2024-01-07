@@ -1,10 +1,10 @@
 import 'dart:ui';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Ownership {
-  final Node node;
+  final NodeComponent node;
   final double rate;
   double _value = 0;
   Player? _owner;
@@ -17,7 +17,7 @@ class Ownership {
   );
 
   factory Ownership.create({
-    required Node node,
+    required NodeComponent node,
     required double rate,
     required Player? owner,
   }) =>

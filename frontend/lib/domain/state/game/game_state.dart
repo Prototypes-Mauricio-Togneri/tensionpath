@@ -4,7 +4,6 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
@@ -33,7 +32,7 @@ class GameState {
   }
 
   void onNodeSpawnUnit({
-    required Node node,
+    required NodeComponent node,
     required int power,
   }) {
     final Lane lane = battlefield.laneOf(node);
@@ -56,7 +55,7 @@ class GameState {
     baseOwner.reduceHp(unit.power);
   }
 
-  void onNodeVictoryCaptured(Node node) {
+  void onNodeVictoryCaptured(NodeComponent node) {
     // TODO(momo): implement
   }
 
@@ -68,7 +67,7 @@ class GameState {
   }
 
   void onNodeCreditsGeneratorCaptured({
-    required Node node,
+    required NodeComponent node,
     required Player owner,
   }) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
@@ -76,7 +75,7 @@ class GameState {
   }
 
   void onNodeCreditsGeneratorLost({
-    required Node node,
+    required NodeComponent node,
     required Player owner,
   }) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
@@ -87,12 +86,12 @@ class GameState {
     world.remove(unit);
   }
 
-  NodeComponent getNodeComponent(Node node) {
+  NodeComponent getNodeComponent(NodeComponent node) {
     final List<NodeComponent> unitComponents =
         world.children.query<NodeComponent>();
 
     for (final NodeComponent component in unitComponents) {
-      if (component.node == node) {
+      if (component == node) {
         return component;
       }
     }

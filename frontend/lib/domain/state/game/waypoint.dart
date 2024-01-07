@@ -1,11 +1,11 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 class Waypoint {
   final String id;
   final Vector2 position;
-  final Node? node;
+  final NodeComponent? node;
 
   Waypoint({
     required this.id,

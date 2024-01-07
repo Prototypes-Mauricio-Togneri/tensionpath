@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Lane {
@@ -10,11 +10,11 @@ class Lane {
     required this.waypoints,
   });
 
-  List<Node> get nodes =>
+  List<NodeComponent> get nodes =>
       waypoints.where((e) => e.hasNode).map((e) => e.node!).toList();
 
   List<Waypoint> getWaypointsFrom({
-    required Node node,
+    required NodeComponent node,
     required bool forward,
   }) {
     final List<Waypoint> list =

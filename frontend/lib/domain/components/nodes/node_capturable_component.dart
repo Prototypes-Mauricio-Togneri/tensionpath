@@ -5,20 +5,34 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_capturable.dart';
 import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
-class NodeCapturableComponent<T extends NodeCapturable> extends NodeComponent<T>
-    with CollisionCallbacks {
+class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   final Paint ownershipPaint = Paint();
 
   NodeCapturableComponent({
-    required super.node,
+    required super.id,
+    required super.rate,
+    required super.position,
     required super.size,
+    super.owner,
   }) {
     ownershipPaint.style = PaintingStyle.stroke;
     ownershipPaint.strokeWidth = 10;
+  }
+
+  @override
+  Sprite get sprite {
+    if (owner == null) {
+      return Sprites.NODE_NEUTRAL;
+    } else if (owner!.isEnemy) {
+      return Sprites.NODE_ENEMY;
+    } else if (owner!.isSelf) {
+      return Sprites.NODE_SELF;
+    }
+
+    throw Exception('Cannot determine node sprite');
   }
 
   @override
@@ -30,18 +44,16 @@ class NodeCapturableComponent<T extends NodeCapturable> extends NodeComponent<T>
 
   @override
   void update(double dt) {
-    final bool shouldUpdate = node.update(dt);
+    super.update(dt);
 
-    if (shouldUpdate) {
-      if (node.hasOwner) {
-        if (node.owner!.isEnemy) {
-          sprite = Sprites.NODE_ENEMY;
-        } else if (node.owner!.isSelf) {
-          sprite = Sprites.NODE_SELF;
-        }
-      } else {
-        sprite = Sprites.NODE_NEUTRAL;
+    if (hasOwner) {
+      if (owner!.isEnemy) {
+        sprite = Sprites.NODE_ENEMY;
+      } else if (owner!.isSelf) {
+        sprite = Sprites.NODE_SELF;
       }
+    } else {
+      sprite = Sprites.NODE_NEUTRAL;
     }
   }
 
@@ -51,7 +63,7 @@ class NodeCapturableComponent<T extends NodeCapturable> extends NodeComponent<T>
     PositionComponent other,
   ) {
     if (other is UnitComponent) {
-      node.onTouched(other.owner);
+      ownership.touched(other.owner);
     }
 
     super.onCollisionStart(intersectionPoints, other);
@@ -61,13 +73,13 @@ class NodeCapturableComponent<T extends NodeCapturable> extends NodeComponent<T>
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (node.ownership.hasTouched) {
-      ownershipPaint.color = node.ownership.color;
+    if (ownership.hasTouched) {
+      ownershipPaint.color = ownership.color;
 
       canvas.drawArc(
         Rect.fromLTWH(0, 0, size.x, size.y),
         -pi / 2,
-        2 * pi * node.ownership.value,
+        2 * pi * ownership.value,
         false,
         ownershipPaint,
       );
