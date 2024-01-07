@@ -15,6 +15,8 @@ class GameState {
   final Battlefield battlefield;
   late final World world;
 
+  static late GameState instance;
+
   GameState({
     required this.self,
     required this.enemy,
@@ -120,7 +122,6 @@ class GameState {
     required List<Waypoint> waypoints,
   }) {
     final Unit unit = Unit.create(
-      state: this,
       owner: owner,
       power: power,
       waypoints: waypoints,

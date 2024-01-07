@@ -124,7 +124,6 @@ class GameWorld extends World {
   @override
   FutureOr onLoad() {
     add(BattlefieldComponent(
-      state: state,
       battlefield: state.battlefield,
     ));
 

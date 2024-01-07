@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Unit {
-  final GameState state;
   final Player owner;
   final double speed;
   final List<Waypoint> waypoints;
@@ -14,7 +13,6 @@ class Unit {
   int power;
 
   Unit._({
-    required this.state,
     required this.owner,
     required this.power,
     required this.speed,
@@ -46,17 +44,15 @@ class Unit {
   }
 
   void destroy() {
-    state.destroyUnit(this);
+    GameState.instance.destroyUnit(this);
   }
 
   factory Unit.create({
-    required GameState state,
     required Player owner,
     required int power,
     required List<Waypoint> waypoints,
   }) =>
       Unit._(
-        state: state,
         owner: owner,
         power: power,
         speed: Constants.UNIT_SPEED,
