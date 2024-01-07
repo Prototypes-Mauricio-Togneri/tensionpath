@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
@@ -21,7 +22,7 @@ class NodeLauncher extends Node {
     throw Exception('Cannot determine node sprite');
   }
 
-  void onUnitCollided(UnitComponent unit) => state.onUnitCollidedWithBase(
+  void onUnitCollided(UnitComponent unit) => GameState.instance.onUnitCollidedWithBase(
         unit: unit,
         baseOwner: owner!,
       );

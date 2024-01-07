@@ -1,4 +1,5 @@
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_accumulator.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 
@@ -13,7 +14,7 @@ class NodeCreditGenerator extends NodeAccumulator {
 
   @override
   void onOwnerAssigned(Player owner) {
-    state.onNodeCreditsGeneratorCaptured(
+    GameState.instance.onNodeCreditsGeneratorCaptured(
       node: this,
       owner: owner,
     );
@@ -21,7 +22,7 @@ class NodeCreditGenerator extends NodeAccumulator {
 
   @override
   void onOwnerUnassigned(Player owner) {
-    state.onNodeCreditsGeneratorLost(
+    GameState.instance.onNodeCreditsGeneratorLost(
       node: this,
       owner: owner,
     );

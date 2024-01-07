@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/nodes/node_base_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -21,9 +21,7 @@ class GameState {
     required this.self,
     required this.enemy,
     required this.battlefield,
-  }) {
-    battlefield.nodes.forEach((node) => node.setGameState(this));
-  }
+  });
 
   void setWorld(World newWorld) {
     world = newWorld;
@@ -89,11 +87,11 @@ class GameState {
     world.remove(unit);
   }
 
-  NodeBaseComponent getNodeComponent(Node node) {
-    final List<NodeBaseComponent> unitComponents =
-        world.children.query<NodeBaseComponent>();
+  NodeComponent getNodeComponent(Node node) {
+    final List<NodeComponent> unitComponents =
+        world.children.query<NodeComponent>();
 
-    for (final NodeBaseComponent component in unitComponents) {
+    for (final NodeComponent component in unitComponents) {
       if (component.node == node) {
         return component;
       }

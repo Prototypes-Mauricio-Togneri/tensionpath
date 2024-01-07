@@ -1,4 +1,5 @@
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_accumulator.dart';
 
 class NodeChest extends NodeAccumulator {
@@ -11,7 +12,7 @@ class NodeChest extends NodeAccumulator {
   bool get canAccumulate => true;
 
   void onAcquired() {
-    state.onAddCredits(
+    GameState.instance.onAddCredits(
       player: owner!,
       credits: creditsAccumulated,
     );

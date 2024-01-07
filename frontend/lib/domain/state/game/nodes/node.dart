@@ -8,7 +8,6 @@ abstract class Node {
   final String id;
   final Vector2 position;
   late final Ownership ownership;
-  late GameState state;
 
   Node({
     required this.id,
@@ -29,10 +28,6 @@ abstract class Node {
 
   Player? get owner => ownership.owner;
 
-  void setGameState(GameState gameState) {
-    state = gameState;
-  }
-
   void spawnUnitOfPlayer(Player player) {
     final int power = player.creditsSelected;
     spawnUnit(power);
@@ -40,7 +35,7 @@ abstract class Node {
   }
 
   void spawnUnit(int power) {
-    state.onNodeSpawnUnit(
+    GameState.instance.onNodeSpawnUnit(
       node: this,
       power: power,
     );
