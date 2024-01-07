@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/weapon.dart';
+import 'package:tensionpath/domain/state/game/specs/weapon_specs.dart';
 
 class WeaponComponent extends PositionComponent {
-  final Weapon weapon;
+  final WeaponSpecs weapon;
 
   WeaponComponent({
     required this.weapon,

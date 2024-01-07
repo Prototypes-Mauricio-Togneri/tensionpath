@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/domain/state/game/unit_specs.dart';
+import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';

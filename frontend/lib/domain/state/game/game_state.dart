@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/domain/state/game/unit_specs.dart';
+import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class GameState {

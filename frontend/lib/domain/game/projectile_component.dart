@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/projectile.dart';
+import 'package:tensionpath/domain/state/game/specs/projectile_specs.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/sprite_component_extension.dart';
 
 class ProjectileComponent extends SpriteComponent with CollisionCallbacks {
-  final Projectile projectile;
+  final ProjectileSpecs projectile;
 
   ProjectileComponent({
     required this.projectile,
