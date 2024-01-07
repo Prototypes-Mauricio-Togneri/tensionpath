@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/types/projectile_effect.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
 class Projectile {
-  final Unit target;
+  final UnitComponent target;
   final double attackPower;
   final ProjectileEffect effect;
   final Vector2 position;

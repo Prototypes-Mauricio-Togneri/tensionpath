@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/game/unit_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
 
 class Waypoint {
   final String id;
@@ -15,5 +15,5 @@ class Waypoint {
 
   bool get hasNode => node != null;
 
-  bool isAligned(Unit unit) => (position - unit.position).length < 1;
+  bool isAligned(UnitComponent unit) => (position - unit.position).length < 1;
 }

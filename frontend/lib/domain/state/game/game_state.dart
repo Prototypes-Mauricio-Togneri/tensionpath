@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/game/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class GameState {
@@ -51,7 +51,7 @@ class GameState {
   }
 
   void onUnitCollidedWithBase({
-    required Unit unit,
+    required UnitComponent unit,
     required Player baseOwner,
   }) {
     unit.destroy();
@@ -85,22 +85,8 @@ class GameState {
     owner.removeCreditsExtraRate(extra);
   }
 
-  void destroyUnit(Unit unit) {
-    final UnitComponent component = getUnitComponent(unit);
-    world.remove(component);
-  }
-
-  UnitComponent getUnitComponent(Unit unit) {
-    final List<UnitComponent> unitComponents =
-        world.children.query<UnitComponent>();
-
-    for (final UnitComponent component in unitComponents) {
-      if (component.unit == unit) {
-        return component;
-      }
-    }
-
-    throw Exception('Associated component not found');
+  void destroyUnit(UnitComponent unit) {
+    world.remove(unit);
   }
 
   NodeBaseComponent getNodeComponent(Node node) {
@@ -121,14 +107,17 @@ class GameState {
     required int power,
     required List<Waypoint> waypoints,
   }) {
-    final Unit unit = Unit.create(
+    final UnitComponent unit = UnitComponent(
+      specs: UnitSpecs(
+        speed: Constants.UNIT_SPEED,
+        power: power,
+        sprite: owner.unitSprite,
+      ),
       owner: owner,
-      power: power,
-      waypoints: waypoints,
-    );
-    world.add(UnitComponent(
-      unit: unit,
+      waypoints: waypoints.sublist(1, waypoints.length),
+      startingPosition: waypoints.first.position,
       size: battlefield.nodeSize,
-    ));
+    );
+    world.add(unit);
   }
 }

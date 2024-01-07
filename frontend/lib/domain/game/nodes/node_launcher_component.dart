@@ -27,7 +27,7 @@ class NodeLauncherComponent extends NodeBaseComponent<NodeLauncher>
     PositionComponent other,
   ) {
     if ((other is UnitComponent) && (node.owner != other.owner)) {
-      node.onUnitCollided(other.unit);
+      node.onUnitCollided(other);
     }
 
     super.onCollisionStart(intersectionPoints, other);
