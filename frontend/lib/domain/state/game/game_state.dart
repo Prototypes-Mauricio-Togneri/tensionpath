@@ -14,7 +14,6 @@ class GameState {
   final Player enemy;
   final Battlefield battlefield;
   late final World world;
-  int creditsSelected = 0;
 
   GameState({
     required this.self,
@@ -31,10 +30,6 @@ class GameState {
   void update(double dt) {
     self.update(dt);
     enemy.update(dt);
-  }
-
-  void onCreditsSelected(int amount) {
-    creditsSelected = amount;
   }
 
   void onNodeSpawnUnit({

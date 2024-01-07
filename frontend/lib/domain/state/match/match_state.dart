@@ -15,14 +15,4 @@ class MatchState extends BaseState {
       battlefield: battlefield,
     );
   }
-
-  void onCreditsSelected(int amount) {
-    if (gameState.creditsSelected != amount) {
-      gameState.onCreditsSelected(amount);
-    } else {
-      gameState.onCreditsSelected(0);
-    }
-
-    notify();
-  }
 }
