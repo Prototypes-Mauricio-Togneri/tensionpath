@@ -28,9 +28,9 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="mm"
          showborder="false"
-         inkscape:zoom="0.08619"
-         inkscape:cx="812.16"
-         inkscape:cy="2552.5"
+         inkscape:zoom="0.12189"
+         inkscape:cx="1308.5"
+         inkscape:cy="3257"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
@@ -166,9 +166,9 @@
              id="node-path-1"
              sodipodi:nodetypes="cccccccccc" /><path
              style="display:inline;fill:none;stroke:#000000;stroke-width:0.264597px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-             d="M 230.22,1468.6 V 1311.4 V 1157.7 V 1002.5 V 848.39 V 695.24 V 540.17 V 387.58 V 231.88 V 76.064"
+             d="M 230.22,1620 V 1465.7 V 1311.4 V 1157.7 V 1002.5 V 848.39 V 695.24 V 540.17 V 387.58 V 231.88 V 76.064"
              id="node-path-2"
-             sodipodi:nodetypes="cccccccccc" /><g
+             sodipodi:nodetypes="ccccccccccc" /><g
              id="g1"
              style="display:inline;opacity:0.1"
              transform="matrix(3.7797,0,0,3.7804,-1899.7,721.2)"><image
