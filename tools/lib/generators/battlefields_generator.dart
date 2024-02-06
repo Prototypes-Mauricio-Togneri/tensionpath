@@ -13,7 +13,11 @@ class BattlefieldGenerator extends BaseGenerator {
       final Iterable<XmlElement> elements = xml.findAllElements('g');
 
       for (final XmlElement element in elements) {
-        print('${element.name} ${element.attributes}');
+        if (element.getAttribute('id') == 'paths') {
+          for (final path in element.childElements) {
+            print('${path.name} ${path.attributes}');
+          }
+        }
       }
       //final JsonGameObject gameObject = getGameObject(elements.first);
       //write(entry, gameObject);
