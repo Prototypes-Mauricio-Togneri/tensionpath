@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:tensionpath/extensions/xml_element_extension.dart';
 import 'package:tensionpath/generators/base_generator.dart';
 import 'package:tensionpath/models/battlefield.dart';
 import 'package:tensionpath/models/path.dart';
@@ -16,11 +17,14 @@ class BattlefieldGenerator extends BaseGenerator {
       final List<Path> paths = [];
 
       for (final XmlElement element in elements) {
-        if (element.getAttribute('id') == 'paths') {
+        if (element.getStringAttribute('id') == 'paths') {
           for (final path in element.childElements) {
-            final List<Vertex> vertices = getVertices(path.getAttribute('d')!);
+            final String id = path.getStringAttribute('id');
+            final List<Vertex> vertices =
+                getVertices(path.getStringAttribute('d'));
+
             paths.add(Path(
-              name: path.getAttribute('id')!,
+              name: id,
               vertices: vertices,
             ));
           }
@@ -31,7 +35,7 @@ class BattlefieldGenerator extends BaseGenerator {
       print(battlefield);
 
       //final JsonGameObject gameObject = getGameObject(elements.first);
-      //write(entry, gameObject);
+      write(entry, battlefield);
     }
   }
 }
