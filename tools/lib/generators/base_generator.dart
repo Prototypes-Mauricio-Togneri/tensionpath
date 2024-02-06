@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:tensionpath/extensions/num_extension.dart';
+import 'package:tensionpath/extensions/string_extension.dart';
 import 'package:xml/xml.dart';
 
 typedef Vertex = List<num>;
@@ -29,7 +30,7 @@ class BaseGenerator {
 
   void writeDart(FileSystemEntity entry, String json) {
     final String fileName = entry.uri.pathSegments.last.split('.')[0];
-    final String className = 'Models$folder$fileName';
+    final String className = 'Models${folder.capitalize}${fileName.capitalize}';
 
     final String content = '''
 class $className {

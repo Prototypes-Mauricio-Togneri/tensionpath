@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:tensionpath/extensions/xml_element_extension.dart';
 import 'package:tensionpath/generators/base_generator.dart';
-import 'package:tensionpath/models/battlefield.dart';
-import 'package:tensionpath/models/path.dart';
+import 'package:tensionpath/json/json_battlefield.dart';
+import 'package:tensionpath/json/json_path.dart';
 import 'package:xml/xml.dart';
 
 class BattlefieldGenerator extends BaseGenerator {
@@ -14,7 +14,7 @@ class BattlefieldGenerator extends BaseGenerator {
     for (final FileSystemEntity entry in entries) {
       final XmlDocument xml = document(entry);
       final Iterable<XmlElement> elements = xml.findAllElements('g');
-      final List<Path> paths = [];
+      final List<JsonPath> paths = [];
 
       for (final XmlElement element in elements) {
         if (element.getStringAttribute('id') == 'paths') {
@@ -23,7 +23,7 @@ class BattlefieldGenerator extends BaseGenerator {
             final List<Vertex> vertices =
                 getVertices(path.getStringAttribute('d'));
 
-            paths.add(Path(
+            paths.add(JsonPath(
               name: id,
               vertices: vertices,
             ));
@@ -31,10 +31,7 @@ class BattlefieldGenerator extends BaseGenerator {
         }
       }
 
-      final Battlefield battlefield = Battlefield(paths: paths);
-      print(battlefield);
-
-      //final JsonGameObject gameObject = getGameObject(elements.first);
+      final JsonBattlefield battlefield = JsonBattlefield(paths: paths);
       write(entry, battlefield);
     }
   }
