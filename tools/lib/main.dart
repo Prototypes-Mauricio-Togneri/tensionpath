@@ -1,4 +1,5 @@
+import 'package:tensionpath/generators/battlefields_generator.dart';
+
 void main() {
-  print('YES!');
+  const BattlefieldGenerator().run();
 }
-// 0.866
