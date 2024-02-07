@@ -2,7 +2,7 @@
 
 set -e
 
-dart lib/main.dart
+dart lib/main/main.dart
 #cp -r ./output/** ../frontend/assets/models
 cd ../frontend
 dart format lib
