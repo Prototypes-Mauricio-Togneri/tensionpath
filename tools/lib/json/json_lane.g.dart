@@ -7,13 +7,13 @@ part of 'json_lane.dart';
 // **************************************************************************
 
 JsonLane _$JsonLaneFromJson(Map<String, dynamic> json) => JsonLane(
-      name: json['name'] as String,
-      vertices: (json['vertices'] as List<dynamic>)
-          .map((e) => (e as List<dynamic>).map((e) => e as num).toList())
+      id: json['id'] as String,
+      waypoints: (json['waypoints'] as List<dynamic>)
+          .map((e) => JsonWaypoint.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$JsonLaneToJson(JsonLane instance) => <String, dynamic>{
-      'name': instance.name,
-      'vertices': instance.vertices,
+      'id': instance.id,
+      'waypoints': instance.waypoints,
     };

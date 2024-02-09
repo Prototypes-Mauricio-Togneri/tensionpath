@@ -29,6 +29,13 @@ extension XmlElementExtension on XmlElement {
 
   bool hasAttribute(String name) => getAttribute(name) != null;
 
+  String get id => getStringAttribute('id');
+
+  Vertex get position => [
+        getNumAttribute('cx'),
+        getNumAttribute('cy'),
+      ];
+
   List<Vertex> get vertices {
     final String path = getStringAttribute('d');
     final List<Vertex> result = [];
