@@ -1,7 +1,7 @@
 class ModelsBattlefieldsBattlefield7 {
   static const String JSON = '''
 {
-  "paths": [
+  "lanes": [
     {
       "name": "lane.1",
       "vertices": [

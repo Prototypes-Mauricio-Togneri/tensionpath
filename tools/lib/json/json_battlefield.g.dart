@@ -8,12 +8,12 @@ part of 'json_battlefield.dart';
 
 JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
     JsonBattlefield(
-      paths: (json['paths'] as List<dynamic>)
-          .map((e) => JsonPath.fromJson(e as Map<String, dynamic>))
+      lanes: (json['lanes'] as List<dynamic>)
+          .map((e) => JsonLane.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
     <String, dynamic>{
-      'paths': instance.paths,
+      'lanes': instance.lanes,
     };

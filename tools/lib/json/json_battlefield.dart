@@ -1,14 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/json/json_path.dart';
+import 'package:tensionpath/json/json_lane.dart';
 
 part 'json_battlefield.g.dart';
 
 @JsonSerializable()
 class JsonBattlefield {
-  final List<JsonPath> paths;
+  final List<JsonLane> lanes;
 
   const JsonBattlefield({
-    required this.paths,
+    required this.lanes,
   });
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>
