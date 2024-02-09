@@ -3,7 +3,7 @@ class ModelsBattlefieldsBattlefield7 {
 {
   "paths": [
     {
-      "name": "path-2",
+      "name": "lane.1",
       "vertices": [
         [
           230.22,
@@ -52,7 +52,7 @@ class ModelsBattlefieldsBattlefield7 {
       ]
     },
     {
-      "name": "path-1",
+      "name": "lane.2",
       "vertices": [
         [
           93.1,

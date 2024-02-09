@@ -17,7 +17,7 @@ class BattlefieldGenerator extends BaseGenerator {
       final List<JsonPath> paths = [];
 
       for (final XmlElement element in elements) {
-        if (element.getStringAttribute('id') == 'paths') {
+        if (element.getStringAttribute('id') == 'lanes') {
           for (final path in element.childElements) {
             final String id = path.getStringAttribute('id');
             final List<Vertex> vertices =
