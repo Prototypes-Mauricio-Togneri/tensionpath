@@ -44,9 +44,12 @@ class BattlefieldGenerator extends BaseGenerator {
       final List<JsonWaypoint> waypoints = [];
 
       for (final Vertex vertex in vertices) {
+        final Iterable<JsonNode> matchingNodes =
+            nodes.where((n) => n.closeTo(vertex));
+
         waypoints.add(JsonWaypoint(
           position: vertex,
-          node: null,
+          node: matchingNodes.isNotEmpty ? matchingNodes.first : null,
         ));
       }
 

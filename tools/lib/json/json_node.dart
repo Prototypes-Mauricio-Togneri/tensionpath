@@ -13,6 +13,13 @@ class JsonNode {
     required this.position,
   });
 
+  bool closeTo(Vertex vertex) {
+    final num diffX = (position[0] - vertex[0]).abs();
+    final num diffY = (position[1] - vertex[1]).abs();
+
+    return (diffX < 0.1) && (diffY < 0.1);
+  }
+
   factory JsonNode.fromJson(Map<String, dynamic> json) =>
       _$JsonNodeFromJson(json);
 

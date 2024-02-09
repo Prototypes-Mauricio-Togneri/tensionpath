@@ -73,7 +73,7 @@ extension XmlElementExtension on XmlElement {
 
         lastX = value;
       } else if (command == 'V') {
-        final num value = -num.parse(current);
+        final num value = num.parse(current);
         result.add([
           lastX.rounded(),
           value.rounded(),
