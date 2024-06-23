@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tensionpath/domain/models/user_logged.dart';
+import 'package:tensionpath/domain/models/room.dart';
+import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/sprites.dart';
 
@@ -10,32 +10,9 @@ class SplashState extends BaseState {
   Future onLoad() async {
     await Sprites.load();
 
-    StreamSubscription? subscription;
-    subscription = FirebaseAuth.instance.authStateChanges().listen((user) {
-      subscription?.cancel();
-      _processUser(user);
-    });
-  }
-
-  Future _processUser(User? user) async {
-    final User signedUser = await _getSignedUser(user);
-    LoggedUser.get.load(signedUser);
-
-    if (LoggedUser.get.hasName) {
-      Navigation.mainScreen();
-    } else {
-      Navigation.settingsScreen(true);
-    }
-  }
-
-  Future<User> _getSignedUser(User? user) async {
-    if (user != null) {
-      return user;
-    } else {
-      final UserCredential credential =
-          await FirebaseAuth.instance.signInAnonymously();
-
-      return credential.user!;
-    }
+    Navigation.matchScreen(
+      room: Room.empty(),
+      battlefield: Battlefield.lanes5(),
+    );
   }
 }
