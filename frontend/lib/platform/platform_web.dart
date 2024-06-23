@@ -1,13 +1,9 @@
-import 'dart:html';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:tensionpath/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override
   void urlStrategy() => setUrlStrategy(EmptyUrlStrategy());
-
-  @override
-  Future? webFullscreen() => document.documentElement?.requestFullscreen();
 }
 
 class EmptyUrlStrategy extends HashUrlStrategy {
