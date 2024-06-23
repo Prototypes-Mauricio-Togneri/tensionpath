@@ -14,7 +14,7 @@ class ErrorHandler {
     _logAnalytics(exception);
 
     if (!Platform.isWeb) {
-      FirebaseCrashlytics.instance.recordError(
+      await FirebaseCrashlytics.instance.recordError(
         exception,
         null,
         reason: exception.toString(),
@@ -33,7 +33,7 @@ class ErrorHandler {
     _logAnalytics(exception);
 
     if (!Platform.isWeb) {
-      FirebaseCrashlytics.instance.recordError(
+      await FirebaseCrashlytics.instance.recordError(
         exception,
         stackTrace,
         fatal: true,

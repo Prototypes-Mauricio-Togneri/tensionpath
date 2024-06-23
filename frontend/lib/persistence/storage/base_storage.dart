@@ -34,27 +34,27 @@ class Storage {
 
   static Future setBool(String field, bool value) async {
     final SharedPreferences preferences = await _preferences();
-    preferences.setBool(field, value);
+    return preferences.setBool(field, value);
   }
 
   static Future setInt(String field, int value) async {
     final SharedPreferences preferences = await _preferences();
-    preferences.setInt(field, value);
+    return preferences.setInt(field, value);
   }
 
   static Future setString(String field, String value) async {
     final SharedPreferences preferences = await _preferences();
-    preferences.setString(field, value);
+    return preferences.setString(field, value);
   }
 
   static Future setStringList(String field, List<String> value) async {
     final SharedPreferences preferences = await _preferences();
-    preferences.setStringList(field, value);
+    return preferences.setStringList(field, value);
   }
 
   static Future clear(String field) async {
     final SharedPreferences preferences = await _preferences();
-    preferences.remove(field);
+    return preferences.remove(field);
   }
 
   static Future<SharedPreferences> _preferences() async =>

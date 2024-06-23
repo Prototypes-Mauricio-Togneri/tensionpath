@@ -73,7 +73,7 @@ class LobbyState extends BaseState {
       );
 
   Future onLeave() async {
-    subscription?.cancel();
+    await subscription?.cancel();
 
     if (roomId.isNotEmpty) {
       await const StopMatchmakingCallable()(
