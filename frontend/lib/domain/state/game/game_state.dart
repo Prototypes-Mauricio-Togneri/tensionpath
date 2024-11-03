@@ -87,7 +87,7 @@ class GameState {
   }
 
   NodeComponent getNodeComponent(NodeComponent node) {
-    final List<NodeComponent> unitComponents =
+    final Iterable<NodeComponent> unitComponents =
         world.children.query<NodeComponent>();
 
     for (final NodeComponent component in unitComponents) {
