@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
@@ -9,7 +10,7 @@ class MatchComponent extends World {
   MatchComponent(this.state);
 
   @override
-  Future onLoad() async {
+  FutureOr onLoad() {
     add(BattlefieldComponent(
       battlefield: state.battlefield,
     ));
