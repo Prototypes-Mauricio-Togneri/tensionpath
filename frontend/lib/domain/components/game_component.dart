@@ -6,9 +6,8 @@ import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -22,7 +21,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   GameComponent({
     required this.state,
     required this.pixelRatio,
-  }) : super(world: GameWorld(state));
+  }) : super(world: MatchComponent(state));
 
   double get effectiveScreenHeight =>
       (camera.viewport.size.y * CONTAINER_WIDTH) / camera.viewport.size.x;
@@ -101,24 +100,5 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     state.update(dt);
 
     super.update(dt);
-  }
-}
-
-class GameWorld extends World {
-  final GameState state;
-
-  GameWorld(this.state);
-
-  @override
-  FutureOr onLoad() {
-    add(BattlefieldComponent(
-      battlefield: state.battlefield,
-    ));
-
-    for (final NodeComponent node in state.battlefield.nodes) {
-      add(node);
-    }
-
-    return super.onLoad();
   }
 }

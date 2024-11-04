@@ -18,15 +18,15 @@ class MatchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      child: GameContent(state),
+      child: Content(state),
     );
   }
 }
 
-class GameContent extends StatelessWidget {
+class Content extends StatelessWidget {
   final MatchState state;
 
-  const GameContent(this.state);
+  const Content(this.state);
 
   @override
   Widget build(BuildContext context) {
