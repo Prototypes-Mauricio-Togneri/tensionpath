@@ -10,7 +10,7 @@ class SplashState extends BaseState {
     await Sprites.load();
 
     Navigation.matchScreen(
-      battlefield: Battlefield.lanes5(),
+      battlefield: Battlefield.lanes3(),
     );
   }
 }
