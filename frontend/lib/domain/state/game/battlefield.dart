@@ -14,6 +14,7 @@ import 'package:tensionpath/utils/sprites.dart';
 class Battlefield {
   final String id;
   final Sprite sprite;
+  final Vector2 mapSize;
   final List<Lane> lanes;
   final List<Waypoint> waypoints = [];
   final List<NodeComponent> nodes = [];
@@ -22,6 +23,7 @@ class Battlefield {
   Battlefield({
     required this.id,
     required this.sprite,
+    required this.mapSize,
     required this.lanes,
     required this.nodeSize,
   }) {
@@ -54,6 +56,7 @@ class Battlefield {
     return Battlefield(
       id: 'lanes5',
       sprite: Sprites.BATTLEFIELD_LANES_3,
+      mapSize: Vector2(1000, 3000),
       nodeSize: nodeSize,
       lanes: [
         Lane(
@@ -206,6 +209,7 @@ class Battlefield {
     return Battlefield(
       id: 'lanes5',
       sprite: Sprites.BATTLEFIELD_LANES_5,
+      mapSize: Vector2(1000, 1700),
       nodeSize: nodeSize,
       lanes: [
         Lane(
