@@ -42,17 +42,18 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     debugMode = false;
     state.setWorld(world);
 
-    final double boundary = state.battlefield.mapSize.y - size.y;
+    final double minCameraY = size.y / 2;
+    final double maxCameraY = state.battlefield.mapSize.y - (size.y / 2);
 
-    camera.setBounds(Rectangle.fromLTWH(
+    camera.setBounds(Rectangle.fromLTRB(
       0,
-      size.y / 2,
+      minCameraY,
       CONTAINER_WIDTH,
-      boundary,
+      maxCameraY,
     ));
     camera.moveTo(Vector2(
       CONTAINER_WIDTH / 2,
-      boundary + (size.y / 2),
+      maxCameraY,
     ));
 
     /*camera.viewport.add(ControlsComponent(
