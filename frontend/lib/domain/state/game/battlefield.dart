@@ -523,38 +523,38 @@ class Battlefield {
           waypoints: [
             Waypoint(
               id: 'w4a',
-              position: Vector2(694, 1625),
+              position: Vector2(700, 2425),
               node: NodeLauncherComponent(
                 id: 'n4a',
-                position: Vector2(694, 1625),
+                position: Vector2(700, 2425),
                 owner: Player.SELF,
                 size: nodeSize,
               ),
             ),
             Waypoint(
               id: 'w4b',
-              position: Vector2(694, 1200),
+              position: Vector2(700, 1666),
               node: NodeCreditGeneratorComponent(
                 id: 'n4b',
-                position: Vector2(694, 1200),
+                position: Vector2(700, 1666),
                 size: nodeSize,
               ),
             ),
             Waypoint(
               id: 'w4c',
-              position: Vector2(694, 500),
+              position: Vector2(700, 833),
               node: NodeUnitGeneratorComponent(
                 id: 'n4c',
-                position: Vector2(694, 500),
+                position: Vector2(700, 833),
                 size: nodeSize,
               ),
             ),
             Waypoint(
               id: 'w4d',
-              position: Vector2(694, 75),
+              position: Vector2(700, 75),
               node: NodeLauncherComponent(
                 id: 'n4d',
-                position: Vector2(694, 75),
+                position: Vector2(700, 75),
                 owner: Player.ENEMY,
                 size: nodeSize,
               ),
@@ -566,29 +566,29 @@ class Battlefield {
           waypoints: [
             Waypoint(
               id: 'w5a',
-              position: Vector2(887, 1625),
+              position: Vector2(900, 2425),
               node: NodeLauncherComponent(
                 id: 'n5a',
-                position: Vector2(887, 1625),
+                position: Vector2(900, 2425),
                 owner: Player.SELF,
                 size: nodeSize,
               ),
             ),
             Waypoint(
               id: 'w5b',
-              position: Vector2(887, 850),
+              position: Vector2(900, 1250),
               node: NodeCheckpointComponent(
                 id: 'n5b',
-                position: Vector2(887, 850),
+                position: Vector2(900, 1250),
                 size: nodeSize,
               ),
             ),
             Waypoint(
               id: 'w5c',
-              position: Vector2(887, 75),
+              position: Vector2(900, 75),
               node: NodeLauncherComponent(
                 id: 'n5c',
-                position: Vector2(887, 75),
+                position: Vector2(900, 75),
                 owner: Player.ENEMY,
                 size: nodeSize,
               ),
