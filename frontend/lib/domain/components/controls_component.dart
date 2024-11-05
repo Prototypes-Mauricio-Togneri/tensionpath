@@ -16,7 +16,6 @@ class ControlsComponent extends PositionComponent {
     required this.player,
     required super.position,
     required super.size,
-    required super.angle,
   }) : super(
           anchor: Anchor.center,
           priority: Priority.battlefield.value,

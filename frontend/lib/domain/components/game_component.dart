@@ -22,9 +22,6 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     required this.pixelRatio,
   }) : super(world: MatchComponent(state));
 
-  double get effectiveScreenHeight =>
-      (camera.viewport.size.y * CONTAINER_WIDTH) / camera.viewport.size.x;
-
   @override
   void onPanUpdate(DragUpdateInfo info) {
     camera.moveBy(
@@ -52,6 +49,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       CONTAINER_WIDTH,
       maxCameraY + CONTROLS_HEIGHT,
     ));
+
     camera.moveTo(Vector2(
       CONTAINER_WIDTH / 2,
       maxCameraY + CONTROLS_HEIGHT,
@@ -67,7 +65,6 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
         CONTAINER_WIDTH,
         CONTROLS_HEIGHT,
       ),
-      angle: 0,
     ));
 
     if (debugMode) {
