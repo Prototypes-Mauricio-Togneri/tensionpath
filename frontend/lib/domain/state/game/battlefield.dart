@@ -9,11 +9,10 @@ import 'package:tensionpath/domain/components/nodes/node_victory_component.dart'
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class Battlefield {
   final String id;
-  final Sprite sprite;
+  //final Sprite sprite;
   final Vector2 mapSize;
   final List<Lane> lanes;
   final List<Waypoint> waypoints = [];
@@ -22,7 +21,7 @@ class Battlefield {
 
   Battlefield({
     required this.id,
-    required this.sprite,
+    //required this.sprite,
     required this.mapSize,
     required this.lanes,
     required this.nodeSize,
@@ -55,7 +54,7 @@ class Battlefield {
 
     return Battlefield(
       id: 'lanes5',
-      sprite: Sprites.BATTLEFIELD_LANES_3,
+      //sprite: Sprites.BATTLEFIELD_LANES_3,
       mapSize: Vector2(1000, 3000),
       nodeSize: nodeSize,
       lanes: [
@@ -208,7 +207,7 @@ class Battlefield {
 
     return Battlefield(
       id: 'lanes5',
-      sprite: Sprites.BATTLEFIELD_LANES_5,
+      //sprite: Sprites.BATTLEFIELD_LANES_5,
       mapSize: Vector2(1000, 1700),
       nodeSize: nodeSize,
       lanes: [
