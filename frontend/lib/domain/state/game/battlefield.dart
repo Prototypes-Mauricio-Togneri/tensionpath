@@ -12,7 +12,6 @@ import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class Battlefield {
   final String id;
-  //final Sprite sprite;
   final Vector2 mapSize;
   final List<Lane> lanes;
   final List<Waypoint> waypoints = [];
@@ -21,7 +20,6 @@ class Battlefield {
 
   Battlefield({
     required this.id,
-    //required this.sprite,
     required this.mapSize,
     required this.lanes,
     required this.nodeSize,
@@ -54,7 +52,6 @@ class Battlefield {
 
     return Battlefield(
       id: 'lanes5',
-      //sprite: Sprites.BATTLEFIELD_LANES_3,
       mapSize: Vector2(1000, 3000),
       nodeSize: nodeSize,
       lanes: [
@@ -207,8 +204,207 @@ class Battlefield {
 
     return Battlefield(
       id: 'lanes5',
-      //sprite: Sprites.BATTLEFIELD_LANES_5,
       mapSize: Vector2(1000, 1700),
+      nodeSize: nodeSize,
+      lanes: [
+        Lane(
+          id: 'l1',
+          waypoints: [
+            Waypoint(
+              id: 'w1a',
+              position: Vector2(113, 1625),
+              node: NodeLauncherComponent(
+                id: 'n1a',
+                position: Vector2(113, 1625),
+                owner: Player.SELF,
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w1b',
+              position: Vector2(113, 850),
+              node: NodeChestComponent(
+                id: 'n1b',
+                position: Vector2(113, 850),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w1c',
+              position: Vector2(113, 75),
+              node: NodeLauncherComponent(
+                id: 'n1c',
+                position: Vector2(113, 75),
+                owner: Player.ENEMY,
+                size: nodeSize,
+              ),
+            ),
+          ],
+        ),
+        Lane(
+          id: 'l2',
+          waypoints: [
+            Waypoint(
+              id: 'w2a',
+              position: Vector2(306, 1625),
+              node: NodeLauncherComponent(
+                id: 'n2a',
+                position: Vector2(306, 1625),
+                owner: Player.SELF,
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w2b',
+              position: Vector2(306, 1200),
+              node: NodeUnitGeneratorComponent(
+                id: 'n2b',
+                position: Vector2(306, 1200),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w2c',
+              position: Vector2(306, 500),
+              node: NodeCreditGeneratorComponent(
+                id: 'n2c',
+                position: Vector2(306, 500),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w2d',
+              position: Vector2(306, 75),
+              node: NodeLauncherComponent(
+                id: 'n2d',
+                position: Vector2(306, 75),
+                owner: Player.ENEMY,
+                size: nodeSize,
+              ),
+            ),
+          ],
+        ),
+        Lane(
+          id: 'l3',
+          waypoints: [
+            Waypoint(
+              id: 'w3a',
+              position: Vector2(500, 1625),
+              node: NodeLauncherComponent(
+                id: 'n3a',
+                position: Vector2(500, 1625),
+                owner: Player.SELF,
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w3b',
+              position: Vector2(500, 850),
+              node: NodeVictoryComponent(
+                id: 'n3b',
+                position: Vector2(500, 850),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w3c',
+              position: Vector2(500, 75),
+              node: NodeLauncherComponent(
+                id: 'n3c',
+                position: Vector2(500, 75),
+                owner: Player.ENEMY,
+                size: nodeSize,
+              ),
+            ),
+          ],
+        ),
+        Lane(
+          id: 'l4',
+          waypoints: [
+            Waypoint(
+              id: 'w4a',
+              position: Vector2(694, 1625),
+              node: NodeLauncherComponent(
+                id: 'n4a',
+                position: Vector2(694, 1625),
+                owner: Player.SELF,
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w4b',
+              position: Vector2(694, 1200),
+              node: NodeCreditGeneratorComponent(
+                id: 'n4b',
+                position: Vector2(694, 1200),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w4c',
+              position: Vector2(694, 500),
+              node: NodeUnitGeneratorComponent(
+                id: 'n4c',
+                position: Vector2(694, 500),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w4d',
+              position: Vector2(694, 75),
+              node: NodeLauncherComponent(
+                id: 'n4d',
+                position: Vector2(694, 75),
+                owner: Player.ENEMY,
+                size: nodeSize,
+              ),
+            ),
+          ],
+        ),
+        Lane(
+          id: 'l5',
+          waypoints: [
+            Waypoint(
+              id: 'w5a',
+              position: Vector2(887, 1625),
+              node: NodeLauncherComponent(
+                id: 'n5a',
+                position: Vector2(887, 1625),
+                owner: Player.SELF,
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w5b',
+              position: Vector2(887, 850),
+              node: NodeCheckpointComponent(
+                id: 'n5b',
+                position: Vector2(887, 850),
+                size: nodeSize,
+              ),
+            ),
+            Waypoint(
+              id: 'w5c',
+              position: Vector2(887, 75),
+              node: NodeLauncherComponent(
+                id: 'n5c',
+                position: Vector2(887, 75),
+                owner: Player.ENEMY,
+                size: nodeSize,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  factory Battlefield.vector() {
+    final Vector2 nodeSize = Vector2(150, 150);
+
+    return Battlefield(
+      id: 'vector',
+      mapSize: Vector2(1000, 2500),
       nodeSize: nodeSize,
       lanes: [
         Lane(
