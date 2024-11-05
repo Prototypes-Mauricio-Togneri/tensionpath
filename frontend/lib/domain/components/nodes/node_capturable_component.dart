@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
-import 'package:tensionpath/extensions/sprite_component_extension.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   final Paint ownershipPaint = Paint();
+  final Paint backgroundPaint = Paint();
 
   NodeCapturableComponent({
     required super.id,
@@ -23,21 +22,8 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   }
 
   @override
-  Sprite get sprite {
-    if (owner == null) {
-      return Sprites.NODE_NEUTRAL;
-    } else if (owner!.isEnemy) {
-      return Sprites.NODE_ENEMY;
-    } else if (owner!.isSelf) {
-      return Sprites.NODE_SELF;
-    }
-
-    throw Exception('Cannot determine node sprite');
-  }
-
-  @override
   FutureOr onLoad() {
-    add(circleHitbox);
+    add(CircleHitbox());
 
     return super.onLoad();
   }
@@ -48,12 +34,12 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
 
     if (hasOwner) {
       if (owner!.isEnemy) {
-        sprite = Sprites.NODE_ENEMY;
+        backgroundPaint.color = Colors.red;
       } else if (owner!.isSelf) {
-        sprite = Sprites.NODE_SELF;
+        backgroundPaint.color = Colors.blue;
       }
     } else {
-      sprite = Sprites.NODE_NEUTRAL;
+      backgroundPaint.color = Colors.grey;
     }
   }
 
@@ -72,6 +58,12 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
+    canvas.drawCircle(
+      Offset(size.x / 2, size.y / 2),
+      size.x / 2,
+      backgroundPaint,
+    );
 
     if (ownership.hasTouched) {
       ownershipPaint.color = ownership.color;

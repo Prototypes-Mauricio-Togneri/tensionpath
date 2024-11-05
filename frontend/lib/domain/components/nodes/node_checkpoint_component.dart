@@ -3,7 +3,6 @@ import 'package:flame/events.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_capturable_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class NodeCheckpointComponent extends NodeCapturableComponent
     with TapCallbacks {
@@ -17,7 +16,7 @@ class NodeCheckpointComponent extends NodeCapturableComponent
   @override
   FutureOr onLoad() {
     add(NodeIconComponent(
-      sprite: Sprites.NODE_ICON_CHECKPOINT,
+      icon: '🏁',
       parent: this,
     ));
 

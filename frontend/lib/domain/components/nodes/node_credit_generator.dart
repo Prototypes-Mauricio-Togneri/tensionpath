@@ -4,7 +4,6 @@ import 'package:tensionpath/domain/components/nodes/node_accumulator_component.d
 import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class NodeCreditGeneratorComponent extends NodeAccumulatorComponent {
   NodeCreditGeneratorComponent({
@@ -17,7 +16,7 @@ class NodeCreditGeneratorComponent extends NodeAccumulatorComponent {
   @override
   FutureOr onLoad() {
     add(NodeIconComponent(
-      sprite: Sprites.NODE_ICON_CREDIT_GENERATOR,
+      icon: '⚡',
       parent: this,
     ));
 

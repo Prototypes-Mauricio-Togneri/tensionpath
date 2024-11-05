@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_accumulator_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class NodeUnitGeneratorComponent extends NodeAccumulatorComponent {
   NodeUnitGeneratorComponent({
@@ -15,7 +14,7 @@ class NodeUnitGeneratorComponent extends NodeAccumulatorComponent {
   @override
   FutureOr onLoad() {
     add(NodeIconComponent(
-      sprite: Sprites.NODE_ICON_UNIT_GENERATOR,
+      icon: '⚇',
       parent: this,
     ));
 

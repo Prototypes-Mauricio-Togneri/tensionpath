@@ -1,14 +1,31 @@
+import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
-class NodeIconComponent extends SpriteComponent {
+class NodeIconComponent extends PositionComponent {
+  final String icon;
+
   NodeIconComponent({
-    required super.sprite,
-    required SpriteComponent parent,
+    required this.icon,
+    required PositionComponent parent,
   }) : super(
           position: parent.size / 2,
           size: parent.size / 2,
           anchor: Anchor.center,
           priority: Priority.node.value,
         );
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawText(
+      text: icon,
+      position: size / 2,
+      size: size.x,
+      color: Palette.white,
+    );
+  }
 }

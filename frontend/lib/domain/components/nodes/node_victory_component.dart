@@ -4,7 +4,6 @@ import 'package:tensionpath/domain/components/nodes/node_capturable_component.da
 import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class NodeVictoryComponent extends NodeCapturableComponent {
   NodeVictoryComponent({
@@ -17,7 +16,7 @@ class NodeVictoryComponent extends NodeCapturableComponent {
   @override
   FutureOr onLoad() {
     add(NodeIconComponent(
-      sprite: Sprites.NODE_ICON_VICTORY,
+      icon: '⭐',
       parent: this,
     ));
 

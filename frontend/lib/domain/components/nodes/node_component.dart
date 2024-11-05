@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/state/game/ownership.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class NodeComponent extends SpriteComponent {
+class NodeComponent extends PositionComponent {
   final String id;
   late final Ownership ownership;
 
