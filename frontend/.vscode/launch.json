@@ -6,22 +6,14 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_local.dart",
-            "flutterMode": "debug",
-            "args": [
-                "--flavor",
-                "local"
-            ]
+            "flutterMode": "debug"
         },
         {
             "name": "Run (REMOTE)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_remote.dart",
-            "flutterMode": "debug",
-            "args": [
-                "--flavor",
-                "remote"
-            ]
+            "flutterMode": "debug"
         }
     ]
 }
