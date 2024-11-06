@@ -3,16 +3,14 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/state/game/damage.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/extensions/sprite_component_extension.dart';
 
-class DamageComponent extends SpriteComponent with CollisionCallbacks {
+class DamageComponent extends PositionComponent with CollisionCallbacks {
   final Damage damage;
 
   DamageComponent({
     required this.damage,
     required super.size,
   }) : super(
-          sprite: damage.sprite,
           position: damage.position,
           anchor: Anchor.center,
           priority: Priority.damage.value,
@@ -20,7 +18,7 @@ class DamageComponent extends SpriteComponent with CollisionCallbacks {
 
   @override
   FutureOr onLoad() {
-    add(circleHitbox);
+    add(CircleHitbox());
 
     return super.onLoad();
   }

@@ -2,21 +2,22 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/waypoint.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitComponent extends SpriteComponent with CollisionCallbacks {
+class UnitComponent extends PositionComponent with CollisionCallbacks {
   final UnitSpecs specs;
   final Player owner;
   final List<Waypoint> waypoints;
   late int nextWaypointIndex;
   late int power;
+  final Paint backgroundPaint = Paint();
 
   UnitComponent({
     required this.specs,
@@ -25,7 +26,6 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
     required Vector2 startingPosition,
     required super.size,
   }) : super(
-          sprite: specs.sprite,
           anchor: Anchor.center,
           priority: Priority.unit.value,
         ) {
@@ -38,7 +38,13 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
 
   @override
   FutureOr onLoad() {
-    add(circleHitbox);
+    add(CircleHitbox());
+
+    if (owner.isSelf) {
+      backgroundPaint.color = Colors.blue;
+    } else if (owner.isEnemy) {
+      backgroundPaint.color = Colors.red;
+    }
 
     return super.onLoad();
   }
@@ -88,6 +94,12 @@ class UnitComponent extends SpriteComponent with CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
+    canvas.drawCircle(
+      Offset(size.x / 2, size.y / 2),
+      size.x / 2,
+      backgroundPaint,
+    );
 
     canvas.drawText(
       text: power.toString(),

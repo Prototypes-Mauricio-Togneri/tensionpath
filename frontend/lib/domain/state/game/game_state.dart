@@ -108,7 +108,6 @@ class GameState {
       specs: UnitSpecs(
         speed: Constants.UNIT_SPEED,
         power: power,
-        sprite: owner.unitSprite,
       ),
       owner: owner,
       waypoints: waypoints.sublist(1, waypoints.length),

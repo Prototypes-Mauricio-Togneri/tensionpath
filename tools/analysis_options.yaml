@@ -1,3 +1,5 @@
+# include: package:flutter_lints/flutter.yaml
+
 analyzer:
   language:
     strict-raw-types: false
@@ -11,11 +13,11 @@ analyzer:
 
 linter:
   rules:
-    #- type_annotate_public_apis
+    - unawaited_futures
+    - use_build_context_synchronously
     - always_declare_return_types
     - always_put_control_body_on_new_line
     - always_put_required_named_parameters_first
-    - always_require_non_null_named_parameters
     - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catching_errors
@@ -27,8 +29,6 @@ linter:
     - avoid_relative_lib_imports
     - avoid_renaming_method_parameters
     - avoid_return_types_on_setters
-    - avoid_returning_null
-    - avoid_returning_null_for_future
     - avoid_returning_null_for_void
     - avoid_shadowing_type_parameters
     - avoid_slow_async_io
@@ -47,6 +47,7 @@ linter:
     - empty_constructor_bodies
     - empty_statements
     - file_names
+    - flutter_style_todos
     - hash_and_equals
     - implementation_imports
     - collection_methods_unrelated_type
@@ -107,6 +108,7 @@ linter:
     - unnecessary_string_interpolations
     - unnecessary_this
     - unrelated_type_equality_checks
+    - use_full_hex_values_for_flutter_colors
     - use_function_type_syntax_for_parameters
     - use_rethrow_when_possible
     - valid_regexps

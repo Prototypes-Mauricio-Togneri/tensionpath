@@ -1,8 +1,6 @@
 import 'dart:ui';
-import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/utils/palette.dart';
-import 'package:tensionpath/utils/sprites.dart';
 
 class Player {
   final String id;
@@ -32,8 +30,6 @@ class Player {
   bool get isEnemy => id == Constants.PLAYER_ENEMY;
 
   Color get color => isSelf ? Palette.blue : Palette.red;
-
-  Sprite get unitSprite => isSelf ? Sprites.UNIT_SELF : Sprites.UNIT_ENEMY;
 
   void update(double dt) {
     _credits += creditsRate * dt;
