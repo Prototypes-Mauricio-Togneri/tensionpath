@@ -35,19 +35,14 @@ class BattlefieldComponent extends PositionComponent {
       add(node);
     }
 
-    add(LaneComponent(
-      player: state.self,
-      color: Colors.pink,
-      position: Vector2(0, 0),
-      size: Vector2(200, battlefield.mapSize.y),
-    ));
-
-    add(LaneComponent(
-      player: state.self,
-      color: Colors.yellow,
-      position: Vector2(200, 0),
-      size: Vector2(200, battlefield.mapSize.y),
-    ));
+    for (int i = 0; i < battlefield.lanes.length; i++) {
+      add(LaneComponent(
+        lane: battlefield.lanes[i],
+        player: state.self,
+        position: Vector2(i * 200, 0),
+        size: Vector2(200, battlefield.mapSize.y),
+      ));
+    }
 
     return super.onLoad();
   }
@@ -68,41 +63,5 @@ class BattlefieldComponent extends PositionComponent {
         paintLanes,
       );
     }
-
-    /*canvas.drawLine(
-        const Offset(0, 0),
-        Offset(0, height),
-        paintLanes,
-      );
-
-    canvas.drawLine(
-      const Offset(200, 0),
-      Offset(200, height),
-      paintLanes,
-    );
-
-    canvas.drawLine(
-      const Offset(400, 0),
-      Offset(400, height),
-      paintLanes,
-    );
-
-    canvas.drawLine(
-      const Offset(600, 0),
-      Offset(600, height),
-      paintLanes,
-    );
-
-    canvas.drawLine(
-      const Offset(800, 0),
-      Offset(800, height),
-      paintLanes,
-    );
-
-    canvas.drawLine(
-      const Offset(1000, 0),
-      Offset(1000, height),
-      paintLanes,
-    );*/
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/ownership.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -36,10 +35,10 @@ class NodeComponent extends PositionComponent {
   }
 
   void spawnUnit(int power) {
-    GameState.instance.onNodeSpawnUnit(
+    /*GameState.instance.onSpawnUnit(
       node: this,
       power: power,
-    );
+    );*/
   }
 
   void onOwnerAssigned(Player owner) {}

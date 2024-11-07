@@ -1,17 +1,17 @@
-import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
+import 'package:flame/events.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class LaneComponent extends PositionComponent {
+class LaneComponent extends PositionComponent with TapCallbacks {
+  final Lane lane;
   final Player player;
-  final Color color;
-  final Paint backgroundPaint = Paint();
 
   LaneComponent({
+    required this.lane,
     required this.player,
-    required this.color,
     required super.position,
     required super.size,
   }) : super(
@@ -20,20 +20,20 @@ class LaneComponent extends PositionComponent {
         );
 
   @override
-  FutureOr onLoad() {
-    backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = color.withAlpha(100);
-
-    return super.onLoad();
+  void onTapUp(TapUpEvent event) {
+    if (player.hasCreditsSelected) {
+      spawnUnitOfPlayer(player);
+    }
   }
 
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      backgroundPaint,
+  void spawnUnitOfPlayer(Player player) {
+    final int power = player.creditsSelected;
+    GameState.instance.onSpawnUnit(
+      lane: lane,
+      player: player,
+      waypoint: lane.waypoints[0],
+      power: power,
     );
+    player.spendCredits(power);
   }
 }

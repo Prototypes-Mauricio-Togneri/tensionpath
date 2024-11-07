@@ -31,7 +31,7 @@ class GameState {
     enemy.update(dt);
   }
 
-  void onNodeSpawnUnit({
+  /*void onNodeSpawnUnit({
     required NodeComponent node,
     required int power,
   }) {
@@ -43,6 +43,22 @@ class GameState {
       waypoints: lane.getWaypointsFrom(
         node: node,
         forward: node.owner!.isSelf,
+      ),
+    );
+  }*/
+
+  void onSpawnUnit({
+    required Lane lane,
+    required Player player,
+    required Waypoint waypoint,
+    required int power,
+  }) {
+    _deployUnit(
+      owner: player,
+      power: power,
+      waypoints: lane.getWaypointsFrom(
+        fromWaypoint: waypoint,
+        forward: player.isSelf,
       ),
     );
   }
