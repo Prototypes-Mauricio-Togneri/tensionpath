@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/components/unit_component.dart';
 class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   final Paint ownershipPaint = Paint();
   final Paint backgroundPaint = Paint();
+  final Paint borderPaint = Paint();
 
   NodeCapturableComponent({
     required super.id,
@@ -19,6 +20,9 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   }) {
     ownershipPaint.style = PaintingStyle.stroke;
     ownershipPaint.strokeWidth = 10;
+
+    borderPaint.style = PaintingStyle.stroke;
+    borderPaint.strokeWidth = 5;
   }
 
   @override
@@ -34,12 +38,15 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
 
     if (hasOwner) {
       if (owner!.isEnemy) {
-        backgroundPaint.color = Colors.red;
+        backgroundPaint.color = Colors.red.withAlpha(100);
+        borderPaint.color = Colors.red;
       } else if (owner!.isSelf) {
-        backgroundPaint.color = Colors.blue;
+        backgroundPaint.color = Colors.blue.withAlpha(100);
+        borderPaint.color = Colors.blue;
       }
     } else {
-      backgroundPaint.color = Colors.grey;
+      backgroundPaint.color = Colors.transparent;
+      borderPaint.color = Colors.white;
     }
   }
 
@@ -63,6 +70,12 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
       Offset(size.x / 2, size.y / 2),
       size.x / 2,
       backgroundPaint,
+    );
+
+    canvas.drawCircle(
+      Offset(size.x / 2, size.y / 2),
+      size.x / 2,
+      borderPaint,
     );
 
     if (ownership.hasTouched) {
