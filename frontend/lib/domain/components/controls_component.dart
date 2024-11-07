@@ -50,7 +50,7 @@ class ControlsComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(
-      Rect.fromLTWH(0, 0, width * (player.hp / 100), height),
+      Rect.fromLTWH(0, 0, width, height),
       backgroundPaint,
     );
   }

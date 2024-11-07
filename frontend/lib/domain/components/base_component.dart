@@ -1,0 +1,45 @@
+import 'dart:async';
+import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
+
+class BaseComponent extends PositionComponent {
+  final Player player;
+  final Paint backgroundPaint = Paint();
+
+  BaseComponent({
+    required this.player,
+    required super.position,
+    required super.size,
+  }) : super(
+          anchor: Anchor.center,
+          priority: Priority.battlefield.value,
+        );
+
+  @override
+  FutureOr onLoad() {
+    backgroundPaint.style = PaintingStyle.fill;
+    backgroundPaint.color = player.color;
+
+    return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, width * (player.hp / 100), height),
+      backgroundPaint,
+    );
+
+    canvas.drawText(
+      text: player.id,
+      position: size / 2,
+      size: size.y / 2,
+      color: Colors.white,
+    );
+  }
+}

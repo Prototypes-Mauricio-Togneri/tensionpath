@@ -10,7 +10,7 @@ class Waypoint {
   Waypoint({
     required this.id,
     required this.position,
-    required this.node,
+    this.node,
   });
 
   bool get hasNode => node != null;

@@ -4,21 +4,24 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class BattlefieldComponent extends PositionComponent {
-  final Battlefield battlefield;
+  final GameState state;
+  late final Battlefield battlefield;
   final Paint paintBackground = Paint();
   final Paint paintLanes = Paint();
 
-  BattlefieldComponent({
-    required this.battlefield,
-  }) : super(
+  BattlefieldComponent(this.state)
+      : super(
           position: Vector2(0, 0),
-          size: battlefield.mapSize,
+          size: state.battlefield.mapSize,
           anchor: Anchor.topLeft,
           priority: Priority.battlefield.value,
-        );
+        ) {
+    battlefield = state.battlefield;
+  }
 
   @override
   FutureOr onLoad() {

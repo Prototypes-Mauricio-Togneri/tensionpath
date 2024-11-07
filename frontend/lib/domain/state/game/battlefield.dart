@@ -413,12 +413,6 @@ class Battlefield {
             Waypoint(
               id: 'w1a',
               position: Vector2(100, 2425),
-              node: NodeLauncherComponent(
-                id: 'n1a',
-                position: Vector2(100, 2425),
-                owner: Player.SELF,
-                size: nodeSize,
-              ),
             ),
             Waypoint(
               id: 'w1b',
@@ -432,12 +426,6 @@ class Battlefield {
             Waypoint(
               id: 'w1c',
               position: Vector2(100, 75),
-              node: NodeLauncherComponent(
-                id: 'n1c',
-                position: Vector2(100, 75),
-                owner: Player.ENEMY,
-                size: nodeSize,
-              ),
             ),
           ],
         ),
@@ -447,12 +435,6 @@ class Battlefield {
             Waypoint(
               id: 'w2a',
               position: Vector2(300, 2425),
-              node: NodeLauncherComponent(
-                id: 'n2a',
-                position: Vector2(300, 2425),
-                owner: Player.SELF,
-                size: nodeSize,
-              ),
             ),
             Waypoint(
               id: 'w2b',
@@ -475,12 +457,6 @@ class Battlefield {
             Waypoint(
               id: 'w2d',
               position: Vector2(300, 75),
-              node: NodeLauncherComponent(
-                id: 'n2d',
-                position: Vector2(300, 75),
-                owner: Player.ENEMY,
-                size: nodeSize,
-              ),
             ),
           ],
         ),
@@ -490,12 +466,6 @@ class Battlefield {
             Waypoint(
               id: 'w3a',
               position: Vector2(500, 2425),
-              node: NodeLauncherComponent(
-                id: 'n3a',
-                position: Vector2(500, 2425),
-                owner: Player.SELF,
-                size: nodeSize,
-              ),
             ),
             Waypoint(
               id: 'w3b',
@@ -509,12 +479,6 @@ class Battlefield {
             Waypoint(
               id: 'w3c',
               position: Vector2(500, 75),
-              node: NodeLauncherComponent(
-                id: 'n3c',
-                position: Vector2(500, 75),
-                owner: Player.ENEMY,
-                size: nodeSize,
-              ),
             ),
           ],
         ),
@@ -524,12 +488,6 @@ class Battlefield {
             Waypoint(
               id: 'w4a',
               position: Vector2(700, 2425),
-              node: NodeLauncherComponent(
-                id: 'n4a',
-                position: Vector2(700, 2425),
-                owner: Player.SELF,
-                size: nodeSize,
-              ),
             ),
             Waypoint(
               id: 'w4b',
@@ -552,12 +510,6 @@ class Battlefield {
             Waypoint(
               id: 'w4d',
               position: Vector2(700, 75),
-              node: NodeLauncherComponent(
-                id: 'n4d',
-                position: Vector2(700, 75),
-                owner: Player.ENEMY,
-                size: nodeSize,
-              ),
             ),
           ],
         ),
@@ -567,12 +519,6 @@ class Battlefield {
             Waypoint(
               id: 'w5a',
               position: Vector2(900, 2425),
-              node: NodeLauncherComponent(
-                id: 'n5a',
-                position: Vector2(900, 2425),
-                owner: Player.SELF,
-                size: nodeSize,
-              ),
             ),
             Waypoint(
               id: 'w5b',
@@ -586,12 +532,6 @@ class Battlefield {
             Waypoint(
               id: 'w5c',
               position: Vector2(900, 75),
-              node: NodeLauncherComponent(
-                id: 'n5c',
-                position: Vector2(900, 75),
-                owner: Player.ENEMY,
-                size: nodeSize,
-              ),
             ),
           ],
         ),

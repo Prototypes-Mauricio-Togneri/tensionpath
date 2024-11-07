@@ -5,6 +5,7 @@ import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/base_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -16,6 +17,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
   static const double CONTAINER_WIDTH = 1000;
   static const double CONTROLS_HEIGHT = 102;
+  static const double BASE_HEIGHT = 40;
 
   GameComponent({
     required this.state,
@@ -64,6 +66,30 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       size: Vector2(
         CONTAINER_WIDTH,
         CONTROLS_HEIGHT,
+      ),
+    ));
+
+    camera.viewport.add(BaseComponent(
+      player: state.self,
+      position: Vector2(
+        CONTAINER_WIDTH / 2,
+        size.y - CONTROLS_HEIGHT - (BASE_HEIGHT / 2) + 1,
+      ),
+      size: Vector2(
+        CONTAINER_WIDTH,
+        BASE_HEIGHT,
+      ),
+    ));
+
+    camera.viewport.add(BaseComponent(
+      player: state.enemy,
+      position: Vector2(
+        CONTAINER_WIDTH / 2,
+        BASE_HEIGHT / 2,
+      ),
+      size: Vector2(
+        CONTAINER_WIDTH,
+        BASE_HEIGHT,
       ),
     ));
 
