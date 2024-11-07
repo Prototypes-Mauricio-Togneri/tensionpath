@@ -10,7 +10,10 @@ class MatchComponent extends World with HasGameRef {
 
   @override
   FutureOr onLoad() {
-    add(BattlefieldComponent(state));
+    add(BattlefieldComponent(
+      state: state,
+      battlefield: state.battlefield,
+    ));
 
     return super.onLoad();
   }

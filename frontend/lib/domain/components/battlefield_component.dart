@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -9,19 +10,19 @@ import 'package:tensionpath/domain/types/priority.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final GameState state;
-  late final Battlefield battlefield;
+  final Battlefield battlefield;
   final Paint paintBackground = Paint();
   final Paint paintLanes = Paint();
 
-  BattlefieldComponent(this.state)
-      : super(
+  BattlefieldComponent({
+    required this.state,
+    required this.battlefield,
+  }) : super(
           position: Vector2(0, 0),
-          size: state.battlefield.mapSize,
+          size: battlefield.mapSize,
           anchor: Anchor.topLeft,
           priority: Priority.battlefield.value,
-        ) {
-    battlefield = state.battlefield;
-  }
+        );
 
   @override
   FutureOr onLoad() {
@@ -33,6 +34,20 @@ class BattlefieldComponent extends PositionComponent {
     for (final NodeComponent node in battlefield.nodes) {
       add(node);
     }
+
+    add(LaneComponent(
+      player: state.self,
+      color: Colors.pink,
+      position: Vector2(0, 0),
+      size: Vector2(200, battlefield.mapSize.y),
+    ));
+
+    add(LaneComponent(
+      player: state.self,
+      color: Colors.yellow,
+      position: Vector2(200, 0),
+      size: Vector2(200, battlefield.mapSize.y),
+    ));
 
     return super.onLoad();
   }
@@ -46,11 +61,19 @@ class BattlefieldComponent extends PositionComponent {
       paintBackground,
     );
 
-    canvas.drawLine(
-      const Offset(0, 0),
-      Offset(0, height),
-      paintLanes,
-    );
+    for (int i = 0; i <= battlefield.lanes.length; i++) {
+      canvas.drawLine(
+        Offset(i * 200, 0),
+        Offset(i * 200, height),
+        paintLanes,
+      );
+    }
+
+    /*canvas.drawLine(
+        const Offset(0, 0),
+        Offset(0, height),
+        paintLanes,
+      );
 
     canvas.drawLine(
       const Offset(200, 0),
@@ -80,6 +103,6 @@ class BattlefieldComponent extends PositionComponent {
       const Offset(1000, 0),
       Offset(1000, height),
       paintLanes,
-    );
+    );*/
   }
 }
