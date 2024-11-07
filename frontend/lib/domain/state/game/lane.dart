@@ -1,30 +1,29 @@
-import 'package:tensionpath/domain/state/game/waypoint.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 class Lane {
   final String id;
-  final List<Waypoint> waypoints;
+  final List<Node> nodes;
 
   const Lane({
     required this.id,
-    required this.waypoints,
+    required this.nodes,
   });
 
-  List<Waypoint> getWaypointsFrom({
-    required Waypoint fromWaypoint,
+  List<Node> getNodes({
     required bool forward,
+    Node? from,
   }) {
-    final List<Waypoint> list =
-        forward ? waypoints : waypoints.reversed.toList();
-    final List<Waypoint> result = [];
+    final List<Node> list = forward ? nodes : nodes.reversed.toList();
+    final List<Node> result = [];
     bool found = false;
 
-    for (final Waypoint waypoint in list) {
-      if (waypoint == fromWaypoint) {
+    for (final Node node in list) {
+      if ((node == from) || (from == null)) {
         found = true;
       }
 
       if (found) {
-        result.add(waypoint);
+        result.add(node);
       }
     }
 

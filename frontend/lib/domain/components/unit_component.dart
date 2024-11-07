@@ -4,9 +4,9 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
-import 'package:tensionpath/domain/state/game/waypoint.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -14,15 +14,15 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent extends PositionComponent with CollisionCallbacks {
   final UnitSpecs specs;
   final Player owner;
-  final List<Waypoint> waypoints;
-  late int nextWaypointIndex;
+  final List<Node> nodes;
+  late int nextNodeIndex;
   late int power;
   final Paint backgroundPaint = Paint();
 
   UnitComponent({
     required this.specs,
     required this.owner,
-    required this.waypoints,
+    required this.nodes,
     required Vector2 startingPosition,
     required super.size,
   }) : super(
@@ -31,10 +31,10 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
         ) {
     power = specs.power;
     position = Vector2.copy(startingPosition);
-    nextWaypointIndex = 0;
+    nextNodeIndex = 0;
   }
 
-  Waypoint get nextWaypoint => waypoints[nextWaypointIndex];
+  Node get nextNode => nodes[nextNodeIndex];
 
   @override
   FutureOr onLoad() {
@@ -51,14 +51,14 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
 
   @override
   void update(double dt) {
-    position.moveToTarget(nextWaypoint.position, specs.speed * dt);
-    _checkNextWaypoint();
+    position.moveToTarget(nextNode.position, specs.speed * dt);
+    _checkNextNode();
   }
 
-  void _checkNextWaypoint() {
-    if (nextWaypoint.isAligned(this) &&
-        (nextWaypointIndex < (waypoints.length - 1))) {
-      nextWaypointIndex++;
+  void _checkNextNode() {
+    if (nextNode.isAligned(this) &&
+        (nextNodeIndex < (nodes.length - 1))) {
+      nextNodeIndex++;
     }
   }
 

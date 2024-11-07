@@ -8,7 +8,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class NodeChestComponent extends NodeAccumulatorComponent with TapCallbacks {
   NodeChestComponent({
-    required super.id,
+    required super.node,
     required super.position,
     required super.size,
     super.owner,

@@ -5,7 +5,7 @@ import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
 
 class NodeUnitGeneratorComponent extends NodeAccumulatorComponent {
   NodeUnitGeneratorComponent({
-    required super.id,
+    required super.node,
     required super.position,
     required super.size,
     super.owner,

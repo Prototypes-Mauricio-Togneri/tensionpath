@@ -1,19 +1,22 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
 
-class Waypoint {
+abstract class Node {
   final String id;
+  final Lane lane;
   final Vector2 position;
-  final NodeComponent? node;
+  final Vector2 size;
 
-  Waypoint({
+  const Node({
     required this.id,
+    required this.lane,
     required this.position,
-    this.node,
+    required this.size,
   });
 
-  bool get hasNode => node != null;
-
   bool isAligned(UnitComponent unit) => (position - unit.position).length < 1;
+
+  NodeComponent get component;
 }

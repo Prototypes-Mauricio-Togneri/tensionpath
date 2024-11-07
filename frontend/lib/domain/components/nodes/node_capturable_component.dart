@@ -12,7 +12,7 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   final Paint borderPaint = Paint();
 
   NodeCapturableComponent({
-    required super.id,
+    required super.node,
     required super.rate,
     required super.position,
     required super.size,

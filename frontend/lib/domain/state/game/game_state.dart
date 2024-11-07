@@ -4,9 +4,9 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
-import 'package:tensionpath/domain/state/game/waypoint.dart';
 
 class GameState {
   final Player self;
@@ -31,34 +31,18 @@ class GameState {
     enemy.update(dt);
   }
 
-  /*void onNodeSpawnUnit({
-    required NodeComponent node,
-    required int power,
-  }) {
-    final Lane lane = battlefield.laneOf(node);
-
-    _deployUnit(
-      owner: node.owner!,
-      power: power,
-      waypoints: lane.getWaypointsFrom(
-        node: node,
-        forward: node.owner!.isSelf,
-      ),
-    );
-  }*/
-
   void onSpawnUnit({
     required Lane lane,
     required Player player,
-    required Waypoint waypoint,
+    required Node node,
     required int power,
   }) {
     _deployUnit(
       owner: player,
       power: power,
-      waypoints: lane.getWaypointsFrom(
-        fromWaypoint: waypoint,
+      nodes: lane.getNodes(
         forward: player.isSelf,
+        from: node,
       ),
     );
   }
@@ -118,7 +102,7 @@ class GameState {
   void _deployUnit({
     required Player owner,
     required int power,
-    required List<Waypoint> waypoints,
+    required List<Node> nodes,
   }) {
     final UnitComponent unit = UnitComponent(
       specs: UnitSpecs(
@@ -126,8 +110,8 @@ class GameState {
         power: power,
       ),
       owner: owner,
-      waypoints: waypoints.sublist(1, waypoints.length),
-      startingPosition: waypoints.first.position,
+      nodes: nodes.sublist(1, nodes.length),
+      startingPosition: nodes.first.position,
       size: battlefield.nodeSize,
     );
     world.add(unit);

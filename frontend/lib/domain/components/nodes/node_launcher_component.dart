@@ -15,7 +15,7 @@ class NodeLauncherComponent extends NodeComponent
   String icon = '';
 
   NodeLauncherComponent({
-    required super.id,
+    required super.node,
     required super.owner,
     required super.position,
     required super.size,

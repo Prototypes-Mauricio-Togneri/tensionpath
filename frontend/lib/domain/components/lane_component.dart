@@ -31,7 +31,7 @@ class LaneComponent extends PositionComponent with TapCallbacks {
     GameState.instance.onSpawnUnit(
       lane: lane,
       player: player,
-      waypoint: lane.waypoints[0],
+      node: lane.nodes[0],
       power: power,
     );
     player.spendCredits(power);

@@ -3,7 +3,7 @@ import 'package:tensionpath/domain/components/nodes/node_capturable_component.da
 
 class NodeAccumulatorComponent extends NodeCapturableComponent {
   NodeAccumulatorComponent({
-    required super.id,
+    required super.node,
     required super.rate,
     required super.position,
     required super.size,

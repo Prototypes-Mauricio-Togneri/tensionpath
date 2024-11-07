@@ -1,14 +1,16 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/ownership.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class NodeComponent extends PositionComponent {
-  final String id;
+  final Node node;
   late final Ownership ownership;
 
   NodeComponent({
-    required this.id,
+    required this.node,
     required double rate,
     required super.position,
     required super.size,
@@ -35,10 +37,12 @@ class NodeComponent extends PositionComponent {
   }
 
   void spawnUnit(int power) {
-    /*GameState.instance.onSpawnUnit(
-      node: this,
+    GameState.instance.onSpawnUnit(
+      lane: node.lane,
+      player: owner!,
+      node: node,
       power: power,
-    );*/
+    );
   }
 
   void onOwnerAssigned(Player owner) {}

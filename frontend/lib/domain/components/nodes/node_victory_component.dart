@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/state/game/player.dart';
 
 class NodeVictoryComponent extends NodeCapturableComponent {
   NodeVictoryComponent({
-    required super.id,
+    required super.node,
     required super.position,
     required super.size,
     super.owner,

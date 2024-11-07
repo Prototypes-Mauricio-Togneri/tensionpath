@@ -3,9 +3,10 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/lane_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class BattlefieldComponent extends PositionComponent {
@@ -31,17 +32,19 @@ class BattlefieldComponent extends PositionComponent {
     paintLanes.strokeWidth = 5;
     paintLanes.color = const Color(0xffffffff);
 
-    for (final NodeComponent node in battlefield.nodes) {
-      add(node);
-    }
-
     for (int i = 0; i < battlefield.lanes.length; i++) {
+      final Lane lane = battlefield.lanes[i];
+
       add(LaneComponent(
-        lane: battlefield.lanes[i],
+        lane: lane,
         player: state.self,
         position: Vector2(i * 200, 0),
         size: Vector2(200, battlefield.mapSize.y),
       ));
+
+      for (final Node node in lane.nodes) {
+        add(node.component);
+      }
     }
 
     return super.onLoad();
