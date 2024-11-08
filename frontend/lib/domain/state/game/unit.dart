@@ -31,10 +31,12 @@ class Unit {
   }
 
   void _checkNextNode() {
-    if (nextNode.isAligned(this) && (nextNodeIndex < (nodes.length - 1))) {
+    if (_hasReached(nextNode) && (nextNodeIndex < (nodes.length - 1))) {
       nextNodeIndex++;
     }
   }
+
+  bool _hasReached(Node node) => (position - node.position).length < 1;
 
   void reduceHealth(int value) {
     hp -= value;
