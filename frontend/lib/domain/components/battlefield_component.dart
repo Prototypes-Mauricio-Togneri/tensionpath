@@ -56,7 +56,7 @@ class BattlefieldComponent extends PositionComponent {
       paintBackground,
     );
 
-    for (int i = 0; i <= battlefield.lanes.length; i++) {
+    for (int i = 1; i < battlefield.lanes.length; i++) {
       canvas.drawLine(
         Offset(i * 200, 0),
         Offset(i * 200, height),

@@ -1,6 +1,6 @@
 {
     "workbench.colorTheme": "Default Dark+",
-    "workbench.editor.enablePreview": true,
+    "workbench.editor.enablePreview": false,
     "editor.minimap.enabled": false,
     "editor.tabSize": 4,
     "editor.fontSize": 16,
