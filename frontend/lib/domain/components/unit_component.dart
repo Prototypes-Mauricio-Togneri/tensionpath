@@ -4,45 +4,32 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
-import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends PositionComponent with CollisionCallbacks {
-  final UnitSpecs specs;
-  final Player owner;
-  final List<Node> nodes;
-  late int nextNodeIndex;
-  late int power;
+  final Unit unit;
   final Paint backgroundPaint = Paint();
 
   UnitComponent({
-    required this.specs,
-    required this.owner,
-    required this.nodes,
-    required Vector2 startingPosition,
+    required this.unit,
     required super.size,
   }) : super(
           anchor: Anchor.center,
           priority: Priority.unit.value,
         ) {
-    power = specs.power;
-    position = Vector2.copy(startingPosition);
-    nextNodeIndex = 0;
+    position = unit.position;
   }
-
-  Node get nextNode => nodes[nextNodeIndex];
 
   @override
   FutureOr onLoad() {
     add(CircleHitbox());
 
-    if (owner.isSelf) {
+    if (unit.owner.isSelf) {
       backgroundPaint.color = Colors.blue;
-    } else if (owner.isEnemy) {
+    } else if (unit.owner.isEnemy) {
       backgroundPaint.color = Colors.red;
     }
 
@@ -51,19 +38,8 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
 
   @override
   void update(double dt) {
-    position.moveToTarget(nextNode.position, specs.speed * dt);
-    _checkNextNode();
-  }
-
-  void _checkNextNode() {
-    if (nextNode.isAligned(this) &&
-        (nextNodeIndex < (nodes.length - 1))) {
-      nextNodeIndex++;
-    }
-  }
-
-  void reducePower(int value) {
-    power -= value;
+    unit.update(dt);
+    position.setFrom(unit.position);
   }
 
   void destroy() {
@@ -75,12 +51,14 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is UnitComponent) && owner.isSelf && other.owner.isEnemy) {
-      if (power > other.power) {
-        reducePower(other.power);
+    if ((other is UnitComponent) &&
+        unit.owner.isSelf &&
+        other.unit.owner.isEnemy) {
+      if (unit.hp > other.unit.hp) {
+        unit.reduceHealth(other.unit.hp);
         other.destroy();
-      } else if (power < other.power) {
-        other.reducePower(power);
+      } else if (unit.hp < other.unit.hp) {
+        other.unit.reduceHealth(unit.hp);
         destroy();
       } else {
         destroy();
@@ -102,7 +80,7 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
     );
 
     canvas.drawText(
-      text: power.toString(),
+      text: unit.hp.toString(),
       position: size / 2,
       size: size.x / 3,
       color: Palette.white,

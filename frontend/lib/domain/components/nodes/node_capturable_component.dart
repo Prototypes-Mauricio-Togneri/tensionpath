@@ -56,7 +56,7 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     if (other is UnitComponent) {
-      ownership.touched(other.owner);
+      ownership.touched(other.unit.owner);
     }
 
     super.onCollisionStart(intersectionPoints, other);

@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 
 class GameState {
   final Player self;
@@ -52,7 +53,7 @@ class GameState {
     required Player baseOwner,
   }) {
     unit.destroy();
-    baseOwner.reduceHp(unit.power);
+    baseOwner.reduceHp(unit.unit.hp);
   }
 
   void onNodeVictoryCaptured(NodeComponent node) {
@@ -104,7 +105,7 @@ class GameState {
     required int power,
     required List<Node> nodes,
   }) {
-    final UnitComponent unit = UnitComponent(
+    final Unit unit = Unit(
       specs: UnitSpecs(
         speed: Constants.UNIT_SPEED,
         power: power,
@@ -112,8 +113,12 @@ class GameState {
       owner: owner,
       nodes: nodes.sublist(1, nodes.length),
       startingPosition: nodes.first.position,
+    );
+
+    final UnitComponent unitComponent = UnitComponent(
+      unit: unit,
       size: battlefield.nodeSize,
     );
-    world.add(unit);
+    world.add(unitComponent);
   }
 }

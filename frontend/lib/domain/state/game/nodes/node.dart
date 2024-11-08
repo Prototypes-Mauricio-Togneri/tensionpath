@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 
 abstract class Node {
   final String id;
@@ -16,7 +16,7 @@ abstract class Node {
     required this.size,
   });
 
-  bool isAligned(UnitComponent unit) => (position - unit.position).length < 1;
+  bool isAligned(Unit unit) => (position - unit.position).length < 1;
 
   NodeComponent get component;
 }
