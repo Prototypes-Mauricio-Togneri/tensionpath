@@ -35,8 +35,8 @@ class BattlefieldComponent extends PositionComponent {
       add(LaneComponent(
         lane: lane,
         player: GameState.instance.self,
-        position: Vector2(i * 200, 0),
-        size: Vector2(200, battlefield.mapSize.y),
+        position: Vector2(i * battlefield.laneWidth, 0),
+        size: Vector2(battlefield.laneWidth, battlefield.mapSize.y),
       ));
 
       for (final Node node in lane.nodes) {

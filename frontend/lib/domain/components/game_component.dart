@@ -8,6 +8,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/base_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
+import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -15,7 +16,6 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final GameState state;
   final double pixelRatio;
 
-  static const double CONTAINER_WIDTH = 1000;
   static const double CONTROLS_HEIGHT = 102;
   static const double BASE_HEIGHT = 40;
 
@@ -34,9 +34,12 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
   @override
   FutureOr onLoad() {
+    final Battlefield battlefield = state.battlefield;
+    final double mapWidth = battlefield.mapSize.x;
+
     camera = CameraComponent.withFixedResolution(
-      width: CONTAINER_WIDTH,
-      height: CONTAINER_WIDTH / (size.x / size.y),
+      width: mapWidth,
+      height: mapWidth / (size.x / size.y),
     );
 
     debugMode = false;
@@ -48,23 +51,23 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     camera.setBounds(Rectangle.fromLTRB(
       0,
       minCameraY,
-      CONTAINER_WIDTH,
+      mapWidth,
       maxCameraY + CONTROLS_HEIGHT,
     ));
 
     camera.moveTo(Vector2(
-      CONTAINER_WIDTH / 2,
+      mapWidth / 2,
       maxCameraY + CONTROLS_HEIGHT,
     ));
 
     camera.viewport.add(ControlsComponent(
       player: state.self,
       position: Vector2(
-        CONTAINER_WIDTH / 2,
+        mapWidth / 2,
         size.y - (CONTROLS_HEIGHT / 2),
       ),
       size: Vector2(
-        CONTAINER_WIDTH,
+        mapWidth,
         CONTROLS_HEIGHT,
       ),
     ));
@@ -72,11 +75,11 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     camera.viewport.add(BaseComponent(
       player: state.self,
       position: Vector2(
-        CONTAINER_WIDTH / 2,
+        mapWidth / 2,
         size.y - CONTROLS_HEIGHT - (BASE_HEIGHT / 2) + 1,
       ),
       size: Vector2(
-        CONTAINER_WIDTH,
+        mapWidth,
         BASE_HEIGHT,
       ),
     ));
@@ -84,11 +87,11 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     camera.viewport.add(BaseComponent(
       player: state.enemy,
       position: Vector2(
-        CONTAINER_WIDTH / 2,
+        mapWidth / 2,
         BASE_HEIGHT / 2,
       ),
       size: Vector2(
-        CONTAINER_WIDTH,
+        mapWidth,
         BASE_HEIGHT,
       ),
     ));

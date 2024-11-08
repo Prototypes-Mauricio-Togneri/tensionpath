@@ -20,6 +20,8 @@ class Battlefield {
     required this.nodeSize,
   });
 
+  double get laneWidth => mapSize.x / lanes.length;
+
   factory Battlefield.vector() {
     final Vector2 nodeSize = Vector2(150, 150);
 
