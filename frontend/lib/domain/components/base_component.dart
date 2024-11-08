@@ -15,7 +15,7 @@ class BaseComponent extends PositionComponent {
     required super.size,
   }) : super(
           anchor: Anchor.center,
-          priority: Priority.battlefield.value,
+          priority: Priority.base.value,
         );
 
   @override

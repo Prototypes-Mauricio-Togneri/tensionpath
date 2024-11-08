@@ -18,7 +18,7 @@ class ControlsComponent extends PositionComponent {
     required super.size,
   }) : super(
           anchor: Anchor.center,
-          priority: Priority.battlefield.value,
+          priority: Priority.controls.value,
         );
 
   @override
@@ -70,7 +70,7 @@ class CreditSelectorComponent extends PositionComponent with TapCallbacks {
     required super.size,
   }) : super(
           anchor: Anchor.center,
-          priority: Priority.battlefield.value,
+          priority: Priority.controls.value,
         );
 
   @override

@@ -16,7 +16,7 @@ class LaneComponent extends PositionComponent with TapCallbacks {
     required super.size,
   }) : super(
           anchor: Anchor.topLeft,
-          priority: Priority.battlefield.value,
+          priority: Priority.lane.value,
         );
 
   @override

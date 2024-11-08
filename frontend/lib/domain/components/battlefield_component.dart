@@ -10,15 +10,12 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class BattlefieldComponent extends PositionComponent {
-  final GameState state;
   final Battlefield battlefield;
   final Paint paintBackground = Paint();
   final Paint paintLanes = Paint();
 
-  BattlefieldComponent({
-    required this.state,
-    required this.battlefield,
-  }) : super(
+  BattlefieldComponent(this.battlefield)
+      : super(
           position: Vector2(0, 0),
           size: battlefield.mapSize,
           anchor: Anchor.topLeft,
@@ -37,7 +34,7 @@ class BattlefieldComponent extends PositionComponent {
 
       add(LaneComponent(
         lane: lane,
-        player: state.self,
+        player: GameState.instance.self,
         position: Vector2(i * 200, 0),
         size: Vector2(200, battlefield.mapSize.y),
       ));
