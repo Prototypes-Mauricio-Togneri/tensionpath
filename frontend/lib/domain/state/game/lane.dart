@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class Lane {
   final String id;
@@ -8,6 +9,9 @@ class Lane {
     required this.id,
     required this.nodes,
   });
+
+  List<Node> nodesFromPlayer(Player player) =>
+      nodes.where((n) => n.owner == player).toList();
 
   List<Node> getNodes({
     required bool forward,
