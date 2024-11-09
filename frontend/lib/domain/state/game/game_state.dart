@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
@@ -8,12 +9,13 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 
 class GameState {
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
-  late final World world;
+  late final GameComponent gameComponent;
 
   static late GameState instance;
 
@@ -23,8 +25,8 @@ class GameState {
     required this.battlefield,
   });
 
-  void setWorld(World newWorld) {
-    world = newWorld;
+  void setGameComponent(GameComponent newGameComponent) {
+    gameComponent = newGameComponent;
   }
 
   void update(double dt) {
@@ -53,11 +55,8 @@ class GameState {
       startingPosition: nodes.first.position,
     );
 
-    final UnitComponent unitComponent = UnitComponent(
-      unit: unit,
-      size: battlefield.nodeSize,
-    );
-    world.add(unitComponent);
+    final UnitComponent unitComponent = unit.component(battlefield.nodeSize);
+    addComponent(unitComponent);
   }
 
   void onUnitCollidedWithBase({
@@ -69,7 +68,13 @@ class GameState {
   }
 
   void onNodeVictoryCaptured(Node node) {
-    // TODO(momo): implement
+    gameComponent.pauseEngine();
+
+    if (node.owner!.isSelf) {
+      InfoDialog.won(() {});
+    } else {
+      InfoDialog.lost(() {});
+    }
   }
 
   void onAddCredits({
@@ -95,20 +100,7 @@ class GameState {
     owner.removeCreditsExtraRate(extra);
   }
 
-  void destroyUnit(UnitComponent unit) {
-    world.remove(unit);
-  }
+  void addComponent(Component component) => gameComponent.world.add(component);
 
-  /*NodeComponent getNodeComponent(NodeComponent node) {
-    final Iterable<NodeComponent> unitComponents =
-        world.children.query<NodeComponent>();
-
-    for (final NodeComponent component in unitComponents) {
-      if (component == node) {
-        return component;
-      }
-    }
-
-    throw Exception('Associated component not found');
-  }*/
+  void removeComponent(Component unit) => gameComponent.world.remove(unit);
 }

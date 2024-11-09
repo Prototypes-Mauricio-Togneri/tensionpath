@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
@@ -41,4 +42,9 @@ class Unit {
   void reduceHealth(int value) {
     hp -= value;
   }
+
+  UnitComponent component(Vector2 size) => UnitComponent(
+        unit: this,
+        size: size,
+      );
 }

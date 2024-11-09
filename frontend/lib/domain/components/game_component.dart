@@ -40,7 +40,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
     );
 
     debugMode = false;
-    state.setWorld(world);
+    state.setGameComponent(this);
 
     final double minCameraY = size.y / 2;
     final double maxCameraY = state.battlefield.mapSize.y - (size.y / 2);
