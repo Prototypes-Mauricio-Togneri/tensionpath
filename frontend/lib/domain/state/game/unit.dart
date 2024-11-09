@@ -26,8 +26,8 @@ class Unit {
   Node get nextNode => nodes[nextNodeIndex];
 
   void update(double dt) {
-    position.moveToTarget(nextNode.position, speed * dt);
-    _checkNextNode();
+    //position.moveToTarget(nextNode.position, speed * dt);
+    //_checkNextNode();
   }
 
   void _checkNextNode() {

@@ -47,14 +47,14 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
 
     camera.setBounds(Rectangle.fromLTRB(
       0,
-      minCameraY,
+      minCameraY - Constants.BASE_HEIGHT,
       mapWidth,
-      maxCameraY + Constants.CONTROLS_HEIGHT,
+      maxCameraY + Constants.BASE_HEIGHT + Constants.CONTROLS_HEIGHT,
     ));
 
     camera.moveTo(Vector2(
       mapWidth / 2,
-      maxCameraY + Constants.CONTROLS_HEIGHT,
+      maxCameraY + Constants.BASE_HEIGHT + Constants.CONTROLS_HEIGHT,
     ));
 
     camera.viewport.add(ControlsComponent(
@@ -73,7 +73,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       base: battlefield.baseSelf,
       position: Vector2(
         mapWidth / 2,
-        size.y - Constants.CONTROLS_HEIGHT - (Constants.BASE_HEIGHT / 2) + 1,
+        size.y - Constants.CONTROLS_HEIGHT - (Constants.BASE_HEIGHT / 2),
       ),
       size: Vector2(
         mapWidth,

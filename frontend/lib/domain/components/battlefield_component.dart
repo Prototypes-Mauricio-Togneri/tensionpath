@@ -52,7 +52,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
       base: battlefield.baseSelf,
       position: Vector2(
         mapWidth / 2,
-        size.y - (Constants.BASE_HEIGHT / 2),
+        size.y + (Constants.BASE_HEIGHT / 2),
       ),
       size: Vector2(
         mapWidth,
@@ -64,7 +64,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
       base: battlefield.baseEnemy,
       position: Vector2(
         mapWidth / 2,
-        Constants.BASE_HEIGHT / 2,
+        -Constants.BASE_HEIGHT / 2,
       ),
       size: Vector2(
         mapWidth,
