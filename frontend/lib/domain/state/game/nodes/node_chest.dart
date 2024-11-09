@@ -23,15 +23,28 @@ class NodeChest extends NodeAccumulator {
 
   @override
   void onTapped() {
-    if (hasOwner && hasCreditsAccumulated) {
-      final double credits = creditsAccumulated;
-
-      state.onAddCredits(
-        player: owner!,
-        credits: credits,
-      );
-
-      removeAccumulated(credits);
+    if (hasOwner && owner!.isSelf && hasCreditsAccumulated) {
+      _claimCredits();
     }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (hasOwner && owner!.isEnemy && hasCreditsAccumulated) {
+      _claimCredits();
+    }
+  }
+
+  void _claimCredits() {
+    final double credits = creditsAccumulated;
+
+    state.onAddCredits(
+      player: owner!,
+      credits: credits,
+    );
+
+    removeAccumulated(credits);
   }
 }
