@@ -13,10 +13,8 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
 
   NodeCapturableComponent({
     required super.node,
-    required super.rate,
     required super.position,
     required super.size,
-    super.owner,
   }) {
     ownershipPaint.style = PaintingStyle.stroke;
     ownershipPaint.strokeWidth = 10;
@@ -33,14 +31,26 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   }
 
   @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    if (other is UnitComponent) {
+      node.onTouched(other.unit);
+    }
+
+    super.onCollisionStart(intersectionPoints, other);
+  }
+
+  @override
   void update(double dt) {
     super.update(dt);
 
-    if (hasOwner) {
-      if (owner!.isEnemy) {
+    if (node.hasOwner) {
+      if (node.owner!.isEnemy) {
         backgroundPaint.color = Colors.red.withAlpha(100);
         borderPaint.color = Colors.red;
-      } else if (owner!.isSelf) {
+      } else if (node.owner!.isSelf) {
         backgroundPaint.color = Colors.blue.withAlpha(100);
         borderPaint.color = Colors.blue;
       }
@@ -48,18 +58,6 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
       backgroundPaint.color = Colors.transparent;
       borderPaint.color = Colors.white;
     }
-  }
-
-  @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
-    if (other is UnitComponent) {
-      ownership.touched(other.unit.owner);
-    }
-
-    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override
@@ -78,13 +76,13 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
       borderPaint,
     );
 
-    if (ownership.hasTouched) {
-      ownershipPaint.color = ownership.color;
+    if (node.hasTouched) {
+      ownershipPaint.color = node.color;
 
       canvas.drawArc(
         Rect.fromLTWH(0, 0, size.x, size.y),
         -pi / 2,
-        2 * pi * ownership.value,
+        2 * pi * node.ownershipValue,
         false,
         ownershipPaint,
       );

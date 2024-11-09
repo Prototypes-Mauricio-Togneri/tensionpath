@@ -1,14 +1,16 @@
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_unit_generator.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/components/nodes/node_unit_generator_component.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_accumulator.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 
-class NodeUnitGenerator extends Node {
-  const NodeUnitGenerator({
+class NodeUnitGenerator extends NodeAccumulator {
+  NodeUnitGenerator({
     required super.id,
     required super.lane,
     required super.position,
     required super.size,
-  });
+  }) : super(captureRate: Constants.NODE_UNIT_GENERATOR_CAPTURE_RATE);
 
   @override
   NodeComponent get component => NodeUnitGeneratorComponent(
@@ -16,4 +18,20 @@ class NodeUnitGenerator extends Node {
         position: position,
         size: size,
       );
+
+  @override
+  bool canAccumulate() => hasOwner;
+
+  @override
+  void onOwnerAssigned(Player owner) => clearAccumulated();
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (hasOwner && hasCreditsAccumulated) {
+      removeAccumulated(1);
+      spawnUnit(1);
+    }
+  }
 }

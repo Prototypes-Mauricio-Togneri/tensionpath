@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
@@ -69,7 +68,7 @@ class GameState {
     base.onHit(unit.unit.hp);
   }
 
-  void onNodeVictoryCaptured(NodeComponent node) {
+  void onNodeVictoryCaptured(Node node) {
     // TODO(momo): implement
   }
 
@@ -81,7 +80,7 @@ class GameState {
   }
 
   void onNodeCreditsGeneratorCaptured({
-    required NodeComponent node,
+    required Node node,
     required Player owner,
   }) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
@@ -89,7 +88,7 @@ class GameState {
   }
 
   void onNodeCreditsGeneratorLost({
-    required NodeComponent node,
+    required Node node,
     required Player owner,
   }) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
@@ -100,7 +99,7 @@ class GameState {
     world.remove(unit);
   }
 
-  NodeComponent getNodeComponent(NodeComponent node) {
+  /*NodeComponent getNodeComponent(NodeComponent node) {
     final Iterable<NodeComponent> unitComponents =
         world.children.query<NodeComponent>();
 
@@ -111,5 +110,5 @@ class GameState {
     }
 
     throw Exception('Associated component not found');
-  }
+  }*/
 }
