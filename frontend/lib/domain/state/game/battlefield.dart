@@ -1,4 +1,4 @@
-import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';

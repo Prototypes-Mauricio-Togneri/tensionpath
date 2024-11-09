@@ -1,4 +1,4 @@
-import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:tensionpath/domain/types/damage_type.dart';
 
 class Damage {

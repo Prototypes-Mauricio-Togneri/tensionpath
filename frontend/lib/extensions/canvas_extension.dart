@@ -1,4 +1,5 @@
-import 'package:flame/components.dart';
+import 'package:flame/game.dart';
+import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 
 extension CanvasExtension on Canvas {
