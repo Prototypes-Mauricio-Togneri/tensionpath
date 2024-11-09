@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/state/game/nodes/node_credit_generator.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_invisible.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_unit_generator.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class Battlefield {
   final String id;

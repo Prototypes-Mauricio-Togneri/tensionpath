@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';

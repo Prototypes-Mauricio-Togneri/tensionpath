@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 
@@ -39,14 +39,26 @@ class GameState {
     required Node node,
     required int power,
   }) {
-    _deployUnit(
-      owner: player,
-      power: power,
-      nodes: lane.getNodes(
-        forward: player.isSelf,
-        from: node,
-      ),
+    final List<Node> nodes = lane.getNodes(
+      forward: player.isSelf,
+      from: node,
     );
+
+    final Unit unit = Unit(
+      specs: UnitSpecs(
+        speed: Constants.UNIT_SPEED,
+        power: power,
+      ),
+      owner: player,
+      nodes: nodes.sublist(1, nodes.length),
+      startingPosition: nodes.first.position,
+    );
+
+    final UnitComponent unitComponent = UnitComponent(
+      unit: unit,
+      size: battlefield.nodeSize,
+    );
+    world.add(unitComponent);
   }
 
   void onUnitCollidedWithBase({
@@ -99,27 +111,5 @@ class GameState {
     }
 
     throw Exception('Associated component not found');
-  }
-
-  void _deployUnit({
-    required Player owner,
-    required int power,
-    required List<Node> nodes,
-  }) {
-    final Unit unit = Unit(
-      specs: UnitSpecs(
-        speed: Constants.UNIT_SPEED,
-        power: power,
-      ),
-      owner: owner,
-      nodes: nodes.sublist(1, nodes.length),
-      startingPosition: nodes.first.position,
-    );
-
-    final UnitComponent unitComponent = UnitComponent(
-      unit: unit,
-      size: battlefield.nodeSize,
-    );
-    world.add(unitComponent);
   }
 }

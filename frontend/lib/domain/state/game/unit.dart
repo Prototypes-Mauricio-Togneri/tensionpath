@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 
 class Unit {

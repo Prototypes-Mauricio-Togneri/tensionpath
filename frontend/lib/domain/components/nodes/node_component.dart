@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/ownership.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class NodeComponent extends PositionComponent {

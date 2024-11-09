@@ -1,5 +1,5 @@
 import 'package:flame/palette.dart';
-import 'package:tensionpath/domain/state/game/player.dart';
+import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class Base {
   final Player player;
