@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
@@ -50,10 +51,10 @@ class GameState {
 
   void onUnitCollidedWithBase({
     required UnitComponent unit,
-    required Player baseOwner,
+    required Base base,
   }) {
     unit.destroy();
-    baseOwner.reduceHp(unit.unit.hp);
+    base.onHit(unit.unit.hp);
   }
 
   void onNodeVictoryCaptured(NodeComponent node) {

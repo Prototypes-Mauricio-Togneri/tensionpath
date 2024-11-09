@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_chest.dart';
@@ -6,21 +7,28 @@ import 'package:tensionpath/domain/state/game/nodes/node_credit_generator.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_invisible.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_unit_generator.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
+import 'package:tensionpath/domain/state/game/player.dart';
 
 class Battlefield {
   final String id;
+  final List<Base> bases;
   final List<Lane> lanes;
   final Vector2 mapSize;
   final Vector2 nodeSize;
 
   Battlefield({
     required this.id,
+    required this.bases,
     required this.lanes,
     required this.mapSize,
     required this.nodeSize,
   });
 
   double get laneWidth => mapSize.x / lanes.length;
+
+  Base get baseSelf => bases.where((b) => b.player.isSelf).first;
+
+  Base get baseEnemy => bases.where((b) => b.player.isEnemy).first;
 
   factory Battlefield.vector() {
     final Vector2 nodeSize = Vector2(150, 150);
@@ -176,6 +184,16 @@ class Battlefield {
       id: 'vector',
       mapSize: Vector2(1000, 2500),
       nodeSize: nodeSize,
+      bases: [
+        Base(
+          player: Player.SELF,
+          hp: 100,
+        ),
+        Base(
+          player: Player.ENEMY,
+          hp: 100,
+        ),
+      ],
       lanes: [
         lane1,
         lane2,

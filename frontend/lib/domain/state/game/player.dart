@@ -8,7 +8,6 @@ class Player {
   double _credits = 0;
   double _creditsExtraRate = 0;
   int _creditsSelected = 0;
-  double _hp = 100;
 
   static final Player SELF = Player._(Constants.PLAYER_SELF, 1);
   static final Player ENEMY = Player._(Constants.PLAYER_ENEMY, -1);
@@ -22,8 +21,6 @@ class Player {
   int get creditsSelected => _creditsSelected;
 
   bool get hasCreditsSelected => _creditsSelected > 0;
-
-  double get hp => _hp;
 
   bool get isSelf => id == Constants.PLAYER_SELF;
 
@@ -60,11 +57,6 @@ class Player {
     } else {
       _creditsSelected = 0;
     }
-  }
-
-  void reduceHp(int value) {
-    _hp -= value;
-    _hp = _hp.clamp(0, 100);
   }
 
   @override
