@@ -67,21 +67,18 @@ class GameState {
     base.onHit(unit.unit.hp);
   }
 
-  void onNodeVictoryCaptured(Node node) {
+  void onBaseDestroyed(Base base) => _gameFinished(base.player.isEnemy);
+
+  void onNodeVictoryCaptured(Node node) => _gameFinished(node.owner!.isSelf);
+
+  void _gameFinished(bool won) {
     gameComponent.pauseEngine();
 
-    if (node.owner!.isSelf) {
+    if (won) {
       InfoDialog.won(() {});
     } else {
       InfoDialog.lost(() {});
     }
-  }
-
-  void onAddCredits({
-    required Player player,
-    required double credits,
-  }) {
-    player.addCredits(credits);
   }
 
   void onNodeCreditsGeneratorCaptured({
@@ -98,6 +95,13 @@ class GameState {
   }) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
     owner.removeCreditsExtraRate(extra);
+  }
+
+  void onAddCredits({
+    required Player player,
+    required double credits,
+  }) {
+    player.addCredits(credits);
   }
 
   void addComponent(Component component) => gameComponent.world.add(component);
