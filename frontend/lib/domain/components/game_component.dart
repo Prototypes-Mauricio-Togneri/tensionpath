@@ -16,9 +16,6 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   final GameState state;
   final double pixelRatio;
 
-  static const double CONTROLS_HEIGHT = 102;
-  static const double BASE_HEIGHT = 40;
-
   GameComponent({
     required this.state,
     required this.pixelRatio,
@@ -52,23 +49,23 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       0,
       minCameraY,
       mapWidth,
-      maxCameraY + CONTROLS_HEIGHT,
+      maxCameraY + Constants.CONTROLS_HEIGHT,
     ));
 
     camera.moveTo(Vector2(
       mapWidth / 2,
-      maxCameraY + CONTROLS_HEIGHT,
+      maxCameraY + Constants.CONTROLS_HEIGHT,
     ));
 
     camera.viewport.add(ControlsComponent(
       player: state.self,
       position: Vector2(
         mapWidth / 2,
-        size.y - (CONTROLS_HEIGHT / 2),
+        size.y - (Constants.CONTROLS_HEIGHT / 2),
       ),
       size: Vector2(
         mapWidth,
-        CONTROLS_HEIGHT,
+        Constants.CONTROLS_HEIGHT,
       ),
     ));
 
@@ -76,11 +73,11 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       base: battlefield.baseSelf,
       position: Vector2(
         mapWidth / 2,
-        size.y - CONTROLS_HEIGHT - (BASE_HEIGHT / 2) + 1,
+        size.y - Constants.CONTROLS_HEIGHT - (Constants.BASE_HEIGHT / 2) + 1,
       ),
       size: Vector2(
         mapWidth,
-        BASE_HEIGHT,
+        Constants.BASE_HEIGHT,
       ),
     ));
 
@@ -88,11 +85,11 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       base: battlefield.baseEnemy,
       position: Vector2(
         mapWidth / 2,
-        BASE_HEIGHT / 2,
+        Constants.BASE_HEIGHT / 2,
       ),
       size: Vector2(
         mapWidth,
-        BASE_HEIGHT,
+        Constants.BASE_HEIGHT,
       ),
     ));
 

@@ -14,7 +14,7 @@ class NodeUnitGeneratorComponent extends NodeAccumulatorComponent {
   @override
   FutureOr onLoad() {
     add(NodeIconComponent(
-      icon: '🖲️',
+      icon: '🚀',
       parent: this,
     ));
 

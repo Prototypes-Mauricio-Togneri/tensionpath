@@ -16,4 +16,7 @@ class Constants {
 
   static const String PLAYER_SELF = 'self';
   static const String PLAYER_ENEMY = 'enemy';
+
+  static const double CONTROLS_HEIGHT = 102;
+  static const double BASE_HEIGHT = 40;
 }

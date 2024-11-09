@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/base_area_component.dart';
 import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -9,7 +11,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class BattlefieldComponent extends PositionComponent {
+class BattlefieldComponent extends PositionComponent with HasGameRef {
   final Battlefield battlefield;
   final Paint paintBackground = Paint();
   final Paint paintLanes = Paint();
@@ -43,6 +45,32 @@ class BattlefieldComponent extends PositionComponent {
         add(node.component);
       }
     }
+
+    final double mapWidth = battlefield.mapSize.x;
+
+    add(BaseAreaComponent(
+      base: battlefield.baseSelf,
+      position: Vector2(
+        mapWidth / 2,
+        size.y - (Constants.BASE_HEIGHT / 2),
+      ),
+      size: Vector2(
+        mapWidth,
+        Constants.BASE_HEIGHT,
+      ),
+    ));
+
+    add(BaseAreaComponent(
+      base: battlefield.baseEnemy,
+      position: Vector2(
+        mapWidth / 2,
+        Constants.BASE_HEIGHT / 2,
+      ),
+      size: Vector2(
+        mapWidth,
+        Constants.BASE_HEIGHT,
+      ),
+    ));
 
     return super.onLoad();
   }
