@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class LaneComponent extends PositionComponent
-    with TapCallbacks, HoverCallbacks {
+    with TapCallbacks {
   final Lane lane;
   final Player player;
   Paint? hoverPaint;
@@ -27,17 +27,6 @@ class LaneComponent extends PositionComponent
     if (player.hasCreditsSelected) {
       spawnUnitOfPlayer(player);
     }
-  }
-
-  @override
-  void onHoverEnter() {
-    hoverPaint = Paint();
-    hoverPaint!.color = const Color(0x22ffffff);
-  }
-
-  @override
-  void onHoverExit() {
-    hoverPaint = null;
   }
 
   void spawnUnitOfPlayer(Player player) {
