@@ -6,11 +6,10 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class LaneComponent extends PositionComponent
-    with TapCallbacks {
+class LaneComponent extends PositionComponent with TapCallbacks {
   final Lane lane;
   final Player player;
-  Paint? hoverPaint;
+  Paint? tappedPaint;
 
   LaneComponent({
     required this.lane,
@@ -23,8 +22,17 @@ class LaneComponent extends PositionComponent
         );
 
   @override
+  void onTapDown(TapDownEvent event) {
+    if (player.hasCreditsSelected) {
+      tappedPaint = Paint();
+      tappedPaint!.color = const Color(0x11ffffff);
+    }
+  }
+
+  @override
   void onTapUp(TapUpEvent event) {
     if (player.hasCreditsSelected) {
+      tappedPaint = null;
       spawnUnitOfPlayer(player);
     }
   }
@@ -44,10 +52,10 @@ class LaneComponent extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (hoverPaint != null) {
+    if (tappedPaint != null) {
       canvas.drawRect(
         size.toRect(),
-        hoverPaint!,
+        tappedPaint!,
       );
     }
   }
