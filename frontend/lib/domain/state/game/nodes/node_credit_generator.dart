@@ -9,7 +9,7 @@ class NodeCreditGenerator extends Node {
     required super.id,
     required super.lane,
     required super.position,
-    required super.size,
+    required super.laneSize,
   }) : super(captureRate: Constants.NODE_CREDIT_GENERATOR_CAPTURE_RATE);
 
   @override

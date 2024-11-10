@@ -8,7 +8,7 @@ class NodeChest extends NodeAccumulator {
     required super.id,
     required super.lane,
     required super.position,
-    required super.size,
+    required super.laneSize,
   }) : super(captureRate: Constants.NODE_CHEST_CAPTURE_RATE);
 
   @override

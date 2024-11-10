@@ -43,8 +43,8 @@ class Unit {
     hp -= value;
   }
 
-  UnitComponent component(Vector2 size) => UnitComponent(
+  UnitComponent component(double laneSize) => UnitComponent(
         unit: this,
-        size: size,
+        size: Vector2(laneSize * 0.6, laneSize * 0.6),
       );
 }

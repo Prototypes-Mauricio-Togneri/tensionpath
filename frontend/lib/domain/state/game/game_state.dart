@@ -55,7 +55,7 @@ class GameState {
       startingPosition: nodes.first.position,
     );
 
-    final UnitComponent unitComponent = unit.component(battlefield.nodeSize);
+    final UnitComponent unitComponent = unit.component(battlefield.laneSize);
     addComponent(unitComponent);
   }
 

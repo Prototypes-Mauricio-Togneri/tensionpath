@@ -14,14 +14,14 @@ class Battlefield {
   final List<Base> bases;
   final List<Lane> lanes;
   final Vector2 mapSize;
-  final Vector2 nodeSize;
+  final double laneSize;
 
   Battlefield({
     required this.id,
     required this.bases,
     required this.lanes,
     required this.mapSize,
-    required this.nodeSize,
+    required this.laneSize,
   });
 
   double get laneWidth => mapSize.x / lanes.length;
@@ -31,7 +31,7 @@ class Battlefield {
   Base get baseEnemy => bases.where((b) => b.player.isEnemy).first;
 
   factory Battlefield.vector() {
-    final Vector2 nodeSize = Vector2(150, 150);
+    const double laneSize = 200;
 
     // ignore: prefer_const_constructors
     final Lane lane1 = Lane(
@@ -44,19 +44,19 @@ class Battlefield {
         id: 'n1a',
         lane: lane1,
         position: Vector2(100, 2575),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeChest(
         id: 'n1b',
         lane: lane1,
         position: Vector2(100, 1250),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeInvisible(
         id: 'n1c',
         lane: lane1,
         position: Vector2(100, -75),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
     ]);
 
@@ -71,25 +71,25 @@ class Battlefield {
         id: 'n2a',
         lane: lane2,
         position: Vector2(300, 2575),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeUnitGenerator(
         id: 'n2b',
         lane: lane2,
         position: Vector2(300, 1666),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeCreditGenerator(
         id: 'n2c',
         lane: lane2,
         position: Vector2(300, 833),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeInvisible(
         id: 'n2d',
         lane: lane2,
         position: Vector2(300, -75),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
     ]);
 
@@ -104,19 +104,19 @@ class Battlefield {
         id: 'n3a',
         lane: lane3,
         position: Vector2(500, 2575),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeVictory(
         id: 'n3b',
         lane: lane3,
         position: Vector2(500, 1250),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeInvisible(
         id: 'n3c',
         lane: lane3,
         position: Vector2(500, -75),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
     ]);
 
@@ -131,25 +131,25 @@ class Battlefield {
         id: 'n4a',
         lane: lane4,
         position: Vector2(700, 2575),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeCreditGenerator(
         id: 'n4b',
         lane: lane4,
         position: Vector2(700, 1666),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeUnitGenerator(
         id: 'n4c',
         lane: lane4,
         position: Vector2(700, 833),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeInvisible(
         id: 'n4d',
         lane: lane4,
         position: Vector2(700, -75),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
     ]);
 
@@ -164,26 +164,26 @@ class Battlefield {
         id: 'n5a',
         lane: lane5,
         position: Vector2(900, 2575),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeCheckpoint(
         id: 'n5b',
         lane: lane5,
         position: Vector2(900, 1250),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
       NodeInvisible(
         id: 'n5c',
         lane: lane5,
         position: Vector2(900, -75),
-        size: nodeSize,
+        laneSize: laneSize,
       ),
     ]);
 
     return Battlefield(
       id: 'vector',
       mapSize: Vector2(1000, 2500),
-      nodeSize: nodeSize,
+      laneSize: laneSize,
       bases: [
         Base(
           player: Player.SELF,
