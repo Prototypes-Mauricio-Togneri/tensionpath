@@ -6,8 +6,8 @@ class Constants {
 
   static const double UNIT_SPEED = 200;
 
-  static const double CREDITS_RATE = 0.5;
-  static const double CREDITS_EXTRA_RATE = 0.25;
+  static const double CREDITS_RATE = 0.3;
+  static const double CREDITS_EXTRA_RATE = 0.15;
 
   static const double NODE_CREDITS_RATE = 0.1;
 

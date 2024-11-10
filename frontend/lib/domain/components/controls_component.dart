@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -115,6 +114,7 @@ class UnitSelectorComponent extends PositionComponent {
   final int value;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
+  final Paint borderPaint = Paint();
 
   UnitSelectorComponent({
     required this.player,
@@ -136,6 +136,10 @@ class UnitSelectorComponent extends PositionComponent {
     foregroundPaint.style = PaintingStyle.fill;
     foregroundPaint.color = Palette.orange;
 
+    borderPaint.style = PaintingStyle.stroke;
+    borderPaint.strokeWidth = 5;
+    borderPaint.color = Palette.white;
+
     return super.onLoad();
   }
 
@@ -153,89 +157,35 @@ class UnitSelectorComponent extends PositionComponent {
       backgroundPaint,
     );
 
+    double fillValue = 1 - (value - player.credits);
+    fillValue = fillValue.clamp(0, 1);
+    final double height = size.y * fillValue;
+
+    canvas.drawRect(
+      Rect.fromLTWH(
+        0,
+        size.y - height,
+        size.x,
+        height,
+      ),
+      foregroundPaint,
+    );
+
+    canvas.drawRect(
+      Rect.fromLTWH(
+        0,
+        0,
+        size.x,
+        size.y,
+      ),
+      borderPaint,
+    );
+
     canvas.drawText(
       text: value.toString(),
       position: size / 2,
       size: size.y / 2,
       color: Palette.white,
     );
-  }
-}
-
-class CreditSelectorComponent extends PositionComponent with TapCallbacks {
-  final Player player;
-  final int value;
-  final Paint chipPaint = Paint();
-  final Paint fillingPaint = Paint();
-  final Paint borderPaint = Paint();
-
-  CreditSelectorComponent({
-    required this.player,
-    required this.value,
-    required super.position,
-    required super.size,
-  }) : super(
-          anchor: Anchor.center,
-          priority: Priority.controls.value,
-        );
-
-  @override
-  FutureOr onLoad() {
-    chipPaint.style = PaintingStyle.fill;
-    chipPaint.color = Palette.grey;
-
-    fillingPaint.style = PaintingStyle.fill;
-    fillingPaint.color = Palette.orange;
-
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.color = Palette.red;
-    borderPaint.strokeWidth = size.y / 10;
-
-    return super.onLoad();
-  }
-
-  @override
-  void onTapUp(TapUpEvent event) {
-    if (player.credits >= value) {
-      player.selectCredits(value);
-    }
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    final double radius = size.y / 2;
-    final Offset center = (size / 2).toOffset();
-
-    canvas.drawCircle(
-      center,
-      radius,
-      chipPaint,
-    );
-
-    double fillValue = 1 - (value - player.credits);
-    fillValue = fillValue.clamp(0, 1);
-
-    canvas.drawCircle(
-      center,
-      radius * fillValue,
-      fillingPaint,
-    );
-
-    canvas.drawText(
-      text: value.toString(),
-      position: center.toVector2(),
-      size: radius,
-      color: Palette.white,
-    );
-
-    if (player.creditsSelected == value) {
-      canvas.drawCircle(
-        center,
-        radius,
-        borderPaint,
-      );
-    }
   }
 }
