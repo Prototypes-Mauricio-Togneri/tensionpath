@@ -47,6 +47,28 @@ class ActivePlayer extends Player {
   }
 
   void _recalculateCredits() {
-    creditsTarget = Random().nextInt(10) + 1;
+    final int value = Random().nextInt(55) + 1;
+
+    if (value <= 10) {
+      creditsTarget = 1;
+    } else if (value <= 19) {
+      creditsTarget = 2;
+    } else if (value <= 27) {
+      creditsTarget = 3;
+    } else if (value <= 34) {
+      creditsTarget = 4;
+    } else if (value <= 40) {
+      creditsTarget = 5;
+    } else if (value <= 45) {
+      creditsTarget = 6;
+    } else if (value <= 49) {
+      creditsTarget = 7;
+    } else if (value <= 52) {
+      creditsTarget = 8;
+    } else if (value <= 54) {
+      creditsTarget = 9;
+    } else {
+      creditsTarget = 10;
+    }
   }
 }
