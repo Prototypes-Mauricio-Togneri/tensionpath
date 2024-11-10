@@ -12,7 +12,8 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
+class GameComponent extends FlameGame
+    with PanDetector, ScrollDetector, HasCollisionDetection {
   final GameState state;
   final double pixelRatio;
 
@@ -22,10 +23,24 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
   }) : super(world: MatchComponent(state));
 
   @override
-  void onPanUpdate(DragUpdateInfo info) {
+  void onPanUpdate(DragUpdateInfo info) => _moveCamera(
+        delta: -info.delta.global.y,
+        speed: Constants.PAN_SPEED,
+      );
+
+  @override
+  void onScroll(PointerScrollInfo info) => _moveCamera(
+        delta: info.scrollDelta.global.y,
+        speed: Constants.SCROLL_SPEED,
+      );
+
+  void _moveCamera({
+    required double delta,
+    required int speed,
+  }) {
     camera.moveBy(
-      Vector2(0, -info.delta.global.y * pixelRatio),
-      speed: pixelRatio * Constants.PAN_SPEED,
+      Vector2(0, pixelRatio * delta),
+      speed: pixelRatio * speed,
     );
   }
 

@@ -1,5 +1,6 @@
 class Constants {
   static const int PAN_SPEED = 3000;
+  static const int SCROLL_SPEED = 6000;
 
   static const int NEON_EFFECT = 2;
 
