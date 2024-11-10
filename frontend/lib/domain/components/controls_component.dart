@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -103,18 +104,19 @@ class CreditCounterComponent extends PositionComponent {
     canvas.drawText(
       text: player.credits.floor().toString(),
       position: size / 2,
-      size: size.y / 2,
+      size: size.x / 2,
       color: Palette.white,
     );
   }
 }
 
-class UnitSelectorComponent extends PositionComponent {
+class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final int value;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
   final Paint borderPaint = Paint();
+  final Vector2 originalPosition = Vector2(0, 0);
 
   UnitSelectorComponent({
     required this.player,
@@ -141,6 +143,33 @@ class UnitSelectorComponent extends PositionComponent {
     borderPaint.color = Palette.white;
 
     return super.onLoad();
+  }
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+    originalPosition.setFrom(position);
+    print('dragStart');
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    super.onDragUpdate(event);
+    position += event.localDelta;
+    print('dragUpdate ${event.localDelta}');
+  }
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
+    position.setFrom(originalPosition);
+    print('dragEnd');
+  }
+
+  @override
+  void onDragCancel(DragCancelEvent event) {
+    super.onDragCancel(event);
+    print('dragCancel');
   }
 
   @override
