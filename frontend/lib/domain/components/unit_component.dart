@@ -38,11 +38,11 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
 
   @override
   void update(double dt) {
-    unit.update(dt);
     position.setFrom(unit.position);
   }
 
   void destroy() {
+    unit.destroy();
     GameState.instance.removeComponent(this);
   }
 

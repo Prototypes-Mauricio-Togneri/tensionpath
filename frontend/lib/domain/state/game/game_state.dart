@@ -32,6 +32,7 @@ class GameState {
   void update(double dt) {
     self.update(dt);
     enemy.update(dt);
+    battlefield.update(dt);
   }
 
   void onSpawnUnit({
@@ -51,9 +52,12 @@ class GameState {
         power: power,
       ),
       owner: player,
+      lane: lane,
       nodes: nodes.sublist(1, nodes.length),
       startingPosition: nodes.first.position,
     );
+
+    lane.addUnit(unit);
 
     final UnitComponent unitComponent = unit.component(battlefield.laneSize);
     addComponent(unitComponent);

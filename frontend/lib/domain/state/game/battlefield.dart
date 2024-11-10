@@ -30,6 +30,12 @@ class Battlefield {
 
   Base get baseEnemy => bases.where((b) => b.player.isEnemy).first;
 
+  void update(double dt) {
+    for (final Lane lane in lanes) {
+      lane.update(dt);
+    }
+  }
+
   factory Battlefield.vector() {
     const double laneSize = 200;
 
@@ -37,6 +43,7 @@ class Battlefield {
     final Lane lane1 = Lane(
       id: 'l1',
       nodes: [],
+      units: [],
     );
 
     lane1.nodes.addAll([
@@ -64,6 +71,7 @@ class Battlefield {
     final Lane lane2 = Lane(
       id: 'l2',
       nodes: [],
+      units: [],
     );
 
     lane2.nodes.addAll([
@@ -97,6 +105,7 @@ class Battlefield {
     final Lane lane3 = Lane(
       id: 'l3',
       nodes: [],
+      units: [],
     );
 
     lane3.nodes.addAll([
@@ -124,6 +133,7 @@ class Battlefield {
     final Lane lane4 = Lane(
       id: 'l4',
       nodes: [],
+      units: [],
     );
 
     lane4.nodes.addAll([
@@ -157,6 +167,7 @@ class Battlefield {
     final Lane lane5 = Lane(
       id: 'l5',
       nodes: [],
+      units: [],
     );
 
     lane5.nodes.addAll([

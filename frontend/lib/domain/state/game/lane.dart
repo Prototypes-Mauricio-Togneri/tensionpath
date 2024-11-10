@@ -1,13 +1,16 @@
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/state/game/unit.dart';
 
 class Lane {
   final String id;
   final List<Node> nodes;
+  final List<Unit> units;
 
   const Lane({
     required this.id,
     required this.nodes,
+    required this.units,
   });
 
   List<Node> nodesFromPlayer(Player player) =>
@@ -32,5 +35,23 @@ class Lane {
     }
 
     return result;
+  }
+
+  void addUnit(Unit unit) {
+    units.add(unit);
+  }
+
+  void removeUnit(Unit unit) {
+    units.remove(unit);
+  }
+
+  void update(double dt) {
+    for (final Node node in nodes) {
+      node.update(dt);
+    }
+
+    for (final Unit unit in units) {
+      unit.update(dt);
+    }
   }
 }

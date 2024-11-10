@@ -1,11 +1,13 @@
 import 'package:flame/game.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 
 class Unit {
   final Player owner;
+  final Lane lane;
   final List<Node> nodes;
   late int nextNodeIndex;
   late int hp;
@@ -15,6 +17,7 @@ class Unit {
   Unit({
     required UnitSpecs specs,
     required this.owner,
+    required this.lane,
     required this.nodes,
     required Vector2 startingPosition,
   }) {
@@ -41,6 +44,10 @@ class Unit {
 
   void reduceHealth(int value) {
     hp -= value;
+  }
+
+  void destroy() {
+    lane.removeUnit(this);
   }
 
   UnitComponent component(double laneSize) => UnitComponent(

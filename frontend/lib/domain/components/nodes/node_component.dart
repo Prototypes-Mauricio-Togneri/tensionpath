@@ -13,7 +13,4 @@ class NodeComponent extends PositionComponent {
           anchor: Anchor.center,
           priority: Priority.node.value,
         );
-
-  @override
-  void update(double dt) => node.update(dt);
 }

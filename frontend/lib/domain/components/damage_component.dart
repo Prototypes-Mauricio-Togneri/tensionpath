@@ -35,8 +35,6 @@ class DamageComponent extends PositionComponent with CollisionCallbacks {
 
   @override
   void update(double dt) {
-    damage.update(dt);
-
-    position = damage.position;
+    position.setFrom(damage.position);
   }
 }
