@@ -26,7 +26,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
 
   @override
   FutureOr onLoad() {
-    paintBackground.color = const Color(0xff000000);
+    paintBackground.color = const Color(0xff222222);
 
     paintLanes.strokeWidth = 5;
     paintLanes.color = const Color(0xffffffff);

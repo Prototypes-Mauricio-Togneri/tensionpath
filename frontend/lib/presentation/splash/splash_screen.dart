@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/splash/splash_state.dart';
-import 'package:tensionpath/widgets/base_screen.dart';
+import 'package:tensionpath/widgets/game_container.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;
@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BaseScreen(
+    return const GameContainer(
       child: Center(
         child: CircularProgressIndicator(),
       ),

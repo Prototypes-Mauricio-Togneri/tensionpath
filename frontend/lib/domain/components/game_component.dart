@@ -73,7 +73,7 @@ class GameComponent extends FlameGame with PanDetector, HasCollisionDetection {
       base: battlefield.baseSelf,
       position: Vector2(
         mapWidth / 2,
-        size.y - Constants.CONTROLS_HEIGHT - (Constants.BASE_HEIGHT / 2),
+        size.y - Constants.CONTROLS_HEIGHT - (Constants.BASE_HEIGHT / 2) + 1,
       ),
       size: Vector2(
         mapWidth,

@@ -13,12 +13,14 @@ class GameContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return DarkStatusBar(
       child: Scaffold(
-        body: Platform.isMobile
-            ? SmallScreenContainer(child)
-            : BigScreenContainer(
-                child,
-                Palette.black,
-              ),
+        body: SafeArea(
+          child: Platform.isMobile
+              ? SmallScreenContainer(child)
+              : BigScreenContainer(
+                  child,
+                  Palette.black,
+                ),
+        ),
       ),
     );
   }
