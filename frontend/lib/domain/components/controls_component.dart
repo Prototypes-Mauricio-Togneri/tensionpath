@@ -110,13 +110,13 @@ class CreditCounterComponent extends PositionComponent {
   }
 }
 
-class UnitSelectorComponent extends PositionComponent with DragCallbacks {
+class UnitSelectorComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final int value;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
-  final Paint borderPaint = Paint();
-  final Vector2 originalPosition = Vector2(0, 0);
+  final Paint borderUnselectedPaint = Paint();
+  final Paint borderSelectedPaint = Paint();
 
   UnitSelectorComponent({
     required this.player,
@@ -138,38 +138,22 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     foregroundPaint.style = PaintingStyle.fill;
     foregroundPaint.color = Palette.orange;
 
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 5;
-    borderPaint.color = Palette.white;
+    borderUnselectedPaint.style = PaintingStyle.stroke;
+    borderUnselectedPaint.strokeWidth = 5;
+    borderUnselectedPaint.color = Palette.white;
+
+    borderSelectedPaint.style = PaintingStyle.stroke;
+    borderSelectedPaint.strokeWidth = 5;
+    borderSelectedPaint.color = Palette.red;
 
     return super.onLoad();
   }
 
   @override
-  void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
-    originalPosition.setFrom(position);
-    print('dragStart');
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    super.onDragUpdate(event);
-    position += event.localDelta;
-    print('dragUpdate ${event.localDelta}');
-  }
-
-  @override
-  void onDragEnd(DragEndEvent event) {
-    super.onDragEnd(event);
-    position.setFrom(originalPosition);
-    print('dragEnd');
-  }
-
-  @override
-  void onDragCancel(DragCancelEvent event) {
-    super.onDragCancel(event);
-    print('dragCancel');
+  void onTapUp(TapUpEvent event) {
+    if (player.credits >= value) {
+      player.selectCredits(value);
+    }
   }
 
   @override
@@ -207,7 +191,9 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         size.x,
         size.y,
       ),
-      borderPaint,
+      (player.creditsSelected == value)
+          ? borderSelectedPaint
+          : borderUnselectedPaint,
     );
 
     canvas.drawText(
