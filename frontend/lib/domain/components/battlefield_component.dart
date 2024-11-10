@@ -13,8 +13,9 @@ import 'package:tensionpath/domain/types/priority.dart';
 
 class BattlefieldComponent extends PositionComponent with HasGameRef {
   final Battlefield battlefield;
-  final Paint paintBackground = Paint();
-  final Paint paintLanes = Paint();
+  final Paint backgroundPaint = Paint();
+  final Paint laneNormalPaint = Paint();
+  final Paint laneNeonPaint = Paint();
 
   BattlefieldComponent(this.battlefield)
       : super(
@@ -26,10 +27,15 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
 
   @override
   FutureOr onLoad() {
-    paintBackground.color = const Color(0xff222222);
+    backgroundPaint.color = const Color(0xff222222);
 
-    paintLanes.strokeWidth = 5;
-    paintLanes.color = const Color(0xffffffff);
+    laneNormalPaint.strokeWidth = 5;
+    laneNormalPaint.color = const Color(0xffffffff);
+
+    laneNeonPaint.strokeWidth = 5;
+    laneNeonPaint.color = const Color(0xffffffff);
+    laneNeonPaint.maskFilter =
+        MaskFilter.blur(BlurStyle.normal, laneNeonPaint.strokeWidth * 2);
 
     for (int i = 0; i < battlefield.lanes.length; i++) {
       final Lane lane = battlefield.lanes[i];
@@ -81,14 +87,20 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
 
     canvas.drawRect(
       Rect.fromLTWH(0, 0, width, height),
-      paintBackground,
+      backgroundPaint,
     );
 
     for (int i = 1; i < battlefield.lanes.length; i++) {
       canvas.drawLine(
         Offset(i * 200, 0),
         Offset(i * 200, height),
-        paintLanes,
+        laneNormalPaint,
+      );
+
+      canvas.drawLine(
+        Offset(i * 200, 0),
+        Offset(i * 200, height),
+        laneNeonPaint,
       );
     }
   }

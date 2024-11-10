@@ -7,20 +7,32 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 
 class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
-  final Paint ownershipPaint = Paint();
   final Paint backgroundPaint = Paint();
-  final Paint borderPaint = Paint();
+  final Paint ownershipNormalPaint = Paint();
+  final Paint ownershipNeonPaint = Paint();
+  final Paint borderNormalPaint = Paint();
+  final Paint borderNeonPaint = Paint();
 
   NodeCapturableComponent({
     required super.node,
     required super.position,
     required super.size,
   }) {
-    ownershipPaint.style = PaintingStyle.stroke;
-    ownershipPaint.strokeWidth = 10;
+    ownershipNormalPaint.style = PaintingStyle.stroke;
+    ownershipNormalPaint.strokeWidth = 10;
 
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 5;
+    ownershipNeonPaint.style = PaintingStyle.stroke;
+    ownershipNeonPaint.strokeWidth = 10;
+    ownershipNeonPaint.maskFilter =
+        MaskFilter.blur(BlurStyle.normal, ownershipNeonPaint.strokeWidth * 2);
+
+    borderNormalPaint.style = PaintingStyle.stroke;
+    borderNormalPaint.strokeWidth = 5;
+
+    borderNeonPaint.style = PaintingStyle.stroke;
+    borderNeonPaint.strokeWidth = 5;
+    borderNeonPaint.maskFilter =
+        MaskFilter.blur(BlurStyle.normal, borderNeonPaint.strokeWidth * 2);
   }
 
   @override
@@ -49,14 +61,17 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
     if (node.hasOwner) {
       if (node.owner!.isEnemy) {
         backgroundPaint.color = Colors.red.withAlpha(100);
-        borderPaint.color = Colors.red;
+        borderNormalPaint.color = Colors.red;
+        borderNeonPaint.color = Colors.red;
       } else if (node.owner!.isSelf) {
         backgroundPaint.color = Colors.blue.withAlpha(100);
-        borderPaint.color = Colors.blue;
+        borderNormalPaint.color = Colors.blue;
+        borderNeonPaint.color = Colors.blue;
       }
     } else {
       backgroundPaint.color = Colors.transparent;
-      borderPaint.color = Colors.white;
+      borderNormalPaint.color = Colors.white;
+      borderNeonPaint.color = Colors.white;
     }
   }
 
@@ -73,18 +88,33 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
     canvas.drawCircle(
       Offset(size.x / 2, size.y / 2),
       size.x / 2,
-      borderPaint,
+      borderNormalPaint,
+    );
+
+    canvas.drawCircle(
+      Offset(size.x / 2, size.y / 2),
+      size.x / 2,
+      borderNeonPaint,
     );
 
     if (node.hasTouched) {
-      ownershipPaint.color = node.color;
+      ownershipNormalPaint.color = node.color;
+      ownershipNeonPaint.color = node.color;
 
       canvas.drawArc(
         Rect.fromLTWH(0, 0, size.x, size.y),
         -pi / 2,
         2 * pi * node.ownershipValue,
         false,
-        ownershipPaint,
+        ownershipNormalPaint,
+      );
+
+      canvas.drawArc(
+        Rect.fromLTWH(0, 0, size.x, size.y),
+        -pi / 2,
+        2 * pi * node.ownershipValue,
+        false,
+        ownershipNeonPaint,
       );
     }
   }
