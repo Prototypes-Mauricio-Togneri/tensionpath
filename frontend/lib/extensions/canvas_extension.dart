@@ -7,12 +7,16 @@ extension CanvasExtension on Canvas {
     required String text,
     required Vector2 position,
     required double size,
-    required Color color,
+    Color? color,
+    Paint? foreground,
+    Paint? background,
   }) {
     final TextStyle textStyle = TextStyle(
-      color: color,
       fontSize: size,
       fontWeight: FontWeight.normal,
+      color: color,
+      foreground: foreground,
+      background: background,
     );
     final TextSpan textSpan = TextSpan(
       text: text,

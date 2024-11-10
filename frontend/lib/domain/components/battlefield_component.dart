@@ -34,8 +34,10 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
 
     laneNeonPaint.strokeWidth = 5;
     laneNeonPaint.color = const Color(0xffffffff);
-    laneNeonPaint.maskFilter =
-        MaskFilter.blur(BlurStyle.normal, laneNeonPaint.strokeWidth * 2);
+    laneNeonPaint.maskFilter = MaskFilter.blur(
+      BlurStyle.normal,
+      laneNeonPaint.strokeWidth * Constants.NEON_EFFECT,
+    );
 
     for (int i = 0; i < battlefield.lanes.length; i++) {
       final Lane lane = battlefield.lanes[i];

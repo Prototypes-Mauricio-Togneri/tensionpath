@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 
@@ -23,16 +24,20 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
 
     ownershipNeonPaint.style = PaintingStyle.stroke;
     ownershipNeonPaint.strokeWidth = 10;
-    ownershipNeonPaint.maskFilter =
-        MaskFilter.blur(BlurStyle.normal, ownershipNeonPaint.strokeWidth * 2);
+    ownershipNeonPaint.maskFilter = MaskFilter.blur(
+      BlurStyle.normal,
+      ownershipNeonPaint.strokeWidth * Constants.NEON_EFFECT,
+    );
 
     borderNormalPaint.style = PaintingStyle.stroke;
     borderNormalPaint.strokeWidth = 5;
 
     borderNeonPaint.style = PaintingStyle.stroke;
     borderNeonPaint.strokeWidth = 5;
-    borderNeonPaint.maskFilter =
-        MaskFilter.blur(BlurStyle.normal, borderNeonPaint.strokeWidth * 2);
+    borderNeonPaint.maskFilter = MaskFilter.blur(
+      BlurStyle.normal,
+      borderNeonPaint.strokeWidth * Constants.NEON_EFFECT,
+    );
   }
 
   @override
