@@ -11,7 +11,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class BattlefieldComponent extends PositionComponent with HasGameRef {
+class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
   final Paint backgroundPaint = Paint();
   final Paint laneNormalPaint = Paint();
