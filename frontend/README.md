@@ -1,7 +1,12 @@
 # Frontend
 
-* Pan problem, capture event
 * Fix resolution problem
-
-* Drag units to deploy
 * Add units that shoot
+
+## Changing lanes
+* Pro: More complex maps
+* Con: Hard to detect in which lane a unit is placed
+
+## Scrollable maps
+* Pro: More complex maps
+* Con: Conflict dragging units into the battlefield
