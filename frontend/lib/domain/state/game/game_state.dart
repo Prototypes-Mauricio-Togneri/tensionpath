@@ -15,7 +15,7 @@ class GameState {
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
-  late final GameComponent gameComponent;
+  GameComponent? _gameComponent;
 
   static late GameState instance;
 
@@ -25,8 +25,10 @@ class GameState {
     required this.battlefield,
   });
 
+  GameComponent get gameComponent => _gameComponent!;
+
   void setGameComponent(GameComponent newGameComponent) {
-    gameComponent = newGameComponent;
+    _gameComponent ??= newGameComponent;
   }
 
   void update(double dt) {
