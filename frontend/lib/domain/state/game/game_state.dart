@@ -25,10 +25,12 @@ class GameState {
     required this.battlefield,
   });
 
+  bool get hasGameComponent => _gameComponent != null;
+
   GameComponent get gameComponent => _gameComponent!;
 
   void setGameComponent(GameComponent newGameComponent) {
-    _gameComponent ??= newGameComponent;
+    _gameComponent = newGameComponent;
   }
 
   void update(double dt) {

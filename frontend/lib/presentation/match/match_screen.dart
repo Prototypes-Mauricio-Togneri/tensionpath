@@ -30,11 +30,17 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(
-      game: GameComponent(
-        state: state.gameState,
-        pixelRatio: MediaQuery.of(context).devicePixelRatio,
-      ),
-    );
+    if (state.gameState.hasGameComponent) {
+      return GameWidget(
+        game: state.gameState.gameComponent,
+      );
+    } else {
+      return GameWidget(
+        game: GameComponent(
+          state: state.gameState,
+          pixelRatio: MediaQuery.of(context).devicePixelRatio,
+        ),
+      );
+    }
   }
 }
