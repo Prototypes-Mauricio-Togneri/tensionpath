@@ -1,4 +1,7 @@
 # Frontend
 
+* Pan problem, capture event
+* Fix resolution problem
+
 * Drag units to deploy
-* Units that shoot
+* Add units that shoot
