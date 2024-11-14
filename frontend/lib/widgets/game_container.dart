@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/platform.dart';
 
 class GameContainer extends StatelessWidget {
@@ -18,7 +17,7 @@ class GameContainer extends StatelessWidget {
               ? SmallScreenContainer(child)
               : BigScreenContainer(
                   child,
-                  Palette.black,
+                  Colors.pink,
                 ),
         ),
       ),

@@ -4,13 +4,13 @@ import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/base_indicator_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame
     with PanDetector, ScrollDetector, HasCollisionDetection {
@@ -49,9 +49,14 @@ class GameComponent extends FlameGame
     final Battlefield battlefield = state.battlefield;
     final double mapWidth = battlefield.mapSize.x;
 
-    camera = CameraComponent.withFixedResolution(
+    /*camera = CameraComponent.withFixedResolution(
       width: mapWidth,
       height: mapWidth / (size.x / size.y),
+    );*/
+
+    camera = CameraComponent.withFixedResolution(
+      width: 1000,
+      height: 2170,
     );
 
     debugMode = false;
@@ -116,7 +121,7 @@ class GameComponent extends FlameGame
   }
 
   @override
-  Color backgroundColor() => Palette.black;
+  Color backgroundColor() => Colors.yellow;
 
   @override
   void update(double dt) {
