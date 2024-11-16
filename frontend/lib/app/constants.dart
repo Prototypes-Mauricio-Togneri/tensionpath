@@ -14,7 +14,7 @@ class Constants {
 
   static const int NEON_EFFECT = 2;
 
-  static const double UNIT_SPEED = 200;
+  static const double UNIT_SPEED = 151.2;
 
   static const double CREDITS_RATE = 0.3;
   static const double CREDITS_EXTRA_RATE = 0.15;
