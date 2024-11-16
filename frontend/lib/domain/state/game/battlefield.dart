@@ -16,6 +16,7 @@ class Battlefield {
   final List<Lane> lanes;
   final Vector2 mapSize;
   final double laneSize;
+  final double maxUnitSize;
 
   const Battlefield({
     required this.id,
@@ -23,6 +24,7 @@ class Battlefield {
     required this.lanes,
     required this.mapSize,
     required this.laneSize,
+    required this.maxUnitSize,
   });
 
   double get laneWidth => mapSize.x / lanes.length;
@@ -40,6 +42,7 @@ class Battlefield {
   factory Battlefield.vector() {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
+    const double maxUnitSize = laneWidth * 0.75;
 
     // ignore: prefer_const_constructors
     final Lane lane1 = Lane(
@@ -52,7 +55,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n1a',
         lane: lane1,
-        position: Vector2(laneWidth * 0.5, laneHeight + 75),
+        position: Vector2(laneWidth * 0.5, laneHeight + maxUnitSize),
         laneSize: laneWidth,
       ),
       NodeChest(
@@ -64,7 +67,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n1c',
         lane: lane1,
-        position: Vector2(laneWidth * 0.5, -75),
+        position: Vector2(laneWidth * 0.5, -maxUnitSize),
         laneSize: laneWidth,
       ),
     ]);
@@ -80,7 +83,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n2a',
         lane: lane2,
-        position: Vector2(laneWidth * 1.5, laneHeight + 75),
+        position: Vector2(laneWidth * 1.5, laneHeight + maxUnitSize),
         laneSize: laneWidth,
       ),
       NodeUnitGenerator(
@@ -98,7 +101,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n2d',
         lane: lane2,
-        position: Vector2(laneWidth * 1.5, -75),
+        position: Vector2(laneWidth * 1.5, -maxUnitSize),
         laneSize: laneWidth,
       ),
     ]);
@@ -114,7 +117,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n3a',
         lane: lane3,
-        position: Vector2(laneWidth * 2.5, laneHeight + 75),
+        position: Vector2(laneWidth * 2.5, laneHeight + maxUnitSize),
         laneSize: laneWidth,
       ),
       NodeVictory(
@@ -126,7 +129,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n3c',
         lane: lane3,
-        position: Vector2(laneWidth * 2.5, -75),
+        position: Vector2(laneWidth * 2.5, -maxUnitSize),
         laneSize: laneWidth,
       ),
     ]);
@@ -142,7 +145,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n4a',
         lane: lane4,
-        position: Vector2(laneWidth * 3.5, laneHeight + 75),
+        position: Vector2(laneWidth * 3.5, laneHeight + maxUnitSize),
         laneSize: laneWidth,
       ),
       NodeCreditGenerator(
@@ -160,7 +163,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n4d',
         lane: lane4,
-        position: Vector2(laneWidth * 3.5, -75),
+        position: Vector2(laneWidth * 3.5, -maxUnitSize),
         laneSize: laneWidth,
       ),
     ]);
@@ -176,7 +179,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n5a',
         lane: lane5,
-        position: Vector2(laneWidth * 4.5, laneHeight + 75),
+        position: Vector2(laneWidth * 4.5, laneHeight + maxUnitSize),
         laneSize: laneWidth,
       ),
       NodeCheckpoint(
@@ -188,7 +191,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n5c',
         lane: lane5,
-        position: Vector2(laneWidth * 4.5, -75),
+        position: Vector2(laneWidth * 4.5, -maxUnitSize),
         laneSize: laneWidth,
       ),
     ]);
@@ -200,6 +203,7 @@ class Battlefield {
         Constants.UI_BATTLEFIELD_HEIGHT,
       ),
       laneSize: laneWidth,
+      maxUnitSize: maxUnitSize,
       bases: [
         Base(
           player: Player.SELF,
