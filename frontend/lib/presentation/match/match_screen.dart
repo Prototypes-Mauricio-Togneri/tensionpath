@@ -36,10 +36,7 @@ class Content extends StatelessWidget {
       );
     } else {
       return GameWidget(
-        game: GameComponent(
-          state: state.gameState,
-          pixelRatio: MediaQuery.of(context).devicePixelRatio,
-        ),
+        game: GameComponent(state.gameState),
       );
     }
   }

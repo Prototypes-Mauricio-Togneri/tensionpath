@@ -20,7 +20,10 @@ class BattlefieldComponent extends PositionComponent {
   BattlefieldComponent(this.battlefield)
       : super(
           position: Vector2(0, 0),
-          size: battlefield.mapSize,
+          size: Vector2(
+            Constants.UI_BATTLEFIELD_WIDTH,
+            Constants.UI_BATTLEFIELD_HEIGHT,
+          ),
           anchor: Anchor.topLeft,
           priority: Priority.battlefield.value,
         );
@@ -60,11 +63,11 @@ class BattlefieldComponent extends PositionComponent {
       base: battlefield.baseSelf,
       position: Vector2(
         mapWidth / 2,
-        size.y + (Constants.BASE_HEIGHT / 2),
+        size.y + (Constants.UI_BASE_HEIGHT / 2),
       ),
       size: Vector2(
         mapWidth,
-        Constants.BASE_HEIGHT,
+        Constants.UI_CONTROLS_HEIGHT,
       ),
     ));
 
@@ -72,11 +75,11 @@ class BattlefieldComponent extends PositionComponent {
       base: battlefield.baseEnemy,
       position: Vector2(
         mapWidth / 2,
-        -Constants.BASE_HEIGHT / 2,
+        -Constants.UI_CONTROLS_HEIGHT / 2,
       ),
       size: Vector2(
         mapWidth,
-        Constants.BASE_HEIGHT,
+        Constants.UI_CONTROLS_HEIGHT,
       ),
     ));
 
