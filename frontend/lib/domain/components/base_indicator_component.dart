@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
+import 'package:tensionpath/utils/set_fullscreen.dart';
 
 class BaseIndicatorComponent extends PositionComponent {
   final Base base;
@@ -25,6 +27,19 @@ class BaseIndicatorComponent extends PositionComponent {
     backgroundPaint.color = Palette.BASE_BACKGROUND;
     foregroundPaint.color = base.color;
 
+    if (base.player.isEnemy) {
+      add(FullScreenButtonComponent(
+        position: Vector2(
+          width - (height / 2),
+          height / 2,
+        ),
+        size: Vector2(
+          height * 0.7,
+          height * 0.7,
+        ),
+      ));
+    }
+
     return super.onLoad();
   }
 
@@ -44,6 +59,50 @@ class BaseIndicatorComponent extends PositionComponent {
 
     canvas.drawText(
       text: base.player.id.toUpperCase(),
+      position: size / 2,
+      size: size.y / 2,
+      color: Palette.BASE_PLAYER_NAME,
+    );
+  }
+}
+
+class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
+  final Paint backgroundPaint = Paint();
+  final Paint foregroundPaint = Paint();
+
+  FullScreenButtonComponent({
+    required super.position,
+    required super.size,
+  }) : super(
+          anchor: Anchor.center,
+          priority: Priority.base.value,
+        );
+
+  @override
+  FutureOr onLoad() {
+    backgroundPaint.style = PaintingStyle.stroke;
+    backgroundPaint.color = Colors.white;
+
+    foregroundPaint.color = Colors.white;
+
+    return super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) => SetFullscreen.set();
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawCircle(
+      (size / 2).toOffset(),
+      size.x / 2,
+      backgroundPaint,
+    );
+
+    canvas.drawText(
+      text: 'F',
       position: size / 2,
       size: size.y / 2,
       color: Palette.BASE_PLAYER_NAME,
