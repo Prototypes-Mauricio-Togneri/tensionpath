@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
   final Paint backgroundPaint = Paint();
@@ -64,19 +65,13 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
     super.update(dt);
 
     if (node.hasOwner) {
-      if (node.owner!.isEnemy) {
-        backgroundPaint.color = Colors.red.withAlpha(100);
-        borderNormalPaint.color = Colors.red;
-        borderNeonPaint.color = Colors.red;
-      } else if (node.owner!.isSelf) {
-        backgroundPaint.color = Colors.blue.withAlpha(100);
-        borderNormalPaint.color = Colors.blue;
-        borderNeonPaint.color = Colors.blue;
-      }
+        backgroundPaint.color = node.owner!.color.withAlpha(100);
+        borderNormalPaint.color = node.owner!.color;
+        borderNeonPaint.color = node.owner!.color;
     } else {
-      backgroundPaint.color = Colors.transparent;
-      borderNormalPaint.color = Colors.white;
-      borderNeonPaint.color = Colors.white;
+      backgroundPaint.color = Palette.transparent;
+      borderNormalPaint.color = Palette.NODE_NEUTRAL_BORDER;
+      borderNeonPaint.color = Palette.NODE_NEUTRAL_BORDER;
     }
   }
 

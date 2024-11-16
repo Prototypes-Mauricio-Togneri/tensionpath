@@ -25,7 +25,7 @@ class NodeIconComponent extends PositionComponent {
       text: icon,
       position: size / 2,
       size: size.x,
-      color: Palette.white,
+      color: Palette.NODE_NEUTRAL_FOREGROUND,
     );
   }
 }

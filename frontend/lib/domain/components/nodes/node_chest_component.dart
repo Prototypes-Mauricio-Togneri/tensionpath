@@ -22,7 +22,7 @@ class NodeChestComponent extends NodeCapturableComponent with TapCallbacks {
       text: node.creditsAccumulated.toString(),
       position: size / 2,
       size: 70,
-      color: Palette.yellow,
+      color: Palette.NODE_NEUTRAL_FOREGROUND,
     );
   }
 }

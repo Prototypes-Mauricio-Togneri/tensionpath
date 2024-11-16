@@ -27,11 +27,7 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
   FutureOr onLoad() {
     add(CircleHitbox());
 
-    if (unit.owner.isSelf) {
-      backgroundPaint.color = Colors.blue;
-    } else if (unit.owner.isEnemy) {
-      backgroundPaint.color = Colors.red;
-    }
+    backgroundPaint.color = unit.owner.color;
 
     return super.onLoad();
   }
@@ -83,7 +79,7 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
       text: unit.hp.toString(),
       position: size / 2,
       size: size.x / 3,
-      color: Palette.white,
+      color: Palette.UNIT_VALUE,
     );
   }
 }

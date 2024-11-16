@@ -3,12 +3,28 @@ import 'package:flutter/material.dart';
 class Palette {
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
-  static const Color black = Colors.black;
-  static const Color white = Colors.white;
-  static const Color grey = Colors.grey;
-  static const Color green = Colors.green;
-  static const Color blue = Colors.blue;
-  static const Color red = Colors.red;
-  static const Color orange = Colors.orange;
-  static const Color yellow = Colors.yellow;
+
+  static const Color GAME_BACKGROUND = Colors.black;
+
+  static const Color PLAYER_SELF = Colors.blue;
+  static const Color PLAYER_ENEMY = Colors.red;
+
+  static const Color CONTROLS_BACKGROUND = Colors.green;
+
+  static const Color CONTROLS_CREDIT_BACKGROUND = Colors.orange;
+  static const Color CONTROLS_CREDIT_FOREGROUND = Colors.white;
+
+  static const Color CONTROLS_CARD_BACKGROUND = Colors.grey;
+  static const Color CONTROLS_CARD_FOREGROUND = Colors.orange;
+  static const Color CONTROLS_CARD_VALUE = Colors.white;
+  static const Color CONTROLS_CARD_UNSELECTED = Colors.white;
+  static const Color CONTROLS_CARD_SELECTED = Colors.red;
+
+  static const Color NODE_NEUTRAL_BORDER = Colors.white;
+  static const Color NODE_NEUTRAL_FOREGROUND = Colors.white;
+
+  static const Color UNIT_VALUE = Colors.white;
+
+  static const Color BASE_BACKGROUND = Colors.grey;
+  static const Color BASE_PLAYER_NAME = Colors.white;
 }

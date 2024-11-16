@@ -16,7 +16,7 @@ class TensionPath extends StatelessWidget {
         primaryColor: Palette.primary,
         primarySwatch: Palette.primary,
         colorScheme: ColorScheme.fromSeed(seedColor: Palette.primary),
-        scaffoldBackgroundColor: Palette.white,
+        scaffoldBackgroundColor: Palette.GAME_BACKGROUND,
       ),
       home: SplashScreen.instance(),
     );

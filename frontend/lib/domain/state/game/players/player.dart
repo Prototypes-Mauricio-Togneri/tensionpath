@@ -34,7 +34,7 @@ class Player {
 
   bool get isEnemy => !isSelf;
 
-  Color get color => isSelf ? Palette.blue : Palette.red;
+  Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_ENEMY;
 
   void addCreditsExtraRate(double value) {
     creditsExtraRate += value;

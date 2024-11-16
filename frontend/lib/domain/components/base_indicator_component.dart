@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class BaseIndicatorComponent extends PositionComponent {
   final Base base;
@@ -21,7 +22,7 @@ class BaseIndicatorComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    backgroundPaint.color = Colors.grey;
+    backgroundPaint.color = Palette.BASE_BACKGROUND;
     foregroundPaint.color = base.color;
 
     return super.onLoad();
@@ -45,7 +46,7 @@ class BaseIndicatorComponent extends PositionComponent {
       text: base.player.id,
       position: size / 2,
       size: size.y / 2,
-      color: Colors.white,
+      color: Palette.BASE_PLAYER_NAME,
     );
   }
 }

@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/base_indicator_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame with HasCollisionDetection {
   final GameState state;
@@ -79,7 +79,7 @@ class GameComponent extends FlameGame with HasCollisionDetection {
   }
 
   @override
-  Color backgroundColor() => Colors.yellow;
+  Color backgroundColor() => Palette.GAME_BACKGROUND;
 
   @override
   void update(double dt) {

@@ -25,7 +25,7 @@ class ControlsComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = Palette.green;
+    backgroundPaint.color = Palette.CONTROLS_BACKGROUND;
 
     final double cardWidth = (size.x / 7) * 0.8;
     final double cardHeight = size.y * 0.8;
@@ -86,7 +86,7 @@ class CreditCounterComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = Palette.orange;
+    backgroundPaint.color = Palette.CONTROLS_CREDIT_BACKGROUND;
 
     return super.onLoad();
   }
@@ -105,7 +105,7 @@ class CreditCounterComponent extends PositionComponent {
       text: player.credits.floor().toString(),
       position: size / 2,
       size: size.x / 2,
-      color: Palette.white,
+      color: Palette.CONTROLS_CREDIT_FOREGROUND,
     );
   }
 }
@@ -133,18 +133,18 @@ class UnitSelectorComponent extends PositionComponent with TapCallbacks {
     add(RectangleHitbox());
 
     backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = Palette.grey;
+    backgroundPaint.color = Palette.CONTROLS_CARD_BACKGROUND;
 
     foregroundPaint.style = PaintingStyle.fill;
-    foregroundPaint.color = Palette.orange;
+    foregroundPaint.color = Palette.CONTROLS_CARD_FOREGROUND;
 
     borderUnselectedPaint.style = PaintingStyle.stroke;
     borderUnselectedPaint.strokeWidth = 5;
-    borderUnselectedPaint.color = Palette.white;
+    borderUnselectedPaint.color = Palette.CONTROLS_CARD_UNSELECTED;
 
     borderSelectedPaint.style = PaintingStyle.stroke;
     borderSelectedPaint.strokeWidth = 5;
-    borderSelectedPaint.color = Palette.red;
+    borderSelectedPaint.color = Palette.CONTROLS_CARD_SELECTED;
 
     return super.onLoad();
   }
@@ -200,7 +200,7 @@ class UnitSelectorComponent extends PositionComponent with TapCallbacks {
       text: value.toString(),
       position: size / 2,
       size: size.y / 2,
-      color: Palette.white,
+      color: Palette.CONTROLS_CARD_VALUE,
     );
   }
 }
