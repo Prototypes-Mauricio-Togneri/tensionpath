@@ -18,7 +18,7 @@ class ControlsComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(
-          anchor: Anchor.center,
+          anchor: Anchor.topLeft,
           priority: Priority.controls.value,
         );
 

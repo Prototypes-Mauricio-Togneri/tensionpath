@@ -3,7 +3,6 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/base_area_component.dart';
 import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
@@ -56,32 +55,6 @@ class BattlefieldComponent extends PositionComponent {
         add(node.component);
       }
     }
-
-    final double mapWidth = battlefield.mapSize.x;
-
-    add(BaseAreaComponent(
-      base: battlefield.baseSelf,
-      position: Vector2(
-        mapWidth / 2,
-        size.y + (Constants.UI_BASE_HEIGHT / 2),
-      ),
-      size: Vector2(
-        mapWidth,
-        Constants.UI_CONTROLS_HEIGHT,
-      ),
-    ));
-
-    add(BaseAreaComponent(
-      base: battlefield.baseEnemy,
-      position: Vector2(
-        mapWidth / 2,
-        -Constants.UI_CONTROLS_HEIGHT / 2,
-      ),
-      size: Vector2(
-        mapWidth,
-        Constants.UI_CONTROLS_HEIGHT,
-      ),
-    ));
 
     return super.onLoad();
   }

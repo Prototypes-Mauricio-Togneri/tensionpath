@@ -1,29 +1,34 @@
 import 'dart:async';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/set_fullscreen.dart';
 
-class BaseIndicatorComponent extends PositionComponent {
+class BaseComponent extends PositionComponent with CollisionCallbacks {
   final Base base;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
 
-  BaseIndicatorComponent({
+  BaseComponent({
     required this.base,
     required super.position,
     required super.size,
   }) : super(
-          anchor: Anchor.center,
+          anchor: Anchor.topLeft,
           priority: Priority.base.value,
         );
 
   @override
   FutureOr onLoad() {
+    add(RectangleHitbox());
+
     backgroundPaint.color = Palette.BASE_BACKGROUND;
     foregroundPaint.color = base.color;
 
@@ -42,6 +47,24 @@ class BaseIndicatorComponent extends PositionComponent {
 
     return super.onLoad();
   }
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    if ((other is UnitComponent) && (base.player != other.unit.owner)) {
+      _onUnitCollided(other);
+    }
+
+    super.onCollisionStart(intersectionPoints, other);
+  }
+
+  void _onUnitCollided(UnitComponent unit) =>
+      GameState.instance.onUnitCollidedWithBase(
+        unit: unit,
+        base: base,
+      );
 
   @override
   void render(Canvas canvas) {
