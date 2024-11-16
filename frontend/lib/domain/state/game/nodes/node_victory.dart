@@ -9,7 +9,7 @@ class NodeVictory extends Node {
     required super.id,
     required super.lane,
     required super.position,
-    required super.laneSize,
+    required super.maxNodeSize,
   }) : super(captureRate: Constants.NODE_VICTORY_CAPTURE_RATE);
 
   @override

@@ -10,21 +10,21 @@ abstract class Node extends Ownership with Accumulator {
   final String id;
   final Lane lane;
   final Vector2 position;
-  final double laneSize;
+  final double maxNodeSize;
 
   Node({
     required this.id,
     required this.lane,
     required super.captureRate,
     required this.position,
-    required this.laneSize,
+    required this.maxNodeSize,
   });
 
   GameState get state => GameState.instance;
 
   NodeComponent get component;
 
-  Vector2 get size => Vector2(laneSize * 0.7, laneSize * 0.7);
+  Vector2 get size => Vector2(maxNodeSize, maxNodeSize);
 
   void onTapped() {}
 

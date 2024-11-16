@@ -6,7 +6,7 @@ class NodeInvisible extends Node {
     required super.id,
     required super.lane,
     required super.position,
-    required super.laneSize,
+    required super.maxNodeSize,
   }) : super(captureRate: 0);
 
   @override

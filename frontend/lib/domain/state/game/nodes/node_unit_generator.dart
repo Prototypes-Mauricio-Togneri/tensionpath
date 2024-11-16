@@ -9,7 +9,7 @@ class NodeUnitGenerator extends NodeAccumulator {
     required super.id,
     required super.lane,
     required super.position,
-    required super.laneSize,
+    required super.maxNodeSize,
   }) : super(captureRate: Constants.NODE_UNIT_GENERATOR_CAPTURE_RATE);
 
   @override

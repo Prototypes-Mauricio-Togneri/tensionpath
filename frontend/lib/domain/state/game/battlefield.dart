@@ -56,20 +56,20 @@ class Battlefield {
       NodeInvisible(
         id: 'n1a',
         lane: lane1,
-        position: Vector2(laneWidth * 0.5, laneHeight + maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 0.5, laneHeight + (maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
       NodeChest(
         id: 'n1b',
         lane: lane1,
         position: Vector2(laneWidth * 0.5, laneHeight / 2),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeInvisible(
         id: 'n1c',
         lane: lane1,
-        position: Vector2(laneWidth * 0.5, -maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 0.5, -(maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
     ]);
 
@@ -84,26 +84,26 @@ class Battlefield {
       NodeInvisible(
         id: 'n2a',
         lane: lane2,
-        position: Vector2(laneWidth * 1.5, laneHeight + maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 1.5, laneHeight + (maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
       NodeUnitGenerator(
         id: 'n2b',
         lane: lane2,
         position: Vector2(laneWidth * 1.5, laneHeight * (2 / 3)),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeCreditGenerator(
         id: 'n2c',
         lane: lane2,
         position: Vector2(laneWidth * 1.5, laneHeight * (1 / 3)),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeInvisible(
         id: 'n2d',
         lane: lane2,
-        position: Vector2(laneWidth * 1.5, -maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 1.5, -(maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
     ]);
 
@@ -118,20 +118,20 @@ class Battlefield {
       NodeInvisible(
         id: 'n3a',
         lane: lane3,
-        position: Vector2(laneWidth * 2.5, laneHeight + maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 2.5, laneHeight + (maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
       NodeVictory(
         id: 'n3b',
         lane: lane3,
         position: Vector2(laneWidth * 2.5, laneHeight / 2),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeInvisible(
         id: 'n3c',
         lane: lane3,
-        position: Vector2(laneWidth * 2.5, -maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 2.5, -(maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
     ]);
 
@@ -146,26 +146,26 @@ class Battlefield {
       NodeInvisible(
         id: 'n4a',
         lane: lane4,
-        position: Vector2(laneWidth * 3.5, laneHeight + maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 3.5, laneHeight + (maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
       NodeCreditGenerator(
         id: 'n4b',
         lane: lane4,
         position: Vector2(laneWidth * 3.5, laneHeight * (2 / 3)),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeUnitGenerator(
         id: 'n4c',
         lane: lane4,
         position: Vector2(laneWidth * 3.5, laneHeight * (1 / 3)),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeInvisible(
         id: 'n4d',
         lane: lane4,
-        position: Vector2(laneWidth * 3.5, -maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 3.5, -(maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
     ]);
 
@@ -180,20 +180,20 @@ class Battlefield {
       NodeInvisible(
         id: 'n5a',
         lane: lane5,
-        position: Vector2(laneWidth * 4.5, laneHeight + maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 4.5, laneHeight + (maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
       NodeCheckpoint(
         id: 'n5b',
         lane: lane5,
         position: Vector2(laneWidth * 4.5, laneHeight / 2),
-        laneSize: laneWidth,
+        maxNodeSize: maxNodeSize,
       ),
       NodeInvisible(
         id: 'n5c',
         lane: lane5,
-        position: Vector2(laneWidth * 4.5, -maxNodeSize),
-        laneSize: laneWidth,
+        position: Vector2(laneWidth * 4.5, -(maxUnitSize / 2)),
+        maxNodeSize: maxNodeSize,
       ),
     ]);
 
