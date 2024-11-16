@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -26,6 +27,8 @@ class Unit {
     nextNodeIndex = 0;
     position = Vector2.copy(startingPosition);
   }
+
+  Color get color => owner.color;
 
   Node get nextNode => nodes[nextNodeIndex];
 

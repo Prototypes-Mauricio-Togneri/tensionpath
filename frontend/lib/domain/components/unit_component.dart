@@ -27,7 +27,7 @@ class UnitComponent extends PositionComponent with CollisionCallbacks {
   FutureOr onLoad() {
     add(CircleHitbox());
 
-    backgroundPaint.color = unit.owner.color;
+    backgroundPaint.color = unit.color;
 
     return super.onLoad();
   }
