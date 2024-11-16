@@ -28,8 +28,10 @@ abstract class Node extends Ownership with Accumulator {
 
   void onTapped() {}
 
-  void spawnUnitOfPlayer(Player player) {
-    final int power = player.creditsSelected;
+  void spawnUnitOfPlayer({
+    required Player player,
+    required int power,
+  }) {
     spawnUnit(power);
     player.spendCredits(power);
   }

@@ -1,15 +1,15 @@
+import 'dart:async';
 import 'dart:ui';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class LaneComponent extends PositionComponent with TapCallbacks {
+class LaneComponent extends PositionComponent {
   final Lane lane;
   final Player player;
-  Paint? tappedPaint;
+  Paint? hoverPaint;
 
   LaneComponent({
     required this.lane,
@@ -22,40 +22,33 @@ class LaneComponent extends PositionComponent with TapCallbacks {
         );
 
   @override
-  void onTapDown(TapDownEvent event) {
-    if (player.hasCreditsSelected) {
-      tappedPaint = Paint();
-      tappedPaint!.color = const Color(0x11ffffff);
+  FutureOr onLoad() {
+    add(RectangleHitbox());
+
+    return super.onLoad();
+  }
+
+  void checkHover(Vector2 point) {
+    if (containsPoint(point)) {
+      hoverPaint = Paint();
+      hoverPaint!.color = const Color(0x11ffffff);
+    } else {
+      hoverPaint = null;
     }
   }
 
-  @override
-  void onTapUp(TapUpEvent event) {
-    if (player.hasCreditsSelected) {
-      tappedPaint = null;
-      spawnUnitOfPlayer(player);
-    }
-  }
-
-  void spawnUnitOfPlayer(Player player) {
-    final int power = player.creditsSelected;
-    GameState.instance.onSpawnUnit(
-      lane: lane,
-      player: player,
-      node: lane.nodes.first,
-      power: power,
-    );
-    player.spendCredits(power);
+  void cleanHover() {
+    hoverPaint = null;
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (tappedPaint != null) {
+    if (hoverPaint != null) {
       canvas.drawRect(
         size.toRect(),
-        tappedPaint!,
+        hoverPaint!,
       );
     }
   }

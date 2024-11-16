@@ -3,12 +3,15 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/battlefield_component.dart';
+import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame with HasCollisionDetection {
   final GameState state;
+  final List<LaneComponent> cachedLaneComponents = [];
 
   GameComponent(this.state) : super(world: MatchComponent(state));
 
@@ -36,6 +39,29 @@ class GameComponent extends FlameGame with HasCollisionDetection {
 
   @override
   Color backgroundColor() => Palette.GAME_BACKGROUND;
+
+  Iterable<LaneComponent> get laneComponents {
+    if (cachedLaneComponents.isEmpty) {
+      final BattlefieldComponent battlefieldComponent =
+          world.children.whereType<BattlefieldComponent>().first;
+      cachedLaneComponents
+          .addAll(battlefieldComponent.children.whereType<LaneComponent>());
+    }
+
+    return cachedLaneComponents;
+  }
+
+  void checkHover(Vector2 position) {
+    for (final LaneComponent lane in laneComponents) {
+      lane.checkHover(position);
+    }
+  }
+
+  void cleanHover() {
+    for (final LaneComponent lane in laneComponents) {
+      lane.cleanHover();
+    }
+  }
 
   @override
   void update(double dt) {

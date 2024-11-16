@@ -4,6 +4,9 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
+import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -44,8 +47,8 @@ class ControlsComponent extends PositionComponent {
 
     for (int i = 0; i < 6; i++) {
       final Vector2 position = Vector2(
-        ((i + 1) * cardWidth) + ((i + 2) * horizontalGapSize),
-        verticalGapSize,
+        ((i + 1.5) * cardWidth) + ((i + 2) * horizontalGapSize),
+        verticalGapSize + (cardHeight / 2),
       );
 
       add(UnitSelectorComponent(
@@ -110,13 +113,14 @@ class CreditCounterComponent extends PositionComponent {
   }
 }
 
-class UnitSelectorComponent extends PositionComponent with TapCallbacks {
+class UnitSelectorComponent extends PositionComponent
+    with DragCallbacks, HasGameRef<GameComponent> {
   final Player player;
   final int value;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
-  final Paint borderUnselectedPaint = Paint();
-  final Paint borderSelectedPaint = Paint();
+  final Paint borderPaint = Paint();
+  Vector2 initialPosition = Vector2(0, 0);
 
   UnitSelectorComponent({
     required this.player,
@@ -124,7 +128,7 @@ class UnitSelectorComponent extends PositionComponent with TapCallbacks {
     required super.position,
     required super.size,
   }) : super(
-          anchor: Anchor.topLeft,
+          anchor: Anchor.center,
           priority: Priority.controls.value,
         );
 
@@ -138,22 +142,54 @@ class UnitSelectorComponent extends PositionComponent with TapCallbacks {
     foregroundPaint.style = PaintingStyle.fill;
     foregroundPaint.color = Palette.CONTROLS_CARD_FOREGROUND;
 
-    borderUnselectedPaint.style = PaintingStyle.stroke;
-    borderUnselectedPaint.strokeWidth = 5;
-    borderUnselectedPaint.color = Palette.CONTROLS_CARD_UNSELECTED;
-
-    borderSelectedPaint.style = PaintingStyle.stroke;
-    borderSelectedPaint.strokeWidth = 5;
-    borderSelectedPaint.color = Palette.CONTROLS_CARD_SELECTED;
+    borderPaint.style = PaintingStyle.stroke;
+    borderPaint.strokeWidth = 5;
+    borderPaint.color = Palette.CONTROLS_CARD_BORDER;
 
     return super.onLoad();
   }
 
   @override
-  void onTapUp(TapUpEvent event) {
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+    initialPosition.setFrom(position);
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    position += event.localDelta;
+
+    gameRef.checkHover(absolutePosition);
+  }
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
+    gameRef.cleanHover();
+    position.setFrom(initialPosition);
+
     if (player.credits >= value) {
-      player.selectCredits(value);
+      // check if dropped on a lane or checkpoint
+
+      /*_spawnUnitOfPlayer(
+        player: player,
+        power: value,
+      );*/
     }
+  }
+
+  void spawnUnitOfPlayer({
+    required Lane lane,
+    required Player player,
+    required int power,
+  }) {
+    GameState.instance.onSpawnUnit(
+      lane: lane,
+      player: player,
+      node: lane.nodes.first,
+      power: power,
+    );
+    player.spendCredits(power);
   }
 
   @override
@@ -191,9 +227,7 @@ class UnitSelectorComponent extends PositionComponent with TapCallbacks {
         size.x,
         size.y,
       ),
-      (player.creditsSelected == value)
-          ? borderSelectedPaint
-          : borderUnselectedPaint,
+      borderPaint,
     );
 
     canvas.drawText(

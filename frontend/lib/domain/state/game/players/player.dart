@@ -9,7 +9,6 @@ class Player {
   final int ownershipDirection;
   double credits = 0;
   double creditsExtraRate = 0;
-  int creditsSelected = 0;
 
   static final Player SELF = SelfPlayer(
     id: Constants.PLAYER_SELF,
@@ -27,8 +26,6 @@ class Player {
   });
 
   double get creditsRate => Constants.CREDITS_RATE + creditsExtraRate;
-
-  bool get hasCreditsSelected => creditsSelected > 0;
 
   bool get isSelf => this is SelfPlayer;
 
@@ -50,16 +47,7 @@ class Player {
   }
 
   void spendCredits(int value) {
-    creditsSelected = 0;
     credits -= value;
-  }
-
-  void selectCredits(int value) {
-    if (creditsSelected != value) {
-      creditsSelected = value;
-    } else {
-      creditsSelected = 0;
-    }
   }
 
   @override
