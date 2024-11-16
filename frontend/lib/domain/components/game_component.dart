@@ -56,8 +56,8 @@ class GameComponent extends FlameGame
 
     // Aspect ratio: 19.5/9 = 2.1666
     camera = CameraComponent.withFixedResolution(
-      height: 2166,
-      width: 1000,
+      height: 1820,
+      width: 840,
     );
 
     debugMode = false;

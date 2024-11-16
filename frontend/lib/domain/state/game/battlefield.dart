@@ -193,7 +193,7 @@ class Battlefield {
 
     return Battlefield(
       id: 'vector',
-      mapSize: Vector2(1000, 2500),
+      mapSize: Vector2(840, 2100),
       laneSize: laneSize,
       bases: [
         Base(
