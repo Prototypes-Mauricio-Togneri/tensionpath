@@ -1,9 +1,10 @@
 # Frontend
 
-* Fix resolution problem
-* Add units that shoot
+* Full screen button
+* Drag cards
 
 * Game engine for battle logic
+* Add units that shoot
 * Tap to make unit advance. Tap again to stop
 * Swap card in deck during battle: cost energy
 

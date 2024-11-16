@@ -43,7 +43,7 @@ class BaseIndicatorComponent extends PositionComponent {
     );
 
     canvas.drawText(
-      text: base.player.id,
+      text: base.player.id.toUpperCase(),
       position: size / 2,
       size: size.y / 2,
       color: Palette.BASE_PLAYER_NAME,
