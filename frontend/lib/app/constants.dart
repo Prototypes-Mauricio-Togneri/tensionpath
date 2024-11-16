@@ -9,9 +9,6 @@ class Constants {
   static const double UI_BATTLEFIELD_HEIGHT = 1512;
   static const double UI_BATTLEFIELD_WIDTH = 840;
 
-  static const int PAN_SPEED = 3000;
-  static const int SCROLL_SPEED = 6000;
-
   static const int NEON_EFFECT = 2;
 
   static const double UNIT_SPEED = 151.2;

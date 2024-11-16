@@ -17,7 +17,7 @@ class MatchComponent extends World {
 
     add(BaseComponent(
       base: state.battlefield.baseEnemy,
-      position: Vector2(0, 0),
+      position: Vector2(0, -Constants.UI_BASE_HEIGHT),
       size: Vector2(
         Constants.SCREEN_WIDTH,
         Constants.UI_BASE_HEIGHT,
