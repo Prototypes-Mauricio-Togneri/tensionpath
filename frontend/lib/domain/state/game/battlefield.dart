@@ -160,7 +160,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n4d',
         lane: lane4,
-        position: Vector2(700, -75),
+        position: Vector2(laneWidth * 3.5, -75),
         laneSize: laneWidth,
       ),
     ]);
