@@ -42,7 +42,7 @@ class Battlefield {
   factory Battlefield.vector() {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
-    const double maxNodeSize = laneWidth * 0.75;
+    const double maxNodeSize = laneWidth * 0.7;
     const double maxUnitSize = laneWidth * 0.6;
 
     // ignore: prefer_const_constructors
