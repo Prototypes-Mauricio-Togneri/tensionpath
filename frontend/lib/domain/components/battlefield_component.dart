@@ -97,14 +97,14 @@ class BattlefieldComponent extends PositionComponent {
 
     for (int i = 1; i < battlefield.lanes.length; i++) {
       canvas.drawLine(
-        Offset(i * battlefield.laneSize, 0),
-        Offset(i * battlefield.laneSize, height),
+        Offset(i * battlefield.laneWidth, 0),
+        Offset(i * battlefield.laneWidth, height),
         laneNormalPaint,
       );
 
       canvas.drawLine(
-        Offset(i * battlefield.laneSize, 0),
-        Offset(i * battlefield.laneSize, height),
+        Offset(i * battlefield.laneWidth, 0),
+        Offset(i * battlefield.laneWidth, height),
         laneNeonPaint,
       );
     }

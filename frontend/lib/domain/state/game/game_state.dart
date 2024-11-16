@@ -63,7 +63,7 @@ class GameState {
 
     lane.addUnit(unit);
 
-    final UnitComponent unitComponent = unit.component(battlefield.laneSize);
+    final UnitComponent unitComponent = unit.component(battlefield.maxUnitSize);
     addComponent(unitComponent);
   }
 

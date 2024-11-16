@@ -50,8 +50,8 @@ class Unit {
     lane.removeUnit(this);
   }
 
-  UnitComponent component(double laneSize) => UnitComponent(
+  UnitComponent component(double maxUnitSize) => UnitComponent(
         unit: this,
-        size: Vector2(laneSize * 0.6, laneSize * 0.6),
+        size: Vector2(maxUnitSize, maxUnitSize),
       );
 }
