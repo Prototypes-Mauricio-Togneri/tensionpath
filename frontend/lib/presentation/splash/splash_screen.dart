@@ -11,9 +11,12 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GameContainer(
+    return GameContainer(
       child: Center(
-        child: CircularProgressIndicator(),
+        child: ElevatedButton(
+          onPressed: state.onPlay,
+          child: const Text('PLAY'),
+        ),
       ),
     );
   }

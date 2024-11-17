@@ -96,6 +96,7 @@ class GameState {
     }
   }
 
+  // TODO(momo): Implement match reset
   void _onMatchReset() {}
 
   void _onMatchQuit() => Navigation.pop();
