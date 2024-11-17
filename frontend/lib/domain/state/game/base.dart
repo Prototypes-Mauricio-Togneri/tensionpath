@@ -11,7 +11,7 @@ class Base {
     required this.hp,
   });
 
-  Color get color => player.color.darken(0.3);
+  Color get color => player.color;
 
   void onHit(int value) {
     hp -= value;

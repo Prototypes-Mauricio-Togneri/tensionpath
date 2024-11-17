@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/color_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/set_fullscreen.dart';
 
@@ -15,6 +16,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
   final Base base;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
+  final Paint borderPaint = Paint();
 
   BaseComponent({
     required this.base,
@@ -30,7 +32,11 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     add(RectangleHitbox());
 
     backgroundPaint.color = Palette.BASE_BACKGROUND;
-    foregroundPaint.color = base.color;
+    foregroundPaint.color = base.color.darken(0.3);
+
+    borderPaint.style = PaintingStyle.stroke;
+    borderPaint.strokeWidth = 7;
+    borderPaint.color = base.color.darken(0.1);
 
     if (base.player.isEnemy) {
       add(FullScreenButtonComponent(
@@ -69,6 +75,11 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, width, height),
+      borderPaint,
+    );
 
     canvas.drawRect(
       Rect.fromLTWH(0, 0, width, height),

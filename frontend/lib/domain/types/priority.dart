@@ -4,8 +4,8 @@ enum Priority {
   node(2),
   unit(3),
   damage(4),
-  base(5),
-  controls(6);
+  controls(5),
+  base(6);
 
   final int value;
 

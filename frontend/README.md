@@ -1,7 +1,6 @@
 # Frontend
 
 * Quit and restart
-* Add base border
 * Drag cards
 
 * Game engine for battle logic
