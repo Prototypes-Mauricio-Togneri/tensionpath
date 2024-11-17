@@ -1,6 +1,7 @@
 # Frontend
 
-* Full screen button
+* Quit and restart
+* Add base border
 * Drag cards
 
 * Game engine for battle logic
@@ -48,5 +49,3 @@ Big:
 * 24tiles x 13tiles (312tiles)
 * 1894px x 600px (44%)
 * 79% x 55%
-
-https://github.com/websockets/ws
