@@ -12,6 +12,5 @@ class MatchState extends BaseState {
       enemy: Player.ENEMY,
       battlefield: battlefield,
     );
-    GameState.instance = gameState;
   }
 }

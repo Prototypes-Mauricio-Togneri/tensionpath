@@ -1,7 +1,6 @@
 # Frontend
 
 * Quit and restart
-* Drag cards
 
 * Game engine for battle logic
 * Add units that shoot

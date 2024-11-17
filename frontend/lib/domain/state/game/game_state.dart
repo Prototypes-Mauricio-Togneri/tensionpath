@@ -24,7 +24,9 @@ class GameState {
     required this.self,
     required this.enemy,
     required this.battlefield,
-  });
+  }) {
+    instance = this;
+  }
 
   bool get hasGameComponent => _gameComponent != null;
 
