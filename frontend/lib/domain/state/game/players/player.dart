@@ -11,12 +11,12 @@ class Player {
   double creditsExtraRate = 0;
 
   static Player self() => SelfPlayer(
-    id: Constants.PLAYER_SELF,
+    id: 'self',
     ownershipDirection: 1,
   );
 
   static Player enemy() => ActivePlayer(
-    id: Constants.PLAYER_ENEMY,
+    id: 'enemy',
     ownershipDirection: -1,
   );
 

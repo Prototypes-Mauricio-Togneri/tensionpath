@@ -23,7 +23,4 @@ class Constants {
   static const double NODE_CREDIT_GENERATOR_CAPTURE_RATE = 0.1;
   static const double NODE_UNIT_GENERATOR_CAPTURE_RATE = 0.1;
   static const double NODE_VICTORY_CAPTURE_RATE = 0.01;
-
-  static const String PLAYER_SELF = 'self';
-  static const String PLAYER_ENEMY = 'enemy';
 }
