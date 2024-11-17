@@ -50,7 +50,10 @@ class GameEngine {
     );
 
     lane.addUnit(unit);
+    onUnitCreated(unit);
+  }
 
+  void onUnitCreated(Unit unit) {
     final UnitComponent unitComponent = unit.component(battlefield.maxUnitSize);
     gameComponent.world.add(unitComponent);
   }
