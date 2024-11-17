@@ -31,11 +31,11 @@ class BattlefieldComponent extends PositionComponent {
   FutureOr onLoad() {
     backgroundPaint.color = const Color(0xff222222);
 
-    laneNormalPaint.strokeWidth = 5;
-    laneNormalPaint.color = const Color(0xffffffff);
+    laneNormalPaint.strokeWidth = 1;
+    laneNormalPaint.color = const Color(0x44ffffff);
 
-    laneNeonPaint.strokeWidth = 5;
-    laneNeonPaint.color = const Color(0xffffffff);
+    laneNeonPaint.strokeWidth = 4;
+    laneNeonPaint.color = const Color(0x44ffffff);
     laneNeonPaint.maskFilter = MaskFilter.blur(
       BlurStyle.normal,
       laneNeonPaint.strokeWidth * Constants.NEON_EFFECT,
