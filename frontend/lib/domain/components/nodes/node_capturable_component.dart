@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
@@ -54,7 +55,10 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     if (other is UnitComponent) {
-      node.onTouched(other.unit);
+      engine.onNodeTouched(
+        node: node,
+        unit: other.unit,
+      );
     }
 
     super.onCollisionStart(intersectionPoints, other);
@@ -65,9 +69,9 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
     super.update(dt);
 
     if (node.hasOwner) {
-        backgroundPaint.color = node.owner!.color.withAlpha(100);
-        borderNormalPaint.color = node.owner!.color;
-        borderNeonPaint.color = node.owner!.color;
+      backgroundPaint.color = node.owner!.color.withAlpha(100);
+      borderNormalPaint.color = node.owner!.color;
+      borderNeonPaint.color = node.owner!.color;
     } else {
       backgroundPaint.color = Palette.transparent;
       borderNormalPaint.color = Palette.NODE_NEUTRAL_BORDER;

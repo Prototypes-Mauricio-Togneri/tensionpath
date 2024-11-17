@@ -60,16 +60,14 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     if ((other is UnitComponent) && (base.owner != other.unit.owner)) {
-      _onUnitCollided(other);
+      engine.onUnitCollidedWithBase(
+        unit: other,
+        base: base,
+      );
     }
 
     super.onCollisionStart(intersectionPoints, other);
   }
-
-  void _onUnitCollided(UnitComponent unit) => engine.onUnitCollidedWithBase(
-        unit: unit,
-        base: base,
-      );
 
   @override
   void render(Canvas canvas) {

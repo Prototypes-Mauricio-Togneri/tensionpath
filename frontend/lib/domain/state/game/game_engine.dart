@@ -59,8 +59,20 @@ class GameEngine {
     required UnitComponent unit,
     required Base base,
   }) {
-    unit.destroy();
     base.onHit(unit.unit.hp);
+    onDestroyUnit(unit);
+  }
+
+  void onDestroyUnit(UnitComponent unit) {
+    unit.unit.destroy();
+    gameComponent.world.remove(unit);
+  }
+
+  void onNodeTouched({
+    required Node node,
+    required Unit unit,
+  }) {
+    node.onTouched(unit);
   }
 
   void onBaseDestroyed(Base base) =>

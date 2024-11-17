@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends PositionComponent
@@ -37,12 +38,6 @@ class UnitComponent extends PositionComponent
     position.setFrom(unit.position);
   }
 
-  // TODO(momo): move destroy logic to engine
-  void destroy() {
-    unit.destroy();
-    gameRef.world.remove(this);
-  }
-
   @override
   void onCollisionStart(
     Set<Vector2> intersectionPoints,
@@ -53,13 +48,13 @@ class UnitComponent extends PositionComponent
         other.unit.owner.isEnemy) {
       if (unit.hp > other.unit.hp) {
         unit.reduceHealth(other.unit.hp);
-        other.destroy();
+        engine.onDestroyUnit(other);
       } else if (unit.hp < other.unit.hp) {
         other.unit.reduceHealth(unit.hp);
-        destroy();
+        engine.onDestroyUnit(this);
       } else {
-        destroy();
-        other.destroy();
+        engine.onDestroyUnit(this);
+        engine.onDestroyUnit(other);
       }
     }
 
