@@ -12,11 +12,11 @@ class Ownership {
 
   Ownership({required this.captureRate});
 
+  bool get hasOwner => _owner != null;
+
   Player? get owner => _owner;
 
   bool get hasTouched => _lastTouched != null;
-
-  bool get hasOwner => _owner != null;
 
   double get ownershipValue => _value;
 
