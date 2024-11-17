@@ -16,7 +16,7 @@ class Navigation {
   static void matchScreen({
     required Battlefield battlefield,
   }) =>
-      get.routes.pushReplacement(
+      get.routes.push(
         BasicRoute(
           MatchScreen.instance(
             battlefield: battlefield,

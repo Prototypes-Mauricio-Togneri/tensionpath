@@ -9,7 +9,8 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
-import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
+import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
+import 'package:tensionpath/utils/navigation.dart';
 
 class GameState {
   final Player self;
@@ -83,11 +84,21 @@ class GameState {
     gameComponent.pauseEngine();
 
     if (won) {
-      InfoDialog.won(() {});
+      ConfirmationDialog.won(
+        onAccept: _onMatchReset,
+        onCancel: _onMatchQuit,
+      );
     } else {
-      InfoDialog.lost(() {});
+      ConfirmationDialog.lost(
+        onAccept: _onMatchReset,
+        onCancel: _onMatchQuit,
+      );
     }
   }
+
+  void _onMatchReset() {}
+
+  void _onMatchQuit() => Navigation.pop();
 
   void onNodeCreditsGeneratorCaptured({
     required Node node,
