@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/widgets/game_container.dart';
 
@@ -30,14 +29,8 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (state.gameState.hasGameComponent) {
-      return GameWidget(
-        game: state.gameState.gameComponent,
-      );
-    } else {
-      return GameWidget(
-        game: GameComponent(state.gameState),
-      );
-    }
+    return GameWidget(
+      game: state.gameComponent,
+    );
   }
 }

@@ -8,17 +8,21 @@ import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_checkpoint_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/state/match/match_state.dart';
+import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
+import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class GameComponent extends FlameGame with HasCollisionDetection {
-  final GameState state;
+class GameComponent extends FlameGame
+    with HasCollisionDetection, GameEngineRef {
+  final MatchState matchState;
   final List<LaneComponent> cachedLaneComponents = [];
   final List<NodeComponent> cachedNodeComponents = [];
 
-  GameComponent(this.state) : super(world: MatchComponent(state));
+  GameComponent(this.matchState) : super(world: MatchComponent());
 
   @override
   FutureOr onLoad() {
@@ -31,9 +35,6 @@ class GameComponent extends FlameGame with HasCollisionDetection {
       Constants.SCREEN_WIDTH / 2,
       (Constants.SCREEN_HEIGHT / 2) - Constants.UI_BASE_HEIGHT,
     ));
-
-    debugMode = false;
-    state.setGameComponent(this);
 
     if (debugMode) {
       add(FpsTextComponent());
@@ -109,8 +110,28 @@ class GameComponent extends FlameGame with HasCollisionDetection {
 
   @override
   void update(double dt) {
-    state.update(dt);
+    engine.update(dt);
 
     super.update(dt);
   }
+
+  void onMatchFinished(bool won) {
+    pauseEngine();
+
+    if (won) {
+      ConfirmationDialog.won(
+        onAccept: _onMatchReset,
+        onCancel: _onMatchQuit,
+      );
+    } else {
+      ConfirmationDialog.lost(
+        onAccept: _onMatchReset,
+        onCancel: _onMatchQuit,
+      );
+    }
+  }
+
+  void _onMatchReset() => matchState.restart();
+
+  void _onMatchQuit() => Navigation.pop();
 }

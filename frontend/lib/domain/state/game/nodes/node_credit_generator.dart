@@ -21,7 +21,7 @@ class NodeCreditGenerator extends Node {
 
   @override
   void onOwnerAssigned(Player owner) {
-    state.onNodeCreditsGeneratorCaptured(
+    engine.onNodeCreditsGeneratorCaptured(
       node: this,
       owner: owner,
     );
@@ -29,7 +29,7 @@ class NodeCreditGenerator extends Node {
 
   @override
   void onOwnerUnassigned(Player owner) {
-    state.onNodeCreditsGeneratorLost(
+    engine.onNodeCreditsGeneratorLost(
       node: this,
       owner: owner,
     );

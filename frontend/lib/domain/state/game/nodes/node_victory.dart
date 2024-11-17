@@ -20,5 +20,5 @@ class NodeVictory extends Node {
       );
 
   @override
-  void onOwnerAssigned(Player owner) => state.onNodeVictoryCaptured(this);
+  void onOwnerAssigned(Player owner) => engine.onNodeVictoryCaptured(this);
 }

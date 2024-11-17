@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 
-class Unit {
+class Unit with GameEngineRef {
   final Player owner;
   final Lane lane;
   final List<Node> nodes;

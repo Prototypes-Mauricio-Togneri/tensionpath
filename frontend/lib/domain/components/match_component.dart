@@ -4,19 +4,19 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/base_component.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/game_engine.dart';
 
 class MatchComponent extends World {
-  final GameState state;
-
-  MatchComponent(this.state);
+  MatchComponent();
 
   @override
   FutureOr onLoad() {
-    add(BattlefieldComponent(state.battlefield));
+    final GameEngine engine = GameEngineRef.instance;
+
+    add(BattlefieldComponent(engine.battlefield));
 
     add(BaseComponent(
-      base: state.battlefield.baseEnemy,
+      base: engine.battlefield.baseEnemy,
       position: Vector2(0, -Constants.UI_BASE_HEIGHT),
       size: Vector2(
         Constants.SCREEN_WIDTH,
@@ -25,7 +25,7 @@ class MatchComponent extends World {
     ));
 
     add(BaseComponent(
-      base: state.battlefield.baseSelf,
+      base: engine.battlefield.baseSelf,
       position: Vector2(
         0,
         Constants.SCREEN_HEIGHT -
@@ -39,7 +39,7 @@ class MatchComponent extends World {
     ));
 
     add(ControlsComponent(
-      player: state.self,
+      player: engine.self,
       position: Vector2(
         0,
         Constants.SCREEN_HEIGHT -

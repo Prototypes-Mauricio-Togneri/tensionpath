@@ -1,12 +1,12 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/accumulator.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/ownership.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 
-abstract class Node extends Ownership with Accumulator {
+abstract class Node extends Ownership with Accumulator, GameEngineRef {
   final String id;
   final Lane lane;
   final Vector2 position;
@@ -19,8 +19,6 @@ abstract class Node extends Ownership with Accumulator {
     required this.position,
     required this.maxNodeSize,
   });
-
-  GameState get state => GameState.instance;
 
   NodeComponent get component;
 
@@ -36,7 +34,7 @@ abstract class Node extends Ownership with Accumulator {
     player.spendCredits(power);
   }
 
-  void spawnUnit(int power) => GameState.instance.onSpawnUnit(
+  void spawnUnit(int power) => engine.onSpawnUnit(
         lane: lane,
         player: owner!,
         node: this,

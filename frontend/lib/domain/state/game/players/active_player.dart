@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
@@ -18,21 +17,20 @@ class ActivePlayer extends Player {
   @override
   void takeAction() {
     if (credits >= creditsTarget) {
-      final GameState state = GameState.instance;
-      final int laneIndex = Random().nextInt(state.battlefield.lanes.length);
-      final Lane lane = state.battlefield.lanes[laneIndex];
+      final int laneIndex = Random().nextInt(engine.battlefield.lanes.length);
+      final Lane lane = engine.battlefield.lanes[laneIndex];
       final List<Node> nodes =
           lane.nodesFromPlayer(this).whereType<NodeCheckpoint>().toList();
 
       if (nodes.isNotEmpty) {
-        state.onSpawnUnit(
+        engine.onSpawnUnit(
           lane: lane,
           player: this,
           node: nodes[Random().nextInt(nodes.length)],
           power: creditsTarget,
         );
       } else {
-        state.onSpawnUnit(
+        engine.onSpawnUnit(
           lane: lane,
           player: this,
           node: lane.nodes.last,

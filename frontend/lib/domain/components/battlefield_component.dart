@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
@@ -46,7 +46,7 @@ class BattlefieldComponent extends PositionComponent {
 
       add(LaneComponent(
         lane: lane,
-        player: GameState.instance.self,
+        player: engine.self,
         position: Vector2(i * battlefield.laneWidth, 0),
         size: Vector2(battlefield.laneWidth, battlefield.mapSize.y),
       ));

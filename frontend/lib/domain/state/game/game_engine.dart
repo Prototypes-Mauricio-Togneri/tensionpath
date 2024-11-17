@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
@@ -8,34 +7,20 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
-import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
-import 'package:tensionpath/utils/navigation.dart';
 
-class GameState {
+class GameEngine {
+  final GameComponent gameComponent;
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
-  final MatchState matchState;
-  GameComponent? _gameComponent;
 
-  static late GameState instance;
-
-  GameState({
+  GameEngine({
+    required this.gameComponent,
     required this.self,
     required this.enemy,
     required this.battlefield,
-    required this.matchState,
   }) {
-    instance = this;
-  }
-
-  bool get hasGameComponent => _gameComponent != null;
-
-  GameComponent get gameComponent => _gameComponent!;
-
-  void setGameComponent(GameComponent newGameComponent) {
-    _gameComponent = newGameComponent;
+    GameEngineRef.instance = this;
   }
 
   void update(double dt) {
@@ -67,7 +52,7 @@ class GameState {
     lane.addUnit(unit);
 
     final UnitComponent unitComponent = unit.component(battlefield.maxUnitSize);
-    addComponent(unitComponent);
+    gameComponent.world.add(unitComponent);
   }
 
   void onUnitCollidedWithBase({
@@ -78,29 +63,11 @@ class GameState {
     base.onHit(unit.unit.hp);
   }
 
-  void onBaseDestroyed(Base base) => _gameFinished(base.owner.isEnemy);
+  void onBaseDestroyed(Base base) =>
+      gameComponent.onMatchFinished(base.owner.isEnemy);
 
-  void onNodeVictoryCaptured(Node node) => _gameFinished(node.owner!.isSelf);
-
-  void _gameFinished(bool won) {
-    gameComponent.pauseEngine();
-
-    if (won) {
-      ConfirmationDialog.won(
-        onAccept: _onMatchReset,
-        onCancel: _onMatchQuit,
-      );
-    } else {
-      ConfirmationDialog.lost(
-        onAccept: _onMatchReset,
-        onCancel: _onMatchQuit,
-      );
-    }
-  }
-
-  void _onMatchReset() => matchState.restart();
-
-  void _onMatchQuit() => Navigation.pop();
+  void onNodeVictoryCaptured(Node node) =>
+      gameComponent.onMatchFinished(node.owner!.isSelf);
 
   void onNodeCreditsGeneratorCaptured({
     required Node node,
@@ -124,8 +91,10 @@ class GameState {
   }) {
     player.addCredits(credits);
   }
+}
 
-  void addComponent(Component component) => gameComponent.world.add(component);
+mixin GameEngineRef {
+  static late GameEngine instance;
 
-  void removeComponent(Component unit) => gameComponent.world.remove(unit);
+  GameEngine get engine => instance;
 }

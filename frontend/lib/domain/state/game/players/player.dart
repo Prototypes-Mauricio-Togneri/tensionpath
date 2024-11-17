@@ -1,24 +1,25 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/players/active_player.dart';
 import 'package:tensionpath/domain/state/game/players/self_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class Player {
+class Player with GameEngineRef {
   final String id;
   final int ownershipDirection;
   double credits = 0;
   double creditsExtraRate = 0;
 
   static Player self() => SelfPlayer(
-    id: 'self',
-    ownershipDirection: 1,
-  );
+        id: 'self',
+        ownershipDirection: 1,
+      );
 
   static Player enemy() => ActivePlayer(
-    id: 'enemy',
-    ownershipDirection: -1,
-  );
+        id: 'enemy',
+        ownershipDirection: -1,
+      );
 
   Player({
     required this.id,

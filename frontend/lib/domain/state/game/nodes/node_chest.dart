@@ -40,7 +40,7 @@ class NodeChest extends NodeAccumulator {
   void _claimCredits() {
     final double credits = creditsAccumulated;
 
-    state.onAddCredits(
+    engine.onAddCredits(
       player: owner!,
       credits: credits,
     );

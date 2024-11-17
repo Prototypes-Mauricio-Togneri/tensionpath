@@ -5,10 +5,10 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
-import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/color_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/set_fullscreen.dart';
 
@@ -66,8 +66,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     super.onCollisionStart(intersectionPoints, other);
   }
 
-  void _onUnitCollided(UnitComponent unit) =>
-      GameState.instance.onUnitCollidedWithBase(
+  void _onUnitCollided(UnitComponent unit) => engine.onUnitCollidedWithBase(
         unit: unit,
         base: base,
       );

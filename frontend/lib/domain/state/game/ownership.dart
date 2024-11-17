@@ -1,16 +1,18 @@
 import 'dart:ui';
-import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class Ownership {
+class Ownership with GameEngineRef {
   final double captureRate;
   double _value = 0;
   Player? _owner;
   Player? _lastTouched;
 
-  Ownership({required this.captureRate});
+  Ownership({
+    required this.captureRate,
+  });
 
   bool get hasOwner => _owner != null;
 
@@ -30,7 +32,7 @@ class Ownership {
     }
   }
 
-  bool get isOwned => _owner == GameState.instance.self;
+  bool get isOwned => _owner == engine.self;
 
   bool isOwner(Player player) => _owner == player;
 
