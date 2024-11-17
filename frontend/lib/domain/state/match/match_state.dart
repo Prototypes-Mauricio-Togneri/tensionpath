@@ -4,13 +4,26 @@ import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class MatchState extends BaseState {
-  late final GameState gameState;
+  late GameState gameState;
 
-  MatchState(Battlefield battlefield) {
+  MatchState() {
+    restart();
+  }
+
+  void restart() {
+    final Player self = Player.self();
+    final Player enemy = Player.enemy();
+
     gameState = GameState(
-      self: Player.SELF,
-      enemy: Player.ENEMY,
-      battlefield: battlefield,
+      self: self,
+      enemy: enemy,
+      battlefield: Battlefield.vector(
+        self: self,
+        enemy: enemy,
+      ),
+      matchState: this,
     );
+    
+    notify();
   }
 }

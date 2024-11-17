@@ -1,7 +1,5 @@
 # Frontend
 
-* Quit and restart
-
 * Game engine for battle logic
 * Add units that shoot
 * Tap to make unit advance. Tap again to stop

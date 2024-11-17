@@ -10,12 +10,12 @@ class Player {
   double credits = 0;
   double creditsExtraRate = 0;
 
-  static final Player SELF = SelfPlayer(
+  static Player self() => SelfPlayer(
     id: Constants.PLAYER_SELF,
     ownershipDirection: 1,
   );
 
-  static final Player ENEMY = ActivePlayer(
+  static Player enemy() => ActivePlayer(
     id: Constants.PLAYER_ENEMY,
     ownershipDirection: -1,
   );

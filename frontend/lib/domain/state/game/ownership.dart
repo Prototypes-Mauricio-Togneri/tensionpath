@@ -22,9 +22,9 @@ class Ownership {
 
   Color get color {
     if (ownershipValue > 0) {
-      return Player.SELF.color;
+      return Palette.PLAYER_SELF;
     } else if (ownershipValue < 0) {
-      return Player.ENEMY.color;
+      return Palette.PLAYER_ENEMY;
     } else {
       return Palette.transparent;
     }

@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
@@ -16,6 +17,7 @@ class GameState {
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
+  final MatchState matchState;
   GameComponent? _gameComponent;
 
   static late GameState instance;
@@ -24,6 +26,7 @@ class GameState {
     required this.self,
     required this.enemy,
     required this.battlefield,
+    required this.matchState,
   }) {
     instance = this;
   }
@@ -98,8 +101,7 @@ class GameState {
     }
   }
 
-  // TODO(momo): Implement match reset
-  void _onMatchReset() {}
+  void _onMatchReset() => matchState.restart();
 
   void _onMatchQuit() => Navigation.pop();
 

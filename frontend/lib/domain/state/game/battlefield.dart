@@ -39,7 +39,10 @@ class Battlefield {
     }
   }
 
-  factory Battlefield.vector() {
+  factory Battlefield.vector({
+    required Player self,
+    required Player enemy,
+  }) {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
     const double maxNodeSize = laneWidth * 0.7;
@@ -208,11 +211,11 @@ class Battlefield {
       maxUnitSize: maxUnitSize,
       bases: [
         Base(
-          player: Player.SELF,
+          player: self,
           hp: 100,
         ),
         Base(
-          player: Player.ENEMY,
+          player: enemy,
           hp: 100,
         ),
       ],

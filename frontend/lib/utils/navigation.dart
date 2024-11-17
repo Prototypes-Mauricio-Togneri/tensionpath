@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
@@ -13,14 +12,9 @@ class Navigation {
 
   static void pop<T>([T? result]) => get.routes.pop(result);
 
-  static void matchScreen({
-    required Battlefield battlefield,
-  }) =>
-      get.routes.push(
+  static void matchScreen() => get.routes.push(
         BasicRoute(
-          MatchScreen.instance(
-            battlefield: battlefield,
-          ),
+          MatchScreen.instance(),
           name: 'match',
         ),
       );
