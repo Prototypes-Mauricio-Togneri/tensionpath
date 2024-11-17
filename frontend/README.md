@@ -1,6 +1,10 @@
 # Frontend
 
 * Game engine for battle logic
+    - Collisions:
+        * Unit with base
+        * Unit with unit
+        * Unit with node
 * Add units that shoot
 
 ## Resolution
