@@ -95,11 +95,13 @@ class GameComponent extends FlameGame with HasCollisionDetection {
     return result;
   }
 
-  void cleanHover() {
+  void cleanLaneHover() {
     for (final LaneComponent lane in laneComponents) {
       lane.cleanHover();
     }
+  }
 
+  void cleanNodeHover() {
     for (final NodeComponent node in nodeComponents) {
       node.cleanHover();
     }

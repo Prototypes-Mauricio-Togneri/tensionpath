@@ -160,8 +160,13 @@ class UnitSelectorComponent extends PositionComponent
   void onDragUpdate(DragUpdateEvent event) {
     position += event.localDelta;
 
-    gameRef.checkLaneHover(absolutePosition);
-    gameRef.checkNodeHover(absolutePosition);
+    final Node? nodeHovered = gameRef.checkNodeHover(absolutePosition);
+
+    if (nodeHovered == null) {
+      gameRef.checkLaneHover(absolutePosition);
+    } else {
+      gameRef.cleanLaneHover();
+    }
   }
 
   @override
@@ -171,7 +176,9 @@ class UnitSelectorComponent extends PositionComponent
     final Lane? lane = gameRef.checkLaneHover(absolutePosition);
     final Node? node = gameRef.checkNodeHover(absolutePosition);
 
-    gameRef.cleanHover();
+    gameRef.cleanLaneHover();
+    gameRef.cleanNodeHover();
+
     position.setFrom(initialPosition);
 
     if ((player.credits >= value) && (lane != null)) {
