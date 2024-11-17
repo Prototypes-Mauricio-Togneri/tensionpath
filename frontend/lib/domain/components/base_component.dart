@@ -38,7 +38,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     borderPaint.strokeWidth = 7;
     borderPaint.color = base.color.darken(0.1);
 
-    if (base.player.isEnemy) {
+    if (base.owner.isEnemy) {
       add(FullScreenButtonComponent(
         position: Vector2(
           width - (height / 2),
@@ -59,7 +59,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is UnitComponent) && (base.player != other.unit.owner)) {
+    if ((other is UnitComponent) && (base.owner != other.unit.owner)) {
       _onUnitCollided(other);
     }
 
@@ -92,7 +92,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     );
 
     canvas.drawText(
-      text: base.player.id.toUpperCase(),
+      text: base.owner.id.toUpperCase(),
       position: size / 2,
       size: size.y / 2,
       color: Palette.BASE_PLAYER_NAME,

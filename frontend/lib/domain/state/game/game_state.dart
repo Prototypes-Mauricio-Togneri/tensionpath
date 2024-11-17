@@ -81,7 +81,7 @@ class GameState {
     base.onHit(unit.unit.hp);
   }
 
-  void onBaseDestroyed(Base base) => _gameFinished(base.player.isEnemy);
+  void onBaseDestroyed(Base base) => _gameFinished(base.owner.isEnemy);
 
   void onNodeVictoryCaptured(Node node) => _gameFinished(node.owner!.isSelf);
 

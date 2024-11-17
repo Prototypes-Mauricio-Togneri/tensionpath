@@ -3,15 +3,15 @@ import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class Base {
-  final Player player;
+  final Player owner;
   int hp;
 
   Base({
-    required this.player,
+    required this.owner,
     required this.hp,
   });
 
-  Color get color => player.color;
+  Color get color => owner.color;
 
   void onHit(int value) {
     hp -= value;

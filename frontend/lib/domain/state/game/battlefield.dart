@@ -29,9 +29,9 @@ class Battlefield {
     required this.maxUnitSize,
   });
 
-  Base get baseSelf => bases.where((b) => b.player.isSelf).first;
+  Base get baseSelf => bases.where((b) => b.owner.isSelf).first;
 
-  Base get baseEnemy => bases.where((b) => b.player.isEnemy).first;
+  Base get baseEnemy => bases.where((b) => b.owner.isEnemy).first;
 
   void update(double dt) {
     for (final Lane lane in lanes) {
@@ -211,11 +211,11 @@ class Battlefield {
       maxUnitSize: maxUnitSize,
       bases: [
         Base(
-          player: self,
+          owner: self,
           hp: 100,
         ),
         Base(
-          player: enemy,
+          owner: enemy,
           hp: 100,
         ),
       ],
