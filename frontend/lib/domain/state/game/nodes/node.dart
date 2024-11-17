@@ -24,11 +24,4 @@ abstract class Node extends Ownership with Accumulator, GameEngineRef {
   Vector2 get size => Vector2(maxNodeSize, maxNodeSize);
 
   void onTapped() {}
-
-  void spawnUnit(int power) => engine.onSpawnUnit(
-        lane: lane,
-        player: owner!,
-        node: this,
-        power: power,
-      );
 }

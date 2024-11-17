@@ -31,7 +31,12 @@ class NodeUnitGenerator extends NodeAccumulator {
 
     if (hasOwner && hasCreditsAccumulated) {
       removeAccumulated(1);
-      spawnUnit(1);
+      engine.onSpawnUnit(
+        lane: lane,
+        player: owner!,
+        node: this,
+        power: 1,
+      );
     }
   }
 }
