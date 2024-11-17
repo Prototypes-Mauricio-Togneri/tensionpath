@@ -7,6 +7,7 @@ import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
+import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -159,20 +160,24 @@ class UnitSelectorComponent extends PositionComponent
   void onDragUpdate(DragUpdateEvent event) {
     position += event.localDelta;
 
-    gameRef.checkHover(absolutePosition);
+    gameRef.checkLaneHover(absolutePosition);
+    gameRef.checkNodeHover(absolutePosition);
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
 
-    final Lane? lane = gameRef.checkHover(absolutePosition);
+    final Lane? lane = gameRef.checkLaneHover(absolutePosition);
+    final Node? node = gameRef.checkNodeHover(absolutePosition);
+
     gameRef.cleanHover();
     position.setFrom(initialPosition);
 
     if ((player.credits >= value) && (lane != null)) {
       _spawnUnitOfPlayer(
         lane: lane,
+        node: node,
         player: player,
         power: value,
       );
@@ -181,13 +186,14 @@ class UnitSelectorComponent extends PositionComponent
 
   void _spawnUnitOfPlayer({
     required Lane lane,
+    required Node? node,
     required Player player,
     required int power,
   }) {
     GameState.instance.onSpawnUnit(
       lane: lane,
       player: player,
-      node: lane.nodes.first,
+      node: node ?? lane.nodes.first,
       power: power,
     );
     player.spendCredits(power);

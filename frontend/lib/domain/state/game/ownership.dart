@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/unit.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -28,6 +29,8 @@ class Ownership {
       return Palette.transparent;
     }
   }
+
+  bool get isOwned => _owner == GameState.instance.self;
 
   bool isOwner(Player player) => _owner == player;
 
