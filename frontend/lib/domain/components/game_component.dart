@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
+import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame with HasCollisionDetection {
@@ -51,10 +52,14 @@ class GameComponent extends FlameGame with HasCollisionDetection {
     return cachedLaneComponents;
   }
 
-  void checkHover(Vector2 position) {
+  Lane? checkHover(Vector2 position) {
+    Lane? result;
+
     for (final LaneComponent lane in laneComponents) {
-      lane.checkHover(position);
+      result ??= lane.checkHover(position);
     }
+
+    return result;
   }
 
   void cleanHover() {

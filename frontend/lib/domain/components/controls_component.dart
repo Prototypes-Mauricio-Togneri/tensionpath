@@ -165,20 +165,21 @@ class UnitSelectorComponent extends PositionComponent
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
+
+    final Lane? lane = gameRef.checkHover(absolutePosition);
     gameRef.cleanHover();
     position.setFrom(initialPosition);
 
-    if (player.credits >= value) {
-      // check if dropped on a lane or checkpoint
-
-      /*_spawnUnitOfPlayer(
+    if ((player.credits >= value) && (lane != null)) {
+      _spawnUnitOfPlayer(
+        lane: lane,
         player: player,
         power: value,
-      );*/
+      );
     }
   }
 
-  void spawnUnitOfPlayer({
+  void _spawnUnitOfPlayer({
     required Lane lane,
     required Player player,
     required int power,

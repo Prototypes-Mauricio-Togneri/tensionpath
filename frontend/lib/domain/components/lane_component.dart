@@ -28,12 +28,16 @@ class LaneComponent extends PositionComponent {
     return super.onLoad();
   }
 
-  void checkHover(Vector2 point) {
+  Lane? checkHover(Vector2 point) {
     if (containsPoint(point)) {
       hoverPaint = Paint();
       hoverPaint!.color = const Color(0x11ffffff);
+
+      return lane;
     } else {
       hoverPaint = null;
+
+      return null;
     }
   }
 
