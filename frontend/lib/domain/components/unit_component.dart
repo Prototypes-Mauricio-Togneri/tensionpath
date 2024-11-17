@@ -48,13 +48,13 @@ class UnitComponent extends PositionComponent
         other.unit.owner.isEnemy) {
       if (unit.hp > other.unit.hp) {
         unit.reduceHealth(other.unit.hp);
-        engine.onDestroyUnit(other);
+        engine.onDestroyUnit(other.unit);
       } else if (unit.hp < other.unit.hp) {
         other.unit.reduceHealth(unit.hp);
-        engine.onDestroyUnit(this);
+        engine.onDestroyUnit(unit);
       } else {
-        engine.onDestroyUnit(this);
-        engine.onDestroyUnit(other);
+        engine.onDestroyUnit(unit);
+        engine.onDestroyUnit(other.unit);
       }
     }
 

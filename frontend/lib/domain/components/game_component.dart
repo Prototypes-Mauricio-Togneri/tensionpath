@@ -3,14 +3,15 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_checkpoint_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
@@ -48,10 +49,7 @@ class GameComponent extends FlameGame
 
   Iterable<LaneComponent> get laneComponents {
     if (cachedLaneComponents.isEmpty) {
-      final BattlefieldComponent battlefieldComponent =
-          world.children.whereType<BattlefieldComponent>().first;
-      cachedLaneComponents
-          .addAll(battlefieldComponent.children.whereType<LaneComponent>());
+      cachedLaneComponents.addAll(world.children.whereType<LaneComponent>());
     }
 
     return cachedLaneComponents;
@@ -59,14 +57,15 @@ class GameComponent extends FlameGame
 
   Iterable<NodeComponent> get nodeComponents {
     if (cachedNodeComponents.isEmpty) {
-      final BattlefieldComponent battlefieldComponent =
-          world.children.whereType<BattlefieldComponent>().first;
-      cachedNodeComponents.addAll(
-          battlefieldComponent.children.whereType<NodeCheckpointComponent>());
+      cachedNodeComponents
+          .addAll(world.children.whereType<NodeCheckpointComponent>());
     }
 
     return cachedNodeComponents;
   }
+
+  Iterable<UnitComponent> get unitComponents =>
+      world.children.whereType<UnitComponent>();
 
   Lane? checkLaneHover(Vector2 position) {
     Lane? result;
@@ -105,6 +104,19 @@ class GameComponent extends FlameGame
   void cleanNodeHover() {
     for (final NodeComponent node in nodeComponents) {
       node.cleanHover();
+    }
+  }
+
+  void onUnitCreated(UnitComponent unitComponent) {
+    world.add(unitComponent);
+  }
+
+  void onUnitDestroyed(Unit unit) {
+    for (final UnitComponent unitComponent in unitComponents) {
+      if (unitComponent.unit == unit) {
+        world.remove(unitComponent);
+        break;
+      }
     }
   }
 

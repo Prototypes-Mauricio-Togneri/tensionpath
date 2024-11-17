@@ -10,7 +10,7 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 
-class BattlefieldComponent extends PositionComponent {
+class BattlefieldComponent extends PositionComponent with HasGameRef {
   final Battlefield battlefield;
   final Paint backgroundPaint = Paint();
   final Paint laneNormalPaint = Paint();
@@ -44,7 +44,7 @@ class BattlefieldComponent extends PositionComponent {
     for (int i = 0; i < battlefield.lanes.length; i++) {
       final Lane lane = battlefield.lanes[i];
 
-      add(LaneComponent(
+      gameRef.world.add(LaneComponent(
         lane: lane,
         player: engine.self,
         position: Vector2(i * battlefield.laneWidth, 0),
@@ -52,7 +52,7 @@ class BattlefieldComponent extends PositionComponent {
       ));
 
       for (final Node node in lane.nodes) {
-        add(node.component);
+        gameRef.world.add(node.component);
       }
     }
 

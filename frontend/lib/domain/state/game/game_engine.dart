@@ -55,20 +55,20 @@ class GameEngine {
 
   void onUnitCreated(Unit unit) {
     final UnitComponent unitComponent = unit.component(battlefield.maxUnitSize);
-    gameComponent.world.add(unitComponent);
+    gameComponent.onUnitCreated(unitComponent);
   }
 
   void onUnitCollidedWithBase({
-    required UnitComponent unit,
+    required Unit unit,
     required Base base,
   }) {
-    base.onHit(unit.unit.hp);
+    base.onHit(unit.hp);
     onDestroyUnit(unit);
   }
 
-  void onDestroyUnit(UnitComponent unit) {
-    unit.unit.destroy();
-    gameComponent.world.remove(unit);
+  void onDestroyUnit(Unit unit) {
+    unit.destroy();
+    gameComponent.onUnitDestroyed(unit);
   }
 
   void onNodeTouched({
