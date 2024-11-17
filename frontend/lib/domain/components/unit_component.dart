@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/game_state.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';

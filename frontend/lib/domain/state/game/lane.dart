@@ -1,6 +1,6 @@
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/game/units/unit.dart';
 
 class Lane {
   final String id;

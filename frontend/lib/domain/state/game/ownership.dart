@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:tensionpath/domain/state/game/game_state.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Ownership {

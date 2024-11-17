@@ -7,8 +7,7 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/specs/unit_specs.dart';
-import 'package:tensionpath/domain/state/game/unit.dart';
+import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
@@ -57,10 +56,8 @@ class GameState {
     );
 
     final Unit unit = Unit(
-      specs: UnitSpecs(
-        speed: Constants.UNIT_SPEED,
-        power: power,
-      ),
+      hp: power,
+      speed: Constants.UNIT_SPEED,
       owner: player,
       lane: lane,
       nodes: nodes.sublist(1, nodes.length),
