@@ -2,12 +2,6 @@
 
 * Game engine for battle logic
 * Add units that shoot
-* Tap to make unit advance. Tap again to stop
-* Swap card in deck during battle: cost energy
-
-## Changing lanes
-* Pro: More complex maps
-* Con: Hard to detect in which lane a unit is placed
 
 ## Resolution
 
