@@ -145,7 +145,6 @@ class UnitSelectorComponent extends PositionComponent
 
     borderPaint.style = PaintingStyle.stroke;
     borderPaint.strokeWidth = 5;
-    borderPaint.color = Palette.CONTROLS_CARD_BORDER;
 
     return super.onLoad();
   }
@@ -234,6 +233,11 @@ class UnitSelectorComponent extends PositionComponent
       foregroundPaint,
     );
 
+    final Color cardColor =
+        fillValue == 1 ? player.color : Palette.CONTROLS_CARD_VALUE;
+
+    borderPaint.color = cardColor;
+
     canvas.drawRect(
       Rect.fromLTWH(
         0,
@@ -248,7 +252,7 @@ class UnitSelectorComponent extends PositionComponent
       text: value.toString(),
       position: size / 2,
       size: size.y / 2,
-      color: Palette.CONTROLS_CARD_VALUE,
+      color: cardColor,
     );
   }
 }

@@ -17,7 +17,6 @@ class Palette {
   static const Color CONTROLS_CARD_BACKGROUND = Colors.grey;
   static const Color CONTROLS_CARD_FOREGROUND = Colors.orange;
   static const Color CONTROLS_CARD_VALUE = Colors.white;
-  static const Color CONTROLS_CARD_BORDER = Colors.white;
 
   static const Color NODE_NEUTRAL_BORDER = Colors.white;
   static const Color NODE_NEUTRAL_FOREGROUND = Colors.white;
