@@ -59,7 +59,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n1a',
         lane: lane1,
-        position: Vector2(laneWidth * 0.5, laneHeight + (maxUnitSize / 2)),
+        position: Vector2(laneWidth * 0.5, laneHeight),
         maxNodeSize: maxNodeSize,
       ),
       NodeChest(
@@ -71,7 +71,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n1c',
         lane: lane1,
-        position: Vector2(laneWidth * 0.5, -(maxUnitSize / 2)),
+        position: Vector2(laneWidth * 0.5, 0),
         maxNodeSize: maxNodeSize,
       ),
     ]);
@@ -87,7 +87,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n2a',
         lane: lane2,
-        position: Vector2(laneWidth * 1.5, laneHeight + (maxUnitSize / 2)),
+        position: Vector2(laneWidth * 1.5, laneHeight),
         maxNodeSize: maxNodeSize,
       ),
       NodeUnitGenerator(
@@ -105,7 +105,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n2d',
         lane: lane2,
-        position: Vector2(laneWidth * 1.5, -(maxUnitSize / 2)),
+        position: Vector2(laneWidth * 1.5, 0),
         maxNodeSize: maxNodeSize,
       ),
     ]);
@@ -121,7 +121,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n3a',
         lane: lane3,
-        position: Vector2(laneWidth * 2.5, laneHeight + (maxUnitSize / 2)),
+        position: Vector2(laneWidth * 2.5, laneHeight),
         maxNodeSize: maxNodeSize,
       ),
       NodeVictory(
@@ -133,7 +133,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n3c',
         lane: lane3,
-        position: Vector2(laneWidth * 2.5, -(maxUnitSize / 2)),
+        position: Vector2(laneWidth * 2.5, 0),
         maxNodeSize: maxNodeSize,
       ),
     ]);
@@ -149,7 +149,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n4a',
         lane: lane4,
-        position: Vector2(laneWidth * 3.5, laneHeight + (maxUnitSize / 2)),
+        position: Vector2(laneWidth * 3.5, laneHeight),
         maxNodeSize: maxNodeSize,
       ),
       NodeCreditGenerator(
@@ -167,7 +167,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n4d',
         lane: lane4,
-        position: Vector2(laneWidth * 3.5, -(maxUnitSize / 2)),
+        position: Vector2(laneWidth * 3.5, 0),
         maxNodeSize: maxNodeSize,
       ),
     ]);
@@ -183,7 +183,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n5a',
         lane: lane5,
-        position: Vector2(laneWidth * 4.5, laneHeight + (maxUnitSize / 2)),
+        position: Vector2(laneWidth * 4.5, laneHeight),
         maxNodeSize: maxNodeSize,
       ),
       NodeCheckpoint(
@@ -195,7 +195,7 @@ class Battlefield {
       NodeInvisible(
         id: 'n5c',
         lane: lane5,
-        position: Vector2(laneWidth * 4.5, -(maxUnitSize / 2)),
+        position: Vector2(laneWidth * 4.5, 0),
         maxNodeSize: maxNodeSize,
       ),
     ]);

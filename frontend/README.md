@@ -1,7 +1,6 @@
 # Frontend
 
 * Move launcher
-* 3 lanes centered
 * Add units that shoot
 
 ## Resolution
