@@ -1,8 +1,7 @@
 # Frontend
 
-* 3 lanes centered
-* Ui only informs
 * Move launcher
+* 3 lanes centered
 * Add units that shoot
 
 ## Resolution
