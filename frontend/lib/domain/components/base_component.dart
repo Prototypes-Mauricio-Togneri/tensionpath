@@ -133,7 +133,7 @@ class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
     );
 
     canvas.drawText(
-      text: 'F',
+      text: '⌞ ⌝',
       position: size / 2,
       size: size.y / 2,
       color: Palette.BASE_PLAYER_NAME,
