@@ -66,6 +66,22 @@ class GameEngine {
     onDestroyUnit(unit);
   }
 
+  void onUnitsCollided({
+    required Unit unit1,
+    required Unit unit2,
+  }) {
+    if (unit1.hp > unit2.hp) {
+      unit1.reduceHealth(unit2.hp);
+      onDestroyUnit(unit2);
+    } else if (unit1.hp < unit2.hp) {
+      unit2.reduceHealth(unit1.hp);
+      onDestroyUnit(unit1);
+    } else {
+      onDestroyUnit(unit1);
+      onDestroyUnit(unit2);
+    }
+  }
+
   void onDestroyUnit(Unit unit) {
     unit.destroy();
     gameComponent.onUnitDestroyed(unit);

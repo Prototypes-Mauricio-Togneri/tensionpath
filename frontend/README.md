@@ -1,10 +1,8 @@
 # Frontend
 
-* Game engine for battle logic
-    - Collisions:
-        * Unit with base
-        * Unit with unit
-        * Unit with node
+* 3 lanes centered
+* Ui only informs
+* Move launcher
 * Add units that shoot
 
 ## Resolution

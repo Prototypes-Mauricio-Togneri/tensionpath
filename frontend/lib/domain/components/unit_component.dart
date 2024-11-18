@@ -46,16 +46,10 @@ class UnitComponent extends PositionComponent
     if ((other is UnitComponent) &&
         unit.owner.isSelf &&
         other.unit.owner.isEnemy) {
-      if (unit.hp > other.unit.hp) {
-        unit.reduceHealth(other.unit.hp);
-        engine.onDestroyUnit(other.unit);
-      } else if (unit.hp < other.unit.hp) {
-        other.unit.reduceHealth(unit.hp);
-        engine.onDestroyUnit(unit);
-      } else {
-        engine.onDestroyUnit(unit);
-        engine.onDestroyUnit(other.unit);
-      }
+      engine.onUnitsCollided(
+        unit1: unit,
+        unit2: other.unit,
+      );
     }
 
     super.onCollisionStart(intersectionPoints, other);
