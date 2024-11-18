@@ -1,6 +1,5 @@
 # Frontend
 
-* Move launcher
 * Add units that shoot
 
 ## Resolution

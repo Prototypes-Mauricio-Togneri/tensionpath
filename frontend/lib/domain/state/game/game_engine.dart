@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
@@ -40,13 +41,18 @@ class GameEngine {
       from: node,
     );
 
+    final double extraGap =
+        -player.ownershipDirection * (battlefield.maxUnitSize / 2);
+    final Vector2 startingPosition = Vector2.copy(nodes.first.position);
+    startingPosition.add(Vector2(0, extraGap));
+
     final Unit unit = Unit(
       hp: power,
       speed: Constants.UNIT_SPEED,
       owner: player,
       lane: lane,
       nodes: nodes.sublist(1, nodes.length),
-      startingPosition: nodes.first.position,
+      startingPosition: startingPosition,
     );
 
     lane.addUnit(unit);
