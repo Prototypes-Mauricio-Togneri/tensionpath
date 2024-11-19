@@ -19012,17 +19012,19 @@ _.b=0
 _.d=_.c=null},
 CT:function CT(){},
 J4:function J4(){},
-NW:function NW(a,b){var _=this
-_.e=$
+NW:function NW(a,b,c){var _=this
+_.f=$
 _.a=a
 _.b=b
-_.d=_.c=0},
+_.c=c
+_.e=_.d=0},
 D2:function D2(){},
 J8:function J8(){},
-dl:function dl(a,b){var _=this
+dl:function dl(a,b,c){var _=this
 _.a=a
 _.b=b
-_.d=_.c=0},
+_.c=c
+_.e=_.d=0},
 Fn:function Fn(a,b,c,d,e){var _=this
 _.a=a
 _.b=b
@@ -56815,7 +56817,7 @@ s=p.ax
 r=s.bI(0,2).a
 q=s.a
 a.e5(new A.A(r[0],r[1]),q[0]/2,p.ok)
-r=B.f.i(B.c.hi(p.k4.c))
+r=B.f.i(B.c.hi(p.k4.d))
 A.n0(a,B.i,s.bI(0,2),q[0]/2,r)}}
 A.Fo.prototype={
 bm(a){var s,r=this
@@ -56848,16 +56850,16 @@ s.bn(n.p4)
 s.W()
 s=n.k4
 p=n.ok
-if(s.c>=p&&r!=null){o=$.cf.ai()
+if(s.d>=p&&r!=null){o=$.cf.ai()
 o.r9(r,q==null?B.b.gI(r.b):q,s,p)
-s.c-=p}},
+s.d-=p}},
 co(a){var s,r,q,p,o,n,m,l=this
 l.ft(a)
 s=l.ax
 r=s.a
 a.cQ(new A.E(0,0,0+r[0],0+r[1]),l.p1)
 q=l.ok
-p=B.c.e0(1-(q-l.k4.c),0,1)
+p=B.c.e0(1-(q-l.k4.d),0,1)
 o=r[1]
 n=o*p
 o-=n
@@ -57310,8 +57312,8 @@ if(s!=null&&!(s instanceof A.dl)&&Math.floor(r.dq$)>0)r.AO()},
 AO(){var s,r,q=Math.floor(this.dq$)
 $.cf.ai()
 s=this.c
-r=s.c+=q
-s.c=B.c.e0(r,0,10)
+r=s.d+=q
+s.d=B.c.e0(r,0,10)
 this.dq$-=q}}
 A.Cw.prototype={
 gl4(){var s,r,q,p,o,n,m=this,l=null,k=m.r,j=m.w,i=new A.y(new Float64Array(2))
@@ -57332,9 +57334,9 @@ j.cB(B.r,l,l,l,0,k,2,l,i)
 j.mh(m,k,i)
 return j},
 r3(a){$.cf.ai()
-a.d+=0.15},
+a.e+=0.15},
 HU(a){$.cf.ai()
-a.d-=0.15}}
+a.e-=0.15}}
 A.Cz.prototype={
 gl4(){var s=this.w,r=new A.y(new Float64Array(2))
 r.X(s,s)
@@ -57406,7 +57408,7 @@ r3(a){},
 HU(a){}}
 A.J4.prototype={}
 A.NW.prototype={
-IG(){var s,r,q,p=this,o=p.c,n=p.e
+IG(){var s,r,q,p=this,o=p.d,n=p.f
 n===$&&A.c()
 if(o>=n){$.cf.ai()
 s=B.eF.xG(5)
@@ -57415,23 +57417,23 @@ o=t.oC
 q=A.a1(new A.bG(r.a_D(p),o),!0,o.h("h.E"))
 o=q.length
 if(o!==0){n=$.cf.ai()
-n.r9(r,q[B.eF.xG(o)],p,p.e)}else $.cf.ai().r9(r,B.b.gV(r.b),p,p.e)
-p.c-=p.e
+n.r9(r,q[B.eF.xG(o)],p,p.f)}else $.cf.ai().r9(r,B.b.gV(r.b),p,p.f)
+p.d-=p.f
 p.Dh()}},
 Dh(){var s=this,r=B.eF.xG(21)+1
-if(r<=6)s.e=1
-else if(r<=11)s.e=2
-else if(r<=15)s.e=3
-else if(r<=18)s.e=4
-else if(r<=20)s.e=5
-else s.e=6}}
+if(r<=6)s.f=1
+else if(r<=11)s.f=2
+else if(r<=15)s.f=3
+else if(r<=18)s.f=4
+else if(r<=20)s.f=5
+else s.f=6}}
 A.D2.prototype={
 k(a,b){if(b==null)return!1
 return b instanceof A.D2&&this.a===b.a},
 gt(a){return B.d.gt(this.a)},
-af(a,b){var s=this,r=s.c+(0.3+s.d)*b
-s.c=r
-s.c=B.c.e0(r,0,10)
+af(a,b){var s=this,r=s.d+(s.c+s.e)*b
+s.d=r
+s.d=B.c.e0(r,0,10)
 s.IG()},
 IG(){}}
 A.J8.prototype={}
@@ -57453,8 +57455,8 @@ o=A.apT(A.aun(),t.cV)
 d=new A.fa(g,d,c,new A.v2(a,a0,new A.zB(a3),a2,t.jt),b,s,r,q,$,f,f,f,$,!1,!1,$,B.eD,p,!1,o,A.aj(a1),A.aj(t.av),0,f,new A.at([]),new A.at([]))
 d.ND(f,f,b,t.u6)
 g.b=d
-n=new A.dl("self",1)
-m=new A.NW("enemy",-1)
+n=new A.dl("self",1,0.3)
+m=new A.NW("enemy",-1,0.6)
 m.Dh()
 d=g.b
 c=t.f2
