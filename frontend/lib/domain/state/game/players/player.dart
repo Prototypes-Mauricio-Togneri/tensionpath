@@ -8,25 +8,29 @@ import 'package:tensionpath/utils/palette.dart';
 class Player with GameEngineRef {
   final String id;
   final int ownershipDirection;
+  final double baseCreditsRate;
   double credits = 0;
   double creditsExtraRate = 0;
 
   static Player self() => SelfPlayer(
         id: 'self',
         ownershipDirection: 1,
+        baseCreditsRate: Constants.CREDITS_RATE,
       );
 
   static Player enemy() => ActivePlayer(
         id: 'enemy',
         ownershipDirection: -1,
+        baseCreditsRate: Constants.CREDITS_RATE * 2,
       );
 
   Player({
     required this.id,
     required this.ownershipDirection,
+    required this.baseCreditsRate,
   });
 
-  double get creditsRate => Constants.CREDITS_RATE + creditsExtraRate;
+  double get creditsRate => baseCreditsRate + creditsExtraRate;
 
   bool get isSelf => this is SelfPlayer;
 

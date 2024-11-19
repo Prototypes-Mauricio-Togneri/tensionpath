@@ -10,6 +10,7 @@ class ActivePlayer extends Player {
   ActivePlayer({
     required super.id,
     required super.ownershipDirection,
+    required super.baseCreditsRate,
   }) {
     _recalculateCredits();
   }

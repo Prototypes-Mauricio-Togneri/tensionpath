@@ -4,5 +4,6 @@ class SelfPlayer extends Player {
   SelfPlayer({
     required super.id,
     required super.ownershipDirection,
+    required super.baseCreditsRate,
   });
 }
