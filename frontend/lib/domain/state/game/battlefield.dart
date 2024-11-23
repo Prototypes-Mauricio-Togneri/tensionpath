@@ -215,12 +215,12 @@ class Battlefield {
         Base(
           owner: self,
           yPosition: Constants.UI_BATTLEFIELD_HEIGHT,
-          health: 100,
+          health: Constants.BASE_MAX_HEALTH,
         ),
         Base(
           owner: enemy,
           yPosition: 0,
-          health: 100,
+          health: Constants.BASE_MAX_HEALTH,
         ),
       ],
       lanes: [

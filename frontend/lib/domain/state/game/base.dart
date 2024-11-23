@@ -1,4 +1,5 @@
 import 'package:flame/palette.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -21,7 +22,7 @@ class Base with GameEngineRef implements Target {
   @override
   void onHit(double value) {
     health -= value;
-    health = health.clamp(0, 100);
+    health = health.clamp(0, Constants.BASE_MAX_HEALTH);
 
     if (health <= 0) {
       engine.onBaseDestroyed(this);

@@ -21,4 +21,6 @@ class Constants {
   static const double NODE_CREDIT_GENERATOR_CAPTURE_RATE = 0.1;
   static const double NODE_UNIT_GENERATOR_CAPTURE_RATE = 0.1;
   static const double NODE_VICTORY_CAPTURE_RATE = 0.01;
+
+  static const double BASE_MAX_HEALTH = 1000;
 }

@@ -3,6 +3,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -86,12 +87,13 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     );
 
     canvas.drawRect(
-      Rect.fromLTWH(0, 0, width * (base.health / 100), height),
+      Rect.fromLTWH(
+          0, 0, width * (base.health / Constants.BASE_MAX_HEALTH), height),
       foregroundPaint,
     );
 
     canvas.drawText(
-      text: base.owner.id.toUpperCase(),
+      text: '${base.owner.id.toUpperCase()} (${base.health.toInt()})',
       position: size / 2,
       size: size.y / 2,
       color: Palette.BASE_PLAYER_NAME,
