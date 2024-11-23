@@ -134,6 +134,13 @@ class GameEngine {
     required Unit source,
     required double distance,
   }) {
+    final Base base = battlefield.baseOppositeOf(source.owner);
+    final double distanceToBase = (base.yPosition - source.position.y).abs();
+
+    if (distanceToBase <= distance) {
+      return base;
+    }
+
     for (final Lane lane in battlefield.lanes) {
       for (final Unit unit in lane.units) {
         if (unit.owner != source.owner) {
@@ -148,11 +155,6 @@ class GameEngine {
         }
       }
     }
-
-    final Base base = battlefield.baseOppositeOf(source.owner);
-    final double distanceToBase = (base.yPosition - source.position.y).abs();
-
-    if (distanceToBase <= distance) {}
 
     return null;
   }

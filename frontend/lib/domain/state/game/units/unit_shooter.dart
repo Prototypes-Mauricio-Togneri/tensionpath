@@ -29,6 +29,8 @@ class UnitShooter extends Unit {
 
   @override
   void update(double dt) {
+    weapon.update(dt);
+
     if ((target == null) || !target!.isAlive) {
       target = findTarget();
     }
