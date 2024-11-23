@@ -36,7 +36,7 @@ class NodeUnitGenerator extends NodeAccumulator {
         lane: lane,
         player: owner!,
         node: this,
-        unitType: UnitType.melee1,
+        unitType: UnitType.shooter1,
       );
     }
   }

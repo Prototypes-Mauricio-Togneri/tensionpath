@@ -1,45 +1,45 @@
 enum UnitType {
-  melee1(
+  shooter1(
     cost: 1,
     health: 1,
     power: 1,
     speed: 151.2,
-    range: -100,
+    range: 200,
   ),
   shooter2(
     cost: 2,
     health: 2,
     power: 2,
     speed: 151.2,
-    range: 200,
+    range: 250,
   ),
-  melee3(
+  shooter3(
     cost: 3,
     health: 3,
     power: 3,
     speed: 151.2,
-    range: -100,
+    range: 300,
   ),
   shooter4(
     cost: 4,
     health: 4,
     power: 4,
     speed: 151.2,
-    range: 300,
+    range: 350,
   ),
-  melee5(
+  shooter5(
     cost: 5,
     health: 5,
     power: 5,
     speed: 151.2,
-    range: -100,
+    range: 400,
   ),
   shooter6(
     cost: 6,
     health: 6,
     power: 6,
     speed: 151.2,
-    range: 400,
+    range: 450,
   );
 
   final int cost;

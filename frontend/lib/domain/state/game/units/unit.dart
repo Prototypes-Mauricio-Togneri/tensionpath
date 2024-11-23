@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/units/unit_melee.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -77,21 +76,11 @@ abstract class Unit with GameEngineRef {
     required Vector2 startingPosition,
   }) {
     switch (unitType) {
-      case UnitType.melee1:
-      case UnitType.melee3:
-      case UnitType.melee5:
-        return UnitMelee(
-          hp: unitType.health,
-          speed: unitType.speed,
-          power: unitType.power,
-          range: unitType.range,
-          owner: owner,
-          lane: lane,
-          nodes: nodes,
-          startingPosition: startingPosition,
-        );
+      case UnitType.shooter1:
       case UnitType.shooter2:
+      case UnitType.shooter3:
       case UnitType.shooter4:
+      case UnitType.shooter5:
       case UnitType.shooter6:
         return UnitShooter(
           hp: unitType.health,
