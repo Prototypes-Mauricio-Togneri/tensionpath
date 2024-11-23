@@ -18,7 +18,9 @@ class UnitMeleeComponent extends UnitComponent {
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox());
+    add(CircleHitbox(
+      isSolid: true,
+    ));
 
     backgroundPaint.color = unit.color;
 
@@ -30,7 +32,7 @@ class UnitMeleeComponent extends UnitComponent {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is UnitMeleeComponent) &&
+    if ((other is UnitComponent) &&
         unit.owner.isSelf &&
         other.unit.owner.isEnemy) {
       engine.onUnitsCollided(

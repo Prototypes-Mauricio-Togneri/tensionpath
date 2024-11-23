@@ -18,7 +18,9 @@ class DamageComponent extends PositionComponent with CollisionCallbacks {
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox());
+    add(CircleHitbox(
+      isSolid: true,
+    ));
 
     return super.onLoad();
   }

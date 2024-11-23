@@ -136,7 +136,9 @@ class UnitSelectorComponent extends PositionComponent
 
   @override
   FutureOr onLoad() {
-    add(RectangleHitbox());
+    add(RectangleHitbox(
+      isSolid: true,
+    ));
 
     backgroundPaint.style = PaintingStyle.fill;
     backgroundPaint.color = Palette.CONTROLS_CARD_BACKGROUND;

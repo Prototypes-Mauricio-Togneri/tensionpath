@@ -29,7 +29,9 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
 
   @override
   FutureOr onLoad() {
-    add(RectangleHitbox());
+    add(RectangleHitbox(
+      isSolid: true,
+    ));
 
     backgroundPaint.color = Palette.BASE_BACKGROUND;
     foregroundPaint.color = base.color.darken(0.3);

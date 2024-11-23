@@ -44,7 +44,9 @@ class NodeCapturableComponent extends NodeComponent with CollisionCallbacks {
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox());
+    add(CircleHitbox(
+      isSolid: true,
+    ));
 
     return super.onLoad();
   }

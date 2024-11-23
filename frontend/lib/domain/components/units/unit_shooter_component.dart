@@ -18,7 +18,9 @@ class UnitShooterComponent extends UnitComponent {
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox());
+    add(CircleHitbox(
+      isSolid: true,
+    ));
 
     backgroundPaint.color = unit.color;
 
@@ -30,7 +32,7 @@ class UnitShooterComponent extends UnitComponent {
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is UnitShooterComponent) &&
+    if ((other is UnitComponent) &&
         unit.owner.isSelf &&
         other.unit.owner.isEnemy) {
       engine.onUnitsCollided(
