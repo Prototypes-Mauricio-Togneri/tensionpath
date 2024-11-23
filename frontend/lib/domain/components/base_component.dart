@@ -86,7 +86,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     );
 
     canvas.drawRect(
-      Rect.fromLTWH(0, 0, width * (base.hp / 100), height),
+      Rect.fromLTWH(0, 0, width * (base.health / 100), height),
       foregroundPaint,
     );
 

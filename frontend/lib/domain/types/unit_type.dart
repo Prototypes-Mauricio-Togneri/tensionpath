@@ -1,58 +1,60 @@
+import 'package:tensionpath/domain/types/weapon_type.dart';
+
 enum UnitType {
   shooter1(
     cost: 1,
-    health: 1,
-    power: 1,
+    health: 100,
     speed: 151.2,
     range: 200,
+    weaponType: WeaponType.shooter,
   ),
   shooter2(
     cost: 2,
-    health: 2,
-    power: 2,
+    health: 200,
     speed: 151.2,
     range: 250,
+    weaponType: WeaponType.shooter,
   ),
   shooter3(
     cost: 3,
-    health: 3,
-    power: 3,
+    health: 300,
     speed: 151.2,
     range: 300,
+    weaponType: WeaponType.shooter,
   ),
   shooter4(
     cost: 4,
-    health: 4,
-    power: 4,
+    health: 400,
     speed: 151.2,
     range: 350,
+    weaponType: WeaponType.shooter,
   ),
   shooter5(
     cost: 5,
-    health: 5,
-    power: 5,
+    health: 500,
     speed: 151.2,
     range: 400,
+    weaponType: WeaponType.shooter,
   ),
   shooter6(
     cost: 6,
-    health: 6,
-    power: 6,
+    health: 600,
     speed: 151.2,
     range: 450,
+    weaponType: WeaponType.shooter,
   );
 
   final int cost;
-  final int health;
-  final int power;
+  final double health;
   final double speed;
   final double range;
+  final WeaponType weaponType;
 
   const UnitType({
     required this.cost,
     required this.health,
-    required this.power,
     required this.speed,
     required this.range,
+    required this.weaponType,
   });
 }

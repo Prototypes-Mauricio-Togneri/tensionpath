@@ -61,7 +61,7 @@ class UnitShooterComponent extends UnitComponent<UnitShooter> {
     );
 
     canvas.drawText(
-      text: '${unit.power} 🔫',
+      text: '${unit.health}',
       position: size / 2,
       size: size.x / 3,
       color: Palette.UNIT_VALUE,

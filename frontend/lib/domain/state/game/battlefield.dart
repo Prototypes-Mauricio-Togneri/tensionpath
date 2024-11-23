@@ -212,11 +212,11 @@ class Battlefield {
       bases: [
         Base(
           owner: self,
-          hp: 100,
+          health: 100,
         ),
         Base(
           owner: enemy,
-          hp: 100,
+          health: 100,
         ),
       ],
       lanes: [

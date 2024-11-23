@@ -15,7 +15,7 @@ abstract class Unit with GameEngineRef {
   final Lane lane;
   final List<Node> nodes;
   late int nextNodeIndex;
-  late int hp;
+  late double health;
   late double speed;
   final double range;
   late Vector2 position;
@@ -23,7 +23,7 @@ abstract class Unit with GameEngineRef {
   UnitState state = UnitState.alive;
 
   Unit({
-    required this.hp,
+    required this.health,
     required this.speed,
     required this.range,
     required this.owner,
@@ -57,8 +57,16 @@ abstract class Unit with GameEngineRef {
 
   bool _hasReached(Node node) => (position - node.position).length < 1;
 
-  void reduceHealth(int value) {
-    hp -= value;
+  void reduceHealth(double value) {
+    health -= value;
+  }
+
+  void onHit(double damage) {
+    health -= damage;
+
+    if (health <= 0) {
+      engine.onUnitDestroyed(this);
+    }
   }
 
   void destroy() {
@@ -83,14 +91,14 @@ abstract class Unit with GameEngineRef {
       case UnitType.shooter5:
       case UnitType.shooter6:
         return UnitShooter(
-          hp: unitType.health,
+          health: unitType.health,
           speed: unitType.speed,
-          power: unitType.power,
           range: unitType.range,
           owner: owner,
           lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
+          weaponType: unitType.weaponType,
         );
     }
   }

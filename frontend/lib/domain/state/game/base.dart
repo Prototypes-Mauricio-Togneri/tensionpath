@@ -4,20 +4,20 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class Base with GameEngineRef {
   final Player owner;
-  int hp;
+  double health;
 
   Base({
     required this.owner,
-    required this.hp,
+    required this.health,
   });
 
   Color get color => owner.color;
 
-  void onHit(int value) {
-    hp -= value;
-    hp = hp.clamp(0, 100);
+  void onHit(double value) {
+    health -= value;
+    health = health.clamp(0, 100);
 
-    if (hp <= 0) {
+    if (health <= 0) {
       engine.onBaseDestroyed(this);
     }
   }

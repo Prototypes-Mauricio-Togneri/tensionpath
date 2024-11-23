@@ -56,7 +56,7 @@ class UnitMeleeComponent extends UnitComponent<UnitMelee> {
     );
 
     canvas.drawText(
-      text: unit.hp.toString(),
+      text: unit.health.toString(),
       position: size / 2,
       size: size.x / 3,
       color: Palette.UNIT_VALUE,
