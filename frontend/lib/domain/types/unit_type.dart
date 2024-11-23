@@ -4,7 +4,7 @@ enum UnitType {
     health: 1,
     power: 1,
     speed: 151.2,
-    range: 0,
+    range: -100,
   ),
   shooter2(
     cost: 2,
@@ -18,7 +18,7 @@ enum UnitType {
     health: 3,
     power: 3,
     speed: 151.2,
-    range: 0,
+    range: -100,
   ),
   shooter4(
     cost: 4,
@@ -32,7 +32,7 @@ enum UnitType {
     health: 5,
     power: 5,
     speed: 151.2,
-    range: 0,
+    range: -100,
   ),
   shooter6(
     cost: 6,

@@ -8,6 +8,7 @@ class UnitMelee extends Unit {
   UnitMelee({
     required super.hp,
     required super.speed,
+    required super.range,
     required this.power,
     required super.owner,
     required super.lane,

@@ -5,14 +5,12 @@ import 'package:tensionpath/domain/types/unit_state.dart';
 
 class UnitShooter extends Unit {
   final int power;
-  final double range;
-  Unit? target;
 
   UnitShooter({
     required super.hp,
     required super.speed,
+    required super.range,
     required this.power,
-    required this.range,
     required super.owner,
     required super.lane,
     required super.nodes,
@@ -20,7 +18,7 @@ class UnitShooter extends Unit {
   });
 
   @override
-  bool get canMove => target == null;
+  bool get canMove => (target == null) || (target!.lane != lane);
 
   @override
   void update(double dt) {

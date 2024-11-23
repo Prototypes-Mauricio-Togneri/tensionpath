@@ -18,12 +18,15 @@ abstract class Unit with GameEngineRef {
   late int nextNodeIndex;
   late int hp;
   late double speed;
+  final double range;
   late Vector2 position;
+  Unit? target;
   UnitState state = UnitState.alive;
 
   Unit({
     required this.hp,
     required this.speed,
+    required this.range,
     required this.owner,
     required this.lane,
     required this.nodes,
@@ -81,6 +84,7 @@ abstract class Unit with GameEngineRef {
           hp: unitType.health,
           speed: unitType.speed,
           power: unitType.power,
+          range: unitType.range,
           owner: owner,
           lane: lane,
           nodes: nodes,
