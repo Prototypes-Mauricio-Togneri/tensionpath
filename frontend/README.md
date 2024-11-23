@@ -1,6 +1,7 @@
 # Frontend
 
 * Add units that shoot
+* Add free lanes
 
 ## Resolution
 
