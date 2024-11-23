@@ -64,7 +64,7 @@ class UnitShooterComponent extends UnitComponent<UnitShooter> {
       text: '${unit.health}',
       position: size / 2,
       size: size.x / 3,
-      color: Palette.UNIT_VALUE,
+      color: unit.target == null ? Palette.UNIT_VALUE : Colors.black,
     );
 
     canvas.drawCircle(

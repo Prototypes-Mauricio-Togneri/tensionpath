@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/state/game/units/unit.dart';
 
 class Base with GameEngineRef implements Target {
   final Player owner;
@@ -26,6 +27,9 @@ class Base with GameEngineRef implements Target {
       engine.onBaseDestroyed(this);
     }
   }
+
+  @override
+  double distance(Unit unit) => (yPosition - unit.position.y).abs();
 
   @override
   bool get isAlive => health >= 0;

@@ -25,13 +25,15 @@ class UnitShooter extends Unit {
   }
 
   @override
-  bool get canMove => (target == null) || !target!.isInLane(lane);
+  bool get canMove => target == null; //|| !target!.isInLane(lane);
 
   @override
   void update(double dt) {
     weapon.update(dt);
 
-    if ((target == null) || !target!.isAlive) {
+    if ((target == null) ||
+        !target!.isAlive ||
+        (target!.distance(this) > range)) {
       target = findTarget();
     }
 
@@ -42,10 +44,7 @@ class UnitShooter extends Unit {
     super.update(dt);
   }
 
-  Target? findTarget() => engine.findTarget(
-        source: this,
-        distance: range,
-      );
+  Target? findTarget() => engine.findTarget(this);
 
   @override
   UnitShooterComponent component(double maxUnitSize) => UnitShooterComponent(

@@ -130,12 +130,14 @@ class GameEngine {
     player.addCredits(credits);
   }
 
-  Target? findTarget({
-    required Unit source,
-    required double distance,
-  }) {
+  Target? findTarget(Unit source) {
+    final double distance = source.range;
     final Base base = battlefield.baseOppositeOf(source.owner);
     final double distanceToBase = (base.yPosition - source.position.y).abs();
+
+    if (source.owner.isEnemy) {
+      print('${source.health} / ${source.range} / $distanceToBase');
+    }
 
     if (distanceToBase <= distance) {
       return base;

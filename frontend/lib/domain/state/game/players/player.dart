@@ -21,7 +21,7 @@ class Player with GameEngineRef {
   static Player enemy() => ActivePlayer(
         id: 'enemy',
         ownershipDirection: -1,
-        baseCreditsRate: Constants.CREDITS_RATE * 2,
+        baseCreditsRate: Constants.CREDITS_RATE * 1.5,
       );
 
   Player({
