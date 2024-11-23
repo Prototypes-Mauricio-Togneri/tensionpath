@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/state/game/units/unit.dart';
+import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 import 'package:tensionpath/domain/types/target_type.dart';
 import 'package:tensionpath/domain/types/weapon_type.dart';
@@ -26,7 +26,7 @@ class Weapon {
   }
 
   void shpot({
-    required Unit target,
+    required Target target,
   }) {
     target.onHit(10);
     reloading = attackSpeed;

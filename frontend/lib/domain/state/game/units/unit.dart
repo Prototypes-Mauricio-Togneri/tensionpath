@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -10,7 +11,7 @@ import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
-abstract class Unit with GameEngineRef {
+abstract class Unit with GameEngineRef implements Target {
   final Player owner;
   final Lane lane;
   final List<Node> nodes;
@@ -19,7 +20,7 @@ abstract class Unit with GameEngineRef {
   late double speed;
   final double range;
   late Vector2 position;
-  Unit? target;
+  Target? target;
   UnitState state = UnitState.alive;
 
   Unit({
@@ -61,6 +62,7 @@ abstract class Unit with GameEngineRef {
     health -= value;
   }
 
+  @override
   void onHit(double damage) {
     health -= damage;
 
@@ -68,6 +70,12 @@ abstract class Unit with GameEngineRef {
       engine.onUnitDestroyed(this);
     }
   }
+
+  @override
+  bool get isAlive => state == UnitState.alive;
+
+  @override
+  bool isInLane(Lane lane) => this.lane == lane;
 
   void destroy() {
     lane.removeUnit(this);

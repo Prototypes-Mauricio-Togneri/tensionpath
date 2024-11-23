@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
+import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
@@ -129,7 +130,7 @@ class GameEngine {
     player.addCredits(credits);
   }
 
-  Unit? findTarget({
+  Target? findTarget({
     required Unit source,
     required double distance,
   }) {
@@ -147,6 +148,11 @@ class GameEngine {
         }
       }
     }
+
+    final Base base = battlefield.baseOppositeOf(source.owner);
+    final double distanceToBase = (base.yPosition - source.position.y).abs();
+
+    if (distanceToBase <= distance) {}
 
     return null;
   }

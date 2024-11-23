@@ -33,6 +33,8 @@ class Battlefield {
 
   Base get baseEnemy => bases.where((b) => b.owner.isEnemy).first;
 
+  Base baseOppositeOf(Player player) => player.isSelf ? baseEnemy : baseSelf;
+
   void update(double dt) {
     for (final Lane lane in lanes) {
       lane.update(dt);
@@ -212,10 +214,12 @@ class Battlefield {
       bases: [
         Base(
           owner: self,
+          yPosition: Constants.UI_BATTLEFIELD_HEIGHT,
           health: 100,
         ),
         Base(
           owner: enemy,
+          yPosition: 0,
           health: 100,
         ),
       ],

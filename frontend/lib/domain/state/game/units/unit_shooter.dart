@@ -1,8 +1,8 @@
 import 'package:flame/game.dart';
+import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/components/units/unit_shooter_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/state/game/weapon.dart';
-import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/weapon_type.dart';
 
 class UnitShooter extends Unit {
@@ -25,11 +25,11 @@ class UnitShooter extends Unit {
   }
 
   @override
-  bool get canMove => (target == null) || (target!.lane != lane);
+  bool get canMove => (target == null) || !target!.isInLane(lane);
 
   @override
   void update(double dt) {
-    if ((target == null) || (target!.state == UnitState.dead)) {
+    if ((target == null) || !target!.isAlive) {
       target = findTarget();
     }
 
@@ -40,7 +40,7 @@ class UnitShooter extends Unit {
     super.update(dt);
   }
 
-  Unit? findTarget() => engine.findTarget(
+  Target? findTarget() => engine.findTarget(
         source: this,
         distance: range,
       );
