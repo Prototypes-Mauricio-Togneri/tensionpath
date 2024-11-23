@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -7,6 +8,7 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit_melee.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
+import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit with GameEngineRef {
@@ -17,6 +19,7 @@ abstract class Unit with GameEngineRef {
   late int hp;
   late double speed;
   late Vector2 position;
+  UnitState state = UnitState.alive;
 
   Unit({
     required this.hp,
@@ -34,9 +37,14 @@ abstract class Unit with GameEngineRef {
 
   Node get nextNode => nodes[nextNodeIndex];
 
+  bool get canMove => true;
+
+  @mustCallSuper
   void update(double dt) {
-    position.moveToTarget(nextNode.position, speed * dt);
-    _checkNextNode();
+    if (canMove) {
+      position.moveToTarget(nextNode.position, speed * dt);
+      _checkNextNode();
+    }
   }
 
   void _checkNextNode() {
@@ -53,6 +61,7 @@ abstract class Unit with GameEngineRef {
 
   void destroy() {
     lane.removeUnit(this);
+    state = UnitState.dead;
   }
 
   UnitComponent component(double maxUnitSize);
@@ -84,6 +93,7 @@ abstract class Unit with GameEngineRef {
           hp: unitType.health,
           speed: unitType.speed,
           power: unitType.power,
+          range: unitType.range,
           owner: owner,
           lane: lane,
           nodes: nodes,

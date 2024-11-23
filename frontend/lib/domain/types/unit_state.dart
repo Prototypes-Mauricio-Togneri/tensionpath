@@ -1,0 +1,4 @@
+enum UnitState {
+  alive,
+  dead;
+}

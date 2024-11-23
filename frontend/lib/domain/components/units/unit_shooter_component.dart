@@ -4,12 +4,14 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
+import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitShooterComponent extends UnitComponent {
+class UnitShooterComponent extends UnitComponent<UnitShooter> {
   final Paint backgroundPaint = Paint();
+  final Paint rangePaint = Paint();
 
   UnitShooterComponent({
     required super.unit,
@@ -23,6 +25,10 @@ class UnitShooterComponent extends UnitComponent {
     ));
 
     backgroundPaint.color = unit.color;
+
+    rangePaint.style = PaintingStyle.stroke;
+    rangePaint.color = unit.color;
+    rangePaint.strokeWidth = 1;
 
     return super.onLoad();
   }
@@ -55,10 +61,16 @@ class UnitShooterComponent extends UnitComponent {
     );
 
     canvas.drawText(
-      text: unit.hp.toString(),
+      text: '${unit.power} 🔫',
       position: size / 2,
       size: size.x / 3,
       color: Palette.UNIT_VALUE,
+    );
+
+    canvas.drawCircle(
+      Offset(size.x / 2, size.y / 2),
+      unit.range,
+      rangePaint,
     );
   }
 }

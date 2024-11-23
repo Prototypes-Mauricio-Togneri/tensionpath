@@ -3,9 +3,9 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class UnitComponent extends PositionComponent
+class UnitComponent<U extends Unit> extends PositionComponent
     with CollisionCallbacks, HasGameRef {
-  final Unit unit;
+  final U unit;
 
   UnitComponent({
     required this.unit,

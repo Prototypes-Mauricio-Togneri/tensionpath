@@ -128,6 +128,28 @@ class GameEngine {
   }) {
     player.addCredits(credits);
   }
+
+  Unit? findTarget({
+    required Unit source,
+    required double distance,
+  }) {
+    for (final Lane lane in battlefield.lanes) {
+      for (final Unit unit in lane.units) {
+        if (unit.owner != source.owner) {
+          final double distanceToTarget =
+              (unit.position - source.position).length;
+          if (distanceToTarget <= distance) {
+            print(
+                'Source: ${source.hashCode} | Target: ${unit.hashCode} | Distance: $distanceToTarget');
+
+            return unit;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
 }
 
 mixin GameEngineRef {
