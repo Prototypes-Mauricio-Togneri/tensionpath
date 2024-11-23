@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:ui';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
@@ -20,13 +18,6 @@ class LaneComponent extends PositionComponent {
           anchor: Anchor.topLeft,
           priority: Priority.lane.value,
         );
-
-  @override
-  FutureOr onLoad() {
-    add(RectangleHitbox());
-
-    return super.onLoad();
-  }
 
   Lane? checkHover(Vector2 point) {
     if (containsPoint(point)) {
