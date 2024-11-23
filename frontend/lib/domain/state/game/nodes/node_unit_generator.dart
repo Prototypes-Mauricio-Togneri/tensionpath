@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_unit_generator_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_accumulator.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class NodeUnitGenerator extends NodeAccumulator {
   NodeUnitGenerator({
@@ -35,7 +36,7 @@ class NodeUnitGenerator extends NodeAccumulator {
         lane: lane,
         player: owner!,
         node: this,
-        power: 1,
+        unitType: UnitType.melee1,
       );
     }
   }

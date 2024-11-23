@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class ActivePlayer extends Player {
   late int creditsTarget;
@@ -28,14 +29,14 @@ class ActivePlayer extends Player {
           lane: lane,
           player: this,
           node: nodes[Random().nextInt(nodes.length)],
-          power: creditsTarget,
+          unitType: UnitType.values[creditsTarget - 1],
         );
       } else {
         engine.onSpawnUnit(
           lane: lane,
           player: this,
           node: lane.nodes.last,
-          power: creditsTarget,
+          unitType: UnitType.values[creditsTarget - 1],
         );
       }
 

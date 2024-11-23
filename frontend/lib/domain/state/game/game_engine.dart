@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class GameEngine {
   final GameComponent gameComponent;
@@ -34,7 +35,7 @@ class GameEngine {
     required Lane lane,
     required Player player,
     required Node node,
-    required int power,
+    required UnitType unitType,
   }) {
     final List<Node> nodes = lane.getNodes(
       forward: player.isSelf,
@@ -47,7 +48,7 @@ class GameEngine {
     startingPosition.add(Vector2(0, extraGap));
 
     final Unit unit = Unit(
-      hp: power,
+      hp: unitType.cost,
       speed: Constants.UNIT_SPEED,
       owner: player,
       lane: lane,

@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -54,7 +55,7 @@ class ControlsComponent extends PositionComponent {
 
       add(UnitSelectorComponent(
         player: player,
-        value: i + 1,
+        unitType: UnitType.values[i],
         position: position,
         size: Vector2(cardWidth, cardHeight),
       ));
@@ -117,7 +118,7 @@ class CreditCounterComponent extends PositionComponent {
 class UnitSelectorComponent extends PositionComponent
     with DragCallbacks, HasGameRef<GameComponent> {
   final Player player;
-  final int value;
+  final UnitType unitType;
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
   final Paint borderPaint = Paint();
@@ -125,7 +126,7 @@ class UnitSelectorComponent extends PositionComponent
 
   UnitSelectorComponent({
     required this.player,
-    required this.value,
+    required this.unitType,
     required super.position,
     required super.size,
   }) : super(
@@ -180,12 +181,12 @@ class UnitSelectorComponent extends PositionComponent
 
     position.setFrom(initialPosition);
 
-    if ((player.credits >= value) && (lane != null)) {
+    if ((player.credits >= unitType.cost) && (lane != null)) {
       _spawnUnitOfPlayer(
         lane: lane,
         node: node,
         player: player,
-        power: value,
+        unitType: unitType,
       );
     }
   }
@@ -194,15 +195,15 @@ class UnitSelectorComponent extends PositionComponent
     required Lane lane,
     required Node? node,
     required Player player,
-    required int power,
+    required UnitType unitType,
   }) {
     engine.onSpawnUnit(
       lane: lane,
       player: player,
       node: node ?? lane.nodes.first,
-      power: power,
+      unitType: unitType,
     );
-    player.spendCredits(power);
+    player.spendCredits(unitType.cost);
   }
 
   @override
@@ -219,7 +220,7 @@ class UnitSelectorComponent extends PositionComponent
       backgroundPaint,
     );
 
-    double fillValue = 1 - (value - player.credits);
+    double fillValue = 1 - (unitType.cost - player.credits);
     fillValue = fillValue.clamp(0, 1);
     final double height = size.y * fillValue;
 
@@ -249,7 +250,7 @@ class UnitSelectorComponent extends PositionComponent
     );
 
     canvas.drawText(
-      text: value.toString(),
+      text: unitType.cost.toString(),
       position: size / 2,
       size: size.y / 2,
       color: cardColor,
