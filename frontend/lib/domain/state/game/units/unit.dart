@@ -1,12 +1,15 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
-import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/state/game/units/unit_melee.dart';
+import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
-class Unit with GameEngineRef {
+abstract class Unit with GameEngineRef {
   final Player owner;
   final Lane lane;
   final List<Node> nodes;
@@ -52,8 +55,40 @@ class Unit with GameEngineRef {
     lane.removeUnit(this);
   }
 
-  UnitComponent component(double maxUnitSize) => UnitComponent(
-        unit: this,
-        size: Vector2(maxUnitSize, maxUnitSize),
-      );
+  UnitComponent component(double maxUnitSize);
+
+  factory Unit.fromType({
+    required UnitType unitType,
+    required Player owner,
+    required Lane lane,
+    required List<Node> nodes,
+    required Vector2 startingPosition,
+  }) {
+    switch (unitType) {
+      case UnitType.melee1:
+      case UnitType.melee3:
+      case UnitType.melee5:
+        return UnitMelee(
+          hp: unitType.health,
+          speed: unitType.speed,
+          power: unitType.power,
+          owner: owner,
+          lane: lane,
+          nodes: nodes,
+          startingPosition: startingPosition,
+        );
+      case UnitType.shooter2:
+      case UnitType.shooter4:
+      case UnitType.shooter6:
+        return UnitShooter(
+          hp: unitType.health,
+          speed: unitType.speed,
+          power: unitType.power,
+          owner: owner,
+          lane: lane,
+          nodes: nodes,
+          startingPosition: startingPosition,
+        );
+    }
+  }
 }

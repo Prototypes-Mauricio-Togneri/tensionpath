@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -47,9 +47,8 @@ class GameEngine {
     final Vector2 startingPosition = Vector2.copy(nodes.first.position);
     startingPosition.add(Vector2(0, extraGap));
 
-    final Unit unit = Unit(
-      hp: unitType.cost,
-      speed: Constants.UNIT_SPEED,
+    final Unit unit = Unit.fromType(
+      unitType: unitType,
       owner: player,
       lane: lane,
       nodes: nodes.sublist(1, nodes.length),

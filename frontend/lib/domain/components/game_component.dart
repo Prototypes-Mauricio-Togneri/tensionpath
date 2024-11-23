@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_checkpoint_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';

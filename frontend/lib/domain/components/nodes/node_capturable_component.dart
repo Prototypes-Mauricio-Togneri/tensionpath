@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 

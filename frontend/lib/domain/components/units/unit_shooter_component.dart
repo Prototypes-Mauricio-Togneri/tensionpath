@@ -3,26 +3,18 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/state/game/units/unit.dart';
-import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitComponent extends PositionComponent
-    with CollisionCallbacks, HasGameRef {
-  final Unit unit;
+class UnitShooterComponent extends UnitComponent {
   final Paint backgroundPaint = Paint();
 
-  UnitComponent({
-    required this.unit,
+  UnitShooterComponent({
+    required super.unit,
     required super.size,
-  }) : super(
-          anchor: Anchor.center,
-          priority: Priority.unit.value,
-        ) {
-    position = unit.position;
-  }
+  });
 
   @override
   FutureOr onLoad() {
@@ -34,16 +26,11 @@ class UnitComponent extends PositionComponent
   }
 
   @override
-  void update(double dt) {
-    position.setFrom(unit.position);
-  }
-
-  @override
   void onCollisionStart(
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
-    if ((other is UnitComponent) &&
+    if ((other is UnitShooterComponent) &&
         unit.owner.isSelf &&
         other.unit.owner.isEnemy) {
       engine.onUnitsCollided(
