@@ -25,7 +25,7 @@ class Weapon {
     }
   }
 
-  void shpot({
+  void shoot({
     required Target target,
   }) {
     target.onHit(10);

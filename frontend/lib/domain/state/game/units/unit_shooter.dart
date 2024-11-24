@@ -38,7 +38,7 @@ class UnitShooter extends Unit {
     }
 
     if ((target != null) && weapon.canShoot) {
-      weapon.shpot(target: target!);
+      weapon.shoot(target: target!);
     }
 
     super.update(dt);
