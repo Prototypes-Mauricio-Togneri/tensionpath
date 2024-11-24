@@ -93,7 +93,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     );
 
     canvas.drawText(
-      text: '${base.owner.id.toUpperCase()} (${base.health.toInt()})',
+      text: base.owner.id.toUpperCase(),
       position: size / 2,
       size: size.y / 2,
       color: Palette.BASE_PLAYER_NAME,
