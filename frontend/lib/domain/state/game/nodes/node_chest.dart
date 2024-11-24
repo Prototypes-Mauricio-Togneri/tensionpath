@@ -38,13 +38,11 @@ class NodeChest extends NodeAccumulator {
   }
 
   void _claimCredits() {
-    final double credits = creditsAccumulated;
-
     engine.onAddCredits(
       player: owner!,
-      credits: credits,
+      credits: creditsAccumulated,
     );
 
-    removeAccumulated(credits);
+    clearAccumulated();
   }
 }
