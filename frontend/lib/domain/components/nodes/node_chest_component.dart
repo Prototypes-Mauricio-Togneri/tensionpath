@@ -21,7 +21,7 @@ class NodeChestComponent extends NodeCapturableComponent with TapCallbacks {
     canvas.drawText(
       text: node.creditsAccumulated.toString(),
       position: size / 2,
-      size: 70,
+      size: size.x / 2,
       color: Palette.NODE_NEUTRAL_FOREGROUND,
     );
   }
