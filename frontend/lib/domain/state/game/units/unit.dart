@@ -77,9 +77,6 @@ abstract class Unit with GameEngineRef implements Target {
   @override
   bool get isAlive => state == UnitState.alive;
 
-  @override
-  bool isInLane(Lane lane) => this.lane == lane;
-
   void destroy() {
     lane.removeUnit(this);
     state = UnitState.dead;

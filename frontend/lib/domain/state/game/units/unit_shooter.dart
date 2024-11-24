@@ -25,7 +25,7 @@ class UnitShooter extends Unit {
   }
 
   @override
-  bool get canMove => target == null; //|| !target!.isInLane(lane);
+  bool get canMove => target == null;
 
   @override
   void update(double dt) {
