@@ -9,19 +9,19 @@ abstract class Node extends Ownership with Accumulator, GameEngineRef {
   final String id;
   final Lane lane;
   final Vector2 position;
-  final double maxNodeSize;
+  final double nodeWidth;
 
   Node({
     required this.id,
     required this.lane,
     required super.captureRate,
     required this.position,
-    required this.maxNodeSize,
+    required this.nodeWidth,
   });
 
   NodeComponent get component;
 
-  Vector2 get size => Vector2(maxNodeSize, maxNodeSize);
+  Vector2 get size => Vector2(nodeWidth, nodeWidth);
 
   void onTapped() {}
 }

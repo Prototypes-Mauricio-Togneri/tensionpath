@@ -54,6 +54,7 @@ class GameEngine {
       lane: lane,
       nodes: nodes.sublist(1, nodes.length),
       startingPosition: startingPosition,
+      unitSize: battlefield.maxUnitSize,
     );
 
     lane.addUnit(unit);

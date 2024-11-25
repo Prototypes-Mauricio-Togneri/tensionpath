@@ -8,7 +8,7 @@ class NodeCheckpoint extends Node {
     required super.id,
     required super.lane,
     required super.position,
-    required super.maxNodeSize,
+    required super.nodeWidth,
   }) : super(captureRate: Constants.NODE_CHECKPOINT_CAPTURE_RATE);
 
   @override

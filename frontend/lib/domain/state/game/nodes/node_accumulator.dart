@@ -7,7 +7,7 @@ abstract class NodeAccumulator extends Node {
     required super.lane,
     required super.captureRate,
     required super.position,
-    required super.maxNodeSize,
+    required super.nodeWidth,
   });
 
   bool canAccumulate();

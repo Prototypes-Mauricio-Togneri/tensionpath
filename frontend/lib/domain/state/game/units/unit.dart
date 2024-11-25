@@ -90,6 +90,7 @@ abstract class Unit with GameEngineRef implements Target {
     required Lane lane,
     required List<Node> nodes,
     required Vector2 startingPosition,
+    required double unitSize,
   }) {
     switch (unitType) {
       case UnitType.shooter1:
@@ -101,7 +102,7 @@ abstract class Unit with GameEngineRef implements Target {
         return UnitShooter(
           health: unitType.health,
           speed: unitType.speed,
-          range: unitType.range,
+          range: unitType.range * unitSize,
           owner: owner,
           lane: lane,
           nodes: nodes,
