@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/state/game/units/unit_ranger.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -101,6 +102,17 @@ abstract class Unit with GameEngineRef implements Target {
 
     switch (unitType) {
       case UnitType.ranger:
+        return UnitRanger(
+          health: unitType.health,
+          speed: speed,
+          range: range,
+          size: size,
+          owner: owner,
+          lane: lane,
+          nodes: nodes,
+          startingPosition: startingPosition,
+          weaponType: unitType.weaponType,
+        );
       case UnitType.squad:
       case UnitType.sniper:
       case UnitType.tank:

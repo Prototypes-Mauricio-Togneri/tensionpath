@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
-import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit_melee.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitMeleeComponent extends UnitComponent<UnitMelee> {
@@ -26,23 +23,6 @@ class UnitMeleeComponent extends UnitComponent<UnitMelee> {
     backgroundPaint.color = unit.color;
 
     return super.onLoad();
-  }
-
-  @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
-    if ((other is UnitComponent) &&
-        unit.owner.isSelf &&
-        other.unit.owner.isEnemy) {
-      engine.onUnitsCollided(
-        unit1: unit,
-        unit2: other.unit,
-      );
-    }
-
-    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override

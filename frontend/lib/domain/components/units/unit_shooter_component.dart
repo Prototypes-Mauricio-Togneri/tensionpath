@@ -1,16 +1,12 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
-import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitShooterComponent extends UnitComponent<UnitShooter> {
-  final Paint backgroundPaint = Paint();
+class UnitShooterComponent<T extends UnitShooter> extends UnitComponent<T> {
   final Paint rangePaint = Paint();
 
   UnitShooterComponent({
@@ -20,51 +16,26 @@ class UnitShooterComponent extends UnitComponent<UnitShooter> {
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox(
+    add(RectangleHitbox(
       isSolid: true,
     ));
 
-    backgroundPaint.color = unit.color;
-
     rangePaint.style = PaintingStyle.stroke;
     rangePaint.color = unit.color;
-    rangePaint.strokeWidth = 1;
+    rangePaint.strokeWidth = 0.5;
 
     return super.onLoad();
-  }
-
-  @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
-    if ((other is UnitComponent) &&
-        unit.owner.isSelf &&
-        other.unit.owner.isEnemy) {
-      engine.onUnitsCollided(
-        unit1: unit,
-        unit2: other.unit,
-      );
-    }
-
-    super.onCollisionStart(intersectionPoints, other);
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle(
-      Offset(size.x / 2, size.y / 2),
-      size.x / 2,
-      backgroundPaint,
-    );
-
     canvas.drawText(
       text: '${unit.health}',
       position: size / 2,
       size: size.x / 3,
-      color: unit.target == null ? Palette.UNIT_VALUE : Colors.black,
+      color: Palette.UNIT_VALUE,
     );
 
     canvas.drawCircle(
