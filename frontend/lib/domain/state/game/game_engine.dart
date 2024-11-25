@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/target.dart';
-import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/lane.dart';
@@ -54,7 +53,7 @@ class GameEngine {
       lane: lane,
       nodes: nodes.sublist(1, nodes.length),
       startingPosition: startingPosition,
-      unitSize: battlefield.maxUnitSize,
+      maxUnitSize: battlefield.maxUnitSize,
     );
 
     lane.addUnit(unit);
@@ -62,8 +61,7 @@ class GameEngine {
   }
 
   void onUnitCreated(Unit unit) {
-    final UnitComponent unitComponent = unit.component(battlefield.maxUnitSize);
-    gameComponent.onUnitCreated(unitComponent);
+    gameComponent.onUnitCreated(unit.component);
   }
 
   void onUnitCollidedWithBase({

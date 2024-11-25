@@ -15,11 +15,13 @@ abstract class Unit with GameEngineRef implements Target {
   final Player owner;
   final Lane lane;
   final List<Node> nodes;
-  late int nextNodeIndex;
-  late double health;
-  late double speed;
+  final double speed;
   final double range;
+  final double size;
+
+  late int nextNodeIndex;
   late Vector2 position;
+  double health;
   Target? target;
   UnitState state = UnitState.alive;
 
@@ -27,6 +29,7 @@ abstract class Unit with GameEngineRef implements Target {
     required this.health,
     required this.speed,
     required this.range,
+    required this.size,
     required this.owner,
     required this.lane,
     required this.nodes,
@@ -82,7 +85,7 @@ abstract class Unit with GameEngineRef implements Target {
     state = UnitState.dead;
   }
 
-  UnitComponent component(double maxUnitSize);
+  UnitComponent get component;
 
   factory Unit.fromType({
     required UnitType unitType,
@@ -90,8 +93,12 @@ abstract class Unit with GameEngineRef implements Target {
     required Lane lane,
     required List<Node> nodes,
     required Vector2 startingPosition,
-    required double unitSize,
+    required double maxUnitSize,
   }) {
+    final double size = unitType.sizeRatio * maxUnitSize;
+    final double speed = unitType.speedRatio * size;
+    final double range = unitType.rangeRatio * size;
+
     switch (unitType) {
       case UnitType.shooter1:
       case UnitType.shooter2:
@@ -101,8 +108,9 @@ abstract class Unit with GameEngineRef implements Target {
       case UnitType.shooter6:
         return UnitShooter(
           health: unitType.health,
-          speed: unitType.speed,
-          range: unitType.range * unitSize,
+          speed: speed,
+          range: range,
+          size: size,
           owner: owner,
           lane: lane,
           nodes: nodes,

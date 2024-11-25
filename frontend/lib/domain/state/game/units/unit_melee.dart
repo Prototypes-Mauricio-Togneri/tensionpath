@@ -9,6 +9,7 @@ class UnitMelee extends Unit {
     required super.health,
     required super.speed,
     required super.range,
+    required super.size,
     required this.power,
     required super.owner,
     required super.lane,
@@ -17,8 +18,8 @@ class UnitMelee extends Unit {
   });
 
   @override
-  UnitMeleeComponent component(double maxUnitSize) => UnitMeleeComponent(
+  UnitMeleeComponent get component => UnitMeleeComponent(
         unit: this,
-        size: Vector2(maxUnitSize, maxUnitSize),
+        size: Vector2(size, size),
       );
 }

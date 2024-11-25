@@ -55,7 +55,7 @@ class Battlefield {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
     const double nodeWidth = laneWidth * 0.7;
-    const double maxUnitSize = laneWidth * 0.6;
+    const double maxUnitSize = laneWidth;
 
     // ignore: prefer_const_constructors
     final Lane lane1 = Lane(
@@ -246,7 +246,7 @@ class Battlefield {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 7;
     const double nodeWidth = laneWidth * 0.7;
-    const double maxUnitSize = laneWidth * 0.6;
+    const double maxUnitSize = laneWidth;
 
     // ignore: prefer_const_constructors
     final Lane lane1 = Lane(

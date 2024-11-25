@@ -12,6 +12,7 @@ class UnitShooter extends Unit {
     required super.health,
     required super.speed,
     required super.range,
+    required super.size,
     required super.owner,
     required super.lane,
     required super.nodes,
@@ -47,8 +48,8 @@ class UnitShooter extends Unit {
   Target? findTarget() => engine.findTarget(this);
 
   @override
-  UnitShooterComponent component(double maxUnitSize) => UnitShooterComponent(
+  UnitShooterComponent get component => UnitShooterComponent(
         unit: this,
-        size: Vector2(maxUnitSize, maxUnitSize),
+        size: Vector2(size, size),
       );
 }
