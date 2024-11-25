@@ -3,8 +3,6 @@ import 'package:flame/collisions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 class UnitShooterComponent<T extends UnitShooter> extends UnitComponent<T> {
   final Paint rangePaint = Paint();
@@ -29,19 +27,12 @@ class UnitShooterComponent<T extends UnitShooter> extends UnitComponent<T> {
 
   @override
   void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawText(
-      text: '${unit.health}',
-      position: size / 2,
-      size: size.x / 3,
-      color: Palette.UNIT_VALUE,
-    );
-
     canvas.drawCircle(
       Offset(size.x / 2, size.y / 2),
       unit.range,
       rangePaint,
     );
+
+    super.render(canvas);
   }
 }

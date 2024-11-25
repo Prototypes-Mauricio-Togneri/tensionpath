@@ -16,18 +16,19 @@ abstract class Unit with GameEngineRef implements Target {
   final Player owner;
   final Lane lane;
   final List<Node> nodes;
+  final double maxHealth;
   final double speed;
   final double range;
   final double size;
 
+  late double health;
   late int nextNodeIndex;
   late Vector2 position;
-  double health;
   Target? target;
   UnitState state = UnitState.alive;
 
   Unit({
-    required this.health,
+    required this.maxHealth,
     required this.speed,
     required this.range,
     required this.size,
@@ -36,6 +37,7 @@ abstract class Unit with GameEngineRef implements Target {
     required this.nodes,
     required Vector2 startingPosition,
   }) {
+    health = maxHealth;
     nextNodeIndex = 0;
     position = Vector2.copy(startingPosition);
   }
@@ -103,7 +105,7 @@ abstract class Unit with GameEngineRef implements Target {
     switch (unitType) {
       case UnitType.ranger:
         return UnitRanger(
-          health: unitType.health,
+          maxHealth: unitType.health,
           speed: speed,
           range: range,
           size: size,
@@ -119,7 +121,7 @@ abstract class Unit with GameEngineRef implements Target {
       case UnitType.kamikaze:
       case UnitType.ion_canon:
         return UnitShooter(
-          health: unitType.health,
+          maxHealth: unitType.health,
           speed: speed,
           range: range,
           size: size,

@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
 
 class UnitRanger extends UnitShooter {
   UnitRanger({
-    required super.health,
+    required super.maxHealth,
     required super.speed,
     required super.range,
     required super.size,

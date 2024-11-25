@@ -9,7 +9,7 @@ class UnitShooter extends Unit {
   late final Weapon weapon;
 
   UnitShooter({
-    required super.health,
+    required super.maxHealth,
     required super.speed,
     required super.range,
     required super.size,

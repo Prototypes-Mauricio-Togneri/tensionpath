@@ -6,7 +6,7 @@ class UnitMelee extends Unit {
   int power;
 
   UnitMelee({
-    required super.health,
+    required super.maxHealth,
     required super.speed,
     required super.range,
     required super.size,

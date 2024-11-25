@@ -4,7 +4,7 @@ enum UnitType {
   ranger(
     cost: 1,
     health: 100,
-    speedRatio: 2,
+    speedRatio: 1,
     rangeRatio: 3,
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
@@ -12,7 +12,7 @@ enum UnitType {
   squad(
     cost: 2,
     health: 200,
-    speedRatio: 2,
+    speedRatio: 1,
     rangeRatio: 3.5,
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
@@ -20,7 +20,7 @@ enum UnitType {
   sniper(
     cost: 3,
     health: 300,
-    speedRatio: 2,
+    speedRatio: 1,
     rangeRatio: 4,
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
@@ -28,7 +28,7 @@ enum UnitType {
   tank(
     cost: 4,
     health: 400,
-    speedRatio: 2,
+    speedRatio: 1,
     rangeRatio: 4.5,
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
@@ -36,7 +36,7 @@ enum UnitType {
   kamikaze(
     cost: 5,
     health: 500,
-    speedRatio: 2,
+    speedRatio: 1,
     rangeRatio: 5,
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
@@ -44,7 +44,7 @@ enum UnitType {
   ion_canon(
     cost: 6,
     health: 600,
-    speedRatio: 2,
+    speedRatio: 1,
     rangeRatio: 5.5,
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
