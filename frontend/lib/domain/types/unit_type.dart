@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/types/weapon_type.dart';
 
 enum UnitType {
-  shooter1(
+  ranger(
     cost: 1,
     health: 100,
     speedRatio: 2,
@@ -9,7 +9,7 @@ enum UnitType {
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
   ),
-  shooter2(
+  squad(
     cost: 2,
     health: 200,
     speedRatio: 2,
@@ -17,7 +17,7 @@ enum UnitType {
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
   ),
-  shooter3(
+  sniper(
     cost: 3,
     health: 300,
     speedRatio: 2,
@@ -25,7 +25,7 @@ enum UnitType {
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
   ),
-  shooter4(
+  tank(
     cost: 4,
     health: 400,
     speedRatio: 2,
@@ -33,7 +33,7 @@ enum UnitType {
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
   ),
-  shooter5(
+  kamikaze(
     cost: 5,
     health: 500,
     speedRatio: 2,
@@ -41,7 +41,7 @@ enum UnitType {
     sizeRatio: 0.5,
     weaponType: WeaponType.shooter,
   ),
-  shooter6(
+  ion_canon(
     cost: 6,
     health: 600,
     speedRatio: 2,

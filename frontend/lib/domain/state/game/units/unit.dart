@@ -100,12 +100,12 @@ abstract class Unit with GameEngineRef implements Target {
     final double range = unitType.rangeRatio * size;
 
     switch (unitType) {
-      case UnitType.shooter1:
-      case UnitType.shooter2:
-      case UnitType.shooter3:
-      case UnitType.shooter4:
-      case UnitType.shooter5:
-      case UnitType.shooter6:
+      case UnitType.ranger:
+      case UnitType.squad:
+      case UnitType.sniper:
+      case UnitType.tank:
+      case UnitType.kamikaze:
+      case UnitType.ion_canon:
         return UnitShooter(
           health: unitType.health,
           speed: speed,
