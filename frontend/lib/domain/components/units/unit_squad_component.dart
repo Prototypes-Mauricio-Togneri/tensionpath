@@ -22,7 +22,7 @@ class UnitSquadComponent extends UnitShooterComponent<UnitSquad> {
 
   @override
   void render(Canvas canvas) {
-    final double memberSize = width / 4;
+    final double memberSize = width / 4.5;
 
     _drawMember(
       canvas: canvas,

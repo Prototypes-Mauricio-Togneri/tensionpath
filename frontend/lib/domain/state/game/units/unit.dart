@@ -9,9 +9,11 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit_ranger.dart';
 import 'package:tensionpath/domain/state/game/units/unit_shooter.dart';
+import 'package:tensionpath/domain/state/game/units/unit_sniper.dart';
 import 'package:tensionpath/domain/state/game/units/unit_squad.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/domain/types/weapon_type.dart';
 
 abstract class Unit with GameEngineRef implements Target {
   final Player owner;
@@ -103,6 +105,7 @@ abstract class Unit with GameEngineRef implements Target {
     final double size = unitType.sizeRatio * maxUnitSize;
     final double speed = unitType.speedRatio * size;
     final double range = unitType.rangeRatio * size;
+    final WeaponType weaponType = unitType.weaponType;
 
     switch (unitType) {
       case UnitType.ranger:
@@ -115,7 +118,7 @@ abstract class Unit with GameEngineRef implements Target {
           lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
-          weaponType: unitType.weaponType,
+          weaponType: weaponType,
         );
       case UnitType.squad:
         return UnitSquad(
@@ -127,9 +130,20 @@ abstract class Unit with GameEngineRef implements Target {
           lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
-          weaponType: unitType.weaponType,
+          weaponType: weaponType,
         );
       case UnitType.sniper:
+        return UnitSniper(
+          maxHealth: maxHealth,
+          speed: speed,
+          range: range,
+          size: size,
+          owner: owner,
+          lane: lane,
+          nodes: nodes,
+          startingPosition: startingPosition,
+          weaponType: weaponType,
+        );
       case UnitType.tank:
       case UnitType.kamikaze:
       case UnitType.ion_canon:
