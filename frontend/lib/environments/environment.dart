@@ -5,11 +5,9 @@ import 'package:tensionpath/utils/platform.dart';
 abstract class Environment {
   String get name;
 
-  bool get isDebugMode => kDebugMode;
+  bool get isDebug => kDebugMode;
 
-  bool get isReleaseMode => kReleaseMode;
-
-  bool get showLogs => isDebugMode;
+  bool get isRelease => kReleaseMode;
 
   bool get isLocal => name == 'local';
 

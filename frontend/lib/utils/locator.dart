@@ -2,8 +2,8 @@ import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionpath/environments/environment.dart';
+import 'package:tensionpath/platform/operations/set_url_strategy.dart';
 import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/set_url_strategy.dart';
 
 final GetIt locator = GetIt.instance;
 
