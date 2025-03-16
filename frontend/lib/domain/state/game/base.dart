@@ -1,8 +1,8 @@
 import 'package:flame/palette.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/state/game/target.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 
 class Base with GameEngineRef implements Target {

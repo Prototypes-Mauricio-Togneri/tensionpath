@@ -1,23 +1,14 @@
-import 'dart:async';
-import 'package:flame/collisions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/state/game/units/unit_melee.dart';
+import 'package:tensionpath/domain/state/game/units/unit_infantry.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitMeleeComponent extends UnitComponent<UnitMelee> {
+class UnitInfrantryComponent extends UnitComponent<UnitInfantry> {
   final Paint backgroundPaint = Paint();
 
-  UnitMeleeComponent({required super.unit, required super.size});
-
-  @override
-  FutureOr onLoad() {
-    add(CircleHitbox(isSolid: true));
-
+  UnitInfrantryComponent({required super.unit, required super.size}) {
     backgroundPaint.color = unit.color;
-
-    return super.onLoad();
   }
 
   @override

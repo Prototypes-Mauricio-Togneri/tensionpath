@@ -55,7 +55,7 @@ class ControlsComponent extends PositionComponent {
       add(
         UnitSelectorComponent(
           player: player,
-          unitType: UnitType.values[i],
+          unitType: UnitType.infantry,
           position: position,
           size: Vector2(cardWidth, cardHeight),
         ),
