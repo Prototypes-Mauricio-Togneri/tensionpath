@@ -3,25 +3,17 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_checkpoint_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
-import 'package:tensionpath/domain/state/game/lane.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class GameComponent extends FlameGame
-    with HasCollisionDetection, GameEngineRef {
+class GameComponent extends FlameGame with GameEngineRef {
   final MatchState matchState;
-  final List<LaneComponent> cachedLaneComponents = [];
-  final List<NodeComponent> cachedNodeComponents = [];
 
   GameComponent(this.matchState) : super(world: MatchComponent());
 
@@ -48,66 +40,8 @@ class GameComponent extends FlameGame
   @override
   Color backgroundColor() => Palette.GAME_BACKGROUND;
 
-  Iterable<LaneComponent> get laneComponents {
-    if (cachedLaneComponents.isEmpty) {
-      cachedLaneComponents.addAll(world.children.whereType<LaneComponent>());
-    }
-
-    return cachedLaneComponents;
-  }
-
-  Iterable<NodeComponent> get nodeComponents {
-    if (cachedNodeComponents.isEmpty) {
-      cachedNodeComponents.addAll(
-        world.children.whereType<NodeCheckpointComponent>(),
-      );
-    }
-
-    return cachedNodeComponents;
-  }
-
   Iterable<UnitComponent> get unitComponents =>
       world.children.whereType<UnitComponent>();
-
-  Lane? checkLaneHover(Vector2 position) {
-    Lane? result;
-
-    for (final LaneComponent lane in laneComponents) {
-      final Lane? laneResult = lane.checkHover(position);
-
-      if (laneResult != null) {
-        result = laneResult;
-      }
-    }
-
-    return result;
-  }
-
-  Node? checkNodeHover(Vector2 position) {
-    Node? result;
-
-    for (final NodeComponent node in nodeComponents) {
-      final Node? nodeResult = node.checkHover(position);
-
-      if (nodeResult != null) {
-        result = nodeResult;
-      }
-    }
-
-    return result;
-  }
-
-  void cleanLaneHover() {
-    for (final LaneComponent lane in laneComponents) {
-      lane.cleanHover();
-    }
-  }
-
-  void cleanNodeHover() {
-    for (final NodeComponent node in nodeComponents) {
-      node.cleanHover();
-    }
-  }
 
   void onUnitCreated(UnitComponent unitComponent) {
     world.add(unitComponent);

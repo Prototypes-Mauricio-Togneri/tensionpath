@@ -4,25 +4,28 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/state/game/lane.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
   final Paint backgroundPaint = Paint();
 
-  ControlsComponent({
-    required this.player,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+  ControlsComponent(this.player)
+    : super(
+        anchor: Anchor.topLeft,
+        priority: Priority.controls.value,
+        position: Vector2(
+          0,
+          Constants.SCREEN_HEIGHT - Constants.UI_CONTROLS_HEIGHT,
+        ),
+        size: Vector2(Constants.SCREEN_WIDTH, Constants.UI_CONTROLS_HEIGHT),
+      );
 
   @override
   FutureOr onLoad() {
@@ -141,42 +144,7 @@ class UnitSelectorComponent extends PositionComponent
     initialPosition.setFrom(position);
   }
 
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    position += event.localDelta;
-
-    final Node? nodeHovered = gameRef.checkNodeHover(absolutePosition);
-
-    if (nodeHovered == null) {
-      gameRef.checkLaneHover(absolutePosition);
-    } else {
-      gameRef.cleanLaneHover();
-    }
-  }
-
-  @override
-  void onDragEnd(DragEndEvent event) {
-    super.onDragEnd(event);
-
-    final Lane? lane = gameRef.checkLaneHover(absolutePosition);
-    final Node? node = gameRef.checkNodeHover(absolutePosition);
-
-    gameRef.cleanLaneHover();
-    gameRef.cleanNodeHover();
-
-    position.setFrom(initialPosition);
-
-    if ((player.credits >= unitType.cost) && (lane != null)) {
-      _spawnUnitOfPlayer(
-        lane: lane,
-        node: node,
-        player: player,
-        unitType: unitType,
-      );
-    }
-  }
-
-  void _spawnUnitOfPlayer({
+  /*void _spawnUnitOfPlayer({
     required Lane lane,
     required Node? node,
     required Player player,
@@ -189,7 +157,7 @@ class UnitSelectorComponent extends PositionComponent
       unitType: unitType,
     );
     player.spendCredits(unitType.cost);
-  }
+  }*/
 
   @override
   void render(Canvas canvas) {
