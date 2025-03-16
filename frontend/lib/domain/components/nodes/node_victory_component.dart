@@ -11,7 +11,7 @@ class NodeVictoryComponent extends NodeComponent<NodeVictory> {
   );
   final Paint fillerPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Colors.transparent,
+    color: Colors.yellow,
   );
 
   NodeVictoryComponent({
