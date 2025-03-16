@@ -9,16 +9,11 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitMeleeComponent extends UnitComponent<UnitMelee> {
   final Paint backgroundPaint = Paint();
 
-  UnitMeleeComponent({
-    required super.unit,
-    required super.size,
-  });
+  UnitMeleeComponent({required super.unit, required super.size});
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox(
-      isSolid: true,
-    ));
+    add(CircleHitbox(isSolid: true));
 
     backgroundPaint.color = unit.color;
 

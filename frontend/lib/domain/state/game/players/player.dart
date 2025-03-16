@@ -13,16 +13,16 @@ class Player with GameEngineRef {
   double creditsExtraRate = 0;
 
   static Player self() => SelfPlayer(
-        id: 'self',
-        ownershipDirection: 1,
-        baseCreditsRate: Constants.CREDITS_RATE,
-      );
+    id: 'self',
+    ownershipDirection: 1,
+    baseCreditsRate: Constants.CREDITS_RATE,
+  );
 
   static Player enemy() => ActivePlayer(
-        id: 'enemy',
-        ownershipDirection: -1,
-        baseCreditsRate: Constants.CREDITS_RATE * 1.1,
-      );
+    id: 'enemy',
+    ownershipDirection: -1,
+    baseCreditsRate: Constants.CREDITS_RATE * 1.1,
+  );
 
   Player({
     required this.id,

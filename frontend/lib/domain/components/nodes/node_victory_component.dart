@@ -11,10 +11,7 @@ class NodeVictoryComponent extends NodeCapturableComponent {
 
   @override
   FutureOr onLoad() {
-    add(NodeIconComponent(
-      icon: '⭐',
-      parent: this,
-    ));
+    add(NodeIconComponent(icon: '⭐', parent: this));
 
     return super.onLoad();
   }

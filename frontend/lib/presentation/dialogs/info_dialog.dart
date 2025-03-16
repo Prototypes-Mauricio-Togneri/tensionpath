@@ -23,29 +23,19 @@ class InfoDialog extends StatelessWidget {
     return DialogController(context);
   }
 
-  static DialogController won(VoidCallback onAccept) => _show(
-        text: 'You won!',
-        onAccept: onAccept,
-      );
+  static DialogController won(VoidCallback onAccept) =>
+      _show(text: 'You won!', onAccept: onAccept);
 
-  static DialogController lost(VoidCallback onAccept) => _show(
-        text: 'You lost!',
-        onAccept: onAccept,
-      );
+  static DialogController lost(VoidCallback onAccept) =>
+      _show(text: 'You lost!', onAccept: onAccept);
 
-  static DialogController tie(VoidCallback onAccept) => _show(
-        text: 'You have tied!',
-        onAccept: onAccept,
-      );
+  static DialogController tie(VoidCallback onAccept) =>
+      _show(text: 'You have tied!', onAccept: onAccept);
 
   static DialogController error({
     required String text,
     required VoidCallback? onAccept,
-  }) =>
-      _show(
-        text: text,
-        onAccept: onAccept,
-      );
+  }) => _show(text: text, onAccept: onAccept);
 
   @override
   Widget build(BuildContext context) {

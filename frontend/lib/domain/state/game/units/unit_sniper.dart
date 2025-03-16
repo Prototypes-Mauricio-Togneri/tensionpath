@@ -16,8 +16,6 @@ class UnitSniper extends UnitShooter {
   });
 
   @override
-  UnitSniperComponent get component => UnitSniperComponent(
-        unit: this,
-        size: Vector2(size, size),
-      );
+  UnitSniperComponent get component =>
+      UnitSniperComponent(unit: this, size: Vector2(size, size));
 }

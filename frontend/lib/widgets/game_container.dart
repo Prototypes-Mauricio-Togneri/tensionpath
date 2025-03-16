@@ -14,12 +14,10 @@ class GameContainer extends StatelessWidget {
     return DarkStatusBar(
       child: Scaffold(
         body: SafeArea(
-          child: Platform.isMobile
-              ? SmallScreenContainer(child)
-              : BigScreenContainer(
-                  child,
-                  Palette.GAME_BACKGROUND,
-                ),
+          child:
+              Platform.isMobile
+                  ? SmallScreenContainer(child)
+                  : BigScreenContainer(child, Palette.GAME_BACKGROUND),
         ),
       ),
     );
@@ -52,17 +50,11 @@ class BigScreenContainer extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                width: max(paddingWidth, 0),
-                color: color,
-              ),
+              child: Container(width: max(paddingWidth, 0), color: color),
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Container(
-                width: max(paddingWidth, 0),
-                color: color,
-              ),
+              child: Container(width: max(paddingWidth, 0), color: color),
             ),
           ],
         );

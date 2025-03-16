@@ -10,11 +10,7 @@ class Base with GameEngineRef implements Target {
   final double yPosition;
   double health;
 
-  Base({
-    required this.owner,
-    required this.yPosition,
-    required this.health,
-  });
+  Base({required this.owner, required this.yPosition, required this.health});
 
   Color get color => owner.color;
 

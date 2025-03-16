@@ -10,9 +10,6 @@ class NodeInvisible extends Node {
   }) : super(captureRate: 0);
 
   @override
-  NodeComponent get component => NodeComponent(
-        node: this,
-        position: position,
-        size: size,
-      );
+  NodeComponent get component =>
+      NodeComponent(node: this, position: position, size: size);
 }

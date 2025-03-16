@@ -23,16 +23,11 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     required this.base,
     required super.position,
     required super.size,
-  }) : super(
-          anchor: Anchor.topLeft,
-          priority: Priority.base.value,
-        );
+  }) : super(anchor: Anchor.topLeft, priority: Priority.base.value);
 
   @override
   FutureOr onLoad() {
-    add(RectangleHitbox(
-      isSolid: true,
-    ));
+    add(RectangleHitbox(isSolid: true));
 
     backgroundPaint.color = Palette.BASE_BACKGROUND;
     foregroundPaint.color = base.color.darken(0.3);
@@ -42,16 +37,12 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     borderPaint.color = base.color.darken(0.1);
 
     if (base.owner.isEnemy) {
-      add(FullScreenButtonComponent(
-        position: Vector2(
-          width - (height / 2),
-          height / 2,
+      add(
+        FullScreenButtonComponent(
+          position: Vector2(width - (height / 2), height / 2),
+          size: Vector2(height * 0.7, height * 0.7),
         ),
-        size: Vector2(
-          height * 0.7,
-          height * 0.7,
-        ),
-      ));
+      );
     }
 
     return super.onLoad();
@@ -63,10 +54,7 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     if ((other is UnitComponent) && (base.owner != other.unit.owner)) {
-      engine.onUnitCollidedWithBase(
-        unit: other.unit,
-        base: base,
-      );
+      engine.onUnitCollidedWithBase(unit: other.unit, base: base);
     }
 
     super.onCollisionStart(intersectionPoints, other);
@@ -76,19 +64,17 @@ class BaseComponent extends PositionComponent with CollisionCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      borderPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderPaint);
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      backgroundPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
     canvas.drawRect(
       Rect.fromLTWH(
-          0, 0, width * (base.health / Constants.BASE_MAX_HEALTH), height),
+        0,
+        0,
+        width * (base.health / Constants.BASE_MAX_HEALTH),
+        height,
+      ),
       foregroundPaint,
     );
 
@@ -105,13 +91,8 @@ class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
   final Paint backgroundPaint = Paint();
   final Paint foregroundPaint = Paint();
 
-  FullScreenButtonComponent({
-    required super.position,
-    required super.size,
-  }) : super(
-          anchor: Anchor.center,
-          priority: Priority.base.value,
-        );
+  FullScreenButtonComponent({required super.position, required super.size})
+    : super(anchor: Anchor.center, priority: Priority.base.value);
 
   @override
   FutureOr onLoad() {
@@ -130,11 +111,7 @@ class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle(
-      (size / 2).toOffset(),
-      size.x / 2,
-      backgroundPaint,
-    );
+    canvas.drawCircle((size / 2).toOffset(), size.x / 2, backgroundPaint);
 
     canvas.drawText(
       text: '⌞ ⌝',

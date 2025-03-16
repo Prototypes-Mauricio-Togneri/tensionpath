@@ -29,8 +29,6 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(
-      game: state.gameComponent,
-    );
+    return GameWidget(game: state.gameComponent);
   }
 }

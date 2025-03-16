@@ -16,8 +16,6 @@ class UnitRanger extends UnitShooter {
   });
 
   @override
-  UnitRangerComponent get component => UnitRangerComponent(
-        unit: this,
-        size: Vector2(size, size),
-      );
+  UnitRangerComponent get component =>
+      UnitRangerComponent(unit: this, size: Vector2(size, size));
 }

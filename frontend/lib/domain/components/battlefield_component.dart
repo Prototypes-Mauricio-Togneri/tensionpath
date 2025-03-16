@@ -17,15 +17,15 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
   final Paint laneNeonPaint = Paint();
 
   BattlefieldComponent(this.battlefield)
-      : super(
-          position: Vector2(0, 0),
-          size: Vector2(
-            Constants.UI_BATTLEFIELD_WIDTH,
-            Constants.UI_BATTLEFIELD_HEIGHT,
-          ),
-          anchor: Anchor.topLeft,
-          priority: Priority.battlefield.value,
-        );
+    : super(
+        position: Vector2(0, 0),
+        size: Vector2(
+          Constants.UI_BATTLEFIELD_WIDTH,
+          Constants.UI_BATTLEFIELD_HEIGHT,
+        ),
+        anchor: Anchor.topLeft,
+        priority: Priority.battlefield.value,
+      );
 
   @override
   FutureOr onLoad() {
@@ -44,12 +44,14 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
     for (int i = 0; i < battlefield.lanes.length; i++) {
       final Lane lane = battlefield.lanes[i];
 
-      gameRef.world.add(LaneComponent(
-        lane: lane,
-        player: engine.self,
-        position: Vector2(i * battlefield.laneWidth, 0),
-        size: Vector2(battlefield.laneWidth, battlefield.mapSize.y),
-      ));
+      gameRef.world.add(
+        LaneComponent(
+          lane: lane,
+          player: engine.self,
+          position: Vector2(i * battlefield.laneWidth, 0),
+          size: Vector2(battlefield.laneWidth, battlefield.mapSize.y),
+        ),
+      );
 
       for (final Node node in lane.nodes) {
         gameRef.world.add(node.component);
@@ -63,10 +65,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      backgroundPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
     for (int i = 1; i < battlefield.lanes.length; i++) {
       canvas.drawLine(

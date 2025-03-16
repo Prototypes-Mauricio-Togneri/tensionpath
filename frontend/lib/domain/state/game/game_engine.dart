@@ -37,10 +37,7 @@ class GameEngine {
     required Node node,
     required UnitType unitType,
   }) {
-    final List<Node> nodes = lane.getNodes(
-      forward: player.isSelf,
-      from: node,
-    );
+    final List<Node> nodes = lane.getNodes(forward: player.isSelf, from: node);
 
     final double extraGap =
         -player.ownershipDirection * (battlefield.maxUnitSize / 2);
@@ -64,18 +61,12 @@ class GameEngine {
     gameComponent.onUnitCreated(unit.component);
   }
 
-  void onUnitCollidedWithBase({
-    required Unit unit,
-    required Base base,
-  }) {
+  void onUnitCollidedWithBase({required Unit unit, required Base base}) {
     base.onHit(unit.health);
     onUnitDestroyed(unit);
   }
 
-  void onUnitsCollided({
-    required Unit unit1,
-    required Unit unit2,
-  }) {
+  void onUnitsCollided({required Unit unit1, required Unit unit2}) {
     if (unit1.health > unit2.health) {
       unit1.reduceHealth(unit2.health);
       onUnitDestroyed(unit2);
@@ -93,10 +84,7 @@ class GameEngine {
     gameComponent.onUnitDestroyed(unit);
   }
 
-  void onNodeTouched({
-    required Node node,
-    required Unit unit,
-  }) {
+  void onNodeTouched({required Node node, required Unit unit}) {
     node.onTouched(unit);
   }
 
@@ -114,18 +102,12 @@ class GameEngine {
     owner.addCreditsExtraRate(extra);
   }
 
-  void onNodeCreditsGeneratorLost({
-    required Node node,
-    required Player owner,
-  }) {
+  void onNodeCreditsGeneratorLost({required Node node, required Player owner}) {
     const double extra = Constants.CREDITS_EXTRA_RATE;
     owner.removeCreditsExtraRate(extra);
   }
 
-  void onAddCredits({
-    required Player player,
-    required double credits,
-  }) {
+  void onAddCredits({required Player player, required double credits}) {
     player.addCredits(credits);
   }
 
@@ -149,7 +131,8 @@ class GameEngine {
               (unit.position - source.position).length;
           if (distanceToTarget <= distance) {
             print(
-                'Source: ${source.hashCode} | Target: ${unit.hashCode} | Distance: $distanceToTarget');
+              'Source: ${source.hashCode} | Target: ${unit.hashCode} | Distance: $distanceToTarget',
+            );
 
             return unit;
           }

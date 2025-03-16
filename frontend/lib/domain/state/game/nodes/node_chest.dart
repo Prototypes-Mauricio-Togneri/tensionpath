@@ -12,11 +12,8 @@ class NodeChest extends NodeAccumulator {
   }) : super(captureRate: Constants.NODE_CHEST_CAPTURE_RATE);
 
   @override
-  NodeComponent get component => NodeChestComponent(
-        node: this,
-        position: position,
-        size: size,
-      );
+  NodeComponent get component =>
+      NodeChestComponent(node: this, position: position, size: size);
 
   @override
   bool canAccumulate() => creditsAccumulated < 10;
@@ -38,10 +35,7 @@ class NodeChest extends NodeAccumulator {
   }
 
   void _claimCredits() {
-    engine.onAddCredits(
-      player: owner!,
-      credits: creditsAccumulated,
-    );
+    engine.onAddCredits(player: owner!, credits: creditsAccumulated);
 
     clearAccumulated();
   }

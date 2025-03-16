@@ -7,20 +7,16 @@ import 'package:tensionpath/domain/types/priority.dart';
 class DamageComponent extends PositionComponent with CollisionCallbacks {
   final Damage damage;
 
-  DamageComponent({
-    required this.damage,
-    required super.size,
-  }) : super(
-          position: damage.position,
-          anchor: Anchor.center,
-          priority: Priority.damage.value,
-        );
+  DamageComponent({required this.damage, required super.size})
+    : super(
+        position: damage.position,
+        anchor: Anchor.center,
+        priority: Priority.damage.value,
+      );
 
   @override
   FutureOr onLoad() {
-    add(CircleHitbox(
-      isSolid: true,
-    ));
+    add(CircleHitbox(isSolid: true));
 
     return super.onLoad();
   }

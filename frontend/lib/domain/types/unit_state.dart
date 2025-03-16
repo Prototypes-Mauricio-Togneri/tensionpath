@@ -1,4 +1,1 @@
-enum UnitState {
-  alive,
-  dead;
-}
+enum UnitState { alive, dead }

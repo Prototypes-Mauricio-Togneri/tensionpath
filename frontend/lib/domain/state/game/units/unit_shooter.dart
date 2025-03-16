@@ -19,10 +19,7 @@ class UnitShooter extends Unit {
     required super.startingPosition,
     required WeaponType weaponType,
   }) {
-    weapon = Weapon.fromType(
-      unit: this,
-      weaponType: weaponType,
-    );
+    weapon = Weapon.fromType(unit: this, weaponType: weaponType);
   }
 
   @override
@@ -48,8 +45,6 @@ class UnitShooter extends Unit {
   Target? findTarget() => engine.findTarget(this);
 
   @override
-  UnitShooterComponent get component => UnitShooterComponent(
-        unit: this,
-        size: Vector2(size, size),
-      );
+  UnitShooterComponent get component =>
+      UnitShooterComponent(unit: this, size: Vector2(size, size));
 }

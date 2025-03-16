@@ -22,10 +22,7 @@ class ControlsComponent extends PositionComponent {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(
-          anchor: Anchor.topLeft,
-          priority: Priority.controls.value,
-        );
+  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
 
   @override
   FutureOr onLoad() {
@@ -38,14 +35,13 @@ class ControlsComponent extends PositionComponent {
     final double horizontalGapSize = (size.x - (cardWidth * 7)) / 8;
     final double verticalGapSize = (size.y - cardHeight) / 2;
 
-    add(CreditCounterComponent(
-      player: player,
-      position: Vector2(
-        horizontalGapSize,
-        verticalGapSize,
+    add(
+      CreditCounterComponent(
+        player: player,
+        position: Vector2(horizontalGapSize, verticalGapSize),
+        size: Vector2(cardWidth, cardHeight),
       ),
-      size: Vector2(cardWidth, cardHeight),
-    ));
+    );
 
     for (int i = 0; i < 6; i++) {
       final Vector2 position = Vector2(
@@ -53,12 +49,14 @@ class ControlsComponent extends PositionComponent {
         verticalGapSize + (cardHeight / 2),
       );
 
-      add(UnitSelectorComponent(
-        player: player,
-        unitType: UnitType.values[i],
-        position: position,
-        size: Vector2(cardWidth, cardHeight),
-      ));
+      add(
+        UnitSelectorComponent(
+          player: player,
+          unitType: UnitType.values[i],
+          position: position,
+          size: Vector2(cardWidth, cardHeight),
+        ),
+      );
     }
 
     return super.onLoad();
@@ -68,10 +66,7 @@ class ControlsComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      backgroundPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
   }
 }
 
@@ -83,10 +78,7 @@ class CreditCounterComponent extends PositionComponent {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(
-          anchor: Anchor.topLeft,
-          priority: Priority.controls.value,
-        );
+  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
 
   @override
   FutureOr onLoad() {
@@ -100,11 +92,7 @@ class CreditCounterComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle(
-      (size / 2).toOffset(),
-      size.x / 2,
-      backgroundPaint,
-    );
+    canvas.drawCircle((size / 2).toOffset(), size.x / 2, backgroundPaint);
 
     canvas.drawText(
       text: player.credits.floor().toString(),
@@ -129,16 +117,11 @@ class UnitSelectorComponent extends PositionComponent
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(
-          anchor: Anchor.center,
-          priority: Priority.controls.value,
-        );
+  }) : super(anchor: Anchor.center, priority: Priority.controls.value);
 
   @override
   FutureOr onLoad() {
-    add(RectangleHitbox(
-      isSolid: true,
-    ));
+    add(RectangleHitbox(isSolid: true));
 
     backgroundPaint.style = PaintingStyle.fill;
     backgroundPaint.color = Palette.CONTROLS_CARD_BACKGROUND;
@@ -212,27 +195,14 @@ class UnitSelectorComponent extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        size.x,
-        size.y,
-      ),
-      backgroundPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), backgroundPaint);
 
     double fillValue = 1 - (unitType.cost - player.credits);
     fillValue = fillValue.clamp(0, 1);
     final double height = size.y * fillValue;
 
     canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        size.y - height,
-        size.x,
-        height,
-      ),
+      Rect.fromLTWH(0, size.y - height, size.x, height),
       foregroundPaint,
     );
 
@@ -241,15 +211,7 @@ class UnitSelectorComponent extends PositionComponent
 
     borderPaint.color = cardColor;
 
-    canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        size.x,
-        size.y,
-      ),
-      borderPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), borderPaint);
 
     canvas.drawText(
       text: unitType.cost.toString(),

@@ -5,11 +5,7 @@ import 'package:tensionpath/utils/platform.dart';
 
 class ErrorHandler {
   static Future process(Object exception) async {
-    _logError(
-      exception.toString(),
-      exception,
-      null,
-    );
+    _logError(exception.toString(), exception, null);
 
     _logAnalytics(exception);
 
@@ -24,11 +20,7 @@ class ErrorHandler {
   }
 
   static Future onUncaughtError(Object exception, StackTrace stackTrace) async {
-    _logError(
-      'Uncaught Error',
-      exception,
-      stackTrace,
-    );
+    _logError('Uncaught Error', exception, stackTrace);
 
     _logAnalytics(exception);
 

@@ -7,15 +7,13 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeIconComponent extends PositionComponent {
   final String icon;
 
-  NodeIconComponent({
-    required this.icon,
-    required PositionComponent parent,
-  }) : super(
-          position: parent.size / 2,
-          size: parent.size / 2,
-          anchor: Anchor.center,
-          priority: Priority.node.value,
-        );
+  NodeIconComponent({required this.icon, required PositionComponent parent})
+    : super(
+        position: parent.size / 2,
+        size: parent.size / 2,
+        anchor: Anchor.center,
+        priority: Priority.node.value,
+      );
 
   @override
   void render(Canvas canvas) {

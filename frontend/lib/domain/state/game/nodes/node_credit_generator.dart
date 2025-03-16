@@ -13,25 +13,16 @@ class NodeCreditGenerator extends Node {
   }) : super(captureRate: Constants.NODE_CREDIT_GENERATOR_CAPTURE_RATE);
 
   @override
-  NodeComponent get component => NodeCreditGeneratorComponent(
-        node: this,
-        position: position,
-        size: size,
-      );
+  NodeComponent get component =>
+      NodeCreditGeneratorComponent(node: this, position: position, size: size);
 
   @override
   void onOwnerAssigned(Player owner) {
-    engine.onNodeCreditsGeneratorCaptured(
-      node: this,
-      owner: owner,
-    );
+    engine.onNodeCreditsGeneratorCaptured(node: this, owner: owner);
   }
 
   @override
   void onOwnerUnassigned(Player owner) {
-    engine.onNodeCreditsGeneratorLost(
-      node: this,
-      owner: owner,
-    );
+    engine.onNodeCreditsGeneratorLost(node: this, owner: owner);
   }
 }

@@ -11,10 +11,7 @@ class NodeComponent extends PositionComponent {
     required this.node,
     required super.position,
     required super.size,
-  }) : super(
-          anchor: Anchor.center,
-          priority: Priority.node.value,
-        );
+  }) : super(anchor: Anchor.center, priority: Priority.node.value);
 
   Node? checkHover(Vector2 point) {
     if (node.isOwned && containsPoint(point)) {
@@ -38,11 +35,7 @@ class NodeComponent extends PositionComponent {
     super.render(canvas);
 
     if (hoverPaint != null) {
-      canvas.drawCircle(
-        (size / 2).toOffset(),
-        size.x / 2,
-        hoverPaint!,
-      );
+      canvas.drawCircle((size / 2).toOffset(), size.x / 2, hoverPaint!);
     }
   }
 }

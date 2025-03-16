@@ -14,10 +14,7 @@ class LaneComponent extends PositionComponent {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(
-          anchor: Anchor.topLeft,
-          priority: Priority.lane.value,
-        );
+  }) : super(anchor: Anchor.topLeft, priority: Priority.lane.value);
 
   Lane? checkHover(Vector2 point) {
     if (containsPoint(point)) {
@@ -41,10 +38,7 @@ class LaneComponent extends PositionComponent {
     super.render(canvas);
 
     if (hoverPaint != null) {
-      canvas.drawRect(
-        size.toRect(),
-        hoverPaint!,
-      );
+      canvas.drawRect(size.toRect(), hoverPaint!);
     }
   }
 }

@@ -18,10 +18,7 @@ extension CanvasExtension on Canvas {
       foreground: foreground,
       background: background,
     );
-    final TextSpan textSpan = TextSpan(
-      text: text,
-      style: textStyle,
-    );
+    final TextSpan textSpan = TextSpan(text: text, style: textStyle);
     final TextPainter textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
@@ -34,16 +31,12 @@ extension CanvasExtension on Canvas {
       point: Vector2(position.x, position.y),
       size: Vector2(textPainter.size.width, textPainter.size.height),
     );
-    textPainter.paint(
-      this,
-      translatedPosition.toOffset(),
-    );
+    textPainter.paint(this, translatedPosition.toOffset());
   }
 
   Vector2 translate({
     required Anchor anchor,
     required Vector2 point,
     required Vector2 size,
-  }) =>
-      point - (Vector2(anchor.x, anchor.y)..multiply(size));
+  }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
 }

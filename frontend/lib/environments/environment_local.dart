@@ -7,9 +7,6 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
-  String get matchServerUrl => 'ws://$host:3000';
-
-  @override
   Future configure() async {
     await FirebaseAuth.instance.useAuthEmulator(Environment.get.host, 9099);
 

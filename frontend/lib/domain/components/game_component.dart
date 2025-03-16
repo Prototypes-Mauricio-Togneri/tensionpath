@@ -34,10 +34,12 @@ class GameComponent extends FlameGame
       width: Constants.SCREEN_WIDTH,
     );
 
-    camera.moveTo(Vector2(
-      Constants.SCREEN_WIDTH / 2,
-      (Constants.SCREEN_HEIGHT / 2) - Constants.UI_BASE_HEIGHT,
-    ));
+    camera.moveTo(
+      Vector2(
+        Constants.SCREEN_WIDTH / 2,
+        (Constants.SCREEN_HEIGHT / 2) - Constants.UI_BASE_HEIGHT,
+      ),
+    );
 
     if (debugMode) {
       add(FpsTextComponent());
@@ -59,8 +61,9 @@ class GameComponent extends FlameGame
 
   Iterable<NodeComponent> get nodeComponents {
     if (cachedNodeComponents.isEmpty) {
-      cachedNodeComponents
-          .addAll(world.children.whereType<NodeCheckpointComponent>());
+      cachedNodeComponents.addAll(
+        world.children.whereType<NodeCheckpointComponent>(),
+      );
     }
 
     return cachedNodeComponents;
@@ -133,15 +136,9 @@ class GameComponent extends FlameGame
     pauseEngine();
 
     if (won) {
-      ConfirmationDialog.won(
-        onAccept: _onMatchReset,
-        onCancel: _onMatchQuit,
-      );
+      ConfirmationDialog.won(onAccept: _onMatchReset, onCancel: _onMatchQuit);
     } else {
-      ConfirmationDialog.lost(
-        onAccept: _onMatchReset,
-        onCancel: _onMatchQuit,
-      );
+      ConfirmationDialog.lost(onAccept: _onMatchReset, onCancel: _onMatchQuit);
     }
   }
 

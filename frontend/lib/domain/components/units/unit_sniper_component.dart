@@ -6,10 +6,7 @@ import 'package:tensionpath/domain/state/game/units/unit_sniper.dart';
 class UnitSniperComponent extends UnitShooterComponent<UnitSniper> {
   final Paint borderPaint = Paint();
 
-  UnitSniperComponent({
-    required super.unit,
-    required super.size,
-  });
+  UnitSniperComponent({required super.unit, required super.size});
 
   @override
   FutureOr onLoad() {

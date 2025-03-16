@@ -1,5 +1,1 @@
-enum DamageType {
-  melee,
-  detonation,
-  elemental;
-}
+enum DamageType { melee, detonation, elemental }

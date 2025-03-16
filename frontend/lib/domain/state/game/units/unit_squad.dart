@@ -16,8 +16,6 @@ class UnitSquad extends UnitShooter {
   });
 
   @override
-  UnitSquadComponent get component => UnitSquadComponent(
-        unit: this,
-        size: Vector2(size, size),
-      );
+  UnitSquadComponent get component =>
+      UnitSquadComponent(unit: this, size: Vector2(size, size));
 }

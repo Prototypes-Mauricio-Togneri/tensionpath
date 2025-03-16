@@ -25,9 +25,7 @@ class Weapon {
     }
   }
 
-  void shoot({
-    required Target target,
-  }) {
+  void shoot({required Target target}) {
     target.onHit(10);
     reloading = attackSpeed;
   }
@@ -35,11 +33,10 @@ class Weapon {
   factory Weapon.fromType({
     required UnitShooter unit,
     required WeaponType weaponType,
-  }) =>
-      Weapon(
-        unit: unit,
-        attackSpeed: weaponType.attackSpeed,
-        projectiles: weaponType.projectiles,
-        targetType: weaponType.targetType,
-      );
+  }) => Weapon(
+    unit: unit,
+    attackSpeed: weaponType.attackSpeed,
+    projectiles: weaponType.projectiles,
+    targetType: weaponType.targetType,
+  );
 }

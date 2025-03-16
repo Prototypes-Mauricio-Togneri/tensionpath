@@ -14,11 +14,8 @@ class NodeUnitGenerator extends NodeAccumulator {
   }) : super(captureRate: Constants.NODE_UNIT_GENERATOR_CAPTURE_RATE);
 
   @override
-  NodeComponent get component => NodeUnitGeneratorComponent(
-        node: this,
-        position: position,
-        size: size,
-      );
+  NodeComponent get component =>
+      NodeUnitGeneratorComponent(node: this, position: position, size: size);
 
   @override
   bool canAccumulate() => hasOwner;

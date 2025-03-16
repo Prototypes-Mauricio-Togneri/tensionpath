@@ -10,9 +10,7 @@ class Ownership with GameEngineRef {
   Player? _owner;
   Player? _lastTouched;
 
-  Ownership({
-    required this.captureRate,
-  });
+  Ownership({required this.captureRate});
 
   bool get hasOwner => _owner != null;
 

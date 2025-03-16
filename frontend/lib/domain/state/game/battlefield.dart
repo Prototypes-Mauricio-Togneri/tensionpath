@@ -39,30 +39,17 @@ class Battlefield {
     }
   }
 
-  factory Battlefield.create({
-    required Player self,
-    required Player enemy,
-  }) =>
-      Battlefield.lane7(
-        self: self,
-        enemy: enemy,
-      );
+  factory Battlefield.create({required Player self, required Player enemy}) =>
+      Battlefield.lane7(self: self, enemy: enemy);
 
-  factory Battlefield.lane5({
-    required Player self,
-    required Player enemy,
-  }) {
+  factory Battlefield.lane5({required Player self, required Player enemy}) {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
     const double nodeWidth = laneWidth * 0.7;
     const double maxUnitSize = laneWidth;
 
     // ignore: prefer_const_constructors
-    final Lane lane1 = Lane(
-      id: 'l1',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane1 = Lane(id: 'l1', nodes: [], units: []);
 
     lane1.nodes.addAll([
       NodeInvisible(
@@ -86,11 +73,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane2 = Lane(
-      id: 'l2',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane2 = Lane(id: 'l2', nodes: [], units: []);
 
     lane2.nodes.addAll([
       NodeInvisible(
@@ -120,11 +103,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane3 = Lane(
-      id: 'l3',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane3 = Lane(id: 'l3', nodes: [], units: []);
 
     lane3.nodes.addAll([
       NodeInvisible(
@@ -148,11 +127,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane4 = Lane(
-      id: 'l4',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane4 = Lane(id: 'l4', nodes: [], units: []);
 
     lane4.nodes.addAll([
       NodeInvisible(
@@ -182,11 +157,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane5 = Lane(
-      id: 'l5',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane5 = Lane(id: 'l5', nodes: [], units: []);
 
     lane5.nodes.addAll([
       NodeInvisible(
@@ -223,37 +194,20 @@ class Battlefield {
           yPosition: Constants.UI_BATTLEFIELD_HEIGHT,
           health: Constants.BASE_MAX_HEALTH,
         ),
-        Base(
-          owner: enemy,
-          yPosition: 0,
-          health: Constants.BASE_MAX_HEALTH,
-        ),
+        Base(owner: enemy, yPosition: 0, health: Constants.BASE_MAX_HEALTH),
       ],
-      lanes: [
-        lane1,
-        lane2,
-        lane3,
-        lane4,
-        lane5,
-      ],
+      lanes: [lane1, lane2, lane3, lane4, lane5],
     );
   }
 
-  factory Battlefield.lane7({
-    required Player self,
-    required Player enemy,
-  }) {
+  factory Battlefield.lane7({required Player self, required Player enemy}) {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 7;
     const double nodeWidth = laneWidth * 0.7;
     const double maxUnitSize = laneWidth;
 
     // ignore: prefer_const_constructors
-    final Lane lane1 = Lane(
-      id: 'l1',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane1 = Lane(id: 'l1', nodes: [], units: []);
 
     lane1.nodes.addAll([
       NodeInvisible(
@@ -271,11 +225,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane2 = Lane(
-      id: 'l2',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane2 = Lane(id: 'l2', nodes: [], units: []);
 
     lane2.nodes.addAll([
       NodeInvisible(
@@ -299,11 +249,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane3 = Lane(
-      id: 'l3',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane3 = Lane(id: 'l3', nodes: [], units: []);
 
     lane3.nodes.addAll([
       NodeInvisible(
@@ -333,11 +279,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane4 = Lane(
-      id: 'l4',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane4 = Lane(id: 'l4', nodes: [], units: []);
 
     lane4.nodes.addAll([
       NodeInvisible(
@@ -361,11 +303,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane5 = Lane(
-      id: 'l5',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane5 = Lane(id: 'l5', nodes: [], units: []);
 
     lane5.nodes.addAll([
       NodeInvisible(
@@ -395,11 +333,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane6 = Lane(
-      id: 'l6',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane6 = Lane(id: 'l6', nodes: [], units: []);
 
     lane6.nodes.addAll([
       NodeInvisible(
@@ -423,11 +357,7 @@ class Battlefield {
     ]);
 
     // ignore: prefer_const_constructors
-    final Lane lane7 = Lane(
-      id: 'l7',
-      nodes: [],
-      units: [],
-    );
+    final Lane lane7 = Lane(id: 'l7', nodes: [], units: []);
 
     lane7.nodes.addAll([
       NodeInvisible(
@@ -458,21 +388,9 @@ class Battlefield {
           yPosition: Constants.UI_BATTLEFIELD_HEIGHT,
           health: Constants.BASE_MAX_HEALTH,
         ),
-        Base(
-          owner: enemy,
-          yPosition: 0,
-          health: Constants.BASE_MAX_HEALTH,
-        ),
+        Base(owner: enemy, yPosition: 0, health: Constants.BASE_MAX_HEALTH),
       ],
-      lanes: [
-        lane1,
-        lane2,
-        lane3,
-        lane4,
-        lane5,
-        lane6,
-        lane7,
-      ],
+      lanes: [lane1, lane2, lane3, lane4, lane5, lane6, lane7],
     );
   }
 }

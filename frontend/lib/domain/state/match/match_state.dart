@@ -22,10 +22,7 @@ class MatchState extends BaseState {
       gameComponent: gameComponent,
       self: self,
       enemy: enemy,
-      battlefield: Battlefield.create(
-        self: self,
-        enemy: enemy,
-      ),
+      battlefield: Battlefield.create(self: self, enemy: enemy),
     );
 
     notify();

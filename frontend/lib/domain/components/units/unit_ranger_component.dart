@@ -6,10 +6,7 @@ import 'package:tensionpath/domain/state/game/units/unit_ranger.dart';
 class UnitRangerComponent extends UnitShooterComponent<UnitRanger> {
   final Paint borderPaint = Paint();
 
-  UnitRangerComponent({
-    required super.unit,
-    required super.size,
-  });
+  UnitRangerComponent({required super.unit, required super.size});
 
   @override
   FutureOr onLoad() {
@@ -22,10 +19,7 @@ class UnitRangerComponent extends UnitShooterComponent<UnitRanger> {
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      borderPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderPaint);
 
     canvas.drawLine(
       Offset(width / 2, height / 2),

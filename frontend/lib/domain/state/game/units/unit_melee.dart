@@ -18,8 +18,6 @@ class UnitMelee extends Unit {
   });
 
   @override
-  UnitMeleeComponent get component => UnitMeleeComponent(
-        unit: this,
-        size: Vector2(size, size),
-      );
+  UnitMeleeComponent get component =>
+      UnitMeleeComponent(unit: this, size: Vector2(size, size));
 }

@@ -1,4 +1,1 @@
-enum TargetType {
-  single,
-  multiple,
-}
+enum TargetType { single, multiple }

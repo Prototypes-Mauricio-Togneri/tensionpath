@@ -6,10 +6,7 @@ import 'package:tensionpath/domain/state/game/units/unit_squad.dart';
 class UnitSquadComponent extends UnitShooterComponent<UnitSquad> {
   final Paint borderPaint = Paint();
 
-  UnitSquadComponent({
-    required super.unit,
-    required super.size,
-  });
+  UnitSquadComponent({required super.unit, required super.size});
 
   @override
   FutureOr onLoad() {
@@ -57,11 +54,7 @@ class UnitSquadComponent extends UnitShooterComponent<UnitSquad> {
     required Size size,
   }) {
     canvas.drawRect(
-      Rect.fromCenter(
-        center: position,
-        width: size.width,
-        height: size.height,
-      ),
+      Rect.fromCenter(center: position, width: size.width, height: size.height),
       borderPaint,
     );
 

@@ -12,9 +12,6 @@ class NodeCheckpoint extends Node {
   }) : super(captureRate: Constants.NODE_CHECKPOINT_CAPTURE_RATE);
 
   @override
-  NodeComponent get component => NodeCheckpointComponent(
-        node: this,
-        position: position,
-        size: size,
-      );
+  NodeComponent get component =>
+      NodeCheckpointComponent(node: this, position: position, size: size);
 }

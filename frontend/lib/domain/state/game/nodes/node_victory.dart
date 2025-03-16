@@ -13,11 +13,8 @@ class NodeVictory extends Node {
   }) : super(captureRate: Constants.NODE_VICTORY_CAPTURE_RATE);
 
   @override
-  NodeComponent get component => NodeVictoryComponent(
-        node: this,
-        position: position,
-        size: size,
-      );
+  NodeComponent get component =>
+      NodeVictoryComponent(node: this, position: position, size: size);
 
   @override
   void onOwnerAssigned(Player owner) => engine.onNodeVictoryCaptured(this);

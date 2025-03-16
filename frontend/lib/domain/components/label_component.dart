@@ -8,14 +8,11 @@ class LabelComponent extends TextComponent {
     required double size,
     required Color color,
   }) : super(
-          text: text,
-          anchor: Anchor.center,
-          position: position,
-          textRenderer: TextPaint(
-            style: TextStyle(
-              fontSize: size,
-              color: color,
-            ),
-          ),
-        );
+         text: text,
+         anchor: Anchor.center,
+         position: position,
+         textRenderer: TextPaint(
+           style: TextStyle(fontSize: size, color: color),
+         ),
+       );
 }
