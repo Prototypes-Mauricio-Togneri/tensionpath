@@ -1,18 +1,10 @@
-import 'dart:async';
-import 'package:tensionpath/domain/components/nodes/node_capturable_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_icon_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
 
-class NodeVictoryComponent extends NodeCapturableComponent {
+class NodeVictoryComponent extends NodeComponent<NodeVictory> {
   NodeVictoryComponent({
     required super.node,
     required super.position,
     required super.size,
   });
-
-  @override
-  FutureOr onLoad() {
-    add(NodeIconComponent(icon: '⭐', parent: this));
-
-    return super.onLoad();
-  }
 }

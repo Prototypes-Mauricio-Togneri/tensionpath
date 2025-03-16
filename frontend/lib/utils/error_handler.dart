@@ -1,4 +1,3 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/log.dart';
 import 'package:tensionpath/utils/platform.dart';
@@ -10,12 +9,12 @@ class ErrorHandler {
     _logAnalytics(exception);
 
     if (!Platform.isWeb) {
-      await FirebaseCrashlytics.instance.recordError(
+      /*await FirebaseCrashlytics.instance.recordError(
         exception,
         null,
         reason: exception.toString(),
         fatal: false,
-      );
+      );*/
     }
   }
 
@@ -25,11 +24,11 @@ class ErrorHandler {
     _logAnalytics(exception);
 
     if (!Platform.isWeb) {
-      await FirebaseCrashlytics.instance.recordError(
+      /*await FirebaseCrashlytics.instance.recordError(
         exception,
         stackTrace,
         fatal: true,
-      );
+      );*/
     }
   }
 
