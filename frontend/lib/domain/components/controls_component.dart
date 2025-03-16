@@ -9,11 +9,15 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/painter.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Paint();
+  final Paint backgroundPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_BACKGROUND,
+  );
 
   ControlsComponent(this.player)
     : super(
@@ -28,9 +32,6 @@ class ControlsComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = Palette.CONTROLS_BACKGROUND;
-
     final double cardWidth = (size.x / 7) * 0.8;
     final double cardHeight = size.y * 0.8;
 
@@ -74,21 +75,16 @@ class ControlsComponent extends PositionComponent {
 
 class CreditCounterComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Paint();
+  final Paint backgroundPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_CREDIT_BACKGROUND,
+  );
 
   CreditCounterComponent({
     required this.player,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
-
-  @override
-  FutureOr onLoad() {
-    backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = Palette.CONTROLS_CREDIT_BACKGROUND;
-
-    return super.onLoad();
-  }
 
   @override
   void render(Canvas canvas) {
@@ -108,9 +104,18 @@ class CreditCounterComponent extends PositionComponent {
 class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  final Paint backgroundPaint = Paint();
-  final Paint foregroundPaint = Paint();
-  final Paint borderPaint = Paint();
+  final Paint backgroundPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_CARD_BACKGROUND,
+  );
+  final Paint foregroundPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_CARD_FOREGROUND,
+  );
+  final Paint borderPaint = Painter.create(
+    style: PaintingStyle.stroke,
+    strokeWidth: 5,
+  );
   Vector2 initialPosition = Vector2(0, 0);
 
   UnitSelectorComponent({
@@ -123,15 +128,6 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   @override
   FutureOr onLoad() {
     add(RectangleHitbox(isSolid: true));
-
-    backgroundPaint.style = PaintingStyle.fill;
-    backgroundPaint.color = Palette.CONTROLS_CARD_BACKGROUND;
-
-    foregroundPaint.style = PaintingStyle.fill;
-    foregroundPaint.color = Palette.CONTROLS_CARD_FOREGROUND;
-
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 5;
 
     return super.onLoad();
   }

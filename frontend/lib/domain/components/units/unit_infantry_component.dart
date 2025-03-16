@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit_infantry.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/painter.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitInfrantryComponent extends UnitComponent<UnitInfantry> {
-  final Paint backgroundPaint = Paint();
+  final Paint backgroundPaint = Painter.create(style: PaintingStyle.stroke);
 
   UnitInfrantryComponent({required super.unit, required super.size}) {
     backgroundPaint.color = unit.color;

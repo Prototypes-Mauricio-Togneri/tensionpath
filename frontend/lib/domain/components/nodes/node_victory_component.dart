@@ -2,22 +2,23 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
+import 'package:tensionpath/utils/painter.dart';
 
 class NodeVictoryComponent extends NodeComponent<NodeVictory> {
-  final Paint borderPaint = Paint();
-  final Paint fillerPaint = Paint();
+  final Paint borderPaint = Painter.create(
+    style: PaintingStyle.stroke,
+    color: Colors.white,
+  );
+  final Paint fillerPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Colors.transparent,
+  );
 
   NodeVictoryComponent({
     required super.node,
     required super.position,
     required super.size,
-  }) {
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.color = Colors.white;
-
-    fillerPaint.style = PaintingStyle.fill;
-    fillerPaint.color = Colors.yellow;
-  }
+  });
 
   @override
   void render(Canvas canvas) {

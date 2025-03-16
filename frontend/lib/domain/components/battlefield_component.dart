@@ -7,10 +7,14 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/utils/painter.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
-  final Paint backgroundPaint = Paint();
+  final Paint backgroundPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: const Color(0xff222222),
+  );
 
   BattlefieldComponent(this.battlefield)
     : super(
@@ -25,8 +29,6 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    backgroundPaint.color = const Color(0xff222222);
-
     for (final Node node in battlefield.nodes) {
       game.world.add(node.component);
     }

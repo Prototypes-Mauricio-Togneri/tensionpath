@@ -4,11 +4,18 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/utils/painter.dart';
 
 class UnitComponent<U extends Unit> extends PositionComponent {
   final U unit;
-  final Paint backgroundHealthPaint = Paint();
-  final Paint foregroundHealthPaint = Paint();
+  final Paint backgroundHealthPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Colors.grey,
+  );
+  final Paint foregroundHealthPaint = Painter.create(
+    style: PaintingStyle.fill,
+    color: Colors.green,
+  );
 
   UnitComponent({required this.unit, required super.size})
     : super(anchor: Anchor.center, priority: Priority.unit.value) {
@@ -20,9 +27,6 @@ class UnitComponent<U extends Unit> extends PositionComponent {
     if (unit.owner.isEnemy) {
       angle = pi;
     }
-
-    backgroundHealthPaint.color = Colors.grey;
-    foregroundHealthPaint.color = Colors.green;
 
     return super.onLoad();
   }
