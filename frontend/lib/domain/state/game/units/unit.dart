@@ -38,21 +38,14 @@ abstract class Unit with GameComponentRef {
   Vector2 get position =>
       Vector2((size * x) + (size / 2), (size * y) + (size / 2));
 
-  bool get canMove => true;
-
   @mustCallSuper
-  void update(double dt) {
-    if (canMove) {
-      //position.moveToTarget(nextNode.position, speed * dt);
-    }
-  }
+  void update(double dt) {}
 
   void reduceHealth(double value) {
     health -= value;
   }
 
   void destroy() {
-    // TODO(momo): remove unit from node
     state = UnitState.dead;
   }
 

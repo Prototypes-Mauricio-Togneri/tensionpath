@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 
@@ -20,5 +21,6 @@ abstract class Node with GameComponentRef {
 
   void onTapped() {}
 
+  @mustCallSuper
   void update(double dt) {}
 }
