@@ -33,19 +33,15 @@ class Battlefield {
     final List<Node> nodes = [];
 
     for (int x = 0; x < 5; x++) {
-      final int landNodes = (x % 2) == 0 ? 7 : 6;
-
       // Land nodes
-      for (int y = 1; y <= landNodes; y++) {
+      for (int y = 1; y <= 7; y++) {
         nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
       }
 
       // Self launcher
       nodes.add(NodeLauncher(x: x, y: 0, nodeSize: nodeSize, player: self));
       // Enemy launcher
-      nodes.add(
-        NodeLauncher(x: x, y: landNodes + 1, nodeSize: nodeSize, player: enemy),
-      );
+      nodes.add(NodeLauncher(x: x, y: 8, nodeSize: nodeSize, player: enemy));
     }
 
     return Battlefield(
