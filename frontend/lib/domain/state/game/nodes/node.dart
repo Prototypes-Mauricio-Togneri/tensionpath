@@ -20,7 +20,8 @@ abstract class Node extends Ownership with Accumulator, GameEngineRef {
 
   String get id => '[$x,$y]';
 
-  Vector2 get position => Vector2(nodeSize * x, nodeSize * y);
+  Vector2 get position =>
+      Vector2((nodeSize * x) + (nodeSize / 2), (nodeSize * y) + (nodeSize / 2));
 
   Vector2 get size => Vector2(nodeSize, nodeSize);
 
