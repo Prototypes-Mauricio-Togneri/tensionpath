@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 
@@ -14,5 +15,5 @@ class NodeLauncher extends Node {
 
   @override
   NodeComponent get component =>
-      NodeComponent(node: this, position: position, size: size);
+      NodeLauncherComponent(node: this, position: position, size: size);
 }

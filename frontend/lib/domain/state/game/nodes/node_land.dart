@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_land_componet.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 class NodeLand extends Node {
@@ -7,5 +8,5 @@ class NodeLand extends Node {
 
   @override
   NodeComponent get component =>
-      NodeComponent(node: this, position: position, size: size);
+      NodeLandComponent(node: this, position: position, size: size);
 }
