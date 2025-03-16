@@ -11,8 +11,8 @@ class Palette {
 
   static const Color CONTROLS_BACKGROUND = Colors.green;
 
-  static const Color CONTROLS_CREDIT_BACKGROUND = Colors.orange;
-  static const Color CONTROLS_CREDIT_FOREGROUND = Colors.white;
+  static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
+  static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
 
   static const Color CONTROLS_CARD_BACKGROUND = Colors.grey;
   static const Color CONTROLS_CARD_FOREGROUND = Colors.orange;

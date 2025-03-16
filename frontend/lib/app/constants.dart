@@ -8,17 +8,5 @@ class Constants {
   static const double UI_BATTLEFIELD_HEIGHT = 1512;
   static const double UI_BATTLEFIELD_WIDTH = 840;
 
-  static const int NEON_EFFECT = 2;
-
-  static const double CREDITS_RATE = 0.3;
-
-  static const double NODE_CREDITS_RATE = 0.1;
-
-  static const double NODE_CHECKPOINT_CAPTURE_RATE = 0.1;
-  static const double NODE_CHEST_CAPTURE_RATE = 0.1;
-  static const double NODE_CREDIT_GENERATOR_CAPTURE_RATE = 0.1;
-  static const double NODE_UNIT_GENERATOR_CAPTURE_RATE = 0.1;
-  static const double NODE_VICTORY_CAPTURE_RATE = 0.01;
-
-  static const double BASE_MAX_HEALTH = 1000;
+  static const double RESOUCES_RATE = 1;
 }

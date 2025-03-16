@@ -4,11 +4,7 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 class ActivePlayer extends Player {
   late int creditsTarget;
 
-  ActivePlayer({
-    required super.id,
-    required super.ownershipDirection,
-    required super.baseCreditsRate,
-  }) {
+  ActivePlayer({required super.id, required super.baseResourceRate}) {
     _recalculateCredits();
   }
 

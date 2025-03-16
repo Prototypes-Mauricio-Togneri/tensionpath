@@ -7,30 +7,18 @@ import 'package:tensionpath/utils/palette.dart';
 
 class Player with GameComponentRef {
   final String id;
-  final int ownershipDirection;
-  final double baseCreditsRate;
-  double credits = 0;
-  double creditsExtraRate = 0;
+  final double baseResourceRate;
+  double resources = 0;
 
-  static Player self() => SelfPlayer(
-    id: 'self',
-    ownershipDirection: 1,
-    baseCreditsRate: Constants.CREDITS_RATE,
-  );
+  static Player self() =>
+      SelfPlayer(id: 'self', baseResourceRate: Constants.RESOUCES_RATE);
 
-  static Player enemy() => ActivePlayer(
-    id: 'enemy',
-    ownershipDirection: -1,
-    baseCreditsRate: Constants.CREDITS_RATE * 1.1,
-  );
+  static Player enemy() =>
+      ActivePlayer(id: 'enemy', baseResourceRate: Constants.RESOUCES_RATE * 2);
 
-  Player({
-    required this.id,
-    required this.ownershipDirection,
-    required this.baseCreditsRate,
-  });
+  Player({required this.id, required this.baseResourceRate});
 
-  double get creditsRate => baseCreditsRate + creditsExtraRate;
+  double get resourceRate => baseResourceRate;
 
   bool get isSelf => this is SelfPlayer;
 
@@ -38,21 +26,13 @@ class Player with GameComponentRef {
 
   Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_ENEMY;
 
-  void addCreditsExtraRate(double value) {
-    creditsExtraRate += value;
+  void addResources(double value) {
+    resources += value;
+    resources = resources.clamp(0, 10);
   }
 
-  void removeCreditsExtraRate(double value) {
-    creditsExtraRate -= value;
-  }
-
-  void addCredits(double value) {
-    credits += value;
-    credits = credits.clamp(0, 10);
-  }
-
-  void spendCredits(int value) {
-    credits -= value;
+  void spendResources(int value) {
+    resources -= value;
   }
 
   @override
@@ -62,8 +42,8 @@ class Player with GameComponentRef {
   int get hashCode => id.hashCode;
 
   void update(double dt) {
-    credits += creditsRate * dt;
-    credits = credits.clamp(0, 10);
+    resources += resourceRate * dt;
+    resources = resources.clamp(0, 10);
 
     takeAction();
   }

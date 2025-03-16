@@ -39,7 +39,7 @@ class ControlsComponent extends PositionComponent {
     final double verticalGapSize = (size.y - cardHeight) / 2;
 
     add(
-      CreditCounterComponent(
+      ResourceCounterComponent(
         player: player,
         position: Vector2(horizontalGapSize, verticalGapSize),
         size: Vector2(cardWidth, cardHeight),
@@ -73,14 +73,14 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class CreditCounterComponent extends PositionComponent {
+class ResourceCounterComponent extends PositionComponent {
   final Player player;
   final Paint backgroundPaint = Painter.create(
     style: PaintingStyle.fill,
-    color: Palette.CONTROLS_CREDIT_BACKGROUND,
+    color: Palette.CONTROLS_RESOURCES_BACKGROUND,
   );
 
-  CreditCounterComponent({
+  ResourceCounterComponent({
     required this.player,
     required super.position,
     required super.size,
@@ -93,10 +93,10 @@ class CreditCounterComponent extends PositionComponent {
     canvas.drawCircle((size / 2).toOffset(), size.x / 2, backgroundPaint);
 
     canvas.drawText(
-      text: player.credits.floor().toString(),
+      text: player.resources.floor().toString(),
       position: size / 2,
       size: size.x / 2,
-      color: Palette.CONTROLS_CREDIT_FOREGROUND,
+      color: Palette.CONTROLS_RESOURCES_FOREGROUND,
     );
   }
 }
@@ -150,7 +150,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
       node: node ?? lane.nodes.first,
       unitType: unitType,
     );
-    player.spendCredits(unitType.cost);
+    player.spendResources(unitType.cost);
   }*/
 
   @override
@@ -159,7 +159,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), backgroundPaint);
 
-    double fillValue = 1 - (unitType.cost - player.credits);
+    double fillValue = 1 - (unitType.cost - player.resources);
     fillValue = fillValue.clamp(0, 1);
     final double height = size.y * fillValue;
 
