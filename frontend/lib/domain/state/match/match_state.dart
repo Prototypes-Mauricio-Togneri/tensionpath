@@ -19,7 +19,7 @@ class MatchState extends BaseState {
     );
 
     gameComponent = GameComponent(
-      matchState: this,
+      state: this,
       self: self,
       enemy: enemy,
       battlefield: battlefield,
