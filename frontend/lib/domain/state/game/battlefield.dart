@@ -9,16 +9,12 @@ class Battlefield {
   final String id;
   final List<Node> nodes;
   final Vector2 mapSize;
-  final double laneWidth;
 
   const Battlefield({
     required this.id,
     required this.nodes,
     required this.mapSize,
-    required this.laneWidth,
   });
-
-  double get nodeSize => laneWidth;
 
   void update(double dt) {
     for (final Node node in nodes) {
@@ -36,63 +32,28 @@ class Battlefield {
 
     final List<Node> nodes = [];
 
-    // Lane 1
-    for (int y = 1; y <= 7; y++) {
-      nodes.add(NodeLand(x: 0, y: y, nodeSize: nodeSize));
+    for (int x = 0; x < 5; x++) {
+      final int landNodes = (x % 2) == 0 ? 7 : 6;
+
+      // Land nodes
+      for (int y = 1; y <= landNodes; y++) {
+        nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
+      }
+
+      // Self launcher
+      nodes.add(NodeLauncher(x: x, y: 0, nodeSize: nodeSize, player: self));
+      // Enemy launcher
+      nodes.add(
+        NodeLauncher(x: x, y: landNodes + 1, nodeSize: nodeSize, player: enemy),
+      );
     }
-
-    // Self launcher
-    nodes.add(NodeLauncher(x: 0, y: 0, nodeSize: nodeSize, player: self));
-    // Enemy launcher
-    nodes.add(NodeLauncher(x: 0, y: 8, nodeSize: nodeSize, player: enemy));
-
-    // Lane 2
-    for (int y = 2; y <= 6; y++) {
-      nodes.add(NodeLand(x: 1, y: y, nodeSize: nodeSize));
-    }
-
-    // Self launcher
-    nodes.add(NodeLauncher(x: 1, y: 0, nodeSize: nodeSize, player: self));
-    // Enemy launcher
-    nodes.add(NodeLauncher(x: 1, y: 8, nodeSize: nodeSize, player: enemy));
-
-    // Lane 3
-    for (int y = 1; y <= 7; y++) {
-      nodes.add(NodeLand(x: 2, y: y, nodeSize: nodeSize));
-    }
-
-    // Self launcher
-    nodes.add(NodeLauncher(x: 2, y: 0, nodeSize: nodeSize, player: self));
-    // Enemy launcher
-    nodes.add(NodeLauncher(x: 2, y: 8, nodeSize: nodeSize, player: enemy));
-
-    // Lane 4
-    for (int y = 2; y <= 6; y++) {
-      nodes.add(NodeLand(x: 3, y: y, nodeSize: nodeSize));
-    }
-
-    // Self launcher
-    nodes.add(NodeLauncher(x: 3, y: 0, nodeSize: nodeSize, player: self));
-    // Enemy launcher
-    nodes.add(NodeLauncher(x: 3, y: 8, nodeSize: nodeSize, player: enemy));
-
-    // Lane 5
-    for (int y = 1; y <= 7; y++) {
-      nodes.add(NodeLand(x: 4, y: y, nodeSize: nodeSize));
-    }
-
-    // Self launcher
-    nodes.add(NodeLauncher(x: 4, y: 0, nodeSize: nodeSize, player: self));
-    // Enemy launcher
-    nodes.add(NodeLauncher(x: 4, y: 8, nodeSize: nodeSize, player: enemy));
 
     return Battlefield(
-      id: 'vector',
+      id: 'w5h9',
       mapSize: Vector2(
         Constants.UI_BATTLEFIELD_WIDTH,
         Constants.UI_BATTLEFIELD_HEIGHT,
       ),
-      laneWidth: laneWidth,
       nodes: nodes,
     );
   }
