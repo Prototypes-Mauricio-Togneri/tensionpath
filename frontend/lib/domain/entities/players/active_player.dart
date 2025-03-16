@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class ActivePlayer extends Player {
   late int resourcesTarget;

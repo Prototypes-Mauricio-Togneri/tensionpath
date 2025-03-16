@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/state/game/players/active_player.dart';
-import 'package:tensionpath/domain/state/game/players/self_player.dart';
+import 'package:tensionpath/domain/entities/players/active_player.dart';
+import 'package:tensionpath/domain/entities/players/self_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player with GameComponentRef {

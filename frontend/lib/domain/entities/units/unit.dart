@@ -3,9 +3,9 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/units/unit_infantry.dart';
+import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/units/unit_infantry.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 

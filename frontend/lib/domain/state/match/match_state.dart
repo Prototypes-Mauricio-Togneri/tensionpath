@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/state/game/battlefield.dart';
-import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class MatchState extends BaseState {
   late GameComponent gameComponent;

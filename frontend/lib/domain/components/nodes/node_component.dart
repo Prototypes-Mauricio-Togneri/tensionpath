@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
+import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent {

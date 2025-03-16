@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class NodeLauncher extends Node {
   final Player player;

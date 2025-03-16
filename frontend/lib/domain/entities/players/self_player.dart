@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class SelfPlayer extends Player {
   SelfPlayer({required super.id, required super.baseResourceRate});

@@ -1,7 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/components/units/unit_infantry_component.dart';
-import 'package:tensionpath/domain/state/game/units/unit.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
 
 class UnitInfantry extends Unit {
   UnitInfantry({

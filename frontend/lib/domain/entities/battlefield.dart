@@ -1,9 +1,9 @@
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_land.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_launcher.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
-import 'package:tensionpath/domain/state/game/players/player.dart';
+import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/entities/nodes/node_land.dart';
+import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
+import 'package:tensionpath/domain/entities/nodes/node_victory.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class Battlefield {
   final String id;

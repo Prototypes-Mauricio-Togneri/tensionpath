@@ -3,10 +3,10 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/state/game/battlefield.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/units/unit.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchComponent extends World {

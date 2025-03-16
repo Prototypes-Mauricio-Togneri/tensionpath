@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/state/game/units/unit_infantry.dart';
+import 'package:tensionpath/domain/entities/units/unit_infantry.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
