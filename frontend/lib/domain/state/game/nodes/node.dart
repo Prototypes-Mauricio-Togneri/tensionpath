@@ -1,9 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/state/game/accumulator.dart';
 
-abstract class Node with Accumulator, GameComponentRef {
+abstract class Node with GameComponentRef {
   final int x;
   final int y;
   final double nodeSize;
