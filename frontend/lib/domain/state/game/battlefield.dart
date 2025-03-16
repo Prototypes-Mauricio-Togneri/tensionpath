@@ -1,4 +1,3 @@
-import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_land.dart';
@@ -9,13 +8,8 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 class Battlefield {
   final String id;
   final List<Node> nodes;
-  final Vector2 mapSize;
 
-  const Battlefield({
-    required this.id,
-    required this.nodes,
-    required this.mapSize,
-  });
+  const Battlefield({required this.id, required this.nodes});
 
   void update(double dt) {
     for (final Node node in nodes) {
@@ -49,13 +43,6 @@ class Battlefield {
     // Victory node
     nodes.add(NodeVictory(x: 2, y: 4, nodeSize: nodeSize));
 
-    return Battlefield(
-      id: 'w5h9',
-      mapSize: Vector2(
-        Constants.UI_BATTLEFIELD_WIDTH,
-        Constants.UI_BATTLEFIELD_HEIGHT,
-      ),
-      nodes: nodes,
-    );
+    return Battlefield(id: 'w5h9', nodes: nodes);
   }
 }

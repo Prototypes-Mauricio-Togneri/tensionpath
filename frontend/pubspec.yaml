@@ -41,9 +41,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  assets:
-    - assets/images/battlefield/
-    - assets/images/launcher/
-    - assets/images/node/
-    - assets/images/node/icon/
-    - assets/images/unit/
+  #assets:
+  #  - assets/images/
