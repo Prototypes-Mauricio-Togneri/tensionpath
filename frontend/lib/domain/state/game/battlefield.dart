@@ -3,6 +3,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_land.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_launcher.dart';
+import 'package:tensionpath/domain/state/game/nodes/node_victory.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class Battlefield {
@@ -26,7 +27,6 @@ class Battlefield {
       Battlefield.w5h9(self: self, enemy: enemy);
 
   factory Battlefield.w5h9({required Player self, required Player enemy}) {
-    //const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
     const double nodeSize = laneWidth;
 
@@ -35,7 +35,9 @@ class Battlefield {
     for (int x = 0; x < 5; x++) {
       // Land nodes
       for (int y = 1; y <= 7; y++) {
-        nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
+        if (x != 2 || y != 4) {
+          nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
+        }
       }
 
       // Self launcher
@@ -43,6 +45,9 @@ class Battlefield {
       // Enemy launcher
       nodes.add(NodeLauncher(x: x, y: 8, nodeSize: nodeSize, player: enemy));
     }
+
+    // Victory node
+    nodes.add(NodeVictory(x: 2, y: 4, nodeSize: nodeSize));
 
     return Battlefield(
       id: 'w5h9',
