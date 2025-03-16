@@ -2,14 +2,14 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node_launcher.dart';
-import 'package:tensionpath/utils/painter.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
-  final Paint borderPaint = Painter.create(
+  final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Colors.white,
   );
-  final Paint fillerPaint = Painter.create(style: PaintingStyle.fill);
+  final Paint fillerPaint = Palette.paint(style: PaintingStyle.fill);
 
   NodeLauncherComponent({
     required super.node,

@@ -4,15 +4,15 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/painter.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent<U extends Unit> extends PositionComponent {
   final U unit;
-  final Paint backgroundHealthPaint = Painter.create(
+  final Paint backgroundHealthPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Colors.grey,
   );
-  final Paint foregroundHealthPaint = Painter.create(
+  final Paint foregroundHealthPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Colors.green,
   );

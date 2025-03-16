@@ -7,11 +7,11 @@ import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
-import 'package:tensionpath/utils/painter.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
-  final Paint backgroundPaint = Painter.create(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: const Color(0xff222222),
   );

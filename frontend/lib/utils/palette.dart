@@ -25,4 +25,26 @@ class Palette {
 
   static const Color BASE_BACKGROUND = Colors.grey;
   static const Color BASE_PLAYER_NAME = Colors.white;
+
+  static Paint paint({
+    PaintingStyle? style,
+    Color? color,
+    double? strokeWidth,
+  }) {
+    final Paint paint = Paint();
+
+    if (color != null) {
+      paint.color = color;
+    }
+
+    if (strokeWidth != null) {
+      paint.strokeWidth = strokeWidth;
+    }
+
+    if (style != null) {
+      paint.style = style;
+    }
+
+    return paint;
+  }
 }

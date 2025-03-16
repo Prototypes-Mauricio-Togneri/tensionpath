@@ -9,12 +9,11 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/utils/painter.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Painter.create(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_BACKGROUND,
   );
@@ -75,7 +74,7 @@ class ControlsComponent extends PositionComponent {
 
 class ResourceCounterComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Painter.create(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_RESOURCES_BACKGROUND,
   );
@@ -104,15 +103,15 @@ class ResourceCounterComponent extends PositionComponent {
 class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  final Paint backgroundPaint = Painter.create(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_CARD_BACKGROUND,
   );
-  final Paint foregroundPaint = Painter.create(
+  final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_CARD_FOREGROUND,
   );
-  final Paint borderPaint = Painter.create(
+  final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
   );
