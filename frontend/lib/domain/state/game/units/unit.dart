@@ -81,7 +81,7 @@ abstract class Unit with GameEngineRef implements Target {
   }
 
   @override
-  double distance(Unit unit) => (position - unit.position).length;
+  bool inRange(Unit unit, double range) => true;
 
   @override
   bool get isAlive => state == UnitState.alive;

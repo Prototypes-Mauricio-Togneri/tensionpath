@@ -25,7 +25,7 @@ class Base with GameEngineRef implements Target {
   }
 
   @override
-  double distance(Unit unit) => (yPosition - unit.position.y).abs();
+  bool inRange(Unit unit, double range) => true;
 
   @override
   bool get isAlive => health >= 0;

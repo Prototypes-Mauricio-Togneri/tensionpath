@@ -35,10 +35,7 @@ class GameComponent extends FlameGame
     );
 
     camera.moveTo(
-      Vector2(
-        Constants.SCREEN_WIDTH / 2,
-        (Constants.SCREEN_HEIGHT / 2) - Constants.UI_BASE_HEIGHT,
-      ),
+      Vector2(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2),
     );
 
     if (debugMode) {

@@ -31,7 +31,7 @@ class UnitShooter extends Unit {
 
     if ((target == null) ||
         !target!.isAlive ||
-        (target!.distance(this) > range)) {
+        (target!.inRange(this, range))) {
       target = findTarget();
     }
 

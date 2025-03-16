@@ -40,7 +40,7 @@ class Battlefield {
   }
 
   factory Battlefield.create({required Player self, required Player enemy}) =>
-      Battlefield.lane7(self: self, enemy: enemy);
+      Battlefield.lane5(self: self, enemy: enemy);
 
   factory Battlefield.lane5({required Player self, required Player enemy}) {
     const double laneHeight = Constants.UI_BATTLEFIELD_HEIGHT;
