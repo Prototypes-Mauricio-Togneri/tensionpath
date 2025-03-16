@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:flame/game.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
@@ -17,7 +17,8 @@ abstract class Unit with GameComponentRef {
   final double size;
 
   late double health;
-  late Vector2 position;
+  late int x;
+  late int y;
   UnitState state = UnitState.alive;
 
   Unit({
@@ -26,13 +27,16 @@ abstract class Unit with GameComponentRef {
     required this.range,
     required this.size,
     required this.owner,
-    required Vector2 startingPosition,
+    required this.x,
+    required this.y,
   }) {
     health = maxHealth;
-    position = Vector2.copy(startingPosition);
   }
 
   Color get color => owner.color;
+
+  Vector2 get position =>
+      Vector2((size * x) + (size / 2), (size * y) + (size / 2));
 
   bool get canMove => true;
 
@@ -67,7 +71,8 @@ abstract class Unit with GameComponentRef {
           range: unitType.range,
           size: node.size.x,
           owner: owner,
-          startingPosition: node.position,
+          x: node.x,
+          y: node.y,
         );
     }
   }

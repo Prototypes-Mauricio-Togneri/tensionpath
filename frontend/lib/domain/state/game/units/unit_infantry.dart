@@ -10,7 +10,8 @@ class UnitInfantry extends Unit {
     required super.size,
     required super.attack,
     required super.owner,
-    required super.startingPosition,
+    required super.x,
+    required super.y,
   });
 
   @override
