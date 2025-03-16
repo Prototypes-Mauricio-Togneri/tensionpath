@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/components/units/unit_infantry_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 
@@ -13,6 +14,6 @@ class UnitInfantry extends Unit {
   });
 
   @override
-  UnitInfrantryComponent get component =>
+  UnitComponent get component =>
       UnitInfrantryComponent(unit: this, size: Vector2(size, size));
 }
