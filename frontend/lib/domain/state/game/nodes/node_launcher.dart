@@ -11,7 +11,7 @@ class NodeLauncher extends Node {
     required super.y,
     required super.nodeSize,
     required this.player,
-  }) : super(captureRate: 0);
+  });
 
   @override
   NodeComponent get component =>

@@ -6,8 +6,9 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 
-class BattlefieldComponent extends PositionComponent with HasGameRef {
+class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
   final Paint backgroundPaint = Paint();
 
@@ -27,7 +28,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
     backgroundPaint.color = const Color(0xff222222);
 
     for (final Node node in battlefield.nodes) {
-      gameRef.world.add(node.component);
+      game.world.add(node.component);
     }
 
     return super.onLoad();

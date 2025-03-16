@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
-class UnitComponent<U extends Unit> extends PositionComponent with HasGameRef {
+class UnitComponent<U extends Unit> extends PositionComponent {
   final U unit;
   final Paint backgroundHealthPaint = Paint();
   final Paint foregroundHealthPaint = Paint();

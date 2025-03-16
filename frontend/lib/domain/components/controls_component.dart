@@ -5,7 +5,6 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -106,8 +105,7 @@ class CreditCounterComponent extends PositionComponent {
   }
 }
 
-class UnitSelectorComponent extends PositionComponent
-    with DragCallbacks, HasGameRef<GameComponent> {
+class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
   final Paint backgroundPaint = Paint();

@@ -1,20 +1,11 @@
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_victory_component.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class NodeVictory extends Node {
-  NodeVictory({
-    required super.x,
-    required super.y,
-    required super.nodeSize,
-  }) : super(captureRate: Constants.NODE_VICTORY_CAPTURE_RATE);
+  NodeVictory({required super.x, required super.y, required super.nodeSize});
 
   @override
   NodeComponent get component =>
       NodeVictoryComponent(node: this, position: position, size: size);
-
-  @override
-  void onOwnerAssigned(Player owner) => engine.onNodeVictoryCaptured(this);
 }

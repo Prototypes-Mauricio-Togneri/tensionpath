@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/state/game/game_engine.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 
 extension ComponentExtension on Component {
-  GameEngine get engine => GameEngineRef.instance;
+  GameComponent get game => GameComponentRef.instance;
 }

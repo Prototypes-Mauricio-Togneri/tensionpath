@@ -1,16 +1,15 @@
 import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/state/game/game_engine.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/state/game/target.dart';
 import 'package:tensionpath/domain/state/game/units/unit_infantry.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
-abstract class Unit with GameEngineRef implements Target {
+abstract class Unit with GameComponentRef {
   final Player owner;
   final double maxHealth;
   final double attack;
@@ -19,7 +18,6 @@ abstract class Unit with GameEngineRef implements Target {
 
   late double health;
   late Vector2 position;
-  Target? target;
   UnitState state = UnitState.alive;
 
   Unit({
@@ -48,21 +46,6 @@ abstract class Unit with GameEngineRef implements Target {
   void reduceHealth(double value) {
     health -= value;
   }
-
-  @override
-  void onHit(double damage) {
-    health -= damage;
-
-    if (health <= 0) {
-      engine.onUnitDestroyed(this);
-    }
-  }
-
-  @override
-  bool inRange(Unit unit, double range) => true;
-
-  @override
-  bool get isAlive => state == UnitState.alive;
 
   void destroy() {
     // TODO(momo): remove unit from node
