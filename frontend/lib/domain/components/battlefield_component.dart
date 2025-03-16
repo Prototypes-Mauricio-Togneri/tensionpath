@@ -3,12 +3,8 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/lane_component.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
-import 'package:tensionpath/domain/state/game/lane.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 
 class BattlefieldComponent extends PositionComponent with HasGameRef {
   final Battlefield battlefield;
@@ -41,7 +37,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
       laneNeonPaint.strokeWidth * Constants.NEON_EFFECT,
     );
 
-    for (int i = 0; i < battlefield.lanes.length; i++) {
+    /*for (int i = 0; i < battlefield.lanes.length; i++) {
       final Lane lane = battlefield.lanes[i];
 
       gameRef.world.add(
@@ -56,7 +52,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
       for (final Node node in lane.nodes) {
         gameRef.world.add(node.component);
       }
-    }
+    }*/
 
     return super.onLoad();
   }
@@ -67,7 +63,7 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
-    for (int i = 1; i < battlefield.lanes.length; i++) {
+    /*for (int i = 1; i < battlefield.lanes.length; i++) {
       canvas.drawLine(
         Offset(i * battlefield.laneWidth, 0),
         Offset(i * battlefield.laneWidth, height),
@@ -79,6 +75,6 @@ class BattlefieldComponent extends PositionComponent with HasGameRef {
         Offset(i * battlefield.laneWidth, height),
         laneNeonPaint,
       );
-    }
+    }*/
   }
 }

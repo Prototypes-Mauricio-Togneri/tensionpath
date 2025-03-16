@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/state/game/game_engine.dart';
-import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit_ranger.dart';
@@ -17,7 +16,6 @@ import 'package:tensionpath/domain/types/weapon_type.dart';
 
 abstract class Unit with GameEngineRef implements Target {
   final Player owner;
-  final Lane lane;
   final List<Node> nodes;
   final double maxHealth;
   final double speed;
@@ -36,7 +34,6 @@ abstract class Unit with GameEngineRef implements Target {
     required this.range,
     required this.size,
     required this.owner,
-    required this.lane,
     required this.nodes,
     required Vector2 startingPosition,
   }) {
@@ -87,7 +84,7 @@ abstract class Unit with GameEngineRef implements Target {
   bool get isAlive => state == UnitState.alive;
 
   void destroy() {
-    lane.removeUnit(this);
+    // TODO(momo): remove unit from node
     state = UnitState.dead;
   }
 
@@ -96,13 +93,12 @@ abstract class Unit with GameEngineRef implements Target {
   factory Unit.fromType({
     required UnitType unitType,
     required Player owner,
-    required Lane lane,
     required List<Node> nodes,
     required Vector2 startingPosition,
-    required double maxUnitSize,
+    required double nodeSize,
   }) {
     final double maxHealth = unitType.health;
-    final double size = unitType.sizeRatio * maxUnitSize;
+    final double size = unitType.sizeRatio * nodeSize;
     final double speed = unitType.speedRatio * size;
     final double range = unitType.rangeRatio * size;
     final WeaponType weaponType = unitType.weaponType;
@@ -115,7 +111,6 @@ abstract class Unit with GameEngineRef implements Target {
           range: range,
           size: size,
           owner: owner,
-          lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
           weaponType: weaponType,
@@ -127,7 +122,6 @@ abstract class Unit with GameEngineRef implements Target {
           range: range,
           size: size,
           owner: owner,
-          lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
           weaponType: weaponType,
@@ -139,7 +133,6 @@ abstract class Unit with GameEngineRef implements Target {
           range: range,
           size: size,
           owner: owner,
-          lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
           weaponType: weaponType,
@@ -153,7 +146,6 @@ abstract class Unit with GameEngineRef implements Target {
           range: range,
           size: size,
           owner: owner,
-          lane: lane,
           nodes: nodes,
           startingPosition: startingPosition,
           weaponType: unitType.weaponType,

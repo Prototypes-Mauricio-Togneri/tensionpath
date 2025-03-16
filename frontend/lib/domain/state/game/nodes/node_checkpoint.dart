@@ -5,10 +5,9 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 class NodeCheckpoint extends Node {
   NodeCheckpoint({
-    required super.id,
-    required super.lane,
-    required super.position,
-    required super.nodeWidth,
+    required super.x,
+    required super.y,
+    required super.nodeSize,
   }) : super(captureRate: Constants.NODE_CHECKPOINT_CAPTURE_RATE);
 
   @override

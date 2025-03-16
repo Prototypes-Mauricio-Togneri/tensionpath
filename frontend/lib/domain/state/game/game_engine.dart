@@ -1,10 +1,7 @@
-import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
-import 'package:tensionpath/domain/state/game/lane.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
@@ -32,15 +29,12 @@ class GameEngine {
   }
 
   void onSpawnUnit({
-    required Lane lane,
     required Player player,
     required Node node,
     required UnitType unitType,
   }) {
-    final List<Node> nodes = lane.getNodes(forward: player.isSelf, from: node);
-
-    final double extraGap =
-        -player.ownershipDirection * (battlefield.maxUnitSize / 2);
+    /*final double extraGap =
+        -player.ownershipDirection * (battlefield.nodeSize / 2);
     final Vector2 startingPosition = Vector2.copy(nodes.first.position);
     startingPosition.add(Vector2(0, extraGap));
 
@@ -50,11 +44,11 @@ class GameEngine {
       lane: lane,
       nodes: nodes.sublist(1, nodes.length),
       startingPosition: startingPosition,
-      maxUnitSize: battlefield.maxUnitSize,
+      nodeSize: battlefield.nodeSize,
     );
 
-    lane.addUnit(unit);
-    onUnitCreated(unit);
+    // TODO(momo): add unit to node
+    onUnitCreated(unit);*/
   }
 
   void onUnitCreated(Unit unit) {
@@ -109,38 +103,6 @@ class GameEngine {
 
   void onAddCredits({required Player player, required double credits}) {
     player.addCredits(credits);
-  }
-
-  Target? findTarget(Unit source) {
-    final double distance = source.range;
-    final Base base = battlefield.baseOppositeOf(source.owner);
-    final double distanceToBase = (base.yPosition - source.position.y).abs();
-
-    if (source.owner.isEnemy) {
-      print('${source.health} / ${source.range} / $distanceToBase');
-    }
-
-    if (distanceToBase <= distance) {
-      return base;
-    }
-
-    for (final Lane lane in battlefield.lanes) {
-      for (final Unit unit in lane.units) {
-        if (unit.owner != source.owner) {
-          final double distanceToTarget =
-              (unit.position - source.position).length;
-          if (distanceToTarget <= distance) {
-            print(
-              'Source: ${source.hashCode} | Target: ${unit.hashCode} | Distance: $distanceToTarget',
-            );
-
-            return unit;
-          }
-        }
-      }
-    }
-
-    return null;
   }
 }
 

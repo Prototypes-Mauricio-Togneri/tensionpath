@@ -7,10 +7,9 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class NodeUnitGenerator extends NodeAccumulator {
   NodeUnitGenerator({
-    required super.id,
-    required super.lane,
-    required super.position,
-    required super.nodeWidth,
+    required super.x,
+    required super.y,
+    required super.nodeSize,
   }) : super(captureRate: Constants.NODE_UNIT_GENERATOR_CAPTURE_RATE);
 
   @override
@@ -30,7 +29,6 @@ class NodeUnitGenerator extends NodeAccumulator {
     if (hasOwner && hasCreditsAccumulated) {
       removeAccumulated(1);
       engine.onSpawnUnit(
-        lane: lane,
         player: owner!,
         node: this,
         unitType: UnitType.ranger,

@@ -1,5 +1,4 @@
 import 'package:flame/game.dart';
-import 'package:tensionpath/domain/components/target.dart';
 import 'package:tensionpath/domain/components/units/unit_shooter_component.dart';
 import 'package:tensionpath/domain/state/game/units/unit.dart';
 import 'package:tensionpath/domain/state/game/weapon.dart';
@@ -14,7 +13,6 @@ class UnitShooter extends Unit {
     required super.range,
     required super.size,
     required super.owner,
-    required super.lane,
     required super.nodes,
     required super.startingPosition,
     required WeaponType weaponType,
@@ -28,21 +26,13 @@ class UnitShooter extends Unit {
   @override
   void update(double dt) {
     weapon.update(dt);
-
-    if ((target == null) ||
-        !target!.isAlive ||
-        (target!.inRange(this, range))) {
-      target = findTarget();
-    }
-
+    
     if ((target != null) && weapon.canShoot) {
       weapon.shoot(target: target!);
     }
 
     super.update(dt);
   }
-
-  Target? findTarget() => engine.findTarget(this);
 
   @override
   UnitShooterComponent get component =>

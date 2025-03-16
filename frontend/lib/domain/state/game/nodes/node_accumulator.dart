@@ -3,11 +3,10 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 abstract class NodeAccumulator extends Node {
   NodeAccumulator({
-    required super.id,
-    required super.lane,
+    required super.x,
+    required super.y,
     required super.captureRate,
-    required super.position,
-    required super.nodeWidth,
+    required super.nodeSize,
   });
 
   bool canAccumulate();

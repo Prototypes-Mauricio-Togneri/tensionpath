@@ -9,7 +9,6 @@ class UnitSquad extends UnitShooter {
     required super.range,
     required super.size,
     required super.owner,
-    required super.lane,
     required super.nodes,
     required super.startingPosition,
     required super.weaponType,

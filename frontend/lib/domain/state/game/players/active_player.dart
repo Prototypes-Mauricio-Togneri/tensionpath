@@ -1,9 +1,5 @@
 import 'dart:math';
-import 'package:tensionpath/domain/state/game/lane.dart';
-import 'package:tensionpath/domain/state/game/nodes/node.dart';
-import 'package:tensionpath/domain/state/game/nodes/node_checkpoint.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
-import 'package:tensionpath/domain/types/unit_type.dart';
 
 class ActivePlayer extends Player {
   late int creditsTarget;
@@ -18,32 +14,20 @@ class ActivePlayer extends Player {
 
   @override
   void takeAction() {
-    if (credits >= creditsTarget) {
+    /*if (credits >= creditsTarget) {
       final int laneIndex = Random().nextInt(engine.battlefield.lanes.length);
-      final Lane lane = engine.battlefield.lanes[laneIndex];
-      final List<Node> nodes =
-          lane.nodesFromPlayer(this).whereType<NodeCheckpoint>().toList();
 
-      if (nodes.isNotEmpty) {
-        engine.onSpawnUnit(
-          lane: lane,
-          player: this,
-          node: nodes[Random().nextInt(nodes.length)],
-          unitType: UnitType.values[creditsTarget - 1],
-        );
-      } else {
-        engine.onSpawnUnit(
-          lane: lane,
-          player: this,
-          node: lane.nodes.last,
-          unitType: UnitType.values[creditsTarget - 1],
-        );
-      }
+      engine.onSpawnUnit(
+        lane: lane,
+        player: this,
+        node: lane.nodes.last,
+        unitType: UnitType.values[creditsTarget - 1],
+      );
 
       spendCredits(creditsTarget);
 
       _recalculateCredits();
-    }
+    }*/
   }
 
   void _recalculateCredits() {

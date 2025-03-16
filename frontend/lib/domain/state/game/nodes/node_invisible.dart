@@ -3,10 +3,9 @@ import 'package:tensionpath/domain/state/game/nodes/node.dart';
 
 class NodeInvisible extends Node {
   NodeInvisible({
-    required super.id,
-    required super.lane,
-    required super.position,
-    required super.nodeWidth,
+    required super.x,
+    required super.y,
+    required super.nodeSize,
   }) : super(captureRate: 0);
 
   @override

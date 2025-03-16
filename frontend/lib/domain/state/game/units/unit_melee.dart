@@ -12,7 +12,6 @@ class UnitMelee extends Unit {
     required super.size,
     required this.power,
     required super.owner,
-    required super.lane,
     required super.nodes,
     required super.startingPosition,
   });

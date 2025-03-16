@@ -6,10 +6,9 @@ import 'package:tensionpath/domain/state/game/players/player.dart';
 
 class NodeVictory extends Node {
   NodeVictory({
-    required super.id,
-    required super.lane,
-    required super.position,
-    required super.nodeWidth,
+    required super.x,
+    required super.y,
+    required super.nodeSize,
   }) : super(captureRate: Constants.NODE_VICTORY_CAPTURE_RATE);
 
   @override
