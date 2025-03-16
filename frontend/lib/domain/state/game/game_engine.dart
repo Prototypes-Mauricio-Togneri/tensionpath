@@ -1,6 +1,4 @@
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/state/game/base.dart';
 import 'package:tensionpath/domain/state/game/battlefield.dart';
 import 'package:tensionpath/domain/state/game/nodes/node.dart';
 import 'package:tensionpath/domain/state/game/players/player.dart';
@@ -47,7 +45,6 @@ class GameEngine {
       nodeSize: battlefield.nodeSize,
     );
 
-    // TODO(momo): add unit to node
     onUnitCreated(unit);*/
   }
 
@@ -55,55 +52,13 @@ class GameEngine {
     gameComponent.onUnitCreated(unit.component);
   }
 
-  void onUnitCollidedWithBase({required Unit unit, required Base base}) {
-    base.onHit(unit.health);
-    onUnitDestroyed(unit);
-  }
-
-  void onUnitsCollided({required Unit unit1, required Unit unit2}) {
-    if (unit1.health > unit2.health) {
-      unit1.reduceHealth(unit2.health);
-      onUnitDestroyed(unit2);
-    } else if (unit1.health < unit2.health) {
-      unit2.reduceHealth(unit1.health);
-      onUnitDestroyed(unit1);
-    } else {
-      onUnitDestroyed(unit1);
-      onUnitDestroyed(unit2);
-    }
-  }
-
   void onUnitDestroyed(Unit unit) {
     unit.destroy();
     gameComponent.onUnitDestroyed(unit);
   }
 
-  void onNodeTouched({required Node node, required Unit unit}) {
-    node.onTouched(unit);
-  }
-
-  void onBaseDestroyed(Base base) =>
-      gameComponent.onMatchFinished(base.owner.isEnemy);
-
   void onNodeVictoryCaptured(Node node) =>
       gameComponent.onMatchFinished(node.owner!.isSelf);
-
-  void onNodeCreditsGeneratorCaptured({
-    required Node node,
-    required Player owner,
-  }) {
-    const double extra = Constants.CREDITS_EXTRA_RATE;
-    owner.addCreditsExtraRate(extra);
-  }
-
-  void onNodeCreditsGeneratorLost({required Node node, required Player owner}) {
-    const double extra = Constants.CREDITS_EXTRA_RATE;
-    owner.removeCreditsExtraRate(extra);
-  }
-
-  void onAddCredits({required Player player, required double credits}) {
-    player.addCredits(credits);
-  }
 }
 
 mixin GameEngineRef {
