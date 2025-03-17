@@ -21,16 +21,16 @@ class Battlefield {
       Battlefield.w5h9(self: self, enemy: enemy);
 
   factory Battlefield.w5h9({required Player self, required Player enemy}) {
-    const int widthCells = 5;
-    const int heightCells = 9;
+    const int widthCells = 7;
+    const int heightCells = 13;
 
     const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / widthCells;
     const double nodeSize = laneWidth;
 
     final List<Node> nodes = [];
 
-    const midCellX = widthCells ~/ 2;
-    const midCellY = heightCells ~/ 2;
+    const int midCellX = widthCells ~/ 2;
+    const int midCellY = heightCells ~/ 2;
 
     for (int x = 0; x < widthCells; x++) {
       // Land nodes
@@ -54,7 +54,7 @@ class Battlefield {
     }
 
     // Victory node
-    nodes.add(NodeVictory(x: 2, y: 4, nodeSize: nodeSize));
+    nodes.add(NodeVictory(x: midCellX, y: midCellY, nodeSize: nodeSize));
 
     return Battlefield(id: 'w5h9', nodes: nodes);
   }
