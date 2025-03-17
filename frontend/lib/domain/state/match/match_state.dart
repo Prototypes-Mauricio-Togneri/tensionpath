@@ -4,16 +4,18 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 
 class MatchState extends BaseState {
-  late GameComponent gameComponent;
+  GameComponent? gameComponent;
 
   MatchState() {
     restart();
   }
 
-  void restart() {
+  bool get isInitialized => gameComponent != null;
+
+  Future restart() async {
     final Player self = Player.self();
     final Player enemy = Player.enemy();
-    final Battlefield battlefield = Battlefield.create(
+    final Battlefield battlefield = await Battlefield.create(
       self: self,
       enemy: enemy,
     );

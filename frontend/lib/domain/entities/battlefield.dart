@@ -1,10 +1,14 @@
-import 'package:flutter/widgets.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
 import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
 import 'package:tensionpath/domain/entities/nodes/node_victory.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
+import 'package:tensionpath/utils/assets.dart';
 
 class Battlefield {
   final String id;
@@ -23,8 +27,14 @@ class Battlefield {
     }
   }
 
-  factory Battlefield.create({required Player self, required Player enemy}) =>
-      Battlefield.w7h13(self: self, enemy: enemy);
+  static Future<Battlefield> create({
+    required Player self,
+    required Player enemy,
+  }) async => Battlefield.fromJson(
+    filePath: Assets.BATTLEFIELDS_W7H13,
+    player1: self,
+    player2: enemy,
+  );
 
   factory Battlefield.w7h13({required Player self, required Player enemy}) {
     const int widthCells = 7;
@@ -66,6 +76,48 @@ class Battlefield {
       id: 'w5h9',
       nodes: nodes,
       size: const Size(nodeSize * widthCells, nodeSize * heightCells),
+    );
+  }
+
+  static Future<Battlefield> fromJson({
+    required String filePath,
+    required Player player1,
+    required Player player2,
+  }) async {
+    final String data = await rootBundle.loadString(filePath);
+    final Map<String, dynamic> json = jsonDecode(data);
+    final JsonBattlefield jsonBattlefield = JsonBattlefield.fromJson(json);
+    final double nodeSize = jsonBattlefield.nodeSize;
+
+    final List<Node> nodes = <Node>[];
+
+    for (final JsonNode jsonNode in jsonBattlefield.nodes) {
+      final int x = jsonNode.x;
+      final int y = jsonNode.y;
+      final String type = jsonNode.type;
+      final Player player = jsonNode.player == '1' ? player1 : player2;
+
+      switch (type) {
+        case 'land':
+          nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
+          break;
+        case 'launcher':
+          nodes.add(
+            NodeLauncher(x: x, y: y, nodeSize: nodeSize, player: player),
+          );
+          break;
+        case 'victory':
+          nodes.add(NodeVictory(x: x, y: y, nodeSize: nodeSize));
+          break;
+        default:
+          throw Exception('Unknown node type: $type');
+      }
+    }
+
+    return Battlefield(
+      id: jsonBattlefield.id,
+      nodes: nodes,
+      size: const Size(840, 1560),
     );
   }
 }

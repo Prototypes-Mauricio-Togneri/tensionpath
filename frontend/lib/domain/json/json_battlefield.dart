@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/json_size.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
 
 part 'json_battlefield.g.dart';
 
@@ -15,17 +15,17 @@ class JsonBattlefield {
   final int height;
 
   @JsonKey(name: 'nodeSize')
-  final int nodeSize;
+  final double nodeSize;
 
-  @JsonKey(name: 'size')
-  final JsonSize size;
+  @JsonKey(name: 'nodes')
+  final List<JsonNode> nodes;
 
   const JsonBattlefield({
     required this.id,
     required this.width,
     required this.height,
     required this.nodeSize,
-    required this.size,
+    required this.nodes,
   });
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>
