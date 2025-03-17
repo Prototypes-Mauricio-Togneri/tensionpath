@@ -6,7 +6,6 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
@@ -18,7 +17,7 @@ class BattlefieldComponent extends PositionComponent {
 
   BattlefieldComponent(this.battlefield)
     : super(
-        position: Vector2(0, 0),
+        position: Vector2(0, Constants.UI_HEADER_HEIGHT),
         size: Vector2(
           Constants.UI_BATTLEFIELD_WIDTH,
           Constants.UI_BATTLEFIELD_HEIGHT,
@@ -30,7 +29,7 @@ class BattlefieldComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     for (final Node node in battlefield.nodes) {
-      game.world.add(node.component);
+      add(node.component);
     }
 
     return super.onLoad();

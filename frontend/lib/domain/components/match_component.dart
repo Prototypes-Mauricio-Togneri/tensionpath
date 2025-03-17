@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
+import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
@@ -18,6 +20,14 @@ class MatchComponent extends World {
   @override
   FutureOr onLoad() {
     add(BattlefieldComponent(battlefield));
+
+    add(
+      HeaderComponent(
+        position: Vector2(0, 0),
+        size: Vector2(Constants.SCREEN_WIDTH, Constants.UI_HEADER_HEIGHT),
+      ),
+    );
+
     add(ControlsComponent(self));
 
     return super.onLoad();
