@@ -21,15 +21,21 @@ class Battlefield {
       Battlefield.w5h9(self: self, enemy: enemy);
 
   factory Battlefield.w5h9({required Player self, required Player enemy}) {
-    const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / 5;
+    const int widthCells = 5;
+    const int heightCells = 9;
+
+    const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / widthCells;
     const double nodeSize = laneWidth;
 
     final List<Node> nodes = [];
 
-    for (int x = 0; x < 5; x++) {
+    const midCellX = widthCells ~/ 2;
+    const midCellY = heightCells ~/ 2;
+
+    for (int x = 0; x < widthCells; x++) {
       // Land nodes
-      for (int y = 1; y <= 7; y++) {
-        if (x != 2 || y != 4) {
+      for (int y = 1; y <= heightCells - 2; y++) {
+        if (x != midCellX || y != midCellY) {
           nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
         }
       }
@@ -37,7 +43,14 @@ class Battlefield {
       // Self launcher
       nodes.add(NodeLauncher(x: x, y: 0, nodeSize: nodeSize, player: self));
       // Enemy launcher
-      nodes.add(NodeLauncher(x: x, y: 8, nodeSize: nodeSize, player: enemy));
+      nodes.add(
+        NodeLauncher(
+          x: x,
+          y: heightCells - 1,
+          nodeSize: nodeSize,
+          player: enemy,
+        ),
+      );
     }
 
     // Victory node
