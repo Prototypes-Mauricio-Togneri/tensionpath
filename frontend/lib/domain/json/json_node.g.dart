@@ -9,6 +9,12 @@ part of 'json_node.dart';
 JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) => JsonNode(
   x: (json['x'] as num).toInt(),
   y: (json['y'] as num).toInt(),
-  type: json['type'] as String,
+  type: $enumDecode(_$NodeTypeEnumMap, json['type']),
   player: json['player'] as String?,
 );
+
+const _$NodeTypeEnumMap = {
+  NodeType.land: 'land',
+  NodeType.launcher: 'launcher',
+  NodeType.victory: 'victory',
+};

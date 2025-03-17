@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 
 part 'json_node.g.dart';
 
@@ -11,7 +12,7 @@ class JsonNode {
   final int y;
 
   @JsonKey(name: 'type')
-  final String type;
+  final NodeType type;
 
   @JsonKey(name: 'player')
   final String? player;

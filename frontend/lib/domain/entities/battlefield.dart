@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/entities/nodes/node_victory.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class Battlefield {
@@ -94,23 +95,21 @@ class Battlefield {
     for (final JsonNode jsonNode in jsonBattlefield.nodes) {
       final int x = jsonNode.x;
       final int y = jsonNode.y;
-      final String type = jsonNode.type;
+      final NodeType type = jsonNode.type;
       final Player player = jsonNode.player == '1' ? player1 : player2;
 
       switch (type) {
-        case 'land':
+        case NodeType.land:
           nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
           break;
-        case 'launcher':
+        case NodeType.launcher:
           nodes.add(
             NodeLauncher(x: x, y: y, nodeSize: nodeSize, player: player),
           );
           break;
-        case 'victory':
+        case NodeType.victory:
           nodes.add(NodeVictory(x: x, y: y, nodeSize: nodeSize));
           break;
-        default:
-          throw Exception('Unknown node type: $type');
       }
     }
 

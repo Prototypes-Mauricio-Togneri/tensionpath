@@ -41,8 +41,38 @@
             "player": "2"
         },
         {
+            "x": 2,
+            "y": 4,
+            "type": "victory"
+        },
+        {
+            "x": 4,
+            "y": 4,
+            "type": "victory"
+        },
+        {
+            "x": 0,
+            "y": 6,
+            "type": "victory"
+        },
+        {
             "x": 3,
             "y": 6,
+            "type": "victory"
+        },
+        {
+            "x": 6,
+            "y": 6,
+            "type": "victory"
+        },
+        {
+            "x": 2,
+            "y": 8,
+            "type": "victory"
+        },
+        {
+            "x": 4,
+            "y": 8,
             "type": "victory"
         },
         {
@@ -101,6 +131,16 @@
             "type": "land"
         },
         {
+            "x": 2,
+            "y": 2,
+            "type": "land"
+        },
+        {
+            "x": 2,
+            "y": 10,
+            "type": "land"
+        },
+        {
             "x": 3,
             "y": 1,
             "type": "land"
@@ -148,6 +188,16 @@
         {
             "x": 3,
             "y": 11,
+            "type": "land"
+        },
+        {
+            "x": 4,
+            "y": 2,
+            "type": "land"
+        },
+        {
+            "x": 4,
+            "y": 10,
             "type": "land"
         },
         {
