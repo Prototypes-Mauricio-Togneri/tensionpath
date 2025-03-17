@@ -24,9 +24,9 @@ class Battlefield {
   }
 
   factory Battlefield.create({required Player self, required Player enemy}) =>
-      Battlefield.w5h9(self: self, enemy: enemy);
+      Battlefield.w7h13(self: self, enemy: enemy);
 
-  factory Battlefield.w5h9({required Player self, required Player enemy}) {
+  factory Battlefield.w7h13({required Player self, required Player enemy}) {
     const int widthCells = 7;
     const int heightCells = 13;
 
