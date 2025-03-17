@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
@@ -8,8 +9,13 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 class Battlefield {
   final String id;
   final List<Node> nodes;
+  final Size size;
 
-  const Battlefield({required this.id, required this.nodes});
+  const Battlefield({
+    required this.id,
+    required this.nodes,
+    required this.size,
+  });
 
   void update(double dt) {
     for (final Node node in nodes) {
@@ -24,7 +30,7 @@ class Battlefield {
     const int widthCells = 7;
     const int heightCells = 13;
 
-    const double laneWidth = Constants.UI_BATTLEFIELD_WIDTH / widthCells;
+    const double laneWidth = Constants.SCREEN_WIDTH / widthCells;
     const double nodeSize = laneWidth;
 
     final List<Node> nodes = [];
@@ -56,6 +62,10 @@ class Battlefield {
     // Victory node
     nodes.add(NodeVictory(x: midCellX, y: midCellY, nodeSize: nodeSize));
 
-    return Battlefield(id: 'w5h9', nodes: nodes);
+    return Battlefield(
+      id: 'w5h9',
+      nodes: nodes,
+      size: const Size(nodeSize * widthCells, nodeSize * heightCells),
+    );
   }
 }

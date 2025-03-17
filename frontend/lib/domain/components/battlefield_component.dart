@@ -18,10 +18,7 @@ class BattlefieldComponent extends PositionComponent {
   BattlefieldComponent(this.battlefield)
     : super(
         position: Vector2(0, Constants.UI_HEADER_HEIGHT),
-        size: Vector2(
-          Constants.UI_BATTLEFIELD_WIDTH,
-          Constants.UI_BATTLEFIELD_HEIGHT,
-        ),
+        size: battlefield.size.toVector2(),
         anchor: Anchor.topLeft,
         priority: Priority.battlefield.value,
       );

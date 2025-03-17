@@ -2,21 +2,28 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class HeaderComponent extends PositionComponent {
-  final Paint backgroundPaint = Paint();
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Colors.green,
+  );
 
-  HeaderComponent({required super.position, required super.size})
-    : super(anchor: Anchor.topLeft, priority: Priority.header.value);
+  HeaderComponent()
+    : super(
+        position: Vector2(0, 0),
+        size: Vector2(Constants.SCREEN_WIDTH, Constants.UI_HEADER_HEIGHT),
+        anchor: Anchor.topLeft,
+        priority: Priority.header.value,
+      );
 
   @override
   FutureOr onLoad() {
-    backgroundPaint.color = Colors.green;
-
     add(
       FullScreenButtonComponent(
         position: Vector2(width - (height / 2), height / 2),
@@ -43,18 +50,13 @@ class HeaderComponent extends PositionComponent {
 }
 
 class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
-  final Paint borderPaint = Paint();
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Colors.white,
+  );
 
   FullScreenButtonComponent({required super.position, required super.size})
     : super(anchor: Anchor.center, priority: Priority.header.value);
-
-  @override
-  FutureOr onLoad() {
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.color = Colors.white;
-
-    return super.onLoad();
-  }
 
   @override
   void onTapUp(TapUpEvent event) => SetFullscreen.set();

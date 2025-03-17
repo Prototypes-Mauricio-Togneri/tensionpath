@@ -6,8 +6,5 @@ class Constants {
   static const double UI_HEADER_HEIGHT = 65;
   static const double UI_CONTROLS_HEIGHT = 195;
 
-  static const double UI_BATTLEFIELD_HEIGHT = 1512;
-  static const double UI_BATTLEFIELD_WIDTH = 840;
-
   static const double RESOUCES_RATE = 1;
 }
