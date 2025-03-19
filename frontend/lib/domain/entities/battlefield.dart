@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
 import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
@@ -41,9 +40,6 @@ class Battlefield {
     const int widthCells = 7;
     const int heightCells = 13;
 
-    const double laneWidth = Constants.UI_WIDTH / widthCells;
-    const double nodeSize = laneWidth;
-
     final List<Node> nodes = [];
 
     const int midCellX = widthCells ~/ 2;
@@ -53,30 +49,23 @@ class Battlefield {
       // Land nodes
       for (int y = 1; y <= heightCells - 2; y++) {
         if (x != midCellX || y != midCellY) {
-          nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
+          nodes.add(NodeLand(x: x, y: y));
         }
       }
 
       // Self launcher
-      nodes.add(NodeLauncher(x: x, y: 0, nodeSize: nodeSize, player: self));
+      nodes.add(NodeLauncher(x: x, y: 0, player: self));
       // Enemy launcher
-      nodes.add(
-        NodeLauncher(
-          x: x,
-          y: heightCells - 1,
-          nodeSize: nodeSize,
-          player: enemy,
-        ),
-      );
+      nodes.add(NodeLauncher(x: x, y: heightCells - 1, player: enemy));
     }
 
     // Victory node
-    nodes.add(NodeVictory(x: midCellX, y: midCellY, nodeSize: nodeSize));
+    nodes.add(NodeVictory(x: midCellX, y: midCellY));
 
     return Battlefield(
       id: 'w5h9',
       nodes: nodes,
-      size: const Size(nodeSize * widthCells, nodeSize * heightCells),
+      size: Size(widthCells.toDouble(), heightCells.toDouble()),
     );
   }
 
@@ -88,7 +77,6 @@ class Battlefield {
     final String data = await rootBundle.loadString(filePath);
     final Map<String, dynamic> json = jsonDecode(data);
     final JsonBattlefield jsonBattlefield = JsonBattlefield.fromJson(json);
-    final double nodeSize = jsonBattlefield.nodeSize;
 
     final List<Node> nodes = <Node>[];
 
@@ -100,15 +88,13 @@ class Battlefield {
 
       switch (type) {
         case NodeType.land:
-          nodes.add(NodeLand(x: x, y: y, nodeSize: nodeSize));
+          nodes.add(NodeLand(x: x, y: y));
           break;
         case NodeType.launcher:
-          nodes.add(
-            NodeLauncher(x: x, y: y, nodeSize: nodeSize, player: player),
-          );
+          nodes.add(NodeLauncher(x: x, y: y, player: player));
           break;
         case NodeType.victory:
-          nodes.add(NodeVictory(x: x, y: y, nodeSize: nodeSize));
+          nodes.add(NodeVictory(x: x, y: y));
           break;
       }
     }
@@ -116,7 +102,10 @@ class Battlefield {
     return Battlefield(
       id: jsonBattlefield.id,
       nodes: nodes,
-      size: const Size(840, 1560),
+      size: Size(
+        jsonBattlefield.width.toDouble(),
+        jsonBattlefield.height.toDouble(),
+      ),
     );
   }
 }

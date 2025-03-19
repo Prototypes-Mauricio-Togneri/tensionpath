@@ -11,7 +11,6 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       width: (json['width'] as num).toInt(),
       height: (json['height'] as num).toInt(),
-      nodeSize: (json['nodeSize'] as num).toDouble(),
       nodes:
           (json['nodes'] as List<dynamic>)
               .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))

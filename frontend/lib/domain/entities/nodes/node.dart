@@ -6,18 +6,12 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 abstract class Node with GameComponentRef {
   final int x;
   final int y;
-  final double nodeSize;
 
-  Node({required this.x, required this.y, required this.nodeSize});
+  Node({required this.x, required this.y});
 
-  NodeComponent get component;
+  NodeComponent component({required Vector2 position, required Vector2 size});
 
   String get id => '[$x,$y]';
-
-  Vector2 get position =>
-      Vector2((nodeSize * x) + (nodeSize / 2), (nodeSize * y) + (nodeSize / 2));
-
-  Vector2 get size => Vector2(nodeSize, nodeSize);
 
   void onTapped() {}
 

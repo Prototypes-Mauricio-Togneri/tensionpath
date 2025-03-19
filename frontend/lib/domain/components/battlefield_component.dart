@@ -21,8 +21,18 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
+    final double nodeSize = size.x / battlefield.size.width;
+
     for (final Node node in battlefield.nodes) {
-      add(node.component);
+      add(
+        node.component(
+          position: Vector2(
+            (nodeSize * node.x) + (nodeSize / 2),
+            (nodeSize * node.y) + (nodeSize / 2),
+          ),
+          size: Vector2(nodeSize, nodeSize),
+        ),
+      );
     }
 
     return super.onLoad();

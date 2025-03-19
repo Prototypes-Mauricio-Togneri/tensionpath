@@ -55,6 +55,7 @@ abstract class Unit with GameComponentRef {
     required UnitType unitType,
     required Player owner,
     required Node node,
+    required double size,
   }) {
     switch (unitType) {
       case UnitType.infantry:
@@ -62,7 +63,7 @@ abstract class Unit with GameComponentRef {
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
-          size: node.size.x,
+          size: size,
           owner: owner,
           x: node.x,
           y: node.y,

@@ -14,9 +14,6 @@ class JsonBattlefield {
   @JsonKey(name: 'height')
   final int height;
 
-  @JsonKey(name: 'nodeSize')
-  final double nodeSize;
-
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
@@ -24,7 +21,6 @@ class JsonBattlefield {
     required this.id,
     required this.width,
     required this.height,
-    required this.nodeSize,
     required this.nodes,
   });
 
