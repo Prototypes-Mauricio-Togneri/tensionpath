@@ -24,13 +24,16 @@ class BattlefieldComponent extends PositionComponent {
   FutureOr onLoad() {
     final double nodeSize =
         (size.x / battlefield.size.width) * (1 - Constants.UI_PADDING_RATIO);
+    final Vector2 center = size / 2;
 
     for (final Node node in battlefield.nodes) {
       add(
         node.component(
           position: Vector2(
-            (nodeSize * node.x) + (nodeSize / 2),
-            (nodeSize * node.y) + (nodeSize / 2),
+            //(nodeSize * node.x) + (nodeSize / 2),
+            //(nodeSize * node.y) + (nodeSize / 2),
+            center.x,
+            center.y,
           ),
           size: Vector2(nodeSize, nodeSize),
         ),
