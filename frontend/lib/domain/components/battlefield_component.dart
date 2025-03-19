@@ -27,13 +27,16 @@ class BattlefieldComponent extends PositionComponent {
     final Vector2 center = size / 2;
 
     for (final Node node in battlefield.nodes) {
+      final double x = nodeSize * node.x;
+      final double y = nodeSize * (node.y + (node.x / 2));
+
       add(
         node.component(
           position: Vector2(
             //(nodeSize * node.x) + (nodeSize / 2),
             //(nodeSize * node.y) + (nodeSize / 2),
-            center.x,
-            center.y,
+            center.x + x,
+            center.y + y,
           ),
           size: Vector2(nodeSize, nodeSize),
         ),

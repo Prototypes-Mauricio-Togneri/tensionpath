@@ -21,5 +21,11 @@ class NodeLandComponent extends NodeComponent<NodeLand> {
     super.render(canvas);
 
     canvas.drawHexagon(size: size, borderPaint: borderPaint);
+    canvas.drawText(
+      text: '${node.x},${node.y}',
+      position: size / 2,
+      size: size.x / 4,
+      color: Colors.white,
+    );
   }
 }
