@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -21,7 +22,8 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final double nodeSize = size.x / battlefield.size.width;
+    final double nodeSize =
+        (size.x / battlefield.size.width) * (1 - Constants.UI_PADDING_RATIO);
 
     for (final Node node in battlefield.nodes) {
       add(

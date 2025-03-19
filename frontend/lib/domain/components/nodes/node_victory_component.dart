@@ -1,7 +1,7 @@
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/nodes/node_victory.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeVictoryComponent extends NodeComponent<NodeVictory> {
@@ -9,7 +9,7 @@ class NodeVictoryComponent extends NodeComponent<NodeVictory> {
     style: PaintingStyle.stroke,
     color: Colors.white,
   );
-  final Paint fillerPaint = Palette.paint(
+  final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Colors.yellow,
   );
@@ -24,7 +24,10 @@ class NodeVictoryComponent extends NodeComponent<NodeVictory> {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(size.toRect(), fillerPaint);
-    canvas.drawRect(size.toRect(), borderPaint);
+    canvas.drawHexagon(
+      size: size,
+      borderPaint: borderPaint,
+      fillPaint: fillPaint,
+    );
   }
 }

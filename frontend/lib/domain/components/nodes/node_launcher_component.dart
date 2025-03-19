@@ -1,7 +1,7 @@
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
@@ -9,21 +9,24 @@ class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
     style: PaintingStyle.stroke,
     color: Colors.white,
   );
-  final Paint fillerPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
 
   NodeLauncherComponent({
     required super.node,
     required super.position,
     required super.size,
   }) {
-    fillerPaint.color = node.player.color.withAlpha(128);
+    fillPaint.color = node.player.color.withAlpha(128);
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(size.toRect(), fillerPaint);
-    canvas.drawRect(size.toRect(), borderPaint);
+    canvas.drawHexagon(
+      size: size,
+      borderPaint: borderPaint,
+      fillPaint: fillPaint,
+    );
   }
 }
