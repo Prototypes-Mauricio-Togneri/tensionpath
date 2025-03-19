@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
@@ -9,18 +11,15 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final MatchState state;
-  final Size resolution;
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
 
   GameComponent({
     required this.state,
-    required this.resolution,
     required this.self,
     required this.enemy,
     required this.battlefield,
@@ -37,9 +36,9 @@ class GameComponent extends FlameGame {
       height: resolution.height,
     );
 
-    /*camera.moveTo(
+    camera.moveTo(
       Vector2(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2),
-    );*/
+    );
 
     if (debugMode) {
       add(FpsTextComponent());
@@ -49,7 +48,12 @@ class GameComponent extends FlameGame {
   }
 
   @override
-  Color backgroundColor() => Palette.GAME_BACKGROUND;
+  Color backgroundColor() => Colors.pink; //Palette.GAME_BACKGROUND;
+
+  Size get resolution => Size(
+    Constants.SCREEN_WIDTH,
+    (canvasSize.y * Constants.SCREEN_WIDTH / canvasSize.x).round().toDouble(),
+  );
 
   @override
   void update(double dt) {
