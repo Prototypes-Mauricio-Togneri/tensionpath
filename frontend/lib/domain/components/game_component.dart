@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
@@ -14,14 +13,14 @@ import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final MatchState state;
-  final Size containerSize;
+  final Size resolution;
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
 
   GameComponent({
     required this.state,
-    required this.containerSize,
+    required this.resolution,
     required this.self,
     required this.enemy,
     required this.battlefield,
@@ -34,13 +33,13 @@ class GameComponent extends FlameGame {
     debugMode = false;
 
     camera = CameraComponent.withFixedResolution(
-      height: (size.y * Constants.SCREEN_WIDTH / size.x).round().toDouble(),
-      width: Constants.SCREEN_WIDTH,
+      width: resolution.width,
+      height: resolution.height,
     );
 
-    camera.moveTo(
+    /*camera.moveTo(
       Vector2(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2),
-    );
+    );*/
 
     if (debugMode) {
       add(FpsTextComponent());
