@@ -14,12 +14,14 @@ import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final MatchState state;
+  final Size containerSize;
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
 
   GameComponent({
     required this.state,
+    required this.containerSize,
     required this.self,
     required this.enemy,
     required this.battlefield,
@@ -32,7 +34,7 @@ class GameComponent extends FlameGame {
     debugMode = false;
 
     camera = CameraComponent.withFixedResolution(
-      height: Constants.SCREEN_HEIGHT,
+      height: (size.y * Constants.SCREEN_WIDTH / size.x).round().toDouble(),
       width: Constants.SCREEN_WIDTH,
     );
 

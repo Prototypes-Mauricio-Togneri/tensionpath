@@ -1,5 +1,7 @@
 class Constants {
   // Aspect ratio: 19.5/9 = 2.1666
+  static const double BIG_SCREEN_ASPECT_RATIO = 2.1666;
+
   static const double SCREEN_HEIGHT = 1820;
   static const double SCREEN_WIDTH = 840;
 

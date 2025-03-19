@@ -1,12 +1,14 @@
+import 'dart:ui';
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 
 class MatchState extends BaseState {
+  final Size size;
   GameComponent? gameComponent;
 
-  MatchState() {
+  MatchState(this.size) {
     restart();
   }
 
@@ -22,6 +24,7 @@ class MatchState extends BaseState {
 
     gameComponent = GameComponent(
       state: this,
+      containerSize: size,
       self: self,
       enemy: enemy,
       battlefield: battlefield,
