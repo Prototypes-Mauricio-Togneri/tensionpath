@@ -31,7 +31,7 @@ class BattlefieldComponent extends PositionComponent {
       final int q = node.x;
       final int r = node.y;
 
-      final double x = nodeSize * (3 / 2 * q);
+      final double x = nodeSize * (3 / 4 * q);
       final double y = nodeSize * (sqrt(3) / 2 * q + sqrt(3) * r);
 
       add(
