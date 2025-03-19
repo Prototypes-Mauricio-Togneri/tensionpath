@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
@@ -14,13 +13,8 @@ class HeaderComponent extends PositionComponent {
     color: Colors.green,
   );
 
-  HeaderComponent()
-    : super(
-        position: Vector2(0, 0),
-        size: Vector2(Constants.SCREEN_WIDTH, Constants.UI_HEADER_HEIGHT),
-        anchor: Anchor.topLeft,
-        priority: Priority.header.value,
-      );
+  HeaderComponent({required super.position, required super.size})
+    : super(anchor: Anchor.topLeft, priority: Priority.header.value);
 
   @override
   FutureOr onLoad() {

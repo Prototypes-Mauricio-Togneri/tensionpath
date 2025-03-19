@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
@@ -11,16 +13,49 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchComponent extends World {
+  final Size resolution;
   final Player self;
   final Battlefield battlefield;
 
-  MatchComponent({required this.self, required this.battlefield});
+  MatchComponent({
+    required this.resolution,
+    required this.self,
+    required this.battlefield,
+  });
 
   @override
   FutureOr onLoad() {
-    add(BattlefieldComponent(battlefield));
-    add(HeaderComponent());
-    add(ControlsComponent(self));
+    add(
+      BattlefieldComponent(
+        battlefield: battlefield,
+        position: Vector2(
+          -Constants.UI_WIDTH / 2,
+          (-resolution.height / 2) + Constants.UI_HEADER_HEIGHT,
+        ),
+        size: Vector2(
+          Constants.UI_WIDTH,
+          resolution.height -
+              Constants.UI_HEADER_HEIGHT -
+              Constants.UI_CONTROLS_HEIGHT,
+        ),
+      ),
+    );
+    add(
+      HeaderComponent(
+        position: Vector2(-Constants.UI_WIDTH / 2, -resolution.height / 2),
+        size: Vector2(Constants.UI_WIDTH, Constants.UI_HEADER_HEIGHT),
+      ),
+    );
+    add(
+      ControlsComponent(
+        player: self,
+        position: Vector2(
+          -Constants.UI_WIDTH / 2,
+          (resolution.height / 2) - Constants.UI_CONTROLS_HEIGHT,
+        ),
+        size: Vector2(Constants.UI_WIDTH, Constants.UI_CONTROLS_HEIGHT),
+      ),
+    );
 
     return super.onLoad();
   }

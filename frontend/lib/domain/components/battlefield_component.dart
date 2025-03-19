@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -15,13 +13,11 @@ class BattlefieldComponent extends PositionComponent {
     color: const Color(0xff222222),
   );
 
-  BattlefieldComponent(this.battlefield)
-    : super(
-        position: Vector2(0, Constants.UI_HEADER_HEIGHT),
-        size: battlefield.size.toVector2(),
-        anchor: Anchor.topLeft,
-        priority: Priority.battlefield.value,
-      );
+  BattlefieldComponent({
+    required this.battlefield,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft, priority: Priority.battlefield.value);
 
   @override
   FutureOr onLoad() {

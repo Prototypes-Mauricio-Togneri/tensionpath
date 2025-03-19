@@ -41,7 +41,7 @@ class Battlefield {
     const int widthCells = 7;
     const int heightCells = 13;
 
-    const double laneWidth = Constants.SCREEN_WIDTH / widthCells;
+    const double laneWidth = Constants.UI_WIDTH / widthCells;
     const double nodeSize = laneWidth;
 
     final List<Node> nodes = [];

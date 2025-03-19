@@ -4,7 +4,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -18,15 +17,14 @@ class ControlsComponent extends PositionComponent {
     color: Palette.CONTROLS_BACKGROUND,
   );
 
-  ControlsComponent(this.player)
+  ControlsComponent({
+    required this.player,
+    required super.position,
+    required super.size,
+  })
     : super(
         anchor: Anchor.topLeft,
         priority: Priority.controls.value,
-        position: Vector2(
-          0,
-          Constants.SCREEN_HEIGHT - Constants.UI_CONTROLS_HEIGHT,
-        ),
-        size: Vector2(Constants.SCREEN_WIDTH, Constants.UI_CONTROLS_HEIGHT),
       );
 
   @override

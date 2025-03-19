@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final MatchState state;
@@ -23,7 +24,7 @@ class GameComponent extends FlameGame {
     required this.self,
     required this.enemy,
     required this.battlefield,
-  }) : super(world: MatchComponent(self: self, battlefield: battlefield)) {
+  }) : super() {
     GameComponentRef.instance = this;
   }
 
@@ -31,13 +32,15 @@ class GameComponent extends FlameGame {
   FutureOr onLoad() {
     debugMode = false;
 
+    world = MatchComponent(
+      resolution: resolution,
+      self: self,
+      battlefield: battlefield,
+    );
+
     camera = CameraComponent.withFixedResolution(
       width: resolution.width,
       height: resolution.height,
-    );
-
-    camera.moveTo(
-      Vector2(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2),
     );
 
     if (debugMode) {
@@ -48,11 +51,11 @@ class GameComponent extends FlameGame {
   }
 
   @override
-  Color backgroundColor() => Colors.pink; //Palette.GAME_BACKGROUND;
+  Color backgroundColor() => Palette.GAME_BACKGROUND;
 
   Size get resolution => Size(
-    Constants.SCREEN_WIDTH,
-    (canvasSize.y * Constants.SCREEN_WIDTH / canvasSize.x).round().toDouble(),
+    Constants.UI_WIDTH,
+    (canvasSize.y * Constants.UI_WIDTH / canvasSize.x).round().toDouble(),
   );
 
   @override
