@@ -11,7 +11,7 @@ class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: const Color(0xff222222),
+    color: Palette.BATTLEFIELD_BACKGROUND,
   );
 
   BattlefieldComponent({

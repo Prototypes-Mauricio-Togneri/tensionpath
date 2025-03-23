@@ -21,8 +21,11 @@ class Palette {
   static const Color PLAYER_ENEMY = Colors.red;
   static const Color PLAYER_NAME = Colors.white;
 
+  static Color BATTLEFIELD_BACKGROUND = const Color(0xff333333);
+
   static Color NODE_BORDER = Colors.white.withAlpha(80);
   static const Color NODE_LAND = Colors.green;
+  static const Color NODE_RESOURCES = Colors.black45;
   static const Color NODE_MISSILE = Colors.brown;
 
   static Paint paint({

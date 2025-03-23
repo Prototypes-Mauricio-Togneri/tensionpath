@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
 import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
 import 'package:tensionpath/domain/entities/nodes/node_missile.dart';
+import 'package:tensionpath/domain/entities/nodes/node_resources.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
@@ -57,6 +58,8 @@ class Battlefield {
         case NodeType.land:
           nodes.add(NodeLand(x: x, y: y));
           break;
+        case NodeType.resources:
+          nodes.add(NodeResources(x: x, y: y));
         case NodeType.launcher:
           nodes.add(NodeLauncher(x: x, y: y, player: player));
           break;

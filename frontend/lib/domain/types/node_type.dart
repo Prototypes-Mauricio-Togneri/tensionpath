@@ -1,1 +1,1 @@
-enum NodeType { land, launcher, missile }
+enum NodeType { land, launcher, missile, resources }

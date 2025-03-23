@@ -116,7 +116,7 @@
         {
             "x": 3,
             "y": -3,
-            "type": "land"
+            "type": "resources"
         },
         {
             "x": 3,
@@ -131,7 +131,7 @@
         {
             "x": 3,
             "y": 0,
-            "type": "land"
+            "type": "resources"
         },
         {
             "x": 2,
@@ -161,7 +161,7 @@
         {
             "x": -3,
             "y": 3,
-            "type": "land"
+            "type": "resources"
         },
         {
             "x": -3,
@@ -176,7 +176,7 @@
         {
             "x": -3,
             "y": 0,
-            "type": "land"
+            "type": "resources"
         },
         {
             "x": -2,
