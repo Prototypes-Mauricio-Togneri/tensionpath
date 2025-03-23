@@ -1,3 +1,3 @@
 class Assets {
-  static const String BATTLEFIELDS_W7H13 = 'assets/battlefields/w7h13.json';
+  static const String BATTLEFIELDS_W7H9 = 'assets/battlefields/w7h9.json';
 }

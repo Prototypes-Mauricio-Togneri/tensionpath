@@ -25,16 +25,23 @@ class BattlefieldComponent extends PositionComponent {
     final double nodeSize =
         (size.x / battlefield.size.width) * (1 - Constants.UI_PADDING_RATIO);
     final Vector2 center = size / 2;
+    final Set<String> existingNodes = {};
 
     for (final Node node in battlefield.nodes) {
-      final Vector2 position = node.position(nodeSize);
+      if (existingNodes.contains(node.id)) {
+        throw Exception('Duplicated node: ${node.id}');
+      } else {
+        final Vector2 position = node.position(nodeSize);
 
-      add(
-        node.component(
-          position: Vector2(center.x + position.x, center.y + position.y),
-          size: Vector2(nodeSize, nodeSize),
-        ),
-      );
+        add(
+          node.component(
+            position: Vector2(center.x + position.x, center.y + position.y),
+            size: Vector2(nodeSize, nodeSize),
+          ),
+        );
+
+        existingNodes.add(node.id);
+      }
     }
 
     return super.onLoad();
