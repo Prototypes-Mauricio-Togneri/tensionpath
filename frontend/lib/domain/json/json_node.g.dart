@@ -15,7 +15,8 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) => JsonNode(
 
 const _$NodeTypeEnumMap = {
   NodeType.land: 'land',
+  NodeType.resources: 'resources',
   NodeType.launcher: 'launcher',
   NodeType.missile: 'missile',
-  NodeType.resources: 'resources',
+  NodeType.platform: 'platform',
 };

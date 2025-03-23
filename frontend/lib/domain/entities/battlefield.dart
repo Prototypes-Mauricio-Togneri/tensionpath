@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
 import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
 import 'package:tensionpath/domain/entities/nodes/node_missile.dart';
+import 'package:tensionpath/domain/entities/nodes/node_platform.dart';
 import 'package:tensionpath/domain/entities/nodes/node_resources.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -60,11 +61,15 @@ class Battlefield {
           break;
         case NodeType.resources:
           nodes.add(NodeResources(x: x, y: y));
+          break;
         case NodeType.launcher:
           nodes.add(NodeLauncher(x: x, y: y, player: player));
           break;
         case NodeType.missile:
           nodes.add(NodeMissile(x: x, y: y));
+          break;
+        case NodeType.platform:
+          nodes.add(NodePlatform(x: x, y: y));
           break;
       }
     }
