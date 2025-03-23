@@ -91,6 +91,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     strokeWidth: 5,
   );
   Vector2 initialPosition = Vector2(0, 0);
+  bool dragging = false;
 
   UnitSelectorComponent({
     required this.player,
@@ -113,6 +114,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
     initialPosition.setFrom(position);
+    dragging = true;
   }
 
   @override
@@ -121,8 +123,8 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
-    print('onDragEnd $position');
     position = initialPosition;
+    dragging = false;
   }
 
   @override
@@ -139,6 +141,11 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         hasResources
             ? fillPaint
             : fillPaint.clone(color: const Color(0xff888888));
+
+    if (dragging) {
+      border.color = border.color.withAlpha(100);
+      fill.color = fill.color.withAlpha(100);
+    }
 
     canvas.drawRect(size.toRect(), fill);
     canvas.drawRect(size.toRect(), border);
