@@ -12,7 +12,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Palette.paint(
+  final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_BACKGROUND,
   );
@@ -62,13 +62,13 @@ class ControlsComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
   }
 }
 
 class ResourceCounterComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Palette.paint(
+  final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_RESOURCES_BACKGROUND,
   );
@@ -83,7 +83,7 @@ class ResourceCounterComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle((size / 2).toOffset(), size.x / 2, backgroundPaint);
+    canvas.drawCircle((size / 2).toOffset(), size.x / 2, fillPaint);
 
     canvas.drawText(
       text: player.resources.floor().toString(),
@@ -97,7 +97,7 @@ class ResourceCounterComponent extends PositionComponent {
 class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  final Paint backgroundPaint = Palette.paint(
+  final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_CARD_BACKGROUND,
   );
@@ -150,7 +150,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), backgroundPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), fillPaint);
 
     double fillValue = 1 - (unitType.cost - player.resources);
     fillValue = fillValue.clamp(0, 1);

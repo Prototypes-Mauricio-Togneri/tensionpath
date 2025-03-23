@@ -34,6 +34,7 @@ class GameComponent extends FlameGame {
     world = MatchComponent(
       resolution: resolution,
       self: self,
+      enemy: enemy,
       battlefield: battlefield,
     );
 

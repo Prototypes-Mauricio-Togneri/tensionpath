@@ -5,10 +5,10 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitInfrantryComponent extends UnitComponent<UnitInfantry> {
-  final Paint backgroundPaint = Palette.paint(style: PaintingStyle.stroke);
+  final Paint fillPaint = Palette.paint(style: PaintingStyle.stroke);
 
   UnitInfrantryComponent({required super.unit, required super.size}) {
-    backgroundPaint.color = unit.color;
+    fillPaint.color = unit.color;
   }
 
   @override
@@ -18,7 +18,7 @@ class UnitInfrantryComponent extends UnitComponent<UnitInfantry> {
     canvas.drawCircle(
       Offset(size.x / 2, size.y / 2),
       size.x / 2,
-      backgroundPaint,
+      fillPaint,
     );
 
     canvas.drawText(

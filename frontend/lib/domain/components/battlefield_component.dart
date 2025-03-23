@@ -9,7 +9,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
-  final Paint backgroundPaint = Palette.paint(
+  final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.BATTLEFIELD_BACKGROUND,
   );
@@ -53,6 +53,6 @@ class BattlefieldComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
   }
 }

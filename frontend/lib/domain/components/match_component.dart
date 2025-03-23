@@ -15,11 +15,13 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 class MatchComponent extends World {
   final Size resolution;
   final Player self;
+  final Player enemy;
   final Battlefield battlefield;
 
   MatchComponent({
     required this.resolution,
     required this.self,
+    required this.enemy,
     required this.battlefield,
   });
 
@@ -42,6 +44,8 @@ class MatchComponent extends World {
     );
     add(
       HeaderComponent(
+        player1: self,
+        player2: enemy,
         position: Vector2(-Constants.UI_WIDTH / 2, -resolution.height / 2),
         size: Vector2(Constants.UI_WIDTH, Constants.UI_HEADER_HEIGHT),
       ),

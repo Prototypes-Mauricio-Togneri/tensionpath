@@ -12,6 +12,8 @@ extension CanvasExtension on Canvas {
     Color? color,
     Paint? foreground,
     Paint? background,
+    TextAlign? textAlign,
+    Alignment? alignment,
   }) {
     final TextStyle textStyle = TextStyle(
       fontSize: size,
@@ -24,11 +26,11 @@ extension CanvasExtension on Canvas {
     final TextPainter textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.center,
     );
     textPainter.layout();
 
-    final translatedPosition = translate(
+    final Vector2 translatedPosition = translate(
       anchor: Anchor.center,
       point: Vector2(position.x, position.y),
       size: Vector2(textPainter.size.width, textPainter.size.height),
