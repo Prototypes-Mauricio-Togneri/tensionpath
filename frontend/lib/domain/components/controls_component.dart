@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/paint_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
@@ -117,21 +118,32 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(size.toRect(), fillPaint);
-    canvas.drawRect(size.toRect(), borderPaint);
+    final bool hasResources = player.resources >= unitType.cost;
+
+    final Paint border =
+        hasResources
+            ? borderPaint
+            : borderPaint.clone(color: const Color(0xff555555));
+    final Paint fill =
+        hasResources
+            ? fillPaint
+            : fillPaint.clone(color: const Color(0xff888888));
+
+    canvas.drawRect(size.toRect(), fill);
+    canvas.drawRect(size.toRect(), border);
 
     canvas.drawText(
       text: unitType.name,
       position: Vector2(size.x / 2, size.y / 3),
       size: size.y / 8,
-      color: borderPaint.color,
+      color: border.color,
     );
 
     canvas.drawText(
       text: unitType.cost.toString(),
       position: Vector2(size.x / 2, size.y * 2 / 3),
       size: size.y / 4,
-      color: borderPaint.color,
+      color: border.color,
     );
   }
 }
