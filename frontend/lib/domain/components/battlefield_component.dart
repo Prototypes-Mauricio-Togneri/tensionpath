@@ -23,7 +23,9 @@ class BattlefieldComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     final double nodeSize =
-        (size.x / battlefield.size.width) * (1 - Constants.UI_PADDING_RATIO);
+        (size.x / battlefield.size.width) *
+        1.25 *
+        (1 - Constants.UI_PADDING_RATIO);
     final Vector2 center = size / 2;
     final Set<String> existingNodes = {};
 
