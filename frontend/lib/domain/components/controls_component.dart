@@ -35,8 +35,8 @@ class ControlsComponent extends PositionComponent {
 
     for (int i = 0; i < 6; i++) {
       final Vector2 position = Vector2(
-        (i * cardWidth) + ((i + 1) * horizontalGapSize),
-        verticalGapSize,
+        ((i + 0.5) * cardWidth) + ((i + 1) * horizontalGapSize),
+        verticalGapSize + (cardHeight / 2),
       );
 
       add(
@@ -99,7 +99,7 @@ class UnitSelectorComponent extends PositionComponent
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value) {
+  }) : super(anchor: Anchor.center, priority: Priority.controls.value) {
     borderPaint.color = player.color;
     fillPaint.color = player.color.brighten(0.5);
   }
