@@ -31,18 +31,10 @@ class ControlsComponent extends PositionComponent {
     final double horizontalGapSize = (size.x - (cardWidth * 7)) / 8;
     final double verticalGapSize = (size.y - cardHeight) / 2;
 
-    add(
-      ResourceCounterComponent(
-        player: player,
-        position: Vector2(horizontalGapSize, verticalGapSize),
-        size: Vector2(cardWidth, cardHeight),
-      ),
-    );
-
     for (int i = 0; i < 6; i++) {
       final Vector2 position = Vector2(
-        ((i + 1.5) * cardWidth) + ((i + 2) * horizontalGapSize),
-        verticalGapSize + (cardHeight / 2),
+        (i * cardWidth) + ((i + 1) * horizontalGapSize),
+        verticalGapSize,
       );
 
       add(
@@ -55,6 +47,17 @@ class ControlsComponent extends PositionComponent {
       );
     }
 
+    add(
+      ResourceCounterComponent(
+        player: player,
+        position: Vector2(
+          (6 * cardWidth) + (horizontalGapSize * 7),
+          verticalGapSize,
+        ),
+        size: Vector2(cardWidth, cardHeight),
+      ),
+    );
+
     return super.onLoad();
   }
 
@@ -63,6 +66,55 @@ class ControlsComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
+  }
+}
+
+class UnitSelectorComponent extends PositionComponent with DragCallbacks {
+  final Player player;
+  final UnitType unitType;
+  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    strokeWidth: 5,
+  );
+  Vector2 initialPosition = Vector2(0, 0);
+
+  UnitSelectorComponent({
+    required this.player,
+    required this.unitType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value) {
+    borderPaint.color = player.color;
+    fillPaint.color = player.color.brighten(0.5);
+  }
+
+  @override
+  FutureOr onLoad() {
+    add(RectangleHitbox(isSolid: true));
+
+    return super.onLoad();
+  }
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+    initialPosition.setFrom(position);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(size.toRect(), fillPaint);
+    canvas.drawRect(size.toRect(), borderPaint);
+
+    canvas.drawText(
+      text: unitType.cost.toString(),
+      position: size / 2,
+      size: size.y / 2,
+      color: borderPaint.color,
+    );
   }
 }
 
@@ -90,89 +142,6 @@ class ResourceCounterComponent extends PositionComponent {
       position: size / 2,
       size: size.x / 2,
       color: Palette.CONTROLS_RESOURCES_FOREGROUND,
-    );
-  }
-}
-
-class UnitSelectorComponent extends PositionComponent with DragCallbacks {
-  final Player player;
-  final UnitType unitType;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_CARD_BACKGROUND,
-  );
-  final Paint foregroundPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_CARD_FOREGROUND,
-  );
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 5,
-  );
-  Vector2 initialPosition = Vector2(0, 0);
-
-  UnitSelectorComponent({
-    required this.player,
-    required this.unitType,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.controls.value);
-
-  @override
-  FutureOr onLoad() {
-    add(RectangleHitbox(isSolid: true));
-
-    return super.onLoad();
-  }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
-    initialPosition.setFrom(position);
-  }
-
-  /*void _spawnUnitOfPlayer({
-    required Lane lane,
-    required Node? node,
-    required Player player,
-    required UnitType unitType,
-  }) {
-    engine.onSpawnUnit(
-      lane: lane,
-      player: player,
-      node: node ?? lane.nodes.first,
-      unitType: unitType,
-    );
-    player.spendResources(unitType.cost);
-  }*/
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), fillPaint);
-
-    double fillValue = 1 - (unitType.cost - player.resources);
-    fillValue = fillValue.clamp(0, 1);
-    final double height = size.y * fillValue;
-
-    canvas.drawRect(
-      Rect.fromLTWH(0, size.y - height, size.x, height),
-      foregroundPaint,
-    );
-
-    final Color cardColor =
-        fillValue == 1 ? player.color : Palette.CONTROLS_CARD_VALUE;
-
-    borderPaint.color = cardColor;
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), borderPaint);
-
-    canvas.drawText(
-      text: unitType.cost.toString(),
-      position: size / 2,
-      size: size.y / 2,
-      color: cardColor,
     );
   }
 }
