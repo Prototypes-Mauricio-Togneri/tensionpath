@@ -57,17 +57,17 @@ abstract class Unit with GameComponentRef {
     required Node node,
     required double size,
   }) {
-    switch (unitType) {
-      case UnitType.infantry:
-        return UnitInfantry(
-          maxHealth: unitType.health,
-          attack: unitType.attack,
-          range: unitType.range,
-          size: size,
-          owner: owner,
-          x: node.x,
-          y: node.y,
-        );
-    }
+    //switch (unitType) {
+    //case UnitType.rifle_squad:
+    return UnitInfantry(
+      maxHealth: unitType.health,
+      attack: unitType.attack,
+      range: unitType.range,
+      size: size,
+      owner: owner,
+      x: node.x,
+      y: node.y,
+    );
+    //}
   }
 }

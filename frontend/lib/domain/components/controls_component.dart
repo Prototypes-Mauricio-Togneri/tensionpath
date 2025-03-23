@@ -40,7 +40,7 @@ class ControlsComponent extends PositionComponent {
       add(
         UnitSelectorComponent(
           player: player,
-          unitType: UnitType.infantry,
+          unitType: UnitType.values[i],
           position: position,
           size: Vector2(cardWidth, cardHeight),
         ),
@@ -110,9 +110,9 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     canvas.drawRect(size.toRect(), borderPaint);
 
     canvas.drawText(
-      text: unitType.cost.toString(),
+      text: unitType.name,
       position: size / 2,
-      size: size.y / 2,
+      size: size.y / 8,
       color: borderPaint.color,
     );
   }
