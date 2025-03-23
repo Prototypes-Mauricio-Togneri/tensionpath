@@ -36,12 +36,6 @@ class NodeComponent<N extends Node> extends PositionComponent {
     return super.onLoad();
   }
 
-  bool containsPosition(Vector2 position) {
-    final double distance = absolutePosition.distanceTo(position);
-
-    return distance <= size.x / 2;
-  }
-
   @override
   void render(Canvas canvas) {
     super.render(canvas);

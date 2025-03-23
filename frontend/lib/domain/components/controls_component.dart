@@ -121,15 +121,12 @@ class UnitSelectorComponent extends PositionComponent
   @override
   void onDragUpdate(DragUpdateEvent event) {
     position += event.localDelta;
-    game.highlightNodeAt(position);
+    game.highlightNodeAt(absolutePosition);
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
-
-    print('onDragEnd: $absolutePosition');
-
     position = initialPosition;
     dragging = false;
   }
