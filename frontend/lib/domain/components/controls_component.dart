@@ -122,8 +122,15 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     canvas.drawText(
       text: unitType.name,
-      position: size / 2,
+      position: Vector2(size.x / 2, size.y / 3),
       size: size.y / 8,
+      color: borderPaint.color,
+    );
+
+    canvas.drawText(
+      text: unitType.cost.toString(),
+      position: Vector2(size.x / 2, size.y * 2 / 3),
+      size: size.y / 4,
       color: borderPaint.color,
     );
   }
