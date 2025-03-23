@@ -7,7 +7,7 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Colors.white,
+    color: Palette.NODE_BORDER,
   );
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
 
