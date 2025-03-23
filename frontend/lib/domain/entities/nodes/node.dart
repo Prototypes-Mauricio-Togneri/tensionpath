@@ -14,7 +14,7 @@ abstract class Node with GameComponentRef {
 
   String get id => '[$x,$y]';
 
-  Vector2 battlefieldPosition(double nodeSize) {
+  Vector2 position(double nodeSize) {
     final double hexWidth = nodeSize;
     final double hexHeight = nodeSize * (sqrt(3) / 2);
 

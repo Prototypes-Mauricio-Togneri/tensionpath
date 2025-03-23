@@ -27,7 +27,7 @@ class BattlefieldComponent extends PositionComponent {
     final Vector2 center = size / 2;
 
     for (final Node node in battlefield.nodes) {
-      final Vector2 position = node.battlefieldPosition(nodeSize);
+      final Vector2 position = node.position(nodeSize);
 
       add(
         node.component(
