@@ -4,7 +4,7 @@ set -e
 
 flutter clean
 #dart lib/build/generate_version.dart
-flutter build web -t lib/main/main_remote.dart --web-renderer canvaskit --release
+flutter build web -t lib/main/main_remote.dart --release
 
 OUTPUT="../backend/public"
 rm -r ${OUTPUT}
