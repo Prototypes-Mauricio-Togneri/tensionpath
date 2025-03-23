@@ -54,7 +54,18 @@ class ControlsComponent extends PositionComponent {
           (6 * cardWidth) + (horizontalGapSize * 7),
           verticalGapSize,
         ),
-        size: Vector2(cardWidth, cardHeight),
+        size: Vector2(cardWidth, (cardHeight / 2) - (verticalGapSize / 2)),
+      ),
+    );
+
+    add(
+      PassTurnComponent(
+        player: player,
+        position: Vector2(
+          (6 * cardWidth) + (horizontalGapSize * 7),
+          (cardHeight / 2) + verticalGapSize * 1.5,
+        ),
+        size: Vector2(cardWidth, (cardHeight / 2) - (verticalGapSize / 2)),
       ),
     );
 
@@ -135,12 +146,40 @@ class ResourceCounterComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle((size / 2).toOffset(), size.x / 2, fillPaint);
+    canvas.drawRect(size.toRect(), fillPaint);
 
     canvas.drawText(
       text: player.resources.floor().toString(),
       position: size / 2,
-      size: size.x / 2,
+      size: size.x / 3,
+      color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+    );
+  }
+}
+
+class PassTurnComponent extends PositionComponent {
+  final Player player;
+  final Paint fillPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_RESOURCES_BACKGROUND,
+  );
+
+  PassTurnComponent({
+    required this.player,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(size.toRect(), fillPaint);
+
+    canvas.drawText(
+      text: 'PASS',
+      position: size / 2,
+      size: size.x / 4,
       color: Palette.CONTROLS_RESOURCES_FOREGROUND,
     );
   }

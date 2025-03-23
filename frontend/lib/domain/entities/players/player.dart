@@ -42,9 +42,6 @@ class Player with GameComponentRef {
   int get hashCode => id.hashCode;
 
   void update(double dt) {
-    resources += resourceRate * dt;
-    resources = resources.clamp(0, 10);
-
     takeAction();
   }
 
