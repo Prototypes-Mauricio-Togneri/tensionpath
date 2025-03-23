@@ -14,6 +14,7 @@ class NodeComponent<N extends Node> extends PositionComponent {
     strokeWidth: 10,
   );
   final N node;
+  bool highlight = false;
 
   NodeComponent({
     required this.node,
@@ -35,6 +36,12 @@ class NodeComponent<N extends Node> extends PositionComponent {
     return super.onLoad();
   }
 
+  bool containsPosition(Vector2 position) {
+    final double distance = absolutePosition.distanceTo(position);
+
+    return distance <= size.x / 2;
+  }
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -47,13 +54,13 @@ class NodeComponent<N extends Node> extends PositionComponent {
     );
 
     canvas.drawText(
-      text: '${position.x.toInt()},${position.y.toInt()}',
+      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
       position: Vector2(size.x / 2, size.y * 2 / 3),
       size: size.x / 7,
       color: Colors.white,
     );
 
-    if (node.highlight) {
+    if (highlight) {
       canvas.drawHexagon(size: size, borderPaint: highlightPaint);
     }
   }

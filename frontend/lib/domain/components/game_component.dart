@@ -71,7 +71,7 @@ class GameComponent extends FlameGame {
   void onPassTurn() => matchComponent.onPassTurn();
 
   void highlightNodeAt(Vector2 position) =>
-      battlefield.highlightNodeAt(position);
+      matchComponent.highlightNodeAt(position);
 
   void onMatchFinished(bool won) {
     pauseEngine();

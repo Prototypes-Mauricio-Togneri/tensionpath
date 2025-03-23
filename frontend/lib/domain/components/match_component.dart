@@ -5,6 +5,8 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_land_componet.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
@@ -64,15 +66,39 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
+  BattlefieldComponent get battlefieldComponent =>
+      children.whereType<BattlefieldComponent>().first;
+
   Iterable<UnitComponent> get unitComponents =>
-      children.whereType<UnitComponent>();
+      battlefieldComponent.children.whereType<UnitComponent>();
+
+  Iterable<NodeComponent> get nodeComponents =>
+      children.whereType<NodeLandComponent>();
 
   void onPassTurn() {
     self.addResources(self.baseResourceRate);
   }
 
-  void highlightNodeAt(Vector2 position) =>
-      battlefield.highlightNodeAt(position);
+  void highlightNodeAt(Vector2 position) {
+    final List<NodeComponent> nodes = [];
+
+    for (final Component component in battlefieldComponent.children) {
+      if (component is NodeComponent) {
+        nodes.add(component);
+      }
+    }
+
+    for (final NodeComponent node in nodes) {
+      node.highlight = false;
+    }
+
+    for (final NodeComponent node in nodes) {
+      if (node.containsPosition(position)) {
+        node.highlight = true;
+        break;
+      }
+    }
+  }
 
   void onUnitCreated(Unit unit) {
     add(unit.component);

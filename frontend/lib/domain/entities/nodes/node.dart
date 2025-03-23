@@ -7,7 +7,6 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 abstract class Node with GameComponentRef {
   final int x;
   final int y;
-  bool highlight = false;
 
   Node({required this.x, required this.y});
 
@@ -20,13 +19,6 @@ abstract class Node with GameComponentRef {
     final double hexHeight = nodeSize * (sqrt(3) / 2);
 
     return Vector2(hexWidth * 3 / 4 * x, hexHeight * ((x / 2) + y));
-  }
-
-  bool contains(Vector2 position) {
-    final Vector2 nodePosition = this.position(160);
-    final double distance = nodePosition.distanceTo(position);
-
-    return distance <= 80;
   }
 
   void onTapped() {}

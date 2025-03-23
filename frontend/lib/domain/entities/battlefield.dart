@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
@@ -27,19 +26,6 @@ class Battlefield {
   void update(double dt) {
     for (final Node node in nodes) {
       node.update(dt);
-    }
-  }
-
-  void highlightNodeAt(Vector2 position) {
-    for (final Node node in nodes) {
-      node.highlight = false;
-    }
-
-    for (final Node node in nodes) {
-      if (node.contains(position)) {
-        node.highlight = true;
-        break;
-      }
     }
   }
 
