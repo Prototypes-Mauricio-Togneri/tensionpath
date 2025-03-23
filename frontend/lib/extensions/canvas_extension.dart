@@ -36,15 +36,6 @@ extension CanvasExtension on Canvas {
       size: Vector2(textPainter.size.width, textPainter.size.height),
     );
     textPainter.paint(this, translatedPosition.toOffset());
-
-    /*final Vector2 alignmentOffset = Vector2(
-      alignment.x * textPainter.size.width,
-      alignment.y * textPainter.size.height,
-    );
-
-    final Vector2 alignedPosition = translatedPosition - alignmentOffset;
-
-    textPainter.paint(this, alignedPosition.toOffset());*/
   }
 
   void drawHexagon({
