@@ -7,7 +7,11 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeLandComponent extends NodeComponent<NodeLand> {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Colors.white,
+    color: Palette.NODE_BORDER,
+  );
+  final Paint fillPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.NODE_LAND,
   );
 
   NodeLandComponent({
@@ -18,14 +22,12 @@ class NodeLandComponent extends NodeComponent<NodeLand> {
 
   @override
   void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawHexagon(size: size, borderPaint: borderPaint);
-    canvas.drawText(
-      text: '${node.x},${node.y}',
-      position: size / 2,
-      size: size.x / 4,
-      color: Colors.white,
+    canvas.drawHexagon(
+      size: size,
+      borderPaint: borderPaint,
+      fillPaint: fillPaint,
     );
+
+    super.render(canvas);
   }
 }
