@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -176,7 +177,8 @@ class ResourceCounterComponent extends PositionComponent {
   }
 }
 
-class PassTurnComponent extends PositionComponent {
+class PassTurnComponent extends PositionComponent
+    with TapCallbacks, GameComponentRef {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -188,6 +190,9 @@ class PassTurnComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+
+  @override
+  void onTapUp(TapUpEvent event) => game.onPassTurn();
 
   @override
   void render(Canvas canvas) {

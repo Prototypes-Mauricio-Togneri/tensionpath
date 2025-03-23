@@ -12,7 +12,7 @@ import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class GameComponent extends FlameGame {
+class GameComponent extends FlameGame<MatchComponent> {
   final MatchState state;
   final Player self;
   final Player enemy;
@@ -66,6 +66,8 @@ class GameComponent extends FlameGame {
     enemy.update(dt);
     battlefield.update(dt);
   }
+
+  void onPassTurn() => world.onPassTurn();
 
   void onMatchFinished(bool won) {
     pauseEngine();

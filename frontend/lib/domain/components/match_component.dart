@@ -67,6 +67,10 @@ class MatchComponent extends World {
   Iterable<UnitComponent> get unitComponents =>
       children.whereType<UnitComponent>();
 
+  void onPassTurn() {
+    self.addResources(self.baseResourceRate);
+  }
+
   void onUnitCreated(Unit unit) {
     add(unit.component);
   }
