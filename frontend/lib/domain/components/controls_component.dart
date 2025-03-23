@@ -127,6 +127,11 @@ class UnitSelectorComponent extends PositionComponent
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
+
+    print(
+      'onDragEnd: $absolutePosition, $absoluteCenter, $absoluteTopLeftPosition',
+    );
+
     position = initialPosition;
     dragging = false;
   }
