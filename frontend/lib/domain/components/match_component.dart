@@ -71,6 +71,9 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
+  void highlightNodeAt(Vector2 position) =>
+      battlefield.highlightNodeAt(position);
+
   void onUnitCreated(Unit unit) {
     add(unit.component);
   }

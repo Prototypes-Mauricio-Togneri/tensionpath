@@ -82,7 +82,8 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class UnitSelectorComponent extends PositionComponent with DragCallbacks {
+class UnitSelectorComponent extends PositionComponent
+    with DragCallbacks, GameComponentRef {
   final Player player;
   final UnitType unitType;
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
@@ -118,7 +119,10 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   }
 
   @override
-  void onDragUpdate(DragUpdateEvent event) => position += event.localDelta;
+  void onDragUpdate(DragUpdateEvent event) {
+    position += event.localDelta;
+    game.highlightNodeAt(position);
+  }
 
   @override
   void onDragEnd(DragEndEvent event) {

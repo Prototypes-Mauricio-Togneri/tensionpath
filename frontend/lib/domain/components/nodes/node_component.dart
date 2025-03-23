@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent {
+  final Paint highlightPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.NODE_BORDER,
+    strokeWidth: 10,
+  );
   final N node;
 
   NodeComponent({
@@ -35,9 +41,20 @@ class NodeComponent<N extends Node> extends PositionComponent {
 
     canvas.drawText(
       text: '${node.x},${node.y}',
-      position: size / 2,
+      position: Vector2(size.x / 2, size.y / 3),
       size: size.x / 5,
       color: Colors.white,
     );
+
+    canvas.drawText(
+      text: '${position.x.toInt()},${position.y.toInt()}',
+      position: Vector2(size.x / 2, size.y * 2 / 3),
+      size: size.x / 7,
+      color: Colors.white,
+    );
+
+    if (node.highlight) {
+      canvas.drawHexagon(size: size, borderPaint: highlightPaint);
+    }
   }
 }

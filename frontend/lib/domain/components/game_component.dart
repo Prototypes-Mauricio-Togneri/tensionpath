@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
@@ -70,6 +69,9 @@ class GameComponent extends FlameGame {
   MatchComponent get matchComponent => world as MatchComponent;
 
   void onPassTurn() => matchComponent.onPassTurn();
+
+  void highlightNodeAt(Vector2 position) =>
+      battlefield.highlightNodeAt(position);
 
   void onMatchFinished(bool won) {
     pauseEngine();
