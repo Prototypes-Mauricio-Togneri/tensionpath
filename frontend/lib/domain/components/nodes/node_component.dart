@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
@@ -12,6 +14,20 @@ class NodeComponent<N extends Node> extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.node.value);
+
+  @override
+  FutureOr onLoad() {
+    add(
+      CircleHitbox(
+        radius: size.x * 0.42,
+        anchor: Anchor.center,
+        position: size / 2,
+        isSolid: true,
+      ),
+    );
+
+    return super.onLoad();
+  }
 
   @override
   void render(Canvas canvas) {

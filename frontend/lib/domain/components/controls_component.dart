@@ -116,6 +116,16 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   }
 
   @override
+  void onDragUpdate(DragUpdateEvent event) => position += event.localDelta;
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
+    print('onDragEnd $position');
+    position = initialPosition;
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
