@@ -92,8 +92,15 @@ class CenterIndicatorComponent extends PositionComponent {
   FutureOr onLoad() {
     add(
       TimeIndicatorComponent(
-        position: Vector2(size.x / 2, size.y / 3),
+        position: Vector2(size.x / 2, size.y / 4),
         size: size / 1.5,
+      ),
+    );
+
+    add(
+      FullScreenButtonComponent(
+        position: Vector2(size.x / 2, size.y * 2 / 3),
+        size: size / 5,
       ),
     );
 
@@ -147,7 +154,7 @@ class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
       text: '⌞ ⌝',
       position: size / 2.2,
       size: size.y / 2,
-      color: Palette.PLAYER_NAME,
+      color: Colors.white,
     );
   }
 }
