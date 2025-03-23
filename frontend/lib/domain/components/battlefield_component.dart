@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
@@ -25,17 +24,14 @@ class BattlefieldComponent extends PositionComponent {
   FutureOr onLoad() {
     final double nodeSize =
         (size.x / battlefield.size.width) * (1 - Constants.UI_PADDING_RATIO);
-    final double hexWidth = nodeSize;
-    final double hexHeight = nodeSize * (sqrt(3) / 2);
     final Vector2 center = size / 2;
 
     for (final Node node in battlefield.nodes) {
-      final double x = hexWidth * 3 / 4 * node.x;
-      final double y = hexHeight * ((node.x / 2) + node.y);
+      final Vector2 position = node.battlefieldPosition(nodeSize);
 
       add(
         node.component(
-          position: Vector2(center.x + x, center.y + y),
+          position: Vector2(center.x + position.x, center.y + position.y),
           size: Vector2(nodeSize, nodeSize),
         ),
       );
