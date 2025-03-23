@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ extension CanvasExtension on Canvas {
     required double size,
     TextAlign textAlign = TextAlign.center,
     Alignment alignment = Alignment.center,
+    Anchor anchor = Anchor.center,
     Color? color,
     Paint? foreground,
     Paint? background,
@@ -31,11 +31,20 @@ extension CanvasExtension on Canvas {
     textPainter.layout();
 
     final Vector2 translatedPosition = translate(
-      anchor: Anchor.center,
+      anchor: anchor,
       point: Vector2(position.x, position.y),
       size: Vector2(textPainter.size.width, textPainter.size.height),
     );
     textPainter.paint(this, translatedPosition.toOffset());
+
+    /*final Vector2 alignmentOffset = Vector2(
+      alignment.x * textPainter.size.width,
+      alignment.y * textPainter.size.height,
+    );
+
+    final Vector2 alignedPosition = translatedPosition - alignmentOffset;
+
+    textPainter.paint(this, alignedPosition.toOffset());*/
   }
 
   void drawHexagon({
