@@ -9,11 +9,11 @@ extension CanvasExtension on Canvas {
     required String text,
     required Vector2 position,
     required double size,
+    TextAlign textAlign = TextAlign.center,
+    Alignment alignment = Alignment.center,
     Color? color,
     Paint? foreground,
     Paint? background,
-    TextAlign? textAlign,
-    Alignment? alignment,
   }) {
     final TextStyle textStyle = TextStyle(
       fontSize: size,
@@ -26,7 +26,7 @@ extension CanvasExtension on Canvas {
     final TextPainter textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
-      textAlign: textAlign ?? TextAlign.center,
+      textAlign: textAlign,
     );
     textPainter.layout();
 
