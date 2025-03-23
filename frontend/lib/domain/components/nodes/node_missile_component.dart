@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/entities/nodes/node_victory.dart';
+import 'package:tensionpath/domain/entities/nodes/node_missile.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodeVictoryComponent extends NodeComponent<NodeVictory> {
+class NodeMissileComponent extends NodeComponent<NodeMissile> {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Colors.white,
+    color: Palette.NODE_BORDER,
   );
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Colors.yellow,
+    color: Palette.NODE_MISSILE,
   );
 
-  NodeVictoryComponent({
+  NodeMissileComponent({
     required super.node,
     required super.position,
     required super.size,
@@ -22,12 +22,12 @@ class NodeVictoryComponent extends NodeComponent<NodeVictory> {
 
   @override
   void render(Canvas canvas) {
-    super.render(canvas);
-
     canvas.drawHexagon(
       size: size,
       borderPaint: borderPaint,
       fillPaint: fillPaint,
     );
+
+    super.render(canvas);
   }
 }

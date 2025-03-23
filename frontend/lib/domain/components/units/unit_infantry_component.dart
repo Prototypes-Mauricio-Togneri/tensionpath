@@ -25,7 +25,7 @@ class UnitInfrantryComponent extends UnitComponent<UnitInfantry> {
       text: unit.health.toString(),
       position: size / 2,
       size: size.x / 3,
-      color: Palette.UNIT_VALUE,
+      color: Colors.white,
     );
   }
 }

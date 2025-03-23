@@ -38,7 +38,7 @@ class HeaderComponent extends PositionComponent {
       text: '03:45',
       position: size / 2,
       size: size.y / 2,
-      color: Palette.BASE_PLAYER_NAME,
+      color: Palette.PLAYER_NAME,
     );
   }
 }
@@ -65,7 +65,7 @@ class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
       text: '⌞ ⌝',
       position: size / 2.2,
       size: size.y / 2,
-      color: Palette.BASE_PLAYER_NAME,
+      color: Palette.PLAYER_NAME,
     );
   }
 }

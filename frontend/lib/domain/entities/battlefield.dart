@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
 import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
-import 'package:tensionpath/domain/entities/nodes/node_victory.dart';
+import 'package:tensionpath/domain/entities/nodes/node_missile.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
@@ -36,39 +36,6 @@ class Battlefield {
     player2: enemy,
   );
 
-  factory Battlefield.w7h13({required Player self, required Player enemy}) {
-    const int widthCells = 7;
-    const int heightCells = 13;
-
-    final List<Node> nodes = [];
-
-    const int midCellX = widthCells ~/ 2;
-    const int midCellY = heightCells ~/ 2;
-
-    for (int x = 0; x < widthCells; x++) {
-      // Land nodes
-      for (int y = 1; y <= heightCells - 2; y++) {
-        if (x != midCellX || y != midCellY) {
-          nodes.add(NodeLand(x: x, y: y));
-        }
-      }
-
-      // Self launcher
-      nodes.add(NodeLauncher(x: x, y: 0, player: self));
-      // Enemy launcher
-      nodes.add(NodeLauncher(x: x, y: heightCells - 1, player: enemy));
-    }
-
-    // Victory node
-    nodes.add(NodeVictory(x: midCellX, y: midCellY));
-
-    return Battlefield(
-      id: 'w5h9',
-      nodes: nodes,
-      size: Size(widthCells.toDouble(), heightCells.toDouble()),
-    );
-  }
-
   static Future<Battlefield> fromJson({
     required String filePath,
     required Player player1,
@@ -93,8 +60,8 @@ class Battlefield {
         case NodeType.launcher:
           nodes.add(NodeLauncher(x: x, y: y, player: player));
           break;
-        case NodeType.victory:
-          nodes.add(NodeVictory(x: x, y: y));
+        case NodeType.missile:
+          nodes.add(NodeMissile(x: x, y: y));
           break;
       }
     }

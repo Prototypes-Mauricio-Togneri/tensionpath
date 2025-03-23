@@ -21,12 +21,12 @@ class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
 
   @override
   void render(Canvas canvas) {
-    super.render(canvas);
-
     canvas.drawHexagon(
       size: size,
       borderPaint: borderPaint,
       fillPaint: fillPaint,
     );
+
+    super.render(canvas);
   }
 }

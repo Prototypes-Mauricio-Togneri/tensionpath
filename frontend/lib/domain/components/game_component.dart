@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
@@ -66,8 +65,6 @@ class GameComponent extends FlameGame {
     enemy.update(dt);
     battlefield.update(dt);
   }
-
-  void onNodeVictoryCaptured(Node node) => onMatchFinished(true);
 
   void onMatchFinished(bool won) {
     pauseEngine();
