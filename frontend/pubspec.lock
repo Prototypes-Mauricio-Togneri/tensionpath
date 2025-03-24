@@ -181,10 +181,10 @@ packages:
     dependency: "direct dev"
     description:
       name: dalocale
-      sha256: "9801913520453eba413c6ba557e0975b69f05310d44d1ac2ea73698a43c37c6a"
+      sha256: b1475e9e4bce582482249dc39d1ece729735629126a9a103ae2af3390ffe64fe
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.0"
   dapublock:
     dependency: "direct dev"
     description:
