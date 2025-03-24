@@ -8,7 +8,7 @@ import 'package:tensionpath/utils/palette.dart';
 class Player with GameComponentRef {
   final String id;
   final double baseResourceRate;
-  double resources = 0;
+  double resources = Constants.INITIAL_RESOURCES;
 
   static Player self() =>
       SelfPlayer(id: 'self', baseResourceRate: Constants.RESOUCES_RATE);

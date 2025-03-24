@@ -17,23 +17,19 @@ class UnitComponent<U extends Unit> extends PositionComponent {
     color: Colors.green,
   );
 
-  UnitComponent({required this.unit, required super.size})
-    : super(anchor: Anchor.center, priority: Priority.unit.value) {
-    position = unit.position;
-  }
+  UnitComponent({
+    required this.unit,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
 
   @override
   FutureOr onLoad() {
-    if (unit.owner.isEnemy) {
+    if (unit.player.isEnemy) {
       angle = pi;
     }
 
     return super.onLoad();
-  }
-
-  @override
-  void update(double dt) {
-    position.setFrom(unit.position);
   }
 
   @override
@@ -45,7 +41,7 @@ class UnitComponent<U extends Unit> extends PositionComponent {
 
     final double healthBar = width * (unit.health / unit.maxHealth);
 
-    if (unit.owner.isEnemy) {
+    if (unit.player.isEnemy) {
       canvas.drawRect(
         Rect.fromLTWH(width - healthBar, height + 10, healthBar, 10),
         foregroundHealthPaint,

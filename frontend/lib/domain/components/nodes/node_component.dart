@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -34,6 +36,18 @@ class NodeComponent<N extends Node> extends PositionComponent {
     );
 
     return super.onLoad();
+  }
+
+  void deployUnit(Unit unit) {
+    node.deployUnit(unit);
+
+    final UnitComponent unitComponent = UnitComponent(
+      unit: unit,
+      position: size / 2,
+      size: size,
+    );
+
+    add(unitComponent);
   }
 
   @override

@@ -3,40 +3,30 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/units/unit_infantry.dart';
+import 'package:tensionpath/domain/entities/units/unit_rifle_squad.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit with GameComponentRef {
-  final Player owner;
+  final Player player;
   final double maxHealth;
   final double attack;
   final double range;
-  final double size;
 
   late double health;
-  late int x;
-  late int y;
   UnitState state = UnitState.alive;
 
   Unit({
     required this.maxHealth,
     required this.attack,
     required this.range,
-    required this.size,
-    required this.owner,
-    required this.x,
-    required this.y,
+    required this.player,
   }) {
     health = maxHealth;
   }
 
-  Color get color => owner.color;
-
-  Vector2 get position =>
-      Vector2((size * x) + (size / 2), (size * y) + (size / 2));
+  Color get color => player.color;
 
   @mustCallSuper
   void update(double dt) {}
@@ -49,25 +39,19 @@ abstract class Unit with GameComponentRef {
     state = UnitState.dead;
   }
 
-  UnitComponent get component;
+  UnitComponent component({required Vector2 position, required Vector2 size});
 
-  factory Unit.fromType({
-    required UnitType unitType,
-    required Player owner,
-    required Node node,
-    required double size,
-  }) {
-    //switch (unitType) {
-    //case UnitType.rifle_squad:
-    return UnitInfantry(
-      maxHealth: unitType.health,
-      attack: unitType.attack,
-      range: unitType.range,
-      size: size,
-      owner: owner,
-      x: node.x,
-      y: node.y,
-    );
-    //}
+  factory Unit.fromType({required UnitType unitType, required Player owner}) {
+    switch (unitType) {
+      case UnitType.rifle_squad:
+        return UnitRifleSquad(
+          maxHealth: unitType.health,
+          attack: unitType.attack,
+          range: unitType.range,
+          player: owner,
+        );
+      default:
+        throw Exception('Unknown unit type: $unitType');
+    }
   }
 }

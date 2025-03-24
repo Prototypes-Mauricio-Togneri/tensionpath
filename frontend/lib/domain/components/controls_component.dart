@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -136,6 +137,14 @@ class UnitSelectorComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (isEnabled) {
+      final NodeComponent? nodeComponent = game.highlightNodeAt(
+        absolutePosition,
+      );
+
+      if (nodeComponent != null) {
+        game.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
+      }
+
       position = initialPosition;
       dragging = false;
     }

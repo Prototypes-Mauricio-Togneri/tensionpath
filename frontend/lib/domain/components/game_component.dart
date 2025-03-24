@@ -4,9 +4,11 @@ import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -70,7 +72,15 @@ class GameComponent extends FlameGame {
 
   void onPassTurn() => matchComponent.onPassTurn();
 
-  void highlightNodeAt(Vector2 position) =>
+  void onDeployUnit({
+    required NodeComponent nodeComponent,
+    required UnitType unitType,
+  }) => matchComponent.onDeployUnit(
+    nodeComponent: nodeComponent,
+    unitType: unitType,
+  );
+
+  NodeComponent? highlightNodeAt(Vector2 position) =>
       matchComponent.highlightNodeAt(position);
 
   void onMatchFinished(bool won) {

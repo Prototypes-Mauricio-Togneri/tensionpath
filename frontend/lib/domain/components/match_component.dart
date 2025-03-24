@@ -78,7 +78,7 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
-  void highlightNodeAt(Vector2 position) {
+  NodeComponent? highlightNodeAt(Vector2 position) {
     final List<NodeComponent> nodes = nodeComponents.toList();
 
     for (final NodeComponent node in nodes) {
@@ -88,13 +88,21 @@ class MatchComponent extends World {
     for (final NodeComponent node in nodes) {
       if (node.containsPoint(position)) {
         node.highlight = true;
-        break;
+        return node;
       }
     }
+
+    return null;
   }
 
-  void onUnitCreated(Unit unit) {
-    add(unit.component);
+  void onDeployUnit({
+    required NodeComponent nodeComponent,
+    required UnitType unitType,
+  }) {
+    if (nodeComponent.node.canDeployUnit) {
+      final Unit unit = Unit.fromType(unitType: unitType, owner: self);
+      nodeComponent.deployUnit(unit);
+    }
   }
 
   void onUnitDestroyed(Unit unit) {
