@@ -41,10 +41,9 @@ class NodeComponent<N extends Node> extends PositionComponent {
   void deployUnit(Unit unit) {
     node.deployUnit(unit);
 
-    final UnitComponent unitComponent = UnitComponent(
-      unit: unit,
+    final UnitComponent unitComponent = unit.component(
       position: size / 2,
-      size: size,
+      size: size / 1.5,
     );
 
     add(unitComponent);

@@ -143,6 +143,7 @@ class UnitSelectorComponent extends PositionComponent
 
       if (nodeComponent != null) {
         game.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
+        nodeComponent.highlight = false;
       }
 
       position = initialPosition;
