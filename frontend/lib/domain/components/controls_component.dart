@@ -104,6 +104,8 @@ class UnitSelectorComponent extends PositionComponent
     fillPaint.color = player.color.brighten(0.5);
   }
 
+  bool get isEnabled => player.resources >= unitType.cost;
+
   @override
   FutureOr onLoad() {
     add(RectangleHitbox(isSolid: true));
@@ -114,41 +116,48 @@ class UnitSelectorComponent extends PositionComponent
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
-    initialPosition.setFrom(position);
-    dragging = true;
+
+    if (isEnabled) {
+      initialPosition.setFrom(position);
+      dragging = true;
+    }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    position += event.localDelta;
-    game.highlightNodeAt(absolutePosition);
+    if (isEnabled) {
+      position += event.localDelta;
+      game.highlightNodeAt(absolutePosition);
+    }
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
-    position = initialPosition;
-    dragging = false;
+
+    if (isEnabled) {
+      position = initialPosition;
+      dragging = false;
+    }
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final bool hasResources = player.resources >= unitType.cost;
-
     final Paint border =
-        hasResources
+        isEnabled
             ? borderPaint
             : borderPaint.clone(color: const Color(0xff555555));
     final Paint fill =
-        hasResources
-            ? fillPaint
-            : fillPaint.clone(color: const Color(0xff888888));
+        isEnabled ? fillPaint : fillPaint.clone(color: const Color(0xff888888));
 
     if (dragging) {
       border.color = border.color.withAlpha(100);
       fill.color = fill.color.withAlpha(100);
+    } else {
+      border.color = border.color.withAlpha(255);
+      fill.color = fill.color.withAlpha(255);
     }
 
     canvas.drawRect(size.toRect(), fill);
