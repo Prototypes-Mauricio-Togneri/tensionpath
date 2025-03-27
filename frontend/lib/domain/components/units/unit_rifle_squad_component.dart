@@ -19,8 +19,6 @@ class UnitRifleSquadComponent extends UnitComponent<UnitRifleSquad> {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle(Offset(size.x / 2, size.y / 2), size.x / 2, fillPaint);
-
     canvas.drawText(
       text: unit.health.toString(),
       position: size / 2,

@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit with GameComponentRef {
   final Player player;
+  final UnitType type;
   final double maxHealth;
   final double attack;
   final double range;
@@ -19,6 +20,7 @@ abstract class Unit with GameComponentRef {
   UnitState state = UnitState.alive;
 
   Unit({
+    required this.type,
     required this.maxHealth,
     required this.attack,
     required this.range,
@@ -46,6 +48,7 @@ abstract class Unit with GameComponentRef {
     switch (unitType) {
       case UnitType.rifle_squad:
         return UnitRifleSquad(
+          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
@@ -53,6 +56,7 @@ abstract class Unit with GameComponentRef {
         );
       case UnitType.sniper:
         return UnitSniper(
+          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,

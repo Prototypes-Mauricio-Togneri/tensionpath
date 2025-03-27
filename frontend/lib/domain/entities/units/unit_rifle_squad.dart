@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 class UnitRifleSquad extends Unit {
   UnitRifleSquad({
     required super.player,
+    required super.type,
     required super.maxHealth,
     required super.range,
     required super.attack,

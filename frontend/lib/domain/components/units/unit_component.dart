@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitComponent<U extends Unit> extends PositionComponent {
+class UnitComponent<U extends Unit> extends SpriteComponent {
   final U unit;
   final Paint backgroundHealthPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -24,7 +24,9 @@ class UnitComponent<U extends Unit> extends PositionComponent {
   }) : super(anchor: Anchor.center, priority: Priority.unit.value);
 
   @override
-  FutureOr onLoad() {
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(unit.type.sprite);
+
     if (unit.player.isEnemy) {
       angle = pi;
     }
