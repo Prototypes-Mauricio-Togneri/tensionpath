@@ -4,8 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/units/unit_artillery.dart';
+import 'package:tensionpath/domain/entities/units/unit_helicopter.dart';
+import 'package:tensionpath/domain/entities/units/unit_humvee.dart';
 import 'package:tensionpath/domain/entities/units/unit_rifle_squad.dart';
 import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
+import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
@@ -62,8 +66,38 @@ abstract class Unit with GameComponentRef {
           range: unitType.range,
           player: owner,
         );
-      default:
-        throw Exception('Unknown unit type: $unitType');
+      case UnitType.humvee:
+        return UnitHumvee(
+          type: unitType,
+          maxHealth: unitType.health,
+          attack: unitType.attack,
+          range: unitType.range,
+          player: owner,
+        );
+      case UnitType.tank:
+        return UnitTank(
+          type: unitType,
+          maxHealth: unitType.health,
+          attack: unitType.attack,
+          range: unitType.range,
+          player: owner,
+        );
+      case UnitType.artillery:
+        return UnitArtillery(
+          type: unitType,
+          maxHealth: unitType.health,
+          attack: unitType.attack,
+          range: unitType.range,
+          player: owner,
+        );
+      case UnitType.helicopter:
+        return UnitHelicopter(
+          type: unitType,
+          maxHealth: unitType.health,
+          attack: unitType.attack,
+          range: unitType.range,
+          player: owner,
+        );
     }
   }
 }
