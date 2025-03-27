@@ -82,12 +82,18 @@ class MatchComponent extends World {
   NodeComponent? highlightNodeAt({
     required Vector2 position,
     required List<NodeType> nodeTypes,
+    Player? player,
   }) {
-    final List<NodeComponent> nodes =
-        nodeComponents.where((n) => nodeTypes.contains(n.node.type)).toList();
+    List<NodeComponent> nodes = nodeComponents.toList();
 
     for (final NodeComponent node in nodes) {
       node.highlight = false;
+    }
+
+    nodes = nodes.where((n) => nodeTypes.contains(n.node.type)).toList();
+
+    if (player != null) {
+      nodes = nodes.where((n) => n.node.player == player).toList();
     }
 
     for (final NodeComponent node in nodes) {

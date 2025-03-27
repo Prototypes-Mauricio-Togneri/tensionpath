@@ -77,6 +77,7 @@ class GameComponent extends FlameGame {
     final NodeComponent? nodeComponent = highlightNodeAt(
       position: position,
       nodeTypes: [NodeType.launcher],
+      player: self,
     );
 
     if (nodeComponent != null) {
@@ -91,8 +92,12 @@ class GameComponent extends FlameGame {
   NodeComponent? highlightNodeAt({
     required Vector2 position,
     required List<NodeType> nodeTypes,
-  }) =>
-      matchComponent.highlightNodeAt(position: position, nodeTypes: nodeTypes);
+    Player? player,
+  }) => matchComponent.highlightNodeAt(
+    position: position,
+    nodeTypes: nodeTypes,
+    player: player,
+  );
 
   void onMatchFinished(bool won) {
     pauseEngine();

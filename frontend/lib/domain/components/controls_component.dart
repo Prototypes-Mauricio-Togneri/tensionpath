@@ -131,6 +131,7 @@ class UnitSelectorComponent extends PositionComponent
       game.highlightNodeAt(
         position: absolutePosition,
         nodeTypes: [NodeType.launcher],
+        player: player,
       );
     }
   }
