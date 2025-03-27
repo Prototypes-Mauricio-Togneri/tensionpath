@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit_rifle_squad.dart';
+import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
@@ -45,6 +46,13 @@ abstract class Unit with GameComponentRef {
     switch (unitType) {
       case UnitType.rifle_squad:
         return UnitRifleSquad(
+          maxHealth: unitType.health,
+          attack: unitType.attack,
+          range: unitType.range,
+          player: owner,
+        );
+      case UnitType.sniper:
+        return UnitSniper(
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
