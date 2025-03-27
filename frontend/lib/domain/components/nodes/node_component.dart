@@ -53,19 +53,21 @@ class NodeComponent<N extends Node> extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawText(
-      text: '${node.x},${node.y}',
-      position: Vector2(size.x / 2, size.y / 3),
-      size: size.x / 5,
-      color: Colors.white,
-    );
+    if (debugMode) {
+      canvas.drawText(
+        text: '${node.x},${node.y}',
+        position: Vector2(size.x / 2, size.y / 3),
+        size: size.x / 5,
+        color: Colors.white,
+      );
 
-    canvas.drawText(
-      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
-      position: Vector2(size.x / 2, size.y * 2 / 3),
-      size: size.x / 7,
-      color: Colors.white,
-    );
+      canvas.drawText(
+        text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
+        position: Vector2(size.x / 2, size.y * 2 / 3),
+        size: size.x / 7,
+        color: Colors.white,
+      );
+    }
 
     if (highlight) {
       canvas.drawHexagon(size: size, borderPaint: highlightPaint);
