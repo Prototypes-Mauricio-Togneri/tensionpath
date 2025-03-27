@@ -110,6 +110,13 @@ class UnitSelectorComponent extends PositionComponent
   @override
   FutureOr onLoad() {
     add(RectangleHitbox(isSolid: true));
+    add(
+      UnitImageComponent(
+        type: unitType,
+        position: Vector2(size.x / 2, size.y * 0.4),
+        size: size * 0.6,
+      ),
+    );
 
     return super.onLoad();
   }
@@ -172,18 +179,28 @@ class UnitSelectorComponent extends PositionComponent
     canvas.drawRect(size.toRect(), border);
 
     canvas.drawText(
-      text: unitType.name,
-      position: Vector2(size.x / 2, size.y / 3),
-      size: size.y / 8,
-      color: border.color,
-    );
-
-    canvas.drawText(
       text: unitType.cost.toString(),
-      position: Vector2(size.x / 2, size.y * 2 / 3),
-      size: size.y / 4,
+      position: Vector2(size.x * 0.8, size.y * 0.8),
+      size: size.y / 5,
       color: border.color,
     );
+  }
+}
+
+class UnitImageComponent extends SpriteComponent {
+  final UnitType type;
+
+  UnitImageComponent({
+    required this.type,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
+
+  @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(type.sprite);
+
+    return super.onLoad();
   }
 }
 
