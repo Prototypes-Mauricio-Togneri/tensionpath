@@ -31,6 +31,8 @@ class Player with GameComponentRef {
     resources = resources.clamp(0, 10);
   }
 
+  bool hasResources(int value) => resources >= value;
+
   void spendResources(int value) {
     resources -= value;
   }
