@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  static const Color CONTROLS_BACKGROUND = Colors.green;
-
-  static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
-  static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
-
-  //---------------------------------------------------------------------------
-
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
 
@@ -20,6 +13,12 @@ class Palette {
   static const Color HEADER_BACKGROUND = Colors.green;
 
   static Color BATTLEFIELD_BACKGROUND = const Color(0xff333333);
+
+  static const Color CONTROLS_BACKGROUND = Colors.green;
+  static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
+  static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
+  static const Color CONTROLS_UNIT_BORDER_DISABLED = Color(0xff555555);
+  static const Color CONTROLS_UNIT_FILL_DISABLED = Color(0xff888888);
 
   static Color NODE_BORDER = Colors.white.withAlpha(80);
   static const Color NODE_LAND = Colors.green;

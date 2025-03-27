@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
+import 'package:tensionpath/utils/error_handler.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
@@ -137,17 +138,23 @@ class UnitSelectorComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (isEnabled) {
-      final NodeComponent? nodeComponent = game.highlightNodeAt(
-        absolutePosition,
-      );
-
-      if (nodeComponent != null) {
-        game.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
-        nodeComponent.highlight = false;
-      }
-
+      _deployUnit();
       position = initialPosition;
       dragging = false;
+    }
+  }
+
+  void _deployUnit() {
+    final NodeComponent? nodeComponent = game.highlightNodeAt(absolutePosition);
+
+    try {
+      if (nodeComponent != null) {
+        game.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
+      }
+    } catch (e) {
+      ErrorHandler.process(e);
+    } finally {
+      nodeComponent?.highlight = false;
     }
   }
 
@@ -158,9 +165,11 @@ class UnitSelectorComponent extends PositionComponent
     final Paint border =
         isEnabled
             ? borderPaint
-            : borderPaint.clone(color: const Color(0xff555555));
+            : borderPaint.clone(color: Palette.CONTROLS_UNIT_BORDER_DISABLED);
     final Paint fill =
-        isEnabled ? fillPaint : fillPaint.clone(color: const Color(0xff888888));
+        isEnabled
+            ? fillPaint
+            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
 
     if (dragging) {
       border.color = border.color.withAlpha(100);
