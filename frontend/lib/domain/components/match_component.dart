@@ -6,11 +6,11 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchComponent extends World {
@@ -90,24 +90,16 @@ class MatchComponent extends World {
     }
   }
 
-  NodeComponent? getLauncherAt(Vector2 position) => getNodeAt(
-    position: position,
-    nodeTypes: [NodeType.launcher],
-    player: self,
-  );
-
-  NodeComponent? getNodeAt({
-    required Vector2 position,
-    required List<NodeType> nodeTypes,
-    Player? player,
-  }) {
+  NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent node in nodeComponents) {
-      final bool isNodeType = nodeTypes.contains(node.node.type);
-      final bool isPlayer = player == null || node.node.player == player;
-      final bool isInPosition = node.containsPoint(position);
+      if (node is NodeLauncherComponent) {
+        final bool isPlayer = node.node.player == self;
+        final bool isInPosition = node.containsPoint(position);
+        final bool canDeploy = node.node.canDeployUnit;
 
-      if (isNodeType && isPlayer && isInPosition) {
-        return node;
+        if (isPlayer && isInPosition && canDeploy) {
+          return node;
+        }
       }
     }
 
