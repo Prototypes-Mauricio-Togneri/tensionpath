@@ -25,7 +25,9 @@ class MatchComponent extends World {
     required this.self,
     required this.enemy,
     required this.battlefield,
-  });
+  }) {
+    MatchComponentRef.instance = this;
+  }
 
   @override
   FutureOr onLoad() {
@@ -79,26 +81,35 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
-  NodeComponent? highlightNodeAt({
+  //----------------------------------------------------------------------------
+
+  void highlightNode(NodeComponent? node) {
+    for (final NodeComponent node in nodeComponents) {
+      node.highlight = false;
+    }
+
+    if (node != null) {
+      node.highlight = true;
+    }
+  }
+
+  NodeComponent? getLauncherAt(Vector2 position) => getNodeAt(
+    position: position,
+    nodeTypes: [NodeType.launcher],
+    player: self,
+  );
+
+  NodeComponent? getNodeAt({
     required Vector2 position,
     required List<NodeType> nodeTypes,
     Player? player,
   }) {
-    List<NodeComponent> nodes = nodeComponents.toList();
+    for (final NodeComponent node in nodeComponents) {
+      final bool isNodeType = nodeTypes.contains(node.node.type);
+      final bool isPlayer = player == null || node.node.player == player;
+      final bool isInPosition = node.containsPoint(position);
 
-    for (final NodeComponent node in nodes) {
-      node.highlight = false;
-    }
-
-    nodes = nodes.where((n) => nodeTypes.contains(n.node.type)).toList();
-
-    if (player != null) {
-      nodes = nodes.where((n) => n.node.player == player).toList();
-    }
-
-    for (final NodeComponent node in nodes) {
-      if (node.containsPoint(position)) {
-        node.highlight = true;
+      if (isNodeType && isPlayer && isInPosition) {
         return node;
       }
     }
@@ -106,16 +117,20 @@ class MatchComponent extends World {
     return null;
   }
 
-  void onDeployUnit({
-    required NodeComponent nodeComponent,
-    required UnitType unitType,
-  }) {
-    if (self.hasResources(unitType.cost) && nodeComponent.node.canDeployUnit) {
+  void onDeployUnit({required Vector2 position, required UnitType unitType}) {
+    final NodeComponent? nodeComponent = getLauncherAt(position);
+
+    if ((nodeComponent != null) &&
+        self.hasResources(unitType.cost) &&
+        nodeComponent.node.canDeployUnit) {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, owner: self);
       nodeComponent.deployUnit(unit);
+      nodeComponent.highlight = false;
     }
   }
+
+  //---------------------------------------------------------------------------
 
   void onUnitDestroyed(Unit unit) {
     unit.destroy();
@@ -149,4 +164,10 @@ class MatchComponent extends World {
 
     onUnitCreated(unit);*/
   }
+}
+
+mixin MatchComponentRef {
+  static late MatchComponent instance;
+
+  MatchComponent get match => instance;
 }

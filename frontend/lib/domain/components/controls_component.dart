@@ -4,9 +4,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
+import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -84,7 +83,7 @@ class ControlsComponent extends PositionComponent {
 }
 
 class UnitSelectorComponent extends PositionComponent
-    with DragCallbacks, GameComponentRef {
+    with DragCallbacks, MatchComponentRef {
   final Player player;
   final UnitType unitType;
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
@@ -135,11 +134,7 @@ class UnitSelectorComponent extends PositionComponent
   void onDragUpdate(DragUpdateEvent event) {
     if (isEnabled) {
       position += event.localDelta;
-      game.highlightNodeAt(
-        position: absolutePosition,
-        nodeTypes: [NodeType.launcher],
-        player: player,
-      );
+      match.highlightNode(match.getLauncherAt(absolutePosition));
     }
   }
 
@@ -148,7 +143,7 @@ class UnitSelectorComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (isEnabled) {
-      game.onDeployUnit(position: absolutePosition, unitType: unitType);
+      match.onDeployUnit(position: absolutePosition, unitType: unitType);
       position = initialPosition;
       dragging = false;
     }
@@ -233,7 +228,7 @@ class ResourceCounterComponent extends PositionComponent {
 }
 
 class PassTurnComponent extends PositionComponent
-    with TapCallbacks, GameComponentRef {
+    with TapCallbacks, MatchComponentRef {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -247,7 +242,7 @@ class PassTurnComponent extends PositionComponent
   }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
 
   @override
-  void onTapUp(TapUpEvent event) => game.onPassTurn();
+  void onTapUp(TapUpEvent event) => match.onPassTurn();
 
   @override
   void render(Canvas canvas) {
