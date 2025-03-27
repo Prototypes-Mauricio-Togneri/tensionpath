@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit_artillery.dart';
@@ -13,7 +12,7 @@ import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 import 'package:tensionpath/domain/types/unit_state.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
-abstract class Unit with GameComponentRef {
+abstract class Unit {
   final Player player;
   final UnitType type;
   final double maxHealth;

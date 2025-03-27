@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -81,8 +80,6 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
-  //----------------------------------------------------------------------------
-
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent node in nodeComponents) {
       node.highlight = false;
@@ -130,9 +127,7 @@ class MatchComponent extends World {
     }
   }
 
-  //---------------------------------------------------------------------------
-
-  void onUnitDestroyed(Unit unit) {
+  /*void onUnitDestroyed(Unit unit) {
     unit.destroy();
 
     for (final UnitComponent unitComponent in unitComponents) {
@@ -141,29 +136,7 @@ class MatchComponent extends World {
         break;
       }
     }
-  }
-
-  void onSpawnUnit({
-    required Player player,
-    required Node node,
-    required UnitType unitType,
-  }) {
-    /*final double extraGap =
-        -player.ownershipDirection * (battlefield.nodeSize / 2);
-    final Vector2 startingPosition = Vector2.copy(nodes.first.position);
-    startingPosition.add(Vector2(0, extraGap));
-
-    final Unit unit = Unit.fromType(
-      unitType: unitType,
-      owner: player,
-      lane: lane,
-      nodes: nodes.sublist(1, nodes.length),
-      startingPosition: startingPosition,
-      nodeSize: battlefield.nodeSize,
-    );
-
-    onUnitCreated(unit);*/
-  }
+  }*/
 }
 
 mixin MatchComponentRef {

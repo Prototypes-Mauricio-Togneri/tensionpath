@@ -1,14 +1,13 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-abstract class Node with GameComponentRef {
+abstract class Node {
   final NodeType type;
   final int x;
   final int y;

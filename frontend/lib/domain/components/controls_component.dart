@@ -4,11 +4,11 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -82,8 +82,7 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class UnitSelectorComponent extends PositionComponent
-    with DragCallbacks, MatchComponentRef {
+class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
@@ -227,8 +226,7 @@ class ResourceCounterComponent extends PositionComponent {
   }
 }
 
-class PassTurnComponent extends PositionComponent
-    with TapCallbacks, MatchComponentRef {
+class PassTurnComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,

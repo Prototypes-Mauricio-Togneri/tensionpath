@@ -1,11 +1,10 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/entities/players/active_player.dart';
 import 'package:tensionpath/domain/entities/players/self_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class Player with GameComponentRef {
+class Player {
   final String id;
   final double baseResourceRate;
   double resources = Constants.INITIAL_RESOURCES;
