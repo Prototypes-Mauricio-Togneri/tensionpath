@@ -5,13 +5,12 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
-import 'package:tensionpath/utils/error_handler.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
@@ -129,7 +128,10 @@ class UnitSelectorComponent extends PositionComponent
   void onDragUpdate(DragUpdateEvent event) {
     if (isEnabled) {
       position += event.localDelta;
-      game.highlightNodeAt(absolutePosition);
+      game.highlightNodeAt(
+        position: absolutePosition,
+        nodeTypes: [NodeType.launcher],
+      );
     }
   }
 
@@ -138,23 +140,9 @@ class UnitSelectorComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (isEnabled) {
-      _deployUnit();
+      game.onDeployUnit(position: absolutePosition, unitType: unitType);
       position = initialPosition;
       dragging = false;
-    }
-  }
-
-  void _deployUnit() {
-    final NodeComponent? nodeComponent = game.highlightNodeAt(absolutePosition);
-
-    try {
-      if (nodeComponent != null) {
-        game.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
-      }
-    } catch (e) {
-      ErrorHandler.process(e);
-    } finally {
-      nodeComponent?.highlight = false;
     }
   }
 

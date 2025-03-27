@@ -3,11 +3,13 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 
 class NodeLauncher extends Node {
   final Player player;
 
-  NodeLauncher({required super.x, required super.y, required this.player});
+  NodeLauncher({required super.x, required super.y, required this.player})
+    : super(type: NodeType.launcher);
 
   @override
   NodeComponent<Node> component({

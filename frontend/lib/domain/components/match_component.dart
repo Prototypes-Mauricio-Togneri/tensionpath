@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchComponent extends World {
@@ -78,8 +79,12 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
-  NodeComponent? highlightNodeAt(Vector2 position) {
-    final List<NodeComponent> nodes = nodeComponents.toList();
+  NodeComponent? highlightNodeAt({
+    required Vector2 position,
+    required List<NodeType> nodeTypes,
+  }) {
+    final List<NodeComponent> nodes =
+        nodeComponents.where((n) => nodeTypes.contains(n.node.type)).toList();
 
     for (final NodeComponent node in nodes) {
       node.highlight = false;

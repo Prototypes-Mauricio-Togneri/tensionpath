@@ -52,7 +52,6 @@ abstract class Unit with GameComponentRef {
     switch (unitType) {
       case UnitType.rifle_squad:
         return UnitRifleSquad(
-          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
@@ -60,7 +59,6 @@ abstract class Unit with GameComponentRef {
         );
       case UnitType.sniper:
         return UnitSniper(
-          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
@@ -68,7 +66,6 @@ abstract class Unit with GameComponentRef {
         );
       case UnitType.humvee:
         return UnitHumvee(
-          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
@@ -76,7 +73,6 @@ abstract class Unit with GameComponentRef {
         );
       case UnitType.tank:
         return UnitTank(
-          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
@@ -84,7 +80,6 @@ abstract class Unit with GameComponentRef {
         );
       case UnitType.artillery:
         return UnitArtillery(
-          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,
@@ -92,7 +87,6 @@ abstract class Unit with GameComponentRef {
         );
       case UnitType.helicopter:
         return UnitHelicopter(
-          type: unitType,
           maxHealth: unitType.health,
           attack: unitType.attack,
           range: unitType.range,

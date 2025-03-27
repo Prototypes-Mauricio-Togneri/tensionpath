@@ -2,9 +2,11 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_platform.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 
 class NodePlatform extends Node {
-  NodePlatform({required super.x, required super.y});
+  NodePlatform({required super.x, required super.y})
+    : super(type: NodeType.platform);
 
   @override
   NodeComponent<Node> component({

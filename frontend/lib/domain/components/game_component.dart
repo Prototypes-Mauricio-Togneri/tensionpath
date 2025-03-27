@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/navigation.dart';
@@ -72,16 +73,26 @@ class GameComponent extends FlameGame {
 
   void onPassTurn() => matchComponent.onPassTurn();
 
-  void onDeployUnit({
-    required NodeComponent nodeComponent,
-    required UnitType unitType,
-  }) => matchComponent.onDeployUnit(
-    nodeComponent: nodeComponent,
-    unitType: unitType,
-  );
+  void onDeployUnit({required Vector2 position, required UnitType unitType}) {
+    final NodeComponent? nodeComponent = highlightNodeAt(
+      position: position,
+      nodeTypes: [NodeType.launcher],
+    );
 
-  NodeComponent? highlightNodeAt(Vector2 position) =>
-      matchComponent.highlightNodeAt(position);
+    if (nodeComponent != null) {
+      matchComponent.onDeployUnit(
+        nodeComponent: nodeComponent,
+        unitType: unitType,
+      );
+      nodeComponent.highlight = false;
+    }
+  }
+
+  NodeComponent? highlightNodeAt({
+    required Vector2 position,
+    required List<NodeType> nodeTypes,
+  }) =>
+      matchComponent.highlightNodeAt(position: position, nodeTypes: nodeTypes);
 
   void onMatchFinished(bool won) {
     pauseEngine();
