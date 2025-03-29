@@ -18,6 +18,7 @@ class MatchComponent extends World {
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
+  NodeComponent? nodeSelected;
 
   MatchComponent({
     required this.resolution,
@@ -80,9 +81,23 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
+  void selectNode(NodeComponent? node) {
+    nodeSelected = node;
+  }
+
   void unselectNodes() {
     for (final NodeComponent node in nodeComponents) {
       node.hideSelected();
+    }
+  }
+
+  bool isMovementTarget(NodeComponent node) {
+    if (nodeSelected != null) {
+      final int distance = nodeSelected!.node.distance(node.node);
+
+      return distance == 1;
+    } else {
+      return false;
     }
   }
 

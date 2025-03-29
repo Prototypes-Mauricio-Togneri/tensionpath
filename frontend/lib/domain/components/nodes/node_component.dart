@@ -47,7 +47,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void onHoverEnter() {
-    if (_belongsToSelf) {
+    if (_belongsToSelf || match.isMovementTarget(this)) {
       _showHighlighted();
     }
   }
@@ -80,6 +80,7 @@ class NodeComponent<N extends Node> extends PositionComponent
         color: node.playerColor!,
       );
       match.add(nodeSelectedComponent!);
+      match.selectNode(this);
       _hideHighlighted();
     }
   }
@@ -87,6 +88,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void hideSelected() {
     if (nodeSelectedComponent != null) {
       match.remove(nodeSelectedComponent!);
+      match.selectNode(null);
       nodeSelectedComponent = null;
     }
   }

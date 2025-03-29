@@ -27,6 +27,16 @@ abstract class Node {
     this.unit = unit;
   }
 
+  int distance(Node node) {
+    final double distance =
+        ((x - node.x).abs() +
+            (x + y - node.x - node.y).abs() +
+            (y - node.y).abs()) /
+        2;
+
+    return distance.toInt();
+  }
+
   Vector2 position(double nodeSize) {
     final double hexWidth = nodeSize;
     final double hexHeight = nodeSize * (sqrt(3) / 2);
