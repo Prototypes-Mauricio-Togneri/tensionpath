@@ -47,7 +47,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void onHoverEnter() {
-    if (_belongsToSelf || match.isMovementTarget(this)) {
+    if (_canBeHighlighted) {
       _showHighlighted();
     }
   }
@@ -105,9 +105,13 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   bool get _belongsToSelf => node.player == match.self;
 
+  bool get _canBeHighlighted => _canBeSelected || match.isMovementTarget(this);
+
+  bool get _canBeSelected => _belongsToSelf && (node.unit != null);
+
   @override
   void onTapUp(TapUpEvent event) {
-    if (_belongsToSelf) {
+    if (_canBeSelected) {
       if (!_isSelected) {
         match.unselectNodes();
       }
