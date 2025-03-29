@@ -31,29 +31,51 @@ class UnitComponent<U extends Unit> extends SpriteComponent {
       angle = pi;
     }
 
+    add(
+      HealthBarComponent(
+        unit: unit,
+        position: Vector2(width / 2, height * 1.08),
+        size: Vector2(width * 0.7, size.y / 10),
+      ),
+    );
+
     return super.onLoad();
+  }
+}
+
+class HealthBarComponent<U extends Unit> extends PositionComponent {
+  final U unit;
+  final Paint backgroundHealthPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.UNIT_HEALTH_BACKGROUND,
+  );
+  final Paint foregroundHealthPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint borderHealthPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.UNIT_HEALTH_BORDERD,
+  );
+
+  HealthBarComponent({
+    required this.unit,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.unit.value) {
+    foregroundHealthPaint.color = unit.player.color;
+    borderHealthPaint.strokeWidth = size.y / 20;
   }
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(
-      Rect.fromLTWH(0, height + 10, width, 10),
-      backgroundHealthPaint,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundHealthPaint);
 
     final double healthBar = width * (unit.health / unit.maxHealth);
 
-    if (unit.player.isEnemy) {
-      canvas.drawRect(
-        Rect.fromLTWH(width - healthBar, height + 10, healthBar, 10),
-        foregroundHealthPaint,
-      );
-    } else {
-      canvas.drawRect(
-        Rect.fromLTWH(0, height + 10, healthBar, 10),
-        foregroundHealthPaint,
-      );
-    }
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, healthBar, height),
+      foregroundHealthPaint,
+    );
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);
 
     super.render(canvas);
   }

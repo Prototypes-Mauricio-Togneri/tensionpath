@@ -1,11 +1,11 @@
 # Frontend
-Align health bar with hexagon
-Make health bar its own component
+
 Merge business models with components
 
 ## Common aspect ratios
-* 20:9   / 2.22 / 37%
-* 19.5:9 / 2.17 / 19%
-* 18:9   / 2.00 / 15%
-* 16:9   / 1.78 / 10%
-* 21:9   / 2.33 / 5%
+
+- 20:9 / 2.22 / 37%
+- 19.5:9 / 2.17 / 19%
+- 18:9 / 2.00 / 15%
+- 16:9 / 1.78 / 10%
+- 21:9 / 2.33 / 5%

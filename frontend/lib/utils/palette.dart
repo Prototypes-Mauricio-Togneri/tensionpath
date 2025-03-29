@@ -26,6 +26,9 @@ class Palette {
   static const Color NODE_MISSILE = Colors.brown;
   static const Color NODE_PLATFORM = Color(0xff666666);
 
+  static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
+  static const Color UNIT_HEALTH_BORDERD = Colors.white;
+
   static Paint paint({
     PaintingStyle? style,
     Color? color,
