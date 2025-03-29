@@ -80,13 +80,19 @@ class MatchComponent extends World {
     self.addResources(self.baseResourceRate);
   }
 
+  void unselectNodes() {
+    for (final NodeComponent node in nodeComponents) {
+      node.selected = false;
+    }
+  }
+
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent node in nodeComponents) {
-      node.highlight = false;
+      node.highlighted = false;
     }
 
     if (node != null) {
-      node.highlight = true;
+      node.highlighted = true;
     }
   }
 
@@ -115,7 +121,7 @@ class MatchComponent extends World {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, player: self);
       nodeComponent.deployUnit(unit);
-      nodeComponent.highlight = false;
+      nodeComponent.highlighted = false;
     }
   }
 

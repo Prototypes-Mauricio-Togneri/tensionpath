@@ -12,20 +12,26 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
-    with HoverCallbacks, MatchComponentRef {
-  final Paint highlightPaint = Palette.paint(
+    with HoverCallbacks, MatchComponentRef, TapCallbacks {
+  final Paint highlightedPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.NODE_BORDER,
+  );
+  final Paint selectedPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
   );
   final N node;
-  bool highlight = false;
+  bool highlighted = false;
+  bool selected = false;
 
   NodeComponent({
     required this.node,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.node.value) {
-    highlightPaint.strokeWidth = size.x / 20;
+    highlightedPaint.strokeWidth = size.x / 20;
+    selectedPaint.strokeWidth = size.x / 15;
   }
 
   @override
@@ -40,6 +46,17 @@ class NodeComponent<N extends Node> extends PositionComponent
     );
 
     return super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    if (node.player == match.self) {
+      if (!selected) {
+        match.unselectNodes();
+      }
+
+      selected = !selected;
+    }
   }
 
   void deployUnit(Unit unit) {
@@ -73,8 +90,11 @@ class NodeComponent<N extends Node> extends PositionComponent
       );
     }
 
-    if ((isHovered && (node.player == match.self)) || highlight) {
-      canvas.drawHexagon(size: size, borderPaint: highlightPaint);
+    if (selected) {
+      selectedPaint.color = node.playerColor!;
+      canvas.drawHexagon(size: size, borderPaint: selectedPaint);
+    } else if ((isHovered && (node.player == match.self)) || highlighted) {
+      canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
     }
   }
 }
