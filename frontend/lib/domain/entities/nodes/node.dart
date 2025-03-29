@@ -25,6 +25,7 @@ abstract class Node {
 
   void deployUnit(Unit unit) {
     this.unit = unit;
+    player = unit.player;
   }
 
   int distance(Node node) {

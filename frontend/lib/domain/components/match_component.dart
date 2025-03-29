@@ -101,6 +101,14 @@ class MatchComponent extends World {
     }
   }
 
+  void moveUnitTo(NodeComponent node) {
+    if (nodeSelected != null) {
+      node.deployUnit(nodeSelected!.node.unit!);
+      nodeSelected!.undeployUnit();
+      unselectNodes();
+    }
+  }
+
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent node in nodeComponents) {
       node.onHighlighted(false);

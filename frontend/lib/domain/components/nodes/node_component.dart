@@ -117,6 +117,8 @@ class NodeComponent<N extends Node> extends PositionComponent
       }
 
       _toggleSelected();
+    } else if (match.isMovementTarget(this)) {
+      match.moveUnitTo(this);
     }
   }
 
@@ -129,6 +131,17 @@ class NodeComponent<N extends Node> extends PositionComponent
     );
 
     add(unitComponent);
+  }
+
+  void undeployUnit() {
+    node.unit = null;
+
+    final UnitComponent? unitComponent =
+        children.whereType<UnitComponent>().firstOrNull;
+
+    if (unitComponent != null) {
+      remove(unitComponent);
+    }
   }
 
   @override
