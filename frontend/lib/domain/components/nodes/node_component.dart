@@ -13,26 +13,15 @@ import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
     with HoverCallbacks, MatchComponentRef, TapCallbacks {
-  final Paint highlightedPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.NODE_BORDER,
-  );
-  final Paint selectedPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.NODE_BORDER,
-  );
   final N node;
   NodeHighlitedComponent? nodeHighlitedComponent;
-  bool selected = false;
+  NodeSelectedComponent? nodeSelectedComponent;
 
   NodeComponent({
     required this.node,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.node.value) {
-    highlightedPaint.strokeWidth = size.x / 20;
-    selectedPaint.strokeWidth = size.x / 15;
-  }
+  }) : super(anchor: Anchor.center, priority: Priority.node.value);
 
   @override
   FutureOr onLoad() {
@@ -58,7 +47,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void onHoverEnter() {
-    if (node.player == match.self) {
+    if (_belongsToSelf) {
       _showHighlighted();
     }
   }
@@ -67,7 +56,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void onHoverExit() => _hideHighlighted();
 
   void _showHighlighted() {
-    if (nodeHighlitedComponent == null) {
+    if ((nodeHighlitedComponent == null) && !_isSelected) {
       nodeHighlitedComponent = NodeHighlitedComponent(
         position: absolutePosition,
         size: size,
@@ -83,14 +72,45 @@ class NodeComponent<N extends Node> extends PositionComponent
     }
   }
 
+  void _showSelected() {
+    if (nodeSelectedComponent == null) {
+      nodeSelectedComponent = NodeSelectedComponent(
+        position: absolutePosition,
+        size: size,
+        color: node.playerColor!,
+      );
+      match.add(nodeSelectedComponent!);
+      _hideHighlighted();
+    }
+  }
+
+  void hideSelected() {
+    if (nodeSelectedComponent != null) {
+      match.remove(nodeSelectedComponent!);
+      nodeSelectedComponent = null;
+    }
+  }
+
+  void _toggleSelected() {
+    if (nodeSelectedComponent == null) {
+      _showSelected();
+    } else {
+      hideSelected();
+    }
+  }
+
+  bool get _isSelected => nodeSelectedComponent != null;
+
+  bool get _belongsToSelf => node.player == match.self;
+
   @override
   void onTapUp(TapUpEvent event) {
-    if (node.player == match.self) {
-      if (!selected) {
+    if (_belongsToSelf) {
+      if (!_isSelected) {
         match.unselectNodes();
       }
 
-      selected = !selected;
+      _toggleSelected();
     }
   }
 
@@ -142,12 +162,34 @@ class NodeHighlitedComponent extends PositionComponent {
 
   NodeHighlitedComponent({required super.position, required super.size})
     : super(anchor: Anchor.center, priority: Priority.node.value) {
-    highlightedPaint.strokeWidth = size.x / 10;
+    highlightedPaint.strokeWidth = size.x / 20;
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
     canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
+  }
+}
+
+class NodeSelectedComponent extends PositionComponent {
+  final Paint selectedPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.NODE_BORDER,
+  );
+
+  NodeSelectedComponent({
+    required super.position,
+    required super.size,
+    required Color color,
+  }) : super(anchor: Anchor.center, priority: Priority.node.value) {
+    selectedPaint.strokeWidth = size.x / 15;
+    selectedPaint.color = color;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    canvas.drawHexagon(size: size, borderPaint: selectedPaint);
   }
 }

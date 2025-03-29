@@ -82,7 +82,7 @@ class MatchComponent extends World {
 
   void unselectNodes() {
     for (final NodeComponent node in nodeComponents) {
-      node.selected = false;
+      node.hideSelected();
     }
   }
 
