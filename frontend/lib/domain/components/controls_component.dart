@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -108,11 +109,13 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   @override
   FutureOr onLoad() {
     add(RectangleHitbox(isSolid: true));
+
+    final double unitImageSize = min(size.x * 0.8, size.y * 0.8);
     add(
       UnitImageComponent(
         type: unitType,
         position: Vector2(size.x / 2, size.y * 0.4),
-        size: size * 0.6,
+        size: Vector2(unitImageSize, unitImageSize),
       ),
     );
 
@@ -198,7 +201,7 @@ class UnitImageComponent extends SpriteComponent {
   }
 }
 
-class ResourceCounterComponent extends PositionComponent {
+class ResourceCounterComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -210,6 +213,9 @@ class ResourceCounterComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+
+  @override
+  void onTapUp(TapUpEvent event) => match.onPassTurn();
 
   @override
   void render(Canvas canvas) {
@@ -238,9 +244,6 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
-
-  @override
-  void onTapUp(TapUpEvent event) => match.onPassTurn();
 
   @override
   void render(Canvas canvas) {
