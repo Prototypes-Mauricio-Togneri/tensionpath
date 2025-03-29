@@ -88,11 +88,11 @@ class MatchComponent extends World {
 
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent node in nodeComponents) {
-      node.highlighted = false;
+      node.onHighlighted(false);
     }
 
     if (node != null) {
-      node.highlighted = true;
+      node.onHighlighted(true);
     }
   }
 
@@ -121,7 +121,7 @@ class MatchComponent extends World {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, player: self);
       nodeComponent.deployUnit(unit);
-      nodeComponent.highlighted = false;
+      nodeComponent.onHighlighted(false);
     }
   }
 

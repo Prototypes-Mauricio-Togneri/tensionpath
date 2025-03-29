@@ -22,7 +22,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     color: Palette.NODE_BORDER,
   );
   final N node;
-  bool highlighted = false;
+  NodeHighlitedComponent? nodeHighlitedComponent;
   bool selected = false;
 
   NodeComponent({
@@ -46,6 +46,41 @@ class NodeComponent<N extends Node> extends PositionComponent
     );
 
     return super.onLoad();
+  }
+
+  void onHighlighted(bool enabled) {
+    if (enabled) {
+      _showHighlighted();
+    } else {
+      _hideHighlighted();
+    }
+  }
+
+  @override
+  void onHoverEnter() {
+    if (node.player == match.self) {
+      _showHighlighted();
+    }
+  }
+
+  @override
+  void onHoverExit() => _hideHighlighted();
+
+  void _showHighlighted() {
+    if (nodeHighlitedComponent == null) {
+      nodeHighlitedComponent = NodeHighlitedComponent(
+        position: absolutePosition,
+        size: size,
+      );
+      match.add(nodeHighlitedComponent!);
+    }
+  }
+
+  void _hideHighlighted() {
+    if (nodeHighlitedComponent != null) {
+      match.remove(nodeHighlitedComponent!);
+      nodeHighlitedComponent = null;
+    }
   }
 
   @override
@@ -90,11 +125,29 @@ class NodeComponent<N extends Node> extends PositionComponent
       );
     }
 
-    if (selected) {
+    /*if (selected) {
       selectedPaint.color = node.playerColor!;
       canvas.drawHexagon(size: size, borderPaint: selectedPaint);
     } else if ((isHovered && (node.player == match.self)) || highlighted) {
       canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
-    }
+    }*/
+  }
+}
+
+class NodeHighlitedComponent extends PositionComponent {
+  final Paint highlightedPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.NODE_BORDER,
+  );
+
+  NodeHighlitedComponent({required super.position, required super.size})
+    : super(anchor: Anchor.center, priority: Priority.node.value) {
+    highlightedPaint.strokeWidth = size.x / 10;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
   }
 }
