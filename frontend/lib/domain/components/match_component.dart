@@ -113,7 +113,7 @@ class MatchComponent extends World {
         self.hasResources(unitType.cost) &&
         nodeComponent.node.canDeployUnit) {
       self.spendResources(unitType.cost);
-      final Unit unit = Unit.fromType(unitType: unitType, owner: self);
+      final Unit unit = Unit.fromType(unitType: unitType, player: self);
       nodeComponent.deployUnit(unit);
       nodeComponent.highlight = false;
     }
