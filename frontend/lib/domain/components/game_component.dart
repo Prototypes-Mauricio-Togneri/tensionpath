@@ -63,7 +63,6 @@ class GameComponent extends FlameGame {
 
     self.update(dt);
     enemy.update(dt);
-    battlefield.update(dt);
   }
 
   void onMatchFinished(bool won) {

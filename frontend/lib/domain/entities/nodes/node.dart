@@ -34,9 +34,4 @@ abstract class Node {
 
     return Vector2(hexWidth * 3 / 4 * x, hexHeight * ((x / 2) + y));
   }
-
-  void onTapped() {}
-
-  @mustCallSuper
-  void update(double dt) {}
 }

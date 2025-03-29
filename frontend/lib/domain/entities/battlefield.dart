@@ -23,12 +23,6 @@ class Battlefield {
     required this.size,
   });
 
-  void update(double dt) {
-    for (final Node node in nodes) {
-      node.update(dt);
-    }
-  }
-
   static Future<Battlefield> create({
     required Player self,
     required Player enemy,

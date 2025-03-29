@@ -16,7 +16,6 @@ class NodeComponent<N extends Node> extends PositionComponent
   final Paint highlightPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
-    strokeWidth: 10,
   );
   final N node;
   bool highlight = false;
@@ -25,7 +24,9 @@ class NodeComponent<N extends Node> extends PositionComponent
     required this.node,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.node.value);
+  }) : super(anchor: Anchor.center, priority: Priority.node.value) {
+    highlightPaint.strokeWidth = size.x / 20;
+  }
 
   @override
   FutureOr onLoad() {
