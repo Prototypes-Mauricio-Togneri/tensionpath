@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 abstract class Node {
   final NodeType type;
@@ -20,7 +19,7 @@ abstract class Node {
 
   String get id => '[$x,$y]';
 
-  Color get playerColor => player?.color ?? Palette.transparent;
+  Color? get playerColor => player?.color;
 
   bool get canDeployUnit => unit == null;
 

@@ -1,7 +1,3 @@
-# Frontend
-
-Merge business models with components
-
 ## Common aspect ratios
 
 - 20:9 / 2.22 / 37%
