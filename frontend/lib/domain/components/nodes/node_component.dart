@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
@@ -9,7 +11,8 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodeComponent<N extends Node> extends PositionComponent {
+class NodeComponent<N extends Node> extends PositionComponent
+    with HoverCallbacks, MatchComponentRef {
   final Paint highlightPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
@@ -69,7 +72,7 @@ class NodeComponent<N extends Node> extends PositionComponent {
       );
     }
 
-    if (highlight) {
+    if ((isHovered && (node.player == match.self)) || highlight) {
       canvas.drawHexagon(size: size, borderPaint: highlightPaint);
     }
   }
