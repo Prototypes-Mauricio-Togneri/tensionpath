@@ -10,7 +10,7 @@ class UnitSniper extends Unit {
     required super.maxHealth,
     required super.range,
     required super.attack,
-  }): super(type: UnitType.sniper);
+  }) : super(type: UnitType.sniper);
 
   @override
   UnitComponent component({required Vector2 position, required Vector2 size}) =>
