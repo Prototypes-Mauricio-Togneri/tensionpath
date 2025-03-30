@@ -14,6 +14,9 @@ class JsonBattlefield {
   @JsonKey(name: 'height')
   final int height;
 
+  @JsonKey(name: 'gridHeightRatio')
+  final double gridHeightRatio;
+
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
@@ -21,6 +24,7 @@ class JsonBattlefield {
     required this.id,
     required this.width,
     required this.height,
+    required this.gridHeightRatio,
     required this.nodes,
   });
 

@@ -16,11 +16,13 @@ class Battlefield {
   final String id;
   final List<Node> nodes;
   final Size size;
+  final double gridHeightRatio;
 
   const Battlefield({
     required this.id,
     required this.nodes,
     required this.size,
+    required this.gridHeightRatio,
   });
 
   static Future<Battlefield> create({
@@ -75,6 +77,7 @@ class Battlefield {
         jsonBattlefield.width.toDouble(),
         jsonBattlefield.height.toDouble(),
       ),
+      gridHeightRatio: jsonBattlefield.gridHeightRatio,
     );
   }
 }

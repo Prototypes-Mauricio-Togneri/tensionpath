@@ -30,7 +30,8 @@ class BattlefieldComponent extends PositionComponent {
     );
     final double ratio = sprite.originalSize.x / sprite.originalSize.y;
     final double gridHeight = size.y - padding;
-    final double backgroundHeightAdjusted = gridHeight / 0.405263158;
+    final double backgroundHeightAdjusted =
+        gridHeight / battlefield.gridHeightRatio;
     final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
 
     add(
