@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
@@ -58,19 +58,29 @@ class BattlefieldGridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final double nodeSize = (size.y / battlefield.size.height) * 1.15;
-    final Vector2 center = size / 2;
+    final double nodeSize = Dimensions.nodeSize(
+      canvasSize: size,
+      battlefieldSize: battlefield.size,
+    );
+    final Vector2 mapCenter = size / 2;
     final Set<String> existingNodes = {};
 
     for (final Node node in battlefield.nodes) {
       if (existingNodes.contains(node.id)) {
         throw Exception('Duplicated node: ${node.id}');
       } else {
-        final Vector2 position = node.position(nodeSize);
+        final Vector2 position = Dimensions.nodePosition(
+          nodeSize: nodeSize,
+          x: node.x,
+          y: node.y,
+        );
 
         add(
           node.component(
-            position: Vector2(center.x + position.x, center.y + position.y),
+            position: Vector2(
+              mapCenter.x + position.x,
+              mapCenter.y + position.y,
+            ),
             size: Vector2(nodeSize, nodeSize),
           ),
         );
