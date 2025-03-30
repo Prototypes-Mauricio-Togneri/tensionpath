@@ -28,7 +28,7 @@ class BattlefieldComponent extends PositionComponent {
     add(
       BattlefieldBackgroundComponent(
         position: size / 2,
-        size: Vector2(size.x - padding, size.y - padding),
+        size: Vector2(size.x * 1.5, size.y * 1.5),
       ),
     );
 
@@ -103,7 +103,7 @@ class BattlefieldGridComponent extends PositionComponent {
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
   BattlefieldBackgroundComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center, priority: Priority.unit.value);
+    : super(anchor: Anchor.center, priority: Priority.battlefield.value);
 
   @override
   FutureOr onLoad() async {
