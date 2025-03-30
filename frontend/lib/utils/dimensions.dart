@@ -35,19 +35,18 @@ class Dimensions {
     resolution.height - headerSize(resolution).y,
   );
 
-  static double nodeSize({
+  static Size nodeSize({
     required Vector2 canvasSize,
     required Size battlefieldSize,
-  }) => (canvasSize.y / battlefieldSize.height) * 1.15;
+  }) {
+    final double height = canvasSize.y / battlefieldSize.height;
+
+    return Size(height * (sqrt(3) / 2), height);
+  }
 
   static Vector2 nodePosition({
-    required double nodeSize,
+    required Size nodeSize,
     required int x,
     required int y,
-  }) {
-    final double hexWidth = nodeSize * (sqrt(3) / 2);
-    final double hexHeight = nodeSize;
-
-    return Vector2(hexWidth * ((x / 2) + y), hexHeight * 3 / 4 * x);
-  }
+  }) => Vector2(nodeSize.width * ((x / 2) + y), nodeSize.height * 3 / 4 * x);
 }
