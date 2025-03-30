@@ -39,10 +39,17 @@ class Dimensions {
     required Vector2 canvasSize,
     required Size battlefieldSize,
   }) {
+    final double maxWidth = canvasSize.x / battlefieldSize.width;
+    final Size maxSizeWidth = Size(maxWidth, maxWidth / (sqrt(3) / 2));
+
     final double maxHeight =
         canvasSize.y / ((battlefieldSize.height * 3 / 4) + 0.25);
+    final Size maxHeightWidth = Size(maxHeight * (sqrt(3) / 2), maxHeight);
 
-    return Size(maxHeight * (sqrt(3) / 2), maxHeight);
+    return Size(
+      min(maxSizeWidth.width, maxHeightWidth.width),
+      min(maxSizeWidth.height, maxHeightWidth.height),
+    );
   }
 
   static Vector2 nodePosition({
