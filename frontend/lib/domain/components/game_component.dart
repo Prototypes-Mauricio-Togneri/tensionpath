@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -30,6 +30,8 @@ class GameComponent extends FlameGame {
   FutureOr onLoad() {
     debugMode = false;
 
+    final Size resolution = Dimensions.cameraSize(canvasSize);
+
     world = MatchComponent(
       resolution: resolution,
       self: self,
@@ -51,11 +53,6 @@ class GameComponent extends FlameGame {
 
   @override
   Color backgroundColor() => Palette.GAME_BACKGROUND;
-
-  Size get resolution => Size(
-    Constants.UI_WIDTH,
-    (canvasSize.y * Constants.UI_WIDTH / canvasSize.x).round().toDouble(),
-  );
 
   @override
   void update(double dt) {

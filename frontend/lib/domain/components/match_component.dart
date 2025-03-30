@@ -12,6 +12,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Size resolution;
@@ -35,11 +36,11 @@ class MatchComponent extends World {
       BattlefieldComponent(
         battlefield: battlefield,
         position: Vector2(
-          -Constants.UI_WIDTH / 2,
+          -Constants.UI_HEIGHT / 2,
           (-resolution.height / 2) + Constants.UI_HEADER_HEIGHT,
         ),
         size: Vector2(
-          Constants.UI_WIDTH,
+          Constants.UI_HEIGHT,
           resolution.height -
               Constants.UI_HEADER_HEIGHT -
               Constants.UI_CONTROLS_HEIGHT,
@@ -50,18 +51,18 @@ class MatchComponent extends World {
       HeaderComponent(
         player1: self,
         player2: enemy,
-        position: Vector2(-Constants.UI_WIDTH / 2, -resolution.height / 2),
-        size: Vector2(Constants.UI_WIDTH, Constants.UI_HEADER_HEIGHT),
+        position: Dimensions.headerPosition(resolution),
+        size: Dimensions.headerSize(resolution),
       ),
     );
     add(
       ControlsComponent(
         player: self,
         position: Vector2(
-          -Constants.UI_WIDTH / 2,
+          -Constants.UI_HEIGHT / 2,
           (resolution.height / 2) - Constants.UI_CONTROLS_HEIGHT,
         ),
-        size: Vector2(Constants.UI_WIDTH, Constants.UI_CONTROLS_HEIGHT),
+        size: Vector2(Constants.UI_HEIGHT, Constants.UI_CONTROLS_HEIGHT),
       ),
     );
 
