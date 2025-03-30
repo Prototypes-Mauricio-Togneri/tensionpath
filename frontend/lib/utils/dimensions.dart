@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
 
 class Dimensions {
   static Size cameraSize(Vector2 canvasSize) => Size(
@@ -57,4 +58,23 @@ class Dimensions {
     required int x,
     required int y,
   }) => Vector2(nodeSize.width * ((x / 2) + y), nodeSize.height * 3 / 4 * x);
+
+  static Vector2 battlefildGridSize(Vector2 containerSize) {
+    final double padding = containerSize.y * 0.1;
+
+    return Vector2(containerSize.x - padding, containerSize.y - padding);
+  }
+
+  static Vector2 battlefieldBackgroundSize({
+    required Vector2 imageSize,
+    required Vector2 gridSize,
+    required Battlefield battlefield,
+  }) {
+    final double ratio = imageSize.x / imageSize.y;
+    final double backgroundHeightAdjusted =
+        gridSize.y / battlefield.gridHeightRatio;
+    final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
+
+    return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
+  }
 }
