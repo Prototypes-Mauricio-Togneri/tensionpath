@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -25,6 +26,13 @@ class BattlefieldComponent extends PositionComponent {
     final double padding = size.y * 0.1;
 
     add(
+      BattlefieldBackgroundComponent(
+        position: size / 2,
+        size: Vector2(size.x - padding, size.y - padding),
+      ),
+    );
+
+    add(
       BattlefieldGridComponent(
         battlefield: battlefield,
         position: size / 2,
@@ -33,13 +41,6 @@ class BattlefieldComponent extends PositionComponent {
     );
 
     return super.onLoad();
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
   }
 }
 
@@ -97,5 +98,17 @@ class BattlefieldGridComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
+  }
+}
+
+class BattlefieldBackgroundComponent extends SpriteComponent {
+  BattlefieldBackgroundComponent({required super.position, required super.size})
+    : super(anchor: Anchor.center, priority: Priority.unit.value);
+
+  @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(Assets.IMAGES_BATTLEFIELDS_BACKGROUND);
+
+    return super.onLoad();
   }
 }
