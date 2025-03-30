@@ -56,12 +56,9 @@ class BattlefieldGridComponent extends PositionComponent {
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.battlefield.value);
 
-  /*@override
+  @override
   FutureOr onLoad() {
-    final double nodeSize =
-        (size.x / battlefield.size.width) *
-        1.25 *
-        (1 - Constants.UI_PADDING_RATIO);
+    final double nodeSize = (size.y / battlefield.size.height) * 1.15;
     final Vector2 center = size / 2;
     final Set<String> existingNodes = {};
 
@@ -83,7 +80,7 @@ class BattlefieldGridComponent extends PositionComponent {
     }
 
     return super.onLoad();
-  }*/
+  }
 
   @override
   void render(Canvas canvas) {
