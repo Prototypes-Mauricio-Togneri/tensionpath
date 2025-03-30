@@ -63,7 +63,7 @@ extension CanvasExtension on Canvas {
     final double radius = min(width, height) / 2;
 
     for (int i = 0; i < 6; i++) {
-      final double angle = (pi / 3) * i;
+      final double angle = (pi / 6) + (pi / 3) * i;
       final double x = centerX + radius * cos(angle);
       final double y = centerY + radius * sin(angle);
 
