@@ -20,6 +20,42 @@ class BattlefieldComponent extends PositionComponent {
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.battlefield.value);
 
+  @override
+  FutureOr onLoad() {
+    final double padding = size.y * 0.1;
+
+    add(
+      BattlefieldGridComponent(
+        battlefield: battlefield,
+        position: size / 2,
+        size: Vector2(size.x - padding, size.y - padding),
+      ),
+    );
+
+    return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
+  }
+}
+
+class BattlefieldGridComponent extends PositionComponent {
+  final Battlefield battlefield;
+  final Paint fillPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Colors.red,
+  );
+
+  BattlefieldGridComponent({
+    required this.battlefield,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.battlefield.value);
+
   /*@override
   FutureOr onLoad() {
     final double nodeSize =
@@ -47,12 +83,12 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     return super.onLoad();
-  }
+  }*/
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
-  }*/
+  }
 }

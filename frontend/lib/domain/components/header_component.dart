@@ -21,26 +21,29 @@ class HeaderComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
+    final double centerIndicatorWidth = width * 0.1;
+    final double playerIndicatorWidth = (width - centerIndicatorWidth) / 2;
+
     add(
       PlayerIndicatorComponent(
         player: player1,
         position: Vector2(0, 0),
-        size: Vector2(width * 2 / 5, height),
+        size: Vector2(playerIndicatorWidth, height),
       ),
     );
 
     add(
       PlayerIndicatorComponent(
         player: player2,
-        position: Vector2(width * 3 / 5, 0),
-        size: Vector2(width * 2 / 5, height),
+        position: Vector2(playerIndicatorWidth + centerIndicatorWidth, 0),
+        size: Vector2(playerIndicatorWidth, height),
       ),
     );
 
     add(
       CenterIndicatorComponent(
-        position: Vector2(width * 2 / 5, 0),
-        size: Vector2(width / 5, height),
+        position: Vector2(playerIndicatorWidth, 0),
+        size: Vector2(centerIndicatorWidth, height),
       ),
     );
 
@@ -69,7 +72,7 @@ class PlayerIndicatorComponent extends PositionComponent {
     canvas.drawText(
       text: player.id.toUpperCase(),
       position: Vector2(
-        player.isSelf ? (width * 0.1) : (width * 0.9),
+        player.isSelf ? (width * 0.05) : (width * 0.95),
         size.y / 2,
       ),
       size: size.y / 3,
