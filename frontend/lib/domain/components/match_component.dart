@@ -58,11 +58,8 @@ class MatchComponent extends World {
     add(
       ControlsComponent(
         player: self,
-        position: Vector2(
-          -Constants.UI_HEIGHT / 2,
-          (resolution.height / 2) - Constants.UI_CONTROLS_HEIGHT,
-        ),
-        size: Vector2(Constants.UI_HEIGHT, Constants.UI_CONTROLS_HEIGHT),
+        position: Dimensions.controlsPosition(resolution),
+        size: Dimensions.controlsSize(resolution),
       ),
     );
 
