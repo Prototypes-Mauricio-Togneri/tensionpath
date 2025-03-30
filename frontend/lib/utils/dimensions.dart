@@ -45,8 +45,8 @@ class Dimensions {
     required int x,
     required int y,
   }) {
-    final double hexWidth = nodeSize;
-    final double hexHeight = nodeSize * (sqrt(3) / 2);
+    final double hexWidth = nodeSize * (sqrt(3) / 2);
+    final double hexHeight = nodeSize;
 
     return Vector2(hexWidth * 3 / 4 * x, hexHeight * ((x / 2) + y));
   }
