@@ -148,7 +148,7 @@ class FullScreenButtonComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle((size / 2).toOffset(), size.x / 2, borderPaint);
+    canvas.drawCircle((size / 2).toOffset(), size.y, borderPaint);
 
     canvas.drawText(
       text: '⌞ ⌝',

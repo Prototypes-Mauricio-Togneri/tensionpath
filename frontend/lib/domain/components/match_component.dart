@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
@@ -35,16 +34,8 @@ class MatchComponent extends World {
     add(
       BattlefieldComponent(
         battlefield: battlefield,
-        position: Vector2(
-          -Constants.UI_HEIGHT / 2,
-          (-resolution.height / 2) + Constants.UI_HEADER_HEIGHT,
-        ),
-        size: Vector2(
-          Constants.UI_HEIGHT,
-          resolution.height -
-              Constants.UI_HEADER_HEIGHT -
-              Constants.UI_CONTROLS_HEIGHT,
-        ),
+        position: Dimensions.battlefieldPosition(resolution),
+        size: Dimensions.battlefieldSize(resolution),
       ),
     );
     add(

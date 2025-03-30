@@ -23,4 +23,14 @@ class Dimensions {
 
   static Vector2 controlsSize(Size resolution) =>
       Vector2(resolution.width * 0.1, resolution.height);
+
+  static Vector2 battlefieldPosition(Size resolution) => Vector2(
+    (-resolution.width / 2) + controlsSize(resolution).x,
+    (-resolution.height / 2) + headerSize(resolution).y,
+  );
+
+  static Vector2 battlefieldSize(Size resolution) => Vector2(
+    resolution.width - controlsSize(resolution).x,
+    resolution.height - headerSize(resolution).y,
+  );
 }

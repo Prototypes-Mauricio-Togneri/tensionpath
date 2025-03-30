@@ -20,7 +20,7 @@ class BattlefieldComponent extends PositionComponent {
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.battlefield.value);
 
-  @override
+  /*@override
   FutureOr onLoad() {
     final double nodeSize =
         (size.x / battlefield.size.width) *
@@ -54,5 +54,5 @@ class BattlefieldComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
-  }
+  }*/
 }
