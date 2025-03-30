@@ -27,7 +27,7 @@ class Battlefield {
     required Player self,
     required Player enemy,
   }) async => Battlefield.fromJson(
-    filePath: Assets.BATTLEFIELDS_W7H9,
+    filePath: Assets.BATTLEFIELDS_W9H7,
     player1: self,
     player2: enemy,
   );
