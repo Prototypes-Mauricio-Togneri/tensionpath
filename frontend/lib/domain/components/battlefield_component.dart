@@ -29,16 +29,15 @@ class BattlefieldComponent extends PositionComponent {
       Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
     );
     final double ratio = sprite.originalSize.x / sprite.originalSize.y;
-    final double height = size.y;
-    final double width = height * ratio;
-
     final double gridHeight = size.y - padding;
-    print('gridHeight: $gridHeight');
+    final double backgroundHeightAdjusted = gridHeight / 0.405263158;
+    final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
 
     add(
       BattlefieldBackgroundComponent(
+        sprite: sprite,
         position: size / 2,
-        size: Vector2(width * 2.22, height * 2.22),
+        size: Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted),
       ),
     );
 
@@ -112,13 +111,9 @@ class BattlefieldGridComponent extends PositionComponent {
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
-  BattlefieldBackgroundComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center, priority: Priority.battlefield.value);
-
-  @override
-  FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_BATTLEFIELDS_BACKGROUND);
-
-    return super.onLoad();
-  }
+  BattlefieldBackgroundComponent({
+    required super.sprite,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.battlefield.value);
 }
