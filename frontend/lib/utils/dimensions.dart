@@ -80,7 +80,7 @@ class Dimensions {
   }) => Vector2(nodeSize.width * ((x / 2) + y), nodeSize.height * 3 / 4 * x);
 
   static Vector2 battlefildGridSize(Vector2 containerSize) {
-    final double padding = containerSize.y * 0.1;
+    final double padding = containerSize.y * 0.05;
 
     return Vector2(containerSize.x - padding, containerSize.y - padding);
   }

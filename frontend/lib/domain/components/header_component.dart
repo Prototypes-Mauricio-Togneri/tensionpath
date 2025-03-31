@@ -70,10 +70,10 @@ class PlayerIndicatorComponent extends PositionComponent {
     canvas.drawText(
       text: player.id.toUpperCase(),
       position: Vector2(
-        player.isSelf ? (width * 0.05) : (width * 0.95),
+        player.isSelf ? (width * 0.02) : (width * 0.98),
         size.y / 2,
       ),
-      size: size.y / 3,
+      size: size.y * 0.5,
       color: Palette.PLAYER_NAME,
       anchor: player.isSelf ? Anchor.centerLeft : Anchor.centerRight,
     );
@@ -91,12 +91,7 @@ class CenterIndicatorComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    add(
-      TimeIndicatorComponent(
-        position: Vector2(size.x / 2, size.y / 4),
-        size: size / 1.5,
-      ),
-    );
+    add(TimeIndicatorComponent(position: size / 2, size: size * 0.6));
 
     return super.onLoad();
   }
@@ -120,7 +115,7 @@ class TimeIndicatorComponent extends PositionComponent {
     canvas.drawText(
       text: '3:45',
       position: size / 2,
-      size: size.y / 2,
+      size: size.y,
       color: Palette.PLAYER_NAME,
     );
   }
