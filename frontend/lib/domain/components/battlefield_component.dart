@@ -69,7 +69,7 @@ class BattlefieldGridComponent extends PositionComponent {
   FutureOr onLoad() {
     final Size nodeSize = Dimensions.nodeSize(
       canvasSize: size,
-      battlefieldSize: battlefield.size,
+      battlefield: battlefield,
     );
     final Vector2 mapCenter = size / 2;
     final Set<String> existingNodes = {};

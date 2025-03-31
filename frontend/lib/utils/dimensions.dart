@@ -38,13 +38,13 @@ class Dimensions {
 
   static Size nodeSize({
     required Vector2 canvasSize,
-    required Size battlefieldSize,
+    required Battlefield battlefield,
   }) {
-    final double maxWidth = canvasSize.x / battlefieldSize.width;
+    final double maxWidth = canvasSize.x / battlefield.size.width;
     final Size maxSizeWidth = Size(maxWidth, maxWidth / (sqrt(3) / 2));
 
     final double maxHeight =
-        canvasSize.y / ((battlefieldSize.height * 3 / 4) + 0.25);
+        canvasSize.y / ((battlefield.size.height * 3 / 4) + 0.25);
     final Size maxHeightWidth = Size(maxHeight * (sqrt(3) / 2), maxHeight);
 
     return Size(
@@ -71,10 +71,17 @@ class Dimensions {
     required Battlefield battlefield,
   }) {
     final double ratio = imageSize.x / imageSize.y;
+
     final double backgroundHeightAdjusted =
         gridSize.y / battlefield.gridRatio.height;
     final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
+    final Vector2 res1 = Vector2(
+      backgroundWidthAdjusted,
+      backgroundHeightAdjusted,
+    );
 
-    return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
+    //final double backgroundWidthAdjusted = gridSize.x / battlefield.gridRatio.width;
+
+    return res1;
   }
 }
