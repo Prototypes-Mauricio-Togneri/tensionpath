@@ -86,22 +86,34 @@ class Dimensions {
   }
 
   static Vector2 battlefieldBackgroundSize({
+    required Vector2 canvasSize,
     required Vector2 imageSize,
     required Vector2 gridSize,
     required Battlefield battlefield,
   }) {
     final double ratio = imageSize.x / imageSize.y;
 
-    final double backgroundHeightAdjusted =
-        gridSize.y / battlefield.gridRatio.height;
-    final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
-    final Vector2 res1 = Vector2(
-      backgroundWidthAdjusted,
-      backgroundHeightAdjusted,
+    final Size maxSizeWidth = maxNodeSizeWidth(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
+    );
+    final Size maxHeightWidth = maxNodeSizeHeight(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
     );
 
-    //final double backgroundWidthAdjusted = gridSize.x / battlefield.gridRatio.width;
+    if (maxSizeWidth.width > maxHeightWidth.width) {
+      final double backgroundHeightAdjusted =
+          gridSize.y / battlefield.gridRatio.height;
+      final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
 
-    return res1;
+      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
+    } else {
+      final double backgroundWidthAdjusted =
+          gridSize.x / battlefield.gridRatio.width;
+      final double backgroundHeightAdjusted = backgroundWidthAdjusted / ratio;
+
+      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
+    }
   }
 }

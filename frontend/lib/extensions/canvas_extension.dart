@@ -46,7 +46,6 @@ extension CanvasExtension on Canvas {
     final Path hexagonPath = _createHexagonPath(size);
 
     if (fillPaint != null) {
-      fillPaint.color = fillPaint.color.withOpacity(0.1);
       drawPath(hexagonPath, fillPaint);
     }
 

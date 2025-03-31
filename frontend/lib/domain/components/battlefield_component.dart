@@ -33,6 +33,7 @@ class BattlefieldComponent extends PositionComponent {
         sprite: sprite,
         position: size / 2,
         size: Dimensions.battlefieldBackgroundSize(
+          canvasSize: size,
           imageSize: sprite.originalSize,
           gridSize: gridSize,
           battlefield: battlefield,
@@ -54,10 +55,6 @@ class BattlefieldComponent extends PositionComponent {
 
 class BattlefieldGridComponent extends PositionComponent {
   final Battlefield battlefield;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Colors.red,
-  );
 
   BattlefieldGridComponent({
     required this.battlefield,
@@ -99,13 +96,6 @@ class BattlefieldGridComponent extends PositionComponent {
     }
 
     return super.onLoad();
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
   }
 }
 
