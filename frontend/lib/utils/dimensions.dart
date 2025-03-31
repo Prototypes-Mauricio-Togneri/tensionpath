@@ -36,21 +36,41 @@ class Dimensions {
     resolution.height - headerSize(resolution).y,
   );
 
-  static Size nodeSize({
+  static Size maxNodeSizeWidth({
     required Vector2 canvasSize,
     required Battlefield battlefield,
   }) {
     final double maxWidth = canvasSize.x / battlefield.size.width;
-    final Size maxSizeWidth = Size(maxWidth, maxWidth / (sqrt(3) / 2));
 
+    return Size(maxWidth, maxWidth / (sqrt(3) / 2));
+  }
+
+  static Size maxNodeSizeHeight({
+    required Vector2 canvasSize,
+    required Battlefield battlefield,
+  }) {
     final double maxHeight =
         canvasSize.y / ((battlefield.size.height * 3 / 4) + 0.25);
-    final Size maxHeightWidth = Size(maxHeight * (sqrt(3) / 2), maxHeight);
 
-    return Size(
-      min(maxSizeWidth.width, maxHeightWidth.width),
-      min(maxSizeWidth.height, maxHeightWidth.height),
+    return Size(maxHeight * (sqrt(3) / 2), maxHeight);
+  }
+
+  static Size nodeSize({
+    required Vector2 canvasSize,
+    required Battlefield battlefield,
+  }) {
+    final Size maxSizeWidth = maxNodeSizeWidth(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
     );
+    final Size maxHeightWidth = maxNodeSizeHeight(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
+    );
+
+    return (maxSizeWidth.width > maxHeightWidth.width)
+        ? maxHeightWidth
+        : maxSizeWidth;
   }
 
   static Vector2 nodePosition({
