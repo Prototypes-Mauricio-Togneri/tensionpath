@@ -28,16 +28,14 @@ class ControlsComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final double cardWidth = (size.x / 7) * 0.8;
-    final double cardHeight = size.y * 0.8;
-
-    final double horizontalGapSize = (size.x - (cardWidth * 7)) / 8;
-    final double verticalGapSize = (size.y - cardHeight) / 2;
+    final double cardWidth = size.x * 0.8;
+    final double cardHeight = (size.y / 8) * 0.8;
+    final double gapSize = (size.x - cardWidth) / 2;
 
     for (int i = 0; i < 6; i++) {
       final Vector2 position = Vector2(
-        ((i + 0.5) * cardWidth) + ((i + 1) * horizontalGapSize),
-        verticalGapSize + (cardHeight / 2),
+        gapSize + (cardWidth / 2),
+        ((i + 0.5) * cardHeight) + ((i + 1) * gapSize),
       );
 
       add(
@@ -53,22 +51,16 @@ class ControlsComponent extends PositionComponent {
     add(
       ResourceCounterComponent(
         player: player,
-        position: Vector2(
-          (6 * cardWidth) + (horizontalGapSize * 7),
-          verticalGapSize,
-        ),
-        size: Vector2(cardWidth, (cardHeight / 2) - (verticalGapSize / 2)),
+        position: Vector2(gapSize, (6 * cardHeight) + (gapSize * 7)),
+        size: Vector2(cardWidth, cardHeight),
       ),
     );
 
     add(
       PassTurnComponent(
         player: player,
-        position: Vector2(
-          (6 * cardWidth) + (horizontalGapSize * 7),
-          (cardHeight / 2) + verticalGapSize * 1.5,
-        ),
-        size: Vector2(cardWidth, (cardHeight / 2) - (verticalGapSize / 2)),
+        position: Vector2(gapSize, (7 * cardHeight) + (gapSize * 8)),
+        size: Vector2(cardWidth, cardHeight),
       ),
     );
 
