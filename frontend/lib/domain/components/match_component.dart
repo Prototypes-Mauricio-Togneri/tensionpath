@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
-import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
@@ -18,6 +17,7 @@ class MatchComponent extends World {
   final Player self;
   final Player enemy;
   final Battlefield battlefield;
+  BattlefieldComponent? battlefieldComponent;
   NodeComponent? nodeSelected;
 
   MatchComponent({
@@ -31,13 +31,13 @@ class MatchComponent extends World {
 
   @override
   FutureOr onLoad() {
-    add(
-      BattlefieldComponent(
-        battlefield: battlefield,
-        position: Dimensions.battlefieldPosition(resolution),
-        size: Dimensions.battlefieldSize(resolution),
-      ),
+    battlefieldComponent = BattlefieldComponent(
+      battlefield: battlefield,
+      position: Dimensions.battlefieldPosition(resolution),
+      size: Dimensions.battlefieldSize(resolution),
     );
+
+    add(battlefieldComponent!);
     add(
       HeaderComponent(
         player1: self,
@@ -57,14 +57,8 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  BattlefieldComponent get battlefieldComponent =>
-      children.whereType<BattlefieldComponent>().first;
-
-  Iterable<UnitComponent> get unitComponents =>
-      battlefieldComponent.children.whereType<UnitComponent>();
-
-  Iterable<NodeComponent> get nodeComponents =>
-      battlefieldComponent.children.whereType<NodeComponent>();
+  List<NodeComponent> get nodeComponents =>
+      battlefieldComponent?.nodeComponents ?? [];
 
   void onPassTurn() {
     self.addResources(self.baseResourceRate);
