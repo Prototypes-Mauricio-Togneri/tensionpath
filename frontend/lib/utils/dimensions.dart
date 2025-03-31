@@ -72,7 +72,7 @@ class Dimensions {
   }) {
     final double ratio = imageSize.x / imageSize.y;
     final double backgroundHeightAdjusted =
-        gridSize.y / battlefield.gridHeightRatio;
+        gridSize.y / battlefield.gridRatio.height;
     final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
 
     return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);

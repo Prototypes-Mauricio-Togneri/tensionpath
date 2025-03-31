@@ -1,8 +1,13 @@
 {
     "id": "w9h7",
-    "width": 9,
-    "height": 7,
-    "gridHeightRatio": 0.405263158,
+    "size": {
+        "width": 9,
+        "height": 7
+    },
+    "gridRatio": {
+        "width": 0.483333333,
+        "height": 0.405263158
+    },
     "nodes": [
         {
             "x": 0,
