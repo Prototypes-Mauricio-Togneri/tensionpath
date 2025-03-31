@@ -106,7 +106,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     add(
       UnitImageComponent(
         type: unitType,
-        position: Vector2(size.x / 2, size.y * 0.4),
+        position: Vector2(size.x / 2, size.y / 2),
         size: Vector2(unitImageSize, unitImageSize),
       ),
     );
@@ -169,7 +169,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     canvas.drawText(
       text: unitType.cost.toString(),
-      position: Vector2(size.x * 0.8, size.y * 0.8),
+      position: Vector2(size.x * 0.9, size.y * 0.8),
       size: size.y / 5,
       color: border.color,
     );
