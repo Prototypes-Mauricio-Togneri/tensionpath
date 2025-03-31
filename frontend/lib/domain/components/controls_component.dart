@@ -28,9 +28,9 @@ class ControlsComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final double cardWidth = size.x * 0.8;
-    final double cardHeight = (size.y / 8) * 0.8;
-    final double gapSize = (size.x - cardWidth) / 2;
+    final double gapSize = size.x * 0.1;
+    final double cardWidth = size.x - (gapSize * 2);
+    final double cardHeight = (size.y - (gapSize * 9)) / 8;
 
     for (int i = 0; i < 6; i++) {
       final Vector2 position = Vector2(
