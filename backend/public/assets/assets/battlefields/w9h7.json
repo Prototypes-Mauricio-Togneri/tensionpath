@@ -1,7 +1,13 @@
 {
-    "id": "w7h9",
-    "width": 7,
-    "height": 9,
+    "id": "w9h7",
+    "size": {
+        "width": 9,
+        "height": 7
+    },
+    "gridRatio": {
+        "width": 0.483333333,
+        "height": 0.405263158
+    },
     "nodes": [
         {
             "x": 0,
@@ -9,11 +15,6 @@
             "type": "missile"
         },
         {
-            "x": -1,
-            "y": 0,
-            "type": "platform"
-        },
-        {
             "x": 0,
             "y": -1,
             "type": "land"
@@ -39,9 +40,9 @@
             "type": "platform"
         },
         {
-            "x": 0,
-            "y": -2,
-            "type": "land"
+            "x": -1,
+            "y": 0,
+            "type": "platform"
         },
         {
             "x": 1,
@@ -96,6 +97,11 @@
         {
             "x": -1,
             "y": -1,
+            "type": "land"
+        },
+        {
+            "x": 0,
+            "y": -2,
             "type": "land"
         },
         {
@@ -190,96 +196,7 @@
         },
         {
             "x": -3,
-            "y": -1,
-            "type": "land"
-        },
-        {
-            "x": -2,
-            "y": -2,
-            "type": "land"
-        },
-        {
-            "x": -1,
-            "y": -3,
-            "type": "land"
-        },
-        {
-            "x": 0,
-            "y": -4,
-            "type": "launcher",
-            "player": "2"
-        },
-        {
-            "x": 1,
-            "y": -4,
-            "type": "land"
-        },
-        {
-            "x": 2,
-            "y": -4,
-            "type": "land"
-        },
-        {
-            "x": 3,
-            "y": -4,
-            "type": "land"
-        },
-        {
-            "x": -3,
-            "y": -2,
-            "type": "land"
-        },
-        {
-            "x": -2,
-            "y": -3,
-            "type": "launcher",
-            "player": "2"
-        },
-        {
-            "x": 3,
-            "y": -5,
-            "type": "land"
-        },
-        {
-            "x": 2,
-            "y": -5,
-            "type": "launcher",
-            "player": "2"
-        },
-        {
-            "x": -3,
             "y": 4,
-            "type": "land"
-        },
-        {
-            "x": -2,
-            "y": 4,
-            "type": "land"
-        },
-        {
-            "x": -1,
-            "y": 4,
-            "type": "land"
-        },
-        {
-            "x": 0,
-            "y": 4,
-            "type": "launcher",
-            "player": "1"
-        },
-        {
-            "x": 1,
-            "y": 3,
-            "type": "land"
-        },
-        {
-            "x": 2,
-            "y": 2,
-            "type": "land"
-        },
-        {
-            "x": 3,
-            "y": 1,
             "type": "land"
         },
         {
@@ -289,19 +206,108 @@
         },
         {
             "x": -2,
+            "y": 4,
+            "type": "land"
+        },
+        {
+            "x": -2,
             "y": 5,
             "type": "launcher",
-            "player": "1"
+            "player": "2"
+        },
+        {
+            "x": -1,
+            "y": 4,
+            "type": "land"
+        },
+        {
+            "x": 0,
+            "y": 4,
+            "type": "launcher",
+            "player": "2"
+        },
+        {
+            "x": 1,
+            "y": 3,
+            "type": "land"
+        },
+        {
+            "x": 2,
+            "y": 2,
+            "type": "land"
         },
         {
             "x": 2,
             "y": 3,
             "type": "launcher",
-            "player": "1"
+            "player": "2"
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "type": "land"
         },
         {
             "x": 3,
             "y": 2,
+            "type": "land"
+        },
+        {
+            "x": -3,
+            "y": -1,
+            "type": "land"
+        },
+        {
+            "x": -3,
+            "y": -2,
+            "type": "land"
+        },
+        {
+            "x": -2,
+            "y": -2,
+            "type": "land"
+        },
+        {
+            "x": -2,
+            "y": -3,
+            "type": "launcher",
+            "player": "1"
+        },
+        {
+            "x": -1,
+            "y": -3,
+            "type": "land"
+        },
+        {
+            "x": 0,
+            "y": -4,
+            "type": "launcher",
+            "player": "1"
+        },
+        {
+            "x": 1,
+            "y": -4,
+            "type": "land"
+        },
+        {
+            "x": 2,
+            "y": -4,
+            "type": "land"
+        },
+        {
+            "x": 2,
+            "y": -5,
+            "type": "launcher",
+            "player": "1"
+        },
+        {
+            "x": 3,
+            "y": -4,
+            "type": "land"
+        },
+        {
+            "x": 3,
+            "y": -5,
             "type": "land"
         }
     ]
