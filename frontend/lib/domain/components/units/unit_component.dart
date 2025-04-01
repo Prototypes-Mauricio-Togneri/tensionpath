@@ -66,6 +66,8 @@ class HealthBarComponent<U extends Unit> extends PositionComponent {
 
   @override
   void render(Canvas canvas) {
+    super.render(canvas);
+
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundHealthPaint);
 
     final double healthBar = width * (unit.health / unit.maxHealth);
@@ -76,7 +78,5 @@ class HealthBarComponent<U extends Unit> extends PositionComponent {
     );
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);
-
-    super.render(canvas);
   }
 }
