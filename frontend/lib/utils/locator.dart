@@ -1,9 +1,13 @@
+import 'dart:ui';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/platform/operations/set_url_strategy.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/platform.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -11,9 +15,10 @@ class Locator {
   static Future load(Environment environment) async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    /*if (Platform.isWeb) {
+    if (Platform.isWeb) {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
+          apiKey: 'AIzaSyBpGR88tMBiVA1Tvk48qQXqs1es7FaS2ac',
           authDomain: 'tension-path.firebaseapp.com',
           projectId: 'tension-path',
           storageBucket: 'tension-path.appspot.com',
@@ -31,7 +36,7 @@ class Locator {
         FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
         return true;
       };
-    }*/
+    }
 
     SetUrlStrategy.set();
     await Flame.device.fullScreen();
