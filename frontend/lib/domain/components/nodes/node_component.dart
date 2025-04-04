@@ -46,6 +46,13 @@ class NodeComponent<N extends Node> extends PositionComponent
   }
 
   @override
+  bool containsLocalPoint(Vector2 point) {
+    final Vector2 fromCenter = point - (size / 2);
+
+    return fromCenter.length < size.x * 0.42;
+  }
+
+  @override
   void onHoverEnter() {
     if (_canBeHighlighted) {
       _showHighlighted();
@@ -151,15 +158,15 @@ class NodeComponent<N extends Node> extends PositionComponent
     if (debugMode) {
       canvas.drawText(
         text: '${node.x},${node.y}',
-        position: Vector2(size.x / 2, size.y / 3),
-        size: size.x / 5,
+        position: Vector2(size.x / 2, size.y / 4),
+        size: size.x / 8,
         color: Colors.white,
       );
 
       canvas.drawText(
         text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
-        position: Vector2(size.x / 2, size.y * 2 / 3),
-        size: size.x / 7,
+        position: Vector2(size.x / 2, size.y * 2 / 4),
+        size: size.x / 8,
         color: Colors.white,
       );
     }
