@@ -25,7 +25,7 @@ class Match {
 
           if (data != null) {
             final JsonMatch json = JsonMatch.fromJson(data);
-            print(json);
+            print('Match updated: $json');
           }
         }
       },
@@ -46,7 +46,7 @@ class Match {
 
       if (data != null) {
         final JsonMatch json = JsonMatch.fromJson(data);
-        print(json);
+        print('Match loaded: $json');
 
         final Player self = Player.self();
         final Player enemy = Player.enemy();
