@@ -1,30 +1,20 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
-import 'package:tensionpath/utils/error_handler.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final MatchState state;
-  final Player self;
-  final Player enemy;
-  final Battlefield battlefield;
+  final Match match;
 
-  GameComponent({
-    required this.state,
-    required this.self,
-    required this.enemy,
-    required this.battlefield,
-  }) : super() {
+  GameComponent({required this.state, required this.match}) : super() {
     GameComponentRef.instance = this;
   }
 
@@ -34,12 +24,7 @@ class GameComponent extends FlameGame {
 
     final Size resolution = Dimensions.cameraSize(canvasSize);
 
-    world = MatchComponent(
-      resolution: resolution,
-      self: self,
-      enemy: enemy,
-      battlefield: battlefield,
-    );
+    world = MatchComponent(resolution: resolution, match: match);
 
     camera = CameraComponent.withFixedResolution(
       width: resolution.width,
@@ -50,19 +35,7 @@ class GameComponent extends FlameGame {
       add(FpsTextComponent());
     }
 
-    FirebaseFirestore.instance
-        .collection('matches')
-        .doc('test')
-        .snapshots()
-        .listen((snapshot) async {
-          if (snapshot.exists) {
-            final Map<String, dynamic>? data = snapshot.data();
-
-            if (data != null) {
-              print(data);
-            }
-          }
-        }, onError: ErrorHandler.process);
+    match.listen();
 
     return super.onLoad();
   }
@@ -74,8 +47,8 @@ class GameComponent extends FlameGame {
   void update(double dt) {
     super.update(dt);
 
-    self.update(dt);
-    enemy.update(dt);
+    match.self.update(dt);
+    match.enemy.update(dt);
   }
 
   void onMatchFinished(bool won) {

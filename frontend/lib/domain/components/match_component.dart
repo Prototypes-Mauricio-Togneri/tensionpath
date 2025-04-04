@@ -6,33 +6,25 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Size resolution;
-  final Player self;
-  final Player enemy;
-  final Battlefield battlefield;
+  final Match match;
   BattlefieldComponent? battlefieldComponent;
   NodeComponent? nodeSelected;
 
-  MatchComponent({
-    required this.resolution,
-    required this.self,
-    required this.enemy,
-    required this.battlefield,
-  }) {
+  MatchComponent({required this.resolution, required this.match}) {
     MatchComponentRef.instance = this;
   }
 
   @override
   FutureOr onLoad() {
     battlefieldComponent = BattlefieldComponent(
-      battlefield: battlefield,
+      battlefield: match.battlefield,
       position: Dimensions.battlefieldPosition(resolution),
       size: Dimensions.battlefieldSize(resolution),
     );
@@ -40,15 +32,15 @@ class MatchComponent extends World {
     add(battlefieldComponent!);
     add(
       HeaderComponent(
-        player1: self,
-        player2: enemy,
+        player1: match.self,
+        player2: match.enemy,
         position: Dimensions.headerPosition(resolution),
         size: Dimensions.headerSize(resolution),
       ),
     );
     add(
       ControlsComponent(
-        player: self,
+        player: match.self,
         position: Dimensions.controlsPosition(resolution),
         size: Dimensions.controlsSize(resolution),
       ),
@@ -61,7 +53,7 @@ class MatchComponent extends World {
       battlefieldComponent?.nodeComponents ?? [];
 
   void onPassTurn() {
-    self.addResources(self.baseResourceRate);
+    match.self.addResources(match.self.baseResourceRate);
   }
 
   void selectNode(NodeComponent? node) {
@@ -104,7 +96,7 @@ class MatchComponent extends World {
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent is NodeLauncherComponent) {
-        final bool isPlayer = nodeComponent.node.belongsTo(self);
+        final bool isPlayer = nodeComponent.node.belongsTo(match.self);
         final bool isInPosition = nodeComponent.containsPoint(position);
         final bool canDeploy = !nodeComponent.node.containsUnit;
 
@@ -121,9 +113,10 @@ class MatchComponent extends World {
     required NodeComponent nodeComponent,
     required UnitType unitType,
   }) {
-    if (self.hasResources(unitType.cost) && !nodeComponent.node.containsUnit) {
-      self.spendResources(unitType.cost);
-      final Unit unit = Unit.fromType(unitType: unitType, player: self);
+    if (match.self.hasResources(unitType.cost) &&
+        !nodeComponent.node.containsUnit) {
+      match.self.spendResources(unitType.cost);
+      final Unit unit = Unit.fromType(unitType: unitType, player: match.self);
       nodeComponent.node.deployUnit(unit);
       nodeComponent.onHighlighted(false);
     }

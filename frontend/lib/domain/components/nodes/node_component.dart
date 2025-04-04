@@ -94,7 +94,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   bool get _isSelected => nodeSelectedComponent != null;
 
-  bool get _belongsToSelf => node.belongsTo(match.self);
+  bool get _belongsToSelf => node.belongsTo(match.match.self);
 
   bool get _canBeHighlighted => _canBeSelected || match.isMovementTarget(this);
 

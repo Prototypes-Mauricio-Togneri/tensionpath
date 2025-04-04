@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 
 class MatchState extends BaseState {
   GameComponent? gameComponent;
@@ -12,21 +11,11 @@ class MatchState extends BaseState {
 
   bool get isInitialized => gameComponent != null;
 
-  Future restart() async {
-    final Player self = Player.self();
-    final Player enemy = Player.enemy();
-    final Battlefield battlefield = await Battlefield.create(
-      self: self,
-      enemy: enemy,
-    );
+  Future restart() =>
+      Match.load(id: 'bkSVMdZ1UFZRfqCifqzq', onReady: onMatchReady);
 
-    gameComponent = GameComponent(
-      state: this,
-      self: self,
-      enemy: enemy,
-      battlefield: battlefield,
-    );
-
+  void onMatchReady(Match match) {
+    gameComponent = GameComponent(state: this, match: match);
     notify();
   }
 }
