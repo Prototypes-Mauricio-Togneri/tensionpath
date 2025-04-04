@@ -5,6 +5,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
+import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -137,7 +138,14 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     super.onDragEnd(event);
 
     if (isEnabled) {
-      match.onDeployUnit(position: absolutePosition, unitType: unitType);
+      final NodeComponent? nodeComponent = match.getLauncherAt(
+        absolutePosition,
+      );
+
+      if (nodeComponent != null) {
+        match.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
+      }
+
       position = initialPosition;
       dragging = false;
     }

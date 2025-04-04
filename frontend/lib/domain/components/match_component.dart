@@ -118,12 +118,11 @@ class MatchComponent extends World {
     return null;
   }
 
-  void onDeployUnit({required Vector2 position, required UnitType unitType}) {
-    final NodeComponent? nodeComponent = getLauncherAt(position);
-
-    if ((nodeComponent != null) &&
-        self.hasResources(unitType.cost) &&
-        nodeComponent.node.canDeployUnit) {
+  void onDeployUnit({
+    required NodeComponent nodeComponent,
+    required UnitType unitType,
+  }) {
+    if (self.hasResources(unitType.cost) && nodeComponent.node.canDeployUnit) {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, player: self);
       nodeComponent.deployUnit(unit);
