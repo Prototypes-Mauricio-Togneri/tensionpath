@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -14,6 +13,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   final N node;
   NodeHighlitedComponent? nodeHighlitedComponent;
   NodeSelectedComponent? nodeSelectedComponent;
+  UnitComponent? unitComponent;
 
   NodeComponent({
     required this.node,
@@ -94,11 +94,11 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   bool get _isSelected => nodeSelectedComponent != null;
 
-  bool get _belongsToSelf => node.player == match.self;
+  bool get _belongsToSelf => node.belongsTo(match.self);
 
   bool get _canBeHighlighted => _canBeSelected || match.isMovementTarget(this);
 
-  bool get _canBeSelected => _belongsToSelf && (node.unit != null);
+  bool get _canBeSelected => _belongsToSelf && node.containsUnit;
 
   @override
   void onTapUp(TapUpEvent event) {
@@ -113,25 +113,16 @@ class NodeComponent<N extends Node> extends PositionComponent
     }
   }
 
-  void deployUnit(Unit unit) {
-    node.deployUnit(unit);
+  @override
+  void update(double dt) {
+    super.update(dt);
 
-    final UnitComponent unitComponent = unit.component(
-      position: size / 2,
-      size: size / 1.5,
-    );
-
-    add(unitComponent);
-  }
-
-  void undeployUnit() {
-    node.unit = null;
-
-    final UnitComponent? unitComponent =
-        children.whereType<UnitComponent>().firstOrNull;
-
-    if (unitComponent != null) {
-      remove(unitComponent);
+    if (node.containsUnit && (unitComponent == null)) {
+      unitComponent = node.unit.component(position: size / 2, size: size / 1.5);
+      add(unitComponent!);
+    } else if (!node.containsUnit && (unitComponent != null)) {
+      remove(unitComponent!);
+      unitComponent = null;
     }
   }
 

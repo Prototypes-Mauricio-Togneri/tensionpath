@@ -69,8 +69,8 @@ class MatchComponent extends World {
   }
 
   void unselectNodes() {
-    for (final NodeComponent node in nodeComponents) {
-      node.hideSelected();
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      nodeComponent.hideSelected();
     }
   }
 
@@ -84,17 +84,16 @@ class MatchComponent extends World {
     }
   }
 
-  void moveUnitTo(NodeComponent node) {
+  void moveUnitTo(NodeComponent nodeComponent) {
     if (nodeSelected != null) {
-      node.deployUnit(nodeSelected!.node.unit!);
-      nodeSelected!.undeployUnit();
+      nodeComponent.node.moveUnitTo(nodeSelected!.node);
       unselectNodes();
     }
   }
 
   void highlightNode(NodeComponent? node) {
-    for (final NodeComponent node in nodeComponents) {
-      node.onHighlighted(false);
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      nodeComponent.onHighlighted(false);
     }
 
     if (node != null) {
@@ -103,14 +102,14 @@ class MatchComponent extends World {
   }
 
   NodeComponent? getLauncherAt(Vector2 position) {
-    for (final NodeComponent node in nodeComponents) {
-      if (node is NodeLauncherComponent) {
-        final bool isPlayer = node.node.player == self;
-        final bool isInPosition = node.containsPoint(position);
-        final bool canDeploy = node.node.canDeployUnit;
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      if (nodeComponent is NodeLauncherComponent) {
+        final bool isPlayer = nodeComponent.node.belongsTo(self);
+        final bool isInPosition = nodeComponent.containsPoint(position);
+        final bool canDeploy = !nodeComponent.node.containsUnit;
 
         if (isPlayer && isInPosition && canDeploy) {
-          return node;
+          return nodeComponent;
         }
       }
     }
@@ -122,10 +121,10 @@ class MatchComponent extends World {
     required NodeComponent nodeComponent,
     required UnitType unitType,
   }) {
-    if (self.hasResources(unitType.cost) && nodeComponent.node.canDeployUnit) {
+    if (self.hasResources(unitType.cost) && !nodeComponent.node.containsUnit) {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, player: self);
-      nodeComponent.deployUnit(unit);
+      nodeComponent.node.deployUnit(unit);
       nodeComponent.onHighlighted(false);
     }
   }

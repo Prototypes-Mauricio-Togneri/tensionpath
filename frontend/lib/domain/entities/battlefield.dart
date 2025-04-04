@@ -59,7 +59,7 @@ class Battlefield {
           nodes.add(NodeResources(x: x, y: y));
           break;
         case NodeType.launcher:
-          nodes.add(NodeLauncher(x: x, y: y, player: player));
+          nodes.add(NodeLauncher(x: x, y: y, owner: player));
           break;
         case NodeType.missile:
           nodes.add(NodeMissile(x: x, y: y));

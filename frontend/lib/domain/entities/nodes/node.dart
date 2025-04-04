@@ -9,22 +9,38 @@ abstract class Node {
   final NodeType type;
   final int x;
   final int y;
-  Unit? unit;
-  Player? player;
+  Unit? _unit;
+  Player? _player;
 
-  Node({required this.type, required this.x, required this.y, this.player});
+  Node({required this.type, required this.x, required this.y, Player? owner}) {
+    _player = owner;
+  }
 
   NodeComponent component({required Vector2 position, required Vector2 size});
 
+  Unit get unit => _unit!;
+
   String get id => '[$x,$y]';
 
-  Color? get playerColor => player?.color;
+  Color? get playerColor => _player?.color;
 
-  bool get canDeployUnit => unit == null;
+  bool get containsUnit => _unit != null;
+
+  bool belongsTo(Player player) => _player == player;
 
   void deployUnit(Unit unit) {
-    this.unit = unit;
-    player = unit.player;
+    _unit = unit;
+    _player = unit.player;
+  }
+
+  void undeployUnit() {
+    _unit = null;
+    _player = null;
+  }
+
+  void moveUnitTo(Node node) {
+    deployUnit(node._unit!);
+    node.undeployUnit();
   }
 
   int distance(Node node) {
