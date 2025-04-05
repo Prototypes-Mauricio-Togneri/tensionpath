@@ -68,7 +68,7 @@ class PlayerIndicatorComponent extends PositionComponent {
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
 
     canvas.drawText(
-      text: player.id.toUpperCase(),
+      text: player.name.toUpperCase(),
       position: Vector2(
         player.isSelf ? (width * 0.02) : (width * 0.98),
         size.y / 2,

@@ -54,7 +54,7 @@ class JsonMatch {
 
   Player get self => players[0].player(true);
 
-  Player get opponent => players[1].player(true);
+  Player get opponent => players[1].player(false);
 
   Battlefield getBattlefield(List<Player> players) {
     final List<Node> nodes = <Node>[];
