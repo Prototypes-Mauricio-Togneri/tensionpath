@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 part 'json_player.g.dart';
 
@@ -25,4 +26,12 @@ class JsonPlayer {
 
   factory JsonPlayer.fromJson(Map<String, dynamic> json) =>
       _$JsonPlayerFromJson(json);
+
+  Player player(bool isSelf) => Player(
+    id: id,
+    name: name,
+    isSelf: isSelf,
+    resources: resources,
+    baseResourceRate: resourcesRate,
+  );
 }

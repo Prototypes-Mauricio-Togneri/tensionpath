@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 
 part 'json_match.g.dart';
@@ -34,4 +35,8 @@ class JsonMatch {
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);
+
+  Player get self => players[0].player(true);
+
+  Player get opponent => players[1].player(true);
 }

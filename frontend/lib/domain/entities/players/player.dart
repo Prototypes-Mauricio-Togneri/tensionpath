@@ -1,31 +1,28 @@
 import 'dart:ui';
-import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/players/active_player.dart';
-import 'package:tensionpath/domain/entities/players/self_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
   final String id;
-  final double baseResourceRate;
-  double resources = Constants.INITIAL_RESOURCES;
+  final String name;
+  final bool isSelf;
+  int resources;
+  int baseResourceRate;
 
-  static Player self() =>
-      SelfPlayer(id: 'self', baseResourceRate: Constants.RESOUCES_RATE);
+  Player({
+    required this.id,
+    required this.name,
+    required this.isSelf,
+    required this.resources,
+    required this.baseResourceRate,
+  });
 
-  static Player enemy() =>
-      ActivePlayer(id: 'enemy', baseResourceRate: Constants.RESOUCES_RATE * 2);
+  int get resourceRate => baseResourceRate;
 
-  Player({required this.id, required this.baseResourceRate});
+  bool get isOpponent => !isSelf;
 
-  double get resourceRate => baseResourceRate;
+  Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_OPPONENT;
 
-  bool get isSelf => this is SelfPlayer;
-
-  bool get isEnemy => !isSelf;
-
-  Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_ENEMY;
-
-  void addResources(double value) {
+  void addResources(int value) {
     resources += value;
     resources = resources.clamp(0, 10);
   }

@@ -33,7 +33,7 @@ class MatchComponent extends World {
     add(
       HeaderComponent(
         player1: match.self,
-        player2: match.enemy,
+        player2: match.opponent,
         position: Dimensions.headerPosition(resolution),
         size: Dimensions.headerSize(resolution),
       ),

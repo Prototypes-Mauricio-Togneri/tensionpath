@@ -8,13 +8,13 @@ import 'package:tensionpath/utils/error_handler.dart';
 class Match {
   final String id;
   Player self;
-  Player enemy;
+  Player opponent;
   Battlefield battlefield;
 
   Match({
     required this.id,
     required this.self,
-    required this.enemy,
+    required this.opponent,
     required this.battlefield,
   });
 
@@ -41,17 +41,17 @@ class Match {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
       print('Match loaded: $json');
 
-      final Player self = Player.self();
-      final Player enemy = Player.enemy();
+      final Player self = json.self;
+      final Player opponent = json.opponent;
       final Battlefield battlefield = await Battlefield.create(
         self: self,
-        enemy: enemy,
+        opponent: opponent,
       );
 
       final Match match = Match(
         id: id,
         self: self,
-        enemy: enemy,
+        opponent: opponent,
         battlefield: battlefield,
       );
       onReady(match);

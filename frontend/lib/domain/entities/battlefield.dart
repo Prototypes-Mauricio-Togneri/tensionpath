@@ -27,11 +27,11 @@ class Battlefield {
 
   static Future<Battlefield> create({
     required Player self,
-    required Player enemy,
+    required Player opponent,
   }) async => Battlefield.fromJson(
     filePath: Assets.BATTLEFIELDS_W9H7,
     player1: self,
-    player2: enemy,
+    player2: opponent,
   );
 
   static Future<Battlefield> fromJson({

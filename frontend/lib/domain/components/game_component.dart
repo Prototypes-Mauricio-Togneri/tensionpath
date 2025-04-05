@@ -48,7 +48,7 @@ class GameComponent extends FlameGame {
     super.update(dt);
 
     match.self.update(dt);
-    match.enemy.update(dt);
+    match.opponent.update(dt);
   }
 
   void onMatchFinished(bool won) {

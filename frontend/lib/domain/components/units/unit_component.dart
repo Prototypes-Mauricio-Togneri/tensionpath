@@ -27,7 +27,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent {
   FutureOr onLoad() async {
     sprite = await Sprite.load(unit.type.sprite);
 
-    if (unit.player.isEnemy) {
+    if (unit.player.isOpponent) {
       angle = pi;
     }
 
