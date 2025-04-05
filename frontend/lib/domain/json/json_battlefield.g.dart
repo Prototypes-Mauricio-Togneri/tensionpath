@@ -16,13 +16,3 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
               .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
-
-JsonSize _$JsonSizeFromJson(Map<String, dynamic> json) => JsonSize(
-  width: (json['width'] as num).toInt(),
-  height: (json['height'] as num).toInt(),
-);
-
-JsonRatio _$JsonRatioFromJson(Map<String, dynamic> json) => JsonRatio(
-  width: (json['width'] as num).toDouble(),
-  height: (json['height'] as num).toDouble(),
-);

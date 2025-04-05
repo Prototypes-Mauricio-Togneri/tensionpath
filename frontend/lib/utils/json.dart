@@ -1,12 +1,8 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 
 typedef JsonDocument = Map<String, dynamic>;
 
 class Json {
-  static int version(JsonDocument document) => document['version'] as int;
-
   static JsonDocument object(Map map) {
     final JsonDocument result = <String, dynamic>{};
 
@@ -40,11 +36,5 @@ class Json {
     } else {
       return value;
     }
-  }
-
-  static Future<Map<String, dynamic>> load(String path) async {
-    final String data = await rootBundle.loadString(path);
-
-    return jsonDecode(data) as Map<String, dynamic>;
   }
 }

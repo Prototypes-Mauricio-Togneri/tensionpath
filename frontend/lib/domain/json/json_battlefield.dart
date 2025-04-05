@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
+import 'package:tensionpath/domain/json/json_ratio.dart';
+import 'package:tensionpath/domain/json/json_size.dart';
 
 part 'json_battlefield.g.dart';
 
@@ -26,32 +28,4 @@ class JsonBattlefield {
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>
       _$JsonBattlefieldFromJson(json);
-}
-
-@JsonSerializable()
-class JsonSize {
-  @JsonKey(name: 'width')
-  final int width;
-
-  @JsonKey(name: 'height')
-  final int height;
-
-  const JsonSize({required this.width, required this.height});
-
-  factory JsonSize.fromJson(Map<String, dynamic> json) =>
-      _$JsonSizeFromJson(json);
-}
-
-@JsonSerializable()
-class JsonRatio {
-  @JsonKey(name: 'width')
-  final double width;
-
-  @JsonKey(name: 'height')
-  final double height;
-
-  const JsonRatio({required this.width, required this.height});
-
-  factory JsonRatio.fromJson(Map<String, dynamic> json) =>
-      _$JsonRatioFromJson(json);
 }
