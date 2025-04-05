@@ -63,7 +63,7 @@ class JsonMatch {
       final int x = jsonNode.x;
       final int y = jsonNode.y;
       final NodeType type = jsonNode.type;
-      final Player? player = playerById(jsonNode.player);
+      final Player? player = playerById(id: jsonNode.player, players: players);
 
       switch (type) {
         case NodeType.land:
@@ -98,11 +98,11 @@ class JsonMatch {
     );
   }
 
-  Player? playerById(String? id) {
+  Player? playerById({required String? id, required List<Player> players}) {
     if (id != null) {
-      for (final JsonPlayer player in players) {
+      for (final Player player in players) {
         if (player.id == id) {
-          return player.player(true);
+          return player;
         }
       }
     }
