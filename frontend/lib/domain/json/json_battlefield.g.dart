@@ -7,12 +7,24 @@ part of 'json_battlefield.dart';
 // **************************************************************************
 
 JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
-    JsonBattlefield(
-      id: json['id'] as String,
-      size: JsonSize.fromJson(json['size'] as Map<String, dynamic>),
-      gridRatio: JsonRatio.fromJson(json['gridRatio'] as Map<String, dynamic>),
-      nodes:
-          (json['nodes'] as List<dynamic>)
-              .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
-              .toList(),
-    );
+    $checkedCreate('JsonBattlefield', json, ($checkedConvert) {
+      final val = JsonBattlefield(
+        id: $checkedConvert('id', (v) => v as String),
+        size: $checkedConvert(
+          'size',
+          (v) => JsonSize.fromJson(v as Map<String, dynamic>),
+        ),
+        gridRatio: $checkedConvert(
+          'gridRatio',
+          (v) => JsonRatio.fromJson(v as Map<String, dynamic>),
+        ),
+        nodes: $checkedConvert(
+          'nodes',
+          (v) =>
+              (v as List<dynamic>)
+                  .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
+                  .toList(),
+        ),
+      );
+      return val;
+    });

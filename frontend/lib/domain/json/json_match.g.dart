@@ -6,14 +6,28 @@ part of 'json_match.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
-  id: json['id'] as String,
-  version: (json['version'] as num).toInt(),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  turn: (json['turn'] as num).toInt(),
-  activePlayer: json['activePlayer'] as String,
-  players:
-      (json['players'] as List<dynamic>)
-          .map((e) => JsonPlayer.fromJson(e as Map<String, dynamic>))
-          .toList(),
-);
+JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonMatch', json, ($checkedConvert) {
+      final val = JsonMatch(
+        id: $checkedConvert('id', (v) => v as String),
+        version: $checkedConvert('version', (v) => (v as num).toInt()),
+        createdAt: $checkedConvert(
+          'createdAt',
+          (v) => DateTime.parse(v as String),
+        ),
+        turn: $checkedConvert('turn', (v) => (v as num).toInt()),
+        activePlayer: $checkedConvert('activePlayer', (v) => v as String),
+        players: $checkedConvert(
+          'players',
+          (v) =>
+              (v as List<dynamic>)
+                  .map((e) => JsonPlayer.fromJson(e as Map<String, dynamic>))
+                  .toList(),
+        ),
+        battlefield: $checkedConvert(
+          'battlefield',
+          (v) => JsonBattlefield.fromJson(v as Map<String, dynamic>),
+        ),
+      );
+      return val;
+    });

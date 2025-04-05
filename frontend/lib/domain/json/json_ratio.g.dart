@@ -6,7 +6,11 @@ part of 'json_ratio.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonRatio _$JsonRatioFromJson(Map<String, dynamic> json) => JsonRatio(
-  width: (json['width'] as num).toDouble(),
-  height: (json['height'] as num).toDouble(),
-);
+JsonRatio _$JsonRatioFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonRatio', json, ($checkedConvert) {
+      final val = JsonRatio(
+        width: $checkedConvert('width', (v) => (v as num).toDouble()),
+        height: $checkedConvert('height', (v) => (v as num).toDouble()),
+      );
+      return val;
+    });

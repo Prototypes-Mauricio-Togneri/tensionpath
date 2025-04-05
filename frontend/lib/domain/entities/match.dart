@@ -43,10 +43,7 @@ class Match {
 
       final Player self = json.self;
       final Player opponent = json.opponent;
-      final Battlefield battlefield = await Battlefield.create(
-        self: self,
-        opponent: opponent,
-      );
+      final Battlefield battlefield = json.getBattlefield([self, opponent]);
 
       final Match match = Match(
         id: id,

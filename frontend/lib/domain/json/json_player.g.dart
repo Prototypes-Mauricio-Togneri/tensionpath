@@ -6,9 +6,16 @@ part of 'json_player.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) => JsonPlayer(
-  id: json['id'] as String,
-  name: json['name'] as String,
-  resources: (json['resources'] as num).toInt(),
-  resourcesRate: (json['resourcesRate'] as num).toInt(),
-);
+JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonPlayer', json, ($checkedConvert) {
+      final val = JsonPlayer(
+        id: $checkedConvert('id', (v) => v as String),
+        name: $checkedConvert('name', (v) => v as String),
+        resources: $checkedConvert('resources', (v) => (v as num).toInt()),
+        resourcesRate: $checkedConvert(
+          'resourcesRate',
+          (v) => (v as num).toInt(),
+        ),
+      );
+      return val;
+    });
