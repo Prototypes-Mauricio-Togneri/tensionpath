@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
 class Match {
@@ -21,12 +22,8 @@ class Match {
     FirebaseFirestore.instance.collection('matches').doc(id).snapshots().listen(
       (snapshot) async {
         if (snapshot.exists) {
-          final Map<String, dynamic>? data = snapshot.data();
-
-          if (data != null) {
-            final JsonMatch json = JsonMatch.fromJson(data);
-            print('Match updated: $json');
-          }
+          final JsonMatch json = JsonMatch.fromJson(snapshot.json);
+          print('Match updated: $json');
         }
       },
       onError: ErrorHandler.process,
@@ -41,28 +38,23 @@ class Match {
         await FirebaseFirestore.instance.collection('matches').doc(id).get();
 
     if (snapshot.exists) {
-      final Map<String, dynamic>? data =
-          snapshot.data() as Map<String, dynamic>?;
+      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
+      print('Match loaded: $json');
 
-      if (data != null) {
-        final JsonMatch json = JsonMatch.fromJson(data);
-        print('Match loaded: $json');
+      final Player self = Player.self();
+      final Player enemy = Player.enemy();
+      final Battlefield battlefield = await Battlefield.create(
+        self: self,
+        enemy: enemy,
+      );
 
-        final Player self = Player.self();
-        final Player enemy = Player.enemy();
-        final Battlefield battlefield = await Battlefield.create(
-          self: self,
-          enemy: enemy,
-        );
-
-        final Match match = Match(
-          id: id,
-          self: self,
-          enemy: enemy,
-          battlefield: battlefield,
-        );
-        onReady(match);
-      }
+      final Match match = Match(
+        id: id,
+        self: self,
+        enemy: enemy,
+        battlefield: battlefield,
+      );
+      onReady(match);
     }
   }
 }
