@@ -44,25 +44,8 @@ abstract class Node {
   bool get hasLauncher => _structure?.type == StructureType.launcher;
 
   void replaceWith(Node newNode) {
-    if (newNode.hasUnit) {
-      if (_unit != null) {
-        _unit!.replaceWith(newNode._unit!);
-      } else {
-        _unit = newNode._unit;
-      }
-    } else {
-      _unit = null;
-    }
-
-    if (newNode.hasStructure) {
-      if (_structure != null) {
-        _structure!.replaceWith(newNode._structure!);
-      } else {
-        _structure = newNode._structure;
-      }
-    } else {
-      _structure = null;
-    }
+    _unit = newNode._unit;
+    _structure = newNode._structure;
   }
 
   bool belongsTo(Player player) =>

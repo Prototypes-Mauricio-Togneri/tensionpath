@@ -21,15 +21,7 @@ abstract class Structure {
   bool belongsTo(Player player) => _player?.id == player.id;
 
   void replaceWith(Structure newStructure) {
-    if (newStructure.hasPlayer) {
-      if (_player != null) {
-        _player!.replaceWith(newStructure._player!);
-      } else {
-        _player = newStructure._player;
-      }
-    } else {
-      _player = null;
-    }
+    _player = newStructure._player;
   }
 
   StructureComponent component({
