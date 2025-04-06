@@ -36,21 +36,6 @@ abstract class Node {
 
   bool belongsTo(Player player) => _player == player;
 
-  /*void deployUnit(Unit unit) {
-    _unit = unit;
-    _player = unit.player;
-  }*/
-
-  void undeployUnit() {
-    _unit = null;
-    _player = null;
-  }
-
-  void moveUnitTo(Node node) {
-    //deployUnit(node._unit!);
-    node.undeployUnit();
-  }
-
   int distance(Node node) {
     final double distance =
         ((x - node.x).abs() +
@@ -67,6 +52,14 @@ abstract class Node {
     type: type,
     unit: unit.toJson(),
     player: unit.player.id,
+  );
+
+  JsonNode withUnitUndeployed() => JsonNode(
+    x: x,
+    y: y,
+    type: type,
+    unit: null,
+    player: type == NodeType.launcher ? _player?.id : null,
   );
 
   JsonNode toJson() => JsonNode(

@@ -6,3 +6,4 @@ targets:
           checked: true
           create_to_json: true
           explicit_to_json: true
+          include_if_null: false

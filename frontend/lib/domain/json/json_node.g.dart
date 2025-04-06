@@ -28,8 +28,8 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
   'x': instance.x,
   'y': instance.y,
   'type': _$NodeTypeEnumMap[instance.type]!,
-  'unit': instance.unit?.toJson(),
-  'player': instance.player,
+  if (instance.unit?.toJson() case final value?) 'unit': value,
+  if (instance.player case final value?) 'player': value,
 };
 
 const _$NodeTypeEnumMap = {

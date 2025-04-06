@@ -86,6 +86,8 @@ class BattlefieldGridComponent extends PositionComponent {
           y: node.y,
         );
 
+        print('Node position: ${node.x}, ${node.y}, ${node.type}');
+
         final NodeComponent nodeComponent = node.component(
           position: Vector2(mapCenter.x + position.x, mapCenter.y + position.y),
           size: Vector2(nodeSize.height, nodeSize.height),

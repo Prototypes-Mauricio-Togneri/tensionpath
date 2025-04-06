@@ -37,7 +37,7 @@ class MatchComponent extends World {
         size: Dimensions.headerSize(resolution),
       ),
     );
-    
+
     add(
       ControlsComponent(
         player: match.self,
@@ -76,13 +76,6 @@ class MatchComponent extends World {
     }
   }
 
-  void moveUnitTo(NodeComponent nodeComponent) {
-    if (nodeSelected != null) {
-      nodeComponent.node.moveUnitTo(nodeSelected!.node);
-      unselectNodes();
-    }
-  }
-
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.onHighlighted(false);
@@ -113,6 +106,16 @@ class MatchComponent extends World {
     required NodeComponent nodeComponent,
     required UnitType unitType,
   }) => match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
+
+  void moveUnitTo(NodeComponent nodeComponent) {
+    if (nodeSelected != null) {
+      match.onMoveUnit(
+        nodeOrigin: nodeSelected!.node,
+        nodeTarget: nodeComponent.node,
+      );
+      unselectNodes();
+    }
+  }
 
   /*void onUnitDestroyed(Unit unit) {
     unit.destroy();

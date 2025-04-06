@@ -36,4 +36,29 @@ class Battlefield {
       nodes: jsonNodes,
     );
   }
+
+  JsonBattlefield moveUnit({
+    required Node nodeOrigin,
+    required Node nodeTarget,
+  }) {
+    final List<JsonNode> jsonNodes = [];
+    final Unit unit = nodeOrigin.unit;
+
+    for (final Node currentNode in nodes) {
+      if (currentNode == nodeOrigin) {
+        jsonNodes.add(nodeOrigin.withUnitUndeployed());
+      } else if (currentNode == nodeOrigin) {
+        jsonNodes.add(nodeTarget.withUnitDeployed(unit));
+      } else {
+        jsonNodes.add(currentNode.toJson());
+      }
+    }
+
+    return JsonBattlefield(
+      id: id,
+      size: size.toJsonSize(),
+      gridRatio: gridRatio.toJsonRatio(),
+      nodes: jsonNodes,
+    );
+  }
 }

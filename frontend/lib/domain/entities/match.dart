@@ -75,4 +75,26 @@ class Match {
       await updateMatch(json);
     }
   }
+
+  Future onMoveUnit({
+    required Node nodeOrigin,
+    required Node nodeTarget,
+  }) async {
+    if (self.hasResources(1) && !nodeTarget.containsUnit) {
+      self.spendResources(1);
+      final JsonMatch json = JsonMatch(
+        id: id,
+        version: version,
+        createdAt: createdAt,
+        turn: turn,
+        activePlayer: activePlayer,
+        players: [self.toJson(), opponent.toJson()],
+        battlefield: battlefield.moveUnit(
+          nodeOrigin: nodeOrigin,
+          nodeTarget: nodeTarget,
+        ),
+      );
+      await updateMatch(json);
+    }
+  }
 }
