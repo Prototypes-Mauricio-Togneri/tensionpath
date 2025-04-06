@@ -16,7 +16,9 @@ class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
     required super.position,
     required super.size,
   }) {
-    fillPaint.color = node.playerColor!.withAlpha(128);
+    if (node.playerColor != null) {
+      fillPaint.color = node.playerColor!.withAlpha(128);
+    }
   }
 
   @override
