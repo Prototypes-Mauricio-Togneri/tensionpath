@@ -1,1 +1,0 @@
-enum UnitState { alive, dead }

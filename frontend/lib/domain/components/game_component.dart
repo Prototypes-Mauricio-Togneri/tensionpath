@@ -43,14 +43,6 @@ class GameComponent extends FlameGame {
   @override
   Color backgroundColor() => Palette.GAME_BACKGROUND;
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    match.self.update(dt);
-    match.opponent.update(dt);
-  }
-
   void onMatchFinished(bool won) {
     pauseEngine();
 

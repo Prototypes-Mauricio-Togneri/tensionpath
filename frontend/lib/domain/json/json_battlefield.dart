@@ -28,4 +28,6 @@ class JsonBattlefield {
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>
       _$JsonBattlefieldFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JsonBattlefieldToJson(this);
 }

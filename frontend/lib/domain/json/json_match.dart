@@ -49,9 +49,6 @@ class JsonMatch {
     required this.battlefield,
   });
 
-  factory JsonMatch.fromJson(Map<String, dynamic> json) =>
-      _$JsonMatchFromJson(json);
-
   Player get self => players[0].player(true);
 
   Player get opponent => players[1].player(false);
@@ -109,4 +106,9 @@ class JsonMatch {
 
     return null;
   }
+
+  factory JsonMatch.fromJson(Map<String, dynamic> json) =>
+      _$JsonMatchFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
 }

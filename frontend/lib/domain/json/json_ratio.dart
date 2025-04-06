@@ -14,4 +14,6 @@ class JsonRatio {
 
   factory JsonRatio.fromJson(Map<String, dynamic> json) =>
       _$JsonRatioFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JsonRatioToJson(this);
 }

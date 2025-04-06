@@ -1,5 +1,4 @@
 import 'dart:ui';
-export 'dart:ui' show Color;
 
 extension ColorExtension on Color {
   Color grayscale(double factor) {

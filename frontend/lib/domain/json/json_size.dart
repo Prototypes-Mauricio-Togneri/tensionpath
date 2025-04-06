@@ -14,4 +14,6 @@ class JsonSize {
 
   factory JsonSize.fromJson(Map<String, dynamic> json) =>
       _$JsonSizeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JsonSizeToJson(this);
 }

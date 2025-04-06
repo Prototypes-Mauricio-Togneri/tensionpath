@@ -28,3 +28,11 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
       );
       return val;
     });
+
+Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'size': instance.size.toJson(),
+      'gridRatio': instance.gridRatio.toJson(),
+      'nodes': instance.nodes.map((e) => e.toJson()).toList(),
+    };

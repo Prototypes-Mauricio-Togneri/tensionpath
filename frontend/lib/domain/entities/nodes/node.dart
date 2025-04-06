@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 
 abstract class Node {
@@ -28,10 +29,10 @@ abstract class Node {
 
   bool belongsTo(Player player) => _player == player;
 
-  void deployUnit(Unit unit) {
+  /*void deployUnit(Unit unit) {
     _unit = unit;
     _player = unit.player;
-  }
+  }*/
 
   void undeployUnit() {
     _unit = null;
@@ -39,7 +40,7 @@ abstract class Node {
   }
 
   void moveUnitTo(Node node) {
-    deployUnit(node._unit!);
+    //deployUnit(node._unit!);
     node.undeployUnit();
   }
 
@@ -52,4 +53,20 @@ abstract class Node {
 
     return distance.toInt();
   }
+
+  JsonNode withUnitDeployed(Unit unit) => JsonNode(
+    x: x,
+    y: y,
+    type: type,
+    unit: unit.toJson(),
+    player: unit.player.id,
+  );
+
+  JsonNode toJson() => JsonNode(
+    x: x,
+    y: y,
+    type: type,
+    unit: _unit?.toJson(),
+    player: _player?.id,
+  );
 }

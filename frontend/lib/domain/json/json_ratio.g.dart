@@ -14,3 +14,8 @@ JsonRatio _$JsonRatioFromJson(Map<String, dynamic> json) =>
       );
       return val;
     });
+
+Map<String, dynamic> _$JsonRatioToJson(JsonRatio instance) => <String, dynamic>{
+  'width': instance.width,
+  'height': instance.height,
+};

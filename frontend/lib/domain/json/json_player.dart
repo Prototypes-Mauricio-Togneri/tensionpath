@@ -24,14 +24,16 @@ class JsonPlayer {
     required this.resourcesRate,
   });
 
-  factory JsonPlayer.fromJson(Map<String, dynamic> json) =>
-      _$JsonPlayerFromJson(json);
-
   Player player(bool isSelf) => Player(
     id: id,
     name: name,
     isSelf: isSelf,
     resources: resources,
-    baseResourceRate: resourcesRate,
+    resourcesRate: resourcesRate,
   );
+
+  factory JsonPlayer.fromJson(Map<String, dynamic> json) =>
+      _$JsonPlayerFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JsonPlayerToJson(this);
 }

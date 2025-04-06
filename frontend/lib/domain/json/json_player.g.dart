@@ -19,3 +19,11 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
       );
       return val;
     });
+
+Map<String, dynamic> _$JsonPlayerToJson(JsonPlayer instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'resources': instance.resources,
+      'resourcesRate': instance.resourcesRate,
+    };

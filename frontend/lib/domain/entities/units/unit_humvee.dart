@@ -6,10 +6,13 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitHumvee extends Unit {
   UnitHumvee({
-    required super.player,
+    required super.cost,
     required super.maxHealth,
-    required super.range,
+    required super.attackRange,
+    required super.movementRange,
+    required super.visibilityRange,
     required super.attack,
+    required super.player,
   }) : super(type: UnitType.humvee);
 
   @override

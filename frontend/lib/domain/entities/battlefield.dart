@@ -7,10 +7,11 @@ import 'package:tensionpath/domain/entities/nodes/node_missile.dart';
 import 'package:tensionpath/domain/entities/nodes/node_platform.dart';
 import 'package:tensionpath/domain/entities/nodes/node_resources.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/extensions/size_extension.dart';
 
 class Battlefield {
   final String id;
@@ -24,15 +25,6 @@ class Battlefield {
     required this.size,
     required this.gridRatio,
   });
-
-  static Future<Battlefield> create({
-    required Player self,
-    required Player opponent,
-  }) async => Battlefield.fromJson(
-    filePath: Assets.BATTLEFIELDS_W9H7,
-    player1: self,
-    player2: opponent,
-  );
 
   static Future<Battlefield> fromJson({
     required String filePath,
@@ -81,6 +73,25 @@ class Battlefield {
         jsonBattlefield.gridRatio.width.toDouble(),
         jsonBattlefield.gridRatio.height.toDouble(),
       ),
+    );
+  }
+
+  JsonBattlefield deployUnit({required Node node, required Unit unit}) {
+    final List<JsonNode> jsonNodes = [];
+
+    for (final Node currentNode in nodes) {
+      if (currentNode == node) {
+        jsonNodes.add(node.withUnitDeployed(unit));
+      } else {
+        jsonNodes.add(currentNode.toJson());
+      }
+    }
+
+    return JsonBattlefield(
+      id: id,
+      size: size.toJsonSize(),
+      gridRatio: gridRatio.toJsonRatio(),
+      nodes: jsonNodes,
     );
   }
 }

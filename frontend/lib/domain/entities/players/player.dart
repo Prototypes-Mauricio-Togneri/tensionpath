@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -6,17 +7,17 @@ class Player {
   final String name;
   final bool isSelf;
   int resources;
-  int baseResourceRate;
+  int resourcesRate;
 
   Player({
     required this.id,
     required this.name,
     required this.isSelf,
     required this.resources,
-    required this.baseResourceRate,
+    required this.resourcesRate,
   });
 
-  int get resourceRate => baseResourceRate;
+  int get resourceRate => resourcesRate;
 
   bool get isOpponent => !isSelf;
 
@@ -33,15 +34,10 @@ class Player {
     resources -= value;
   }
 
-  @override
-  bool operator ==(Object other) => other is Player && (id == other.id);
-
-  @override
-  int get hashCode => id.hashCode;
-
-  void update(double dt) {
-    takeAction();
-  }
-
-  void takeAction() {}
+  JsonPlayer toJson() => JsonPlayer(
+    id: id,
+    name: name,
+    resources: resources,
+    resourcesRate: resourcesRate,
+  );
 }

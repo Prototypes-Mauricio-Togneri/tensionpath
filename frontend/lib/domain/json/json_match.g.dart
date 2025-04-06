@@ -31,3 +31,13 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
       );
       return val;
     });
+
+Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
+  'id': instance.id,
+  'version': instance.version,
+  'createdAt': instance.createdAt.toIso8601String(),
+  'turn': instance.turn,
+  'activePlayer': instance.activePlayer,
+  'players': instance.players.map((e) => e.toJson()).toList(),
+  'battlefield': instance.battlefield.toJson(),
+};

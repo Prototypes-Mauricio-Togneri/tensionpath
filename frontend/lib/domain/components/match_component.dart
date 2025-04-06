@@ -7,7 +7,6 @@ import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -53,7 +52,7 @@ class MatchComponent extends World {
       battlefieldComponent?.nodeComponents ?? [];
 
   void onPassTurn() {
-    match.self.addResources(match.self.baseResourceRate);
+    match.self.addResources(match.self.resourcesRate);
   }
 
   void selectNode(NodeComponent? node) {
@@ -112,15 +111,7 @@ class MatchComponent extends World {
   void onDeployUnit({
     required NodeComponent nodeComponent,
     required UnitType unitType,
-  }) {
-    if (match.self.hasResources(unitType.cost) &&
-        !nodeComponent.node.containsUnit) {
-      match.self.spendResources(unitType.cost);
-      final Unit unit = Unit.fromType(unitType: unitType, player: match.self);
-      nodeComponent.node.deployUnit(unit);
-      nodeComponent.onHighlighted(false);
-    }
-  }
+  }) => match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
 
   /*void onUnitDestroyed(Unit unit) {
     unit.destroy();

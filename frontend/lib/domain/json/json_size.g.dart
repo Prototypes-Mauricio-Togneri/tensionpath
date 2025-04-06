@@ -14,3 +14,8 @@ JsonSize _$JsonSizeFromJson(Map<String, dynamic> json) =>
       );
       return val;
     });
+
+Map<String, dynamic> _$JsonSizeToJson(JsonSize instance) => <String, dynamic>{
+  'width': instance.width,
+  'height': instance.height,
+};
