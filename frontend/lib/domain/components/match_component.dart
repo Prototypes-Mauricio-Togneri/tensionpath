@@ -27,8 +27,8 @@ class MatchComponent extends World {
       position: Dimensions.battlefieldPosition(resolution),
       size: Dimensions.battlefieldSize(resolution),
     );
-
     add(battlefieldComponent!);
+
     add(
       HeaderComponent(
         player1: match.self,
@@ -37,6 +37,7 @@ class MatchComponent extends World {
         size: Dimensions.headerSize(resolution),
       ),
     );
+    
     add(
       ControlsComponent(
         player: match.self,
