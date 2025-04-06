@@ -69,12 +69,8 @@ class Node {
     structure: _structure?.toJson(),
   );
 
-  JsonNode withUnitUndeployed() => JsonNode(
-    x: x,
-    y: y,
-    unit: null,
-    structure: _structure?.toJson(),
-  );
+  JsonNode withUnitUndeployed() =>
+      JsonNode(x: x, y: y, unit: null, structure: _structure?.toJson());
 
   JsonNode toJson() => JsonNode(
     x: x,

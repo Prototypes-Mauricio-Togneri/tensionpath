@@ -14,11 +14,8 @@ class NodeComponent<N extends Node> extends PositionComponent
   final N node;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
+    strokeWidth: 2,
     color: Palette.NODE_BORDER,
-  );
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.NODE_LAND,
   );
   NodeHighlitedComponent? nodeHighlitedComponent;
   NodeSelectedComponent? nodeSelectedComponent;
@@ -153,11 +150,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawHexagon(
-      size: size,
-      borderPaint: borderPaint,
-      fillPaint: fillPaint,
-    );
+    canvas.drawHexagon(size: size, borderPaint: borderPaint);
 
     if (debugMode) {
       canvas.drawText(

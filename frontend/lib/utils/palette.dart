@@ -20,8 +20,7 @@ class Palette {
   static const Color CONTROLS_UNIT_BORDER_DISABLED = Color(0xff555555);
   static const Color CONTROLS_UNIT_FILL_DISABLED = Color(0xff888888);
 
-  static Color NODE_BORDER = Colors.white.withAlpha(80);
-  static const Color NODE_LAND = Colors.green;
+  static Color NODE_BORDER = Colors.white.withAlpha(50);
   static const Color NODE_RESOURCES = Colors.black45;
   static const Color NODE_MISSILE = Colors.brown;
   static const Color NODE_PLATFORM = Color(0xff666666);
