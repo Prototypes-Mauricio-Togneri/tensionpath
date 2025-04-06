@@ -36,7 +36,6 @@ abstract class Node {
 
   void replaceWith(Node node) {
     _unit = node._unit;
-    _player = node._player;
   }
 
   bool belongsTo(Player player) => _player == player;
@@ -74,4 +73,18 @@ abstract class Node {
     unit: _unit?.toJson(),
     player: _player?.id,
   );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    } else if (other is! Node) {
+      return false;
+    } else {
+      return (other.x == x) && (other.y == y) && (other.type == type);
+    }
+  }
+
+  @override
+  int get hashCode => Object.hash(x, y, type);
 }

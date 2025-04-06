@@ -56,15 +56,15 @@ class Match {
   }
 
   void onMatchUpated(JsonMatch json) {
-    //final Match newMatch = json.object;
+    final Match newMatch = json.object;
 
-    //self.replaceWith(newMatch.self);
-    //opponent.replaceWith(newMatch.opponent);
+    self.replaceWith(newMatch.self);
+    opponent.replaceWith(newMatch.opponent);
 
-    /*for (final Node newNode in newMatch.battlefield.nodes) {
+    for (final Node newNode in newMatch.battlefield.nodes) {
       final Node oldNode = battlefield.nodeByPosition(newNode.x, newNode.y);
       oldNode.replaceWith(newNode);
-    }*/
+    }
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
