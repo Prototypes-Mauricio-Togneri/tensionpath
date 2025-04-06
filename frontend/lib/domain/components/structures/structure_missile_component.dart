@@ -11,7 +11,7 @@ class StructureMissileComponent extends StructureComponent<StructureMissile> {
   );
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.NODE_RESOURCES,
+    color: Palette.NODE_MISSILE,
   );
 
   StructureMissileComponent({
