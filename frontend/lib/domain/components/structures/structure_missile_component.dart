@@ -13,7 +13,7 @@ class StructureMissileComponent extends StructureComponent<StructureMissile> {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_1);
+    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
 
     return super.onLoad();
   }

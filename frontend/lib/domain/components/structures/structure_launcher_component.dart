@@ -15,9 +15,9 @@ class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
   FutureOr onLoad() async {
     if (structure.hasPlayer) {
       if (structure.isPlayer1) {
-        sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_1);
+        sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_1);
       } else {
-        sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_2);
+        sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_2);
       }
     } else {
       throw Exception('Launcher has no player');

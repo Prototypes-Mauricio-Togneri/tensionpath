@@ -14,7 +14,7 @@ class StructureResourcesComponent
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_1);
+    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
 
     return super.onLoad();
   }
