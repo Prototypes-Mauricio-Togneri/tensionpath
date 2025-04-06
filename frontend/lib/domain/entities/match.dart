@@ -68,7 +68,7 @@ class Match {
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
-    if (self.hasResources(unitType.cost) && !node.containsUnit) {
+    if (self.hasResources(unitType.cost) && !node.hasUnit) {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, player: self);
       final JsonMatch json = JsonMatch(
@@ -88,7 +88,7 @@ class Match {
     required Node nodeOrigin,
     required Node nodeTarget,
   }) async {
-    if (self.hasResources(1) && !nodeTarget.containsUnit) {
+    if (self.hasResources(1) && !nodeTarget.hasUnit) {
       self.spendResources(1);
       final JsonMatch json = JsonMatch(
         id: id,

@@ -1,1 +1,2 @@
-enum NodeType { land, resources, launcher, missile, platform }
+// TODO(momo): remove all?
+enum NodeType { land, resources, missile, platform }

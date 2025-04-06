@@ -41,6 +41,12 @@ abstract class Unit {
     health -= value;
   }
 
+  void replaceWith(Unit newUnit) {
+    health = newUnit.health;
+  }
+
+  bool belongsTo(Player player) => this.player.id == player.id;
+
   UnitComponent component({required Vector2 position, required Vector2 size});
 
   factory Unit.fromType({required UnitType unitType, required Player player}) {

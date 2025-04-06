@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_launcher_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -88,10 +87,10 @@ class MatchComponent extends World {
 
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent is NodeLauncherComponent) {
+      if (nodeComponent.hasLauncher) {
         final bool isPlayer = nodeComponent.node.belongsTo(match.self);
         final bool isInPosition = nodeComponent.containsPoint(position);
-        final bool canDeploy = !nodeComponent.node.containsUnit;
+        final bool canDeploy = !nodeComponent.node.hasUnit;
 
         if (isPlayer && isInPosition && canDeploy) {
           return nodeComponent;

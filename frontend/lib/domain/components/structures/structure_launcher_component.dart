@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/entities/nodes/node_launcher.dart';
+import 'package:tensionpath/domain/components/structures/structure_component.dart';
+import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodeLauncherComponent extends NodeComponent<NodeLauncher> {
+class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
   );
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
 
-  NodeLauncherComponent({
-    required super.node,
+  StructureLauncherComponent({
+    required super.structure,
     required super.position,
     required super.size,
   }) {
-    if (node.playerColor != null) {
-      fillPaint.color = node.playerColor!.withAlpha(128);
+    if (structure.hasPlayer) {
+      fillPaint.color = structure.color!.withAlpha(128);
     }
   }
 

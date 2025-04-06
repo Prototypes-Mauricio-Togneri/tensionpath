@@ -9,7 +9,7 @@ class NodeLand extends Node {
     required super.x,
     required super.y,
     required super.nodeUnit,
-    required super.nodePlayer,
+    required super.nodeStructure,
   }) : super(type: NodeType.land);
 
   @override

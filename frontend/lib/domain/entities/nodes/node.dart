@@ -1,58 +1,73 @@
+import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/components/nodes/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/domain/types/structure_type.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 abstract class Node {
   final NodeType type;
   final int x;
   final int y;
   Unit? _unit;
-  Player? _player;
+  Structure? _structure;
 
   Node({
     required this.type,
     required this.x,
     required this.y,
     required Unit? nodeUnit,
-    required Player? nodePlayer,
+    required Structure? nodeStructure,
   }) {
     _unit = nodeUnit;
-    _player = nodePlayer;
+    _structure = nodeStructure;
   }
 
   NodeComponent component({required Vector2 position, required Vector2 size});
 
   Unit get unit => _unit!;
 
-  Player get player => _player!;
+  Structure get structure => _structure!;
 
-  bool get hasPlayer => _player != null;
+  Color get color => _unit?.color ?? _structure?.color ?? Palette.transparent;
 
   String get id => '[$x,$y]';
 
-  Color? get playerColor => _player?.color;
+  bool get hasUnit => _unit != null;
 
-  bool get containsUnit => _unit != null;
+  bool get hasStructure => _structure != null;
+
+  bool get hasLauncher => _structure?.type == StructureType.launcher;
 
   void replaceWith(Node newNode) {
-    _unit = newNode._unit;
-
-    if (newNode.hasPlayer) {
-      if (_player != null) {
-        _player?.replaceWith(newNode.player);
+    if (newNode.hasUnit) {
+      if (_unit != null) {
+        _unit!.replaceWith(newNode._unit!);
       } else {
-        _player = newNode.player;
+        _unit = newNode._unit;
       }
     } else {
-      _player = null;
+      _unit = null;
+    }
+
+    if (newNode.hasStructure) {
+      if (_structure != null) {
+        _structure!.replaceWith(newNode._structure!);
+      } else {
+        _structure = newNode._structure;
+      }
+    } else {
+      _structure = null;
     }
   }
 
-  bool belongsTo(Player player) => _player == player;
+  bool belongsTo(Player player) =>
+      (_unit?.belongsTo(player) ?? false) ||
+      (_structure?.belongsTo(player) ?? false);
 
   int distance(Node node) {
     final double distance =
@@ -69,7 +84,7 @@ abstract class Node {
     y: y,
     type: type,
     unit: unit.toJson(),
-    player: unit.player.id,
+    structure: _structure?.toJson(),
   );
 
   JsonNode withUnitUndeployed() => JsonNode(
@@ -77,7 +92,7 @@ abstract class Node {
     y: y,
     type: type,
     unit: null,
-    player: type == NodeType.launcher ? _player?.id : null,
+    structure: _structure?.toJson(),
   );
 
   JsonNode toJson() => JsonNode(
@@ -85,7 +100,7 @@ abstract class Node {
     y: y,
     type: type,
     unit: _unit?.toJson(),
-    player: _player?.id,
+    structure: _structure?.toJson(),
   );
 
   @override
