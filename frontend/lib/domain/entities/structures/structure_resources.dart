@@ -5,8 +5,8 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class StructureResources extends Structure {
-  StructureResources({required super.structurePlayer})
-    : super(type: StructureType.launcher);
+  StructureResources()
+    : super(type: StructureType.resources, structurePlayer: null);
 
   @override
   StructureComponent component({

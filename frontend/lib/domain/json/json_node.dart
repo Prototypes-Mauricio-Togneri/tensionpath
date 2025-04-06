@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/entities/nodes/node_land.dart';
-import 'package:tensionpath/domain/entities/nodes/node_missile.dart';
 import 'package:tensionpath/domain/entities/nodes/node_platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
@@ -44,13 +43,6 @@ class JsonNode {
     switch (type) {
       case NodeType.land:
         return NodeLand(
-          x: x,
-          y: y,
-          nodeUnit: nodeUnit,
-          nodeStructure: nodeStructure,
-        );
-      case NodeType.missile:
-        return NodeMissile(
           x: x,
           y: y,
           nodeUnit: nodeUnit,

@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
+import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
@@ -38,9 +39,9 @@ abstract class Structure {
       case StructureType.launcher:
         return StructureLauncher(structurePlayer: player);
       case StructureType.resources:
-        return StructureResources(structurePlayer: player);
+        return StructureResources();
       case StructureType.missile:
-        throw UnimplementedError();
+        return StructureMissile();
       case StructureType.platform:
         throw UnimplementedError();
     }
