@@ -34,6 +34,11 @@ abstract class Node {
 
   bool get containsUnit => _unit != null;
 
+  void replaceWith(Node node) {
+    _unit = node._unit;
+    _player = node._player;
+  }
+
   bool belongsTo(Player player) => _player == player;
 
   int distance(Node node) {

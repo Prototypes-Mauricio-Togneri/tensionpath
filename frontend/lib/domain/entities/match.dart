@@ -14,9 +14,9 @@ class Match {
   final DateTime createdAt;
   final int turn;
   final String activePlayer;
-  Player self;
-  Player opponent;
-  Battlefield battlefield;
+  final Player self;
+  final Player opponent;
+  final Battlefield battlefield;
 
   Match({
     required this.id,
@@ -56,7 +56,15 @@ class Match {
   }
 
   void onMatchUpated(JsonMatch json) {
-    print(json);
+    //final Match newMatch = json.object;
+
+    //self.replaceWith(newMatch.self);
+    //opponent.replaceWith(newMatch.opponent);
+
+    /*for (final Node newNode in newMatch.battlefield.nodes) {
+      final Node oldNode = battlefield.nodeByPosition(newNode.x, newNode.y);
+      oldNode.replaceWith(newNode);
+    }*/
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {

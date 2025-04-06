@@ -18,6 +18,16 @@ class Battlefield {
     required this.gridRatio,
   });
 
+  Node nodeByPosition(int x, int y) {
+    for (final Node node in nodes) {
+      if ((node.x == x) && (node.y == y)) {
+        return node;
+      }
+    }
+
+    throw Exception('Node not found at position ($x, $y)');
+  }
+
   JsonBattlefield deployUnit({required Node node, required Unit unit}) {
     final List<JsonNode> jsonNodes = [];
 
