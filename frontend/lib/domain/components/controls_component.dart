@@ -191,7 +191,7 @@ class UnitImageComponent extends SpriteComponent {
     required this.type,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
+  }) : super(anchor: Anchor.center, priority: Priority.controls.value);
 
   @override
   FutureOr onLoad() async {

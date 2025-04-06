@@ -17,7 +17,7 @@ class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
     required super.size,
   }) {
     if (structure.hasPlayer) {
-      fillPaint.color = structure.color!.withAlpha(128);
+      fillPaint.color = structure.color!;
     }
   }
 

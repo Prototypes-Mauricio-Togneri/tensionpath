@@ -36,7 +36,6 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
 
 const _$NodeTypeEnumMap = {
   NodeType.land: 'land',
-  NodeType.resources: 'resources',
   NodeType.missile: 'missile',
   NodeType.platform: 'platform',
 };
