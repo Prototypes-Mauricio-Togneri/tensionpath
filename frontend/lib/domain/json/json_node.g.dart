@@ -34,7 +34,4 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
   if (instance.structure?.toJson() case final value?) 'structure': value,
 };
 
-const _$NodeTypeEnumMap = {
-  NodeType.land: 'land',
-  NodeType.platform: 'platform',
-};
+const _$NodeTypeEnumMap = {NodeType.land: 'land'};

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
-import 'package:tensionpath/domain/entities/nodes/node_platform.dart';
+import 'package:tensionpath/domain/components/structures/structure_component.dart';
+import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class NodePlatformComponent extends NodeComponent<NodePlatform> {
+class StructurePlatformComponent extends StructureComponent<StructurePlatform> {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
@@ -14,8 +14,8 @@ class NodePlatformComponent extends NodeComponent<NodePlatform> {
     color: Palette.NODE_PLATFORM,
   );
 
-  NodePlatformComponent({
-    required super.node,
+  StructurePlatformComponent({
+    required super.structure,
     required super.position,
     required super.size,
   });

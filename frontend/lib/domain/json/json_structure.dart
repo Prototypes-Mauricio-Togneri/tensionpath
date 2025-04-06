@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
+import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
@@ -32,7 +33,7 @@ class JsonStructure {
       case StructureType.missile:
         return StructureMissile();
       case StructureType.platform:
-        throw UnimplementedError();
+        return StructurePlatform();
     }
   }
 
