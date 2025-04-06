@@ -34,9 +34,9 @@ class Player {
     resources -= value;
   }
 
-  void replaceWith(Player player) {
-    resources = player.resources;
-    resourcesRate = player.resourcesRate;
+  void replaceWith(Player newPlayer) {
+    resources = newPlayer.resources;
+    resourcesRate = newPlayer.resourcesRate;
   }
 
   JsonPlayer toJson() => JsonPlayer(

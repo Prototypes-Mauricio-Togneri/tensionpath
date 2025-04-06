@@ -28,14 +28,28 @@ abstract class Node {
 
   Unit get unit => _unit!;
 
+  Player get player => _player!;
+
+  bool get hasPlayer => _player != null;
+
   String get id => '[$x,$y]';
 
   Color? get playerColor => _player?.color;
 
   bool get containsUnit => _unit != null;
 
-  void replaceWith(Node node) {
-    _unit = node._unit;
+  void replaceWith(Node newNode) {
+    _unit = newNode._unit;
+
+    if (newNode.hasPlayer) {
+      if (_player != null) {
+        _player?.replaceWith(newNode.player);
+      } else {
+        _player = newNode.player;
+      }
+    } else {
+      _player = null;
+    }
   }
 
   bool belongsTo(Player player) => _player == player;
