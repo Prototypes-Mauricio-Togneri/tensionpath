@@ -1,8 +1,6 @@
 class Assets {
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.jpg';
-  static const String IMAGES_BATTLEFIELDS_BACKGROUND_OVERLAY =
-      'battlefields/background_overlay.jpg';
   static const String IMAGES_UNITS_ARTILLERY = 'units/artillery.png';
   static const String IMAGES_UNITS_HELICOPTER = 'units/helicopter.png';
   static const String IMAGES_UNITS_HUMVEE = 'units/humvee.png';

@@ -12,11 +12,6 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeComponent<N extends Node> extends PositionComponent
     with HoverCallbacks, MatchComponentRef, TapCallbacks {
   final N node;
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 2,
-    color: Palette.NODE_BORDER,
-  );
   NodeHighlitedComponent? nodeHighlitedComponent;
   NodeSelectedComponent? nodeSelectedComponent;
   UnitComponent? unitComponent;
@@ -149,8 +144,6 @@ class NodeComponent<N extends Node> extends PositionComponent
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-
-    canvas.drawHexagon(size: size, borderPaint: borderPaint);
 
     if (debugMode) {
       canvas.drawText(
