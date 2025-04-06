@@ -28,14 +28,14 @@ class Battlefield {
     throw Exception('Node not found at position ($x, $y)');
   }
 
-  JsonBattlefield deployUnit({required Node node, required Unit unit}) {
+  JsonBattlefield deployUnit({required Node nodeTarget, required Unit unit}) {
     final List<JsonNode> jsonNodes = [];
 
-    for (final Node currentNode in nodes) {
-      if (currentNode == node) {
-        jsonNodes.add(node.withUnitDeployed(unit));
+    for (final Node node in nodes) {
+      if (node == nodeTarget) {
+        jsonNodes.add(nodeTarget.withUnitDeployed(unit));
       } else {
-        jsonNodes.add(currentNode.toJson());
+        jsonNodes.add(node.toJson());
       }
     }
 
@@ -54,13 +54,13 @@ class Battlefield {
     final List<JsonNode> jsonNodes = [];
     final Unit unit = nodeOrigin.unit;
 
-    for (final Node currentNode in nodes) {
-      if (currentNode == nodeOrigin) {
+    for (final Node node in nodes) {
+      if (node == nodeOrigin) {
         jsonNodes.add(nodeOrigin.withUnitUndeployed());
-      } else if (currentNode == nodeOrigin) {
+      } else if (node == nodeTarget) {
         jsonNodes.add(nodeTarget.withUnitDeployed(unit));
       } else {
-        jsonNodes.add(currentNode.toJson());
+        jsonNodes.add(node.toJson());
       }
     }
 

@@ -78,7 +78,7 @@ class Match {
         turn: turn,
         activePlayer: activePlayer,
         players: [self.toJson(), opponent.toJson()],
-        battlefield: battlefield.deployUnit(node: node, unit: unit),
+        battlefield: battlefield.deployUnit(nodeTarget: node, unit: unit),
       );
       await updateMatch(json);
     }
