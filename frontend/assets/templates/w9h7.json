@@ -142,7 +142,7 @@
                 "x": 3,
                 "y": -3,
                 "structure": {
-                    "type": "launcher"
+                    "type": "resources"
                 }
             },
             {
@@ -157,7 +157,7 @@
                 "x": 3,
                 "y": 0,
                 "structure": {
-                    "type": "launcher"
+                    "type": "resources"
                 }
             },
             {
@@ -184,7 +184,7 @@
                 "x": -3,
                 "y": 3,
                 "structure": {
-                    "type": "launcher"
+                    "type": "resources"
                 }
             },
             {
@@ -199,7 +199,7 @@
                 "x": -3,
                 "y": 0,
                 "structure": {
-                    "type": "launcher"
+                    "type": "resources"
                 }
             },
             {

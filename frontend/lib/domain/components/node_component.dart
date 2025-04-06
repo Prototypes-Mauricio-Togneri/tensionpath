@@ -192,7 +192,7 @@ class NodeSelectedComponent extends PositionComponent {
     required super.size,
     required Color color,
   }) : super(anchor: Anchor.center, priority: Priority.node.value) {
-    selectedPaint.strokeWidth = size.x / 15;
+    selectedPaint.strokeWidth = size.x / 20;
     selectedPaint.color = color;
   }
 
