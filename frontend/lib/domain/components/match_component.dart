@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';

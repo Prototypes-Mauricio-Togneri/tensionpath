@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/entities/nodes/node.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -12,6 +12,14 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeComponent<N extends Node> extends PositionComponent
     with HoverCallbacks, MatchComponentRef, TapCallbacks {
   final N node;
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.NODE_BORDER,
+  );
+  final Paint fillPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.NODE_LAND,
+  );
   NodeHighlitedComponent? nodeHighlitedComponent;
   NodeSelectedComponent? nodeSelectedComponent;
   UnitComponent? unitComponent;
@@ -144,6 +152,12 @@ class NodeComponent<N extends Node> extends PositionComponent
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
+    canvas.drawHexagon(
+      size: size,
+      borderPaint: borderPaint,
+      fillPaint: fillPaint,
+    );
 
     if (debugMode) {
       canvas.drawText(

@@ -1,23 +1,20 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/nodes/node_component.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-abstract class Node {
-  final NodeType type;
+class Node {
   final int x;
   final int y;
   Unit? _unit;
   Structure? _structure;
 
   Node({
-    required this.type,
     required this.x,
     required this.y,
     required Unit? nodeUnit,
@@ -27,7 +24,10 @@ abstract class Node {
     _structure = nodeStructure;
   }
 
-  NodeComponent component({required Vector2 position, required Vector2 size});
+  NodeComponent<Node> component({
+    required Vector2 position,
+    required Vector2 size,
+  }) => NodeComponent(node: this, position: position, size: size);
 
   Unit get unit => _unit!;
 
@@ -65,7 +65,6 @@ abstract class Node {
   JsonNode withUnitDeployed(Unit unit) => JsonNode(
     x: x,
     y: y,
-    type: type,
     unit: unit.toJson(),
     structure: _structure?.toJson(),
   );
@@ -73,7 +72,6 @@ abstract class Node {
   JsonNode withUnitUndeployed() => JsonNode(
     x: x,
     y: y,
-    type: type,
     unit: null,
     structure: _structure?.toJson(),
   );
@@ -81,7 +79,6 @@ abstract class Node {
   JsonNode toJson() => JsonNode(
     x: x,
     y: y,
-    type: type,
     unit: _unit?.toJson(),
     structure: _structure?.toJson(),
   );
@@ -93,10 +90,10 @@ abstract class Node {
     } else if (other is! Node) {
       return false;
     } else {
-      return (other.x == x) && (other.y == y) && (other.type == type);
+      return (other.x == x) && (other.y == y);
     }
   }
 
   @override
-  int get hashCode => Object.hash(x, y, type);
+  int get hashCode => Object.hash(x, y);
 }

@@ -60,4 +60,18 @@ class Player {
 
     return null;
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    } else if (other is! Player) {
+      return false;
+    } else {
+      return other.id == id;
+    }
+  }
+
+  @override
+  int get hashCode => id.toString().hashCode;
 }
