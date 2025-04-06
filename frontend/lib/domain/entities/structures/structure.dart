@@ -19,6 +19,8 @@ abstract class Structure {
 
   bool get hasPlayer => _player != null;
 
+  bool get isPlayer1 => _player?.isPlayer1 ?? false;
+
   Color? get color => _player?.color;
 
   bool belongsTo(Player player) => _player?.id == player.id;

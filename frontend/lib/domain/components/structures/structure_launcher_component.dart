@@ -1,34 +1,28 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/utils/palette.dart';
+import 'package:tensionpath/utils/assets.dart';
 
 class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.NODE_BORDER,
-  );
-  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
-
   StructureLauncherComponent({
     required super.structure,
     required super.position,
     required super.size,
-  }) {
-    if (structure.hasPlayer) {
-      fillPaint.color = structure.color!;
-    }
-  }
+  });
 
   @override
-  void render(Canvas canvas) {
-    canvas.drawHexagon(
-      size: size,
-      borderPaint: borderPaint,
-      fillPaint: fillPaint,
-    );
+  FutureOr onLoad() async {
+    if (structure.hasPlayer) {
+      if (structure.isPlayer1) {
+        sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_1);
+      } else {
+        sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_2);
+      }
+    } else {
+      throw Exception('Launcher has no player');
+    }
 
-    super.render(canvas);
+    return super.onLoad();
   }
 }

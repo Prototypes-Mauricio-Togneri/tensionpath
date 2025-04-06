@@ -1,19 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/utils/palette.dart';
+import 'package:tensionpath/utils/assets.dart';
 
 class StructurePlatformComponent extends StructureComponent<StructurePlatform> {
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.NODE_BORDER,
-  );
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.NODE_PLATFORM,
-  );
-
   StructurePlatformComponent({
     required super.structure,
     required super.position,
@@ -21,13 +12,9 @@ class StructurePlatformComponent extends StructureComponent<StructurePlatform> {
   });
 
   @override
-  void render(Canvas canvas) {
-    canvas.drawHexagon(
-      size: size,
-      borderPaint: borderPaint,
-      fillPaint: fillPaint,
-    );
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PLATFORM_1);
 
-    super.render(canvas);
+    return super.onLoad();
   }
 }

@@ -19,6 +19,8 @@ class Player {
 
   int get resourceRate => resourcesRate;
 
+  bool get isPlayer1 => id == '1';
+
   bool get isOpponent => !isSelf;
 
   Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_OPPONENT;
