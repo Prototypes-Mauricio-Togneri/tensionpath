@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_ratio.dart';
 import 'package:tensionpath/domain/json/json_size.dart';
@@ -25,6 +27,13 @@ class JsonBattlefield {
     required this.gridRatio,
     required this.nodes,
   });
+
+  Battlefield object(List<Player> players) => Battlefield(
+    id: id,
+    nodes: nodes.map((node) => node.object(players)).toList(),
+    size: size.object,
+    gridRatio: gridRatio.object,
+  );
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>
       _$JsonBattlefieldFromJson(json);

@@ -24,7 +24,7 @@ class JsonPlayer {
     required this.resourcesRate,
   });
 
-  Player player(bool isSelf) => Player(
+  Player object(bool isSelf) => Player(
     id: id,
     name: name,
     isSelf: isSelf,

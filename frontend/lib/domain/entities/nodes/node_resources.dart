@@ -5,8 +5,12 @@ import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 class NodeResources extends Node {
-  NodeResources({required super.x, required super.y})
-    : super(type: NodeType.resources);
+  NodeResources({
+    required super.x,
+    required super.y,
+    required super.nodeUnit,
+    required super.nodePlayer,
+  }) : super(type: NodeType.resources);
 
   @override
   NodeComponent<Node> component({

@@ -47,20 +47,7 @@ class Match {
 
     if (snapshot.exists) {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      final Player self = json.self;
-      final Player opponent = json.opponent;
-      final Battlefield battlefield = json.getBattlefield([self, opponent]);
-      final Match match = Match(
-        id: id,
-        version: json.version,
-        createdAt: json.createdAt,
-        turn: json.turn,
-        activePlayer: json.activePlayer,
-        self: self,
-        opponent: opponent,
-        battlefield: battlefield,
-      );
-      onReady(match);
+      onReady(json.object);
     }
   }
 
@@ -76,7 +63,6 @@ class Match {
     if (self.hasResources(unitType.cost) && !node.containsUnit) {
       self.spendResources(unitType.cost);
       final Unit unit = Unit.fromType(unitType: unitType, player: self);
-
       final JsonMatch json = JsonMatch(
         id: id,
         version: version,

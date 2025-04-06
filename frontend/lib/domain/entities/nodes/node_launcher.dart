@@ -5,8 +5,12 @@ import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 
 class NodeLauncher extends Node {
-  NodeLauncher({required super.x, required super.y, required super.owner})
-    : super(type: NodeType.launcher);
+  NodeLauncher({
+    required super.x,
+    required super.y,
+    required super.nodeUnit,
+    required super.nodePlayer,
+  }) : super(type: NodeType.launcher);
 
   @override
   NodeComponent<Node> component({

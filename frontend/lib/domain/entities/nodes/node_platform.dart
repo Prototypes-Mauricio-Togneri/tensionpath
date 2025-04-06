@@ -5,8 +5,12 @@ import 'package:tensionpath/domain/entities/nodes/node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 
 class NodePlatform extends Node {
-  NodePlatform({required super.x, required super.y})
-    : super(type: NodeType.platform);
+  NodePlatform({
+    required super.x,
+    required super.y,
+    required super.nodeUnit,
+    required super.nodePlayer,
+  }) : super(type: NodeType.platform);
 
   @override
   NodeComponent<Node> component({

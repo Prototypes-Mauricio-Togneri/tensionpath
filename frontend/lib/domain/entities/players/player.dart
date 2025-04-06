@@ -40,4 +40,19 @@ class Player {
     resources: resources,
     resourcesRate: resourcesRate,
   );
+
+  static Player? playerById({
+    required String? id,
+    required List<Player> players,
+  }) {
+    if (id != null) {
+      for (final Player player in players) {
+        if (player.id == id) {
+          return player;
+        }
+      }
+    }
+
+    return null;
+  }
 }

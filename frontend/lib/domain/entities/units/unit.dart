@@ -117,5 +117,6 @@ abstract class Unit {
     movementRange: movementRange,
     visibilityRange: visibilityRange,
     attack: attack,
+    player: player.id,
   );
 }

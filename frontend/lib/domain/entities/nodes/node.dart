@@ -13,8 +13,15 @@ abstract class Node {
   Unit? _unit;
   Player? _player;
 
-  Node({required this.type, required this.x, required this.y, Player? owner}) {
-    _player = owner;
+  Node({
+    required this.type,
+    required this.x,
+    required this.y,
+    required Unit? nodeUnit,
+    required Player? nodePlayer,
+  }) {
+    _unit = nodeUnit;
+    _player = nodePlayer;
   }
 
   NodeComponent component({required Vector2 position, required Vector2 size});
