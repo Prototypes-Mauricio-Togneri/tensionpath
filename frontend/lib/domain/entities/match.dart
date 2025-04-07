@@ -50,13 +50,14 @@ class Match {
 
   static Future load({
     required String id,
+    required String selfId,
     required Function(Match) onReady,
   }) async {
     final DocumentSnapshot snapshot = await ref(id).get();
 
     if (snapshot.exists) {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      onReady(json.object);
+      onReady(json.object(selfId));
     }
   }
 
@@ -65,7 +66,7 @@ class Match {
   }
 
   void onMatchUpated(JsonMatch json) {
-    final Match newMatch = json.object;
+    final Match newMatch = json.object(self.id);
 
     if (newMatch.activePlayer != activePlayer) {
       _accumulatedResourcesInTurn = 0;

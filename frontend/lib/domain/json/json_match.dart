@@ -39,9 +39,9 @@ class JsonMatch {
     required this.battlefield,
   });
 
-  Match get object {
-    final Player self = players[0].object(true);
-    final Player opponent = players[1].object(false);
+  Match object(String selfId) {
+    final Player self = getSelf(selfId);
+    final Player opponent = getOpponent(selfId);
 
     return Match(
       id: id,
@@ -53,6 +53,26 @@ class JsonMatch {
       opponent: opponent,
       battlefield: battlefield.object([self, opponent]),
     );
+  }
+
+  Player getSelf(String id) {
+    for (final JsonPlayer player in players) {
+      if (player.id == id) {
+        return player.object(true);
+      }
+    }
+
+    throw Exception('Player with id $id not found');
+  }
+
+  Player getOpponent(String id) {
+    for (final JsonPlayer player in players) {
+      if (player.id != id) {
+        return player.object(false);
+      }
+    }
+
+    throw Exception('Player with id $id not found');
   }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
