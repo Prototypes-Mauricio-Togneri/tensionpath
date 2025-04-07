@@ -9,7 +9,7 @@ class SplashState extends BaseState {
   @override
   void onLoad() {
     if (Environment.get.isDebug) {
-      Delayed.post(() => onPlay('2'));
+      Delayed.post(() => onPlay('1'));
     }
   }
 
