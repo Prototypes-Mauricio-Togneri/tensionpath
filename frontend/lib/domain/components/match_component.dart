@@ -14,7 +14,6 @@ class MatchComponent extends World {
   final Size resolution;
   final Match match;
   BattlefieldComponent? battlefieldComponent;
-  NodeComponent? nodeSelected;
 
   MatchComponent({required this.resolution, required this.match}) {
     MatchComponentRef.instance = this;
@@ -61,10 +60,6 @@ class MatchComponent extends World {
 
   void onPassTurn() {
     match.self.addResources(match.self.resourcesRate);
-  }
-
-  void selectNode(NodeComponent? node) {
-    nodeSelected = node;
   }
 
   void highlightNode(NodeComponent? node) {
