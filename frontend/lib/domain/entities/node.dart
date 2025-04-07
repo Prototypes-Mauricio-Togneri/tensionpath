@@ -43,6 +43,10 @@ class Node {
 
   bool get hasLauncher => _structure?.type == StructureType.launcher;
 
+  bool get isActionTarget =>
+      (_structure?.type != StructureType.launcher) &&
+      (_structure?.type != StructureType.missile);
+
   void replaceWith(Node newNode) {
     _unit = newNode._unit;
     _structure = newNode._structure;

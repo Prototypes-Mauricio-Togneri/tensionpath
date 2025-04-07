@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -87,12 +88,31 @@ class MatchComponent extends World {
 
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.hasLauncher) {
+      if (nodeComponent.node.hasLauncher) {
         final bool isPlayer = nodeComponent.node.belongsTo(match.self);
         final bool isInPosition = nodeComponent.containsPoint(position);
         final bool canDeploy = !nodeComponent.node.hasUnit;
 
         if (isPlayer && isInPosition && canDeploy) {
+          return nodeComponent;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  NodeComponent? getActionTargetAt({
+    required Vector2 position,
+    required Node origin,
+  }) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      if (nodeComponent.node.isActionTarget) {
+        final bool isEmpty = !nodeComponent.node.hasUnit;
+        final bool isInPosition = nodeComponent.containsPoint(position);
+        final int distance = nodeComponent.node.distance(origin);
+
+        if (isEmpty && isInPosition && (distance == 1)) {
           return nodeComponent;
         }
       }

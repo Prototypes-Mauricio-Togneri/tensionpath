@@ -23,8 +23,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.node.value);
 
-  bool get hasLauncher => node.hasLauncher;
-
   void onHighlighted(bool enabled) {
     if (enabled) {
       _showHighlighted();
@@ -122,10 +120,14 @@ class NodeComponent<N extends Node> extends PositionComponent
     super.update(dt);
 
     if (node.hasUnit && (unitComponent == null)) {
-      unitComponent = node.unit.component(position: size / 2, size: size / 1.5);
-      add(unitComponent!);
+      unitComponent = node.unit.component(
+        node: node,
+        position: absolutePosition,
+        size: size / 1.5,
+      );
+      match.add(unitComponent!);
     } else if (!node.hasUnit && (unitComponent != null)) {
-      remove(unitComponent!);
+      match.remove(unitComponent!);
       unitComponent = null;
     }
 
@@ -170,7 +172,7 @@ class NodeHighlitedComponent extends PositionComponent {
   );
 
   NodeHighlitedComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center, priority: Priority.node.value) {
+    : super(anchor: Anchor.center) {
     highlightedPaint.strokeWidth = size.x / 20;
   }
 
@@ -193,7 +195,7 @@ class NodeSelectedComponent extends PositionComponent {
     required super.position,
     required super.size,
     required Color color,
-  }) : super(anchor: Anchor.center, priority: Priority.node.value) {
+  }) : super(anchor: Anchor.center) {
     selectedPaint.strokeWidth = size.x / 20;
     selectedPaint.color = color;
   }

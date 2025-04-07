@@ -65,7 +65,7 @@ class BattlefieldGridComponent extends PositionComponent {
     required super.position,
     required super.size,
     required this.nodeComponents,
-  }) : super(anchor: Anchor.center, priority: Priority.battlefield.value);
+  }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() {
@@ -106,5 +106,5 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
     required super.sprite,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.battlefield.value);
+  }) : super(anchor: Anchor.center);
 }

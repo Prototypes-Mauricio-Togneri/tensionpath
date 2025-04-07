@@ -92,7 +92,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.controls.value) {
+  }) : super(anchor: Anchor.center) {
     borderPaint.color = player.color;
     fillPaint.color = player.color.brighten(0.5);
   }
@@ -191,7 +191,7 @@ class UnitImageComponent extends SpriteComponent {
     required this.type,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.controls.value);
+  }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() async {
@@ -212,7 +212,7 @@ class ResourceCounterComponent extends PositionComponent with TapCallbacks {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+  }) : super(anchor: Anchor.topLeft);
 
   @override
   void onTapUp(TapUpEvent event) => match.onPassTurn();
@@ -243,7 +243,7 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+  }) : super(anchor: Anchor.topLeft);
 
   @override
   void render(Canvas canvas) {

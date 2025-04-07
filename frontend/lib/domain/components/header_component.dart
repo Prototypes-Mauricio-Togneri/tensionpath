@@ -57,7 +57,7 @@ class PlayerIndicatorComponent extends PositionComponent {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.header.value) {
+  }) : super(anchor: Anchor.topLeft) {
     fillPaint.color = player.color;
   }
 
@@ -87,7 +87,7 @@ class CenterIndicatorComponent extends PositionComponent {
   );
 
   CenterIndicatorComponent({required super.position, required super.size})
-    : super(anchor: Anchor.topLeft, priority: Priority.header.value);
+    : super(anchor: Anchor.topLeft);
 
   @override
   FutureOr onLoad() {
@@ -106,7 +106,7 @@ class CenterIndicatorComponent extends PositionComponent {
 
 class TimeIndicatorComponent extends PositionComponent {
   TimeIndicatorComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center, priority: Priority.header.value);
+    : super(anchor: Anchor.center);
 
   @override
   void render(Canvas canvas) {

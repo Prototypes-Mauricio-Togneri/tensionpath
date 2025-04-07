@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 class UnitTankComponent extends UnitComponent<UnitTank> {
   UnitTankComponent({
     required super.unit,
+    required super.node,
     required super.position,
     required super.size,
   });
