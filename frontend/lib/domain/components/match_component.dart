@@ -60,12 +60,6 @@ class MatchComponent extends World {
     nodeSelected = node;
   }
 
-  void unselectNodes() {
-    for (final NodeComponent nodeComponent in nodeComponents) {
-      nodeComponent.hideSelected();
-    }
-  }
-
   bool isMovementTarget(NodeComponent node) {
     if (nodeSelected != null) {
       final int distance = nodeSelected!.node.distance(node.node);
@@ -126,20 +120,8 @@ class MatchComponent extends World {
     required UnitType unitType,
   }) => match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
 
-  void onMoveUnit({required Node origin, required Node target}) {
-    match.onMoveUnit(nodeOrigin: origin, nodeTarget: target);
-    unselectNodes();
-  }
-
-  void moveUnitTo(NodeComponent nodeComponent) {
-    if (nodeSelected != null) {
-      match.onMoveUnit(
-        nodeOrigin: nodeSelected!.node,
-        nodeTarget: nodeComponent.node,
-      );
-      unselectNodes();
-    }
-  }
+  void onMoveUnit({required Node origin, required Node target}) =>
+      match.onMoveUnit(nodeOrigin: origin, nodeTarget: target);
 
   /*void onUnitDestroyed(Unit unit) {
     unit.destroy();

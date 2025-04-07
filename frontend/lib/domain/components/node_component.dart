@@ -13,7 +13,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     with HoverCallbacks, MatchComponentRef, TapCallbacks {
   final N node;
   NodeHighlitedComponent? nodeHighlitedComponent;
-  NodeSelectedComponent? nodeSelectedComponent;
   UnitComponent? unitComponent;
   StructureComponent? structureComponent;
 
@@ -49,7 +48,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void onHoverExit() => _hideHighlighted();
 
   void _showHighlighted() {
-    if ((nodeHighlitedComponent == null) && !_isSelected) {
+    if (nodeHighlitedComponent == null) {
       nodeHighlitedComponent = NodeHighlitedComponent(
         position: absolutePosition,
         size: size * 0.96,
@@ -65,44 +64,13 @@ class NodeComponent<N extends Node> extends PositionComponent
     }
   }
 
-  void _showSelected() {
-    if (nodeSelectedComponent == null) {
-      nodeSelectedComponent = NodeSelectedComponent(
-        position: absolutePosition,
-        size: size * 0.96,
-        color: node.color,
-      );
-      match.add(nodeSelectedComponent!);
-      match.selectNode(this);
-      _hideHighlighted();
-    }
-  }
-
-  void hideSelected() {
-    if (nodeSelectedComponent != null) {
-      match.remove(nodeSelectedComponent!);
-      match.selectNode(null);
-      nodeSelectedComponent = null;
-    }
-  }
-
-  void _toggleSelected() {
-    if (nodeSelectedComponent == null) {
-      _showSelected();
-    } else {
-      hideSelected();
-    }
-  }
-
-  bool get _isSelected => nodeSelectedComponent != null;
-
   bool get _belongsToSelf => node.belongsTo(match.match.self);
 
   bool get _canBeHighlighted => _canBeSelected || match.isMovementTarget(this);
 
   bool get _canBeSelected => _belongsToSelf && node.hasUnit;
 
-  @override
+  /*@override
   void onTapUp(TapUpEvent event) {
     if (_canBeSelected) {
       if (!_isSelected) {
@@ -113,7 +81,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     } else if (match.isMovementTarget(this)) {
       match.moveUnitTo(this);
     }
-  }
+  }*/
 
   @override
   void update(double dt) {

@@ -77,6 +77,8 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
 
     if (nodeComponent != null) {
       match.onMoveUnit(origin: node, target: nodeComponent.node);
+    } else {
+      position = initialPosition;
     }
 
     dragging = false;
