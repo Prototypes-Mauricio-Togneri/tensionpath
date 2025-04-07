@@ -54,7 +54,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     if ((nodeHighlitedComponent == null) && !_isSelected) {
       nodeHighlitedComponent = NodeHighlitedComponent(
         position: absolutePosition,
-        size: size,
+        size: size * 0.96,
       );
       match.add(nodeHighlitedComponent!);
     }
@@ -71,7 +71,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     if (nodeSelectedComponent == null) {
       nodeSelectedComponent = NodeSelectedComponent(
         position: absolutePosition,
-        size: size,
+        size: size * 0.96,
         color: node.color,
       );
       match.add(nodeSelectedComponent!);
@@ -185,6 +185,8 @@ class NodeSelectedComponent extends PositionComponent {
   final Paint selectedPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
+    strokeCap: StrokeCap.round,
+    strokeJoin: StrokeJoin.round,
   );
 
   NodeSelectedComponent({

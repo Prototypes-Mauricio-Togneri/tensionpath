@@ -32,6 +32,8 @@ class Palette {
     PaintingStyle? style,
     Color? color,
     double? strokeWidth,
+    StrokeCap? strokeCap,
+    StrokeJoin? strokeJoin,
   }) {
     final Paint paint = Paint();
 
@@ -45,6 +47,14 @@ class Palette {
 
     if (style != null) {
       paint.style = style;
+    }
+
+    if (strokeCap != null) {
+      paint.strokeCap = strokeCap;
+    }
+
+    if (strokeJoin != null) {
+      paint.strokeJoin = strokeJoin;
     }
 
     return paint;
