@@ -34,7 +34,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent {
     add(
       HealthBarComponent(
         unit: unit,
-        position: Vector2(width / 2, 0),
+        position: Vector2(width / 2, height * 0.1),
         size: Vector2(width * 0.7, size.y / 10),
       ),
     );
