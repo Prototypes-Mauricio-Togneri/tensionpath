@@ -58,10 +58,6 @@ class MatchComponent extends World {
     match.update(dt);
   }
 
-  void onPassTurn() {
-    match.self.addResources(match.self.resourcesRate);
-  }
-
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.onHighlighted(false);
@@ -107,13 +103,15 @@ class MatchComponent extends World {
     return null;
   }
 
-  void onDeployUnit({
-    required NodeComponent nodeComponent,
-    required UnitType unitType,
-  }) => match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
+  void onDeployUnit({required Node node, required UnitType unitType}) =>
+      match.onDeployUnit(node: node, unitType: unitType);
 
   void onMoveUnit({required Node origin, required Node target}) =>
       match.onMoveUnit(nodeOrigin: origin, nodeTarget: target);
+
+  void onPassTurn() {
+    match.self.addResources(match.self.resourcesRate);
+  }
 
   /*void onUnitDestroyed(Unit unit) {
     unit.destroy();

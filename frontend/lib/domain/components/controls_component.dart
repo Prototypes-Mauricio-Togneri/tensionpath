@@ -143,7 +143,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
       );
 
       if (nodeComponent != null) {
-        match.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
+        match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
       }
 
       position = initialPosition;
