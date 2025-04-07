@@ -126,6 +126,11 @@ class MatchComponent extends World {
     required UnitType unitType,
   }) => match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
 
+  void onMoveUnit({required Node origin, required Node target}) {
+    match.onMoveUnit(nodeOrigin: origin, nodeTarget: target);
+    unselectNodes();
+  }
+
   void moveUnitTo(NodeComponent nodeComponent) {
     if (nodeSelected != null) {
       match.onMoveUnit(

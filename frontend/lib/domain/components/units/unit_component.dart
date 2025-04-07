@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -69,13 +70,15 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
 
-    /*final NodeComponent? nodeComponent = match.getLauncherAt(absolutePosition);
+    final NodeComponent? nodeComponent = match.getActionTargetAt(
+      position: absolutePosition,
+      origin: node,
+    );
 
     if (nodeComponent != null) {
-      match.onDeployUnit(nodeComponent: nodeComponent, unitType: unitType);
-    }*/
+      match.onMoveUnit(origin: node, target: nodeComponent.node);
+    }
 
-    position = initialPosition;
     dragging = false;
   }
 }
