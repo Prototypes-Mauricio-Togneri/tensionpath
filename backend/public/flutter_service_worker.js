@@ -3,13 +3,13 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "70bde036d45bbb2a1d3eeb77edd0c428",
-"main.dart.js": "4eac3134154ab9abbc7d1d5f04af3494",
+const RESOURCES = {"flutter_bootstrap.js": "2f37f462e96c2af2c6430967ca5d7f62",
+"main.dart.js": "17779482239117eeb5ab1949b45c0ed6",
 "assets/NOTICES": "b060564cae87d2181708698b7c1a6b1e",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/images/structures/platform.png": "0ec571b3480c0442351b5d23e5f51904",
 "assets/assets/images/structures/missile.png": "15884a9dd0534866256ec57bd3d7da22",
-"assets/assets/images/structures/resources.png": "811b4d02b65522c57a072fea5dc210b9",
+"assets/assets/images/structures/resources.png": "8f6635fb5ec0c6a1872b7b61e380f801",
 "assets/assets/images/structures/launcher_2.png": "a8e7b202010f9a03b17efb6f22b319a9",
 "assets/assets/images/structures/launcher_1.png": "cfa492ce63dd90c95d0cb9e2680106ff",
 "assets/assets/images/units/artillery.png": "d6129d796eeb6324bed1136d30860065",
