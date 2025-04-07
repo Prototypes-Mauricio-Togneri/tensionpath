@@ -17,7 +17,15 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(onPressed: state.onPlay, child: const Text('PLAY')),
+            ElevatedButton(
+              onPressed: () => state.onPlay('1'),
+              child: const Text('PLAY AS PLAYER 1'),
+            ),
+            const VBox(20),
+            ElevatedButton(
+              onPressed: () => state.onPlay('2'),
+              child: const Text('PLAY AS PLAYER 2'),
+            ),
             const VBox(20),
             ElevatedButton(
               onPressed: state.onFullscreen,

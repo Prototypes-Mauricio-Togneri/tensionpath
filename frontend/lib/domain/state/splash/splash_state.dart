@@ -5,16 +5,16 @@ import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
   String matchId = 'bkSVMdZ1UFZRfqCifqzq';
-  String selfId = '1';
 
   @override
   void onLoad() {
     if (Environment.get.isDebug) {
-      Delayed.post(onPlay);
+      Delayed.post(() => onPlay('1'));
     }
   }
 
-  void onPlay() => Navigation.matchScreen(matchId: matchId, selfId: selfId);
+  void onPlay(String selfId) =>
+      Navigation.matchScreen(matchId: matchId, selfId: selfId);
 
   void onFullscreen() => SetFullscreen.set();
 }
