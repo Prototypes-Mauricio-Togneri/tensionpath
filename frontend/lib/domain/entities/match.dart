@@ -35,6 +35,10 @@ class Match {
 
   bool get isSelfTurn => activePlayer == self.id;
 
+  Player get player1 => self.isPlayer1 ? self : opponent;
+
+  Player get player2 => self.isPlayer1 ? opponent : self;
+
   int get accumulatedResourcesInTurn => _accumulatedResourcesInTurn.floor();
 
   void update(double dt) {

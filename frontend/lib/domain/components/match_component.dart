@@ -23,16 +23,22 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     battlefieldComponent = BattlefieldComponent(
       battlefield: match.battlefield,
-      position: Dimensions.battlefieldPosition(resolution),
+      position: Dimensions.battlefieldPosition(
+        resolution: resolution,
+        isPlayer1: match.self.isPlayer1,
+      ),
       size: Dimensions.battlefieldSize(resolution),
     );
     add(battlefieldComponent!);
 
     add(
       HeaderComponent(
-        player1: match.self,
-        player2: match.opponent,
-        position: Dimensions.headerPosition(resolution),
+        player1: match.player1,
+        player2: match.player2,
+        position: Dimensions.headerPosition(
+          resolution: resolution,
+          isPlayer1: match.self.isPlayer1,
+        ),
         size: Dimensions.headerSize(resolution),
       ),
     );
@@ -40,7 +46,10 @@ class MatchComponent extends World {
     add(
       ControlsComponent(
         player: match.self,
-        position: Dimensions.controlsPosition(resolution),
+        position: Dimensions.controlsPosition(
+          resolution: resolution,
+          isPlayer1: match.self.isPlayer1,
+        ),
         size: Dimensions.controlsSize(resolution),
       ),
     );

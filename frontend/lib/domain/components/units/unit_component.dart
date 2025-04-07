@@ -36,7 +36,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
     sprite = await Sprite.load(unit.type.sprite);
 
     if (unit.player.isOpponent) {
-      angle = pi;
+      //angle = pi;
     }
 
     add(
