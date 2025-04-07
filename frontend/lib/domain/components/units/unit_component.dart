@@ -35,8 +35,8 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
   FutureOr onLoad() async {
     sprite = await Sprite.load(unit.type.sprite);
 
-    if (unit.player.isOpponent) {
-      //angle = pi;
+    if (unit.player.isPlayer2) {
+      scale.x = -1;
     }
 
     add(

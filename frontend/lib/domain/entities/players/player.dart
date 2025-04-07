@@ -21,6 +21,8 @@ class Player {
 
   bool get isPlayer1 => id == '1';
 
+  bool get isPlayer2 => id == '2';
+
   bool get isOpponent => !isSelf;
 
   Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_OPPONENT;
