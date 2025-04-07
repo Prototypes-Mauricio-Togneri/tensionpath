@@ -71,4 +71,11 @@ class Battlefield {
       nodes: jsonNodes,
     );
   }
+
+  JsonBattlefield toJson() => JsonBattlefield(
+    id: id,
+    size: size.toJsonSize(),
+    gridRatio: gridRatio.toJsonRatio(),
+    nodes: nodes.map((node) => node.toJson()).toList(),
+  );
 }

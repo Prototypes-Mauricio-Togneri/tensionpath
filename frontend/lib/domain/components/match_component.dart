@@ -109,9 +109,7 @@ class MatchComponent extends World {
   void onMoveUnit({required Node origin, required Node target}) =>
       match.onMoveUnit(nodeOrigin: origin, nodeTarget: target);
 
-  void onPassTurn() {
-    match.self.addResources(match.self.resourcesRate);
-  }
+  void onPassTurn() => match.onPassTurn();
 
   /*void onUnitDestroyed(Unit unit) {
     unit.destroy();

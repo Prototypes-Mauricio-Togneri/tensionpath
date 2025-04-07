@@ -110,4 +110,17 @@ class Match {
       await updateMatch(json);
     }
   }
+
+  Future onPassTurn() async {
+    final JsonMatch json = JsonMatch(
+      id: id,
+      version: version,
+      createdAt: createdAt,
+      turn: turn + 1,
+      activePlayer: opponent.id,
+      players: [self.toJson(), opponent.toJson()],
+      battlefield: battlefield.toJson(),
+    );
+    await updateMatch(json);
+  }
 }
