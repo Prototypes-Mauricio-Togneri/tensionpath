@@ -25,10 +25,6 @@ class Player {
 
   Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_OPPONENT;
 
-  void addResources(int value) {
-    resources += value;
-  }
-
   bool hasResources(int value) => resources >= value;
 
   void spendResources(int value) {
@@ -39,6 +35,13 @@ class Player {
     resources = newPlayer.resources;
     resourcesRate = newPlayer.resourcesRate;
   }
+
+  JsonPlayer addResources(int amount) => JsonPlayer(
+    id: id,
+    name: name,
+    resources: resources + amount + resourcesRate,
+    resourcesRate: resourcesRate,
+  );
 
   JsonPlayer toJson() => JsonPlayer(
     id: id,

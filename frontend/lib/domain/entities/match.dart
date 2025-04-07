@@ -17,7 +17,7 @@ class Match {
   final Battlefield battlefield;
   int turn;
   String activePlayer;
-  double accumulatedResourcesInTurn = 0;
+  double _accumulatedResourcesInTurn = 0;
 
   Match({
     required this.id,
@@ -33,8 +33,12 @@ class Match {
   static DocumentReference ref(String id) =>
       FirebaseFirestore.instance.collection('matches').doc(id);
 
+  bool get isSelfTurn => activePlayer == self.id;
+
+  int get accumulatedResourcesInTurn => _accumulatedResourcesInTurn.floor();
+
   void update(double dt) {
-    accumulatedResourcesInTurn += dt;
+    _accumulatedResourcesInTurn += dt;
   }
 
   void listen() => ref(id).snapshots().listen((snapshot) {
@@ -121,7 +125,10 @@ class Match {
       createdAt: createdAt,
       turn: turn + 1,
       activePlayer: opponent.id,
-      players: [self.toJson(), opponent.toJson()],
+      players: [
+        self.toJson(),
+        opponent.addResources(accumulatedResourcesInTurn),
+      ],
       battlefield: battlefield.toJson(),
     );
     await updateMatch(json);

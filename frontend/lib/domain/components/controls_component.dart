@@ -72,7 +72,12 @@ class ControlsComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
+    final Paint fill =
+        match.match.isSelfTurn
+            ? fillPaint
+            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fill);
   }
 }
 
@@ -98,8 +103,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   }
 
   bool get isEnabled =>
-      (match.match.activePlayer == player.id) &&
-      (player.resources >= unitType.cost);
+      match.match.isSelfTurn && (player.resources >= unitType.cost);
 
   @override
   FutureOr onLoad() {
@@ -220,7 +224,12 @@ class ResourceCounterComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(size.toRect(), fillPaint);
+    final Paint fill =
+        match.match.isSelfTurn
+            ? fillPaint
+            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
+
+    canvas.drawRect(size.toRect(), fill);
 
     canvas.drawText(
       text: '🛢️${player.resources.floor().toString()}',
@@ -251,20 +260,34 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(size.toRect(), fillPaint);
+    final Paint fill =
+        match.match.isSelfTurn
+            ? fillPaint
+            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
 
-    canvas.drawText(
-      text: '🛢️${match.match.accumulatedResourcesInTurn.floor()}',
-      position: Vector2(size.x / 2, size.y / 4),
-      size: size.x / 6,
-      color: Palette.CONTROLS_RESOURCES_FOREGROUND,
-    );
+    canvas.drawRect(size.toRect(), fill);
 
-    canvas.drawText(
-      text: 'PASS TURN',
-      position: Vector2(size.x / 2, size.y * 3 / 4),
-      size: size.x / 7,
-      color: Palette.CONTROLS_RESOURCES_FOREGROUND,
-    );
+    if (match.match.isSelfTurn) {
+      canvas.drawText(
+        text: '🛢️${match.match.accumulatedResourcesInTurn.floor()}',
+        position: Vector2(size.x / 2, size.y / 4),
+        size: size.x / 6,
+        color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+      );
+
+      canvas.drawText(
+        text: 'PASS TURN',
+        position: Vector2(size.x / 2, size.y * 3 / 4),
+        size: size.x / 7,
+        color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+      );
+    } else {
+      canvas.drawText(
+        text: "WAITING FOR\nOPPONENT'S\nTURN",
+        position: Vector2(size.x / 2, size.y / 2),
+        size: size.x / 8,
+        color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+      );
+    }
   }
 }
