@@ -224,9 +224,9 @@ class ResourceCounterComponent extends PositionComponent with TapCallbacks {
     canvas.drawRect(size.toRect(), fillPaint);
 
     canvas.drawText(
-      text: player.resources.floor().toString(),
+      text: '🛢️${player.resources.floor().toString()}',
       position: size / 2,
-      size: size.x / 3,
+      size: size.x / 4,
       color: Palette.CONTROLS_RESOURCES_FOREGROUND,
     );
   }
@@ -252,9 +252,16 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
     canvas.drawRect(size.toRect(), fillPaint);
 
     canvas.drawText(
-      text: 'PASS',
-      position: size / 2,
-      size: size.x / 4,
+      text: '🛢️${player.resources.floor().toString()}',
+      position: Vector2(size.x / 2, size.y / 4),
+      size: size.x / 6,
+      color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+    );
+
+    canvas.drawText(
+      text: 'PASS TURN',
+      position: Vector2(size.x / 2, size.y * 3 / 4),
+      size: size.x / 7,
       color: Palette.CONTROLS_RESOURCES_FOREGROUND,
     );
   }

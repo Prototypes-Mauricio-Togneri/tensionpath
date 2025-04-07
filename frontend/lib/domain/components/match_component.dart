@@ -60,16 +60,6 @@ class MatchComponent extends World {
     nodeSelected = node;
   }
 
-  bool isMovementTarget(NodeComponent node) {
-    if (nodeSelected != null) {
-      final int distance = nodeSelected!.node.distance(node.node);
-
-      return distance == 1;
-    } else {
-      return false;
-    }
-  }
-
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.onHighlighted(false);

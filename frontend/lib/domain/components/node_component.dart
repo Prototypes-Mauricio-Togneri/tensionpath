@@ -66,9 +66,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   bool get _belongsToSelf => node.belongsTo(match.match.self);
 
-  bool get _canBeHighlighted => _canBeSelected || match.isMovementTarget(this);
-
-  bool get _canBeSelected => _belongsToSelf && node.hasUnit;
+  bool get _canBeHighlighted => _belongsToSelf && node.hasUnit;
 
   /*@override
   void onTapUp(TapUpEvent event) {

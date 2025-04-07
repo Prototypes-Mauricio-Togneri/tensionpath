@@ -17,6 +17,7 @@ class Match {
   final Player self;
   final Player opponent;
   final Battlefield battlefield;
+  double accumulatedResourcesInTurn = 0;
 
   Match({
     required this.id,
@@ -31,6 +32,10 @@ class Match {
 
   static DocumentReference ref(String id) =>
       FirebaseFirestore.instance.collection('matches').doc(id);
+
+  void update(double dt) {
+    accumulatedResourcesInTurn += dt;
+  }
 
   void listen() => ref(id).snapshots().listen((snapshot) {
     if (snapshot.exists) {
