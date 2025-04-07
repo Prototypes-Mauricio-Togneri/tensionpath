@@ -97,7 +97,9 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     fillPaint.color = player.color.brighten(0.5);
   }
 
-  bool get isEnabled => player.resources >= unitType.cost;
+  bool get isEnabled =>
+      (match.match.activePlayer == player.id) &&
+      (player.resources >= unitType.cost);
 
   @override
   FutureOr onLoad() {

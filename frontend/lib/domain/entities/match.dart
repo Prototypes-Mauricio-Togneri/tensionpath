@@ -12,11 +12,11 @@ class Match {
   final String id;
   final int version;
   final DateTime createdAt;
-  final int turn;
-  final String activePlayer;
   final Player self;
   final Player opponent;
   final Battlefield battlefield;
+  int turn;
+  String activePlayer;
   double accumulatedResourcesInTurn = 0;
 
   Match({
@@ -62,6 +62,9 @@ class Match {
 
   void onMatchUpated(JsonMatch json) {
     final Match newMatch = json.object;
+
+    turn = newMatch.turn;
+    activePlayer = newMatch.activePlayer;
 
     self.replaceWith(newMatch.self);
     opponent.replaceWith(newMatch.opponent);
