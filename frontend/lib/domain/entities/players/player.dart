@@ -25,7 +25,7 @@ class Player {
 
   bool get isOpponent => !isSelf;
 
-  Color get color => isSelf ? Palette.PLAYER_SELF : Palette.PLAYER_OPPONENT;
+  Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
   bool hasResources(int value) => resources >= value;
 

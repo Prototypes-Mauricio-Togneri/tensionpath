@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
     sprite = await Sprite.load(unit.type.sprite);
 
     if (unit.player.isPlayer2) {
-      scale.x = -1;
+      //scale.x = -1;
     }
 
     add(
