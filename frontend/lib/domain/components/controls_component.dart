@@ -201,7 +201,7 @@ class UnitImageComponent extends SpriteComponent {
   }
 }
 
-class ResourceCounterComponent extends PositionComponent with TapCallbacks {
+class ResourceCounterComponent extends PositionComponent {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -213,9 +213,6 @@ class ResourceCounterComponent extends PositionComponent with TapCallbacks {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft);
-
-  @override
-  void onTapUp(TapUpEvent event) => match.onPassTurn();
 
   @override
   void render(Canvas canvas) {
@@ -239,6 +236,9 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
     color: Palette.CONTROLS_RESOURCES_BACKGROUND,
   );
 
+  @override
+  void onTapUp(TapUpEvent event) => match.onPassTurn();
+
   PassTurnComponent({
     required this.player,
     required super.position,
@@ -252,7 +252,7 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
     canvas.drawRect(size.toRect(), fillPaint);
 
     canvas.drawText(
-      text: '🛢️${player.resources.floor().toString()}',
+      text: '🛢️${match.match.accumulatedResourcesInTurn.floor()}',
       position: Vector2(size.x / 2, size.y / 4),
       size: size.x / 6,
       color: Palette.CONTROLS_RESOURCES_FOREGROUND,

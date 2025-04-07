@@ -52,6 +52,13 @@ class MatchComponent extends World {
   List<NodeComponent> get nodeComponents =>
       battlefieldComponent?.nodeComponents ?? [];
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    match.update(dt);
+  }
+
   void onPassTurn() {
     match.self.addResources(match.self.resourcesRate);
   }

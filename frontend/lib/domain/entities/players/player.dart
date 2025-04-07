@@ -27,7 +27,6 @@ class Player {
 
   void addResources(int value) {
     resources += value;
-    resources = resources.clamp(0, 10);
   }
 
   bool hasResources(int value) => resources >= value;
