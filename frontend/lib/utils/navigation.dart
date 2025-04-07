@@ -12,6 +12,11 @@ class Navigation {
 
   static void pop<T>([T? result]) => get.routes.pop(result);
 
-  static void matchScreen() =>
-      get.routes.push(BasicRoute(MatchScreen.instance(), name: 'match'));
+  static void matchScreen({required String matchId, required String selfId}) =>
+      get.routes.push(
+        BasicRoute(
+          MatchScreen.instance(matchId: matchId, selfId: selfId),
+          name: 'match',
+        ),
+      );
 }

@@ -9,7 +9,10 @@ class MatchScreen extends StatelessWidget {
 
   const MatchScreen._(this.state);
 
-  factory MatchScreen.instance() => MatchScreen._(MatchState());
+  factory MatchScreen.instance({
+    required String matchId,
+    required String selfId,
+  }) => MatchScreen._(MatchState(matchId: matchId, selfId: selfId));
 
   @override
   Widget build(BuildContext context) {

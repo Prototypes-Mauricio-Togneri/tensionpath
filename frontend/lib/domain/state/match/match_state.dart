@@ -3,17 +3,22 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 
 class MatchState extends BaseState {
+  final String matchId;
+  final String selfId;
   GameComponent? gameComponent;
 
-  MatchState() {
+  MatchState({
+    required this.matchId,
+    required this.selfId,
+  }) {
     restart();
   }
 
   bool get isInitialized => gameComponent != null;
 
   Future restart() => Match.load(
-    id: 'bkSVMdZ1UFZRfqCifqzq',
-    selfId: '1',
+    id: matchId,
+    selfId: selfId,
     onReady: onMatchReady,
   );
 
