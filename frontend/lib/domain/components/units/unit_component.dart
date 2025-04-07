@@ -21,7 +21,6 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
     color: Colors.green,
   );
   Vector2 initialPosition = Vector2(0, 0);
-  bool dragging = false;
 
   UnitComponent({
     required this.unit,
@@ -51,36 +50,39 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
 
   @override
   void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
+    if (unit.player.isSelf && match.match.isSelfTurn) {
+      super.onDragStart(event);
 
-    initialPosition.setFrom(position);
-    dragging = true;
+      initialPosition.setFrom(position);
+    }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    position += event.localDelta;
-    match.highlightNode(
-      match.getActionTargetAt(position: absolutePosition, origin: node),
-    );
+    if (unit.player.isSelf && match.match.isSelfTurn) {
+      position += event.localDelta;
+      match.highlightNode(
+        match.getActionTargetAt(position: absolutePosition, origin: node),
+      );
+    }
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
-    super.onDragEnd(event);
+    if (unit.player.isSelf && match.match.isSelfTurn) {
+      super.onDragEnd(event);
 
-    final NodeComponent? nodeComponent = match.getActionTargetAt(
-      position: absolutePosition,
-      origin: node,
-    );
+      final NodeComponent? nodeComponent = match.getActionTargetAt(
+        position: absolutePosition,
+        origin: node,
+      );
 
-    if (nodeComponent != null) {
-      match.onMoveUnit(origin: node, target: nodeComponent.node);
-    } else {
-      position = initialPosition;
+      if (nodeComponent != null) {
+        match.onMoveUnit(origin: node, target: nodeComponent.node);
+      } else {
+        position = initialPosition;
+      }
     }
-
-    dragging = false;
   }
 }
 
