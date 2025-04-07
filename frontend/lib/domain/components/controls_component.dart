@@ -75,7 +75,7 @@ class ControlsComponent extends PositionComponent {
     final Paint fill =
         match.match.isSelfTurn
             ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
+            : fillPaint.clone(color: Palette.CONTROLS_BACKGROUND_DISABLED);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fill);
   }
@@ -164,11 +164,11 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     final Paint border =
         isEnabled
             ? borderPaint
-            : borderPaint.clone(color: Palette.CONTROLS_UNIT_BORDER_DISABLED);
+            : borderPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
     final Paint fill =
         isEnabled
             ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
+            : fillPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
 
     if (dragging) {
       border.color = border.color.withAlpha(100);
@@ -227,7 +227,7 @@ class ResourceCounterComponent extends PositionComponent {
     final Paint fill =
         match.match.isSelfTurn
             ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
+            : fillPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
 
     canvas.drawRect(size.toRect(), fill);
 
@@ -248,7 +248,11 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
   );
 
   @override
-  void onTapUp(TapUpEvent event) => match.onPassTurn();
+  void onTapUp(TapUpEvent event) {
+    if (match.match.isSelfTurn) {
+      match.onPassTurn();
+    }
+  }
 
   PassTurnComponent({
     required this.player,
@@ -263,7 +267,7 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
     final Paint fill =
         match.match.isSelfTurn
             ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_UNIT_FILL_DISABLED);
+            : fillPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
 
     canvas.drawRect(size.toRect(), fill);
 

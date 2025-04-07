@@ -67,6 +67,10 @@ class Match {
   void onMatchUpated(JsonMatch json) {
     final Match newMatch = json.object;
 
+    if (newMatch.activePlayer != activePlayer) {
+      _accumulatedResourcesInTurn = 0;
+    }
+
     turn = newMatch.turn;
     activePlayer = newMatch.activePlayer;
 
