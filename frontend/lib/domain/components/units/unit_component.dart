@@ -12,14 +12,6 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
   final U unit;
   final Node node;
-  final Paint backgroundHealthPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Colors.grey,
-  );
-  final Paint foregroundHealthPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Colors.green,
-  );
   Vector2 initialPosition = Vector2(0, 0);
 
   UnitComponent({
