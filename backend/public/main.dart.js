@@ -19386,15 +19386,15 @@ a_F:function a_F(a){this.a=a
 this.b=null},
 a_G:function a_G(a){this.a=a
 this.b=null},
-ar_(a,b){switch(b.a){case 0:return A.afS(10,1,b.c,100,1,a,1)
-case 1:return A.afT(10,1,b.c,100,1,a,1)
-case 2:return A.afR(10,1,b.c,100,1,a,1)
-case 3:return A.afU(10,1,b.c,100,1,a,1)
-case 4:return A.afP(10,1,b.c,100,1,a,1)
-case 5:return A.afQ(10,1,b.c,100,1,a,1)}},
+ar_(a,b){switch(b.a){case 0:return A.afS(10,b.c,100,1,a,1,1)
+case 1:return A.afT(10,b.c,100,1,a,1,1)
+case 2:return A.afR(10,b.c,100,1,a,1,1)
+case 3:return A.afU(10,b.c,100,1,a,1,1)
+case 4:return A.afP(10,b.c,100,1,a,1,1)
+case 5:return A.afQ(10,b.c,100,1,a,1,1)}},
 a0I:function a0I(){},
-afP(a,b,c,d,e,f,g){var s=new A.a0J(B.hj,c,d,b,e,g,a,f)
-s.x=d
+afP(a,b,c,d,e,f,g){var s=new A.a0J(B.hj,b,c,f,d,g,a,e)
+s.x=c
 return s},
 a0J:function a0J(a,b,c,d,e,f,g,h){var _=this
 _.a=a
@@ -19406,8 +19406,8 @@ _.f=f
 _.r=g
 _.w=h
 _.x=$},
-afQ(a,b,c,d,e,f,g){var s=new A.a0K(B.hh,c,d,b,e,g,a,f)
-s.x=d
+afQ(a,b,c,d,e,f,g){var s=new A.a0K(B.hh,b,c,f,d,g,a,e)
+s.x=c
 return s},
 a0K:function a0K(a,b,c,d,e,f,g,h){var _=this
 _.a=a
@@ -19419,8 +19419,8 @@ _.f=f
 _.r=g
 _.w=h
 _.x=$},
-afR(a,b,c,d,e,f,g){var s=new A.a0L(B.hf,c,d,b,e,g,a,f)
-s.x=d
+afR(a,b,c,d,e,f,g){var s=new A.a0L(B.hf,b,c,f,d,g,a,e)
+s.x=c
 return s},
 a0L:function a0L(a,b,c,d,e,f,g,h){var _=this
 _.a=a
@@ -19432,8 +19432,8 @@ _.f=f
 _.r=g
 _.w=h
 _.x=$},
-afS(a,b,c,d,e,f,g){var s=new A.a0M(B.hi,c,d,b,e,g,a,f)
-s.x=d
+afS(a,b,c,d,e,f,g){var s=new A.a0M(B.hi,b,c,f,d,g,a,e)
+s.x=c
 return s},
 a0M:function a0M(a,b,c,d,e,f,g,h){var _=this
 _.a=a
@@ -19445,8 +19445,8 @@ _.f=f
 _.r=g
 _.w=h
 _.x=$},
-afT(a,b,c,d,e,f,g){var s=new A.a0N(B.hg,c,d,b,e,g,a,f)
-s.x=d
+afT(a,b,c,d,e,f,g){var s=new A.a0N(B.hg,b,c,f,d,g,a,e)
+s.x=c
 return s},
 a0N:function a0N(a,b,c,d,e,f,g,h){var _=this
 _.a=a
@@ -19458,8 +19458,8 @@ _.f=f
 _.r=g
 _.w=h
 _.x=$},
-afU(a,b,c,d,e,f,g){var s=new A.a0O(B.he,c,d,b,e,g,a,f)
-s.x=d
+afU(a,b,c,d,e,f,g){var s=new A.a0O(B.he,b,c,f,d,g,a,e)
+s.x=c
 return s},
 a0O:function a0O(a,b,c,d,e,f,g,h){var _=this
 _.a=a
@@ -19572,7 +19572,7 @@ a1O:function a1O(){},
 ark(a){return A.ks("JsonUnit",a,new A.a1Z(),t.YL)},
 aga(a){var s=B.fu.i(0,a.a)
 s.toString
-return A.ao(["type",s,"cost",a.b,"maxHealth",a.c,"health",a.d,"attackRange",a.e,"movementRange",a.f,"visibilityRange",a.r,"attack",a.w,"player",a.x],t.N,t.z)},
+return A.ao(["type",s,"cost",a.b,"maxHealth",a.c,"health",a.d,"shootingRange",a.e,"movementRange",a.f,"visibilityRange",a.r,"attack",a.w,"player",a.x],t.N,t.z)},
 hh:function hh(a,b,c,d,e,f,g,h,i){var _=this
 _.a=a
 _.b=b
@@ -57849,18 +57849,18 @@ $S:426}
 A.hh.prototype={
 iz(a){var s=this,r=A.aeH(s.x,a)
 r.toString
-switch(s.a.a){case 0:return A.afS(s.w,s.e,s.b,s.d,s.f,r,s.r)
-case 1:return A.afT(s.w,s.e,s.b,s.d,s.f,r,s.r)
-case 2:return A.afR(s.w,s.e,s.b,s.d,s.f,r,s.r)
-case 3:return A.afU(s.w,s.e,s.b,s.d,s.f,r,s.r)
-case 4:return A.afP(s.w,s.e,s.b,s.d,s.f,r,s.r)
-case 5:return A.afQ(s.w,s.e,s.b,s.d,s.f,r,s.r)}},
+switch(s.a.a){case 0:return A.afS(s.w,s.b,s.d,s.f,r,s.e,s.r)
+case 1:return A.afT(s.w,s.b,s.d,s.f,r,s.e,s.r)
+case 2:return A.afR(s.w,s.b,s.d,s.f,r,s.e,s.r)
+case 3:return A.afU(s.w,s.b,s.d,s.f,r,s.e,s.r)
+case 4:return A.afP(s.w,s.b,s.d,s.f,r,s.e,s.r)
+case 5:return A.afQ(s.w,s.b,s.d,s.f,r,s.e,s.r)}},
 bp(){var s=this,r=B.fu.i(0,s.a)
 r.toString
-return A.ao(["type",r,"cost",s.b,"maxHealth",s.c,"health",s.d,"attackRange",s.e,"movementRange",s.f,"visibilityRange",s.r,"attack",s.w,"player",s.x],t.N,t.z)}}
+return A.ao(["type",r,"cost",s.b,"maxHealth",s.c,"health",s.d,"shootingRange",s.e,"movementRange",s.f,"visibilityRange",s.r,"attack",s.w,"player",s.x],t.N,t.z)}}
 A.a1Z.prototype={
 $1(a){var s=t.S
-return new A.hh(a.$1$2("type",new A.a1Q(),t.zt),a.$1$2("cost",new A.a1R(),s),a.$1$2("maxHealth",new A.a1S(),s),a.$1$2("health",new A.a1T(),s),a.$1$2("attackRange",new A.a1U(),s),a.$1$2("movementRange",new A.a1V(),s),a.$1$2("visibilityRange",new A.a1W(),s),a.$1$2("attack",new A.a1X(),s),a.$1$2("player",new A.a1Y(),t.N))},
+return new A.hh(a.$1$2("type",new A.a1Q(),t.zt),a.$1$2("cost",new A.a1R(),s),a.$1$2("maxHealth",new A.a1S(),s),a.$1$2("health",new A.a1T(),s),a.$1$2("shootingRange",new A.a1U(),s),a.$1$2("movementRange",new A.a1V(),s),a.$1$2("visibilityRange",new A.a1W(),s),a.$1$2("attack",new A.a1X(),s),a.$1$2("player",new A.a1Y(),t.N))},
 $S:427}
 A.a1Q.prototype={
 $1(a){return A.abB(B.fu,a)},
