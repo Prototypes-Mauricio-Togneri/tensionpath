@@ -25,8 +25,8 @@ class JsonUnit {
   @JsonKey(name: 'health')
   final int health;
 
-  @JsonKey(name: 'attackRange')
-  final int attackRange;
+  @JsonKey(name: 'shootingRange')
+  final int shootingRange;
 
   @JsonKey(name: 'movementRange')
   final int movementRange;
@@ -45,7 +45,7 @@ class JsonUnit {
     required this.cost,
     required this.maxHealth,
     required this.health,
-    required this.attackRange,
+    required this.shootingRange,
     required this.movementRange,
     required this.visibilityRange,
     required this.attack,
@@ -60,7 +60,7 @@ class JsonUnit {
         return UnitRifleSquad(
           cost: cost,
           maxHealth: health,
-          attackRange: attackRange,
+          shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
@@ -70,7 +70,7 @@ class JsonUnit {
         return UnitSniper(
           cost: cost,
           maxHealth: health,
-          attackRange: attackRange,
+          shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
@@ -80,7 +80,7 @@ class JsonUnit {
         return UnitHumvee(
           cost: cost,
           maxHealth: health,
-          attackRange: attackRange,
+          shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
@@ -90,7 +90,7 @@ class JsonUnit {
         return UnitTank(
           cost: cost,
           maxHealth: health,
-          attackRange: attackRange,
+          shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
@@ -100,7 +100,7 @@ class JsonUnit {
         return UnitArtillery(
           cost: cost,
           maxHealth: health,
-          attackRange: attackRange,
+          shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
@@ -110,7 +110,7 @@ class JsonUnit {
         return UnitHelicopter(
           cost: cost,
           maxHealth: health,
-          attackRange: attackRange,
+          shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,

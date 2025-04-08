@@ -4,7 +4,7 @@ enum UnitType {
   rifle_squad(
     cost: 1,
     health: 100,
-    attackRange: 1,
+    shootingRange: 1,
     movementRange: 1,
     visibilityRange: 1,
     attack: 10,
@@ -13,7 +13,7 @@ enum UnitType {
   sniper(
     cost: 2,
     health: 100,
-    attackRange: 1,
+    shootingRange: 1,
     movementRange: 1,
     visibilityRange: 1,
     attack: 10,
@@ -22,7 +22,7 @@ enum UnitType {
   humvee(
     cost: 3,
     health: 100,
-    attackRange: 1,
+    shootingRange: 1,
     movementRange: 1,
     visibilityRange: 1,
     attack: 10,
@@ -31,7 +31,7 @@ enum UnitType {
   tank(
     cost: 4,
     health: 100,
-    attackRange: 1,
+    shootingRange: 1,
     movementRange: 1,
     visibilityRange: 1,
     attack: 10,
@@ -40,7 +40,7 @@ enum UnitType {
   artillery(
     cost: 5,
     health: 100,
-    attackRange: 1,
+    shootingRange: 1,
     movementRange: 1,
     visibilityRange: 1,
     attack: 10,
@@ -49,7 +49,7 @@ enum UnitType {
   helicopter(
     cost: 6,
     health: 100,
-    attackRange: 1,
+    shootingRange: 1,
     movementRange: 1,
     visibilityRange: 1,
     attack: 10,
@@ -58,7 +58,7 @@ enum UnitType {
 
   final int cost;
   final int health;
-  final int attackRange;
+  final int shootingRange;
   final int movementRange;
   final int visibilityRange;
   final int attack;
@@ -67,7 +67,7 @@ enum UnitType {
   const UnitType({
     required this.cost,
     required this.health,
-    required this.attackRange,
+    required this.shootingRange,
     required this.movementRange,
     required this.visibilityRange,
     required this.attack,

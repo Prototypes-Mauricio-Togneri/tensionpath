@@ -9,7 +9,7 @@ class UnitTank extends Unit {
   UnitTank({
     required super.cost,
     required super.maxHealth,
-    required super.attackRange,
+    required super.shootingRange,
     required super.movementRange,
     required super.visibilityRange,
     required super.attack,

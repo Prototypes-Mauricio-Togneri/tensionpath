@@ -16,7 +16,7 @@ abstract class Unit {
   final UnitType type;
   final int cost;
   final int maxHealth;
-  final int attackRange;
+  final int shootingRange;
   final int movementRange;
   final int visibilityRange;
   final int attack;
@@ -27,7 +27,7 @@ abstract class Unit {
     required this.type,
     required this.cost,
     required this.maxHealth,
-    required this.attackRange,
+    required this.shootingRange,
     required this.movementRange,
     required this.visibilityRange,
     required this.attack,
@@ -58,7 +58,7 @@ abstract class Unit {
         return UnitRifleSquad(
           cost: unitType.cost,
           maxHealth: unitType.health,
-          attackRange: unitType.attackRange,
+          shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
@@ -68,7 +68,7 @@ abstract class Unit {
         return UnitSniper(
           cost: unitType.cost,
           maxHealth: unitType.health,
-          attackRange: unitType.attackRange,
+          shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
@@ -78,7 +78,7 @@ abstract class Unit {
         return UnitHumvee(
           cost: unitType.cost,
           maxHealth: unitType.health,
-          attackRange: unitType.attackRange,
+          shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
@@ -88,7 +88,7 @@ abstract class Unit {
         return UnitTank(
           cost: unitType.cost,
           maxHealth: unitType.health,
-          attackRange: unitType.attackRange,
+          shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
@@ -98,7 +98,7 @@ abstract class Unit {
         return UnitArtillery(
           cost: unitType.cost,
           maxHealth: unitType.health,
-          attackRange: unitType.attackRange,
+          shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
@@ -108,7 +108,7 @@ abstract class Unit {
         return UnitHelicopter(
           cost: unitType.cost,
           maxHealth: unitType.health,
-          attackRange: unitType.attackRange,
+          shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
@@ -122,7 +122,7 @@ abstract class Unit {
     cost: cost,
     maxHealth: maxHealth,
     health: _health,
-    attackRange: attackRange,
+    shootingRange: shootingRange,
     movementRange: movementRange,
     visibilityRange: visibilityRange,
     attack: attack,
