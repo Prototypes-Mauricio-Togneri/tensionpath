@@ -10,7 +10,7 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
-    with HoverCallbacks, MatchComponentRef, TapCallbacks {
+    with HoverCallbacks, MatchComponentRef {
   final N node;
   NodeHighlitedComponent? nodeHighlitedComponent;
   UnitComponent? unitComponent;
@@ -21,6 +21,11 @@ class NodeComponent<N extends Node> extends PositionComponent
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.node.value);
+
+  bool get _belongsToSelf => node.belongsTo(match.match.self);
+
+  bool get _canBeHighlighted =>
+      match.match.isSelfTurn && _belongsToSelf && node.hasUnit;
 
   void onHighlighted(bool enabled) {
     if (enabled) {
@@ -63,15 +68,6 @@ class NodeComponent<N extends Node> extends PositionComponent
       nodeHighlitedComponent = null;
     }
   }
-
-  bool get _belongsToSelf => node.belongsTo(match.match.self);
-
-  bool get _canBeHighlighted =>
-      match.match.isSelfTurn && _belongsToSelf && node.hasUnit;
-
-  /*@override
-  void onTapUp(TapUpEvent event) {
-  }*/
 
   @override
   void update(double dt) {
