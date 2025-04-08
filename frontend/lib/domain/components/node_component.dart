@@ -12,9 +12,9 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeComponent<N extends Node> extends PositionComponent
     with HoverCallbacks {
   final N node;
-  NodeHighlitedComponent? nodeHighlitedComponent;
-  UnitComponent? unitComponent;
-  StructureComponent? structureComponent;
+  NodeHighlitedComponent? _nodeHighlitedComponent;
+  UnitComponent? _unitComponent;
+  StructureComponent? _structureComponent;
 
   NodeComponent({
     required this.node,
@@ -53,19 +53,19 @@ class NodeComponent<N extends Node> extends PositionComponent
   void onHoverExit() => _hideHighlighted();
 
   void _showHighlighted() {
-    if (nodeHighlitedComponent == null) {
-      nodeHighlitedComponent = NodeHighlitedComponent(
+    if (_nodeHighlitedComponent == null) {
+      _nodeHighlitedComponent = NodeHighlitedComponent(
         position: absolutePosition,
         size: size * 0.96,
       );
-      match.add(nodeHighlitedComponent!);
+      match.add(_nodeHighlitedComponent!);
     }
   }
 
   void _hideHighlighted() {
-    if (nodeHighlitedComponent != null) {
-      match.remove(nodeHighlitedComponent!);
-      nodeHighlitedComponent = null;
+    if (_nodeHighlitedComponent != null) {
+      match.remove(_nodeHighlitedComponent!);
+      _nodeHighlitedComponent = null;
     }
   }
 
@@ -73,27 +73,27 @@ class NodeComponent<N extends Node> extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    if (node.hasUnit && (unitComponent == null)) {
-      unitComponent = node.unit.component(
+    if (node.hasUnit && (_unitComponent == null)) {
+      _unitComponent = node.unit.component(
         node: node,
         position: absolutePosition,
         size: size / 1.5,
       );
-      match.add(unitComponent!);
-    } else if (!node.hasUnit && (unitComponent != null)) {
-      match.remove(unitComponent!);
-      unitComponent = null;
+      match.add(_unitComponent!);
+    } else if (!node.hasUnit && (_unitComponent != null)) {
+      match.remove(_unitComponent!);
+      _unitComponent = null;
     }
 
-    if (node.hasStructure && (structureComponent == null)) {
-      structureComponent = node.structure.component(
+    if (node.hasStructure && (_structureComponent == null)) {
+      _structureComponent = node.structure.component(
         position: size / 2,
         size: size,
       );
-      add(structureComponent!);
-    } else if (!node.hasStructure && (structureComponent != null)) {
-      remove(structureComponent!);
-      structureComponent = null;
+      add(_structureComponent!);
+    } else if (!node.hasStructure && (_structureComponent != null)) {
+      remove(_structureComponent!);
+      _structureComponent = null;
     }
   }
 
