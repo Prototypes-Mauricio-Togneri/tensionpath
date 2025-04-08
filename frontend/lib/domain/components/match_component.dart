@@ -13,7 +13,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 class MatchComponent extends World {
   final Size resolution;
   final Match match;
-  BattlefieldComponent? battlefieldComponent;
+  final List<NodeComponent> nodeComponents = [];
 
   MatchComponent({required this.resolution, required this.match}) {
     MatchComponentRef.instance = this;
@@ -21,15 +21,17 @@ class MatchComponent extends World {
 
   @override
   FutureOr onLoad() {
-    battlefieldComponent = BattlefieldComponent(
-      battlefield: match.battlefield,
-      position: Dimensions.battlefieldPosition(
-        resolution: resolution,
-        isPlayer1: match.self.isPlayer1,
+    add(
+      BattlefieldComponent(
+        battlefield: match.battlefield,
+        position: Dimensions.battlefieldPosition(
+          resolution: resolution,
+          isPlayer1: match.self.isPlayer1,
+        ),
+        size: Dimensions.battlefieldSize(resolution),
+        nodeComponents: nodeComponents,
       ),
-      size: Dimensions.battlefieldSize(resolution),
     );
-    add(battlefieldComponent!);
 
     add(
       HeaderComponent(
@@ -56,9 +58,6 @@ class MatchComponent extends World {
 
     return super.onLoad();
   }
-
-  List<NodeComponent> get nodeComponents =>
-      battlefieldComponent?.nodeComponents ?? [];
 
   @override
   void update(double dt) {
