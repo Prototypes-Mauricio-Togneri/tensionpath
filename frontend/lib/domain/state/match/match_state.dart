@@ -7,20 +7,14 @@ class MatchState extends BaseState {
   final String selfId;
   GameComponent? gameComponent;
 
-  MatchState({
-    required this.matchId,
-    required this.selfId,
-  }) {
+  MatchState({required this.matchId, required this.selfId}) {
     restart();
   }
 
   bool get isInitialized => gameComponent != null;
 
-  Future restart() => Match.load(
-    id: matchId,
-    selfId: selfId,
-    onReady: onMatchReady,
-  );
+  Future restart() =>
+      Match.load(id: matchId, selfId: selfId, onReady: onMatchReady);
 
   void onMatchReady(Match match) {
     gameComponent = GameComponent(state: this, match: match);

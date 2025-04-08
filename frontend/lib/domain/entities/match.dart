@@ -15,25 +15,28 @@ class Match {
   final Player self;
   final Player opponent;
   final Battlefield battlefield;
-  int turn;
-  String activePlayer;
+  late int _turn;
+  late String _activePlayer;
   double _accumulatedResourcesInTurn = 0;
 
   Match({
     required this.id,
     required this.version,
     required this.createdAt,
-    required this.turn,
-    required this.activePlayer,
     required this.self,
     required this.opponent,
     required this.battlefield,
-  });
+    required int turn,
+    required String activePlayer,
+  }) {
+    _turn = turn;
+    _activePlayer = activePlayer;
+  }
 
   static DocumentReference ref(String id) =>
       FirebaseFirestore.instance.collection('matches').doc(id);
 
-  bool get isSelfTurn => activePlayer == self.id;
+  bool get isSelfTurn => _activePlayer == self.id;
 
   Player get player1 => self.isPlayer1 ? self : opponent;
 
@@ -72,12 +75,12 @@ class Match {
   void onMatchUpated(JsonMatch json) {
     final Match newMatch = json.object(self.id);
 
-    if (newMatch.activePlayer != activePlayer) {
+    if (newMatch._activePlayer != _activePlayer) {
       _accumulatedResourcesInTurn = 0;
     }
 
-    turn = newMatch.turn;
-    activePlayer = newMatch.activePlayer;
+    _turn = newMatch._turn;
+    _activePlayer = newMatch._activePlayer;
 
     self.replaceWith(newMatch.self);
     opponent.replaceWith(newMatch.opponent);
@@ -96,8 +99,8 @@ class Match {
         id: id,
         version: version,
         createdAt: createdAt,
-        turn: turn,
-        activePlayer: activePlayer,
+        turn: _turn,
+        activePlayer: _activePlayer,
         players: [self.toJson(), opponent.toJson()],
         battlefield: battlefield.deployUnit(nodeTarget: node, unit: unit),
       );
@@ -115,8 +118,8 @@ class Match {
         id: id,
         version: version,
         createdAt: createdAt,
-        turn: turn,
-        activePlayer: activePlayer,
+        turn: _turn,
+        activePlayer: _activePlayer,
         players: [self.toJson(), opponent.toJson()],
         battlefield: battlefield.moveUnit(
           nodeOrigin: nodeOrigin,
@@ -132,7 +135,7 @@ class Match {
       id: id,
       version: version,
       createdAt: createdAt,
-      turn: turn + 1,
+      turn: _turn + 1,
       activePlayer: opponent.id,
       players: [
         self.toJson(),

@@ -30,8 +30,8 @@ class JsonNode {
   Node object(List<Player> players) => Node(
     x: x,
     y: y,
-    nodeUnit: unit?.object(players),
-    nodeStructure: structure?.object(players),
+    unit: unit?.object(players),
+    structure: structure?.object(players),
   );
 
   factory JsonNode.fromJson(Map<String, dynamic> json) =>

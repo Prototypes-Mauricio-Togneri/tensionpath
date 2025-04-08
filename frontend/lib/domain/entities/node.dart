@@ -17,11 +17,11 @@ class Node {
   Node({
     required this.x,
     required this.y,
-    required Unit? nodeUnit,
-    required Structure? nodeStructure,
+    required Unit? unit,
+    required Structure? structure,
   }) {
-    _unit = nodeUnit;
-    _structure = nodeStructure;
+    _unit = unit;
+    _structure = structure;
   }
 
   NodeComponent<Node> component({

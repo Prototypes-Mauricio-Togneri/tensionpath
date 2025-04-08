@@ -21,7 +21,7 @@ abstract class Unit {
   final int visibilityRange;
   final int attack;
   final Player player;
-  late int health;
+  late int _health;
 
   Unit({
     required this.type,
@@ -33,13 +33,15 @@ abstract class Unit {
     required this.attack,
     required this.player,
   }) {
-    health = maxHealth;
+    _health = maxHealth;
   }
+
+  int get health => _health;
 
   Color get color => player.color;
 
   void reduceHealth(int value) {
-    health -= value;
+    _health -= value;
   }
 
   bool belongsTo(Player player) => this.player.id == player.id;
@@ -119,7 +121,7 @@ abstract class Unit {
     type: type,
     cost: cost,
     maxHealth: maxHealth,
-    health: health,
+    health: _health,
     attackRange: attackRange,
     movementRange: movementRange,
     visibilityRange: visibilityRange,

@@ -27,7 +27,7 @@ class JsonStructure {
 
     switch (type) {
       case StructureType.launcher:
-        return StructureLauncher(structurePlayer: structurePlayer);
+        return StructureLauncher(player: structurePlayer);
       case StructureType.resources:
         return StructureResources();
       case StructureType.missile:

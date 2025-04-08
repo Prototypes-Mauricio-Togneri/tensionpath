@@ -6,18 +6,23 @@ class Player {
   final String id;
   final String name;
   final bool isSelf;
-  int resources;
-  int resourcesRate;
+  late int _resources;
+  late int _resourcesRate;
 
   Player({
     required this.id,
     required this.name,
     required this.isSelf,
-    required this.resources,
-    required this.resourcesRate,
-  });
+    required int resources,
+    required int resourcesRate,
+  }) {
+    _resources = resources;
+    _resourcesRate = resourcesRate;
+  }
 
-  int get resourceRate => resourcesRate;
+  int get resources => _resources;
+
+  int get resourcesRate => _resourcesRate;
 
   bool get isPlayer1 => id == '1';
 
@@ -30,12 +35,12 @@ class Player {
   bool hasResources(int value) => resources >= value;
 
   void spendResources(int value) {
-    resources -= value;
+    _resources -= value;
   }
 
   void replaceWith(Player newPlayer) {
-    resources = newPlayer.resources;
-    resourcesRate = newPlayer.resourcesRate;
+    _resources = newPlayer.resources;
+    _resourcesRate = newPlayer.resourcesRate;
   }
 
   JsonPlayer addResources(int amount) => JsonPlayer(
