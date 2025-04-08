@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
@@ -24,10 +25,6 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(unit.type.sprite);
-
-    if (unit.player.isPlayer2) {
-      //scale.x = -1;
-    }
 
     add(
       HealthBarComponent(
@@ -75,6 +72,21 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
         position = initialPosition;
       }
     }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    canvas.save();
+
+    if (unit.player.isPlayer2) {
+      canvas.translate(size.x / 2, 0); // Move to the center of the sprite
+      canvas.scale(-1, 1); // Flip horizontally
+      canvas.translate(-size.x / 2, 0); // Move back to the original position
+    }
+
+    super.render(canvas);
+
+    canvas.restore();
   }
 }
 
