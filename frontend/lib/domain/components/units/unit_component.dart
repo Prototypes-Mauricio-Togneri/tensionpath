@@ -12,7 +12,7 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
   final U unit;
   final Node node;
-  Vector2 initialPosition = Vector2(0, 0);
+  final Vector2 initialPosition = Vector2(0, 0);
 
   UnitComponent({
     required this.unit,

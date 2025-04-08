@@ -71,15 +71,6 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   /*@override
   void onTapUp(TapUpEvent event) {
-    if (_canBeSelected) {
-      if (!_isSelected) {
-        match.unselectNodes();
-      }
-
-      _toggleSelected();
-    } else if (match.isMovementTarget(this)) {
-      match.moveUnitTo(this);
-    }
   }*/
 
   @override
