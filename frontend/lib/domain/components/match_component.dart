@@ -102,7 +102,10 @@ class MatchComponent extends World {
         final bool isInPosition = nodeComponent.containsPoint(position);
         final int distance = nodeComponent.node.distance(origin);
 
-        if (isEmpty && isInPosition && (distance == 1)) {
+        if (isEmpty &&
+            isInPosition &&
+            (origin.unit.maxMoves > 0) &&
+            (distance == 1)) {
           return nodeComponent;
         }
       }

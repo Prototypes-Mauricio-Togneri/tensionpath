@@ -1,14 +1,15 @@
 # TODO
-* Population cap
-* Max node movement per unit. Moving one node costs 1, moving 2 nodes cost 3, moving 3 nodes costs 7
-* Deploy tanker. Collect resources with tanker
-* Missile charging
-* First move, then attack
-* Add more units
-* Unit battles (basic attack/defense)
-* Base takes damage
-* Commanders abilities
-* Static building nodes
+
+- Max node movement per unit. Moving one node costs 1, moving 2 nodes cost 3, moving 3 nodes costs 7
+- Deploy tanker. Collect resources with tanker
+- Missile charging
+- First move, then attack
+- Fog of war
+- Add more units
+- Unit battles (basic attack/defense)
+- Base takes damage
+- Commanders abilities
+- Static building nodes
 
 # Common aspect ratios
 

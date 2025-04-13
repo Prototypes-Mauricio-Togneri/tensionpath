@@ -8,11 +8,13 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 class UnitSniper extends Unit {
   UnitSniper({
     required super.cost,
+    required super.health,
     required super.maxHealth,
     required super.shootingRange,
     required super.movementRange,
     required super.visibilityRange,
     required super.attack,
+    required super.moves,
     required super.player,
   }) : super(type: UnitType.sniper);
 

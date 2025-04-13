@@ -21,6 +21,7 @@ JsonUnit _$JsonUnitFromJson(
       (v) => (v as num).toInt(),
     ),
     attack: $checkedConvert('attack', (v) => (v as num).toInt()),
+    moves: $checkedConvert('moves', (v) => (v as num).toInt()),
     player: $checkedConvert('player', (v) => v as String),
   );
   return val;
@@ -35,6 +36,7 @@ Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
   'movementRange': instance.movementRange,
   'visibilityRange': instance.visibilityRange,
   'attack': instance.attack,
+  'moves': instance.moves,
   'player': instance.player,
 };
 

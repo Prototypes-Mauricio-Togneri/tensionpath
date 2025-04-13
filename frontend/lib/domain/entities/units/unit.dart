@@ -22,26 +22,36 @@ abstract class Unit {
   final int attack;
   final Player player;
   late int _health;
+  late int _moves;
 
   Unit({
     required this.type,
     required this.cost,
+    required int health,
     required this.maxHealth,
     required this.shootingRange,
     required this.movementRange,
     required this.visibilityRange,
     required this.attack,
+    required int moves,
     required this.player,
   }) {
-    _health = maxHealth;
+    _health = health;
+    _moves = moves;
   }
 
   int get health => _health;
 
   Color get color => player.color;
 
+  int get maxMoves => movementRange - _moves;
+
   void reduceHealth(int value) {
     _health -= value;
+  }
+
+  void increaseMoves(int value) {
+    _moves += value;
   }
 
   bool belongsTo(Player player) => this.player.id == player.id;
@@ -57,61 +67,73 @@ abstract class Unit {
       case UnitType.rifle_squad:
         return UnitRifleSquad(
           cost: unitType.cost,
+          health: unitType.health,
           maxHealth: unitType.health,
           shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
+          moves: 0,
           player: player,
         );
       case UnitType.sniper:
         return UnitSniper(
           cost: unitType.cost,
+          health: unitType.health,
           maxHealth: unitType.health,
           shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
+          moves: 0,
           player: player,
         );
       case UnitType.humvee:
         return UnitHumvee(
           cost: unitType.cost,
+          health: unitType.health,
           maxHealth: unitType.health,
           shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
+          moves: 0,
           player: player,
         );
       case UnitType.tank:
         return UnitTank(
           cost: unitType.cost,
+          health: unitType.health,
           maxHealth: unitType.health,
           shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
+          moves: 0,
           player: player,
         );
       case UnitType.artillery:
         return UnitArtillery(
           cost: unitType.cost,
+          health: unitType.health,
           maxHealth: unitType.health,
           shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
+          moves: 0,
           player: player,
         );
       case UnitType.helicopter:
         return UnitHelicopter(
           cost: unitType.cost,
+          health: unitType.health,
           maxHealth: unitType.health,
           shootingRange: unitType.shootingRange,
           movementRange: unitType.movementRange,
           visibilityRange: unitType.visibilityRange,
           attack: unitType.attack,
+          moves: 0,
           player: player,
         );
     }
@@ -126,6 +148,7 @@ abstract class Unit {
     movementRange: movementRange,
     visibilityRange: visibilityRange,
     attack: attack,
+    moves: _moves,
     player: player.id,
   );
 }

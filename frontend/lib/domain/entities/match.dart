@@ -114,6 +114,8 @@ class Match {
   }) async {
     if (self.hasResources(1) && !nodeTarget.hasUnit) {
       self.spendResources(1);
+      final distance = nodeOrigin.distance(nodeTarget);
+      nodeOrigin.unit.increaseMoves(distance);
       final JsonMatch json = JsonMatch(
         id: id,
         version: version,

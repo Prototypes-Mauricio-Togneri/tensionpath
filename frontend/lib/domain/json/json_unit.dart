@@ -37,6 +37,9 @@ class JsonUnit {
   @JsonKey(name: 'attack')
   final int attack;
 
+  @JsonKey(name: 'moves')
+  final int moves;
+
   @JsonKey(name: 'player')
   final String player;
 
@@ -49,6 +52,7 @@ class JsonUnit {
     required this.movementRange,
     required this.visibilityRange,
     required this.attack,
+    required this.moves,
     required this.player,
   });
 
@@ -59,61 +63,73 @@ class JsonUnit {
       case UnitType.rifle_squad:
         return UnitRifleSquad(
           cost: cost,
-          maxHealth: health,
+          health: health,
+          maxHealth: maxHealth,
           shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
+          moves: moves,
           player: unitPlayer,
         );
       case UnitType.sniper:
         return UnitSniper(
           cost: cost,
-          maxHealth: health,
+          health: health,
+          maxHealth: maxHealth,
           shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
+          moves: moves,
           player: unitPlayer,
         );
       case UnitType.humvee:
         return UnitHumvee(
           cost: cost,
-          maxHealth: health,
+          health: health,
+          maxHealth: maxHealth,
           shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
+          moves: moves,
           player: unitPlayer,
         );
       case UnitType.tank:
         return UnitTank(
           cost: cost,
-          maxHealth: health,
+          health: health,
+          maxHealth: maxHealth,
           shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
+          moves: moves,
           player: unitPlayer,
         );
       case UnitType.artillery:
         return UnitArtillery(
           cost: cost,
-          maxHealth: health,
+          health: health,
+          maxHealth: maxHealth,
           shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
+          moves: moves,
           player: unitPlayer,
         );
       case UnitType.helicopter:
         return UnitHelicopter(
           cost: cost,
-          maxHealth: health,
+          health: health,
+          maxHealth: maxHealth,
           shootingRange: shootingRange,
           movementRange: movementRange,
           visibilityRange: visibilityRange,
           attack: attack,
+          moves: moves,
           player: unitPlayer,
         );
     }
