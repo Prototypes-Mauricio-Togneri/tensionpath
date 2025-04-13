@@ -30,11 +30,14 @@ class ControlsComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
+    final int numberOfUnits = UnitType.values.length;
+    const int numberOfButtons = 8;
     final double gapSize = size.x * 0.1;
     final double cardWidth = size.x - (gapSize * 2);
-    final double cardHeight = (size.y - (gapSize * 9)) / 8;
+    final double cardHeight =
+        (size.y - (gapSize * (numberOfButtons + 1))) / numberOfButtons;
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < numberOfUnits; i++) {
       final Vector2 position = Vector2(
         gapSize + (cardWidth / 2),
         ((i + 0.5) * cardHeight) + ((i + 1) * gapSize),
@@ -53,7 +56,10 @@ class ControlsComponent extends PositionComponent {
     add(
       ResourceCounterComponent(
         player: player,
-        position: Vector2(gapSize, (6 * cardHeight) + (gapSize * 7)),
+        position: Vector2(
+          gapSize,
+          (numberOfUnits * cardHeight) + (gapSize * (numberOfButtons - 1)),
+        ),
         size: Vector2(cardWidth, cardHeight),
       ),
     );
@@ -61,7 +67,10 @@ class ControlsComponent extends PositionComponent {
     add(
       EndTurnComponent(
         player: player,
-        position: Vector2(gapSize, (7 * cardHeight) + (gapSize * 8)),
+        position: Vector2(
+          gapSize,
+          ((numberOfButtons - 1) * cardHeight) + (gapSize * numberOfButtons),
+        ),
         size: Vector2(cardWidth, cardHeight),
       ),
     );
