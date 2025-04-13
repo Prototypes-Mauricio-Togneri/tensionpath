@@ -52,6 +52,10 @@ class Node {
     _structure = newNode._structure;
   }
 
+  void resetUnit() {
+    _unit?.reset();
+  }
+
   bool belongsTo(Player player) =>
       (_unit?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);

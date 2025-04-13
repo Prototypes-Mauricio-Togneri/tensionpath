@@ -54,6 +54,10 @@ abstract class Unit {
     _moves += value;
   }
 
+  void reset() {
+    _moves = 0;
+  }
+
   bool belongsTo(Player player) => this.player.id == player.id;
 
   UnitComponent component({
@@ -91,16 +95,6 @@ abstract class Unit {
     }
   }
 
-  JsonUnit toJson() => JsonUnit(
-    type: type,
-    deploymentCost: deploymentCost,
-    movementCost: movementCost,
-    health: _health,
-    maxHealth: maxHealth,
-    movementRange: movementRange,
-    visibilityRange: visibilityRange,
-    attackRange: attackRange,
-    moves: _moves,
-    player: player.id,
-  );
+  JsonUnit toJson() =>
+      JsonUnit(type: type, health: _health, moves: _moves, player: player.id);
 }

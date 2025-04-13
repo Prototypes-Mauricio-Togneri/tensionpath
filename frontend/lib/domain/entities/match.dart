@@ -133,6 +133,7 @@ class Match {
   }
 
   Future onPassTurn() async {
+    battlefield.nodes.forEach((node) => node.resetUnit());
     final JsonMatch json = JsonMatch(
       id: id,
       version: version,

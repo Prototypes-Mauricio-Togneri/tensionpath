@@ -16,26 +16,8 @@ class JsonUnit {
   @JsonKey(name: 'type')
   final UnitType type;
 
-  @JsonKey(name: 'deploymentCost')
-  final int deploymentCost;
-
-  @JsonKey(name: 'movementCost')
-  final int movementCost;
-
   @JsonKey(name: 'health')
   final int health;
-
-  @JsonKey(name: 'maxHealth')
-  final int maxHealth;
-
-  @JsonKey(name: 'visibilityRange')
-  final int visibilityRange;
-
-  @JsonKey(name: 'movementRange')
-  final int movementRange;
-
-  @JsonKey(name: 'attackRange')
-  final int attackRange;
 
   @JsonKey(name: 'moves')
   final int moves;
@@ -45,13 +27,7 @@ class JsonUnit {
 
   const JsonUnit({
     required this.type,
-    required this.deploymentCost,
-    required this.movementCost,
     required this.health,
-    required this.maxHealth,
-    required this.visibilityRange,
-    required this.movementRange,
-    required this.attackRange,
     required this.moves,
     required this.player,
   });
