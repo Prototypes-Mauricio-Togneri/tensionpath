@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
@@ -58,7 +59,7 @@ class ControlsComponent extends PositionComponent {
     );
 
     add(
-      PassTurnComponent(
+      EndTurnComponent(
         player: player,
         position: Vector2(gapSize, (7 * cardHeight) + (gapSize * 8)),
         size: Vector2(cardWidth, cardHeight),
@@ -240,7 +241,7 @@ class ResourceCounterComponent extends PositionComponent {
   }
 }
 
-class PassTurnComponent extends PositionComponent with TapCallbacks {
+class EndTurnComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -250,11 +251,13 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
   @override
   void onTapUp(TapUpEvent event) {
     if (match.match.isSelfTurn) {
-      match.onPassTurn();
+      match.onEndTurn();
+    } else if (Environment.get.isDebug) {
+      match.onOpponentEndTurn();
     }
   }
 
-  PassTurnComponent({
+  EndTurnComponent({
     required this.player,
     required super.position,
     required super.size,
@@ -280,7 +283,7 @@ class PassTurnComponent extends PositionComponent with TapCallbacks {
       );
 
       canvas.drawText(
-        text: 'PASS TURN',
+        text: 'END TURN',
         position: Vector2(size.x / 2, size.y * 3 / 4),
         size: size.x / 7,
         color: Palette.CONTROLS_RESOURCES_FOREGROUND,

@@ -132,7 +132,7 @@ class Match {
     }
   }
 
-  Future onPassTurn() async {
+  Future onEndTurn() async {
     battlefield.nodes.forEach((node) => node.resetUnit());
     final JsonMatch json = JsonMatch(
       id: id,
@@ -143,6 +143,23 @@ class Match {
       players: [
         self.toJson(),
         opponent.addResources(accumulatedResourcesInTurn),
+      ],
+      battlefield: battlefield.toJson(),
+    );
+    await updateMatch(json);
+  }
+
+  Future onOpponentEndTurn() async {
+    battlefield.nodes.forEach((node) => node.resetUnit());
+    final JsonMatch json = JsonMatch(
+      id: id,
+      version: version,
+      createdAt: createdAt,
+      turn: _turn + 1,
+      activePlayer: self.id,
+      players: [
+        self.addResources(accumulatedResourcesInTurn),
+        opponent.toJson(),
       ],
       battlefield: battlefield.toJson(),
     );
