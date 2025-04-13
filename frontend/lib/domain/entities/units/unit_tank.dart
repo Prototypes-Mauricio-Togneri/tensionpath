@@ -6,17 +6,8 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitTank extends Unit {
-  UnitTank({
-    required super.cost,
-    required super.health,
-    required super.maxHealth,
-    required super.shootingRange,
-    required super.movementRange,
-    required super.visibilityRange,
-    required super.attack,
-    required super.moves,
-    required super.player,
-  }) : super(type: UnitType.tank);
+  UnitTank({required super.health, required super.moves, required super.player})
+    : super(type: UnitType.tank);
 
   @override
   UnitComponent component({

@@ -16,26 +16,26 @@ class JsonUnit {
   @JsonKey(name: 'type')
   final UnitType type;
 
-  @JsonKey(name: 'cost')
-  final int cost;
+  @JsonKey(name: 'deploymentCost')
+  final int deploymentCost;
 
-  @JsonKey(name: 'maxHealth')
-  final int maxHealth;
+  @JsonKey(name: 'movementCost')
+  final int movementCost;
 
   @JsonKey(name: 'health')
   final int health;
 
-  @JsonKey(name: 'shootingRange')
-  final int shootingRange;
-
-  @JsonKey(name: 'movementRange')
-  final int movementRange;
+  @JsonKey(name: 'maxHealth')
+  final int maxHealth;
 
   @JsonKey(name: 'visibilityRange')
   final int visibilityRange;
 
-  @JsonKey(name: 'attack')
-  final int attack;
+  @JsonKey(name: 'movementRange')
+  final int movementRange;
+
+  @JsonKey(name: 'attackRange')
+  final int attackRange;
 
   @JsonKey(name: 'moves')
   final int moves;
@@ -45,13 +45,13 @@ class JsonUnit {
 
   const JsonUnit({
     required this.type,
-    required this.cost,
-    required this.maxHealth,
+    required this.deploymentCost,
+    required this.movementCost,
     required this.health,
-    required this.shootingRange,
-    required this.movementRange,
+    required this.maxHealth,
     required this.visibilityRange,
-    required this.attack,
+    required this.movementRange,
+    required this.attackRange,
     required this.moves,
     required this.player,
   });
@@ -61,77 +61,17 @@ class JsonUnit {
 
     switch (type) {
       case UnitType.rifle_squad:
-        return UnitRifleSquad(
-          cost: cost,
-          health: health,
-          maxHealth: maxHealth,
-          shootingRange: shootingRange,
-          movementRange: movementRange,
-          visibilityRange: visibilityRange,
-          attack: attack,
-          moves: moves,
-          player: unitPlayer,
-        );
+        return UnitRifleSquad(health: health, moves: moves, player: unitPlayer);
       case UnitType.sniper:
-        return UnitSniper(
-          cost: cost,
-          health: health,
-          maxHealth: maxHealth,
-          shootingRange: shootingRange,
-          movementRange: movementRange,
-          visibilityRange: visibilityRange,
-          attack: attack,
-          moves: moves,
-          player: unitPlayer,
-        );
+        return UnitSniper(health: health, moves: moves, player: unitPlayer);
       case UnitType.humvee:
-        return UnitHumvee(
-          cost: cost,
-          health: health,
-          maxHealth: maxHealth,
-          shootingRange: shootingRange,
-          movementRange: movementRange,
-          visibilityRange: visibilityRange,
-          attack: attack,
-          moves: moves,
-          player: unitPlayer,
-        );
+        return UnitHumvee(health: health, moves: moves, player: unitPlayer);
       case UnitType.tank:
-        return UnitTank(
-          cost: cost,
-          health: health,
-          maxHealth: maxHealth,
-          shootingRange: shootingRange,
-          movementRange: movementRange,
-          visibilityRange: visibilityRange,
-          attack: attack,
-          moves: moves,
-          player: unitPlayer,
-        );
+        return UnitTank(health: health, moves: moves, player: unitPlayer);
       case UnitType.artillery:
-        return UnitArtillery(
-          cost: cost,
-          health: health,
-          maxHealth: maxHealth,
-          shootingRange: shootingRange,
-          movementRange: movementRange,
-          visibilityRange: visibilityRange,
-          attack: attack,
-          moves: moves,
-          player: unitPlayer,
-        );
+        return UnitArtillery(health: health, moves: moves, player: unitPlayer);
       case UnitType.helicopter:
-        return UnitHelicopter(
-          cost: cost,
-          health: health,
-          maxHealth: maxHealth,
-          shootingRange: shootingRange,
-          movementRange: movementRange,
-          visibilityRange: visibilityRange,
-          attack: attack,
-          moves: moves,
-          player: unitPlayer,
-        );
+        return UnitHelicopter(health: health, moves: moves, player: unitPlayer);
     }
   }
 

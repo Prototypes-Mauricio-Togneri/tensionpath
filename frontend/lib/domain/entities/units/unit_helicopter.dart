@@ -7,13 +7,7 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitHelicopter extends Unit {
   UnitHelicopter({
-    required super.cost,
     required super.health,
-    required super.maxHealth,
-    required super.shootingRange,
-    required super.movementRange,
-    required super.visibilityRange,
-    required super.attack,
     required super.moves,
     required super.player,
   }) : super(type: UnitType.helicopter);

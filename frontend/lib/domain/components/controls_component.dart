@@ -103,7 +103,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   }
 
   bool get isEnabled =>
-      match.match.isSelfTurn && (player.resources >= unitType.cost);
+      match.match.isSelfTurn && (player.resources >= unitType.deploymentCost);
 
   @override
   FutureOr onLoad() {
@@ -182,7 +182,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     canvas.drawRect(size.toRect(), border);
 
     canvas.drawText(
-      text: unitType.cost.toString(),
+      text: unitType.deploymentCost.toString(),
       position: Vector2(size.x * 0.9, size.y * 0.8),
       size: size.y / 5,
       color: border.color,

@@ -2,75 +2,75 @@ import 'package:tensionpath/utils/assets.dart';
 
 enum UnitType {
   rifle_squad(
-    cost: 1,
-    health: 100,
-    shootingRange: 1,
+    deploymentCost: 1,
+    movementCost: 1,
+    maxHealth: 100,
     movementRange: 1,
     visibilityRange: 1,
-    attack: 10,
+    attackRange: 1,
     sprite: Assets.IMAGES_UNITS_RIFLE_SQUAD,
   ),
   sniper(
-    cost: 2,
-    health: 100,
-    shootingRange: 1,
+    deploymentCost: 2,
+    movementCost: 1,
+    maxHealth: 100,
     movementRange: 1,
     visibilityRange: 1,
-    attack: 10,
+    attackRange: 1,
     sprite: Assets.IMAGES_UNITS_SNIPER,
   ),
   humvee(
-    cost: 3,
-    health: 100,
-    shootingRange: 1,
+    deploymentCost: 3,
+    movementCost: 2,
+    maxHealth: 100,
     movementRange: 1,
     visibilityRange: 1,
-    attack: 10,
+    attackRange: 1,
     sprite: Assets.IMAGES_UNITS_HUMVEE,
   ),
   tank(
-    cost: 4,
-    health: 100,
-    shootingRange: 1,
+    deploymentCost: 4,
+    movementCost: 2,
+    maxHealth: 100,
     movementRange: 1,
     visibilityRange: 1,
-    attack: 10,
+    attackRange: 1,
     sprite: Assets.IMAGES_UNITS_TANK,
   ),
   artillery(
-    cost: 5,
-    health: 100,
-    shootingRange: 1,
+    deploymentCost: 5,
+    movementCost: 2,
+    maxHealth: 100,
     movementRange: 1,
     visibilityRange: 1,
-    attack: 10,
+    attackRange: 1,
     sprite: Assets.IMAGES_UNITS_ARTILLERY,
   ),
   helicopter(
-    cost: 6,
-    health: 100,
-    shootingRange: 1,
+    deploymentCost: 6,
+    movementCost: 3,
+    maxHealth: 100,
     movementRange: 1,
     visibilityRange: 1,
-    attack: 10,
+    attackRange: 1,
     sprite: Assets.IMAGES_UNITS_HELICOPTER,
   );
 
-  final int cost;
-  final int health;
-  final int shootingRange;
-  final int movementRange;
+  final int deploymentCost;
+  final int movementCost;
+  final int maxHealth;
   final int visibilityRange;
-  final int attack;
+  final int movementRange;
+  final int attackRange;
   final String sprite;
 
   const UnitType({
-    required this.cost,
-    required this.health,
-    required this.shootingRange,
+    required this.deploymentCost,
+    required this.movementCost,
+    required this.maxHealth,
     required this.movementRange,
     required this.visibilityRange,
-    required this.attack,
+    required this.attackRange,
     required this.sprite,
   });
 }
