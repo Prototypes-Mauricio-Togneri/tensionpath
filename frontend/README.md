@@ -1,5 +1,6 @@
 # TODO
 
+- Show icon of remaining movements and attacks
 - Missile charging
 - Fog of war
 - Add more units
