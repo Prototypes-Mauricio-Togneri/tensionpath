@@ -33,27 +33,21 @@ class ControlsComponent extends PositionComponent {
   FutureOr onLoad() {
     final int numberOfUnits = UnitType.values.length;
     const int numberOfCards = 8;
-    final double gapSize = Dimensions.controlsGapSize(size);
     final Vector2 cardSize = Dimensions.controlsCardSize(
       size: size,
       numberOfCards: numberOfCards,
     );
 
-    //final double cardWidth = size.x - (gapSize * 2);
-    //final double cardHeight =
-    //   (size.y - (gapSize * (numberOfCards + 1))) / numberOfCards;
-
     for (int i = 0; i < numberOfUnits; i++) {
-      final Vector2 position = Vector2(
-        gapSize + (cardSize.x / 2),
-        ((i + 0.5) * cardSize.y) + ((i + 1) * gapSize),
-      );
-
       add(
         UnitSelectorComponent(
           player: player,
           unitType: UnitType.values[i],
-          position: position,
+          position: Dimensions.controlsUnitCardPosition(
+            size: size,
+            cardSize: cardSize,
+            i: i,
+          ),
           size: cardSize,
         ),
       );
@@ -62,9 +56,10 @@ class ControlsComponent extends PositionComponent {
     add(
       ResourceCounterComponent(
         player: player,
-        position: Vector2(
-          gapSize,
-          (numberOfUnits * cardSize.y) + (gapSize * (numberOfCards - 1)),
+        position: Dimensions.controlsResourcesCardPosition(
+          size: size,
+          cardSize: cardSize,
+          numberOfCards: numberOfCards,
         ),
         size: cardSize,
       ),
@@ -73,9 +68,10 @@ class ControlsComponent extends PositionComponent {
     add(
       EndTurnComponent(
         player: player,
-        position: Vector2(
-          gapSize,
-          ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards),
+        position: Dimensions.controlsEndTurnCardPosition(
+          size: size,
+          cardSize: cardSize,
+          numberOfCards: numberOfCards,
         ),
         size: cardSize,
       ),

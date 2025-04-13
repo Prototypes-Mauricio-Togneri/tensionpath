@@ -162,4 +162,43 @@ class Dimensions {
 
     return Vector2(cardWidth, cardHeight);
   }
+
+  static Vector2 controlsUnitCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int i,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize + (cardSize.x / 2),
+      ((i + 0.5) * cardSize.y) + ((i + 1) * gapSize),
+    );
+  }
+
+  static Vector2 controlsResourcesCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize,
+      ((numberOfCards - 2) * cardSize.y) + (gapSize * (numberOfCards - 1)),
+    );
+  }
+
+  static Vector2 controlsEndTurnCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize,
+      ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards),
+    );
+  }
 }
