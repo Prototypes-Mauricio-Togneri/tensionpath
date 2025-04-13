@@ -13,6 +13,7 @@ import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
@@ -31,16 +32,21 @@ class ControlsComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     final int numberOfUnits = UnitType.values.length;
-    const int numberOfButtons = 8;
-    final double gapSize = size.x * 0.1;
-    final double cardWidth = size.x - (gapSize * 2);
-    final double cardHeight =
-        (size.y - (gapSize * (numberOfButtons + 1))) / numberOfButtons;
+    const int numberOfCards = 8;
+    final double gapSize = Dimensions.controlsGapSize(size);
+    final Vector2 cardSize = Dimensions.controlsCardSize(
+      size: size,
+      numberOfCards: numberOfCards,
+    );
+
+    //final double cardWidth = size.x - (gapSize * 2);
+    //final double cardHeight =
+    //   (size.y - (gapSize * (numberOfCards + 1))) / numberOfCards;
 
     for (int i = 0; i < numberOfUnits; i++) {
       final Vector2 position = Vector2(
-        gapSize + (cardWidth / 2),
-        ((i + 0.5) * cardHeight) + ((i + 1) * gapSize),
+        gapSize + (cardSize.x / 2),
+        ((i + 0.5) * cardSize.y) + ((i + 1) * gapSize),
       );
 
       add(
@@ -48,7 +54,7 @@ class ControlsComponent extends PositionComponent {
           player: player,
           unitType: UnitType.values[i],
           position: position,
-          size: Vector2(cardWidth, cardHeight),
+          size: cardSize,
         ),
       );
     }
@@ -58,9 +64,9 @@ class ControlsComponent extends PositionComponent {
         player: player,
         position: Vector2(
           gapSize,
-          (numberOfUnits * cardHeight) + (gapSize * (numberOfButtons - 1)),
+          (numberOfUnits * cardSize.y) + (gapSize * (numberOfCards - 1)),
         ),
-        size: Vector2(cardWidth, cardHeight),
+        size: cardSize,
       ),
     );
 
@@ -69,9 +75,9 @@ class ControlsComponent extends PositionComponent {
         player: player,
         position: Vector2(
           gapSize,
-          ((numberOfButtons - 1) * cardHeight) + (gapSize * numberOfButtons),
+          ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards),
         ),
-        size: Vector2(cardWidth, cardHeight),
+        size: cardSize,
       ),
     );
 

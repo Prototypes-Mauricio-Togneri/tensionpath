@@ -148,4 +148,18 @@ class Dimensions {
       return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
     }
   }
+
+  static double controlsGapSize(Vector2 size) => size.x * 0.07;
+
+  static Vector2 controlsCardSize({
+    required Vector2 size,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+    final double cardWidth = size.x - (gapSize * 2);
+    final double cardHeight =
+        (size.y - (gapSize * (numberOfCards + 1))) / numberOfCards;
+
+    return Vector2(cardWidth, cardHeight);
+  }
 }
