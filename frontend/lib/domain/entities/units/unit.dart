@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit_artillery.dart';
+import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/entities/units/unit_helicopter.dart';
 import 'package:tensionpath/domain/entities/units/unit_humvee.dart';
 import 'package:tensionpath/domain/entities/units/unit_rifle_squad.dart';
@@ -66,32 +67,27 @@ abstract class Unit {
     required Vector2 size,
   });
 
-  factory Unit.fromType({required UnitType unitType, required Player player}) {
+  factory Unit.create({
+    required UnitType unitType,
+    required int health,
+    required int moves,
+    required Player player,
+  }) {
     switch (unitType) {
+      case UnitType.fuel_truck:
+        return UnitFuelTruck(health: health, moves: moves, player: player);
       case UnitType.rifle_squad:
-        return UnitRifleSquad(
-          health: unitType.maxHealth,
-          moves: 0,
-          player: player,
-        );
+        return UnitRifleSquad(health: health, moves: moves, player: player);
       case UnitType.sniper:
-        return UnitSniper(health: unitType.maxHealth, moves: 0, player: player);
+        return UnitSniper(health: health, moves: moves, player: player);
       case UnitType.humvee:
-        return UnitHumvee(health: unitType.maxHealth, moves: 0, player: player);
+        return UnitHumvee(health: health, moves: moves, player: player);
       case UnitType.tank:
-        return UnitTank(health: unitType.maxHealth, moves: 0, player: player);
+        return UnitTank(health: health, moves: moves, player: player);
       case UnitType.artillery:
-        return UnitArtillery(
-          health: unitType.maxHealth,
-          moves: 0,
-          player: player,
-        );
+        return UnitArtillery(health: health, moves: moves, player: player);
       case UnitType.helicopter:
-        return UnitHelicopter(
-          health: unitType.maxHealth,
-          moves: 0,
-          player: player,
-        );
+        return UnitHelicopter(health: health, moves: moves, player: player);
     }
   }
 

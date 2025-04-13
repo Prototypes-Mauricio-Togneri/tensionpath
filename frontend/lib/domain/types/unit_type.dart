@@ -1,6 +1,15 @@
 import 'package:tensionpath/utils/assets.dart';
 
 enum UnitType {
+  fuel_truck(
+    deploymentCost: 1,
+    movementCost: 1,
+    maxHealth: 100,
+    movementRange: 1,
+    visibilityRange: 1,
+    attackRange: 0,
+    sprite: Assets.IMAGES_UNITS_FUEL_TRUCK,
+  ),
   rifle_squad(
     deploymentCost: 1,
     movementCost: 1,

@@ -1,12 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/entities/units/unit_artillery.dart';
-import 'package:tensionpath/domain/entities/units/unit_helicopter.dart';
-import 'package:tensionpath/domain/entities/units/unit_humvee.dart';
-import 'package:tensionpath/domain/entities/units/unit_rifle_squad.dart';
-import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
-import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_unit.g.dart';
@@ -32,24 +26,12 @@ class JsonUnit {
     required this.player,
   });
 
-  Unit object(List<Player> players) {
-    final Player unitPlayer = Player.playerById(id: player, players: players)!;
-
-    switch (type) {
-      case UnitType.rifle_squad:
-        return UnitRifleSquad(health: health, moves: moves, player: unitPlayer);
-      case UnitType.sniper:
-        return UnitSniper(health: health, moves: moves, player: unitPlayer);
-      case UnitType.humvee:
-        return UnitHumvee(health: health, moves: moves, player: unitPlayer);
-      case UnitType.tank:
-        return UnitTank(health: health, moves: moves, player: unitPlayer);
-      case UnitType.artillery:
-        return UnitArtillery(health: health, moves: moves, player: unitPlayer);
-      case UnitType.helicopter:
-        return UnitHelicopter(health: health, moves: moves, player: unitPlayer);
-    }
-  }
+  Unit object(List<Player> players) => Unit.create(
+    unitType: type,
+    health: health,
+    moves: moves,
+    player: Player.playerById(id: player, players: players)!,
+  );
 
   factory JsonUnit.fromJson(Map<String, dynamic> json) =>
       _$JsonUnitFromJson(json);

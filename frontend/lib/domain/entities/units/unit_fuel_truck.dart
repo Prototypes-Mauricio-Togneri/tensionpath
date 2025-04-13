@@ -1,0 +1,26 @@
+import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/units/unit_component.dart';
+import 'package:tensionpath/domain/components/units/unit_fuel_truck_component.dart';
+import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
+
+class UnitFuelTruck extends Unit {
+  UnitFuelTruck({
+    required super.health,
+    required super.moves,
+    required super.player,
+  }) : super(type: UnitType.fuel_truck);
+
+  @override
+  UnitComponent component({
+    required Node node,
+    required Vector2 position,
+    required Vector2 size,
+  }) => UnitFuelTruckComponent(
+    node: node,
+    unit: this,
+    position: position,
+    size: size,
+  );
+}

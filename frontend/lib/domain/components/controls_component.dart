@@ -32,7 +32,7 @@ class ControlsComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     final int numberOfUnits = UnitType.values.length;
-    const int numberOfCards = 8;
+    final int numberOfCards = numberOfUnits + 2;
     final Vector2 cardSize = Dimensions.controlsCardSize(
       size: size,
       numberOfCards: numberOfCards,

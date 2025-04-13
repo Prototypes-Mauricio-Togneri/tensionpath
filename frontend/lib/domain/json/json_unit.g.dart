@@ -25,6 +25,7 @@ Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
 };
 
 const _$UnitTypeEnumMap = {
+  UnitType.fuel_truck: 'fuel_truck',
   UnitType.rifle_squad: 'rifle_squad',
   UnitType.sniper: 'sniper',
   UnitType.humvee: 'humvee',

@@ -94,7 +94,12 @@ class Match {
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
     if (self.hasResources(unitType.deploymentCost) && !node.hasUnit) {
       self.spendResources(unitType.deploymentCost);
-      final Unit unit = Unit.fromType(unitType: unitType, player: self);
+      final Unit unit = Unit.create(
+        unitType: unitType,
+        health: unitType.maxHealth,
+        moves: 0,
+        player: self,
+      );
       final JsonMatch json = JsonMatch(
         id: id,
         version: version,
