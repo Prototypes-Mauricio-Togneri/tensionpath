@@ -146,7 +146,7 @@ class Match {
       turn: _turn + 1,
       activePlayer: opponent.id,
       players: [
-        self.toJson(),
+        self.addResources(0),
         opponent.addResources(accumulatedResourcesInTurn),
       ],
       battlefield: battlefield.toJson(),
@@ -163,7 +163,7 @@ class Match {
       turn: _turn + 1,
       activePlayer: self.id,
       players: [
-        self.addResources(accumulatedResourcesInTurn),
+        self.toJson(),
         opponent.toJson(),
       ],
       battlefield: battlefield.toJson(),
