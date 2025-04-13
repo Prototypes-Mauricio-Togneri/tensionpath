@@ -1,10 +1,9 @@
 # TODO
 
-- Deploy tanker. Collect resources with tanker
 - Missile charging
-- First move, then attack
 - Fog of war
 - Add more units
+- First move, then attack
 - Unit battles (basic attack/defense)
 - Base takes damage
 - Commanders abilities

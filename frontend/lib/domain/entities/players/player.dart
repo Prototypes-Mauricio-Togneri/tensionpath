@@ -46,7 +46,7 @@ class Player {
   JsonPlayer addResources(int amount) => JsonPlayer(
     id: id,
     name: name,
-    resources: resources + amount + resourcesRate,
+    resources: resources + amount,
     resourcesRate: resourcesRate,
   );
 

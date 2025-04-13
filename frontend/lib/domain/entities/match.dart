@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/structures/structure.dart';
+import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
@@ -137,8 +141,28 @@ class Match {
     }
   }
 
+  int get _fuelCollected {
+    int result = 0;
+
+    for (final Node node in battlefield.nodes) {
+      if (node.hasStructure && node.hasUnit) {
+        final Structure structure = node.structure;
+        final Unit unit = node.unit;
+
+        if ((structure is StructureResources) &&
+            unit.belongsTo(self) &&
+            (unit is UnitFuelTruck)) {
+          result += Constants.FUEL_TRUCK_COLLECTION;
+        }
+      }
+    }
+
+    return result;
+  }
+
   Future onEndTurn() async {
     battlefield.nodes.forEach((node) => node.resetUnit());
+
     final JsonMatch json = JsonMatch(
       id: id,
       version: version,
@@ -146,7 +170,7 @@ class Match {
       turn: _turn + 1,
       activePlayer: opponent.id,
       players: [
-        self.addResources(0),
+        self.addResources(self.resourcesRate + _fuelCollected),
         opponent.addResources(accumulatedResourcesInTurn),
       ],
       battlefield: battlefield.toJson(),
@@ -162,10 +186,7 @@ class Match {
       createdAt: createdAt,
       turn: _turn + 1,
       activePlayer: self.id,
-      players: [
-        self.toJson(),
-        opponent.toJson(),
-      ],
+      players: [self.toJson(), opponent.toJson()],
       battlefield: battlefield.toJson(),
     );
     await updateMatch(json);
