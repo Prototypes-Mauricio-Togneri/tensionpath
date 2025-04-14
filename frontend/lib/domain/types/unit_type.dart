@@ -19,6 +19,15 @@ enum UnitType {
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_RIFLE_SQUAD,
   ),
+  rpg_ream(
+    deploymentCost: 1,
+    movementCost: 1,
+    maxHealth: 100,
+    movementRange: 1,
+    visibilityRange: 1,
+    attackRange: 1,
+    sprite: Assets.IMAGES_UNITS_RPG_TEAM,
+  ),
   sniper(
     deploymentCost: 2,
     movementCost: 1,
@@ -36,6 +45,15 @@ enum UnitType {
     visibilityRange: 1,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_HUMVEE,
+  ),
+  rocket_vehicle(
+    deploymentCost: 3,
+    movementCost: 2,
+    maxHealth: 100,
+    movementRange: 1,
+    visibilityRange: 1,
+    attackRange: 1,
+    sprite: Assets.IMAGES_UNITS_ROCKET_VEHICLE,
   ),
   tank(
     deploymentCost: 4,

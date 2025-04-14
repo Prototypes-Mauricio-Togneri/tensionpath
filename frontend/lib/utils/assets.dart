@@ -13,6 +13,8 @@ class Assets {
   static const String IMAGES_UNITS_HELICOPTER = 'units/helicopter.png';
   static const String IMAGES_UNITS_HUMVEE = 'units/humvee.png';
   static const String IMAGES_UNITS_RIFLE_SQUAD = 'units/rifle_squad.png';
+  static const String IMAGES_UNITS_ROCKET_VEHICLE = 'units/rocket_vehicle.png';
+  static const String IMAGES_UNITS_RPG_TEAM = 'units/rpg_team.png';
   static const String IMAGES_UNITS_SNIPER = 'units/sniper.png';
   static const String IMAGES_UNITS_TANK = 'units/tank.png';
 }

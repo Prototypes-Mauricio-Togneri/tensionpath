@@ -8,6 +8,8 @@ import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/entities/units/unit_helicopter.dart';
 import 'package:tensionpath/domain/entities/units/unit_humvee.dart';
 import 'package:tensionpath/domain/entities/units/unit_rifle_squad.dart';
+import 'package:tensionpath/domain/entities/units/unit_rocket_vehicle.dart';
+import 'package:tensionpath/domain/entities/units/unit_rpg_team.dart';
 import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
@@ -78,10 +80,14 @@ abstract class Unit {
         return UnitFuelTruck(health: health, moves: moves, player: player);
       case UnitType.rifle_squad:
         return UnitRifleSquad(health: health, moves: moves, player: player);
+      case UnitType.rpg_ream:
+        return UnitRpgTeam(health: health, moves: moves, player: player);
       case UnitType.sniper:
         return UnitSniper(health: health, moves: moves, player: player);
       case UnitType.humvee:
         return UnitHumvee(health: health, moves: moves, player: player);
+      case UnitType.rocket_vehicle:
+        return UnitRocketVehicle(health: health, moves: moves, player: player);
       case UnitType.tank:
         return UnitTank(health: health, moves: moves, player: player);
       case UnitType.artillery:
