@@ -1,9 +1,7 @@
 # TODO
 
-- Show icon of remaining movements and attacks
 - Missile charging
 - Fog of war
-- Add more units
 - First move, then attack
 - Unit battles (basic attack/defense)
 - Base takes damage
