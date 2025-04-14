@@ -28,6 +28,9 @@ class Palette {
   static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
   static const Color UNIT_HEALTH_BORDERD = Colors.white;
 
+  static const Color UNIT_INDICATOR_BACKGROUND = Colors.black;
+  static const Color UNIT_INDICATOR_FOREGROUND = Colors.white;
+
   static Paint paint({
     PaintingStyle? style,
     Color? color,

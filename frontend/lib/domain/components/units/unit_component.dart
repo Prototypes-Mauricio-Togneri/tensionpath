@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -31,6 +32,22 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
         unit: unit,
         position: Vector2(width / 2, height * 0.1),
         size: Vector2(width * 0.7, size.y / 10),
+      ),
+    );
+
+    add(
+      RemainingMovementComponent(
+        unit: unit,
+        position: Vector2(width * 0.3, height * 0.9),
+        size: Vector2(width * 0.3, size.y / 5),
+      ),
+    );
+
+    add(
+      RemainingAttacksComponent(
+        unit: unit,
+        position: Vector2(width * 0.7, height * 0.9),
+        size: Vector2(width * 0.3, size.y / 5),
       ),
     );
 
@@ -129,5 +146,77 @@ class HealthBarComponent<U extends Unit> extends PositionComponent {
     );
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);
+  }
+}
+
+class RemainingMovementComponent<U extends Unit> extends PositionComponent {
+  final U unit;
+  final Paint backgroundIndicatorPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.UNIT_INDICATOR_BACKGROUND,
+  );
+  final Paint foregroundIndicatorPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.UNIT_INDICATOR_FOREGROUND,
+  );
+
+  RemainingMovementComponent({
+    required this.unit,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    if (unit.belongsTo(match.match.self) && match.match.isSelfTurn) {
+      canvas.drawRect(
+        Rect.fromLTWH(0, 0, width, height),
+        backgroundIndicatorPaint,
+      );
+      canvas.drawText(
+        text: '➜ ${unit.remainingMoves}',
+        position: Vector2(width / 2, height * 0.6),
+        size: size.y * 0.7,
+        color: Palette.UNIT_INDICATOR_FOREGROUND,
+      );
+    }
+  }
+}
+
+class RemainingAttacksComponent<U extends Unit> extends PositionComponent {
+  final U unit;
+  final Paint backgroundIndicatorPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.UNIT_INDICATOR_BACKGROUND,
+  );
+  final Paint foregroundIndicatorPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.UNIT_INDICATOR_FOREGROUND,
+  );
+
+  RemainingAttacksComponent({
+    required this.unit,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    if (unit.belongsTo(match.match.self) && match.match.isSelfTurn) {
+      canvas.drawRect(
+        Rect.fromLTWH(0, 0, width, height),
+        backgroundIndicatorPaint,
+      );
+      canvas.drawText(
+        text: '⚔️ 1',
+        position: Vector2(width / 2, height * 0.4),
+        size: size.y * 0.7,
+        color: Palette.UNIT_INDICATOR_FOREGROUND,
+      );
+    }
   }
 }
