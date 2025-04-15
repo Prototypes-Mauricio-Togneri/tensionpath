@@ -31,9 +31,14 @@ class GameComponent extends FlameGame {
       height: resolution.height,
     );
 
-    if (debugMode) {
-      add(FpsTextComponent());
-    }
+    add(
+      FpsTextComponent(
+        position: Vector2(
+          camera.viewport.size.x - 90,
+          camera.viewport.size.y - 40,
+        ),
+      ),
+    );
 
     match.listen();
 

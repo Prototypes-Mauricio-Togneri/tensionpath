@@ -78,6 +78,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     if (node.isRevealed) {
       if (_fogComponent != null) {
         match.remove(_fogComponent!);
+        _fogComponent = null;
       }
 
       if (node.hasUnit && (_unitComponent == null)) {
