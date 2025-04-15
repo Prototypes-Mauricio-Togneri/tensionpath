@@ -23,6 +23,8 @@ abstract class Structure {
 
   Color? get color => _player?.color;
 
+  int get visibilityRange => type.visibilityRange;
+
   bool belongsTo(Player player) => _player?.id == player.id;
 
   void replaceWith(Structure newStructure) {

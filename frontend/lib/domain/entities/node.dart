@@ -77,6 +77,10 @@ class Node {
     return distance.toInt();
   }
 
+  Set<String> visibleNodes(int visibilityRange) {
+    return {};
+  }
+
   JsonNode withUnitDeployed(Unit unit) => JsonNode(
     x: x,
     y: y,
