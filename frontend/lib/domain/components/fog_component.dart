@@ -1,18 +1,21 @@
-import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:flame/rendering.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
-class FogComponent extends SpriteComponent {
+class FogComponent extends PositionComponent {
+  final Paint highlightedPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.NODE_FOG,
+  );
+
   FogComponent({required super.position, required super.size})
     : super(anchor: Anchor.center, priority: Priority.fog.value);
 
   @override
-  FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_NODES_FOG);
-    decorator.addLast(PaintDecorator.grayscale(opacity: 0.5));
-
-    return super.onLoad();
+  void render(Canvas canvas) {
+    super.render(canvas);
+    canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
   }
 }

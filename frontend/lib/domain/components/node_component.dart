@@ -104,7 +104,7 @@ class NodeComponent<N extends Node> extends PositionComponent
         _structureComponent = null;
       }
     } else {
-      /*if (_unitComponent != null) {
+      if (_unitComponent != null) {
         match.remove(_unitComponent!);
         _unitComponent = null;
       }
@@ -121,7 +121,7 @@ class NodeComponent<N extends Node> extends PositionComponent
               size: size,
             );
         match.add(_fogComponent!);
-      }*/
+      }
     }
   }
 
