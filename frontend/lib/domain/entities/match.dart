@@ -99,7 +99,12 @@ class Match {
         final Unit unit = newNode.unit;
 
         if (unit.belongsTo(self)) {
-          visibleNodes.addAll(oldNode.visibleNodes(unit.visibilityRange));
+          visibleNodes.addAll(
+            oldNode.visibleNodes(
+              visibilityRange: unit.visibilityRange,
+              nodes: newMatch.battlefield.nodes,
+            ),
+          );
         }
       }
 
@@ -107,7 +112,12 @@ class Match {
         final Structure structure = newNode.structure;
 
         if (structure.belongsTo(self)) {
-          visibleNodes.addAll(oldNode.visibleNodes(structure.visibilityRange));
+          visibleNodes.addAll(
+            oldNode.visibleNodes(
+              visibilityRange: structure.visibilityRange,
+              nodes: newMatch.battlefield.nodes,
+            ),
+          );
         }
       }
     }
