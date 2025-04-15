@@ -92,6 +92,7 @@ class Match {
     opponent.replaceWith(newMatch.opponent);
 
     final List<Unit> selfUnits = [];
+    final List<Structure> selfStructures = [];
 
     for (final Node newNode in newMatch.battlefield.nodes) {
       final Node oldNode = battlefield.nodeByPosition(newNode.x, newNode.y);
@@ -102,6 +103,14 @@ class Match {
 
         if (unit.belongsTo(self)) {
           selfUnits.add(unit);
+        }
+      }
+
+      if (newNode.hasStructure) {
+        final Structure structure = newNode.structure;
+
+        if (structure.belongsTo(self)) {
+          selfStructures.add(structure);
         }
       }
     }
