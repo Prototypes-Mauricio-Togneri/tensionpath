@@ -30,13 +30,13 @@ class Node {
     required Vector2 size,
   }) => NodeComponent(node: this, position: position, size: size);
 
+  String get id => '$x,$y';
+
   Unit get unit => _unit!;
 
   Structure get structure => _structure!;
 
   Color get color => _unit?.color ?? _structure?.color ?? Palette.transparent;
-
-  String get id => '[$x,$y]';
 
   bool get hasUnit => _unit != null;
 
