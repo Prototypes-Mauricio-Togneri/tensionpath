@@ -78,7 +78,35 @@ class Node {
   }
 
   Set<String> visibleNodes(int visibilityRange) {
-    return {};
+    final Set<String> result = {id};
+
+    for (int i = 0; i < visibilityRange; i++) {
+      final int x1 = x - 1;
+      final int y1 = y;
+      result.add('$x1,$y1');
+
+      final int x2 = x - 1;
+      final int y2 = y + 1;
+      result.add('$x2,$y2');
+
+      final int x3 = x;
+      final int y3 = y + 1;
+      result.add('$x3,$y3');
+
+      final int x4 = x + 1;
+      final int y4 = y;
+      result.add('$x4,$y4');
+
+      final int x5 = x + 1;
+      final int y5 = y - 1;
+      result.add('$x5,$y5');
+
+      final int x6 = x;
+      final int y6 = y - 1;
+      result.add('$x6,$y6');
+    }
+
+    return result;
   }
 
   JsonNode withUnitDeployed(Unit unit) => JsonNode(
