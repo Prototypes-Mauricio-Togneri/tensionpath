@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +28,6 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   bool get _canBeHighlighted =>
       match.match.isSelfTurn && _belongsToSelf && node.hasUnit;
-
-  @override
-  FutureOr onLoad() async {
-    _fogComponent = FogComponent(position: absolutePosition, size: size);
-
-    return super.onLoad();
-  }
 
   void onHighlighted(bool enabled) {
     if (enabled) {
@@ -85,6 +76,10 @@ class NodeComponent<N extends Node> extends PositionComponent
     super.update(dt);
 
     if (node.isRevealed) {
+      if (_fogComponent != null) {
+        match.remove(_fogComponent!);
+      }
+
       if (node.hasUnit && (_unitComponent == null)) {
         _unitComponent = node.unit.component(
           node: node,
@@ -118,7 +113,14 @@ class NodeComponent<N extends Node> extends PositionComponent
         _structureComponent = null;
       }
 
-      match.add(_fogComponent!);
+      if (_fogComponent == null) {
+        _fogComponent =
+            _fogComponent = FogComponent(
+              position: absolutePosition,
+              size: size,
+            );
+        match.add(_fogComponent!);
+      }
     }
   }
 
