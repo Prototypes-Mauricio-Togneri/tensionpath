@@ -1,7 +1,6 @@
 # TODO
 
 - Missile charging
-- Fog of war
 - First move, then attack
 - Unit battles (basic attack/defense)
 - Base takes damage
