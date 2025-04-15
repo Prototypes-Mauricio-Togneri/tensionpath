@@ -13,6 +13,7 @@ class Node {
   final int y;
   Unit? _unit;
   Structure? _structure;
+  bool _isRevealed = false;
 
   Node({
     required this.x,
@@ -42,6 +43,12 @@ class Node {
   bool get hasStructure => _structure != null;
 
   bool get hasLauncher => _structure?.type == StructureType.launcher;
+
+  bool get isRevealed => _isRevealed;
+
+  void setRevealed(bool value) {
+    _isRevealed = value;
+  }
 
   bool get isActionTarget =>
       (_structure?.type != StructureType.launcher) &&

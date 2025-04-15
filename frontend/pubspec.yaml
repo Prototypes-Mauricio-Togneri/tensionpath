@@ -43,5 +43,6 @@ flutter:
 
   assets:
     - assets/images/battlefields/
+    - assets/images/nodes/
     - assets/images/structures/
     - assets/images/units/

@@ -3,9 +3,10 @@ enum Priority {
   node(1),
   structure(2),
   unit(3),
-  damage(4),
-  header(5),
-  controls(6);
+  fog(4),
+  damage(5),
+  header(6),
+  controls(7);
 
   final int value;
 

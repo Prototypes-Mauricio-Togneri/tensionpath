@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
@@ -89,9 +91,23 @@ class Match {
     self.replaceWith(newMatch.self);
     opponent.replaceWith(newMatch.opponent);
 
+    final List<Unit> selfUnits = [];
+
     for (final Node newNode in newMatch.battlefield.nodes) {
       final Node oldNode = battlefield.nodeByPosition(newNode.x, newNode.y);
       oldNode.replaceWith(newNode);
+
+      if (newNode.hasUnit) {
+        final Unit unit = newNode.unit;
+
+        if (unit.belongsTo(self)) {
+          selfUnits.add(unit);
+        }
+      }
+    }
+
+    for (final Node node in battlefield.nodes) {
+      node.setRevealed(Random().nextBool());
     }
   }
 

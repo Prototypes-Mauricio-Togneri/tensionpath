@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -15,6 +18,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   NodeHighlitedComponent? _nodeHighlitedComponent;
   UnitComponent? _unitComponent;
   StructureComponent? _structureComponent;
+  FogComponent? _fogComponent;
 
   NodeComponent({
     required this.node,
@@ -26,6 +30,13 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   bool get _canBeHighlighted =>
       match.match.isSelfTurn && _belongsToSelf && node.hasUnit;
+
+  @override
+  FutureOr onLoad() async {
+    _fogComponent = FogComponent(position: absolutePosition, size: size);
+
+    return super.onLoad();
+  }
 
   void onHighlighted(bool enabled) {
     if (enabled) {
@@ -73,27 +84,41 @@ class NodeComponent<N extends Node> extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    if (node.hasUnit && (_unitComponent == null)) {
-      _unitComponent = node.unit.component(
-        node: node,
-        position: absolutePosition,
-        size: size / 1.5,
-      );
-      match.add(_unitComponent!);
-    } else if (!node.hasUnit && (_unitComponent != null)) {
-      match.remove(_unitComponent!);
-      _unitComponent = null;
-    }
+    if (node.isRevealed) {
+      if (node.hasUnit && (_unitComponent == null)) {
+        _unitComponent = node.unit.component(
+          node: node,
+          position: absolutePosition,
+          size: size / 1.5,
+        );
+        match.add(_unitComponent!);
+      } else if (!node.hasUnit && (_unitComponent != null)) {
+        match.remove(_unitComponent!);
+        _unitComponent = null;
+      }
 
-    if (node.hasStructure && (_structureComponent == null)) {
-      _structureComponent = node.structure.component(
-        position: size / 2,
-        size: size,
-      );
-      add(_structureComponent!);
-    } else if (!node.hasStructure && (_structureComponent != null)) {
-      remove(_structureComponent!);
-      _structureComponent = null;
+      if (node.hasStructure && (_structureComponent == null)) {
+        _structureComponent = node.structure.component(
+          position: size / 2,
+          size: size,
+        );
+        add(_structureComponent!);
+      } else if (!node.hasStructure && (_structureComponent != null)) {
+        remove(_structureComponent!);
+        _structureComponent = null;
+      }
+    } else {
+      if (_unitComponent != null) {
+        match.remove(_unitComponent!);
+        _unitComponent = null;
+      }
+
+      if (_structureComponent != null) {
+        remove(_structureComponent!);
+        _structureComponent = null;
+      }
+
+      match.add(_fogComponent!);
     }
   }
 
