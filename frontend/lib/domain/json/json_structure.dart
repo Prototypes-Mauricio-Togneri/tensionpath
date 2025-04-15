@@ -1,10 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
-import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
-import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
-import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 part 'json_structure.g.dart';
@@ -19,23 +15,10 @@ class JsonStructure {
 
   const JsonStructure({required this.type, required this.player});
 
-  Structure object(List<Player> players) {
-    final Player? structurePlayer = Player.playerById(
-      id: player,
-      players: players,
-    );
-
-    switch (type) {
-      case StructureType.launcher:
-        return StructureLauncher(player: structurePlayer);
-      case StructureType.resources:
-        return StructureResources();
-      case StructureType.missile:
-        return StructureMissile();
-      case StructureType.platform:
-        return StructurePlatform();
-    }
-  }
+  Structure object(List<Player> players) => Structure.create(
+    structureType: type,
+    player: Player.playerById(id: player, players: players)!,
+  );
 
   factory JsonStructure.fromJson(Map<String, dynamic> json) =>
       _$JsonStructureFromJson(json);

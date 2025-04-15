@@ -2,6 +2,10 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
+import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
+import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
+import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
@@ -29,6 +33,22 @@ abstract class Structure {
     required Vector2 position,
     required Vector2 size,
   });
+
+  factory Structure.create({
+    required StructureType structureType,
+    required Player player,
+  }) {
+    switch (structureType) {
+      case StructureType.launcher:
+        return StructureLauncher(player: player);
+      case StructureType.resources:
+        return StructureResources();
+      case StructureType.missile:
+        return StructureMissile();
+      case StructureType.platform:
+        return StructurePlatform();
+    }
+  }
 
   JsonStructure toJson() => JsonStructure(type: type, player: _player?.id);
 }
