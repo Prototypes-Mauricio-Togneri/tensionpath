@@ -17,7 +17,7 @@ class JsonStructure {
 
   Structure object(List<Player> players) => Structure.create(
     structureType: type,
-    player: Player.playerById(id: player, players: players)!,
+    player: Player.playerById(id: player, players: players),
   );
 
   factory JsonStructure.fromJson(Map<String, dynamic> json) =>

@@ -36,11 +36,11 @@ abstract class Structure {
 
   factory Structure.create({
     required StructureType structureType,
-    required Player player,
+    required Player? player,
   }) {
     switch (structureType) {
       case StructureType.launcher:
-        return StructureLauncher(player: player);
+        return StructureLauncher(player: player!);
       case StructureType.resources:
         return StructureResources();
       case StructureType.missile:
