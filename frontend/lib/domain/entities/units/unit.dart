@@ -80,7 +80,7 @@ abstract class Unit {
         return UnitFuelTruck(health: health, moves: moves, player: player);
       case UnitType.rifle_squad:
         return UnitRifleSquad(health: health, moves: moves, player: player);
-      case UnitType.rpg_ream:
+      case UnitType.rpg_team:
         return UnitRpgTeam(health: health, moves: moves, player: player);
       case UnitType.sniper:
         return UnitSniper(health: health, moves: moves, player: player);

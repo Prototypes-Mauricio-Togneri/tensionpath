@@ -9,6 +9,19 @@ class Assets {
   static const String IMAGES_STRUCTURES_MISSILE = 'structures/missile.png';
   static const String IMAGES_STRUCTURES_PLATFORM = 'structures/platform.png';
   static const String IMAGES_STRUCTURES_RESOURCES = 'structures/resources.png';
+  static const String IMAGES_THUMBNAILS_ARTILLERY = 'thumbnails/artillery.png';
+  static const String IMAGES_THUMBNAILS_FUEL_TRUCK =
+      'thumbnails/fuel_truck.png';
+  static const String IMAGES_THUMBNAILS_HELICOPTER =
+      'thumbnails/helicopter.png';
+  static const String IMAGES_THUMBNAILS_HUMVEE = 'thumbnails/humvee.png';
+  static const String IMAGES_THUMBNAILS_RIFLE_SQUAD =
+      'thumbnails/rifle_squad.png';
+  static const String IMAGES_THUMBNAILS_ROCKET_VEHICLE =
+      'thumbnails/rocket_vehicle.png';
+  static const String IMAGES_THUMBNAILS_RPG_TEAM = 'thumbnails/rpg_team.png';
+  static const String IMAGES_THUMBNAILS_SNIPER = 'thumbnails/sniper.png';
+  static const String IMAGES_THUMBNAILS_TANK = 'thumbnails/tank.png';
   static const String IMAGES_UNITS_ARTILLERY = 'units/artillery.png';
   static const String IMAGES_UNITS_FUEL_TRUCK = 'units/fuel_truck.png';
   static const String IMAGES_UNITS_HELICOPTER = 'units/helicopter.png';

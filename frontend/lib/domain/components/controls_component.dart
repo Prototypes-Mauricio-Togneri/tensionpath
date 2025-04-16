@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/rendering.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -121,12 +121,12 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   FutureOr onLoad() {
     add(RectangleHitbox(isSolid: true));
 
-    final double unitImageSize = min(size.x * 0.8, size.y * 0.8);
     add(
       UnitImageComponent(
+        player: player,
         type: unitType,
         position: Vector2(size.x / 2, size.y / 2),
-        size: Vector2(unitImageSize, unitImageSize),
+        size: size,
       ),
     );
 
@@ -203,17 +203,40 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 }
 
 class UnitImageComponent extends SpriteComponent {
+  final Player player;
   final UnitType type;
+  PaintDecorator? grayscale;
 
   UnitImageComponent({
+    required this.player,
     required this.type,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center);
 
+  bool get isEnabled =>
+      match.match.isSelfTurn && (player.resources >= type.deploymentCost);
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (isEnabled) {
+      if (grayscale != null) {
+        decorator.removeLast();
+        grayscale = null;
+      }
+    } else {
+      if (grayscale == null) {
+        grayscale = PaintDecorator.grayscale(opacity: 0.5);
+        decorator.addLast(grayscale);
+      }
+    }
+  }
+
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(type.sprite);
+    sprite = await Sprite.load(type.thumbnail);
 
     return super.onLoad();
   }

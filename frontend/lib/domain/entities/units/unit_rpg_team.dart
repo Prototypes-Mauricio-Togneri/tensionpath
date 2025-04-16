@@ -10,7 +10,7 @@ class UnitRpgTeam extends Unit {
     required super.health,
     required super.moves,
     required super.player,
-  }) : super(type: UnitType.rpg_ream);
+  }) : super(type: UnitType.rpg_team);
 
   @override
   UnitComponent component({

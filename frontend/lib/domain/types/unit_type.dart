@@ -9,6 +9,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 0,
     sprite: Assets.IMAGES_UNITS_FUEL_TRUCK,
+    thumbnail: Assets.IMAGES_THUMBNAILS_FUEL_TRUCK,
   ),
   rifle_squad(
     deploymentCost: 1,
@@ -18,8 +19,9 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_RIFLE_SQUAD,
+    thumbnail: Assets.IMAGES_THUMBNAILS_RIFLE_SQUAD,
   ),
-  rpg_ream(
+  rpg_team(
     deploymentCost: 1,
     movementCost: 1,
     maxHealth: 100,
@@ -27,6 +29,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_RPG_TEAM,
+    thumbnail: Assets.IMAGES_THUMBNAILS_RPG_TEAM,
   ),
   sniper(
     deploymentCost: 2,
@@ -36,6 +39,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_SNIPER,
+    thumbnail: Assets.IMAGES_THUMBNAILS_SNIPER,
   ),
   humvee(
     deploymentCost: 3,
@@ -45,6 +49,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_HUMVEE,
+    thumbnail: Assets.IMAGES_THUMBNAILS_HUMVEE,
   ),
   rocket_vehicle(
     deploymentCost: 3,
@@ -54,6 +59,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_ROCKET_VEHICLE,
+    thumbnail: Assets.IMAGES_THUMBNAILS_ROCKET_VEHICLE,
   ),
   tank(
     deploymentCost: 4,
@@ -63,6 +69,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_TANK,
+    thumbnail: Assets.IMAGES_THUMBNAILS_TANK,
   ),
   artillery(
     deploymentCost: 5,
@@ -72,6 +79,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_ARTILLERY,
+    thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
   ),
   helicopter(
     deploymentCost: 6,
@@ -81,6 +89,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     sprite: Assets.IMAGES_UNITS_HELICOPTER,
+    thumbnail: Assets.IMAGES_THUMBNAILS_HELICOPTER,
   );
 
   final int deploymentCost;
@@ -90,6 +99,7 @@ enum UnitType {
   final int movementRange;
   final int attackRange;
   final String sprite;
+  final String thumbnail;
 
   const UnitType({
     required this.deploymentCost,
@@ -99,5 +109,6 @@ enum UnitType {
     required this.visibilityRange,
     required this.attackRange,
     required this.sprite,
+    required this.thumbnail,
   });
 }
