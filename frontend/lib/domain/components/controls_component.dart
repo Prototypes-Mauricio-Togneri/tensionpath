@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -130,6 +130,15 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
       ),
     );
 
+    add(
+      UnitCostComponent(
+        player: player,
+        unitType: unitType,
+        position: Vector2(size.x * 0.8, size.y * 0.8),
+        size: Vector2(size.x * 0.4, size.y * 0.4),
+      ),
+    );
+
     return super.onLoad();
   }
 
@@ -192,13 +201,6 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     canvas.drawRect(size.toRect(), fill);
     canvas.drawRect(size.toRect(), border);
-
-    canvas.drawText(
-      text: unitType.deploymentCost.toString(),
-      position: Vector2(size.x * 0.9, size.y * 0.8),
-      size: size.y / 5,
-      color: border.color,
-    );
   }
 }
 
@@ -239,6 +241,43 @@ class UnitImageComponent extends SpriteComponent {
     sprite = await Sprite.load(type.thumbnail);
 
     return super.onLoad();
+  }
+}
+
+class UnitCostComponent extends PositionComponent {
+  final Player player;
+  final UnitType unitType;
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Colors.white,
+  );
+
+  UnitCostComponent({
+    required this.player,
+    required this.unitType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  bool get isEnabled =>
+      match.match.isSelfTurn && (player.resources >= unitType.deploymentCost);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    final Paint border =
+        isEnabled
+            ? borderPaint
+            : borderPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+    border.color = border.color.withAlpha(255);
+
+    canvas.drawText(
+      text: '🛢️ ${unitType.deploymentCost.toString()}',
+      position: size / 2,
+      size: size.x / 3,
+      color: border.color,
+    );
   }
 }
 
