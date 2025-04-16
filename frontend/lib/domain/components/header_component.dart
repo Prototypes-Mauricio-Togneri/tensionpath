@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/utils/formatter.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class HeaderComponent extends PositionComponent {
@@ -113,7 +115,7 @@ class TimeIndicatorComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '3:45',
+      text: Formatter.hoursMinutes(match.match.timeElapsed),
       position: size / 2,
       size: size.y,
       color: Palette.PLAYER_NAME,

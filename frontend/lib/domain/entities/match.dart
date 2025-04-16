@@ -22,6 +22,7 @@ class Match {
   late int _turn;
   late String _activePlayer;
   double _accumulatedResourcesInTurn = 0;
+  double _timeElapsed = 0;
 
   Match({
     required this.id,
@@ -40,6 +41,8 @@ class Match {
   static DocumentReference ref(String id) =>
       FirebaseFirestore.instance.collection('matches').doc(id);
 
+  int get timeElapsed => _timeElapsed.floor();
+
   bool get isSelfTurn => _activePlayer == self.id;
 
   Player get player1 => self.isPlayer1 ? self : opponent;
@@ -50,6 +53,7 @@ class Match {
 
   void update(double dt) {
     _accumulatedResourcesInTurn += dt;
+    _timeElapsed += dt;
   }
 
   void listen() => ref(id).snapshots().listen((snapshot) {
