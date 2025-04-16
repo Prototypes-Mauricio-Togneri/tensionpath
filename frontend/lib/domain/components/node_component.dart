@@ -75,6 +75,17 @@ class NodeComponent<N extends Node> extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
+    if (node.hasStructure && (_structureComponent == null)) {
+      _structureComponent = node.structure.component(
+        position: size / 2,
+        size: size,
+      );
+      add(_structureComponent!);
+    } else if (!node.hasStructure && (_structureComponent != null)) {
+      remove(_structureComponent!);
+      _structureComponent = null;
+    }
+
     if (node.isRevealed) {
       if (_fogComponent != null) {
         match.remove(_fogComponent!);
@@ -92,26 +103,10 @@ class NodeComponent<N extends Node> extends PositionComponent
         match.remove(_unitComponent!);
         _unitComponent = null;
       }
-
-      if (node.hasStructure && (_structureComponent == null)) {
-        _structureComponent = node.structure.component(
-          position: size / 2,
-          size: size,
-        );
-        add(_structureComponent!);
-      } else if (!node.hasStructure && (_structureComponent != null)) {
-        remove(_structureComponent!);
-        _structureComponent = null;
-      }
     } else {
       if (_unitComponent != null) {
         match.remove(_unitComponent!);
         _unitComponent = null;
-      }
-
-      if (_structureComponent != null) {
-        remove(_structureComponent!);
-        _structureComponent = null;
       }
 
       if (_fogComponent == null) {

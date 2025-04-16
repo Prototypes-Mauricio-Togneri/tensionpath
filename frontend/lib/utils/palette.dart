@@ -21,7 +21,7 @@ class Palette {
   static const Color CONTROLS_FILL_DISABLED = Color(0xff888888);
 
   static Color NODE_BORDER = Colors.white;
-  static const Color NODE_FOG = Color(0x22000000);
+  static const Color NODE_FOG = Color(0x88000000);
 
   static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
   static const Color UNIT_HEALTH_BORDERD = Colors.white;
