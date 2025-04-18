@@ -97,10 +97,11 @@ class Match {
 
     for (final Node newNode in newMatch.battlefield.nodes) {
       final Node oldNode = battlefield.nodeByPosition(newNode.location);
-      oldNode.replaceWith(newNode);
+      oldNode.setUnit(newNode.unit);
+      oldNode.setStructure(newNode.structure);
 
       if (newNode.hasUnit) {
-        final Unit unit = newNode.unit;
+        final Unit unit = newNode.unit!;
 
         if (unit.belongsTo(self)) {
           visibleNodes.addAll(
@@ -113,7 +114,7 @@ class Match {
       }
 
       if (newNode.hasStructure) {
-        final Structure structure = newNode.structure;
+        final Structure structure = newNode.structure!;
 
         if (structure.belongsTo(self)) {
           visibleNodes.addAll(
@@ -136,9 +137,10 @@ class Match {
       self.spendResources(unitType.deploymentCost);
       final Unit unit = Unit.create(
         unitType: unitType,
+        node: node,
+        player: self,
         health: unitType.maxHealth,
         moves: 0,
-        player: self,
       );
       final JsonMatch json = JsonMatch(
         id: id,
@@ -182,8 +184,8 @@ class Match {
 
     for (final Node node in battlefield.nodes) {
       if (node.hasStructure && node.hasUnit) {
-        final Structure structure = node.structure;
-        final Unit unit = node.unit;
+        final Structure structure = node.structure!;
+        final Unit unit = node.unit!;
 
         if ((structure is StructureResources) &&
             unit.belongsTo(self) &&

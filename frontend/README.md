@@ -1,6 +1,5 @@
 # TODO
 
-- Let units have coordinates to calculate distances between them
 - q,r flipped with x,y?
 - Missile charging
 - First move, then attack

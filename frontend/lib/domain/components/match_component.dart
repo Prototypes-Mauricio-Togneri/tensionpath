@@ -105,7 +105,7 @@ class MatchComponent extends World {
 
         if (isEmpty &&
             isInPosition &&
-            (origin.unit.remainingMoves > 0) &&
+            (origin.unit!.remainingMoves > 0) &&
             (distance == 1)) {
           return nodeComponent;
         }

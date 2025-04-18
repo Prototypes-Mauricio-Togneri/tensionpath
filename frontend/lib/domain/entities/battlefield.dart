@@ -53,7 +53,7 @@ class Battlefield {
     required Node nodeTarget,
   }) {
     final List<JsonNode> jsonNodes = [];
-    final Unit unit = nodeOrigin.unit;
+    final Unit unit = nodeOrigin.unit!;
 
     for (final Node node in nodes) {
       if (node == nodeOrigin) {

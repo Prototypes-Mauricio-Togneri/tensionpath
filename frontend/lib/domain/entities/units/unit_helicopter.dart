@@ -7,9 +7,10 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitHelicopter extends Unit {
   UnitHelicopter({
+    required super.location,
+    required super.player,
     required super.health,
     required super.moves,
-    required super.player,
   }) : super(type: UnitType.helicopter);
 
   @override

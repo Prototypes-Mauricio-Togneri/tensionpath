@@ -31,9 +31,9 @@ class Node {
 
   String get id => location.id;
 
-  Unit get unit => _unit!;
+  Unit? get unit => _unit;
 
-  Structure get structure => _structure!;
+  Structure? get structure => _structure;
 
   Color get color => _unit?.color ?? _structure?.color ?? Palette.transparent;
 
@@ -53,9 +53,12 @@ class Node {
       (_structure?.type != StructureType.launcher) &&
       (_structure?.type != StructureType.missile);
 
-  void replaceWith(Node newNode) {
-    _unit = newNode._unit;
-    _structure = newNode._structure;
+  void setUnit(Unit? unit) {
+    _unit = unit;
+  }
+
+  void setStructure(Structure? structure) {
+    _structure = structure;
   }
 
   void resetUnit() {

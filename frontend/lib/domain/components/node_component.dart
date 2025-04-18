@@ -76,7 +76,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     super.update(dt);
 
     if (node.hasStructure && (_structureComponent == null)) {
-      _structureComponent = node.structure.component(
+      _structureComponent = node.structure!.component(
         position: size / 2,
         size: size,
       );
@@ -93,7 +93,7 @@ class NodeComponent<N extends Node> extends PositionComponent
       }
 
       if (node.hasUnit && (_unitComponent == null)) {
-        _unitComponent = node.unit.component(
+        _unitComponent = node.unit!.component(
           node: node,
           position: absolutePosition,
           size: size / 1.5,

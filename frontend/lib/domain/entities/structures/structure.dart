@@ -27,10 +27,6 @@ abstract class Structure {
 
   bool belongsTo(Player player) => _player?.id == player.id;
 
-  void replaceWith(Structure newStructure) {
-    _player = newStructure._player;
-  }
-
   StructureComponent component({
     required Vector2 position,
     required Vector2 size,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit_artillery.dart';
@@ -17,15 +18,17 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit {
   final UnitType type;
+  final Location location;
+  final Player player;
   late int _health;
   late int _moves;
-  final Player player;
 
   Unit({
     required this.type,
+    required this.location,
+    required this.player,
     required int health,
     required int moves,
-    required this.player,
   }) {
     _health = health;
     _moves = moves;
@@ -71,29 +74,75 @@ abstract class Unit {
 
   factory Unit.create({
     required UnitType unitType,
+    required Node node,
+    required Player player,
     required int health,
     required int moves,
-    required Player player,
   }) {
     switch (unitType) {
       case UnitType.fuel_truck:
-        return UnitFuelTruck(health: health, moves: moves, player: player);
+        return UnitFuelTruck(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.rifle_squad:
-        return UnitRifleSquad(health: health, moves: moves, player: player);
+        return UnitRifleSquad(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.rpg_team:
-        return UnitRpgTeam(health: health, moves: moves, player: player);
+        return UnitRpgTeam(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.sniper:
-        return UnitSniper(health: health, moves: moves, player: player);
+        return UnitSniper(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.humvee:
-        return UnitHumvee(health: health, moves: moves, player: player);
+        return UnitHumvee(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.rocket_vehicle:
-        return UnitRocketVehicle(health: health, moves: moves, player: player);
+        return UnitRocketVehicle(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.tank:
-        return UnitTank(health: health, moves: moves, player: player);
+        return UnitTank(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.artillery:
-        return UnitArtillery(health: health, moves: moves, player: player);
+        return UnitArtillery(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
       case UnitType.helicopter:
-        return UnitHelicopter(health: health, moves: moves, player: player);
+        return UnitHelicopter(
+          location: node.location,
+          player: player,
+          health: health,
+          moves: moves,
+        );
     }
   }
 

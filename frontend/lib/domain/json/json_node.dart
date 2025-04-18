@@ -28,11 +28,19 @@ class JsonNode {
     required this.structure,
   });
 
-  Node object(List<Player> players) => Node(
-    location: Location(x: x, y: y),
-    unit: unit?.object(players),
-    structure: structure?.object(players),
-  );
+  Node object(List<Player> players) {
+    final Node node = Node(
+      location: Location(x: x, y: y),
+      unit: null,
+      structure: structure?.object(players),
+    );
+
+    if (unit != null) {
+      node.setUnit(unit!.object(node: node, players: players));
+    }
+
+    return node;
+  }
 
   factory JsonNode.fromJson(Map<String, dynamic> json) =>
       _$JsonNodeFromJson(json);
