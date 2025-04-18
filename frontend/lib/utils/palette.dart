@@ -14,7 +14,6 @@ class Palette {
 
   static Color BATTLEFIELD_BACKGROUND = const Color(0xff333333);
 
-  static const Color CONTROLS_BACKGROUND = Colors.green;
   static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
   static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
   static const Color CONTROLS_BACKGROUND_DISABLED = Color(0xff555555);

@@ -17,16 +17,15 @@ import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_BACKGROUND,
-  );
+  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
 
   ControlsComponent({
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value);
+  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value) {
+    fillPaint.color = player.color.darken(0.2);
+  }
 
   @override
   FutureOr onLoad() {
@@ -95,7 +94,6 @@ class ControlsComponent extends PositionComponent {
 class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
@@ -109,8 +107,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center) {
-    borderPaint.color = player.color;
-    fillPaint.color = player.color.brighten(0.5);
+    borderPaint.color = player.color.darken(0.5);
   }
 
   bool get isEnabled =>
@@ -183,20 +180,13 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         isEnabled
             ? borderPaint
             : borderPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
-    final Paint fill =
-        isEnabled
-            ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
 
     if (dragging) {
       border.color = border.color.withAlpha(100);
-      fill.color = fill.color.withAlpha(100);
     } else {
       border.color = border.color.withAlpha(255);
-      fill.color = fill.color.withAlpha(255);
     }
 
-    canvas.drawRect(size.toRect(), fill);
     canvas.drawRect(size.toRect(), border);
   }
 }
