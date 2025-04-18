@@ -31,6 +31,11 @@ class SplashScreen extends StatelessWidget {
               onPressed: state.onFullscreen,
               child: const Text('FULL SCREEN'),
             ),
+            const VBox(20),
+            ElevatedButton(
+              onPressed: state.onCreateMatch,
+              child: const Text('CREATE MATCH'),
+            ),
           ],
         ),
       ),

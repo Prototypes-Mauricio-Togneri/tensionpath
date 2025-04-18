@@ -109,7 +109,10 @@ class Dimensions {
   static Vector2 nodePosition({
     required Size nodeSize,
     required Location location,
-  }) => Vector2(nodeSize.width * ((location.x / 2) + location.y), nodeSize.height * 3 / 4 * location.x);
+  }) => Vector2(
+    nodeSize.width * ((location.y / 2) + location.x),
+    nodeSize.height * 3 / 4 * location.y,
+  );
 
   static Vector2 battlefildGridSize(Vector2 containerSize) {
     final double padding = containerSize.y * 0.05;

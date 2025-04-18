@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 
 part 'json_node.g.dart';
 
@@ -15,6 +16,9 @@ class JsonNode {
   @JsonKey(name: 'y')
   final int y;
 
+  @JsonKey(name: 'type')
+  final NodeType type;
+
   @JsonKey(name: 'unit')
   final JsonUnit? unit;
 
@@ -24,6 +28,7 @@ class JsonNode {
   const JsonNode({
     required this.x,
     required this.y,
+    required this.type,
     required this.unit,
     required this.structure,
   });
@@ -31,12 +36,17 @@ class JsonNode {
   Node object(List<Player> players) {
     final Node node = Node(
       location: Location(x: x, y: y),
+      type: type,
       unit: null,
-      structure: structure?.object(players),
+      structure: null,
     );
 
     if (unit != null) {
-      node.setUnit(unit!.object(node: node, players: players));
+      node.setUnit(unit?.object(node: node, players: players));
+    }
+
+    if (structure != null) {
+      node.setStructure(structure?.object(players));
     }
 
     return node;

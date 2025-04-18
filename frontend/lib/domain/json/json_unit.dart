@@ -27,16 +27,14 @@ class JsonUnit {
     required this.player,
   });
 
-  Unit object({
-    required Node node,
-    required List<Player> players,
-  }) => Unit.create(
-    unitType: type,
-    node: node,
-    player: Player.playerById(id: player, players: players)!,
-    health: health,
-    moves: moves,
-  );
+  Unit object({required Node node, required List<Player> players}) =>
+      Unit.create(
+        unitType: type,
+        node: node,
+        player: Player.playerById(id: player, players: players)!,
+        health: health,
+        moves: moves,
+      );
 
   factory JsonUnit.fromJson(Map<String, dynamic> json) =>
       _$JsonUnitFromJson(json);

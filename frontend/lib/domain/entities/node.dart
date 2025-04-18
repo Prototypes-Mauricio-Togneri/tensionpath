@@ -6,16 +6,19 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Node {
+  final NodeType type;
   final Location location;
   Unit? _unit;
   Structure? _structure;
-  bool _isRevealed = false;
+  bool _isRevealed = true; // TODO(momo): revert false;
 
   Node({
+    required this.type,
     required this.location,
     required Unit? unit,
     required Structure? structure,
@@ -89,6 +92,7 @@ class Node {
   JsonNode withUnitDeployed(Unit unit) => JsonNode(
     x: location.x,
     y: location.y,
+    type: type,
     unit: unit.toJson(),
     structure: _structure?.toJson(),
   );
@@ -96,6 +100,7 @@ class Node {
   JsonNode withUnitUndeployed() => JsonNode(
     x: location.x,
     y: location.y,
+    type: type,
     unit: null,
     structure: _structure?.toJson(),
   );
@@ -103,6 +108,7 @@ class Node {
   JsonNode toJson() => JsonNode(
     x: location.x,
     y: location.y,
+    type: type,
     unit: _unit?.toJson(),
     structure: _structure?.toJson(),
   );
