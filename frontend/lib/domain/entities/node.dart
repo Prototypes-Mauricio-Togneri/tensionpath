@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
@@ -9,15 +10,13 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Node {
-  final int x;
-  final int y;
+  final Location location;
   Unit? _unit;
   Structure? _structure;
   bool _isRevealed = false;
 
   Node({
-    required this.x,
-    required this.y,
+    required this.location,
     required Unit? unit,
     required Structure? structure,
   }) {
@@ -30,7 +29,7 @@ class Node {
     required Vector2 size,
   }) => NodeComponent(node: this, position: position, size: size);
 
-  String get id => '$x,$y';
+  String get id => location.id;
 
   Unit get unit => _unit!;
 
@@ -67,15 +66,7 @@ class Node {
       (_unit?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);
 
-  int distance(Node node) {
-    final double distance =
-        ((x - node.x).abs() +
-            (x + y - node.x - node.y).abs() +
-            (y - node.y).abs()) /
-        2;
-
-    return distance.toInt();
-  }
+  int distance(Node node) => location.distance(node.location);
 
   Set<String> visibleNodes({
     required int visibilityRange,
@@ -93,18 +84,22 @@ class Node {
   }
 
   JsonNode withUnitDeployed(Unit unit) => JsonNode(
-    x: x,
-    y: y,
+    x: location.x,
+    y: location.y,
     unit: unit.toJson(),
     structure: _structure?.toJson(),
   );
 
-  JsonNode withUnitUndeployed() =>
-      JsonNode(x: x, y: y, unit: null, structure: _structure?.toJson());
+  JsonNode withUnitUndeployed() => JsonNode(
+    x: location.x,
+    y: location.y,
+    unit: null,
+    structure: _structure?.toJson(),
+  );
 
   JsonNode toJson() => JsonNode(
-    x: x,
-    y: y,
+    x: location.x,
+    y: location.y,
     unit: _unit?.toJson(),
     structure: _structure?.toJson(),
   );
@@ -116,10 +111,10 @@ class Node {
     } else if (other is! Node) {
       return false;
     } else {
-      return (other.x == x) && (other.y == y);
+      return (other.id == id);
     }
   }
 
   @override
-  int get hashCode => Object.hash(x, y);
+  int get hashCode => id.hashCode;
 }

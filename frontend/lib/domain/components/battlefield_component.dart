@@ -83,8 +83,7 @@ class BattlefieldGridComponent extends PositionComponent {
       } else {
         final Vector2 position = Dimensions.nodePosition(
           nodeSize: nodeSize,
-          x: node.x,
-          y: node.y,
+          location: node.location,
         );
 
         final NodeComponent nodeComponent = node.component(

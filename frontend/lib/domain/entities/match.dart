@@ -96,7 +96,7 @@ class Match {
     final Set<String> visibleNodes = {};
 
     for (final Node newNode in newMatch.battlefield.nodes) {
-      final Node oldNode = battlefield.nodeByPosition(newNode.x, newNode.y);
+      final Node oldNode = battlefield.nodeByPosition(newNode.location);
       oldNode.replaceWith(newNode);
 
       if (newNode.hasUnit) {

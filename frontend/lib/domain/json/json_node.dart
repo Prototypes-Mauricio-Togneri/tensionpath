@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
@@ -28,8 +29,7 @@ class JsonNode {
   });
 
   Node object(List<Player> players) => Node(
-    x: x,
-    y: y,
+    location: Location(x: x, y: y),
     unit: unit?.object(players),
     structure: structure?.object(players),
   );

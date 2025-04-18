@@ -126,7 +126,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
     if (debugMode) {
       canvas.drawText(
-        text: '${node.x},${node.y}',
+        text: '${node.location}',
         position: Vector2(size.x / 2, size.y / 4),
         size: size.x / 8,
         color: Colors.white,

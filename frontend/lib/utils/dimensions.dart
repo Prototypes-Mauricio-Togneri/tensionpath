@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 
 class Dimensions {
   static Size cameraSize(Vector2 canvasSize) => Size(
@@ -107,9 +108,8 @@ class Dimensions {
 
   static Vector2 nodePosition({
     required Size nodeSize,
-    required int x,
-    required int y,
-  }) => Vector2(nodeSize.width * ((x / 2) + y), nodeSize.height * 3 / 4 * x);
+    required Location location,
+  }) => Vector2(nodeSize.width * ((location.x / 2) + location.y), nodeSize.height * 3 / 4 * location.x);
 
   static Vector2 battlefildGridSize(Vector2 containerSize) {
     final double padding = containerSize.y * 0.05;

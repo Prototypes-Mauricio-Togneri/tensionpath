@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -18,14 +19,14 @@ class Battlefield {
     required this.gridRatio,
   });
 
-  Node nodeByPosition(int x, int y) {
+  Node nodeByPosition(Location location) {
     for (final Node node in nodes) {
-      if ((node.x == x) && (node.y == y)) {
+      if (node.location == location) {
         return node;
       }
     }
 
-    throw Exception('Node not found at position ($x, $y)');
+    throw Exception('Node not found at position ($location)');
   }
 
   JsonBattlefield deployUnit({required Node nodeTarget, required Unit unit}) {
