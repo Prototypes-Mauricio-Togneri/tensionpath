@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -119,8 +118,6 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() {
-    add(RectangleHitbox(isSolid: true));
-
     add(
       UnitImageComponent(
         player: player,
@@ -220,6 +217,13 @@ class UnitImageComponent extends SpriteComponent {
       match.match.isSelfTurn && (player.resources >= type.deploymentCost);
 
   @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(type.thumbnail);
+
+    return super.onLoad();
+  }
+
+  @override
   void update(double dt) {
     super.update(dt);
 
@@ -234,13 +238,14 @@ class UnitImageComponent extends SpriteComponent {
         decorator.addLast(grayscale);
       }
     }
-  }
 
-  @override
-  FutureOr onLoad() async {
-    sprite = await Sprite.load(type.thumbnail);
+    final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
 
-    return super.onLoad();
+    if (unitSelector.dragging) {
+      paint.color = paint.color.withAlpha(128);
+    } else {
+      paint.color = paint.color.withAlpha(255);
+    }
   }
 }
 
@@ -266,11 +271,18 @@ class UnitCostComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
+    final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
+
     final Paint border =
         isEnabled
             ? borderPaint
             : borderPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
-    border.color = border.color.withAlpha(255);
+
+    if (!unitSelector.dragging && isEnabled) {
+      border.color = border.color.withAlpha(255);
+    } else {
+      border.color = border.color.withAlpha(128);
+    }
 
     canvas.drawText(
       text: '🛢️ ${unitType.deploymentCost.toString()}',
