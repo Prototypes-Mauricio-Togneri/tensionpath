@@ -15,7 +15,7 @@ class Node {
   final Location location;
   Unit? _unit;
   Structure? _structure;
-  bool _isRevealed = true; // TODO(momo): revert false;
+  bool _isRevealed = false;
 
   Node({
     required this.type,

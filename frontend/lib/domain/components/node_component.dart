@@ -139,13 +139,6 @@ class NodeComponent<N extends Node> extends PositionComponent
         color: Colors.white,
       );
     }
-
-    canvas.drawText(
-      text: '${node.location}',
-      position: size / 2,
-      size: size.x / 5,
-      color: Colors.white,
-    );
   }
 }
 

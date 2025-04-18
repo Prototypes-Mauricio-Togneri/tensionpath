@@ -1,6 +1,5 @@
 # TODO
 
-- q,r flipped with x,y?
 - Missile charging
 - First move, then attack
 - Unit battles (basic attack/defense)
