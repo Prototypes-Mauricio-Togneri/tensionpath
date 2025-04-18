@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "776b39445cef7e7472bd01d542823ebd",
-"main.dart.js": "344132073360d49f4f9f69ec02c94ae3",
+const RESOURCES = {"flutter_bootstrap.js": "b146c9ecdf91a59f12b11a00a33d59ad",
+"main.dart.js": "044818efaf315d763aa528c68c253cd0",
 "assets/NOTICES": "b060564cae87d2181708698b7c1a6b1e",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/images/structures/platform.png": "0ec571b3480c0442351b5d23e5f51904",
@@ -16,10 +16,10 @@ const RESOURCES = {"flutter_bootstrap.js": "776b39445cef7e7472bd01d542823ebd",
 "assets/assets/images/units/artillery.png": "46518f69668c52019f2298261f820368",
 "assets/assets/images/units/sniper.png": "f564e2fa1478d542bb3c1dedfef298c9",
 "assets/assets/images/units/humvee.png": "e83e63e4a493a248eb914ded8a9bc966",
-"assets/assets/images/units/rifle_squad.png": "76cd0decf93d6365dde786184f17b508",
+"assets/assets/images/units/rifle_squad.png": "54b56d8abe47c05f601859b5c4ae72ca",
 "assets/assets/images/units/helicopter.png": "c30cfdf462ff7443f862bd547cd090a6",
 "assets/assets/images/units/fuel_truck.png": "c79cbfd67ecc9a4101dbf48962f31b6c",
-"assets/assets/images/units/rpg_team.png": "0a883e50021751049dc3a23a8090d7bc",
+"assets/assets/images/units/rpg_team.png": "5bfffc9824395027fcac755d2707d712",
 "assets/assets/images/units/tank.png": "6a705d1845ce5ee2a18ee9fd822c272f",
 "assets/assets/images/units/rocket_vehicle.png": "9d2a35cb4f4e7280e9ed5534d93b5563",
 "assets/assets/images/battlefields/background.jpg": "fc067d3e0c7058519736bca04cdb1408",
