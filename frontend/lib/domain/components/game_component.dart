@@ -34,7 +34,7 @@ class GameComponent extends FlameGame {
     add(
       FpsTextComponent(
         position: Vector2(
-          camera.viewport.size.x - 90,
+          match.player1.isSelf ? (camera.viewport.size.x - 90) : 20,
           camera.viewport.size.y - 40,
         ),
       ),
