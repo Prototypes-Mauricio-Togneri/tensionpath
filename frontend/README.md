@@ -6,7 +6,6 @@
 - Unit battles (basic attack/defense)
 - Base takes damage
 - Commanders abilities
-- Static building nodes
 
 # Common aspect ratios
 
