@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
+import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -14,7 +15,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   final N node;
   NodeHighlitedComponent? _nodeHighlitedComponent;
   UnitComponent? _unitComponent;
-  //StructureComponent? _structureComponent;
+  StructureComponent? _structureComponent;
   FogComponent? _fogComponent;
 
   NodeComponent({
@@ -74,7 +75,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    /*if (node.hasStructure && (_structureComponent == null)) {
+    if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         position: size / 2,
         size: size,
@@ -83,7 +84,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     } else if (!node.hasStructure && (_structureComponent != null)) {
       remove(_structureComponent!);
       _structureComponent = null;
-    }*/
+    }
 
     if (node.isRevealed) {
       if (_fogComponent != null) {

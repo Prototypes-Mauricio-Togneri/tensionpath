@@ -40,36 +40,33 @@
             {
                 "x": 0,
                 "y": -1,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "platform"
+                }
             },
             {
                 "x": 1,
                 "y": -1,
-                "type": "land",
-                "structure": {
-                    "type": "platform"
-                }
+                "type": "land"
             },
             {
                 "x": 1,
                 "y": 0,
-                "type": "land",
-                "structure": {
-                    "type": "platform"
-                }
+                "type": "land"
             },
             {
                 "x": 0,
                 "y": 1,
-                "type": "land"
-            },
-            {
-                "x": -1,
-                "y": 1,
                 "type": "land",
                 "structure": {
                     "type": "platform"
                 }
+            },
+            {
+                "x": -1,
+                "y": 1,
+                "type": "land"
             },
             {
                 "x": -1,
@@ -79,7 +76,10 @@
             {
                 "x": 1,
                 "y": -2,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "platform"
+                }
             },
             {
                 "x": 2,
@@ -104,12 +104,18 @@
             {
                 "x": 0,
                 "y": 2,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "platform"
+                }
             },
             {
                 "x": -1,
                 "y": 2,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "platform"
+                }
             },
             {
                 "x": -2,
@@ -134,7 +140,10 @@
             {
                 "x": 0,
                 "y": -2,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "platform"
+                }
             },
             {
                 "x": 0,
