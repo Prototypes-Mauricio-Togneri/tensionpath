@@ -29,25 +29,6 @@ class Battlefield {
     throw Exception('Node not found at position ($location)');
   }
 
-  JsonBattlefield deployUnit({required Node nodeTarget, required Unit unit}) {
-    final List<JsonNode> jsonNodes = [];
-
-    for (final Node node in nodes) {
-      if (node == nodeTarget) {
-        jsonNodes.add(nodeTarget.withUnitDeployed(unit));
-      } else {
-        jsonNodes.add(node.toJson());
-      }
-    }
-
-    return JsonBattlefield(
-      id: id,
-      size: size.toJsonSize(),
-      gridRatio: gridRatio.toJsonRatio(),
-      nodes: jsonNodes,
-    );
-  }
-
   JsonBattlefield moveUnit({
     required Node nodeOrigin,
     required Node nodeTarget,
