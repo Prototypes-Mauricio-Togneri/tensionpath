@@ -10,6 +10,7 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonBattlefield', json, ($checkedConvert) {
       final val = JsonBattlefield(
         id: $checkedConvert('id', (v) => v as String),
+        platforms: $checkedConvert('platforms', (v) => (v as num).toInt()),
         size: $checkedConvert(
           'size',
           (v) => JsonSize.fromJson(v as Map<String, dynamic>),
@@ -32,6 +33,7 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'platforms': instance.platforms,
       'size': instance.size.toJson(),
       'gridRatio': instance.gridRatio.toJson(),
       'nodes': instance.nodes.map((e) => e.toJson()).toList(),

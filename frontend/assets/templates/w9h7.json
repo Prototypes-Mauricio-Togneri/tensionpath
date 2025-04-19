@@ -21,6 +21,7 @@
     ],
     "battlefield": {
         "id": "w9h7",
+        "platforms": 2,
         "size": {
             "width": 9,
             "height": 7

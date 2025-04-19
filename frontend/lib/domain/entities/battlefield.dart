@@ -1,24 +1,50 @@
 import 'package:flutter/services.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
+import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
+import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Battlefield {
   final String id;
   final List<Node> nodes;
   final Size size;
   final Size gridRatio;
+  late final List<Platform> platforms;
 
-  const Battlefield({
+  Battlefield({
     required this.id,
     required this.nodes,
     required this.size,
     required this.gridRatio,
-  });
+    required int numberOfPlatforms,
+  }) {
+    platforms = [];
+
+    final Iterable<StructurePad> pads = nodes
+        .where(
+          (node) =>
+              node.hasStructure && node.structure?.type == StructureType.pad,
+        )
+        .map((node) => node.structure as StructurePad);
+
+    for (int i = 0; i < numberOfPlatforms; i++) {
+      final String platformId = '${i + 1}';
+      platforms.add(
+        Platform(
+          platformId: platformId,
+          pads: pads.where((pad) => pad.platformId == platformId).toList(),
+        ),
+      );
+    }
+
+    print(platforms);
+  }
 
   void replaceWith({
     required Player self,

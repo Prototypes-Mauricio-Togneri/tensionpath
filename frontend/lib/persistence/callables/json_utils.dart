@@ -61,6 +61,7 @@ class JsonUtils {
 
     return JsonBattlefield(
       id: battlefield.id,
+      platforms: battlefield.platforms.length,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       nodes: jsonNodes,
@@ -88,6 +89,7 @@ class JsonUtils {
 
     return JsonBattlefield(
       id: battlefield.id,
+      platforms: battlefield.platforms.length,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       nodes: jsonNodes,
@@ -103,6 +105,7 @@ class JsonUtils {
 
     return JsonBattlefield(
       id: battlefield.id,
+      platforms: battlefield.platforms.length,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       nodes: jsonNodes,

@@ -12,6 +12,9 @@ class JsonBattlefield {
   @JsonKey(name: 'id')
   final String id;
 
+  @JsonKey(name: 'platforms')
+  final int platforms;
+
   @JsonKey(name: 'size')
   final JsonSize size;
 
@@ -23,6 +26,7 @@ class JsonBattlefield {
 
   const JsonBattlefield({
     required this.id,
+    required this.platforms,
     required this.size,
     required this.gridRatio,
     required this.nodes,
@@ -33,6 +37,7 @@ class JsonBattlefield {
     nodes: nodes.map((node) => node.object(players)).toList(),
     size: size.object,
     gridRatio: gridRatio.object,
+    numberOfPlatforms: platforms,
   );
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>
