@@ -28,8 +28,7 @@ class Battlefield {
 
     for (final Node newNode in newBattlefield.nodes) {
       final Node oldNode = nodeById(newNode.id);
-      oldNode.setUnit(newNode.unit);
-      oldNode.setStructure(newNode.structure);
+      oldNode.replaceWith(newNode);
 
       if (oldNode.hasUnit) {
         final Unit unit = oldNode.unit!;

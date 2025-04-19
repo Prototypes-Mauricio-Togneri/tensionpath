@@ -51,19 +51,17 @@ class Node {
       (_structure?.type != StructureType.launcher) &&
       (_structure?.type != StructureType.missile);
 
-  void setUnit(Unit? unit) {
-    if ((unit != null) && (_unit != null)) {
-      _unit!.replaceWith(newUnit: unit, location: unit.location);
+  void replaceWith(Node newNode) {
+    if ((newNode.unit != null) && (_unit != null)) {
+      _unit!.replaceWith(newUnit: newNode.unit!, location: newNode.location);
     } else {
-      _unit = unit;
+      _unit = newNode.unit;
     }
-  }
 
-  void setStructure(Structure? structure) {
-    if ((structure != null) && (_structure != null)) {
-      _structure!.replaceWith(structure);
+    if ((newNode.structure != null) && (_structure != null)) {
+      _structure!.replaceWith(newNode.structure!);
     } else {
-      _structure = structure;
+      _structure = newNode.structure;
     }
   }
 
