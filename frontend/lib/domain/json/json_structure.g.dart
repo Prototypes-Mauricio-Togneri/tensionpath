@@ -30,5 +30,5 @@ const _$StructureTypeEnumMap = {
   StructureType.resources: 'resources',
   StructureType.launcher: 'launcher',
   StructureType.missile: 'missile',
-  StructureType.platform: 'platform',
+  StructureType.pad: 'pad',
 };

@@ -8,7 +8,7 @@ class Assets {
   static const String IMAGES_STRUCTURES_LAUNCHER_2 =
       'structures/launcher_2.png';
   static const String IMAGES_STRUCTURES_MISSILE = 'structures/missile.png';
-  static const String IMAGES_STRUCTURES_PLATFORM = 'structures/platform.png';
+  static const String IMAGES_STRUCTURES_PAD = 'structures/pad.png';
   static const String IMAGES_STRUCTURES_RESOURCES = 'structures/resources.png';
   static const String IMAGES_THUMBNAILS_ARTILLERY = 'thumbnails/artillery.png';
   static const String IMAGES_THUMBNAILS_FUEL_TRUCK =

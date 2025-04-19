@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
-import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
+import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
@@ -42,8 +42,8 @@ abstract class Structure {
         return StructureResources(location: location);
       case StructureType.missile:
         return StructureMissile(location: location);
-      case StructureType.platform:
-        return StructurePlatform(location: location, platformId: platformId!);
+      case StructureType.pad:
+        return StructurePad(location: location, platformId: platformId!);
     }
   }
 }
