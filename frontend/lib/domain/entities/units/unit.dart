@@ -13,7 +13,6 @@ import 'package:tensionpath/domain/entities/units/unit_rocket_vehicle.dart';
 import 'package:tensionpath/domain/entities/units/unit_rpg_team.dart';
 import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
-import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit {
@@ -145,7 +144,4 @@ abstract class Unit {
         );
     }
   }
-
-  JsonUnit toJson() =>
-      JsonUnit(type: type, health: _health, moves: _moves, player: player.id);
 }

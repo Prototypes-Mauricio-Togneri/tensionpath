@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
 import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 abstract class Structure {
@@ -16,6 +15,8 @@ abstract class Structure {
   Structure({required this.type, required Player? player}) {
     _player = player;
   }
+
+  Player? get player => _player;
 
   bool get hasPlayer => _player != null;
 
@@ -47,6 +48,4 @@ abstract class Structure {
         return StructurePlatform();
     }
   }
-
-  JsonStructure toJson() => JsonStructure(type: type, player: _player?.id);
 }

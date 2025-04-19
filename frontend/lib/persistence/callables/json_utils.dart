@@ -2,11 +2,13 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
@@ -30,15 +32,6 @@ class JsonUtils {
     resourcesRate: player.resourcesRate,
   );
 
-  // ================================= UNIT ====================================
-
-  static JsonUnit unitIncreaseMoves(Unit unit) => JsonUnit(
-    type: unit.type,
-    health: unit.health,
-    moves: unit.remainingMoves - 1,
-    player: unit.player.id,
-  );
-
   // ============================== BATTLEFIELD ================================
 
   static JsonBattlefield battlefieldDeployUnit({
@@ -50,7 +43,9 @@ class JsonUtils {
 
     for (final Node node in battlefield.nodes) {
       if (node == nodeTarget) {
-        jsonNodes.add(nodeTarget.withUnitDeployed(unit.toJson()));
+        jsonNodes.add(
+          nodeUnitDeployed(node: nodeTarget, unit: unitToJson(unit)),
+        );
       } else {
         jsonNodes.add(node.toJson());
       }
@@ -75,9 +70,11 @@ class JsonUtils {
 
     for (final Node node in battlefield.nodes) {
       if (node == nodeOrigin) {
-        jsonNodes.add(nodeOrigin.withUnitUndeployed());
+        jsonNodes.add(nodeUnitUndeployed(nodeOrigin));
       } else if (node == nodeTarget) {
-        jsonNodes.add(nodeTarget.withUnitDeployed(unitIncreaseMoves(unit)));
+        jsonNodes.add(
+          nodeUnitDeployed(node: nodeTarget, unit: unitIncreaseMoves(unit)),
+        );
       } else {
         jsonNodes.add(node.toJson());
       }
@@ -90,6 +87,48 @@ class JsonUtils {
       nodes: jsonNodes,
     );
   }
+
+  // ================================= NODE ===================================
+
+  static JsonNode nodeUnitDeployed({
+    required Node node,
+    required JsonUnit unit,
+  }) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit: unit,
+    structure: node.hasStructure ? structureToJson(node.structure!) : null,
+  );
+
+  static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit: null,
+    structure: node.hasStructure ? structureToJson(node.structure!) : null,
+  );
+
+  // ================================= UNIT ====================================
+
+  static JsonUnit unitIncreaseMoves(Unit unit) => JsonUnit(
+    type: unit.type,
+    health: unit.health,
+    moves: unit.remainingMoves - 1,
+    player: unit.player.id,
+  );
+
+  static JsonUnit unitToJson(Unit unit) => JsonUnit(
+    type: unit.type,
+    health: unit.health,
+    moves: unit.remainingMoves,
+    player: unit.player.id,
+  );
+
+  // ================================= STRUCTURE ===============================
+
+  static JsonStructure structureToJson(Structure structure) =>
+      JsonStructure(type: structure.type, player: structure.player?.id);
 
   // ================================= MATCH ===================================
 
