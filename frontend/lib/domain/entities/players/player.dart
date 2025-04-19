@@ -50,13 +50,6 @@ class Player {
     resourcesRate: resourcesRate,
   );
 
-  JsonPlayer toJson() => JsonPlayer(
-    id: id,
-    name: name,
-    resources: resources,
-    resourcesRate: resourcesRate,
-  );
-
   static Player? playerById({
     required String? id,
     required List<Player> players,

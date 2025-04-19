@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -42,7 +43,11 @@ class Match {
 
   int get timeElapsed => _timeElapsed.floor();
 
+  int get turn => _turn;
+
   bool get isSelfTurn => _activePlayer == self.id;
+
+  String get activePlayer => _activePlayer;
 
   Player get player1 => self.isPlayer1 ? self : opponent;
 
@@ -179,7 +184,7 @@ class Match {
       createdAt: createdAt,
       turn: _turn + 1,
       activePlayer: self.id,
-      players: [self.toJson(), opponent.toJson()],
+      players: [JsonUtils.playerToJson(self), JsonUtils.playerToJson(opponent)],
       battlefield: battlefield.toJson(),
     );
     await MatchRepository.update(json);
@@ -195,7 +200,9 @@ class Match {
       createdAt: createdAt,
       turn: _turn,
       activePlayer: _activePlayer,
-      players: jsonPlayers ?? [self.toJson(), opponent.toJson()],
+      players:
+          jsonPlayers ??
+          [JsonUtils.playerToJson(self), JsonUtils.playerToJson(opponent)],
       battlefield: jsonBattlefield ?? battlefield.toJson(),
     );
   }

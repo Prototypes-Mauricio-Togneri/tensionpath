@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
+import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class MoveUnitCallable {
@@ -29,7 +30,7 @@ class MoveUnitCallable {
     final JsonMatch json = match.toJson(
       jsonPlayers: [
         _spendResources(player: match.self, value: unit.type.movementCost),
-        match.opponent.toJson(),
+        JsonUtils.playerToJson(match.opponent),
       ],
       jsonBattlefield: _moveUnit(
         battlefield: match.battlefield,
