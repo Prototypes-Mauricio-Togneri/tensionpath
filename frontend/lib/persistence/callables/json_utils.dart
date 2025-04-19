@@ -43,9 +43,7 @@ class JsonUtils {
 
     for (final Node node in battlefield.nodes) {
       if (node == nodeTarget) {
-        jsonNodes.add(
-          nodeUnitDeployed(node: nodeTarget, unit: unitToJson(unit)),
-        );
+        jsonNodes.add(nodeUnitDeployed(node: nodeTarget, unit: unit));
       } else {
         jsonNodes.add(node.toJson());
       }
@@ -72,9 +70,7 @@ class JsonUtils {
       if (node == nodeOrigin) {
         jsonNodes.add(nodeUnitUndeployed(nodeOrigin));
       } else if (node == nodeTarget) {
-        jsonNodes.add(
-          nodeUnitDeployed(node: nodeTarget, unit: unitIncreaseMoves(unit)),
-        );
+        jsonNodes.add(nodeUnitMoved(node: nodeTarget, unit: unit));
       } else {
         jsonNodes.add(node.toJson());
       }
@@ -90,16 +86,23 @@ class JsonUtils {
 
   // ================================= NODE ===================================
 
-  static JsonNode nodeUnitDeployed({
-    required Node node,
-    required JsonUnit unit,
-  }) => JsonNode(
-    x: node.location.x,
-    y: node.location.y,
-    type: node.type,
-    unit: unit,
-    structure: node.hasStructure ? structureToJson(node.structure!) : null,
-  );
+  static JsonNode nodeUnitDeployed({required Node node, required Unit unit}) =>
+      JsonNode(
+        x: node.location.x,
+        y: node.location.y,
+        type: node.type,
+        unit: unitToJson(unit),
+        structure: node.hasStructure ? structureToJson(node.structure!) : null,
+      );
+
+  static JsonNode nodeUnitMoved({required Node node, required Unit unit}) =>
+      JsonNode(
+        x: node.location.x,
+        y: node.location.y,
+        type: node.type,
+        unit: unitIncreaseMoves(unit),
+        structure: node.hasStructure ? structureToJson(node.structure!) : null,
+      );
 
   static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
     x: node.location.x,
@@ -114,14 +117,14 @@ class JsonUtils {
   static JsonUnit unitIncreaseMoves(Unit unit) => JsonUnit(
     type: unit.type,
     health: unit.health,
-    moves: unit.remainingMoves - 1,
+    moves: unit.moves + 1,
     player: unit.player.id,
   );
 
   static JsonUnit unitToJson(Unit unit) => JsonUnit(
     type: unit.type,
     health: unit.health,
-    moves: unit.remainingMoves,
+    moves: unit.moves,
     player: unit.player.id,
   );
 

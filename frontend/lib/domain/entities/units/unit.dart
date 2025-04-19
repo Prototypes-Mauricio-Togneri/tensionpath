@@ -47,6 +47,8 @@ abstract class Unit {
 
   int get movementRange => type.movementRange;
 
+  int get moves => _moves;
+
   int get remainingMoves => type.movementRange - _moves;
 
   int get attackRange => type.attackRange;
