@@ -213,6 +213,7 @@ class JsonUtils {
       version: match.version,
       createdAt: match.createdAt.toUtc(),
       turn: match.turn,
+      lastTurnStartedAt: match.lastTurnStartedAt.toUtc(),
       activePlayer: match.activePlayer,
       players: [
         playerRemoveResources(
@@ -240,6 +241,7 @@ class JsonUtils {
       version: match.version,
       createdAt: match.createdAt.toUtc(),
       turn: match.turn,
+      lastTurnStartedAt: match.lastTurnStartedAt.toUtc(),
       activePlayer: match.activePlayer,
       players: [
         playerRemoveResources(
@@ -263,6 +265,7 @@ class JsonUtils {
       version: match.version,
       createdAt: match.createdAt.toUtc(),
       turn: match.turn + 1,
+      lastTurnStartedAt: DateTime.now().toUtc(),
       activePlayer: match.opponent.id,
       players: [
         playerAddResources(
@@ -284,6 +287,7 @@ class JsonUtils {
       version: match.version,
       createdAt: match.createdAt.toUtc(),
       turn: match.turn + 1,
+      lastTurnStartedAt: DateTime.now().toUtc(),
       activePlayer: match.self.id,
       players: [
         JsonUtils.playerToJson(match.self),

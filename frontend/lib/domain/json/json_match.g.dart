@@ -16,6 +16,10 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
           (v) => DateTime.parse(v as String),
         ),
         turn: $checkedConvert('turn', (v) => (v as num).toInt()),
+        lastTurnStartedAt: $checkedConvert(
+          'lastTurnStartedAt',
+          (v) => DateTime.parse(v as String),
+        ),
         activePlayer: $checkedConvert('activePlayer', (v) => v as String),
         players: $checkedConvert(
           'players',
@@ -37,6 +41,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
   'version': instance.version,
   'createdAt': instance.createdAt.toIso8601String(),
   'turn': instance.turn,
+  'lastTurnStartedAt': instance.lastTurnStartedAt.toIso8601String(),
   'activePlayer': instance.activePlayer,
   'players': instance.players.map((e) => e.toJson()).toList(),
   'battlefield': instance.battlefield.toJson(),

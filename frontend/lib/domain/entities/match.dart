@@ -21,8 +21,8 @@ class Match {
   final Player opponent;
   final Battlefield battlefield;
   late int _turn;
+  late DateTime _lastTurnStartedAt;
   late String _activePlayer;
-  double _accumulatedResourcesInTurn = 0;
 
   Match({
     required this.id,
@@ -32,9 +32,11 @@ class Match {
     required this.opponent,
     required this.battlefield,
     required int turn,
+    required DateTime lastTurnStartedAt,
     required String activePlayer,
   }) {
     _turn = turn;
+    _lastTurnStartedAt = lastTurnStartedAt;
     _activePlayer = activePlayer;
   }
 
@@ -50,7 +52,10 @@ class Match {
 
   Player get player2 => self.isPlayer1 ? opponent : self;
 
-  int get accumulatedResourcesInTurn => _accumulatedResourcesInTurn.floor();
+  DateTime get lastTurnStartedAt => _lastTurnStartedAt;
+
+  int get accumulatedResourcesInTurn =>
+      DateTime.now().difference(_lastTurnStartedAt).inSeconds;
 
   int get fuelCollected {
     int result = 0;
@@ -71,10 +76,6 @@ class Match {
     return result;
   }
 
-  void update(double dt) {
-    _accumulatedResourcesInTurn += dt;
-  }
-
   void listen() => MatchRepository.listen(
     matchId: id,
     selfId: self.id,
@@ -82,11 +83,8 @@ class Match {
   );
 
   void _onMatchUpated(Match newMatch) {
-    if (newMatch._activePlayer != _activePlayer) {
-      _accumulatedResourcesInTurn = 0;
-    }
-
     _turn = newMatch._turn;
+    _lastTurnStartedAt = newMatch._lastTurnStartedAt;
     _activePlayer = newMatch._activePlayer;
 
     self.replaceWith(newMatch.self);

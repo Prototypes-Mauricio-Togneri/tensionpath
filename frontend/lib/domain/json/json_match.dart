@@ -20,6 +20,9 @@ class JsonMatch {
   @JsonKey(name: 'turn')
   final int turn;
 
+  @JsonKey(name: 'lastTurnStartedAt')
+  final DateTime lastTurnStartedAt;
+
   @JsonKey(name: 'activePlayer')
   final String activePlayer;
 
@@ -34,6 +37,7 @@ class JsonMatch {
     required this.version,
     required this.createdAt,
     required this.turn,
+    required this.lastTurnStartedAt,
     required this.activePlayer,
     required this.players,
     required this.battlefield,
@@ -44,6 +48,7 @@ class JsonMatch {
     version: version,
     createdAt: createdAt,
     turn: turn,
+    lastTurnStartedAt: lastTurnStartedAt,
     activePlayer: activePlayer,
     players: players,
     battlefield: battlefield,
@@ -58,6 +63,7 @@ class JsonMatch {
       version: version,
       createdAt: createdAt,
       turn: turn,
+      lastTurnStartedAt: lastTurnStartedAt,
       activePlayer: activePlayer,
       self: self,
       opponent: opponent,

@@ -59,13 +59,6 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    match.update(dt);
-  }
-
   void highlightNode(NodeComponent? node) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.onHighlighted(false);
