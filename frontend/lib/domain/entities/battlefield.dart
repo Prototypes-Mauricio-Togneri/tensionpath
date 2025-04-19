@@ -1,8 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/extensions/size_extension.dart';
 
 class Battlefield {
   final String id;
@@ -26,11 +24,4 @@ class Battlefield {
 
     throw Exception('Node not found at position ($location)');
   }
-
-  JsonBattlefield toJson() => JsonBattlefield(
-    id: id,
-    size: size.toJsonSize(),
-    gridRatio: gridRatio.toJsonRatio(),
-    nodes: nodes.map((node) => node.toJson()).toList(),
-  );
 }
