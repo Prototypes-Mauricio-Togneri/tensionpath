@@ -39,6 +39,16 @@ class JsonMatch {
     required this.battlefield,
   });
 
+  JsonMatch withId(String id) => JsonMatch(
+    id: id,
+    version: version,
+    createdAt: createdAt,
+    turn: turn,
+    activePlayer: activePlayer,
+    players: players,
+    battlefield: battlefield,
+  );
+
   Match object(String selfId) {
     final Player self = getSelf(selfId);
     final Player opponent = getOpponent(selfId);

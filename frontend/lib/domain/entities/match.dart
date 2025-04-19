@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -9,8 +8,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/extensions/document_snapshot_extension.dart';
-import 'package:tensionpath/utils/error_handler.dart';
+import 'package:tensionpath/persistence/database/match_repository.dart';
 
 class Match {
   final String id;
@@ -38,9 +36,6 @@ class Match {
     _activePlayer = activePlayer;
   }
 
-  static DocumentReference ref(String id) =>
-      FirebaseFirestore.instance.collection('matches').doc(id);
-
   int get timeElapsed => _timeElapsed.floor();
 
   bool get isSelfTurn => _activePlayer == self.id;
@@ -56,31 +51,10 @@ class Match {
     _timeElapsed += dt;
   }
 
-  void listen() => ref(id).snapshots().listen((snapshot) {
-    if (snapshot.exists) {
-      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      onMatchUpated(json);
-    }
-  }, onError: ErrorHandler.process);
+  void listen() =>
+      MatchRepository.listen(matchId: id, onUpated: _onMatchUpated);
 
-  static Future load({
-    required String id,
-    required String selfId,
-    required Function(Match) onReady,
-  }) async {
-    final DocumentSnapshot snapshot = await ref(id).get();
-
-    if (snapshot.exists) {
-      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      onReady(json.object(selfId));
-    }
-  }
-
-  Future updateMatch(JsonMatch json) async {
-    await ref(id).update(json.toJson());
-  }
-
-  void onMatchUpated(JsonMatch json) {
+  void _onMatchUpated(JsonMatch json) {
     final Match newMatch = json.object(self.id);
 
     if (newMatch._activePlayer != _activePlayer) {
@@ -151,7 +125,7 @@ class Match {
         players: [self.toJson(), opponent.toJson()],
         battlefield: battlefield.deployUnit(nodeTarget: node, unit: unit),
       );
-      await updateMatch(json);
+      await MatchRepository.update(json);
     }
   }
 
@@ -175,7 +149,7 @@ class Match {
           nodeTarget: nodeTarget,
         ),
       );
-      await updateMatch(json);
+      await MatchRepository.update(json);
     }
   }
 
@@ -213,7 +187,7 @@ class Match {
       ],
       battlefield: battlefield.toJson(),
     );
-    await updateMatch(json);
+    await MatchRepository.update(json);
   }
 
   Future onOpponentEndTurn() async {
@@ -227,6 +201,6 @@ class Match {
       players: [self.toJson(), opponent.toJson()],
       battlefield: battlefield.toJson(),
     );
-    await updateMatch(json);
+    await MatchRepository.update(json);
   }
 }
