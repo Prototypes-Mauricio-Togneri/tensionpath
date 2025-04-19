@@ -268,12 +268,7 @@ class JsonUtils {
       lastTurnStartedAt: DateTime.now(),
       activePlayer: match.opponent.id,
       players: [
-        playerAddResources(
-          player: match.self,
-          value:
-              match.self.resourcesRate +
-              match.battlefield.fuelCollected(match.self),
-        ),
+        playerToJson(match.self),
         playerAddResources(
           player: match.opponent,
           value: match.accumulatedResourcesInTurn,
@@ -292,8 +287,13 @@ class JsonUtils {
       lastTurnStartedAt: DateTime.now(),
       activePlayer: match.self.id,
       players: [
-        JsonUtils.playerToJson(match.self),
-        JsonUtils.playerToJson(match.opponent),
+        playerAddResources(
+          player: match.self,
+          value:
+              match.self.resourcesRate +
+              match.battlefield.fuelCollected(match.self),
+        ),
+        playerToJson(match.opponent),
       ],
       battlefield: battlefieldResetUnits(match.battlefield),
     );
