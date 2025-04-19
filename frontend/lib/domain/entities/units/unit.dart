@@ -20,6 +20,7 @@ abstract class Unit {
   final Player player;
   final int health;
   final int remainingMoves;
+  final int remainingAttacks;
 
   const Unit({
     required this.type,
@@ -27,6 +28,7 @@ abstract class Unit {
     required this.player,
     required this.health,
     required this.remainingMoves,
+    required this.remainingAttacks,
   });
 
   int get deploymentCost => type.deploymentCost;
@@ -55,6 +57,7 @@ abstract class Unit {
     required Player player,
     required int health,
     required int remainingMoves,
+    required int remainingAttacks,
   }) {
     switch (unitType) {
       case UnitType.fuel_truck:
@@ -63,6 +66,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.rifle_squad:
         return UnitRifleSquad(
@@ -70,6 +74,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.rpg_team:
         return UnitRpgTeam(
@@ -77,6 +82,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.sniper:
         return UnitSniper(
@@ -84,6 +90,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.humvee:
         return UnitHumvee(
@@ -91,6 +98,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.rocket_vehicle:
         return UnitRocketVehicle(
@@ -98,6 +106,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.tank:
         return UnitTank(
@@ -105,6 +114,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.artillery:
         return UnitArtillery(
@@ -112,6 +122,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
       case UnitType.helicopter:
         return UnitHelicopter(
@@ -119,6 +130,7 @@ abstract class Unit {
           player: player,
           health: health,
           remainingMoves: remainingMoves,
+          remainingAttacks: remainingAttacks,
         );
     }
   }

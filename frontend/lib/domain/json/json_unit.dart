@@ -17,6 +17,9 @@ class JsonUnit {
   @JsonKey(name: 'remainingMoves')
   final int remainingMoves;
 
+  @JsonKey(name: 'remainingAttacks')
+  final int remainingAttacks;
+
   @JsonKey(name: 'player')
   final String player;
 
@@ -24,6 +27,7 @@ class JsonUnit {
     required this.type,
     required this.health,
     required this.remainingMoves,
+    required this.remainingAttacks,
     required this.player,
   });
 
@@ -34,6 +38,7 @@ class JsonUnit {
         player: Player.playerById(id: player, players: players)!,
         health: health,
         remainingMoves: remainingMoves,
+        remainingAttacks: remainingAttacks,
       );
 
   factory JsonUnit.fromJson(Map<String, dynamic> json) =>

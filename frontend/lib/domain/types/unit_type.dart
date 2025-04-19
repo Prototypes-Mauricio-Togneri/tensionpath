@@ -8,6 +8,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 2,
     attackRange: 0,
+    numberOfAttacks: 0,
     sprite: Assets.IMAGES_UNITS_FUEL_TRUCK,
     thumbnail: Assets.IMAGES_THUMBNAILS_FUEL_TRUCK,
   ),
@@ -18,6 +19,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 3,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_RIFLE_SQUAD,
     thumbnail: Assets.IMAGES_THUMBNAILS_RIFLE_SQUAD,
   ),
@@ -28,6 +30,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 2,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_RPG_TEAM,
     thumbnail: Assets.IMAGES_THUMBNAILS_RPG_TEAM,
   ),
@@ -38,6 +41,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 3,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_SNIPER,
     thumbnail: Assets.IMAGES_THUMBNAILS_SNIPER,
   ),
@@ -48,6 +52,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 3,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_HUMVEE,
     thumbnail: Assets.IMAGES_THUMBNAILS_HUMVEE,
   ),
@@ -58,6 +63,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 2,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_ROCKET_VEHICLE,
     thumbnail: Assets.IMAGES_THUMBNAILS_ROCKET_VEHICLE,
   ),
@@ -68,6 +74,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 2,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_TANK,
     thumbnail: Assets.IMAGES_THUMBNAILS_TANK,
   ),
@@ -78,6 +85,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 2,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_ARTILLERY,
     thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
   ),
@@ -88,6 +96,7 @@ enum UnitType {
     movementRange: 1,
     visibilityRange: 3,
     attackRange: 1,
+    numberOfAttacks: 1,
     sprite: Assets.IMAGES_UNITS_HELICOPTER,
     thumbnail: Assets.IMAGES_THUMBNAILS_HELICOPTER,
   );
@@ -98,6 +107,7 @@ enum UnitType {
   final int visibilityRange;
   final int movementRange;
   final int attackRange;
+  final int numberOfAttacks;
   final String sprite;
   final String thumbnail;
 
@@ -108,6 +118,7 @@ enum UnitType {
     required this.movementRange,
     required this.visibilityRange,
     required this.attackRange,
+    required this.numberOfAttacks,
     required this.sprite,
     required this.thumbnail,
   });

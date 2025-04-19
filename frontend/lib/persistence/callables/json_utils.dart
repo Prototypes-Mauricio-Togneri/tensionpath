@@ -159,6 +159,7 @@ class JsonUtils {
     type: unit.type,
     health: unit.health,
     remainingMoves: unit.remainingMoves - 1,
+    remainingAttacks: unit.remainingAttacks,
     player: unit.player.id,
   );
 
@@ -168,6 +169,7 @@ class JsonUtils {
         type: unit.type,
         health: unit.health,
         remainingMoves: unit.type.movementRange,
+        remainingAttacks: unit.remainingAttacks,
         player: unit.player.id,
       );
     } else {
@@ -181,6 +183,7 @@ class JsonUtils {
         type: unit.type,
         health: unit.health,
         remainingMoves: unit.remainingMoves,
+        remainingAttacks: unit.remainingAttacks,
         player: unit.player.id,
       );
     } else {

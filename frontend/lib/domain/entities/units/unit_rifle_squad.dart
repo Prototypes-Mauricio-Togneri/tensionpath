@@ -11,6 +11,7 @@ class UnitRifleSquad extends Unit {
     required super.player,
     required super.health,
     required super.remainingMoves,
+    required super.remainingAttacks,
   }) : super(type: UnitType.rifle_squad);
 
   @override

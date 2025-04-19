@@ -11,6 +11,7 @@ class UnitSniper extends Unit {
     required super.player,
     required super.health,
     required super.remainingMoves,
+    required super.remainingAttacks,
   }) : super(type: UnitType.sniper);
 
   @override

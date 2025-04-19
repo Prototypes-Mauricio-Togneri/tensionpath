@@ -11,6 +11,7 @@ class UnitRpgTeam extends Unit {
     required super.player,
     required super.health,
     required super.remainingMoves,
+    required super.remainingAttacks,
   }) : super(type: UnitType.rpg_team);
 
   @override

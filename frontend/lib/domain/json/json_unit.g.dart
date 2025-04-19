@@ -15,6 +15,10 @@ JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
           'remainingMoves',
           (v) => (v as num).toInt(),
         ),
+        remainingAttacks: $checkedConvert(
+          'remainingAttacks',
+          (v) => (v as num).toInt(),
+        ),
         player: $checkedConvert('player', (v) => v as String),
       );
       return val;
@@ -24,6 +28,7 @@ Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
   'type': _$UnitTypeEnumMap[instance.type]!,
   'health': instance.health,
   'remainingMoves': instance.remainingMoves,
+  'remainingAttacks': instance.remainingAttacks,
   'player': instance.player,
 };
 

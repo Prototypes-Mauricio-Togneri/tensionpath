@@ -212,7 +212,7 @@ class RemainingAttacksComponent<U extends Unit> extends PositionComponent {
         backgroundIndicatorPaint,
       );
       canvas.drawText(
-        text: '⚔️ 1',
+        text: '⚔️ ${unit.remainingAttacks}',
         position: Vector2(width / 2, height * 0.4),
         size: size.y * 0.7,
         color: Palette.UNIT_INDICATOR_FOREGROUND,
