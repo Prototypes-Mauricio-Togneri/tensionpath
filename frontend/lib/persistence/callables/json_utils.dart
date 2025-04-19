@@ -211,9 +211,9 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt.toUtc(),
+      createdAt: match.createdAt,
       turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt.toUtc(),
+      lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
       players: [
         playerRemoveResources(
@@ -239,9 +239,9 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt.toUtc(),
+      createdAt: match.createdAt,
       turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt.toUtc(),
+      lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
       players: [
         playerRemoveResources(
@@ -263,9 +263,9 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt.toUtc(),
+      createdAt: match.createdAt,
       turn: match.turn + 1,
-      lastTurnStartedAt: DateTime.now().toUtc(),
+      lastTurnStartedAt: DateTime.now(),
       activePlayer: match.opponent.id,
       players: [
         playerAddResources(
@@ -285,9 +285,9 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt.toUtc(),
+      createdAt: match.createdAt,
       turn: match.turn + 1,
-      lastTurnStartedAt: DateTime.now().toUtc(),
+      lastTurnStartedAt: DateTime.now(),
       activePlayer: match.self.id,
       players: [
         JsonUtils.playerToJson(match.self),
@@ -297,3 +297,5 @@ class JsonUtils {
     );
   }
 }
+
+DateTime dateToJson(DateTime dateTime) => dateTime.toUtc();

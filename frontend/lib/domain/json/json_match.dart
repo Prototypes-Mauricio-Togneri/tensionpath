@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/persistence/callables/json_utils.dart';
 
 part 'json_match.g.dart';
 
@@ -14,13 +15,13 @@ class JsonMatch {
   @JsonKey(name: 'version')
   final int version;
 
-  @JsonKey(name: 'createdAt')
+  @JsonKey(name: 'createdAt', toJson: dateToJson)
   final DateTime createdAt;
 
   @JsonKey(name: 'turn')
   final int turn;
 
-  @JsonKey(name: 'lastTurnStartedAt')
+  @JsonKey(name: 'lastTurnStartedAt', toJson: dateToJson)
   final DateTime lastTurnStartedAt;
 
   @JsonKey(name: 'activePlayer')

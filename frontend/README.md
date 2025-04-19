@@ -1,8 +1,6 @@
 # TODO
 
 Add:
-* turnStartedAt
-
 - Missile charging
 - First move, then attack
 - Unit battles (basic attack/defense)
