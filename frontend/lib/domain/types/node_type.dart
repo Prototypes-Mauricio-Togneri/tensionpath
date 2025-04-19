@@ -5,7 +5,7 @@ import 'package:tensionpath/utils/assets.dart';
 enum NodeType {
   land(sprite: null),
   water(sprite: Assets.IMAGES_NODES_WATER),
-  rock(sprite: Assets.IMAGES_NODES_WATER);
+  rock(sprite: Assets.IMAGES_NODES_ROCK);
 
   final String? sprite;
 

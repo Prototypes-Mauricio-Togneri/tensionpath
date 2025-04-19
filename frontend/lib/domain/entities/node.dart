@@ -48,7 +48,8 @@ class Node {
   }
 
   bool isActionTarget(Unit unit) =>
-      ((_structure == null) || _structure!.type.canMoveUnit) && type.canMoveUnit(unit);
+      ((_structure == null) || _structure!.type.canMoveUnit) &&
+      type.canMoveUnit(unit);
 
   void replaceWith(Node newNode) {
     if ((newNode.unit != null) && (_unit != null)) {
