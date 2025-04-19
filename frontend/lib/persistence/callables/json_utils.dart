@@ -169,7 +169,7 @@ class JsonUtils {
         type: unit.type,
         health: unit.health,
         remainingMoves: unit.type.movementRange,
-        remainingAttacks: unit.remainingAttacks,
+        remainingAttacks: unit.type.numberOfAttacks,
         player: unit.player.id,
       );
     } else {
