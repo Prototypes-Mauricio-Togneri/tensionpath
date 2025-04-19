@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -109,17 +110,14 @@ class Match {
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
-    if (self.hasResources(unitType.deploymentCost) && !node.hasUnit) {
-      self.spendResources(unitType.deploymentCost);
-      final Unit unit = Unit.create(
-        unitType: unitType,
-        node: node,
-        player: self,
-        health: unitType.maxHealth,
-        moves: 0,
-      );
-      await DeployUnitCallable()(match: this, node: node, unit: unit);
-    }
+    final Unit unit = Unit.create(
+      unitType: unitType,
+      node: node,
+      player: self,
+      health: unitType.maxHealth,
+      moves: 0,
+    );
+    await DeployUnitCallable()(match: this, node: node, unit: unit);
   }
 
   Future onMoveUnit({
@@ -197,14 +195,17 @@ class Match {
     await MatchRepository.update(json);
   }
 
-  JsonMatch toJson({JsonBattlefield? jsonBattlefield}) {
+  JsonMatch toJson({
+    List<JsonPlayer>? jsonPlayers,
+    JsonBattlefield? jsonBattlefield,
+  }) {
     return JsonMatch(
       id: id,
       version: version,
       createdAt: createdAt,
       turn: _turn,
       activePlayer: _activePlayer,
-      players: [self.toJson(), opponent.toJson()],
+      players: jsonPlayers ?? [self.toJson(), opponent.toJson()],
       battlefield: jsonBattlefield ?? battlefield.toJson(),
     );
   }
