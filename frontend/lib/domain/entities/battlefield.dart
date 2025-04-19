@@ -1,9 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
 class Battlefield {
@@ -27,31 +25,6 @@ class Battlefield {
     }
 
     throw Exception('Node not found at position ($location)');
-  }
-
-  JsonBattlefield moveUnit({
-    required Node nodeOrigin,
-    required Node nodeTarget,
-  }) {
-    final List<JsonNode> jsonNodes = [];
-    final Unit unit = nodeOrigin.unit!;
-
-    for (final Node node in nodes) {
-      if (node == nodeOrigin) {
-        jsonNodes.add(nodeOrigin.withUnitUndeployed());
-      } else if (node == nodeTarget) {
-        jsonNodes.add(nodeTarget.withUnitDeployed(unit));
-      } else {
-        jsonNodes.add(node.toJson());
-      }
-    }
-
-    return JsonBattlefield(
-      id: id,
-      size: size.toJsonSize(),
-      gridRatio: gridRatio.toJsonRatio(),
-      nodes: jsonNodes,
-    );
   }
 
   JsonBattlefield toJson() => JsonBattlefield(

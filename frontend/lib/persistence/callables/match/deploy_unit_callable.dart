@@ -13,8 +13,8 @@ import 'package:tensionpath/persistence/repository/match_repository.dart';
 class DeployUnitCallable {
   Future call({
     required Match match,
-    required Node node,
     required Unit unit,
+    required Node node,
   }) async {
     if (!match.self.hasResources(unit.type.deploymentCost)) {
       throw Exception('Insufficient funds');
@@ -31,8 +31,8 @@ class DeployUnitCallable {
       ],
       jsonBattlefield: _deployUnit(
         battlefield: match.battlefield,
-        nodeTarget: node,
         unit: unit,
+        nodeTarget: node,
       ),
     );
     await MatchRepository.update(json);
@@ -48,14 +48,14 @@ class DeployUnitCallable {
 
   JsonBattlefield _deployUnit({
     required Battlefield battlefield,
-    required Node nodeTarget,
     required Unit unit,
+    required Node nodeTarget,
   }) {
     final List<JsonNode> jsonNodes = [];
 
     for (final Node node in battlefield.nodes) {
       if (node == nodeTarget) {
-        jsonNodes.add(nodeTarget.withUnitDeployed(unit));
+        jsonNodes.add(nodeTarget.withUnitDeployed(unit.toJson()));
       } else {
         jsonNodes.add(node.toJson());
       }

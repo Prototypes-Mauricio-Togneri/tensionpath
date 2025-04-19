@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
+import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -89,11 +90,11 @@ class Node {
     return result;
   }
 
-  JsonNode withUnitDeployed(Unit unit) => JsonNode(
+  JsonNode withUnitDeployed(JsonUnit unit) => JsonNode(
     x: location.x,
     y: location.y,
     type: type,
-    unit: unit.toJson(),
+    unit: unit,
     structure: _structure?.toJson(),
   );
 

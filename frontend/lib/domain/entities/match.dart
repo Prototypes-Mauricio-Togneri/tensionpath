@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
+import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class Match {
@@ -125,23 +126,12 @@ class Match {
     required Node nodeOrigin,
     required Node nodeTarget,
   }) async {
-    if (self.hasResources(unit.movementCost) && !nodeTarget.hasUnit) {
-      self.spendResources(unit.movementCost);
-      unit.increaseMoves(nodeOrigin.distance(nodeTarget));
-      final JsonMatch json = JsonMatch(
-        id: id,
-        version: version,
-        createdAt: createdAt,
-        turn: _turn,
-        activePlayer: _activePlayer,
-        players: [self.toJson(), opponent.toJson()],
-        battlefield: battlefield.moveUnit(
-          nodeOrigin: nodeOrigin,
-          nodeTarget: nodeTarget,
-        ),
-      );
-      await MatchRepository.update(json);
-    }
+    await MoveUnitCallable()(
+      match: this,
+      unit: unit,
+      nodeOrigin: nodeOrigin,
+      nodeTarget: nodeTarget,
+    );
   }
 
   int get _fuelCollected {
