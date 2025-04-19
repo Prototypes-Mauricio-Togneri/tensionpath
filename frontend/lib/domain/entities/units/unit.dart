@@ -20,17 +20,17 @@ abstract class Unit {
   final Location location;
   final Player player;
   late int _health;
-  late int _moves;
+  late int _remainingMoves;
 
   Unit({
     required this.type,
     required this.location,
     required this.player,
     required int health,
-    required int moves,
+    required int remainingMoves,
   }) {
     _health = health;
-    _moves = moves;
+    _remainingMoves = remainingMoves;
   }
 
   Color get color => player.color;
@@ -47,23 +47,9 @@ abstract class Unit {
 
   int get movementRange => type.movementRange;
 
-  int get moves => _moves;
-
-  int get remainingMoves => type.movementRange - _moves;
+  int get remainingMoves => _remainingMoves;
 
   int get attackRange => type.attackRange;
-
-  void reduceHealth(int value) {
-    _health -= value;
-  }
-
-  void increaseMoves(int value) {
-    _moves += value;
-  }
-
-  void reset() {
-    _moves = 0;
-  }
 
   bool belongsTo(Player player) => this.player.id == player.id;
 
@@ -78,7 +64,7 @@ abstract class Unit {
     required Node node,
     required Player player,
     required int health,
-    required int moves,
+    required int remainingMoves,
   }) {
     switch (unitType) {
       case UnitType.fuel_truck:
@@ -86,63 +72,63 @@ abstract class Unit {
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.rifle_squad:
         return UnitRifleSquad(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.rpg_team:
         return UnitRpgTeam(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.sniper:
         return UnitSniper(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.humvee:
         return UnitHumvee(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.rocket_vehicle:
         return UnitRocketVehicle(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.tank:
         return UnitTank(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.artillery:
         return UnitArtillery(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
       case UnitType.helicopter:
         return UnitHelicopter(
           location: node.location,
           player: player,
           health: health,
-          moves: moves,
+          remainingMoves: remainingMoves,
         );
     }
   }

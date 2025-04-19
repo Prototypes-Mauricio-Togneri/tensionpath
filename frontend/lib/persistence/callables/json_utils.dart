@@ -125,7 +125,7 @@ class JsonUtils {
         x: node.location.x,
         y: node.location.y,
         type: node.type,
-        unit: unitIncreaseMoves(unit),
+        unit: unitReduceRemainingMoves(unit),
         structure: structureToJson(node.structure),
       );
 
@@ -155,10 +155,10 @@ class JsonUtils {
 
   // ================================= UNIT ====================================
 
-  static JsonUnit unitIncreaseMoves(Unit unit) => JsonUnit(
+  static JsonUnit unitReduceRemainingMoves(Unit unit) => JsonUnit(
     type: unit.type,
     health: unit.health,
-    moves: unit.moves + 1,
+    remainingMoves: unit.remainingMoves - 1,
     player: unit.player.id,
   );
 
@@ -167,7 +167,7 @@ class JsonUtils {
       return JsonUnit(
         type: unit.type,
         health: unit.health,
-        moves: unit.type.movementRange,
+        remainingMoves: unit.type.movementRange,
         player: unit.player.id,
       );
     } else {
@@ -180,7 +180,7 @@ class JsonUtils {
       return JsonUnit(
         type: unit.type,
         health: unit.health,
-        moves: unit.moves,
+        remainingMoves: unit.remainingMoves,
         player: unit.player.id,
       );
     } else {

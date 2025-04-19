@@ -1,5 +1,10 @@
 # TODO
 
+Add:
+* remainingMoves
+* remainingAttacks
+* turnStartedAt
+
 - Pop cap
 - Missile charging
 - First move, then attack
