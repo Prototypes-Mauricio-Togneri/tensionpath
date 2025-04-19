@@ -5,7 +5,7 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class StructureLauncher extends Structure {
-  const StructureLauncher({required super.player})
+  const StructureLauncher({required super.location, required super.player})
     : super(type: StructureType.launcher);
 
   @override

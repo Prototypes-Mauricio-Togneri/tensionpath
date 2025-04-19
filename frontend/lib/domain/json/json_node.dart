@@ -46,7 +46,7 @@ class JsonNode {
     }
 
     if (structure != null) {
-      node.setStructure(structure?.object(players));
+      node.setStructure(structure?.object(node: node, players: players));
     }
 
     return node;
