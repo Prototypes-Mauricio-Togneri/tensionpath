@@ -34,22 +34,14 @@ class JsonNode {
   });
 
   Node object(List<Player> players) {
-    final Node node = Node(
-      location: Location(x: x, y: y),
+    final Location location = Location(x: x, y: y);
+
+    return Node(
+      location: location,
       type: type,
-      unit: null,
-      structure: null,
+      unit: unit?.object(location: location, players: players),
+      structure: structure?.object(location: location, players: players),
     );
-
-    if (unit != null) {
-      node.setUnit(unit?.object(node: node, players: players));
-    }
-
-    if (structure != null) {
-      node.setStructure(structure?.object(node: node, players: players));
-    }
-
-    return node;
   }
 
   factory JsonNode.fromJson(Map<String, dynamic> json) =>

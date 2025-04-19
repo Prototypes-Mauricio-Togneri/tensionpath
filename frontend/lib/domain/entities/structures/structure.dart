@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
@@ -41,18 +40,18 @@ abstract class Structure {
 
   factory Structure.create({
     required StructureType structureType,
-    required Node node,
+    required Location location,
     required Player? player,
   }) {
     switch (structureType) {
       case StructureType.launcher:
-        return StructureLauncher(location: node.location, player: player!);
+        return StructureLauncher(location: location, player: player!);
       case StructureType.resources:
-        return StructureResources(location: node.location);
+        return StructureResources(location: location);
       case StructureType.missile:
-        return StructureMissile(location: node.location);
+        return StructureMissile(location: location);
       case StructureType.platform:
-        return StructurePlatform(location: node.location);
+        return StructurePlatform(location: location);
     }
   }
 }

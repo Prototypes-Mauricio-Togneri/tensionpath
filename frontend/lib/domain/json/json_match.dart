@@ -56,8 +56,8 @@ class JsonMatch {
   );
 
   Match object(String selfId) {
-    final Player self = getSelf(selfId);
-    final Player opponent = getOpponent(selfId);
+    final Player self = _getSelf(selfId);
+    final Player opponent = _getOpponent(selfId);
 
     return Match(
       id: id,
@@ -72,7 +72,7 @@ class JsonMatch {
     );
   }
 
-  Player getSelf(String id) {
+  Player _getSelf(String id) {
     for (final JsonPlayer player in players) {
       if (player.id == id) {
         return player.object(true);
@@ -82,7 +82,7 @@ class JsonMatch {
     throw Exception('Player with id $id not found');
   }
 
-  Player getOpponent(String id) {
+  Player _getOpponent(String id) {
     for (final JsonPlayer player in players) {
       if (player.id != id) {
         return player.object(false);

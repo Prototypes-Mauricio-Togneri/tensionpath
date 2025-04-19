@@ -132,7 +132,7 @@ class Match {
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
     final Unit unit = Unit.create(
       unitType: unitType,
-      node: node,
+      location: node.location,
       player: self,
       health: unitType.maxHealth,
       remainingMoves: 0,

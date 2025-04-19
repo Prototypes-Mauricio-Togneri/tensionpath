@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -31,10 +31,10 @@ class JsonUnit {
     required this.player,
   });
 
-  Unit object({required Node node, required List<Player> players}) =>
+  Unit object({required Location location, required List<Player> players}) =>
       Unit.create(
         unitType: type,
-        node: node,
+        location: location,
         player: Player.playerById(id: player, players: players)!,
         health: health,
         remainingMoves: remainingMoves,
