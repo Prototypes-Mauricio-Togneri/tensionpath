@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -42,13 +41,6 @@ class Player {
     _resources = newPlayer.resources;
     _resourcesRate = newPlayer.resourcesRate;
   }
-
-  JsonPlayer addResources(int amount) => JsonPlayer(
-    id: id,
-    name: name,
-    resources: resources + amount,
-    resourcesRate: resourcesRate,
-  );
 
   static Player? playerById({
     required String? id,

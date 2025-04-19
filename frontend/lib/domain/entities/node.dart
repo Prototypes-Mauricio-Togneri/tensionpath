@@ -5,10 +5,8 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
-import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Node {
@@ -65,10 +63,6 @@ class Node {
     _structure = structure;
   }
 
-  void resetUnit() {
-    _unit?.reset();
-  }
-
   bool belongsTo(Player player) =>
       (_unit?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);
@@ -89,15 +83,6 @@ class Node {
 
     return result;
   }
-
-  JsonNode toJson() => JsonNode(
-    x: location.x,
-    y: location.y,
-    type: type,
-    unit: (_unit != null) ? JsonUtils.unitToJson(_unit!) : null,
-    structure:
-        (_structure != null) ? JsonUtils.structureToJson(_structure!) : null,
-  );
 
   @override
   bool operator ==(Object other) {

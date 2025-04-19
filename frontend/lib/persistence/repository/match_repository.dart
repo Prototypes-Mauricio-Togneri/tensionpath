@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/utils/error_handler.dart';
@@ -10,25 +11,29 @@ class MatchRepository {
 
   static StreamSubscription listen({
     required String matchId,
-    required Function(JsonMatch) onUpated,
+    required String selfId,
+    required Function(Match) onUpated,
   }) => _ref(matchId).snapshots().listen((snapshot) {
     if (snapshot.exists) {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      onUpated(json);
+      final Match match = json.object(selfId);
+      onUpated(match);
     }
   }, onError: ErrorHandler.process);
 
   static Future update(JsonMatch json) => _ref(json.id).update(json.toJson());
 
   static Future load({
-    required String id,
-    required Function(JsonMatch) onLoaded,
+    required String matchId,
+    required String selfId,
+    required Function(Match) onLoaded,
   }) async {
-    final DocumentSnapshot snapshot = await _ref(id).get();
+    final DocumentSnapshot snapshot = await _ref(matchId).get();
 
     if (snapshot.exists) {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      onLoaded(json);
+      final Match match = json.object(selfId);
+      onLoaded(match);
     }
   }
 

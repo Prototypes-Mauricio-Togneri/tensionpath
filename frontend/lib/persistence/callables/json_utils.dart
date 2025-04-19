@@ -55,7 +55,7 @@ class JsonUtils {
       if (node == nodeTarget) {
         jsonNodes.add(nodeUnitDeployed(node: nodeTarget, unit: unit));
       } else {
-        jsonNodes.add(node.toJson());
+        jsonNodes.add(nodeToJson(node));
       }
     }
 
@@ -82,7 +82,7 @@ class JsonUtils {
       } else if (node == nodeTarget) {
         jsonNodes.add(nodeUnitMoved(node: nodeTarget, unit: unit));
       } else {
-        jsonNodes.add(node.toJson());
+        jsonNodes.add(nodeToJson(node));
       }
     }
 
@@ -145,6 +145,14 @@ class JsonUtils {
     structure: structureToJson(node.structure),
   );
 
+  static JsonNode nodeToJson(Node node) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit: unitToJson(node.unit),
+    structure: structureToJson(node.structure),
+  );
+
   // ================================= UNIT ====================================
 
   static JsonUnit unitIncreaseMoves(Unit unit) => JsonUnit(
@@ -167,12 +175,18 @@ class JsonUtils {
     }
   }
 
-  static JsonUnit unitToJson(Unit unit) => JsonUnit(
-    type: unit.type,
-    health: unit.health,
-    moves: unit.moves,
-    player: unit.player.id,
-  );
+  static JsonUnit? unitToJson(Unit? unit) {
+    if (unit != null) {
+      return JsonUnit(
+        type: unit.type,
+        health: unit.health,
+        moves: unit.moves,
+        player: unit.player.id,
+      );
+    } else {
+      return null;
+    }
+  }
 
   // ================================= STRUCTURE ===============================
 

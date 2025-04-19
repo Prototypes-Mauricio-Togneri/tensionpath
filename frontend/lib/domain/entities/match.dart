@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
@@ -78,12 +77,13 @@ class Match {
     _timeElapsed += dt;
   }
 
-  void listen() =>
-      MatchRepository.listen(matchId: id, onUpated: _onMatchUpated);
+  void listen() => MatchRepository.listen(
+    matchId: id,
+    selfId: self.id,
+    onUpated: _onMatchUpated,
+  );
 
-  void _onMatchUpated(JsonMatch json) {
-    final Match newMatch = json.object(self.id);
-
+  void _onMatchUpated(Match newMatch) {
     if (newMatch._activePlayer != _activePlayer) {
       _accumulatedResourcesInTurn = 0;
     }
