@@ -12,16 +12,17 @@ class Palette {
   static const Color HEADER_PLAYER_NAME = Colors.white;
   static const Color HEADER_BACKGROUND = Colors.grey;
 
+  static const Color CONTROLS_UNIT_TEXT = Colors.white;
   static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
   static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
   static const Color CONTROLS_BACKGROUND_DISABLED = Color(0xff555555);
   static const Color CONTROLS_FILL_DISABLED = Color(0xff888888);
 
-  static Color NODE_BORDER = Colors.white;
+  static const Color NODE_BORDER = Colors.white;
   static const Color NODE_FOG = Color(0x88000000);
 
   static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
-  static const Color UNIT_HEALTH_BORDERD = Colors.white;
+  static const Color UNIT_HEALTH_BORDER = Colors.white;
 
   static const Color UNIT_INDICATOR_BACKGROUND = Colors.black;
   static const Color UNIT_INDICATOR_FOREGROUND = Colors.white;

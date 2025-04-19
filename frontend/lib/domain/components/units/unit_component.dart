@@ -120,7 +120,7 @@ class HealthBarComponent<U extends Unit> extends PositionComponent {
   final Paint foregroundHealthPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint borderHealthPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Palette.UNIT_HEALTH_BORDERD,
+    color: Palette.UNIT_HEALTH_BORDER,
   );
 
   HealthBarComponent({

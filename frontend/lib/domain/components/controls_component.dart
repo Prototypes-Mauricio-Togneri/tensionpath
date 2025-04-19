@@ -242,9 +242,9 @@ class UnitImageComponent extends SpriteComponent {
 class UnitCostComponent extends PositionComponent {
   final Player player;
   final UnitType unitType;
-  final Paint borderPaint = Palette.paint(
+  final Paint textPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Colors.white,
+    color: Palette.CONTROLS_UNIT_TEXT,
   );
 
   UnitCostComponent({
@@ -263,22 +263,22 @@ class UnitCostComponent extends PositionComponent {
 
     final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
 
-    final Paint border =
+    final Paint text =
         isEnabled
-            ? borderPaint
-            : borderPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+            ? textPaint
+            : textPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
 
     if (!unitSelector.dragging && isEnabled) {
-      border.color = border.color.withAlpha(255);
+      text.color = text.color.withAlpha(255);
     } else {
-      border.color = border.color.withAlpha(128);
+      text.color = text.color.withAlpha(128);
     }
 
     canvas.drawText(
       text: '🛢️ ${unitType.deploymentCost.toString()}',
       position: size / 2,
       size: size.x / 3,
-      color: border.color,
+      color: text.color,
     );
   }
 }
