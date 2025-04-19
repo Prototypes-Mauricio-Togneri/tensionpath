@@ -13,7 +13,7 @@ class StructurePadComponent extends StructureComponent<StructurePad> {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD);
+    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_NEUTRAL);
 
     return super.onLoad();
   }
