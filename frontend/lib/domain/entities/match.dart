@@ -6,9 +6,7 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
-import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
@@ -123,21 +121,20 @@ class Match {
       health: unitType.maxHealth,
       moves: unitType.movementRange,
     );
-    await DeployUnitCallable()(match: this, node: node, unit: unit);
+
+    return DeployUnitCallable()(match: this, node: node, unit: unit);
   }
 
   Future onMoveUnit({
     required Unit unit,
     required Node nodeOrigin,
     required Node nodeTarget,
-  }) async {
-    await MoveUnitCallable()(
-      match: this,
-      unit: unit,
-      nodeOrigin: nodeOrigin,
-      nodeTarget: nodeTarget,
-    );
-  }
+  }) => MoveUnitCallable()(
+    match: this,
+    unit: unit,
+    nodeOrigin: nodeOrigin,
+    nodeTarget: nodeTarget,
+  );
 
   int get _fuelCollected {
     int result = 0;
@@ -188,22 +185,5 @@ class Match {
       battlefield: battlefield.toJson(),
     );
     await MatchRepository.update(json);
-  }
-
-  JsonMatch toJson({
-    List<JsonPlayer>? jsonPlayers,
-    JsonBattlefield? jsonBattlefield,
-  }) {
-    return JsonMatch(
-      id: id,
-      version: version,
-      createdAt: createdAt,
-      turn: _turn,
-      activePlayer: _activePlayer,
-      players:
-          jsonPlayers ??
-          [JsonUtils.playerToJson(self), JsonUtils.playerToJson(opponent)],
-      battlefield: jsonBattlefield ?? battlefield.toJson(),
-    );
   }
 }
