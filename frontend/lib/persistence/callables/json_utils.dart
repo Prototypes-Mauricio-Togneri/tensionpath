@@ -211,7 +211,7 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt,
+      createdAt: match.createdAt.toUtc(),
       turn: match.turn,
       activePlayer: match.activePlayer,
       players: [
@@ -238,7 +238,7 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt,
+      createdAt: match.createdAt.toUtc(),
       turn: match.turn,
       activePlayer: match.activePlayer,
       players: [
@@ -261,7 +261,7 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt,
+      createdAt: match.createdAt.toUtc(),
       turn: match.turn + 1,
       activePlayer: match.opponent.id,
       players: [
@@ -282,7 +282,7 @@ class JsonUtils {
     return JsonMatch(
       id: match.id,
       version: match.version,
-      createdAt: match.createdAt,
+      createdAt: match.createdAt.toUtc(),
       turn: match.turn + 1,
       activePlayer: match.self.id,
       players: [

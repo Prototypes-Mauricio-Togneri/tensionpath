@@ -23,7 +23,6 @@ class Match {
   late int _turn;
   late String _activePlayer;
   double _accumulatedResourcesInTurn = 0;
-  double _timeElapsed = 0;
 
   Match({
     required this.id,
@@ -39,7 +38,7 @@ class Match {
     _activePlayer = activePlayer;
   }
 
-  int get timeElapsed => _timeElapsed.floor();
+  int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
   int get turn => _turn;
 
@@ -74,7 +73,6 @@ class Match {
 
   void update(double dt) {
     _accumulatedResourcesInTurn += dt;
-    _timeElapsed += dt;
   }
 
   void listen() => MatchRepository.listen(
