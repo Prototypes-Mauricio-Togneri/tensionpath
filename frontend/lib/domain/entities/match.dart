@@ -97,8 +97,8 @@ class Match {
       oldNode.setUnit(newNode.unit);
       oldNode.setStructure(newNode.structure);
 
-      if (newNode.hasUnit) {
-        final Unit unit = newNode.unit!;
+      if (oldNode.hasUnit) {
+        final Unit unit = oldNode.unit!;
 
         if (unit.belongsTo(self)) {
           visibleNodes.addAll(
@@ -110,8 +110,8 @@ class Match {
         }
       }
 
-      if (newNode.hasStructure) {
-        final Structure structure = newNode.structure!;
+      if (oldNode.hasStructure) {
+        final Structure structure = oldNode.structure!;
 
         if (structure.belongsTo(self)) {
           visibleNodes.addAll(
