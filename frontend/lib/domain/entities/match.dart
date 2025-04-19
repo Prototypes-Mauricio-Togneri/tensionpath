@@ -8,7 +8,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/persistence/database/match_repository.dart';
+import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class Match {
   final String id;

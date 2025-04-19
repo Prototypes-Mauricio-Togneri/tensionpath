@@ -3,7 +3,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/persistence/database/match_repository.dart';
+import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 

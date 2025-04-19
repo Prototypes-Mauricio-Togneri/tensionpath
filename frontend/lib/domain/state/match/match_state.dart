@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/persistence/database/match_repository.dart';
+import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class MatchState extends BaseState {
   final String matchId;
