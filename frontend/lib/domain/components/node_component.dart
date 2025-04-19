@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,15 @@ class NodeComponent<N extends Node> extends PositionComponent
       match.remove(_nodeHighlitedComponent!);
       _nodeHighlitedComponent = null;
     }
+  }
+
+  @override
+  FutureOr onLoad() async {
+    if (node.type.sprite != null) {
+      add(NodeBackground(node: node, position: size / 2, size: size));
+    }
+
+    return super.onLoad();
   }
 
   @override
@@ -181,5 +191,23 @@ class NodeSelectedComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
     canvas.drawHexagon(size: size, borderPaint: selectedPaint);
+  }
+}
+
+class NodeBackground<N extends Node> extends SpriteComponent {
+  final N node;
+  final Vector2 initialPosition = Vector2(0, 0);
+
+  NodeBackground({
+    required this.node,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.node.value);
+
+  @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(node.type.sprite!);
+
+    return super.onLoad();
   }
 }
