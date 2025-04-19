@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
@@ -10,23 +9,15 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 
 abstract class Structure {
   final StructureType type;
-  Player? _player;
+  final Player? player;
 
-  Structure({required this.type, required Player? player}) {
-    _player = player;
-  }
+  Structure({required this.type, required this.player});
 
-  Player? get player => _player;
-
-  bool get hasPlayer => _player != null;
-
-  bool get isPlayer1 => _player?.isPlayer1 ?? false;
-
-  Color? get color => _player?.color;
+  bool get hasPlayer => player != null;
 
   int get visibilityRange => type.visibilityRange;
 
-  bool belongsTo(Player player) => _player?.id == player.id;
+  bool belongsTo(Player otherPlayer) => otherPlayer.id == player?.id;
 
   StructureComponent component({
     required Vector2 position,

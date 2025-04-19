@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
@@ -7,7 +6,6 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 class Node {
   final NodeType type;
@@ -36,8 +34,6 @@ class Node {
   Unit? get unit => _unit;
 
   Structure? get structure => _structure;
-
-  Color get color => _unit?.color ?? _structure?.color ?? Palette.transparent;
 
   bool get hasUnit => _unit != null;
 

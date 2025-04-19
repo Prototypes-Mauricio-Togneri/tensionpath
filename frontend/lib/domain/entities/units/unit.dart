@@ -19,19 +19,16 @@ abstract class Unit {
   final UnitType type;
   final Location location;
   final Player player;
-  late int _health;
-  late int _remainingMoves;
+  final int health;
+  final int remainingMoves;
 
   Unit({
     required this.type,
     required this.location,
     required this.player,
-    required int health,
-    required int remainingMoves,
-  }) {
-    _health = health;
-    _remainingMoves = remainingMoves;
-  }
+    required this.health,
+    required this.remainingMoves,
+  });
 
   Color get color => player.color;
 
@@ -39,15 +36,11 @@ abstract class Unit {
 
   int get movementCost => type.movementCost;
 
-  int get health => _health;
-
   int get maxHealth => type.maxHealth;
 
   int get visibilityRange => type.visibilityRange;
 
   int get movementRange => type.movementRange;
-
-  int get remainingMoves => _remainingMoves;
 
   int get attackRange => type.attackRange;
 
