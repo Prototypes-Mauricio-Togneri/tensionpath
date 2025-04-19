@@ -1,8 +1,6 @@
 # TODO
 
 Add:
-* remainingMoves
-* remainingAttacks
 * turnStartedAt
 
 - Pop cap
