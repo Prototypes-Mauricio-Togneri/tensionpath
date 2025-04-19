@@ -92,7 +92,7 @@ class JsonUtils {
         y: node.location.y,
         type: node.type,
         unit: unitToJson(unit),
-        structure: node.hasStructure ? structureToJson(node.structure!) : null,
+        structure: structureToJson(node.structure),
       );
 
   static JsonNode nodeUnitMoved({required Node node, required Unit unit}) =>
@@ -101,7 +101,7 @@ class JsonUtils {
         y: node.location.y,
         type: node.type,
         unit: unitIncreaseMoves(unit),
-        structure: node.hasStructure ? structureToJson(node.structure!) : null,
+        structure: structureToJson(node.structure),
       );
 
   static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
@@ -109,7 +109,7 @@ class JsonUtils {
     y: node.location.y,
     type: node.type,
     unit: null,
-    structure: node.hasStructure ? structureToJson(node.structure!) : null,
+    structure: structureToJson(node.structure),
   );
 
   // ================================= UNIT ====================================
@@ -130,8 +130,13 @@ class JsonUtils {
 
   // ================================= STRUCTURE ===============================
 
-  static JsonStructure structureToJson(Structure structure) =>
-      JsonStructure(type: structure.type, player: structure.player?.id);
+  static JsonStructure? structureToJson(Structure? structure) {
+    if (structure != null) {
+      return JsonStructure(type: structure.type, player: structure.player?.id);
+    } else {
+      return null;
+    }
+  }
 
   // ================================= MATCH ===================================
 
