@@ -270,7 +270,9 @@ class JsonUtils {
       players: [
         playerAddResources(
           player: match.self,
-          value: match.self.resourcesRate + match.fuelCollected,
+          value:
+              match.self.resourcesRate +
+              match.battlefield.fuelCollected(match.self),
         ),
         playerAddResources(
           player: match.opponent,

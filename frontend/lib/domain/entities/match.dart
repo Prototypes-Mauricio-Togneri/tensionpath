@@ -1,11 +1,8 @@
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
@@ -56,25 +53,6 @@ class Match {
 
   int get accumulatedResourcesInTurn =>
       DateTime.now().difference(_lastTurnStartedAt).inSeconds;
-
-  int get fuelCollected {
-    int result = 0;
-
-    for (final Node node in battlefield.nodes) {
-      if (node.hasStructure && node.hasUnit) {
-        final Structure structure = node.structure!;
-        final Unit unit = node.unit!;
-
-        if ((structure is StructureResources) &&
-            unit.belongsTo(self) &&
-            (unit is UnitFuelTruck)) {
-          result += Constants.FUEL_TRUCK_COLLECTION;
-        }
-      }
-    }
-
-    return result;
-  }
 
   void listen() => MatchRepository.listen(
     matchId: id,
