@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitSniper extends Unit {
-  UnitSniper({
+  const UnitSniper({
     required super.location,
     required super.player,
     required super.health,

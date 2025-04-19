@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitTank extends Unit {
-  UnitTank({
+  const UnitTank({
     required super.location,
     required super.player,
     required super.health,

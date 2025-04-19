@@ -21,7 +21,7 @@ abstract class Unit {
   final int health;
   final int remainingMoves;
 
-  Unit({
+  const Unit({
     required this.type,
     required this.location,
     required this.player,
