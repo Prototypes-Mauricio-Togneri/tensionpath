@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
@@ -29,8 +28,6 @@ abstract class Unit {
     required this.health,
     required this.remainingMoves,
   });
-
-  Color get color => player.color;
 
   int get deploymentCost => type.deploymentCost;
 
