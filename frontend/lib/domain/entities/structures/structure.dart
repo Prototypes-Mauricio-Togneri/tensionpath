@@ -12,19 +12,27 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 abstract class Structure {
   final StructureType type;
   final Location location;
-  final Player? player;
+  late Player? _player;
 
-  const Structure({
+  Structure({
     required this.type,
     required this.location,
-    required this.player,
-  });
+    required Player? player,
+  }) {
+    _player = player;
+  }
 
-  bool get hasPlayer => player != null;
+  bool get hasPlayer => _player != null;
+
+  Player? get player => _player;
 
   int get visibilityRange => type.visibilityRange;
 
-  bool belongsTo(Player otherPlayer) => otherPlayer.id == player?.id;
+  bool belongsTo(Player otherPlayer) => otherPlayer.id == _player?.id;
+
+  void replaceWith(Structure structure) {
+    _player = structure._player;
+  }
 
   StructureComponent component({
     required Vector2 position,

@@ -5,7 +5,7 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class StructureResources extends Structure {
-  const StructureResources({required super.location})
+  StructureResources({required super.location})
     : super(type: StructureType.resources, player: null);
 
   @override

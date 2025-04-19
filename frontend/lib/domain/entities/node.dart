@@ -60,7 +60,11 @@ class Node {
   }
 
   void setStructure(Structure? structure) {
-    _structure = structure;
+    if ((structure != null) && (_structure != null)) {
+      _structure!.replaceWith(structure);
+    } else {
+      _structure = structure;
+    }
   }
 
   bool belongsTo(Player player) =>
