@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 
 class Battlefield {
@@ -15,13 +14,13 @@ class Battlefield {
     required this.gridRatio,
   });
 
-  Node nodeByPosition(Location location) {
+  Node nodeById(String id) {
     for (final Node node in nodes) {
-      if (node.location == location) {
+      if (node.id == id) {
         return node;
       }
     }
 
-    throw Exception('Node not found at position ($location)');
+    throw Exception('Node with id "$id" not found');
   }
 }
