@@ -326,9 +326,9 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
   @override
   void onTapUp(TapUpEvent event) {
     if (match.match.isSelfTurn) {
-      match.onEndTurn();
+      match.match.onEndTurn();
     } else if (Environment.get.isDebug) {
-      match.onOpponentEndTurn();
+      match.match.onOpponentEndTurn();
     }
   }
 

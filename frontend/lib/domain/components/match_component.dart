@@ -7,7 +7,6 @@ import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -106,27 +105,6 @@ class MatchComponent extends World {
 
     return null;
   }
-
-  void onMoveUnit({
-    required Unit unit,
-    required Node origin,
-    required Node target,
-  }) => match.onMoveUnit(unit: unit, nodeOrigin: origin, nodeTarget: target);
-
-  void onEndTurn() => match.onEndTurn();
-
-  void onOpponentEndTurn() => match.onOpponentEndTurn();
-
-  /*void onUnitDestroyed(Unit unit) {
-    unit.destroy();
-
-    for (final UnitComponent unitComponent in unitComponents) {
-      if (unitComponent.unit == unit) {
-        remove(unitComponent);
-        break;
-      }
-    }
-  }*/
 }
 
 mixin MatchComponentRef {
