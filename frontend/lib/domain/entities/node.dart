@@ -52,7 +52,11 @@ class Node {
       (_structure?.type != StructureType.missile);
 
   void setUnit(Unit? unit) {
-    _unit = unit;
+    if ((unit != null) && (_unit != null)) {
+      _unit!.replaceWith(unit);
+    } else {
+      _unit = unit;
+    }
   }
 
   void setStructure(Structure? structure) {

@@ -18,18 +18,28 @@ abstract class Unit {
   final UnitType type;
   final Location location;
   final Player player;
-  final int health;
-  final int remainingMoves;
-  final int remainingAttacks;
+  late int _health;
+  late int _remainingMoves;
+  late int _remainingAttacks;
 
-  const Unit({
+  Unit({
     required this.type,
     required this.location,
     required this.player,
-    required this.health,
-    required this.remainingMoves,
-    required this.remainingAttacks,
-  });
+    required int health,
+    required int remainingMoves,
+    required int remainingAttacks,
+  }) {
+    _health = health;
+    _remainingMoves = remainingMoves;
+    _remainingAttacks = remainingAttacks;
+  }
+
+  int get health => _health;
+
+  int get remainingMoves => _remainingMoves;
+
+  int get remainingAttacks => _remainingAttacks;
 
   int get deploymentCost => type.deploymentCost;
 
@@ -44,6 +54,12 @@ abstract class Unit {
   int get attackRange => type.attackRange;
 
   bool belongsTo(Player player) => this.player.id == player.id;
+
+  void replaceWith(Unit unit) {
+    _health = unit._health;
+    _remainingMoves = unit._remainingMoves;
+    _remainingAttacks = unit._remainingAttacks;
+  }
 
   UnitComponent component({
     required Node node,

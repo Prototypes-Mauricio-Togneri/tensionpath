@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitHelicopter extends Unit {
-  const UnitHelicopter({
+  UnitHelicopter({
     required super.location,
     required super.player,
     required super.health,
