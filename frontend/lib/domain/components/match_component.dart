@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -114,9 +113,6 @@ class MatchComponent extends World {
 
     return null;
   }
-
-  void onDeployUnit({required Node node, required UnitType unitType}) =>
-      match.onDeployUnit(node: node, unitType: unitType);
 
   void onMoveUnit({
     required Unit unit,

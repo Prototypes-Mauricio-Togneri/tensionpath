@@ -16,7 +16,6 @@ class DeployUnitCallable {
         unit: unit,
       ),
     );
-
     await MatchRepository.update(json);
   }
 }

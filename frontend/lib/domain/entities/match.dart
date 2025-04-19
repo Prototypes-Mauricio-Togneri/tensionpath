@@ -119,17 +119,6 @@ class Match {
         moves: 0,
       );
       await DeployUnitCallable()(match: this, node: node, unit: unit);
-
-      /*final JsonMatch json = JsonMatch(
-        id: id,
-        version: version,
-        createdAt: createdAt,
-        turn: _turn,
-        activePlayer: _activePlayer,
-        players: [self.toJson(), opponent.toJson()],
-        battlefield: battlefield.deployUnit(nodeTarget: node, unit: unit),
-      );*/
-      //await MatchRepository.update(json);
     }
   }
 
