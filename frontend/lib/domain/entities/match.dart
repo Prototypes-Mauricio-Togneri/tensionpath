@@ -139,7 +139,7 @@ class Match {
       node: node,
       player: self,
       health: unitType.maxHealth,
-      remainingMoves: unitType.movementRange,
+      remainingMoves: 0,
     );
 
     return DeployUnitCallable()(match: this, node: node, unit: unit);
