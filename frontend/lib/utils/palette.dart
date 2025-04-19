@@ -8,11 +8,9 @@ class Palette {
 
   static const Color PLAYER_1 = Colors.blue;
   static const Color PLAYER_2 = Colors.red;
-  static const Color PLAYER_NAME = Colors.white;
 
-  static const Color HEADER_BACKGROUND = Colors.green;
-
-  static Color BATTLEFIELD_BACKGROUND = const Color(0xff333333);
+  static const Color HEADER_PLAYER_NAME = Colors.white;
+  static const Color HEADER_BACKGROUND = Colors.grey;
 
   static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
   static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;

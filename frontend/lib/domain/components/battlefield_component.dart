@@ -7,15 +7,10 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
   final List<NodeComponent> nodeComponents;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.BATTLEFIELD_BACKGROUND,
-  );
 
   BattlefieldComponent({
     required this.battlefield,

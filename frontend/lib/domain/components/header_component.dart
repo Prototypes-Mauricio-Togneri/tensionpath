@@ -76,7 +76,7 @@ class PlayerIndicatorComponent extends PositionComponent {
         size.y / 2,
       ),
       size: size.y * 0.5,
-      color: Palette.PLAYER_NAME,
+      color: Palette.HEADER_PLAYER_NAME,
       anchor: player.isSelf ? Anchor.centerLeft : Anchor.centerRight,
     );
   }
@@ -118,7 +118,7 @@ class TimeIndicatorComponent extends PositionComponent {
       text: Formatter.hoursMinutes(match.match.timeElapsed),
       position: size / 2,
       size: size.y,
-      color: Palette.PLAYER_NAME,
+      color: Palette.HEADER_PLAYER_NAME,
     );
   }
 }
