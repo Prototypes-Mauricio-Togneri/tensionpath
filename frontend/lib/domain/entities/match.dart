@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
+import 'package:tensionpath/persistence/callables/match/end_turn_callable.dart';
 import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
@@ -52,6 +53,25 @@ class Match {
   Player get player2 => self.isPlayer1 ? opponent : self;
 
   int get accumulatedResourcesInTurn => _accumulatedResourcesInTurn.floor();
+
+  int get fuelCollected {
+    int result = 0;
+
+    for (final Node node in battlefield.nodes) {
+      if (node.hasStructure && node.hasUnit) {
+        final Structure structure = node.structure!;
+        final Unit unit = node.unit!;
+
+        if ((structure is StructureResources) &&
+            unit.belongsTo(self) &&
+            (unit is UnitFuelTruck)) {
+          result += Constants.FUEL_TRUCK_COLLECTION;
+        }
+      }
+    }
+
+    return result;
+  }
 
   void update(double dt) {
     _accumulatedResourcesInTurn += dt;
@@ -136,42 +156,7 @@ class Match {
     nodeTarget: nodeTarget,
   );
 
-  int get _fuelCollected {
-    int result = 0;
-
-    for (final Node node in battlefield.nodes) {
-      if (node.hasStructure && node.hasUnit) {
-        final Structure structure = node.structure!;
-        final Unit unit = node.unit!;
-
-        if ((structure is StructureResources) &&
-            unit.belongsTo(self) &&
-            (unit is UnitFuelTruck)) {
-          result += Constants.FUEL_TRUCK_COLLECTION;
-        }
-      }
-    }
-
-    return result;
-  }
-
-  Future onEndTurn() async {
-    battlefield.nodes.forEach((node) => node.resetUnit());
-
-    final JsonMatch json = JsonMatch(
-      id: id,
-      version: version,
-      createdAt: createdAt,
-      turn: _turn + 1,
-      activePlayer: opponent.id,
-      players: [
-        self.addResources(self.resourcesRate + _fuelCollected),
-        opponent.addResources(accumulatedResourcesInTurn),
-      ],
-      battlefield: battlefield.toJson(),
-    );
-    await MatchRepository.update(json);
-  }
+  Future onEndTurn() => EndTurnCallable()(this);
 
   Future onOpponentEndTurn() async {
     battlefield.nodes.forEach((node) => node.resetUnit());

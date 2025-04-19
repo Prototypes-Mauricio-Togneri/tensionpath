@@ -15,7 +15,17 @@ import 'package:tensionpath/extensions/size_extension.dart';
 class JsonUtils {
   // ================================= PLAYER =================================
 
-  static JsonPlayer playerSpendResources({
+  static JsonPlayer playerAddResources({
+    required Player player,
+    required int value,
+  }) => JsonPlayer(
+    id: player.id,
+    name: player.name,
+    resources: player.resources + value,
+    resourcesRate: player.resourcesRate,
+  );
+
+  static JsonPlayer playerRemoveResources({
     required Player player,
     required int value,
   }) => JsonPlayer(
@@ -84,6 +94,21 @@ class JsonUtils {
     );
   }
 
+  static JsonBattlefield battlefieldResetUnits(Battlefield battlefield) {
+    final List<JsonNode> jsonNodes = [];
+
+    for (final Node node in battlefield.nodes) {
+      jsonNodes.add(nodeUnitReset(node));
+    }
+
+    return JsonBattlefield(
+      id: battlefield.id,
+      size: battlefield.size.toJsonSize(),
+      gridRatio: battlefield.gridRatio.toJsonRatio(),
+      nodes: jsonNodes,
+    );
+  }
+
   // ================================= NODE ===================================
 
   static JsonNode nodeUnitDeployed({required Node node, required Unit unit}) =>
@@ -112,6 +137,14 @@ class JsonUtils {
     structure: structureToJson(node.structure),
   );
 
+  static JsonNode nodeUnitReset(Node node) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit: unitReset(node.unit),
+    structure: structureToJson(node.structure),
+  );
+
   // ================================= UNIT ====================================
 
   static JsonUnit unitIncreaseMoves(Unit unit) => JsonUnit(
@@ -120,6 +153,19 @@ class JsonUtils {
     moves: unit.moves + 1,
     player: unit.player.id,
   );
+
+  static JsonUnit? unitReset(Unit? unit) {
+    if (unit != null) {
+      return JsonUnit(
+        type: unit.type,
+        health: unit.health,
+        moves: unit.type.movementRange,
+        player: unit.player.id,
+      );
+    } else {
+      return null;
+    }
+  }
 
   static JsonUnit unitToJson(Unit unit) => JsonUnit(
     type: unit.type,
@@ -152,7 +198,7 @@ class JsonUtils {
       turn: match.turn,
       activePlayer: match.activePlayer,
       players: [
-        playerSpendResources(
+        playerRemoveResources(
           player: match.self,
           value: unit.type.deploymentCost,
         ),
@@ -179,7 +225,10 @@ class JsonUtils {
       turn: match.turn,
       activePlayer: match.activePlayer,
       players: [
-        playerSpendResources(player: match.self, value: unit.type.movementCost),
+        playerRemoveResources(
+          player: match.self,
+          value: unit.type.movementCost,
+        ),
         playerToJson(match.opponent),
       ],
       battlefield: battlefieldMoveUnit(
@@ -188,6 +237,27 @@ class JsonUtils {
         nodeOrigin: nodeOrigin,
         nodeTarget: nodeTarget,
       ),
+    );
+  }
+
+  static JsonMatch endTurn(Match match) {
+    return JsonMatch(
+      id: match.id,
+      version: match.version,
+      createdAt: match.createdAt,
+      turn: match.turn + 1,
+      activePlayer: match.opponent.id,
+      players: [
+        playerAddResources(
+          player: match.self,
+          value: match.self.resourcesRate + match.fuelCollected,
+        ),
+        playerAddResources(
+          player: match.opponent,
+          value: match.accumulatedResourcesInTurn,
+        ),
+      ],
+      battlefield: battlefieldResetUnits(match.battlefield),
     );
   }
 }
