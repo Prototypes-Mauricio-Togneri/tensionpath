@@ -53,10 +53,7 @@ class Node {
 
   void setUnit(Unit? unit) {
     if ((unit != null) && (_unit != null)) {
-      _unit!.replaceWith(
-        unit: unit,
-        location: unit.location,
-      );
+      _unit!.replaceWith(newUnit: unit, location: unit.location);
     } else {
       _unit = unit;
     }

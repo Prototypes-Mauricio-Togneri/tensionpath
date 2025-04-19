@@ -1,7 +1,6 @@
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
@@ -67,44 +66,7 @@ class Match {
 
     self.replaceWith(newMatch.self);
     opponent.replaceWith(newMatch.opponent);
-
-    final Set<String> visibleNodes = {};
-
-    for (final Node newNode in newMatch.battlefield.nodes) {
-      final Node oldNode = battlefield.nodeById(newNode.id);
-      oldNode.setUnit(newNode.unit);
-      oldNode.setStructure(newNode.structure);
-
-      if (oldNode.hasUnit) {
-        final Unit unit = oldNode.unit!;
-
-        if (unit.belongsTo(self)) {
-          visibleNodes.addAll(
-            oldNode.visibleNodes(
-              visibilityRange: unit.visibilityRange,
-              nodes: newMatch.battlefield.nodes,
-            ),
-          );
-        }
-      }
-
-      if (oldNode.hasStructure) {
-        final Structure structure = oldNode.structure!;
-
-        if (structure.belongsTo(self)) {
-          visibleNodes.addAll(
-            oldNode.visibleNodes(
-              visibilityRange: structure.visibilityRange,
-              nodes: newMatch.battlefield.nodes,
-            ),
-          );
-        }
-      }
-    }
-
-    for (final Node node in battlefield.nodes) {
-      node.setRevealed(visibleNodes.contains(node.id));
-    }
+    battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {

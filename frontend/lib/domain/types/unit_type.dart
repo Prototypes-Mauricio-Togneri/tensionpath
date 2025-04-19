@@ -6,7 +6,7 @@ enum UnitType {
     movementCost: 1,
     maxHealth: 100,
     movementRange: 1,
-    visibilityRange: 2,
+    visibilityRange: 1,
     attackRange: 0,
     numberOfAttacks: 0,
     sprite: Assets.IMAGES_UNITS_FUEL_TRUCK,

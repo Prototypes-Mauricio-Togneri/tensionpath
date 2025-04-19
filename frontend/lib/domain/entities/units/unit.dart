@@ -58,11 +58,11 @@ abstract class Unit {
 
   bool belongsTo(Player player) => this.player.id == player.id;
 
-  void replaceWith({required Unit unit, required Location location}) {
+  void replaceWith({required Unit newUnit, required Location location}) {
     _location = location;
-    _health = unit._health;
-    _remainingMoves = unit._remainingMoves;
-    _remainingAttacks = unit._remainingAttacks;
+    _health = newUnit._health;
+    _remainingMoves = newUnit._remainingMoves;
+    _remainingAttacks = newUnit._remainingAttacks;
   }
 
   UnitComponent component({

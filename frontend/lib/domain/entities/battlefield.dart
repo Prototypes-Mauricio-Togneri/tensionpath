@@ -20,6 +20,49 @@ class Battlefield {
     required this.gridRatio,
   });
 
+  void replaceWith({
+    required Player self,
+    required Battlefield newBattlefield,
+  }) {
+    final Set<String> visibleNodes = {};
+
+    for (final Node newNode in newBattlefield.nodes) {
+      final Node oldNode = nodeById(newNode.id);
+      oldNode.setUnit(newNode.unit);
+      oldNode.setStructure(newNode.structure);
+
+      if (oldNode.hasUnit) {
+        final Unit unit = oldNode.unit!;
+
+        if (unit.belongsTo(self)) {
+          visibleNodes.addAll(
+            oldNode.visibleNodes(
+              visibilityRange: unit.visibilityRange,
+              nodes: nodes,
+            ),
+          );
+        }
+      }
+
+      if (oldNode.hasStructure) {
+        final Structure structure = oldNode.structure!;
+
+        if (structure.belongsTo(self)) {
+          visibleNodes.addAll(
+            oldNode.visibleNodes(
+              visibilityRange: structure.visibilityRange,
+              nodes: nodes,
+            ),
+          );
+        }
+      }
+    }
+
+    for (final Node node in nodes) {
+      node.setRevealed(visibleNodes.contains(node.id));
+    }
+  }
+
   int fuelCollected(Player player) {
     int result = 0;
 
