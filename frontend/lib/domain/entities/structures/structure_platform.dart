@@ -5,7 +5,7 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class StructurePlatform extends Structure {
-  StructurePlatform() : super(type: StructureType.platform, player: null);
+  const StructurePlatform() : super(type: StructureType.platform, player: null);
 
   @override
   StructureComponent component({

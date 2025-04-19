@@ -11,7 +11,7 @@ abstract class Structure {
   final StructureType type;
   final Player? player;
 
-  Structure({required this.type, required this.player});
+  const Structure({required this.type, required this.player});
 
   bool get hasPlayer => player != null;
 
@@ -32,11 +32,11 @@ abstract class Structure {
       case StructureType.launcher:
         return StructureLauncher(player: player!);
       case StructureType.resources:
-        return StructureResources();
+        return const StructureResources();
       case StructureType.missile:
-        return StructureMissile();
+        return const StructureMissile();
       case StructureType.platform:
-        return StructurePlatform();
+        return const StructurePlatform();
     }
   }
 }
