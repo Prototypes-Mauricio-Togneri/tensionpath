@@ -11,6 +11,9 @@ class StructurePlatform extends Structure {
     : super(type: StructureType.platform);
 
   @override
+  String? get getPlatformId => platformId;
+
+  @override
   StructureComponent component({
     required Vector2 position,
     required Vector2 size,

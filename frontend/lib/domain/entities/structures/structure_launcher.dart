@@ -12,6 +12,9 @@ class StructureLauncher extends Structure {
     : super(type: StructureType.launcher);
 
   @override
+  String? get getPlayerId => player.id;
+
+  @override
   bool belongsTo(Player otherPlayer) => otherPlayer.id == player.id;
 
   @override

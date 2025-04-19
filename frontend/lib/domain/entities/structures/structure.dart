@@ -16,6 +16,10 @@ abstract class Structure {
 
   int get visibilityRange => type.visibilityRange;
 
+  String? get getPlayerId => null;
+
+  String? get getPlatformId => null;
+
   bool belongsTo(Player otherPlayer) => false;
 
   void replaceWith(Structure newStructure) {}

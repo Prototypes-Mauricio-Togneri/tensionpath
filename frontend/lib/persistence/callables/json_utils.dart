@@ -3,8 +3,6 @@ import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
-import 'package:tensionpath/domain/entities/structures/structure_platform.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
@@ -199,9 +197,8 @@ class JsonUtils {
     if (structure != null) {
       return JsonStructure(
         type: structure.type,
-        player: (structure is StructureLauncher) ? structure.player.id : null,
-        platformId:
-            (structure is StructurePlatform) ? structure.platformId : null,
+        player: structure.getPlayerId,
+        platformId: structure.getPlatformId,
       );
     } else {
       return null;
