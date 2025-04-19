@@ -1,8 +1,8 @@
-import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 
 class Platform {
   final String platformId;
-  final List<StructurePad> pads;
+  final List<Node> nodes;
 
-  const Platform({required this.platformId, required this.pads});
+  const Platform({required this.platformId, required this.nodes});
 }

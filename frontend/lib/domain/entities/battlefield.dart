@@ -4,7 +4,6 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
@@ -26,24 +25,22 @@ class Battlefield {
   }) {
     platforms = [];
 
-    final Iterable<StructurePad> pads = nodes
-        .where(
-          (node) =>
-              node.hasStructure && node.structure?.type == StructureType.pad,
-        )
-        .map((node) => node.structure as StructurePad);
+    final Iterable<Node> nodePads = nodes.where(
+      (node) => node.hasStructure && node.structure?.type == StructureType.pad,
+    );
 
     for (int i = 0; i < numberOfPlatforms; i++) {
       final String platformId = '${i + 1}';
       platforms.add(
         Platform(
           platformId: platformId,
-          pads: pads.where((pad) => pad.platformId == platformId).toList(),
+          nodes:
+              nodePads
+                  .where((node) => node.structure?.getPlatformId == platformId)
+                  .toList(),
         ),
       );
     }
-
-    print(platforms);
   }
 
   void replaceWith({
