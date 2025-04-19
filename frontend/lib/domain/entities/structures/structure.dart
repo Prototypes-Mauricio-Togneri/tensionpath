@@ -11,27 +11,14 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 abstract class Structure {
   final StructureType type;
   final Location location;
-  late Player? _player;
 
-  Structure({
-    required this.type,
-    required this.location,
-    required Player? player,
-  }) {
-    _player = player;
-  }
-
-  bool get hasPlayer => _player != null;
-
-  Player? get player => _player;
+  Structure({required this.type, required this.location});
 
   int get visibilityRange => type.visibilityRange;
 
-  bool belongsTo(Player otherPlayer) => otherPlayer.id == _player?.id;
+  bool belongsTo(Player otherPlayer) => false;
 
-  void replaceWith(Structure newStructure) {
-    _player = newStructure._player;
-  }
+  void replaceWith(Structure newStructure) {}
 
   StructureComponent component({
     required Vector2 position,
@@ -42,6 +29,7 @@ abstract class Structure {
     required StructureType structureType,
     required Location location,
     required Player? player,
+    required String? platformId,
   }) {
     switch (structureType) {
       case StructureType.launcher:
@@ -51,7 +39,7 @@ abstract class Structure {
       case StructureType.missile:
         return StructureMissile(location: location);
       case StructureType.platform:
-        return StructurePlatform(location: location);
+        return StructurePlatform(location: location, platformId: platformId!);
     }
   }
 }

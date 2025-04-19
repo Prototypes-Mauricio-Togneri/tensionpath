@@ -43,7 +43,8 @@
                 "y": -1,
                 "type": "land",
                 "structure": {
-                    "type": "platform"
+                    "type": "platform",
+                    "platformId": "1"
                 }
             },
             {
@@ -61,7 +62,8 @@
                 "y": 1,
                 "type": "land",
                 "structure": {
-                    "type": "platform"
+                    "type": "platform",
+                    "platformId": "2"
                 }
             },
             {
@@ -79,7 +81,8 @@
                 "y": -2,
                 "type": "land",
                 "structure": {
-                    "type": "platform"
+                    "type": "platform",
+                    "platformId": "1"
                 }
             },
             {
@@ -107,7 +110,8 @@
                 "y": 2,
                 "type": "land",
                 "structure": {
-                    "type": "platform"
+                    "type": "platform",
+                    "platformId": "2"
                 }
             },
             {
@@ -115,7 +119,8 @@
                 "y": 2,
                 "type": "land",
                 "structure": {
-                    "type": "platform"
+                    "type": "platform",
+                    "platformId": "2"
                 }
             },
             {
@@ -143,7 +148,8 @@
                 "y": -2,
                 "type": "land",
                 "structure": {
-                    "type": "platform"
+                    "type": "platform",
+                    "platformId": "1"
                 }
             },
             {

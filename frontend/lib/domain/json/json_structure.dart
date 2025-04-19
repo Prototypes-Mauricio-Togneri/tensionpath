@@ -14,7 +14,14 @@ class JsonStructure {
   @JsonKey(name: 'player')
   final String? player;
 
-  const JsonStructure({required this.type, required this.player});
+  @JsonKey(name: 'platformId')
+  final String? platformId;
+
+  const JsonStructure({
+    required this.type,
+    required this.player,
+    required this.platformId,
+  });
 
   Structure object({
     required Location location,
@@ -23,6 +30,7 @@ class JsonStructure {
     structureType: type,
     location: location,
     player: Player.playerById(id: player, players: players),
+    platformId: platformId,
   );
 
   factory JsonStructure.fromJson(Map<String, dynamic> json) =>

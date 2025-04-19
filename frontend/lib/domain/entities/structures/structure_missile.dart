@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 
 class StructureMissile extends Structure {
   StructureMissile({required super.location})
-    : super(type: StructureType.missile, player: null);
+    : super(type: StructureType.missile);
 
   @override
   StructureComponent component({

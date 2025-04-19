@@ -5,8 +5,10 @@ import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class StructurePlatform extends Structure {
-  StructurePlatform({required super.location})
-    : super(type: StructureType.platform, player: null);
+  final String platformId;
+
+  StructurePlatform({required super.location, required this.platformId})
+    : super(type: StructureType.platform);
 
   @override
   StructureComponent component({
