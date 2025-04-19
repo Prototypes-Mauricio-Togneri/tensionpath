@@ -47,9 +47,8 @@ class Node {
     _isRevealed = value;
   }
 
-  bool get isActionTarget =>
-      (_structure?.type != StructureType.launcher) &&
-      (_structure?.type != StructureType.missile);
+  bool isActionTarget(Unit unit) =>
+      ((_structure == null) || _structure!.type.canMoveUnit) && type.canMoveUnit(unit);
 
   void replaceWith(Node newNode) {
     if ((newNode.unit != null) && (_unit != null)) {

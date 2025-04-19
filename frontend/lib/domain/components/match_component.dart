@@ -89,7 +89,7 @@ class MatchComponent extends World {
     required Node origin,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.isActionTarget) {
+      if (nodeComponent.node.isActionTarget(origin.unit!)) {
         final bool isEmpty = !nodeComponent.node.hasUnit;
         final bool isInPosition = nodeComponent.containsPoint(position);
         final int distance = nodeComponent.node.distance(origin);

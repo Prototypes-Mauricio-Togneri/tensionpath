@@ -1,0 +1,1 @@
+enum UnitClass { land, air }

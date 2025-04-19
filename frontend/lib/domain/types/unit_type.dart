@@ -1,7 +1,9 @@
+import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 enum UnitType {
   fuel_truck(
+    unitClass: UnitClass.land,
     deploymentCost: 1,
     movementCost: 1,
     maxHealth: 100,
@@ -13,6 +15,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_FUEL_TRUCK,
   ),
   rifle_squad(
+    unitClass: UnitClass.land,
     deploymentCost: 1,
     movementCost: 1,
     maxHealth: 100,
@@ -24,6 +27,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_RIFLE_SQUAD,
   ),
   rpg_team(
+    unitClass: UnitClass.land,
     deploymentCost: 1,
     movementCost: 1,
     maxHealth: 100,
@@ -35,6 +39,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_RPG_TEAM,
   ),
   sniper(
+    unitClass: UnitClass.land,
     deploymentCost: 2,
     movementCost: 1,
     maxHealth: 100,
@@ -46,6 +51,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_SNIPER,
   ),
   humvee(
+    unitClass: UnitClass.land,
     deploymentCost: 3,
     movementCost: 2,
     maxHealth: 100,
@@ -57,6 +63,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_HUMVEE,
   ),
   rocket_vehicle(
+    unitClass: UnitClass.land,
     deploymentCost: 3,
     movementCost: 2,
     maxHealth: 100,
@@ -68,6 +75,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_ROCKET_VEHICLE,
   ),
   tank(
+    unitClass: UnitClass.land,
     deploymentCost: 4,
     movementCost: 2,
     maxHealth: 100,
@@ -79,6 +87,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_TANK,
   ),
   artillery(
+    unitClass: UnitClass.land,
     deploymentCost: 5,
     movementCost: 2,
     maxHealth: 100,
@@ -90,6 +99,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
   ),
   helicopter(
+    unitClass: UnitClass.air,
     deploymentCost: 6,
     movementCost: 3,
     maxHealth: 100,
@@ -101,6 +111,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_HELICOPTER,
   );
 
+  final UnitClass unitClass;
   final int deploymentCost;
   final int movementCost;
   final int maxHealth;
@@ -112,6 +123,7 @@ enum UnitType {
   final String thumbnail;
 
   const UnitType({
+    required this.unitClass,
     required this.deploymentCost,
     required this.movementCost,
     required this.maxHealth,
