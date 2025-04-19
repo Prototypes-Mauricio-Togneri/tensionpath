@@ -240,7 +240,7 @@ class JsonUtils {
     );
   }
 
-  static JsonMatch endTurn(Match match) {
+  static JsonMatch endTurnSelf(Match match) {
     return JsonMatch(
       id: match.id,
       version: match.version,
@@ -256,6 +256,21 @@ class JsonUtils {
           player: match.opponent,
           value: match.accumulatedResourcesInTurn,
         ),
+      ],
+      battlefield: battlefieldResetUnits(match.battlefield),
+    );
+  }
+
+  static JsonMatch endTurnOpponent(Match match) {
+    return JsonMatch(
+      id: match.id,
+      version: match.version,
+      createdAt: match.createdAt,
+      turn: match.turn + 1,
+      activePlayer: match.self.id,
+      players: [
+        JsonUtils.playerToJson(match.self),
+        JsonUtils.playerToJson(match.opponent),
       ],
       battlefield: battlefieldResetUnits(match.battlefield),
     );

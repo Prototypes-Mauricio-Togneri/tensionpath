@@ -8,9 +8,9 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
-import 'package:tensionpath/persistence/callables/match/end_turn_callable.dart';
+import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
+import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
@@ -156,19 +156,7 @@ class Match {
     nodeTarget: nodeTarget,
   );
 
-  Future onEndTurn() => EndTurnCallable()(this);
+  Future onEndTurn() => EndTurnSelfCallable()(this);
 
-  Future onOpponentEndTurn() async {
-    battlefield.nodes.forEach((node) => node.resetUnit());
-    final JsonMatch json = JsonMatch(
-      id: id,
-      version: version,
-      createdAt: createdAt,
-      turn: _turn + 1,
-      activePlayer: self.id,
-      players: [JsonUtils.playerToJson(self), JsonUtils.playerToJson(opponent)],
-      battlefield: battlefield.toJson(),
-    );
-    await MatchRepository.update(json);
-  }
+  Future onOpponentEndTurn() => EndTurnOpponentCallable()(this);
 }
