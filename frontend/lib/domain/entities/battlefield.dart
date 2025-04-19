@@ -43,6 +43,16 @@ class Battlefield {
     }
   }
 
+  Platform platformById(String id) {
+    for (final Platform platform in platforms) {
+      if (platform.platformId == id) {
+        return platform;
+      }
+    }
+
+    throw Exception('Platform with id "$id" not found');
+  }
+
   void replaceWith({
     required Player self,
     required Battlefield newBattlefield,
