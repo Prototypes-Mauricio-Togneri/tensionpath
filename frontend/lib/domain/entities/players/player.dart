@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -23,9 +24,9 @@ class Player {
 
   int get resourcesRate => _resourcesRate;
 
-  bool get isPlayer1 => id == '1';
+  bool get isPlayer1 => id == Constants.PLAYER_1;
 
-  bool get isPlayer2 => id == '2';
+  bool get isPlayer2 => id == Constants.PLAYER_2;
 
   bool get isOpponent => !isSelf;
 

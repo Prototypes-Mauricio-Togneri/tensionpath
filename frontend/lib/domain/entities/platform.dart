@@ -1,3 +1,4 @@
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 
 class Platform {
@@ -21,9 +22,9 @@ class Platform {
     }
 
     if ((player1 > 0) && (player2 == 0)) {
-      return '1';
+      return Constants.PLAYER_1;
     } else if ((player2 > 0) && (player1 == 0)) {
-      return '2';
+      return Constants.PLAYER_2;
     } else if ((player1 > 0) && (player2 > 0)) {
       return '';
     } else {

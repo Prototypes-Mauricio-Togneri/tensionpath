@@ -1,24 +1,30 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
+import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class StructurePadComponent extends StructureComponent<StructurePad> {
+  late final Platform platform;
   String? lastOwner;
 
   StructurePadComponent({
     required super.structure,
     required super.position,
     required super.size,
-  });
+  }) {
+    platform = match.match.battlefield.platformById(structure.platformId);
+    lastOwner = platform.owner;
+  }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    final String? currentOwner = owner;
+    final String? currentOwner = platform.owner;
 
     if (currentOwner != lastOwner) {
       lastOwner = currentOwner;
@@ -26,13 +32,10 @@ class StructurePadComponent extends StructureComponent<StructurePad> {
     }
   }
 
-  String? get owner =>
-      match.match.battlefield.platformById(structure.platformId).owner;
-
   Future _setSprite(String? owner) async {
-    if (owner == '1') {
+    if (owner == Constants.PLAYER_1) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_1);
-    } else if (owner == '2') {
+    } else if (owner == Constants.PLAYER_2) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_2);
     } else if (owner == '') {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_CONTESTED);
@@ -43,7 +46,6 @@ class StructurePadComponent extends StructureComponent<StructurePad> {
 
   @override
   FutureOr onLoad() async {
-    lastOwner = owner;
     await _setSprite(lastOwner);
 
     return super.onLoad();
