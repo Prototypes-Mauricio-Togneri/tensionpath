@@ -29,7 +29,7 @@ class StructureMissileComponent extends StructureComponent<StructureMissile> {
       MissileIndicatorComponent(
         missile: missile,
         position: size / 2,
-        size: Vector2(size.x * 0.7, size.y * 0.1),
+        size: Vector2(size.x * 0.7, size.y * 0.08),
       ),
     );
 
@@ -39,23 +39,21 @@ class StructureMissileComponent extends StructureComponent<StructureMissile> {
 
 class MissileIndicatorComponent extends PositionComponent {
   final Missile missile;
-  final Paint backgroundHealthPaint = Palette.paint(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.UNIT_HEALTH_BACKGROUND,
+    color: Palette.MISSILE_INDICATOR_BACKGROUND,
   );
-  final Paint foregroundHealthPaint = Palette.paint(style: PaintingStyle.fill);
-  final Paint borderHealthPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.UNIT_HEALTH_BORDER,
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint placeholderPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
   );
 
   MissileIndicatorComponent({
     required this.missile,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center) {
-    borderHealthPaint.strokeWidth = size.y / 20;
-  }
+  }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() async {
@@ -68,13 +66,13 @@ class MissileIndicatorComponent extends PositionComponent {
     final String? owner = missile.owner;
 
     if (owner == null) {
-      foregroundHealthPaint.color = Palette.MISSILE_OWNER_NONE;
+      foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
     } else if (owner == '') {
-      foregroundHealthPaint.color = Palette.MISSILE_OWNER_CONTESTED;
+      foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
     } else if (owner == Constants.PLAYER_1) {
-      foregroundHealthPaint.color = Palette.MISSILE_OWNER_PLAYER_1;
+      foregroundPaint.color = Palette.MISSILE_OWNER_PLAYER_1;
     } else if (owner == Constants.PLAYER_2) {
-      foregroundHealthPaint.color = Palette.MISSILE_OWNER_PLAYER_2;
+      foregroundPaint.color = Palette.MISSILE_OWNER_PLAYER_2;
     }
   }
 
@@ -82,15 +80,34 @@ class MissileIndicatorComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundHealthPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
-    final double healthBar = width;
+    final double gap = size.x / 80;
+    final double blockSize = (width - gap * 11) / 10;
+    const int blocks = 7;
 
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, healthBar, height),
-      foregroundHealthPaint,
-    );
+    for (int i = 0; i < blocks; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        foregroundPaint,
+      );
+    }
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);
+    for (int i = blocks; i < 10; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        placeholderPaint,
+      );
+    }
   }
 }
