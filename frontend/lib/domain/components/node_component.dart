@@ -76,16 +76,12 @@ class NodeComponent<N extends Node> extends PositionComponent
       add(NodeBackground(node: node, position: size / 2, size: size));
     }
 
+    reconfigure();
+
     return super.onLoad();
   }
 
-  // TODO(momo): implement
-  void reconfigure() {}
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
+  void reconfigure() {
     if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         position: size / 2,
