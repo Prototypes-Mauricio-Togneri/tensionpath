@@ -23,9 +23,13 @@ class Palette {
 
   static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
   static const Color UNIT_HEALTH_BORDER = Colors.white;
-
   static const Color UNIT_INDICATOR_BACKGROUND = Colors.black;
   static const Color UNIT_INDICATOR_FOREGROUND = Colors.white;
+
+  static const Color MISSILE_OWNER_NONE = Colors.grey;
+  static const Color MISSILE_OWNER_CONTESTED = Colors.yellow;
+  static const Color MISSILE_OWNER_PLAYER_1 = PLAYER_1;
+  static const Color MISSILE_OWNER_PLAYER_2 = PLAYER_2;
 
   static Paint paint({
     PaintingStyle? style,

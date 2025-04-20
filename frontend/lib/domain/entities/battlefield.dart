@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
@@ -15,6 +16,7 @@ class Battlefield {
   final Size size;
   final Size gridRatio;
   late final List<Platform> platforms;
+  late final Missile missile;
 
   Battlefield({
     required this.id,
@@ -41,6 +43,8 @@ class Battlefield {
         ),
       );
     }
+
+    missile = Missile(platforms);
   }
 
   Platform platformById(String id) {

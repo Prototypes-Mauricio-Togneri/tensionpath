@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/structures/structure_missile_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_pad_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -65,6 +66,8 @@ class MatchComponent extends World {
     if (component is StructurePadComponent) {
       component.reconfigure();
     } else if (component is NodeComponent) {
+      component.reconfigure();
+    } else if (component is MissileIndicatorComponent) {
       component.reconfigure();
     }
 
