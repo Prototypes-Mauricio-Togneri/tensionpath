@@ -1,5 +1,7 @@
 # TODO
 
+* Refresh all components when match is updated
+
 Add:
 - Missile charging
 - First move, then attack
@@ -7,3 +9,4 @@ Add:
 - Base takes damage
 - Pop cap
 - Commanders abilities
+- Swap units
