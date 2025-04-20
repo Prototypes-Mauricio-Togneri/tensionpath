@@ -30,13 +30,38 @@ class Assets {
   static const String IMAGES_THUMBNAILS_RPG_TEAM = 'thumbnails/rpg_team.png';
   static const String IMAGES_THUMBNAILS_SNIPER = 'thumbnails/sniper.png';
   static const String IMAGES_THUMBNAILS_TANK = 'thumbnails/tank.png';
-  static const String IMAGES_UNITS_ARTILLERY = 'units/artillery.png';
-  static const String IMAGES_UNITS_FUEL_TRUCK = 'units/fuel_truck.png';
-  static const String IMAGES_UNITS_HELICOPTER = 'units/helicopter.png';
-  static const String IMAGES_UNITS_HUMVEE = 'units/humvee.png';
-  static const String IMAGES_UNITS_RIFLE_SQUAD = 'units/rifle_squad.png';
-  static const String IMAGES_UNITS_ROCKET_VEHICLE = 'units/rocket_vehicle.png';
-  static const String IMAGES_UNITS_RPG_TEAM = 'units/rpg_team.png';
-  static const String IMAGES_UNITS_SNIPER = 'units/sniper.png';
-  static const String IMAGES_UNITS_TANK = 'units/tank.png';
+  static const String IMAGES_UNITS_PLAYER_1_ARTILLERY =
+      'units/player_1/artillery.png';
+  static const String IMAGES_UNITS_PLAYER_1_FUEL_TRUCK =
+      'units/player_1/fuel_truck.png';
+  static const String IMAGES_UNITS_PLAYER_1_HELICOPTER =
+      'units/player_1/helicopter.png';
+  static const String IMAGES_UNITS_PLAYER_1_HUMVEE =
+      'units/player_1/humvee.png';
+  static const String IMAGES_UNITS_PLAYER_1_RIFLE_SQUAD =
+      'units/player_1/rifle_squad.png';
+  static const String IMAGES_UNITS_PLAYER_1_ROCKET_VEHICLE =
+      'units/player_1/rocket_vehicle.png';
+  static const String IMAGES_UNITS_PLAYER_1_RPG_TEAM =
+      'units/player_1/rpg_team.png';
+  static const String IMAGES_UNITS_PLAYER_1_SNIPER =
+      'units/player_1/sniper.png';
+  static const String IMAGES_UNITS_PLAYER_1_TANK = 'units/player_1/tank.png';
+  static const String IMAGES_UNITS_PLAYER_2_ARTILLERTY =
+      'units/player_2/artillerty.png';
+  static const String IMAGES_UNITS_PLAYER_2_FUEL_TRUCK =
+      'units/player_2/fuel_truck.png';
+  static const String IMAGES_UNITS_PLAYER_2_HELICOPTER =
+      'units/player_2/helicopter.png';
+  static const String IMAGES_UNITS_PLAYER_2_HUMVEE =
+      'units/player_2/humvee.png';
+  static const String IMAGES_UNITS_PLAYER_2_RIFLE_SQUAD =
+      'units/player_2/rifle_squad.png';
+  static const String IMAGES_UNITS_PLAYER_2_ROCKET_VEHICLE =
+      'units/player_2/rocket_vehicle.png';
+  static const String IMAGES_UNITS_PLAYER_2_RPG_TEAM =
+      'units/player_2/rpg_team.png';
+  static const String IMAGES_UNITS_PLAYER_2_SNIPER =
+      'units/player_2/sniper.png';
+  static const String IMAGES_UNITS_PLAYER_2_TANK = 'units/player_2/tank.png';
 }

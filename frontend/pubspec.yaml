@@ -46,4 +46,5 @@ flutter:
     - assets/images/nodes/
     - assets/images/structures/
     - assets/images/thumbnails/
-    - assets/images/units/
+    - assets/images/units/player_1/
+    - assets/images/units/player_2/

@@ -58,6 +58,8 @@ abstract class Unit {
 
   bool belongsTo(Player player) => this.player.id == player.id;
 
+  String get sprite => 'units/player_${player.id}/${type.sprite}.png';
+
   void replaceWith({required Unit newUnit, required Location location}) {
     _location = location;
     _health = newUnit._health;

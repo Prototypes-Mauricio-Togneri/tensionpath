@@ -25,7 +25,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(unit.type.sprite);
+    sprite = await Sprite.load(unit.sprite);
 
     add(
       HealthBarComponent(
@@ -95,7 +95,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
     }
   }
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     canvas.save();
 
@@ -108,7 +108,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
     super.render(canvas);
 
     canvas.restore();
-  }
+  }*/
 }
 
 class HealthBarComponent<U extends Unit> extends PositionComponent {

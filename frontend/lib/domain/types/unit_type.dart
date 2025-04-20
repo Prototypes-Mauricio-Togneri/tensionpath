@@ -11,7 +11,7 @@ enum UnitType {
     visibilityRange: 1,
     attackRange: 0,
     numberOfAttacks: 0,
-    sprite: Assets.IMAGES_UNITS_FUEL_TRUCK,
+    sprite: 'fuel_truck',
     thumbnail: Assets.IMAGES_THUMBNAILS_FUEL_TRUCK,
   ),
   rifle_squad(
@@ -23,7 +23,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_RIFLE_SQUAD,
+    sprite: 'rifle_squad',
     thumbnail: Assets.IMAGES_THUMBNAILS_RIFLE_SQUAD,
   ),
   rpg_team(
@@ -35,7 +35,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_RPG_TEAM,
+    sprite: 'rpg_team',
     thumbnail: Assets.IMAGES_THUMBNAILS_RPG_TEAM,
   ),
   sniper(
@@ -47,7 +47,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_SNIPER,
+    sprite: 'sniper',
     thumbnail: Assets.IMAGES_THUMBNAILS_SNIPER,
   ),
   humvee(
@@ -59,7 +59,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_HUMVEE,
+    sprite: 'humvee',
     thumbnail: Assets.IMAGES_THUMBNAILS_HUMVEE,
   ),
   rocket_vehicle(
@@ -71,7 +71,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_ROCKET_VEHICLE,
+    sprite: 'rocket_vehicle',
     thumbnail: Assets.IMAGES_THUMBNAILS_ROCKET_VEHICLE,
   ),
   tank(
@@ -83,7 +83,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_TANK,
+    sprite: 'tank',
     thumbnail: Assets.IMAGES_THUMBNAILS_TANK,
   ),
   artillery(
@@ -95,7 +95,7 @@ enum UnitType {
     visibilityRange: 2,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_ARTILLERY,
+    sprite: 'artillery',
     thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
   ),
   helicopter(
@@ -107,7 +107,7 @@ enum UnitType {
     visibilityRange: 3,
     attackRange: 1,
     numberOfAttacks: 1,
-    sprite: Assets.IMAGES_UNITS_HELICOPTER,
+    sprite: 'helicopter',
     thumbnail: Assets.IMAGES_THUMBNAILS_HELICOPTER,
   );
 
