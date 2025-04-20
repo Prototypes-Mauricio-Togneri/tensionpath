@@ -9,7 +9,6 @@ import 'package:tensionpath/utils/assets.dart';
 
 class StructurePadComponent extends StructureComponent<StructurePad> {
   late final Platform platform;
-  String? lastOwner;
 
   StructurePadComponent({
     required super.structure,
@@ -17,39 +16,23 @@ class StructurePadComponent extends StructureComponent<StructurePad> {
     required super.size,
   }) {
     platform = match.match.battlefield.platformById(structure.platformId);
-    lastOwner = platform.owner;
   }
 
-  // TODO(momo): implement
-  void reconfigure() {}
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    final String? currentOwner = platform.owner;
-
-    if (currentOwner != lastOwner) {
-      lastOwner = currentOwner;
-      _setSprite(lastOwner);
-    }
-  }
-
-  Future _setSprite(String? owner) async {
-    if (owner == Constants.PLAYER_1) {
+  Future reconfigure() async {
+    if (platform.owner == Constants.PLAYER_1) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_1);
-    } else if (owner == Constants.PLAYER_2) {
+    } else if (platform.owner == Constants.PLAYER_2) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_2);
-    } else if (owner == '') {
+    } else if (platform.owner == '') {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_CONTESTED);
-    } else if (owner == null) {
+    } else if (platform.owner == null) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_NEUTRAL);
     }
   }
 
   @override
   FutureOr onLoad() async {
-    await _setSprite(lastOwner);
+    await reconfigure();
 
     return super.onLoad();
   }
