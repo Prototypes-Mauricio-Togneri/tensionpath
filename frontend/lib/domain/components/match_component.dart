@@ -5,9 +5,9 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/structures/structure_pad_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -59,19 +59,17 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void reconfigure() => _iterateChildrenRecursively(
-    component: this,
-    action: (child) => child.reconfigure(),
-  );
+  void reconfigure() => _iterateChildrenRecursively(this);
 
-  void _iterateChildrenRecursively({
-    required Component component,
-    required Function(Component) action,
-  }) {
-    action(component);
+  void _iterateChildrenRecursively(Component component) {
+    if (component is StructurePadComponent) {
+      component.reconfigure();
+    } else if (component is NodeComponent) {
+      component.reconfigure();
+    }
 
     for (final Component child in component.children) {
-      _iterateChildrenRecursively(component: child, action: action);
+      _iterateChildrenRecursively(child);
     }
   }
 

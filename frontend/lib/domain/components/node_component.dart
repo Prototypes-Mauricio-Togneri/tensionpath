@@ -81,6 +81,9 @@ class NodeComponent<N extends Node> extends PositionComponent
     return super.onLoad();
   }
 
+  // TODO(momo): implement
+  void reconfigure() {}
+
   @override
   void update(double dt) {
     super.update(dt);

@@ -20,6 +20,9 @@ class StructurePadComponent extends StructureComponent<StructurePad> {
     lastOwner = platform.owner;
   }
 
+  // TODO(momo): implement
+  void reconfigure() {}
+
   @override
   void update(double dt) {
     super.update(dt);
