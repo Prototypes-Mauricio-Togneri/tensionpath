@@ -204,4 +204,10 @@ class Dimensions {
       ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards),
     );
   }
+
+  static bool pointInHexagon({required Vector2 point, required Vector2 size}) {
+    final Vector2 fromCenter = point - (size / 2);
+
+    return fromCenter.length < size.x * 0.42;
+  }
 }
