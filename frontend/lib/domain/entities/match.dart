@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
@@ -67,6 +68,8 @@ class Match {
     self.replaceWith(newMatch.self);
     opponent.replaceWith(newMatch.opponent);
     battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
+
+    MatchComponentRef.instance.reconfigure();
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {

@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -56,6 +57,22 @@ class MatchComponent extends World {
     );
 
     return super.onLoad();
+  }
+
+  void reconfigure() => _iterateChildrenRecursively(
+    component: this,
+    action: (child) => child.reconfigure(),
+  );
+
+  void _iterateChildrenRecursively({
+    required Component component,
+    required Function(Component) action,
+  }) {
+    action(component);
+
+    for (final Component child in component.children) {
+      _iterateChildrenRecursively(component: child, action: action);
+    }
   }
 
   void highlightNode(NodeComponent? node) {

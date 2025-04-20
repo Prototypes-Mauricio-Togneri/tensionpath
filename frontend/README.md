@@ -1,8 +1,5 @@
 # TODO
 
-* Refresh all components when match is updated
-
-Add:
 - Missile charging
 - First move, then attack
 - Unit battles (basic attack/defense)
