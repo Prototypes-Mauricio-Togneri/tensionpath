@@ -96,6 +96,8 @@ class Battlefield {
     for (final Node node in nodes) {
       node.setRevealed(visibleNodes.contains(node.id));
     }
+
+    missile.replaceWith(newBattlefield.missile);
   }
 
   int fuelCollected(Player player) {
