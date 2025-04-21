@@ -5,7 +5,9 @@ import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
+import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
@@ -24,6 +26,8 @@ class JsonUtils {
   }) => JsonPlayer(
     id: player.id,
     name: player.name,
+    baseHealth: player.baseHealth,
+    baseMaxHealth: player.baseMaxHealth,
     resources: player.resources + value,
     resourcesRate: player.resourcesRate,
   );
@@ -34,13 +38,29 @@ class JsonUtils {
   }) => JsonPlayer(
     id: player.id,
     name: player.name,
+    baseHealth: player.baseHealth,
+    baseMaxHealth: player.baseMaxHealth,
     resources: player.resources - value,
+    resourcesRate: player.resourcesRate,
+  );
+
+  static JsonPlayer playerReduceHealth({
+    required Player player,
+    required int value,
+  }) => JsonPlayer(
+    id: player.id,
+    name: player.name,
+    baseHealth: (player.baseHealth - value).clamp(0, player.baseMaxHealth),
+    baseMaxHealth: player.baseMaxHealth,
+    resources: player.resources,
     resourcesRate: player.resourcesRate,
   );
 
   static JsonPlayer playerToJson(Player player) => JsonPlayer(
     id: player.id,
     name: player.name,
+    baseHealth: player.baseHealth,
+    baseMaxHealth: player.baseMaxHealth,
     resources: player.resources,
     resourcesRate: player.resourcesRate,
   );
@@ -54,15 +74,23 @@ class JsonUtils {
   );
 
   static JsonMissile missileNextTurn(Missile missile) {
-    final String? owner = missile.owner;
-    final bool charging =
-        owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
+    if (missile.isFull) {
+      return JsonMissile(
+        charge: 0,
+        maxCharge: missile.maxCharge,
+        platforms: missile.numberOfPlatforms,
+      );
+    } else {
+      final String? owner = missile.owner;
+      final bool charging =
+          owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
 
-    return JsonMissile(
-      charge: charging ? missile.charge + 1 : missile.charge,
-      maxCharge: missile.maxCharge,
-      platforms: missile.numberOfPlatforms,
-    );
+      return JsonMissile(
+        charge: charging ? missile.charge + 1 : missile.charge,
+        maxCharge: missile.maxCharge,
+        platforms: missile.numberOfPlatforms,
+      );
+    }
   }
 
   // ============================== BATTLEFIELD ================================
@@ -301,7 +329,13 @@ class JsonUtils {
         playerToJson(match.self),
         playerAddResources(
           player: match.opponent,
-          value: match.accumulatedResourcesInTurn,
+          value:
+              match.opponent.resourcesRate +
+              fuelCollected(
+                player: match.opponent,
+                nodes: match.battlefield.nodes,
+              ) +
+              match.accumulatedResourcesInTurn,
         ),
       ],
       battlefield: battlefieldNexTurn(match.battlefield),
@@ -321,12 +355,34 @@ class JsonUtils {
           player: match.self,
           value:
               match.self.resourcesRate +
-              match.battlefield.fuelCollected(match.self),
+              fuelCollected(player: match.self, nodes: match.battlefield.nodes),
         ),
         playerToJson(match.opponent),
       ],
       battlefield: battlefieldNexTurn(match.battlefield),
     );
+  }
+
+  static int fuelCollected({
+    required Player player,
+    required List<Node> nodes,
+  }) {
+    int result = 0;
+
+    for (final Node node in nodes) {
+      if (node.hasStructure && node.hasUnit) {
+        final Structure structure = node.structure!;
+        final Unit unit = node.unit!;
+
+        if ((structure is StructureResources) &&
+            unit.belongsTo(player) &&
+            (unit is UnitFuelTruck)) {
+          result += Constants.FUEL_TRUCK_COLLECTION;
+        }
+      }
+    }
+
+    return result;
   }
 }
 

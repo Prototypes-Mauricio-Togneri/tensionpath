@@ -11,6 +11,12 @@ class JsonPlayer {
   @JsonKey(name: 'name')
   final String name;
 
+  @JsonKey(name: 'baseHealth')
+  final int baseHealth;
+
+  @JsonKey(name: 'baseMaxHealth')
+  final int baseMaxHealth;
+
   @JsonKey(name: 'resources')
   final int resources;
 
@@ -20,6 +26,8 @@ class JsonPlayer {
   const JsonPlayer({
     required this.id,
     required this.name,
+    required this.baseHealth,
+    required this.baseMaxHealth,
     required this.resources,
     required this.resourcesRate,
   });
@@ -28,6 +36,8 @@ class JsonPlayer {
     id: id,
     name: name,
     isSelf: isSelf,
+    baseHealth: baseHealth,
+    baseMaxHealth: baseMaxHealth,
     resources: resources,
     resourcesRate: resourcesRate,
   );

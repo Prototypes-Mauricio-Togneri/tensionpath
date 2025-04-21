@@ -1,13 +1,10 @@
 import 'package:flutter/services.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Battlefield {
@@ -98,25 +95,6 @@ class Battlefield {
     }
 
     missile.replaceWith(newBattlefield.missile);
-  }
-
-  int fuelCollected(Player player) {
-    int result = 0;
-
-    for (final Node node in nodes) {
-      if (node.hasStructure && node.hasUnit) {
-        final Structure structure = node.structure!;
-        final Unit unit = node.unit!;
-
-        if ((structure is StructureResources) &&
-            unit.belongsTo(player) &&
-            (unit is UnitFuelTruck)) {
-          result += Constants.FUEL_TRUCK_COLLECTION;
-        }
-      }
-    }
-
-    return result;
   }
 
   Node nodeById(String id) {

@@ -9,12 +9,16 @@
         {
             "id": "1",
             "name": "John",
+            "baseHealth": 100,
+            "baseMaxHealth": 100,
             "resources": 50,
             "resourcesRate": 10
         },
         {
             "id": "2",
             "name": "Bob",
+            "baseHealth": 100,
+            "baseMaxHealth": 100,
             "resources": 50,
             "resourcesRate": 10
         }

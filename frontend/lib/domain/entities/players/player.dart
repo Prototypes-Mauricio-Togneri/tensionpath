@@ -6,6 +6,8 @@ class Player {
   final String id;
   final String name;
   final bool isSelf;
+  late int _baseHealth;
+  final int baseMaxHealth;
   late int _resources;
   late int _resourcesRate;
 
@@ -13,12 +15,17 @@ class Player {
     required this.id,
     required this.name,
     required this.isSelf,
+    required int baseHealth,
+    required this.baseMaxHealth,
     required int resources,
     required int resourcesRate,
   }) {
+    _baseHealth = baseHealth;
     _resources = resources;
     _resourcesRate = resourcesRate;
   }
+
+  int get baseHealth => _baseHealth;
 
   int get resources => _resources;
 
@@ -35,6 +42,7 @@ class Player {
   bool hasResources(int value) => resources >= value;
 
   void replaceWith(Player newPlayer) {
+    _baseHealth = newPlayer.baseHealth;
     _resources = newPlayer.resources;
     _resourcesRate = newPlayer.resourcesRate;
   }

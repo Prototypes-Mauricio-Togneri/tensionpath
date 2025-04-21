@@ -13,6 +13,8 @@ class Missile {
     required this.numberOfPlatforms,
   });
 
+  bool get isFull => charge == maxCharge;
+
   void replaceWith(Missile newMissile) {
     charge = newMissile.charge;
   }
