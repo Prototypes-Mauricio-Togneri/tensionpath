@@ -6,8 +6,8 @@ class Palette {
 
   static const Color GAME_BACKGROUND = Colors.black;
 
-  static const Color PLAYER_1 = Colors.blue;
-  static const Color PLAYER_2 = Colors.red;
+  static const Color PLAYER_1 = Color(0xff2479ae);
+  static const Color PLAYER_2 = Color(0xffd54336);
 
   static const Color HEADER_PLAYER_NAME = Colors.white;
   static const Color HEADER_CENTER_BACKGROUND = Colors.grey;
