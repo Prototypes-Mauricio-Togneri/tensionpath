@@ -11,7 +11,8 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
+class UnitComponent<U extends Unit> extends PositionComponent
+    with DragCallbacks {
   final U unit;
   final Node node;
   final Vector2 initialPosition = Vector2(0, 0);
@@ -25,7 +26,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(unit.sprite);
+    add(UnitImageComponent(unit: unit, position: size / 2, size: size));
 
     add(
       HealthBarComponent(
@@ -117,6 +118,24 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
 
     canvas.restore();
   }*/
+}
+
+class UnitImageComponent<U extends Unit> extends SpriteComponent {
+  final U unit;
+
+  UnitImageComponent({
+    required this.unit,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(unit.sprite);
+    scale = Vector2(unit.type.spriteScale, unit.type.spriteScale);
+
+    return super.onLoad();
+  }
 }
 
 class HealthBarComponent<U extends Unit> extends PositionComponent {

@@ -63,7 +63,7 @@ abstract class Unit implements Localizable {
 
   bool belongsTo(Player player) => this.player.id == player.id;
 
-  String get sprite => 'units/player_${player.id}/${type.sprite}.png';
+  String get sprite => 'units/player_${player.id}/${type.spritePath}.png';
 
   List<Unit?> battle({required Unit attacker, required Unit defender}) {
     final int attackerDamage = attacker.damageTo(defender);

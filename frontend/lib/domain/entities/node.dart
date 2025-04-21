@@ -73,7 +73,7 @@ class Node implements Localizable {
   bool isAttackTarget(Unit unit) {
     final bool hasOpponentUnit = hasUnit && !_unit!.belongsTo(unit.player);
     final bool hasAttacks = unit.remainingAttacks > 0;
-    final bool canAttack = unit.damageTo(_unit!) > 0;
+    final bool canAttack = hasUnit && unit.damageTo(_unit!) > 0;
     final bool inDistance = distance(unit) <= unit.attackRange;
 
     return hasOpponentUnit && canAttack && hasAttacks && inDistance;
