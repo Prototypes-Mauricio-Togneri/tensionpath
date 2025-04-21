@@ -169,12 +169,12 @@ class JsonUtils {
     required Unit unitDefender,
   }) {
     final List<JsonNode> jsonNodes = [];
-    final List<Unit> battle = unitAttacker.battle(
+    final List<Unit?> battle = unitAttacker.battle(
       attacker: unitAttacker,
       defender: unitDefender,
     );
-    final Unit attackerResult = battle.first;
-    final Unit defenderResult = battle.last;
+    final Unit? attackerResult = battle.first;
+    final Unit? defenderResult = battle.last;
 
     for (final Node node in battlefield.nodes) {
       if (node.hasUnit) {
@@ -243,7 +243,7 @@ class JsonUtils {
         structure: structureToJson(node.structure),
       );
 
-  static JsonNode nodeUnitAttacked({required Node node, required Unit unit}) =>
+  static JsonNode nodeUnitAttacked({required Node node, required Unit? unit}) =>
       JsonNode(
         x: node.location.x,
         y: node.location.y,

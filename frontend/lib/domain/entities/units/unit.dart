@@ -13,6 +13,7 @@ import 'package:tensionpath/domain/entities/units/unit_rocket_vehicle.dart';
 import 'package:tensionpath/domain/entities/units/unit_rpg_team.dart';
 import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit implements Localizable {
@@ -42,6 +43,8 @@ abstract class Unit implements Localizable {
 
   int get health => _health;
 
+  bool get isAlive => _health > 0;
+
   int get remainingMoves => _remainingMoves;
 
   int get remainingAttacks => _remainingAttacks;
@@ -62,14 +65,36 @@ abstract class Unit implements Localizable {
 
   String get sprite => 'units/player_${player.id}/${type.sprite}.png';
 
-  List<Unit> battle({required Unit attacker, required Unit defender}) {
-    final int attackerDamage = attacker.type.attackValue;
-    final int defenderDamage = defender.type.attackValue;
+  List<Unit?> battle({required Unit attacker, required Unit defender}) {
+    final int attackerDamage = attacker.damageTo(defender);
+    final int defenderDamage = defender.damageTo(attacker);
+
+    final Unit attackerResult = attacker
+        .withDamage(defenderDamage)
+        .withRemainingAttacks(attacker.remainingAttacks - 1);
+    final Unit defenderResult = defender.withDamage(attackerDamage);
 
     return [
-      attacker.withDamage(defenderDamage),
-      defender.withDamage(attackerDamage),
+      if (attackerResult.isAlive) attackerResult else null,
+      if (defenderResult.isAlive) defenderResult else null,
     ];
+  }
+
+  int damageTo(Unit unit) {
+    if (unit.type == UnitType.fuel_truck) {
+      return type.damageFuelTruck;
+    } else {
+      final UnitClass defenderClass = unit.type.unitClass;
+
+      switch (defenderClass) {
+        case UnitClass.infantry:
+          return type.damageInfantry;
+        case UnitClass.vehicle:
+          return type.damageVehicle;
+        case UnitClass.air:
+          return type.damageAir;
+      }
+    }
   }
 
   Unit withDamage(int damage) => Unit.create(
@@ -79,6 +104,15 @@ abstract class Unit implements Localizable {
     health: (_health - damage).clamp(0, maxHealth),
     remainingMoves: _remainingMoves,
     remainingAttacks: _remainingAttacks,
+  );
+
+  Unit withRemainingAttacks(int value) => Unit.create(
+    unitType: type,
+    location: _location,
+    player: player,
+    health: _health,
+    remainingMoves: _remainingMoves,
+    remainingAttacks: value,
   );
 
   void replaceWith({required Unit newUnit, required Location location}) {
