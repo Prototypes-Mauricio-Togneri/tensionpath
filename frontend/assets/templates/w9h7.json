@@ -21,7 +21,6 @@
     ],
     "battlefield": {
         "id": "w9h7",
-        "platforms": 2,
         "size": {
             "width": 9,
             "height": 7
@@ -29,6 +28,11 @@
         "gridRatio": {
             "width": 0.354,
             "height": 0.5
+        },
+        "missile": {
+            "charge": 0,
+            "maxCharge": 10,
+            "platforms": 2
         },
         "nodes": [
             {

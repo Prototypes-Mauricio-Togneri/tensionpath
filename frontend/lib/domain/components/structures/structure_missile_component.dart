@@ -84,9 +84,8 @@ class MissileIndicatorComponent extends PositionComponent {
 
     final double gap = size.x / 80;
     final double blockSize = (width - gap * 11) / 10;
-    const int blocks = 7;
 
-    for (int i = 0; i < blocks; i++) {
+    for (int i = 0; i < missile.charge; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,
@@ -98,7 +97,7 @@ class MissileIndicatorComponent extends PositionComponent {
       );
     }
 
-    for (int i = blocks; i < 10; i++) {
+    for (int i = missile.charge; i < missile.maxCharge; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,

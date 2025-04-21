@@ -2,9 +2,25 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 
 class Missile {
-  final List<Platform> platforms;
+  int charge;
+  final int maxCharge;
+  final int numberOfPlatforms;
+  final List<Platform> platforms = [];
 
-  const Missile(this.platforms);
+  Missile({
+    required this.charge,
+    required this.maxCharge,
+    required this.numberOfPlatforms,
+  });
+
+  void replaceWith(Missile newMissile) {
+    charge = newMissile.charge;
+  }
+
+  void setPlatforms(List<Platform> newPlatforms) {
+    platforms.clear();
+    platforms.addAll(newPlatforms);
+  }
 
   String? get owner {
     int player1 = 0;

@@ -1,11 +1,13 @@
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
@@ -42,6 +44,14 @@ class JsonUtils {
     resourcesRate: player.resourcesRate,
   );
 
+  // ================================ MISSILE ==================================
+
+  static JsonMissile missileToJson(Missile missile) => JsonMissile(
+    charge: missile.charge,
+    maxCharge: missile.maxCharge,
+    platforms: missile.numberOfPlatforms,
+  );
+
   // ============================== BATTLEFIELD ================================
 
   static JsonBattlefield battlefieldDeployUnit({
@@ -61,9 +71,9 @@ class JsonUtils {
 
     return JsonBattlefield(
       id: battlefield.id,
-      platforms: battlefield.platforms.length,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
+      missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
   }
@@ -89,9 +99,9 @@ class JsonUtils {
 
     return JsonBattlefield(
       id: battlefield.id,
-      platforms: battlefield.platforms.length,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
+      missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
   }
@@ -105,9 +115,9 @@ class JsonUtils {
 
     return JsonBattlefield(
       id: battlefield.id,
-      platforms: battlefield.platforms.length,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
+      missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
   }

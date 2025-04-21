@@ -15,23 +15,22 @@ class Battlefield {
   final List<Node> nodes;
   final Size size;
   final Size gridRatio;
-  late final List<Platform> platforms;
-  late final Missile missile;
+  final Missile missile;
 
   Battlefield({
     required this.id,
     required this.nodes,
     required this.size,
     required this.gridRatio,
-    required int numberOfPlatforms,
+    required this.missile,
   }) {
-    platforms = [];
+    final List<Platform> platforms = [];
 
     final Iterable<Node> nodePads = nodes.where(
       (node) => node.hasStructure && node.structure?.type == StructureType.pad,
     );
 
-    for (int i = 0; i < numberOfPlatforms; i++) {
+    for (int i = 0; i < missile.numberOfPlatforms; i++) {
       final String platformId = '${i + 1}';
       platforms.add(
         Platform(
@@ -44,11 +43,11 @@ class Battlefield {
       );
     }
 
-    missile = Missile(platforms);
+    missile.setPlatforms(platforms);
   }
 
   Platform platformById(String id) {
-    for (final Platform platform in platforms) {
+    for (final Platform platform in missile.platforms) {
       if (platform.platformId == id) {
         return platform;
       }
