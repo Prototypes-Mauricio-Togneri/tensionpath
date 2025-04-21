@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
+import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
@@ -14,7 +15,7 @@ import 'package:tensionpath/domain/entities/units/unit_sniper.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
-abstract class Unit {
+abstract class Unit implements Localizable {
   final UnitType type;
   final Player player;
   late Location _location;
@@ -36,7 +37,8 @@ abstract class Unit {
     _remainingAttacks = remainingAttacks;
   }
 
-  Location get location => _location;
+  @override
+  Location get getLocation => _location;
 
   int get health => _health;
 

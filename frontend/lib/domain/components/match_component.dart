@@ -9,7 +9,6 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_missile_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_pad_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -99,11 +98,11 @@ class MatchComponent extends World {
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.node.hasLauncher) {
-        final bool isPlayer = nodeComponent.node.belongsTo(match.self);
+        final bool isEmpty = !nodeComponent.node.hasUnit;
         final bool isInPosition = nodeComponent.containsPoint(position);
-        final bool canDeploy = !nodeComponent.node.hasUnit;
+        final bool isPlayer = nodeComponent.node.belongsTo(match.self);
 
-        if (isPlayer && isInPosition && canDeploy) {
+        if (isPlayer && isInPosition && isEmpty) {
           return nodeComponent;
         }
       }
@@ -114,14 +113,13 @@ class MatchComponent extends World {
 
   NodeComponent? getActionTargetAt({
     required Vector2 position,
-    required Node origin,
     required Unit unit,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.node.isActionTarget(unit)) {
         final bool isEmpty = !nodeComponent.node.hasUnit;
         final bool isInPosition = nodeComponent.containsPoint(position);
-        final int distance = nodeComponent.node.distance(origin);
+        final int distance = nodeComponent.node.distanceToNode(unit);
 
         if (isEmpty &&
             isInPosition &&

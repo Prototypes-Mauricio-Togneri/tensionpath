@@ -1,3 +1,5 @@
+import 'package:tensionpath/domain/entities/localizable.dart';
+
 class Location {
   final int x;
   final int y;
@@ -6,7 +8,8 @@ class Location {
 
   String get id => '$x,$y';
 
-  int distance(Location location) {
+  int distance(Localizable localizable) {
+    final Location location = localizable.getLocation;
     final double distance =
         ((x - location.x).abs() +
             (x + y - location.x - location.y).abs() +

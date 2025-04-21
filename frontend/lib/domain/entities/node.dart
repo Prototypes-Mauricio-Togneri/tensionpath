@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
@@ -7,7 +8,7 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
-class Node {
+class Node implements Localizable {
   final NodeType type;
   final Location location;
   Unit? _unit;
@@ -43,6 +44,9 @@ class Node {
 
   bool get isRevealed => _isRevealed;
 
+  @override
+  Location get getLocation => location;
+
   void setRevealed(bool value) {
     _isRevealed = value;
   }
@@ -69,7 +73,7 @@ class Node {
       (_unit?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);
 
-  int distance(Node node) => location.distance(node.location);
+  int distanceToNode(Localizable node) => location.distance(node);
 
   Set<String> visibleNodes({
     required int visibilityRange,
@@ -78,7 +82,7 @@ class Node {
     final Set<String> result = {id};
 
     for (final Node node in nodes) {
-      if ((node != this) && (distance(node) <= visibilityRange)) {
+      if ((node != this) && (distanceToNode(node) <= visibilityRange)) {
         result.add(node.id);
       }
     }
