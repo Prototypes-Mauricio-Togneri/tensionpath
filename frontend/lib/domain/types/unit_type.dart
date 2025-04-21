@@ -21,7 +21,7 @@ enum UnitType {
     unitClass: UnitClass.land,
     deploymentCost: 1,
     movementCost: 1,
-    maxHealth: 130,
+    maxHealth: 650,
     movementRange: 1,
     visibilityRange: 3,
     attackRange: 1,
