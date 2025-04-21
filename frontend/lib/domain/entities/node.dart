@@ -65,7 +65,7 @@ class Node implements Localizable {
         ((_structure == null) || _structure!.type.canMoveUnit) &&
         type.canMoveUnit(unit);
     final bool hasMoves = unit.remainingMoves > 0;
-    final bool inDistance = distanceToNode(unit) <= unit.movementRange;
+    final bool inDistance = distance(unit) <= unit.movementRange;
 
     return isEmpty && isAllowedTarget && hasMoves && inDistance;
   }
@@ -88,7 +88,7 @@ class Node implements Localizable {
       (_unit?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);
 
-  int distanceToNode(Localizable node) => location.distance(node);
+  int distance(Localizable localizable) => location.distance(localizable);
 
   Set<String> visibleNodes({
     required int visibilityRange,
@@ -97,7 +97,7 @@ class Node implements Localizable {
     final Set<String> result = {id};
 
     for (final Node node in nodes) {
-      if ((node != this) && (distanceToNode(node) <= visibilityRange)) {
+      if ((node != this) && (distance(node) <= visibilityRange)) {
         result.add(node.id);
       }
     }
