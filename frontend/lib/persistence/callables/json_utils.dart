@@ -20,7 +20,7 @@ import 'package:tensionpath/extensions/size_extension.dart';
 class JsonUtils {
   // ================================= PLAYER =================================
 
-  static JsonPlayer playerAddResources({
+  /*static JsonPlayer playerAddResources({
     required Player player,
     required int value,
   }) => JsonPlayer(
@@ -54,7 +54,7 @@ class JsonUtils {
     baseMaxHealth: player.baseMaxHealth,
     resources: player.resources,
     resourcesRate: player.resourcesRate,
-  );
+  );*/
 
   static JsonPlayer playerToJson(Player player) => JsonPlayer(
     id: player.id,
@@ -62,6 +62,22 @@ class JsonUtils {
     baseHealth: player.baseHealth,
     baseMaxHealth: player.baseMaxHealth,
     resources: player.resources,
+    resourcesRate: player.resourcesRate,
+  );
+
+  static JsonPlayer playerUpdate({
+    required Player player,
+    required int resourcesChange,
+    required int healthChange,
+  }) => JsonPlayer(
+    id: player.id,
+    name: player.name,
+    baseHealth: (player.baseHealth - healthChange).clamp(
+      0,
+      player.baseMaxHealth,
+    ),
+    baseMaxHealth: player.baseMaxHealth,
+    resources: player.resources + resourcesChange,
     resourcesRate: player.resourcesRate,
   );
 
@@ -274,9 +290,10 @@ class JsonUtils {
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
       players: [
-        playerRemoveResources(
+        playerUpdate(
           player: match.self,
-          value: unit.type.deploymentCost,
+          resourcesChange: unit.type.deploymentCost,
+          healthChange: 0,
         ),
         playerToJson(match.opponent),
       ],
@@ -302,9 +319,10 @@ class JsonUtils {
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
       players: [
-        playerRemoveResources(
+        playerUpdate(
           player: match.self,
-          value: unit.type.movementCost,
+          resourcesChange: unit.type.movementCost,
+          healthChange: 0,
         ),
         playerToJson(match.opponent),
       ],
@@ -317,30 +335,33 @@ class JsonUtils {
     );
   }
 
-  static JsonMatch endTurnSelf(Match match) {
-    return JsonMatch(
-      id: match.id,
-      version: match.version,
-      createdAt: match.createdAt,
-      turn: match.turn + 1,
-      lastTurnStartedAt: DateTime.now(),
-      activePlayer: match.opponent.id,
-      players: [
-        playerToJson(match.self),
-        playerAddResources(
-          player: match.opponent,
-          value:
-              match.opponent.resourcesRate +
-              fuelCollected(
-                player: match.opponent,
-                nodes: match.battlefield.nodes,
-              ) +
-              match.accumulatedResourcesInTurn,
+  static JsonMatch endTurnSelf(Match match) => JsonMatch(
+    id: match.id,
+    version: match.version,
+    createdAt: match.createdAt,
+    turn: match.turn + 1,
+    lastTurnStartedAt: DateTime.now(),
+    activePlayer: match.opponent.id,
+    players: [
+      playerUpdate(
+        player: match.self,
+        resourcesChange: 0,
+        healthChange: _missileHit(
+          player: match.self,
+          missile: match.battlefield.missile,
         ),
-      ],
-      battlefield: battlefieldNexTurn(match.battlefield),
-    );
-  }
+      ),
+      playerUpdate(
+        player: match.opponent,
+        resourcesChange: _newResources(player: match.opponent, match: match),
+        healthChange: _missileHit(
+          player: match.opponent,
+          missile: match.battlefield.missile,
+        ),
+      ),
+    ],
+    battlefield: battlefieldNexTurn(match.battlefield),
+  );
 
   static JsonMatch endTurnOpponent(Match match) {
     return JsonMatch(
@@ -351,11 +372,15 @@ class JsonUtils {
       lastTurnStartedAt: DateTime.now(),
       activePlayer: match.self.id,
       players: [
-        playerAddResources(
+        playerUpdate(
           player: match.self,
-          value:
+          resourcesChange:
               match.self.resourcesRate +
-              fuelCollected(player: match.self, nodes: match.battlefield.nodes),
+              _fuelCollected(
+                player: match.self,
+                nodes: match.battlefield.nodes,
+              ),
+          healthChange: 0,
         ),
         playerToJson(match.opponent),
       ],
@@ -363,7 +388,24 @@ class JsonUtils {
     );
   }
 
-  static int fuelCollected({
+  static int _newResources({required Player player, required Match match}) =>
+      player.resourcesRate +
+      _fuelCollected(player: player, nodes: match.battlefield.nodes) +
+      match.accumulatedResourcesInTurn;
+
+  static int _missileHit({required Player player, required Missile missile}) {
+    if (missile.isFull) {
+      if (missile.owner != player.id) {
+        return player.baseMaxHealth ~/ 2;
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
+  }
+
+  static int _fuelCollected({
     required Player player,
     required List<Node> nodes,
   }) {
