@@ -5,10 +5,9 @@ import 'package:flame/game.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/presentation/dialogs/confirmation_dialog.dart';
+import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final MatchState state;
@@ -45,20 +44,13 @@ class GameComponent extends FlameGame {
     return super.onLoad();
   }
 
-  @override
-  Color backgroundColor() => Palette.GAME_BACKGROUND;
-
   void onMatchFinished(bool won) {
-    pauseEngine();
-
     if (won) {
-      ConfirmationDialog.won(onAccept: _onMatchReset, onCancel: _onMatchQuit);
+      InfoDialog.won(_onMatchQuit);
     } else {
-      ConfirmationDialog.lost(onAccept: _onMatchReset, onCancel: _onMatchQuit);
+      InfoDialog.lost(_onMatchQuit);
     }
   }
-
-  void _onMatchReset() => state.restart();
 
   void _onMatchQuit() => Navigation.pop();
 }
