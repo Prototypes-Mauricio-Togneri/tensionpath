@@ -1,3 +1,4 @@
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
@@ -51,6 +52,18 @@ class JsonUtils {
     maxCharge: missile.maxCharge,
     platforms: missile.numberOfPlatforms,
   );
+
+  static JsonMissile missileNextTurn(Missile missile) {
+    final String? owner = missile.owner;
+    final bool charging =
+        owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
+
+    return JsonMissile(
+      charge: charging ? missile.charge + 1 : missile.charge,
+      maxCharge: missile.maxCharge,
+      platforms: missile.numberOfPlatforms,
+    );
+  }
 
   // ============================== BATTLEFIELD ================================
 
@@ -106,7 +119,7 @@ class JsonUtils {
     );
   }
 
-  static JsonBattlefield battlefieldResetUnits(Battlefield battlefield) {
+  static JsonBattlefield battlefieldNexTurn(Battlefield battlefield) {
     final List<JsonNode> jsonNodes = [];
 
     for (final Node node in battlefield.nodes) {
@@ -117,7 +130,7 @@ class JsonUtils {
       id: battlefield.id,
       size: battlefield.size.toJsonSize(),
       gridRatio: battlefield.gridRatio.toJsonRatio(),
-      missile: missileToJson(battlefield.missile),
+      missile: missileNextTurn(battlefield.missile),
       nodes: jsonNodes,
     );
   }
@@ -291,7 +304,7 @@ class JsonUtils {
           value: match.accumulatedResourcesInTurn,
         ),
       ],
-      battlefield: battlefieldResetUnits(match.battlefield),
+      battlefield: battlefieldNexTurn(match.battlefield),
     );
   }
 
@@ -312,7 +325,7 @@ class JsonUtils {
         ),
         playerToJson(match.opponent),
       ],
-      battlefield: battlefieldResetUnits(match.battlefield),
+      battlefield: battlefieldNexTurn(match.battlefield),
     );
   }
 }
