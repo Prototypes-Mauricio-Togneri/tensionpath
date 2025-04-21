@@ -395,7 +395,9 @@ class JsonUtils {
 
   static int _missileHit({required Player player, required Missile missile}) {
     if (missile.isFull) {
-      if (missile.owner != player.id) {
+      if (((missile.owner == Constants.PLAYER_1) ||
+              (missile.owner == Constants.PLAYER_2)) &&
+          (missile.owner != player.id)) {
         return player.baseMaxHealth ~/ 2;
       } else {
         return 0;
