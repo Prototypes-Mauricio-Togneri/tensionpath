@@ -70,9 +70,9 @@ class MissileIndicatorComponent extends PositionComponent {
     } else if (owner == '') {
       foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
     } else if (owner == Constants.PLAYER_1) {
-      foregroundPaint.color = Palette.MISSILE_OWNER_PLAYER_1;
+      foregroundPaint.color = Palette.PLAYER_1;
     } else if (owner == Constants.PLAYER_2) {
-      foregroundPaint.color = Palette.MISSILE_OWNER_PLAYER_2;
+      foregroundPaint.color = Palette.PLAYER_2;
     }
   }
 
