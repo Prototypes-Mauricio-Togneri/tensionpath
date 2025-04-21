@@ -53,6 +53,10 @@ class HeaderComponent extends PositionComponent {
 
 class PlayerIndicatorComponent extends PositionComponent {
   final Player player;
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.HEADER_INDICATOR_BACKGROUND,
+  );
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
 
   PlayerIndicatorComponent({
@@ -67,7 +71,19 @@ class PlayerIndicatorComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width / 2, height), fillPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+
+    final double healthWidth =
+        width * (player.baseHealth / player.baseMaxHealth);
+
+    if (player.isPlayer1) {
+      canvas.drawRect(
+        Rect.fromLTWH(width - healthWidth, 0, healthWidth, height),
+        fillPaint,
+      );
+    } else {
+      canvas.drawRect(Rect.fromLTWH(0, 0, healthWidth, height), fillPaint);
+    }
 
     canvas.drawText(
       text: player.name.toUpperCase(),
@@ -85,7 +101,7 @@ class PlayerIndicatorComponent extends PositionComponent {
 class CenterIndicatorComponent extends PositionComponent {
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.HEADER_BACKGROUND,
+    color: Palette.HEADER_CENTER_BACKGROUND,
   );
 
   CenterIndicatorComponent({required super.position, required super.size})
