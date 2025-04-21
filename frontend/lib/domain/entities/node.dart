@@ -51,7 +51,20 @@ class Node implements Localizable {
     _isRevealed = value;
   }
 
-  bool isActionTarget(Unit unit) =>
+  bool isDeploymentTarget({
+    required NodeComponent nodeComponent,
+    required Vector2 position,
+    required Player self,
+  }) {
+    final bool isLauncher = nodeComponent.node.hasLauncher;
+    final bool isEmpty = !nodeComponent.node.hasUnit;
+    final bool isInPosition = nodeComponent.containsPoint(position);
+    final bool isPlayer = nodeComponent.node.belongsTo(self);
+
+    return isLauncher && isPlayer && isInPosition && isEmpty;
+  }
+
+  bool isMovementTarget(Unit unit) =>
       ((_structure == null) || _structure!.type.canMoveUnit) &&
       type.canMoveUnit(unit);
 

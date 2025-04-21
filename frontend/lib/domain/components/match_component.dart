@@ -97,14 +97,12 @@ class MatchComponent extends World {
 
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.hasLauncher) {
-        final bool isEmpty = !nodeComponent.node.hasUnit;
-        final bool isInPosition = nodeComponent.containsPoint(position);
-        final bool isPlayer = nodeComponent.node.belongsTo(match.self);
-
-        if (isPlayer && isInPosition && isEmpty) {
-          return nodeComponent;
-        }
+      if (nodeComponent.node.isDeploymentTarget(
+        nodeComponent: nodeComponent,
+        position: position,
+        self: match.self,
+      )) {
+        return nodeComponent;
       }
     }
 
@@ -116,15 +114,22 @@ class MatchComponent extends World {
     required Unit unit,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.isActionTarget(unit)) {
+      if (nodeComponent.node.isMovementTarget(unit)) {
         final bool isEmpty = !nodeComponent.node.hasUnit;
         final bool isInPosition = nodeComponent.containsPoint(position);
         final int distance = nodeComponent.node.distanceToNode(unit);
 
+        // Unit movement
         if (isEmpty &&
             isInPosition &&
             (unit.remainingMoves > 0) &&
-            (distance == 1)) {
+            (distance == unit.movementRange)) {
+          return nodeComponent;
+        } else if (!isEmpty &&
+            isInPosition &&
+            (unit.remainingAttacks > 0) &&
+            (distance == unit.attackRange)) {
+          // Unit attack
           return nodeComponent;
         }
       }
