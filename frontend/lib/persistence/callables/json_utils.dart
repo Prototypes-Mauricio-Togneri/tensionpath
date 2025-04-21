@@ -373,16 +373,21 @@ class JsonUtils {
       activePlayer: match.self.id,
       players: [
         playerUpdate(
-          player: match.self,
-          resourcesChange:
-              match.self.resourcesRate +
-              _fuelCollected(
-                player: match.self,
-                nodes: match.battlefield.nodes,
-              ),
-          healthChange: 0,
+          player: match.opponent,
+          resourcesChange: 0,
+          healthChange: _missileHit(
+            player: match.opponent,
+            missile: match.battlefield.missile,
+          ),
         ),
-        playerToJson(match.opponent),
+        playerUpdate(
+          player: match.self,
+          resourcesChange: _newResources(player: match.self, match: match),
+          healthChange: _missileHit(
+            player: match.self,
+            missile: match.battlefield.missile,
+          ),
+        ),
       ],
       battlefield: battlefieldNexTurn(match.battlefield),
     );

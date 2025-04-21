@@ -12,6 +12,7 @@ import 'package:tensionpath/utils/navigation.dart';
 class GameComponent extends FlameGame {
   final MatchState state;
   final Match match;
+  StreamSubscription? _matchSubscription;
 
   GameComponent({required this.state, required this.match}) : super() {
     GameComponentRef.instance = this;
@@ -39,9 +40,17 @@ class GameComponent extends FlameGame {
       ),
     );
 
-    match.listen();
+    _matchSubscription = match.listen();
 
     return super.onLoad();
+  }
+
+  @override
+  void onRemove() {
+    _matchSubscription?.cancel();
+    _matchSubscription = null;
+
+    super.onRemove();
   }
 
   void onMatchFinished(bool won) {

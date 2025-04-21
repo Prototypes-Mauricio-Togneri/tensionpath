@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -58,7 +59,7 @@ class Match {
 
   bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
 
-  void listen() => MatchRepository.listen(
+  StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
     selfId: self.id,
     onUpated: _onMatchUpated,
