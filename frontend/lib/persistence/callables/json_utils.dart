@@ -169,15 +169,25 @@ class JsonUtils {
     required Unit unitDefender,
   }) {
     final List<JsonNode> jsonNodes = [];
+    final List<Unit> battle = unitAttacker.battle(
+      attacker: unitAttacker,
+      defender: unitDefender,
+    );
+    final Unit attackerResult = battle.first;
+    final Unit defenderResult = battle.last;
 
     for (final Node node in battlefield.nodes) {
-      /*if (node == nodeOrigin) {
-        jsonNodes.add(nodeUnitUndeployed(nodeOrigin));
-      } else if (node == nodeTarget) {
-        jsonNodes.add(nodeUnitMoved(node: nodeTarget, unit: unit));
-      } else {*/
-      jsonNodes.add(nodeToJson(node));
-      //}
+      if (node.hasUnit) {
+        if (node.unit == unitAttacker) {
+          jsonNodes.add(nodeUnitAttacked(node: node, unit: attackerResult));
+        } else if (node.unit == unitDefender) {
+          jsonNodes.add(nodeUnitAttacked(node: node, unit: defenderResult));
+        } else {
+          jsonNodes.add(nodeToJson(node));
+        }
+      } else {
+        jsonNodes.add(nodeToJson(node));
+      }
     }
 
     return JsonBattlefield(
@@ -216,6 +226,14 @@ class JsonUtils {
         structure: structureToJson(node.structure),
       );
 
+  static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit: null,
+    structure: structureToJson(node.structure),
+  );
+
   static JsonNode nodeUnitMoved({required Node node, required Unit unit}) =>
       JsonNode(
         x: node.location.x,
@@ -225,13 +243,14 @@ class JsonUtils {
         structure: structureToJson(node.structure),
       );
 
-  static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
-    x: node.location.x,
-    y: node.location.y,
-    type: node.type,
-    unit: null,
-    structure: structureToJson(node.structure),
-  );
+  static JsonNode nodeUnitAttacked({required Node node, required Unit unit}) =>
+      JsonNode(
+        x: node.location.x,
+        y: node.location.y,
+        type: node.type,
+        unit: unitToJson(unit),
+        structure: structureToJson(node.structure),
+      );
 
   static JsonNode nodeUnitReset(Node node) => JsonNode(
     x: node.location.x,

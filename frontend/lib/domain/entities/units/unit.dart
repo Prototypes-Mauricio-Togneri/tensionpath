@@ -62,6 +62,25 @@ abstract class Unit implements Localizable {
 
   String get sprite => 'units/player_${player.id}/${type.sprite}.png';
 
+  List<Unit> battle({required Unit attacker, required Unit defender}) {
+    final int attackerDamage = attacker.type.attackValue;
+    final int defenderDamage = defender.type.attackValue;
+
+    return [
+      attacker.withDamage(defenderDamage),
+      defender.withDamage(attackerDamage),
+    ];
+  }
+
+  Unit withDamage(int damage) => Unit.create(
+    unitType: type,
+    location: _location,
+    player: player,
+    health: (_health - damage).clamp(0, maxHealth),
+    remainingMoves: _remainingMoves,
+    remainingAttacks: _remainingAttacks,
+  );
+
   void replaceWith({required Unit newUnit, required Location location}) {
     _location = location;
     _health = newUnit._health;
