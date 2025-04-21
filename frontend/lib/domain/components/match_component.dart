@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_missile_component.dart';
@@ -60,7 +61,15 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void reconfigure() => _iterateChildrenRecursively(this);
+  void onMatchUpdated(Match match) {
+    if (match.selfWon) {
+      GameComponentRef.instance.onMatchFinished(true);
+    } else if (match.opponentWon) {
+      GameComponentRef.instance.onMatchFinished(false);
+    } else {
+      _iterateChildrenRecursively(this);
+    }
+  }
 
   void _iterateChildrenRecursively(Component component) {
     if (component is StructurePadComponent) {

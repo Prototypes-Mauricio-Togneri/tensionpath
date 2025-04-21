@@ -54,6 +54,10 @@ class Match {
   int get accumulatedResourcesInTurn =>
       DateTime.now().difference(_lastTurnStartedAt).inSeconds;
 
+  bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
+
+  bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
+
   void listen() => MatchRepository.listen(
     matchId: id,
     selfId: self.id,
@@ -69,7 +73,7 @@ class Match {
     opponent.replaceWith(newMatch.opponent);
     battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
 
-    MatchComponentRef.instance.reconfigure();
+    MatchComponentRef.instance.onMatchUpdated(this);
   }
 
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
