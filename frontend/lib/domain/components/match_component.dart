@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/components/structures/structure_missile_compo
 import 'package:tensionpath/domain/components/structures/structure_pad_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -114,16 +115,17 @@ class MatchComponent extends World {
   NodeComponent? getActionTargetAt({
     required Vector2 position,
     required Node origin,
+    required Unit unit,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.isActionTarget(origin.unit!)) {
+      if (nodeComponent.node.isActionTarget(unit)) {
         final bool isEmpty = !nodeComponent.node.hasUnit;
         final bool isInPosition = nodeComponent.containsPoint(position);
         final int distance = nodeComponent.node.distance(origin);
 
         if (isEmpty &&
             isInPosition &&
-            (origin.unit!.remainingMoves > 0) &&
+            (unit.remainingMoves > 0) &&
             (distance == 1)) {
           return nodeComponent;
         }
