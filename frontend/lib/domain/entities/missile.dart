@@ -13,7 +13,9 @@ class Missile {
     required this.numberOfPlatforms,
   });
 
-  bool get isFull => charge == maxCharge;
+  bool get isFull =>
+      (charge == maxCharge) &&
+      ((owner == Constants.PLAYER_1) || (owner == Constants.PLAYER_2));
 
   void replaceWith(Missile newMissile) {
     charge = newMissile.charge;
