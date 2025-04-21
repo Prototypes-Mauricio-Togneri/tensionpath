@@ -13,7 +13,8 @@ class Palette {
   static const Color HEADER_CENTER_BACKGROUND = Colors.grey;
   static const Color HEADER_INDICATOR_BACKGROUND = Color(0xff555555);
 
-  static const Color CONTROLS_UNIT_TEXT = Colors.white;
+  static const Color CONTROLS_COST_FOREGROUND = Colors.white;
+  static const Color CONTROLS_COST_BACKGROUND = Color(0x77000000);
   static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.orange;
   static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
   static const Color CONTROLS_BACKGROUND_DISABLED = Color(0xff555555);

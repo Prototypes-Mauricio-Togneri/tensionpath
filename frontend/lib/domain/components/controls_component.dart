@@ -128,8 +128,8 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
       UnitCostComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.8, size.y * 0.8),
-        size: Vector2(size.x * 0.4, size.y * 0.4),
+        position: Vector2(size.x * 0.8, size.y * 0.75),
+        size: Vector2(size.x * 0.4, size.y * 0.5),
       ),
     );
 
@@ -244,7 +244,11 @@ class UnitCostComponent extends PositionComponent {
   final UnitType unitType;
   final Paint textPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Palette.CONTROLS_UNIT_TEXT,
+    color: Palette.CONTROLS_COST_FOREGROUND,
+  );
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_COST_BACKGROUND,
   );
 
   UnitCostComponent({
@@ -261,6 +265,8 @@ class UnitCostComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
+    canvas.drawRect(size.toRect(), backgroundPaint);
+
     final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
 
     final Paint text =
@@ -276,9 +282,10 @@ class UnitCostComponent extends PositionComponent {
 
     canvas.drawText(
       text: '🛢️ ${unitType.deploymentCost.toString()}',
-      position: size / 2,
+      position: Vector2(size.x * 0.05, size.y * 0.55),
       size: size.x / 3,
       color: text.color,
+      anchor: Anchor.centerLeft,
     );
   }
 }

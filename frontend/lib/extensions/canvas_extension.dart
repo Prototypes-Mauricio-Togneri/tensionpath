@@ -9,7 +9,6 @@ extension CanvasExtension on Canvas {
     required Vector2 position,
     required double size,
     TextAlign textAlign = TextAlign.center,
-    Alignment alignment = Alignment.center,
     Anchor anchor = Anchor.center,
     Color? color,
     Paint? foreground,
