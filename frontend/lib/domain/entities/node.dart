@@ -51,34 +51,23 @@ class Node implements Localizable {
     _isRevealed = value;
   }
 
-  bool isDeploymentTarget({
-    required NodeComponent nodeComponent,
-    required Vector2 position,
-    required Player self,
-  }) {
-    final bool isLauncher = nodeComponent.node.hasLauncher;
-    final bool isPlayer = nodeComponent.node.belongsTo(self);
-    final bool isInPosition = nodeComponent.containsPoint(position);
-    final bool isEmpty = !nodeComponent.node.hasUnit;
+  bool isDeploymentTarget(Player self) {
+    final bool isLauncher = hasLauncher;
+    final bool isPlayer = belongsTo(self);
+    final bool isEmpty = !hasUnit;
 
-    return isLauncher && isPlayer && isInPosition && isEmpty;
+    return isLauncher && isPlayer && isEmpty;
   }
 
-  bool isMovementTarget({
-    required NodeComponent nodeComponent,
-    required Vector2 position,
-    required Unit unit,
-  }) {
-    final bool isEmpty = !nodeComponent.node.hasUnit;
+  bool isMovementTarget(Unit unit) {
+    final bool isEmpty = !hasUnit;
     final bool isAllowedTarget =
         ((_structure == null) || _structure!.type.canMoveUnit) &&
         type.canMoveUnit(unit);
-    final bool isInPosition = nodeComponent.containsPoint(position);
     final bool hasMoves = unit.remainingMoves > 0;
-    final bool inDistance =
-        nodeComponent.node.distanceToNode(unit) <= unit.movementRange;
+    final bool inDistance = distanceToNode(unit) <= unit.movementRange;
 
-    return isEmpty && isAllowedTarget && isInPosition && hasMoves && inDistance;
+    return isEmpty && isAllowedTarget && hasMoves && inDistance;
   }
 
   void replaceWith(Node newNode) {

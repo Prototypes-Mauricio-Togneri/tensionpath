@@ -97,11 +97,8 @@ class MatchComponent extends World {
 
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.isDeploymentTarget(
-        nodeComponent: nodeComponent,
-        position: position,
-        self: match.self,
-      )) {
+      if (nodeComponent.containsPoint(position) &&
+          nodeComponent.node.isDeploymentTarget(match.self)) {
         return nodeComponent;
       }
     }
@@ -114,11 +111,8 @@ class MatchComponent extends World {
     required Unit unit,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.isMovementTarget(
-        nodeComponent: nodeComponent,
-        position: position,
-        unit: unit,
-      )) {
+      if (nodeComponent.containsPoint(position) &&
+          nodeComponent.node.isMovementTarget(unit)) {
         return nodeComponent;
       }
     }
