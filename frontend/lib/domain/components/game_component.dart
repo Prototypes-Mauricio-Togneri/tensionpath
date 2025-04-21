@@ -20,8 +20,6 @@ class GameComponent extends FlameGame {
 
   @override
   FutureOr onLoad() {
-    debugMode = false;
-
     final Size resolution = Dimensions.cameraSize(canvasSize);
 
     world = MatchComponent(resolution: resolution, match: match);

@@ -127,26 +127,24 @@ class NodeComponent<N extends Node> extends PositionComponent
     }
   }
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (debugMode) {
-      canvas.drawText(
-        text: '${node.location}',
-        position: Vector2(size.x / 2, size.y / 4),
-        size: size.x / 8,
-        color: Colors.white,
-      );
+    canvas.drawText(
+      text: '${node.location}',
+      position: Vector2(size.x / 2, size.y / 4),
+      size: size.x / 8,
+      color: Colors.white,
+    );
 
-      canvas.drawText(
-        text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
-        position: Vector2(size.x / 2, size.y * 2 / 4),
-        size: size.x / 8,
-        color: Colors.white,
-      );
-    }
-  }
+    canvas.drawText(
+      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
+      position: Vector2(size.x / 2, size.y * 2 / 4),
+      size: size.x / 8,
+      color: Colors.white,
+    );
+  }*/
 }
 
 class NodeHighlitedComponent extends PositionComponent {
