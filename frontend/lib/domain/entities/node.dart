@@ -57,16 +57,29 @@ class Node implements Localizable {
     required Player self,
   }) {
     final bool isLauncher = nodeComponent.node.hasLauncher;
-    final bool isEmpty = !nodeComponent.node.hasUnit;
-    final bool isInPosition = nodeComponent.containsPoint(position);
     final bool isPlayer = nodeComponent.node.belongsTo(self);
+    final bool isInPosition = nodeComponent.containsPoint(position);
+    final bool isEmpty = !nodeComponent.node.hasUnit;
 
     return isLauncher && isPlayer && isInPosition && isEmpty;
   }
 
-  bool isMovementTarget(Unit unit) =>
-      ((_structure == null) || _structure!.type.canMoveUnit) &&
-      type.canMoveUnit(unit);
+  bool isMovementTarget({
+    required NodeComponent nodeComponent,
+    required Vector2 position,
+    required Unit unit,
+  }) {
+    final bool isEmpty = !nodeComponent.node.hasUnit;
+    final bool isAllowedTarget =
+        ((_structure == null) || _structure!.type.canMoveUnit) &&
+        type.canMoveUnit(unit);
+    final bool isInPosition = nodeComponent.containsPoint(position);
+    final bool hasMoves = unit.remainingMoves > 0;
+    final bool inDistance =
+        nodeComponent.node.distanceToNode(unit) <= unit.movementRange;
+
+    return isEmpty && isAllowedTarget && isInPosition && hasMoves && inDistance;
+  }
 
   void replaceWith(Node newNode) {
     if ((newNode.unit != null) && (_unit != null)) {

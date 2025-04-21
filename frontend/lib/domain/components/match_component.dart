@@ -114,26 +114,24 @@ class MatchComponent extends World {
     required Unit unit,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.isMovementTarget(unit)) {
-        final bool isEmpty = !nodeComponent.node.hasUnit;
-        final bool isInPosition = nodeComponent.containsPoint(position);
-        final int distance = nodeComponent.node.distanceToNode(unit);
+      if (nodeComponent.node.isMovementTarget(
+        nodeComponent: nodeComponent,
+        position: position,
+        unit: unit,
+      )) {
+        return nodeComponent;
+      }
+    }
 
-        // Unit movement
-        if (isEmpty &&
-            isInPosition &&
-            (unit.remainingMoves > 0) &&
-            (distance == unit.movementRange)) {
-          return nodeComponent;
-        } else if (!isEmpty &&
+    /*
+    else if (!isEmpty &&
             isInPosition &&
             (unit.remainingAttacks > 0) &&
             (distance == unit.attackRange)) {
           // Unit attack
           return nodeComponent;
         }
-      }
-    }
+        */
 
     return null;
   }
