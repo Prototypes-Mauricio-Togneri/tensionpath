@@ -21,7 +21,7 @@ class HeaderComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final double centerIndicatorWidth = width * 0.1;
+    final double centerIndicatorWidth = width * 0.06;
     final double playerIndicatorWidth = (width - centerIndicatorWidth) / 2;
 
     add(
