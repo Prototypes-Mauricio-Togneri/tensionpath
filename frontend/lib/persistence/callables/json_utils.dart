@@ -163,6 +163,32 @@ class JsonUtils {
     );
   }
 
+  static JsonBattlefield battlefieldAttackUnit({
+    required Battlefield battlefield,
+    required Unit unitAttacker,
+    required Unit unitDefender,
+  }) {
+    final List<JsonNode> jsonNodes = [];
+
+    for (final Node node in battlefield.nodes) {
+      /*if (node == nodeOrigin) {
+        jsonNodes.add(nodeUnitUndeployed(nodeOrigin));
+      } else if (node == nodeTarget) {
+        jsonNodes.add(nodeUnitMoved(node: nodeTarget, unit: unit));
+      } else {*/
+      jsonNodes.add(nodeToJson(node));
+      //}
+    }
+
+    return JsonBattlefield(
+      id: battlefield.id,
+      size: battlefield.size.toJsonSize(),
+      gridRatio: battlefield.gridRatio.toJsonRatio(),
+      missile: missileToJson(battlefield.missile),
+      nodes: jsonNodes,
+    );
+  }
+
   static JsonBattlefield battlefieldNexTurn(Battlefield battlefield) {
     final List<JsonNode> jsonNodes = [];
 
@@ -331,6 +357,27 @@ class JsonUtils {
         unit: unit,
         nodeOrigin: nodeOrigin,
         nodeTarget: nodeTarget,
+      ),
+    );
+  }
+
+  static JsonMatch matchAttackUnit({
+    required Match match,
+    required Unit unitAttacker,
+    required Unit unitDefender,
+  }) {
+    return JsonMatch(
+      id: match.id,
+      version: match.version,
+      createdAt: match.createdAt,
+      turn: match.turn,
+      lastTurnStartedAt: match.lastTurnStartedAt,
+      activePlayer: match.activePlayer,
+      players: [playerToJson(match.self), playerToJson(match.opponent)],
+      battlefield: battlefieldAttackUnit(
+        battlefield: match.battlefield,
+        unitAttacker: unitAttacker,
+        unitDefender: unitDefender,
       ),
     );
   }

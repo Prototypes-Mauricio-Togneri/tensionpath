@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/persistence/callables/match/attack_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
@@ -99,6 +100,15 @@ class Match {
     unit: unit,
     nodeOrigin: nodeOrigin,
     nodeTarget: nodeTarget,
+  );
+
+  Future onAttackUnit({
+    required Unit unitAttacker,
+    required Unit unitDefender,
+  }) => AttackUnitCallable()(
+    match: this,
+    unitAttacker: unitAttacker,
+    unitDefender: unitDefender,
   );
 
   Future onEndTurn() => EndTurnSelfCallable()(this);

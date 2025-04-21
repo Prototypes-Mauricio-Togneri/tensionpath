@@ -15,10 +15,6 @@ class DeployUnitCallable {
       throw Exception('Insufficient funds');
     }
 
-    if (node.hasUnit) {
-      throw Exception('Node already has a unit');
-    }
-
     final JsonMatch json = JsonUtils.matchDeployUnit(
       match: match,
       unit: unit,

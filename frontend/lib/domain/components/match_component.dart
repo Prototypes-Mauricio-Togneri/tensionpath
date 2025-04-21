@@ -112,21 +112,12 @@ class MatchComponent extends World {
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) &&
-          nodeComponent.node.isMovementTarget(unit)) {
+          (nodeComponent.node.isMovementTarget(unit) ||
+              nodeComponent.node.isAttackTarget(unit))) {
         return nodeComponent;
       }
     }
-
-    /*
-    else if (!isEmpty &&
-            isInPosition &&
-            (unit.remainingAttacks > 0) &&
-            (distance == unit.attackRange)) {
-          // Unit attack
-          return nodeComponent;
-        }
-        */
-
+    
     return null;
   }
 }

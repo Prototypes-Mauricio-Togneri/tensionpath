@@ -68,7 +68,7 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
     if (unit.player.isSelf && match.match.isSelfTurn) {
       position += event.localDelta;
       match.highlightNode(
-        match.getActionTargetAt(position: absolutePosition, unit: node.unit!),
+        match.getActionTargetAt(position: absolutePosition, unit: unit),
       );
     }
   }
@@ -80,15 +80,23 @@ class UnitComponent<U extends Unit> extends SpriteComponent with DragCallbacks {
 
       final NodeComponent? nodeComponent = match.getActionTargetAt(
         position: absolutePosition,
-        unit: node.unit!,
+        unit: unit,
       );
 
       if (nodeComponent != null) {
-        match.match.onMoveUnit(
-          unit: node.unit!,
-          nodeOrigin: node,
-          nodeTarget: nodeComponent.node,
-        );
+        if (nodeComponent.node.isAttackTarget(unit)) {
+          match.match.onAttackUnit(
+            unitAttacker: unit,
+            unitDefender: nodeComponent.node.unit!,
+          );
+          position = initialPosition;
+        } else if (nodeComponent.node.isMovementTarget(unit)) {
+          match.match.onMoveUnit(
+            unit: unit,
+            nodeOrigin: node,
+            nodeTarget: nodeComponent.node,
+          );
+        }
       } else {
         position = initialPosition;
       }

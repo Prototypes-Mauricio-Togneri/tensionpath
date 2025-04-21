@@ -16,10 +16,6 @@ class MoveUnitCallable {
       throw Exception('Insufficient funds');
     }
 
-    if (nodeTarget.hasUnit) {
-      throw Exception('Node already has a unit');
-    }
-
     final JsonMatch json = JsonUtils.matchMoveUnit(
       match: match,
       unit: unit,
