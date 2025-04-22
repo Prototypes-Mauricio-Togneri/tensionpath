@@ -1,8 +1,8 @@
 # TODO
 
-- Defender and attacker status
 - Base takes damage
-
+- Defender and attacker status
+- Swap units
 - Pop cap
 - Commanders abilities
-- Swap units
+
