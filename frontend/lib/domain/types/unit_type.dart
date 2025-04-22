@@ -16,7 +16,7 @@ enum UnitType {
     damageVehicle: 0,
     damageAir: 0,
     damageFuelTruck: 0,
-    damageBuilding: 0,
+    damageStructure: 0,
     spriteName: 'fuel_truck',
     spriteScale: 0.8,
     thumbnail: Assets.IMAGES_THUMBNAILS_FUEL_TRUCK,
@@ -35,7 +35,7 @@ enum UnitType {
     damageVehicle: 15,
     damageAir: 0,
     damageFuelTruck: 15,
-    damageBuilding: 40,
+    damageStructure: 40,
     spriteName: 'rifle_squad',
     spriteScale: 0.5,
     thumbnail: Assets.IMAGES_THUMBNAILS_RIFLE_SQUAD,
@@ -54,7 +54,7 @@ enum UnitType {
     damageVehicle: 250,
     damageAir: 250,
     damageFuelTruck: 250,
-    damageBuilding: 250,
+    damageStructure: 250,
     spriteName: 'rpg_team',
     spriteScale: 0.6,
     thumbnail: Assets.IMAGES_THUMBNAILS_RPG_TEAM,
@@ -73,7 +73,7 @@ enum UnitType {
     damageVehicle: 20,
     damageAir: 0,
     damageFuelTruck: 20,
-    damageBuilding: 20,
+    damageStructure: 20,
     spriteName: 'sniper',
     spriteScale: 0.4,
     thumbnail: Assets.IMAGES_THUMBNAILS_SNIPER,
@@ -92,7 +92,7 @@ enum UnitType {
     damageVehicle: 60,
     damageAir: 80,
     damageFuelTruck: 60,
-    damageBuilding: 80,
+    damageStructure: 80,
     spriteName: 'humvee',
     spriteScale: 0.6,
     thumbnail: Assets.IMAGES_THUMBNAILS_HUMVEE,
@@ -111,7 +111,7 @@ enum UnitType {
     damageVehicle: 250,
     damageAir: 250,
     damageFuelTruck: 250,
-    damageBuilding: 250,
+    damageStructure: 250,
     spriteName: 'rocket_vehicle',
     spriteScale: 0.6,
     thumbnail: Assets.IMAGES_THUMBNAILS_ROCKET_VEHICLE,
@@ -130,7 +130,7 @@ enum UnitType {
     damageVehicle: 750,
     damageAir: 0,
     damageFuelTruck: 750,
-    damageBuilding: 750,
+    damageStructure: 750,
     spriteName: 'tank',
     spriteScale: 0.8,
     thumbnail: Assets.IMAGES_THUMBNAILS_TANK,
@@ -149,7 +149,7 @@ enum UnitType {
     damageVehicle: 650,
     damageAir: 0,
     damageFuelTruck: 650,
-    damageBuilding: 1000,
+    damageStructure: 1000,
     spriteName: 'artillery',
     spriteScale: 0.7,
     thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
@@ -168,7 +168,7 @@ enum UnitType {
     damageVehicle: 100,
     damageAir: 350,
     damageFuelTruck: 100,
-    damageBuilding: 350,
+    damageStructure: 350,
     spriteName: 'helicopter',
     spriteScale: 0.8,
     thumbnail: Assets.IMAGES_THUMBNAILS_HELICOPTER,
@@ -187,7 +187,7 @@ enum UnitType {
   final int damageVehicle;
   final int damageAir;
   final int damageFuelTruck;
-  final int damageBuilding;
+  final int damageStructure;
   final String spriteName;
   final double spriteScale;
   final String thumbnail;
@@ -206,7 +206,7 @@ enum UnitType {
     required this.damageVehicle,
     required this.damageAir,
     required this.damageFuelTruck,
-    required this.damageBuilding,
+    required this.damageStructure,
     required this.spriteName,
     required this.spriteScale,
     required this.thumbnail,

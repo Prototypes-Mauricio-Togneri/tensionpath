@@ -20,42 +20,6 @@ import 'package:tensionpath/extensions/size_extension.dart';
 class JsonUtils {
   // ================================= PLAYER =================================
 
-  /*static JsonPlayer playerAddResources({
-    required Player player,
-    required int value,
-  }) => JsonPlayer(
-    id: player.id,
-    name: player.name,
-    baseHealth: player.baseHealth,
-    baseMaxHealth: player.baseMaxHealth,
-    resources: player.resources + value,
-    resourcesRate: player.resourcesRate,
-  );
-
-  static JsonPlayer playerRemoveResources({
-    required Player player,
-    required int value,
-  }) => JsonPlayer(
-    id: player.id,
-    name: player.name,
-    baseHealth: player.baseHealth,
-    baseMaxHealth: player.baseMaxHealth,
-    resources: player.resources - value,
-    resourcesRate: player.resourcesRate,
-  );
-
-  static JsonPlayer playerReduceHealth({
-    required Player player,
-    required int value,
-  }) => JsonPlayer(
-    id: player.id,
-    name: player.name,
-    baseHealth: (player.baseHealth - value).clamp(0, player.baseMaxHealth),
-    baseMaxHealth: player.baseMaxHealth,
-    resources: player.resources,
-    resourcesRate: player.resourcesRate,
-  );*/
-
   static JsonPlayer playerToJson(Player player) => JsonPlayer(
     id: player.id,
     name: player.name,
@@ -254,6 +218,37 @@ class JsonUtils {
     );
   }
 
+  static JsonBattlefield battlefieldAttackBase({
+    required Battlefield battlefield,
+    required Unit unit,
+  }) {
+    final List<JsonNode> jsonNodes = [];
+
+    for (final Node node in battlefield.nodes) {
+      if (node.hasUnit && (node.unit == unit)) {
+        jsonNodes.add(
+          nodeUnitBattled(
+            node: node,
+            unit: unit,
+            health: unit.health,
+            remainingMoves: 0,
+            remainingAttacks: unit.remainingAttacks - 1,
+          ),
+        );
+      } else {
+        jsonNodes.add(nodeToJson(node));
+      }
+    }
+
+    return JsonBattlefield(
+      id: battlefield.id,
+      size: battlefield.size.toJsonSize(),
+      gridRatio: battlefield.gridRatio.toJsonRatio(),
+      missile: missileToJson(battlefield.missile),
+      nodes: jsonNodes,
+    );
+  }
+
   static JsonBattlefield battlefieldNexTurn(Battlefield battlefield) {
     final List<JsonNode> jsonNodes = [];
 
@@ -269,6 +264,15 @@ class JsonUtils {
       nodes: jsonNodes,
     );
   }
+
+  static JsonBattlefield battlefieldToJson(Battlefield battlefield) =>
+      JsonBattlefield(
+        id: battlefield.id,
+        size: battlefield.size.toJsonSize(),
+        gridRatio: battlefield.gridRatio.toJsonRatio(),
+        missile: missileToJson(battlefield.missile),
+        nodes: battlefield.nodes.map(nodeToJson).toList(),
+      );
 
   // ================================= NODE ===================================
 
@@ -478,6 +482,35 @@ class JsonUtils {
         battlefield: match.battlefield,
         unitAttacker: unitAttacker,
         unitDefender: unitDefender,
+      ),
+    );
+  }
+
+  static JsonMatch matchAttackBase({
+    required Match match,
+    required Unit unit,
+    required Node node,
+  }) {
+    final int damage = unit.type.damageStructure;
+
+    return JsonMatch(
+      id: match.id,
+      version: match.version,
+      createdAt: match.createdAt,
+      turn: match.turn,
+      lastTurnStartedAt: match.lastTurnStartedAt,
+      activePlayer: match.activePlayer,
+      players: [
+        playerToJson(match.self),
+        playerUpdate(
+          player: match.opponent,
+          resourcesChange: 0,
+          healthChange: damage,
+        ),
+      ],
+      battlefield: battlefieldAttackBase(
+        battlefield: match.battlefield,
+        unit: unit,
       ),
     );
   }

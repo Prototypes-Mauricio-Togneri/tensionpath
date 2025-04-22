@@ -70,7 +70,7 @@ class Node implements Localizable {
     return isEmpty && isAllowedTarget && hasMoves && inDistance;
   }
 
-  bool isAttackTarget(Unit unit) {
+  bool isAttackUnitTarget(Unit unit) {
     final bool hasOpponentUnit = hasUnit && !_unit!.belongsTo(unit.player);
     final bool hasAttacks = unit.remainingAttacks > 0;
     final bool canAttack = hasUnit && unit.damageTo(_unit!) > 0;
@@ -78,7 +78,19 @@ class Node implements Localizable {
         distance(unit) >= unit.minAttackRange &&
         distance(unit) <= unit.maxAttackRange;
 
-    return hasOpponentUnit && canAttack && hasAttacks && inDistance;
+    return hasOpponentUnit && hasAttacks && canAttack && inDistance;
+  }
+
+  bool isAttackBaseTarget(Unit unit) {
+    final bool hasOpponentBase =
+        hasStructure && (_structure!.type == StructureType.launcher);
+    final bool hasAttacks = unit.remainingAttacks > 0;
+    final bool canAttack = unit.type.damageStructure > 0;
+    final bool inDistance =
+        distance(unit) >= unit.minAttackRange &&
+        distance(unit) <= unit.maxAttackRange;
+
+    return hasOpponentBase && hasAttacks && canAttack && inDistance;
   }
 
   void replaceWith(Node newNode) {

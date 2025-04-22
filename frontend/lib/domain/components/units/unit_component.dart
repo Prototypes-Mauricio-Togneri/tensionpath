@@ -85,18 +85,21 @@ class UnitComponent<U extends Unit> extends PositionComponent
       );
 
       if (nodeComponent != null) {
-        if (nodeComponent.node.isAttackTarget(unit)) {
-          match.match.onAttackUnit(
-            unitAttacker: unit,
-            unitDefender: nodeComponent.node.unit!,
-          );
-          position = initialPosition;
-        } else if (nodeComponent.node.isMovementTarget(unit)) {
+        if (nodeComponent.node.isMovementTarget(unit)) {
           match.match.onMoveUnit(
             unit: unit,
             nodeOrigin: node,
             nodeTarget: nodeComponent.node,
           );
+        } else if (nodeComponent.node.isAttackUnitTarget(unit)) {
+          match.match.onAttackUnit(
+            unitAttacker: unit,
+            unitDefender: nodeComponent.node.unit!,
+          );
+          position = initialPosition;
+        } else if (nodeComponent.node.isAttackBaseTarget(unit)) {
+          match.match.onAttackBase(unit: unit, node: nodeComponent.node);
+          position = initialPosition;
         }
       } else {
         position = initialPosition;
