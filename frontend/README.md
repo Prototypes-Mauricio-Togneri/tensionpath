@@ -1,5 +1,6 @@
 # TODO
 
+- Implement missile buffer
 - First move, then attack
 - Unit battles (basic attack/defense)
 - Use armor
