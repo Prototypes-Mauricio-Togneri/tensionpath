@@ -65,21 +65,6 @@ abstract class Unit implements Localizable {
 
   String get sprite => 'units/player_${player.id}/${type.spritePath}.png';
 
-  List<Unit?> battle({required Unit attacker, required Unit defender}) {
-    final int attackerDamage = attacker.damageTo(defender);
-    final int defenderDamage = defender.damageTo(attacker);
-
-    final Unit attackerResult = attacker
-        .withDamage(defenderDamage)
-        .withRemainingAttacks(attacker.remainingAttacks - 1);
-    final Unit defenderResult = defender.withDamage(attackerDamage);
-
-    return [
-      if (attackerResult.isAlive) attackerResult else null,
-      if (defenderResult.isAlive) defenderResult else null,
-    ];
-  }
-
   int damageTo(Unit unit) {
     if (unit.type == UnitType.fuel_truck) {
       return type.damageFuelTruck;

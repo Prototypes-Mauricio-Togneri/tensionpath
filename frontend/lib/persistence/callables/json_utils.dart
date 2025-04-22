@@ -184,19 +184,59 @@ class JsonUtils {
     required Unit unitDefender,
   }) {
     final List<JsonNode> jsonNodes = [];
-    final List<Unit?> battle = unitAttacker.battle(
-      attacker: unitAttacker,
-      defender: unitDefender,
-    );
-    final Unit? attackerResult = battle.first;
-    final Unit? defenderResult = battle.last;
+    final int attackerDamage = unitAttacker.damageTo(unitDefender);
+    final int defenderDamage = unitDefender.damageTo(unitAttacker);
 
     for (final Node node in battlefield.nodes) {
       if (node.hasUnit) {
         if (node.unit == unitAttacker) {
-          jsonNodes.add(nodeUnitAttacked(node: node, unit: attackerResult));
+          final int health = unitAttacker.health - defenderDamage;
+
+          if (health > 0) {
+            jsonNodes.add(
+              nodeUnitBattled(
+                node: node,
+                unit: unitAttacker,
+                health: health,
+                remainingMoves: 0,
+                remainingAttacks: unitAttacker.remainingAttacks - 1,
+              ),
+            );
+          } else {
+            jsonNodes.add(
+              nodeUnitBattled(
+                node: node,
+                unit: null,
+                health: 0,
+                remainingMoves: 0,
+                remainingAttacks: 0,
+              ),
+            );
+          }
         } else if (node.unit == unitDefender) {
-          jsonNodes.add(nodeUnitAttacked(node: node, unit: defenderResult));
+          final int health = unitDefender.health - attackerDamage;
+
+          if (health > 0) {
+            jsonNodes.add(
+              nodeUnitBattled(
+                node: node,
+                unit: unitDefender,
+                health: health,
+                remainingMoves: unitDefender.remainingMoves,
+                remainingAttacks: unitDefender.remainingAttacks,
+              ),
+            );
+          } else {
+            jsonNodes.add(
+              nodeUnitBattled(
+                node: node,
+                unit: null,
+                health: 0,
+                remainingMoves: 0,
+                remainingAttacks: 0,
+              ),
+            );
+          }
         } else {
           jsonNodes.add(nodeToJson(node));
         }
@@ -254,18 +294,31 @@ class JsonUtils {
         x: node.location.x,
         y: node.location.y,
         type: node.type,
-        unit: unitReduceRemainingMoves(unit),
+        unit: unitMoved(unit),
         structure: structureToJson(node.structure),
       );
 
-  static JsonNode nodeUnitAttacked({required Node node, required Unit? unit}) =>
-      JsonNode(
-        x: node.location.x,
-        y: node.location.y,
-        type: node.type,
-        unit: unitToJson(unit),
-        structure: structureToJson(node.structure),
-      );
+  static JsonNode nodeUnitBattled({
+    required Node node,
+    required Unit? unit,
+    required int health,
+    required int remainingMoves,
+    required int remainingAttacks,
+  }) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit:
+        (unit != null)
+            ? unitBattled(
+              unit: unit,
+              health: health,
+              remainingMoves: remainingMoves,
+              remainingAttacks: remainingAttacks,
+            )
+            : null,
+    structure: structureToJson(node.structure),
+  );
 
   static JsonNode nodeUnitReset(Node node) => JsonNode(
     x: node.location.x,
@@ -285,11 +338,24 @@ class JsonUtils {
 
   // ================================= UNIT ====================================
 
-  static JsonUnit unitReduceRemainingMoves(Unit unit) => JsonUnit(
+  static JsonUnit unitMoved(Unit unit) => JsonUnit(
     type: unit.type,
     health: unit.health,
     remainingMoves: unit.remainingMoves - 1,
     remainingAttacks: unit.remainingAttacks,
+    player: unit.player.id,
+  );
+
+  static JsonUnit unitBattled({
+    required Unit unit,
+    required int health,
+    required int remainingMoves,
+    required int remainingAttacks,
+  }) => JsonUnit(
+    type: unit.type,
+    health: health,
+    remainingMoves: remainingMoves,
+    remainingAttacks: remainingAttacks,
     player: unit.player.id,
   );
 

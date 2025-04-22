@@ -1,6 +1,5 @@
 # TODO
 
-- First move, then attack
 - Min and max attack range
 - Defender and attacker status
 - Base takes damage
