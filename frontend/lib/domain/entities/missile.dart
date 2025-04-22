@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/platform.dart';
 class Missile {
   int charge;
   final int maxCharge;
+  late final int bufferCharge;
   final int numberOfPlatforms;
   final List<Platform> platforms = [];
 
@@ -11,11 +12,9 @@ class Missile {
     required this.charge,
     required this.maxCharge,
     required this.numberOfPlatforms,
-  });
-
-  bool get isFull =>
-      (charge == maxCharge) &&
-      ((owner == Constants.PLAYER_1) || (owner == Constants.PLAYER_2));
+  }) {
+    bufferCharge = (maxCharge * 0.8).floor();
+  }
 
   void replaceWith(Missile newMissile) {
     charge = newMissile.charge;

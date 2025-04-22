@@ -90,24 +90,39 @@ class JsonUtils {
   );
 
   static JsonMissile missileNextTurn(Missile missile) {
-    if (missile.isFull) {
+    if (_missileFull(missile)) {
       return JsonMissile(
         charge: 0,
         maxCharge: missile.maxCharge,
         platforms: missile.numberOfPlatforms,
       );
     } else {
-      final String? owner = missile.owner;
-      final bool charging =
-          owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
-
       return JsonMissile(
-        charge: charging ? missile.charge + 1 : missile.charge,
+        charge: _missileNextCharge(missile),
         maxCharge: missile.maxCharge,
         platforms: missile.numberOfPlatforms,
       );
     }
   }
+
+  static int _missileNextCharge(Missile missile) {
+    final String? owner = missile.owner;
+    final bool charging =
+        owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
+
+    if (charging) {
+      return missile.charge + 1;
+    } else if ((owner == '') && (missile.charge > missile.bufferCharge)) {
+      return missile.charge - 1;
+    } else {
+      return missile.charge;
+    }
+  }
+
+  static bool _missileFull(Missile missile) =>
+      (missile.charge == missile.maxCharge) &&
+      ((missile.owner == Constants.PLAYER_1) ||
+          (missile.owner == Constants.PLAYER_2));
 
   // ============================== BATTLEFIELD ================================
 
@@ -465,7 +480,7 @@ class JsonUtils {
       match.accumulatedResourcesInTurn;
 
   static int _missileHit({required Player player, required Missile missile}) {
-    if (missile.isFull) {
+    if (_missileFull(missile)) {
       if (missile.owner != player.id) {
         return player.baseMaxHealth ~/ 2;
       } else {
