@@ -63,7 +63,7 @@ abstract class Unit implements Localizable {
 
   bool belongsTo(Player player) => this.player.id == player.id;
 
-  String get sprite => 'units/player_${player.id}/${type.spritePath}.png';
+  String get sprite => 'units/player_${player.id}/${type.spriteName}.png';
 
   int damageTo(Unit unit) {
     if (unit.type == UnitType.fuel_truck) {
