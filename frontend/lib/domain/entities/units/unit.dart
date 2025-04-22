@@ -59,7 +59,9 @@ abstract class Unit implements Localizable {
 
   int get movementRange => type.movementRange;
 
-  int get attackRange => type.attackRange;
+  int get minAttackRange => type.minAttackRange;
+
+  int get maxAttackRange => type.maxAttackRange;
 
   bool belongsTo(Player player) => this.player.id == player.id;
 
