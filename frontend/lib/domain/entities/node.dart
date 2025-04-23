@@ -71,15 +71,18 @@ class Node implements Localizable {
   }
 
   bool isSwapTarget(Unit unit) {
-    final bool hasSelfUnit = hasUnit && _unit!.belongsTo(unit.player);
-    final bool haveMoves =
-        (unit.remainingMoves > 0) && (_unit!.remainingMoves > 0);
-    final bool inDistance =
-        hasUnit &&
-        (distance(unit) <= unit.movementRange) &&
-        (distance(unit) <= _unit!.movementRange);
+    if (hasUnit) {
+      final bool hasSelfUnit = (unit != _unit) && _unit!.belongsTo(unit.player);
+      final bool haveMoves =
+          (unit.remainingMoves > 0) && (_unit!.remainingMoves > 0);
+      final bool inDistance =
+          (distance(unit) <= unit.movementRange) &&
+          (distance(unit) <= _unit!.movementRange);
 
-    return hasSelfUnit && haveMoves && inDistance;
+      return hasSelfUnit && haveMoves && inDistance;
+    } else {
+      return false;
+    }
   }
 
   bool isAttackUnitTarget(Unit unit) {

@@ -107,6 +107,8 @@ class UnitComponent<U extends Unit> extends PositionComponent
         } else if (nodeComponent.node.isAttackBaseTarget(unit)) {
           match.match.onAttackBase(unit: unit, node: nodeComponent.node);
           position = initialPosition;
+        } else {
+          position = initialPosition;
         }
       } else {
         position = initialPosition;
