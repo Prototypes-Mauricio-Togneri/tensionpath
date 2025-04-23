@@ -9,7 +9,7 @@ environment:
 dependencies:
   web: ^1.1.1
   get_it: ^8.0.3
-  flame: ^1.27.0
+  flame: ^1.28.1
   logger: ^2.5.0
   dafluta: ^5.4.0
   url_strategy: ^0.3.0
@@ -36,7 +36,7 @@ dev_dependencies:
   dapublock: ^1.1.0
   build_runner: ^2.4.15
   flutter_lints: ^5.0.0
-  json_serializable: ^6.9.4
+  json_serializable: ^6.9.5
 
 flutter:
   uses-material-design: true
