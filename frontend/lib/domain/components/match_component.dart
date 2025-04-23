@@ -113,6 +113,7 @@ class MatchComponent extends World {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) &&
           (nodeComponent.node.isMovementTarget(unit) ||
+              nodeComponent.node.isSwapTarget(unit) ||
               nodeComponent.node.isAttackUnitTarget(unit) ||
               nodeComponent.node.isAttackBaseTarget(unit))) {
         return nodeComponent;

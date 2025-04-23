@@ -91,6 +91,13 @@ class UnitComponent<U extends Unit> extends PositionComponent
             nodeOrigin: node,
             nodeTarget: nodeComponent.node,
           );
+        } else if (nodeComponent.node.isSwapTarget(unit)) {
+          match.match.onSwapUnits(
+            unitOrigin: unit,
+            unitTarget: nodeComponent.node.unit!,
+            nodeOrigin: node,
+            nodeTarget: nodeComponent.node,
+          );
         } else if (nodeComponent.node.isAttackUnitTarget(unit)) {
           match.match.onAttackUnit(
             unitAttacker: unit,

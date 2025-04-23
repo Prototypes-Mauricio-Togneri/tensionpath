@@ -116,18 +116,59 @@ class JsonUtils {
 
   static JsonBattlefield battlefieldMoveUnit({
     required Battlefield battlefield,
-    required Unit unit,
     required Node nodeOrigin,
     required Node nodeTarget,
   }) {
     final List<JsonNode> jsonNodes = [];
     final Unit unit = nodeOrigin.unit!;
+    final int distance = nodeOrigin.distance(nodeTarget);
 
     for (final Node node in battlefield.nodes) {
       if (node == nodeOrigin) {
         jsonNodes.add(nodeUnitUndeployed(nodeOrigin));
       } else if (node == nodeTarget) {
-        jsonNodes.add(nodeUnitMoved(node: nodeTarget, unit: unit));
+        jsonNodes.add(
+          nodeUnitMoved(node: nodeTarget, unit: unit, distance: distance),
+        );
+      } else {
+        jsonNodes.add(nodeToJson(node));
+      }
+    }
+
+    return JsonBattlefield(
+      id: battlefield.id,
+      size: battlefield.size.toJsonSize(),
+      gridRatio: battlefield.gridRatio.toJsonRatio(),
+      missile: missileToJson(battlefield.missile),
+      nodes: jsonNodes,
+    );
+  }
+
+  static JsonBattlefield battlefieldSwapUnits({
+    required Battlefield battlefield,
+    required Node nodeOrigin,
+    required Node nodeTarget,
+  }) {
+    final List<JsonNode> jsonNodes = [];
+    final int distance = nodeOrigin.distance(nodeTarget);
+
+    for (final Node node in battlefield.nodes) {
+      if (node == nodeOrigin) {
+        jsonNodes.add(
+          nodeUnitMoved(
+            node: nodeOrigin,
+            unit: nodeTarget.unit!,
+            distance: distance,
+          ),
+        );
+      } else if (node == nodeTarget) {
+        jsonNodes.add(
+          nodeUnitMoved(
+            node: nodeTarget,
+            unit: nodeOrigin.unit!,
+            distance: distance,
+          ),
+        );
       } else {
         jsonNodes.add(nodeToJson(node));
       }
@@ -282,14 +323,17 @@ class JsonUtils {
     structure: structureToJson(node.structure),
   );
 
-  static JsonNode nodeUnitMoved({required Node node, required Unit unit}) =>
-      JsonNode(
-        x: node.location.x,
-        y: node.location.y,
-        type: node.type,
-        unit: unitMoved(unit),
-        structure: structureToJson(node.structure),
-      );
+  static JsonNode nodeUnitMoved({
+    required Node node,
+    required Unit unit,
+    required int distance,
+  }) => JsonNode(
+    x: node.location.x,
+    y: node.location.y,
+    type: node.type,
+    unit: unitMoved(unit: unit, distance: distance),
+    structure: structureToJson(node.structure),
+  );
 
   static JsonNode nodeUnitBattled({
     required Node node,
@@ -331,13 +375,14 @@ class JsonUtils {
 
   // ================================= UNIT ====================================
 
-  static JsonUnit unitMoved(Unit unit) => JsonUnit(
-    type: unit.type,
-    health: unit.health,
-    remainingMoves: unit.remainingMoves - 1,
-    remainingAttacks: unit.remainingAttacks,
-    player: unit.player.id,
-  );
+  static JsonUnit unitMoved({required Unit unit, required int distance}) =>
+      JsonUnit(
+        type: unit.type,
+        health: unit.health,
+        remainingMoves: unit.remainingMoves - distance,
+        remainingAttacks: unit.remainingAttacks,
+        player: unit.player.id,
+      );
 
   static JsonUnit unitBattled({
     required Unit unit,
@@ -426,7 +471,7 @@ class JsonUtils {
 
   static JsonMatch matchMoveUnit({
     required Match match,
-    required Unit unit,
+    required Unit unitOrigin,
     required Node nodeOrigin,
     required Node nodeTarget,
   }) {
@@ -440,14 +485,44 @@ class JsonUtils {
       players: [
         playerUpdate(
           player: match.self,
-          resourcesChange: unit.type.movementCost,
+          resourcesChange: -unitOrigin.type.movementCost,
           healthChange: 0,
         ),
         playerToJson(match.opponent),
       ],
       battlefield: battlefieldMoveUnit(
         battlefield: match.battlefield,
-        unit: unit,
+        nodeOrigin: nodeOrigin,
+        nodeTarget: nodeTarget,
+      ),
+    );
+  }
+
+  static JsonMatch matchSwapUnits({
+    required Match match,
+    required Unit unitOrigin,
+    required Unit unitTarget,
+    required Node nodeOrigin,
+    required Node nodeTarget,
+  }) {
+    return JsonMatch(
+      id: match.id,
+      version: match.version,
+      createdAt: match.createdAt,
+      turn: match.turn,
+      lastTurnStartedAt: match.lastTurnStartedAt,
+      activePlayer: match.activePlayer,
+      players: [
+        playerUpdate(
+          player: match.self,
+          resourcesChange:
+              -unitOrigin.type.movementCost - unitTarget.type.movementCost,
+          healthChange: 0,
+        ),
+        playerToJson(match.opponent),
+      ],
+      battlefield: battlefieldSwapUnits(
+        battlefield: match.battlefield,
         nodeOrigin: nodeOrigin,
         nodeTarget: nodeTarget,
       ),
