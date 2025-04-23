@@ -148,59 +148,48 @@ class JsonUtils {
     required Unit unitDefender,
   }) {
     final List<JsonNode> jsonNodes = [];
+
     final int attackerDamage = unitAttacker.damageTo(unitDefender);
     final int defenderDamage = unitDefender.damageTo(unitAttacker);
+
+    final int attackerHealth = unitAttacker.health - defenderDamage;
+    const int attackerRemainingMoves = 0;
+    final int attackerRemainingAttacks = unitAttacker.remainingAttacks - 1;
+
+    int defenderHealth = unitDefender.health;
+    final int defenderRemainingMoves = unitDefender.remainingMoves;
+    final int defenderRemainingAttacks = unitDefender.remainingAttacks;
+
+    // Attacker shoots if:
+    // * It is in a defensive position (i.e. didn't move before)
+    // * It just moved but it's still alive
+    if ((unitAttacker.remainingMoves == unitAttacker.type.movementRange) &&
+        (attackerHealth > 0)) {
+      defenderHealth = unitDefender.health - attackerDamage;
+    }
 
     for (final Node node in battlefield.nodes) {
       if (node.hasUnit) {
         if (node.unit == unitAttacker) {
-          final int health = unitAttacker.health - defenderDamage;
-
-          if (health > 0) {
-            jsonNodes.add(
-              nodeUnitBattled(
-                node: node,
-                unit: unitAttacker,
-                health: health,
-                remainingMoves: 0,
-                remainingAttacks: unitAttacker.remainingAttacks - 1,
-              ),
-            );
-          } else {
-            jsonNodes.add(
-              nodeUnitBattled(
-                node: node,
-                unit: null,
-                health: 0,
-                remainingMoves: 0,
-                remainingAttacks: 0,
-              ),
-            );
-          }
+          jsonNodes.add(
+            nodeUnitBattled(
+              node: node,
+              unit: (attackerHealth > 0) ? unitAttacker : null,
+              health: attackerHealth,
+              remainingMoves: attackerRemainingMoves,
+              remainingAttacks: attackerRemainingAttacks,
+            ),
+          );
         } else if (node.unit == unitDefender) {
-          final int health = unitDefender.health - attackerDamage;
-
-          if (health > 0) {
-            jsonNodes.add(
-              nodeUnitBattled(
-                node: node,
-                unit: unitDefender,
-                health: health,
-                remainingMoves: unitDefender.remainingMoves,
-                remainingAttacks: unitDefender.remainingAttacks,
-              ),
-            );
-          } else {
-            jsonNodes.add(
-              nodeUnitBattled(
-                node: node,
-                unit: null,
-                health: 0,
-                remainingMoves: 0,
-                remainingAttacks: 0,
-              ),
-            );
-          }
+          jsonNodes.add(
+            nodeUnitBattled(
+              node: node,
+              unit: (defenderHealth > 0) ? unitDefender : null,
+              health: defenderHealth,
+              remainingMoves: defenderRemainingMoves,
+              remainingAttacks: defenderRemainingAttacks,
+            ),
+          );
         } else {
           jsonNodes.add(nodeToJson(node));
         }
