@@ -4,7 +4,6 @@
 - Harverster kill reward
 - New harverster free
 - Tutorial screenshots
-- If no movement, the attacker shoots first
 - Spacebar to end turn
 - Counter logos
 - Basic pop cap

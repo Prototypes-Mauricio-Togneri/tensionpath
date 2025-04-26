@@ -154,20 +154,30 @@ class JsonUtils {
     final int attackerDamage = unitAttacker.damageTo(unitDefender);
     final int defenderDamage = unitDefender.damageTo(unitAttacker);
 
-    final int attackerHealth = unitAttacker.health - defenderDamage;
+    int attackerHealth = 0;
     const int attackerRemainingMoves = 0;
     final int attackerRemainingAttacks = unitAttacker.remainingAttacks - 1;
 
-    int defenderHealth = unitDefender.health;
+    int defenderHealth = 0;
     final int defenderRemainingMoves = unitDefender.remainingMoves;
     final int defenderRemainingAttacks = unitDefender.remainingAttacks;
 
-    // Attacker shoots if:
-    // * It is in a defensive position (i.e. didn't move before)
-    // * It just moved but it's still alive
-    if ((unitAttacker.remainingMoves == unitAttacker.type.movementRange) &&
-        (attackerHealth > 0)) {
+    if (unitAttacker.remainingMoves == unitAttacker.type.movementRange) {
+      // Attacker shoots first
       defenderHealth = unitDefender.health - attackerDamage;
+
+      // If defender is still alive, it shoots back
+      if (defenderHealth > 0) {
+        attackerHealth = unitAttacker.health - defenderDamage;
+      }
+    } else {
+      // Defender shoots first
+      attackerHealth = unitAttacker.health - defenderDamage;
+
+      // If attacker is still alive, it shoots back
+      if (attackerHealth > 0) {
+        defenderHealth = unitDefender.health - attackerDamage;
+      }
     }
 
     for (final Node node in battlefield.nodes) {
