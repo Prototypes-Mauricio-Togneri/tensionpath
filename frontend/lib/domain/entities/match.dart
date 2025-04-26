@@ -75,7 +75,9 @@ class Match {
   }
 
   bool canDeployUnit(UnitType unitType) =>
-      isSelfTurn && (self.resources >= unitType.deploymentCost) && (populationOf(self) < Constants.MAX_POP_CAP);
+      isSelfTurn &&
+      (self.resources >= unitType.deploymentCost) &&
+      (populationOf(self) < Constants.MAX_POP_CAP);
 
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
