@@ -43,6 +43,7 @@ flutter:
 
   assets:
     - assets/images/battlefields/
+    - assets/images/damage/
     - assets/images/nodes/
     - assets/images/structures/
     - assets/images/thumbnails/
