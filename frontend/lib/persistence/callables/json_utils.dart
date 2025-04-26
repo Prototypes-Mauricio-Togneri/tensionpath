@@ -154,28 +154,35 @@ class JsonUtils {
     final int attackerDamage = unitAttacker.damageTo(unitDefender);
     final int defenderDamage = unitDefender.damageTo(unitAttacker);
 
-    int attackerHealth = 0;
+    final bool attackerCanAttack = unitAttacker.isInRange(unitDefender);
+    final bool defenderCanAttack = unitDefender.isInRange(unitAttacker);
+
+    int attackerHealth = unitAttacker.health;
     const int attackerRemainingMoves = 0;
     final int attackerRemainingAttacks = unitAttacker.remainingAttacks - 1;
 
-    int defenderHealth = 0;
+    int defenderHealth = unitDefender.health;
     final int defenderRemainingMoves = unitDefender.remainingMoves;
     final int defenderRemainingAttacks = unitDefender.remainingAttacks;
 
     if (unitAttacker.remainingMoves == unitAttacker.type.movementRange) {
       // Attacker shoots first
-      defenderHealth = unitDefender.health - attackerDamage;
+      if (attackerCanAttack) {
+        defenderHealth = unitDefender.health - attackerDamage;
+      }
 
       // If defender is still alive, it shoots back
-      if (defenderHealth > 0) {
+      if ((defenderHealth > 0) && defenderCanAttack) {
         attackerHealth = unitAttacker.health - defenderDamage;
       }
     } else {
       // Defender shoots first
-      attackerHealth = unitAttacker.health - defenderDamage;
+      if (defenderCanAttack) {
+        attackerHealth = unitAttacker.health - defenderDamage;
+      }
 
       // If attacker is still alive, it shoots back
-      if (attackerHealth > 0) {
+      if ((attackerHealth > 0) && attackerCanAttack) {
         defenderHealth = unitDefender.health - attackerDamage;
       }
     }

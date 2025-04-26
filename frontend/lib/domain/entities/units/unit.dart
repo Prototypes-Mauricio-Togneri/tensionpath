@@ -67,6 +67,14 @@ abstract class Unit implements Localizable {
 
   String get sprite => 'units/player_${player.id}/${type.spriteName}.png';
 
+  int distance(Localizable localizable) => _location.distance(localizable);
+
+  bool isInRange(Unit unit) {
+    final int unitDistance = distance(unit);
+
+    return unitDistance >= minAttackRange && unitDistance <= maxAttackRange;
+  }
+
   int damageTo(Unit unit) {
     if (unit.type == UnitType.fuel_truck) {
       return type.damageFuelTruck;
