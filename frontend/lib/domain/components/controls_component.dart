@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -51,6 +52,18 @@ class ControlsComponent extends PositionComponent {
         ),
       );
     }
+
+    add(
+      PopcapComponent(
+        player: player,
+        position: Dimensions.controlsPopcapPosition(
+          size: size,
+          cardSize: cardSize,
+          numberOfCards: numberOfCards,
+        ),
+        size: Dimensions.controlsPopcapSize(size),
+      ),
+    );
 
     add(
       ResourceCounterComponent(
@@ -375,6 +388,67 @@ class UnitDamageComponent extends SpriteComponent {
       paint.color = paint.color.withAlpha(128);
     } else {
       paint.color = paint.color.withAlpha(255);
+    }
+  }
+}
+
+class PopcapComponent extends PositionComponent {
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_POPCAP_BACKGROUND,
+  );
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint placeholderPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
+  );
+
+  PopcapComponent({
+    required Player player,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft) {
+    foregroundPaint.color = player.color;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    final Paint fill =
+        match.match.isSelfTurn
+            ? backgroundPaint
+            : backgroundPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+
+    canvas.drawRect(size.toRect(), fill);
+
+    final double gap = size.x / 80;
+    final double blockSize =
+        (width - gap * (Constants.MAX_POP_CAP + 1)) / Constants.MAX_POP_CAP;
+    const int population = 3;
+
+    for (int i = 0; i < population; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        foregroundPaint,
+      );
+    }
+
+    for (int i = population; i < Constants.MAX_POP_CAP; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        placeholderPaint,
+      );
     }
   }
 }

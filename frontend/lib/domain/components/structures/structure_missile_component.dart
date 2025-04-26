@@ -83,7 +83,8 @@ class MissileIndicatorComponent extends PositionComponent {
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
     final double gap = size.x / 80;
-    final double blockSize = (width - gap * 11) / 10;
+    final double blockSize =
+        (width - gap * (missile.maxCharge + 1)) / missile.maxCharge;
 
     for (int i = 0; i < missile.charge; i++) {
       canvas.drawRect(

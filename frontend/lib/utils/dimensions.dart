@@ -156,6 +156,26 @@ class Dimensions {
 
   static double controlsGapSize(Vector2 size) => size.x * 0.07;
 
+  static Vector2 controlsPopcapSize(Vector2 size) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+    final double width = size.x - (gapSize * 2);
+
+    return Vector2(width, width / 10);
+  }
+
+  static Vector2 controlsPopcapPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize,
+      ((numberOfCards - 2) * cardSize.y) + (gapSize * (numberOfCards - 1)),
+    );
+  }
+
   static Vector2 controlsCardSize({
     required Vector2 size,
     required int numberOfCards,
@@ -163,7 +183,11 @@ class Dimensions {
     final double gapSize = Dimensions.controlsGapSize(size);
     final double cardWidth = size.x - (gapSize * 2);
     final double cardHeight =
-        (size.y - (gapSize * (numberOfCards + 1))) / numberOfCards;
+        (size.y -
+            controlsPopcapSize(size).y -
+            gapSize -
+            (gapSize * (numberOfCards + 1))) /
+        numberOfCards;
 
     return Vector2(cardWidth, cardHeight);
   }
@@ -190,7 +214,10 @@ class Dimensions {
 
     return Vector2(
       gapSize,
-      ((numberOfCards - 2) * cardSize.y) + (gapSize * (numberOfCards - 1)),
+      ((numberOfCards - 2) * cardSize.y) +
+          (gapSize * (numberOfCards - 1)) +
+          controlsPopcapSize(size).y +
+          gapSize,
     );
   }
 
@@ -203,7 +230,10 @@ class Dimensions {
 
     return Vector2(
       gapSize,
-      ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards),
+      ((numberOfCards - 1) * cardSize.y) +
+          (gapSize * numberOfCards) +
+          controlsPopcapSize(size).y +
+          gapSize,
     );
   }
 
