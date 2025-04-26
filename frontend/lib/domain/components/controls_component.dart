@@ -127,6 +127,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     add(
       UnitDamageComponent(
+        player: player,
         unitType: unitType,
         unitClass: UnitClass.infantry,
         position: Vector2(size.x * 0.1, size.y * 0.8),
@@ -136,6 +137,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     add(
       UnitDamageComponent(
+        player: player,
         unitType: unitType,
         unitClass: UnitClass.vehicle,
         position: Vector2(size.x * 0.25, size.y * 0.8),
@@ -145,6 +147,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
     add(
       UnitDamageComponent(
+        player: player,
         unitType: unitType,
         unitClass: UnitClass.aircraft,
         position: Vector2(size.x * 0.4, size.y * 0.8),
@@ -319,15 +322,21 @@ class UnitCostComponent extends PositionComponent {
 }
 
 class UnitDamageComponent extends SpriteComponent {
+  final Player player;
   final UnitType unitType;
   final UnitClass unitClass;
+  PaintDecorator? grayscale;
 
   UnitDamageComponent({
+    required this.player,
     required this.unitType,
     required this.unitClass,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center);
+
+  bool get isEnabled =>
+      match.match.isSelfTurn && (player.resources >= unitType.deploymentCost);
 
   @override
   FutureOr onLoad() async {
@@ -342,6 +351,31 @@ class UnitDamageComponent extends SpriteComponent {
     }
 
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (isEnabled) {
+      if (grayscale != null) {
+        decorator.removeLast();
+        grayscale = null;
+      }
+    } else {
+      if (grayscale == null) {
+        grayscale = PaintDecorator.grayscale(opacity: 0.5);
+        decorator.addLast(grayscale);
+      }
+    }
+
+    final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
+
+    if (unitSelector.dragging) {
+      paint.color = paint.color.withAlpha(128);
+    } else {
+      paint.color = paint.color.withAlpha(255);
+    }
   }
 }
 
