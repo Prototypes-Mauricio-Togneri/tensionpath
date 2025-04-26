@@ -11,16 +11,16 @@
             "name": "John",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 50,
-            "resourcesRate": 10
+            "resources": 100,
+            "resourcesRate": 5
         },
         {
             "id": "2",
             "name": "Bob",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 50,
-            "resourcesRate": 10
+            "resources": 100,
+            "resourcesRate": 5
         }
     ],
     "battlefield": {

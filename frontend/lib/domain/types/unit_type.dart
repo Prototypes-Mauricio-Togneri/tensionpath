@@ -4,7 +4,7 @@ import 'package:tensionpath/utils/assets.dart';
 enum UnitType {
   fuel_truck(
     unitClass: UnitClass.vehicle,
-    deploymentCost: 1,
+    deploymentCost: 60,
     movementCost: 1,
     maxHealth: 1000,
     movementRange: 1,
@@ -23,7 +23,7 @@ enum UnitType {
   ),
   rifle_squad(
     unitClass: UnitClass.infantry,
-    deploymentCost: 1,
+    deploymentCost: 10,
     movementCost: 1,
     maxHealth: 300,
     movementRange: 1,
@@ -42,7 +42,7 @@ enum UnitType {
   ),
   rpg_team(
     unitClass: UnitClass.infantry,
-    deploymentCost: 1,
+    deploymentCost: 20,
     movementCost: 1,
     maxHealth: 300,
     movementRange: 1,
@@ -61,7 +61,7 @@ enum UnitType {
   ),
   sniper(
     unitClass: UnitClass.infantry,
-    deploymentCost: 2,
+    deploymentCost: 50,
     movementCost: 1,
     maxHealth: 150,
     movementRange: 1,
@@ -80,7 +80,7 @@ enum UnitType {
   ),
   humvee(
     unitClass: UnitClass.vehicle,
-    deploymentCost: 3,
+    deploymentCost: 30,
     movementCost: 2,
     maxHealth: 500,
     movementRange: 1,
@@ -99,7 +99,7 @@ enum UnitType {
   ),
   rocket_vehicle(
     unitClass: UnitClass.vehicle,
-    deploymentCost: 3,
+    deploymentCost: 40,
     movementCost: 2,
     maxHealth: 600,
     movementRange: 1,
@@ -118,7 +118,7 @@ enum UnitType {
   ),
   tank(
     unitClass: UnitClass.vehicle,
-    deploymentCost: 4,
+    deploymentCost: 70,
     movementCost: 2,
     maxHealth: 800,
     movementRange: 1,
@@ -137,7 +137,7 @@ enum UnitType {
   ),
   artillery(
     unitClass: UnitClass.vehicle,
-    deploymentCost: 5,
+    deploymentCost: 90,
     movementCost: 2,
     maxHealth: 400,
     movementRange: 1,
@@ -156,7 +156,7 @@ enum UnitType {
   ),
   helicopter(
     unitClass: UnitClass.air,
-    deploymentCost: 6,
+    deploymentCost: 100,
     movementCost: 3,
     maxHealth: 400,
     movementRange: 1,
