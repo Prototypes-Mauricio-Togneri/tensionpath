@@ -272,24 +272,12 @@ class UnitImageComponent extends SpriteComponent implements Reconfigurable {
   void update(double dt) {
     super.update(dt);
 
-    if (isEnabled) {
-      if (grayscale != null) {
-        decorator.removeLast();
-        grayscale = null;
-      }
-    } else {
-      if (grayscale == null) {
-        grayscale = PaintDecorator.grayscale(opacity: 0.5);
-        decorator.addLast(grayscale);
-      }
-    }
-
     final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
 
-    if (unitSelector.dragging) {
-      paint.color = paint.color.withAlpha(128);
-    } else {
+    if (!unitSelector.dragging && isEnabled) {
       paint.color = paint.color.withAlpha(255);
+    } else {
+      paint.color = paint.color.withAlpha(128);
     }
   }
 }
