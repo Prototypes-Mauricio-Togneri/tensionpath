@@ -21,14 +21,14 @@ import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
-  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint backgroundPaint = Palette.paint(style: PaintingStyle.fill);
 
   ControlsComponent({
     required this.player,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value) {
-    fillPaint.color = player.color.darken(0.2);
+    backgroundPaint.color = player.color.darken(0.2);
   }
 
   @override
@@ -99,7 +99,9 @@ class ControlsComponent extends PositionComponent {
     super.render(canvas);
 
     final Paint fill =
-        match.match.isSelfTurn ? fillPaint : fillPaint.grayscale(0.2);
+        match.match.isSelfTurn
+            ? backgroundPaint
+            : backgroundPaint.grayscale(0.2);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fill);
   }
@@ -227,12 +229,12 @@ class UnitSelectorComponent extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint border = isEnabled ? borderPaint : borderPaint.grayscale(0.2);
+    final Paint border = borderPaint;
 
-    if (dragging) {
-      border.color = border.color.withAlpha(100);
-    } else {
+    if (!dragging && isEnabled) {
       border.color = border.color.withAlpha(255);
+    } else {
+      border.color = border.color.withAlpha(100);
     }
 
     canvas.drawRect(size.toRect(), border);
@@ -536,7 +538,7 @@ class ResourceCounterComponent extends PositionComponent {
 
 class EndTurnComponent extends PositionComponent with TapCallbacks {
   final Player player;
-  final Paint fillPaint = Palette.paint(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_END_TURN_BACKGROUND,
   );
@@ -561,7 +563,9 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
     super.render(canvas);
 
     final Paint fill =
-        match.match.isSelfTurn ? fillPaint : fillPaint.grayscale(0.2);
+        match.match.isSelfTurn
+            ? backgroundPaint
+            : backgroundPaint.grayscale(0.2);
 
     canvas.drawRect(size.toRect(), fill);
 
