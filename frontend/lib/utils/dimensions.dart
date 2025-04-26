@@ -28,7 +28,7 @@ class Dimensions {
   }
 
   static Vector2 controlsSize(Size resolution) =>
-      Vector2(resolution.width * 0.1, resolution.height);
+      Vector2(resolution.height * 0.2, resolution.height);
 
   static Vector2 headerPosition({
     required Size resolution,
