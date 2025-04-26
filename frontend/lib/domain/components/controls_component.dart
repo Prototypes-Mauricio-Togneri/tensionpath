@@ -99,9 +99,7 @@ class ControlsComponent extends PositionComponent {
     super.render(canvas);
 
     final Paint fill =
-        match.match.isSelfTurn
-            ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_BACKGROUND_DISABLED);
+        match.match.isSelfTurn ? fillPaint : fillPaint.grayscale(0.2);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fill);
   }
@@ -148,7 +146,7 @@ class UnitSelectorComponent extends PositionComponent
     );
 
     add(
-      UnitDamageComponent(
+      UnitCounterComponent(
         player: player,
         unitType: unitType,
         unitClass: UnitClass.infantry,
@@ -158,7 +156,7 @@ class UnitSelectorComponent extends PositionComponent
     );
 
     add(
-      UnitDamageComponent(
+      UnitCounterComponent(
         player: player,
         unitType: unitType,
         unitClass: UnitClass.vehicle,
@@ -168,7 +166,7 @@ class UnitSelectorComponent extends PositionComponent
     );
 
     add(
-      UnitDamageComponent(
+      UnitCounterComponent(
         player: player,
         unitType: unitType,
         unitClass: UnitClass.aircraft,
@@ -229,10 +227,7 @@ class UnitSelectorComponent extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint border =
-        isEnabled
-            ? borderPaint
-            : borderPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+    final Paint border = isEnabled ? borderPaint : borderPaint.grayscale(0.2);
 
     if (dragging) {
       border.color = border.color.withAlpha(100);
@@ -300,10 +295,6 @@ class UnitImageComponent extends SpriteComponent implements Reconfigurable {
 class UnitCostComponent extends PositionComponent implements Reconfigurable {
   final Player player;
   final UnitType unitType;
-  final Paint textPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.CONTROLS_COST_FOREGROUND,
-  );
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_COST_BACKGROUND,
@@ -337,35 +328,32 @@ class UnitCostComponent extends PositionComponent implements Reconfigurable {
 
     final UnitSelectorComponent unitSelector = parent as UnitSelectorComponent;
 
-    final Paint text =
-        isEnabled
-            ? textPaint
-            : textPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+    Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
 
     if (!unitSelector.dragging && isEnabled) {
-      text.color = text.color.withAlpha(255);
+      activeTextColor = activeTextColor.withAlpha(255);
     } else {
-      text.color = text.color.withAlpha(128);
+      activeTextColor = activeTextColor.withAlpha(128);
     }
 
     canvas.drawText(
       text: '${unitType.deploymentCost.toString()}🛢️',
       position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 3.5,
-      color: text.color,
+      color: activeTextColor,
       anchor: Anchor.centerRight,
     );
   }
 }
 
-class UnitDamageComponent extends SpriteComponent implements Reconfigurable {
+class UnitCounterComponent extends SpriteComponent implements Reconfigurable {
   final Player player;
   final UnitType unitType;
   final UnitClass unitClass;
   PaintDecorator? grayscale;
   bool isEnabled = false;
 
-  UnitDamageComponent({
+  UnitCounterComponent({
     required this.player,
     required this.unitType,
     required this.unitClass,
@@ -463,12 +451,17 @@ class PopcapComponent extends PositionComponent implements Reconfigurable {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint fill =
+    final Paint background =
         match.match.isSelfTurn
             ? backgroundPaint
-            : backgroundPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+            : backgroundPaint.grayscale(0.2);
 
-    canvas.drawRect(size.toRect(), fill);
+    final Paint foreground =
+        match.match.isSelfTurn
+            ? foregroundPaint
+            : foregroundPaint.grayscale(0.2);
+
+    canvas.drawRect(size.toRect(), background);
 
     final double gap = size.x / 80;
     final double blockSize =
@@ -482,7 +475,7 @@ class PopcapComponent extends PositionComponent implements Reconfigurable {
           blockSize,
           height - (gap * 2),
         ),
-        foregroundPaint,
+        foreground,
       );
     }
 
@@ -502,7 +495,7 @@ class PopcapComponent extends PositionComponent implements Reconfigurable {
 
 class ResourceCounterComponent extends PositionComponent {
   final Player player;
-  final Paint fillPaint = Palette.paint(
+  final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_RESOURCES_BACKGROUND,
   );
@@ -517,18 +510,26 @@ class ResourceCounterComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint fill =
+    final Paint background =
         match.match.isSelfTurn
-            ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+            ? backgroundPaint
+            : backgroundPaint.grayscale(0.2);
 
-    canvas.drawRect(size.toRect(), fill);
+    canvas.drawRect(size.toRect(), background);
+
+    Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
+
+    if (match.match.isSelfTurn) {
+      activeTextColor = activeTextColor.withAlpha(255);
+    } else {
+      activeTextColor = activeTextColor.withAlpha(128);
+    }
 
     canvas.drawText(
       text: '${player.resources.floor().toString()}🛢️',
       position: Vector2(size.x * 0.55, size.y * 0.5),
       size: size.x / 4,
-      color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+      color: activeTextColor,
     );
   }
 }
@@ -560,32 +561,38 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
     super.render(canvas);
 
     final Paint fill =
-        match.match.isSelfTurn
-            ? fillPaint
-            : fillPaint.clone(color: Palette.CONTROLS_FILL_DISABLED);
+        match.match.isSelfTurn ? fillPaint : fillPaint.grayscale(0.2);
 
     canvas.drawRect(size.toRect(), fill);
+
+    Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
+
+    if (match.match.isSelfTurn) {
+      activeTextColor = activeTextColor.withAlpha(255);
+    } else {
+      activeTextColor = activeTextColor.withAlpha(128);
+    }
 
     if (match.match.isSelfTurn) {
       canvas.drawText(
         text: '${match.match.accumulatedResourcesInTurn.floor()}🛢️',
         position: Vector2(size.x / 2, size.y / 3.5),
         size: size.x / 6,
-        color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+        color: activeTextColor,
       );
 
       canvas.drawText(
         text: 'END TURN',
         position: Vector2(size.x / 2, size.y * 3 / 4),
         size: size.x / 7,
-        color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+        color: activeTextColor,
       );
     } else {
       canvas.drawText(
         text: "WAITING FOR\nOPPONENT'S\nTURN",
         position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 8,
-        color: Palette.CONTROLS_RESOURCES_FOREGROUND,
+        size: size.x / 10,
+        color: activeTextColor,
       );
     }
   }
