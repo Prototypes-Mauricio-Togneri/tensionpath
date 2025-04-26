@@ -137,7 +137,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     add(
       UnitImageComponent(
         player: player,
-        type: unitType,
+        unitType: unitType,
         position: Vector2(size.x / 2, size.y / 2),
         size: size,
       ),
@@ -242,22 +242,26 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
 
 class UnitImageComponent extends SpriteComponent {
   final Player player;
-  final UnitType type;
+  final UnitType unitType;
   PaintDecorator? grayscale;
+  bool isEnabled = false;
 
   UnitImageComponent({
     required this.player,
-    required this.type,
+    required this.unitType,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center);
 
-  bool get isEnabled =>
-      match.match.isSelfTurn && (player.resources >= type.deploymentCost);
+  void reconfigure() {
+    isEnabled = match.match.canDeployUnit(unitType);
+  }
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(type.thumbnail);
+    reconfigure();
+
+    sprite = await Sprite.load(unitType.thumbnail);
 
     return super.onLoad();
   }
@@ -299,6 +303,7 @@ class UnitCostComponent extends PositionComponent {
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_COST_BACKGROUND,
   );
+  bool isEnabled = false;
 
   UnitCostComponent({
     required this.player,
@@ -307,8 +312,16 @@ class UnitCostComponent extends PositionComponent {
     required super.size,
   }) : super(anchor: Anchor.center);
 
-  bool get isEnabled =>
-      match.match.isSelfTurn && (player.resources >= unitType.deploymentCost);
+  void reconfigure() {
+    isEnabled = match.match.canDeployUnit(unitType);
+  }
+
+  @override
+  FutureOr onLoad() {
+    reconfigure();
+
+    return super.onLoad();
+  }
 
   @override
   void render(Canvas canvas) {
@@ -344,6 +357,7 @@ class UnitDamageComponent extends SpriteComponent {
   final UnitType unitType;
   final UnitClass unitClass;
   PaintDecorator? grayscale;
+  bool isEnabled = false;
 
   UnitDamageComponent({
     required this.player,
@@ -353,11 +367,13 @@ class UnitDamageComponent extends SpriteComponent {
     required super.size,
   }) : super(anchor: Anchor.center);
 
-  bool get isEnabled =>
-      match.match.isSelfTurn && (player.resources >= unitType.deploymentCost);
+  void reconfigure() {
+    isEnabled = match.match.canDeployUnit(unitType);
+  }
 
   @override
   FutureOr onLoad() async {
+    reconfigure();
     final int damage = unitType.damageAgainst(unitClass);
 
     if (damage == 0) {

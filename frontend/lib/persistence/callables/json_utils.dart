@@ -434,7 +434,7 @@ class JsonUtils {
       players: [
         playerUpdate(
           player: match.self,
-          resourcesChange: unit.type.deploymentCost,
+          resourcesChange: -unit.type.deploymentCost,
           healthChange: 0,
         ),
         playerToJson(match.opponent),

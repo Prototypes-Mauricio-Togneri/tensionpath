@@ -82,6 +82,12 @@ class MatchComponent extends World {
       component.reconfigure();
     } else if (component is UnitSelectorComponent) {
       component.reconfigure();
+    } else if (component is UnitImageComponent) {
+      component.reconfigure();
+    } else if (component is UnitCostComponent) {
+      component.reconfigure();
+    } else if (component is UnitDamageComponent) {
+      component.reconfigure();
     }
 
     for (final Component child in component.children) {
