@@ -78,6 +78,8 @@ class MatchComponent extends World {
       component.reconfigure();
     } else if (component is MissileIndicatorComponent) {
       component.reconfigure();
+    } else if (component is PopcapComponent) {
+      component.reconfigure();
     }
 
     for (final Component child in component.children) {

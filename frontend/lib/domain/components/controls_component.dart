@@ -6,6 +6,7 @@ import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
@@ -393,6 +394,7 @@ class UnitDamageComponent extends SpriteComponent {
 }
 
 class PopcapComponent extends PositionComponent {
+  final Player player;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.CONTROLS_POPCAP_BACKGROUND,
@@ -402,13 +404,31 @@ class PopcapComponent extends PositionComponent {
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
   );
+  int population = 0;
 
   PopcapComponent({
-    required Player player,
+    required this.player,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft) {
     foregroundPaint.color = player.color;
+  }
+
+  @override
+  FutureOr onLoad() async {
+    reconfigure();
+
+    return super.onLoad();
+  }
+
+  void reconfigure() {
+    population = 0;
+
+    for (final Node node in match.match.battlefield.nodes) {
+      if (node.hasUnit && node.unit!.belongsTo(player)) {
+        population++;
+      }
+    }
   }
 
   @override
@@ -425,7 +445,6 @@ class PopcapComponent extends PositionComponent {
     final double gap = size.x / 80;
     final double blockSize =
         (width - gap * (Constants.MAX_POP_CAP + 1)) / Constants.MAX_POP_CAP;
-    const int population = 3;
 
     for (int i = 0; i < population; i++) {
       canvas.drawRect(
