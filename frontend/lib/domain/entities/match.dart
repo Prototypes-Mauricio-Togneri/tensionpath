@@ -11,7 +11,6 @@ import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dar
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
-import 'package:tensionpath/persistence/callables/match/swap_units_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class Match {
@@ -100,19 +99,6 @@ class Match {
   }) => MoveUnitCallable()(
     match: this,
     unit: unit,
-    nodeOrigin: nodeOrigin,
-    nodeTarget: nodeTarget,
-  );
-
-  Future onSwapUnits({
-    required Unit unitOrigin,
-    required Unit unitTarget,
-    required Node nodeOrigin,
-    required Node nodeTarget,
-  }) => SwapUnitsCallable()(
-    match: this,
-    unitOrigin: unitOrigin,
-    unitTarget: unitTarget,
     nodeOrigin: nodeOrigin,
     nodeTarget: nodeTarget,
   );

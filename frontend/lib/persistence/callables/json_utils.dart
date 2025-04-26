@@ -144,45 +144,6 @@ class JsonUtils {
     );
   }
 
-  static JsonBattlefield battlefieldSwapUnits({
-    required Battlefield battlefield,
-    required Node nodeOrigin,
-    required Node nodeTarget,
-  }) {
-    final List<JsonNode> jsonNodes = [];
-    final int distance = nodeOrigin.distance(nodeTarget);
-
-    for (final Node node in battlefield.nodes) {
-      if (node == nodeOrigin) {
-        jsonNodes.add(
-          nodeUnitMoved(
-            node: nodeOrigin,
-            unit: nodeTarget.unit!,
-            distance: distance,
-          ),
-        );
-      } else if (node == nodeTarget) {
-        jsonNodes.add(
-          nodeUnitMoved(
-            node: nodeTarget,
-            unit: nodeOrigin.unit!,
-            distance: distance,
-          ),
-        );
-      } else {
-        jsonNodes.add(nodeToJson(node));
-      }
-    }
-
-    return JsonBattlefield(
-      id: battlefield.id,
-      size: battlefield.size.toJsonSize(),
-      gridRatio: battlefield.gridRatio.toJsonRatio(),
-      missile: missileToJson(battlefield.missile),
-      nodes: jsonNodes,
-    );
-  }
-
   static JsonBattlefield battlefieldAttackUnit({
     required Battlefield battlefield,
     required Unit unitAttacker,
@@ -491,37 +452,6 @@ class JsonUtils {
         playerToJson(match.opponent),
       ],
       battlefield: battlefieldMoveUnit(
-        battlefield: match.battlefield,
-        nodeOrigin: nodeOrigin,
-        nodeTarget: nodeTarget,
-      ),
-    );
-  }
-
-  static JsonMatch matchSwapUnits({
-    required Match match,
-    required Unit unitOrigin,
-    required Unit unitTarget,
-    required Node nodeOrigin,
-    required Node nodeTarget,
-  }) {
-    return JsonMatch(
-      id: match.id,
-      version: match.version,
-      createdAt: match.createdAt,
-      turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt,
-      activePlayer: match.activePlayer,
-      players: [
-        playerUpdate(
-          player: match.self,
-          resourcesChange:
-              -unitOrigin.type.movementCost - unitTarget.type.movementCost,
-          healthChange: 0,
-        ),
-        playerToJson(match.opponent),
-      ],
-      battlefield: battlefieldSwapUnits(
         battlefield: match.battlefield,
         nodeOrigin: nodeOrigin,
         nodeTarget: nodeTarget,
