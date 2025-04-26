@@ -1,18 +1,20 @@
 class Assets {
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.jpg';
-  static const String IMAGES_DAMAGE_AIRCRAFT_BAD = 'damage/aircraft_bad.png';
-  static const String IMAGES_DAMAGE_AIRCRAFT_GOOD = 'damage/aircraft_good.png';
-  static const String IMAGES_DAMAGE_AIRCRAFT_NORMAL =
-      'damage/aircraft_normal.png';
-  static const String IMAGES_DAMAGE_INFANTRY_BAD = 'damage/infantry_bad.png';
-  static const String IMAGES_DAMAGE_INFANTRY_GOOD = 'damage/infantry_good.png';
-  static const String IMAGES_DAMAGE_INFANTRY_NORMAL =
-      'damage/infantry_normal.png';
-  static const String IMAGES_DAMAGE_VEHICLE_BAD = 'damage/vehicle_bad.png';
-  static const String IMAGES_DAMAGE_VEHICLE_GOOD = 'damage/vehicle_good.png';
-  static const String IMAGES_DAMAGE_VEHICLE_NORMAL =
-      'damage/vehicle_normal.png';
+  static const String IMAGES_COUNTER_AIRCRAFT_BAD = 'counter/aircraft_bad.png';
+  static const String IMAGES_COUNTER_AIRCRAFT_GOOD =
+      'counter/aircraft_good.png';
+  static const String IMAGES_COUNTER_AIRCRAFT_NORMAL =
+      'counter/aircraft_normal.png';
+  static const String IMAGES_COUNTER_INFANTRY_BAD = 'counter/infantry_bad.png';
+  static const String IMAGES_COUNTER_INFANTRY_GOOD =
+      'counter/infantry_good.png';
+  static const String IMAGES_COUNTER_INFANTRY_NORMAL =
+      'counter/infantry_normal.png';
+  static const String IMAGES_COUNTER_VEHICLE_BAD = 'counter/vehicle_bad.png';
+  static const String IMAGES_COUNTER_VEHICLE_GOOD = 'counter/vehicle_good.png';
+  static const String IMAGES_COUNTER_VEHICLE_NORMAL =
+      'counter/vehicle_normal.png';
   static const String IMAGES_NODES_ROCK = 'nodes/rock.png';
   static const String IMAGES_NODES_WATER = 'nodes/water.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =

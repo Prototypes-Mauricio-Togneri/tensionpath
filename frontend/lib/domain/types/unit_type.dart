@@ -167,7 +167,7 @@ enum UnitType {
     maxAttackRange: 1,
     numberOfAttacks: 1,
     damageInfantry: 100,
-    damageVehicle: 100,
+    damageVehicle: 80,
     damageAir: 100,
     damageFuelTruck: 100,
     damageStructure: 150,

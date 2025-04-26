@@ -131,7 +131,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         unitType: unitType,
         unitClass: UnitClass.infantry,
         position: Vector2(size.x * 0.1, size.y * 0.8),
-        size: Vector2(size.x * 0.1, size.x * 0.1),
+        size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
     );
 
@@ -140,8 +140,8 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         player: player,
         unitType: unitType,
         unitClass: UnitClass.vehicle,
-        position: Vector2(size.x * 0.25, size.y * 0.8),
-        size: Vector2(size.x * 0.1, size.x * 0.1),
+        position: Vector2(size.x * 0.255, size.y * 0.8),
+        size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
     );
 
@@ -150,8 +150,8 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         player: player,
         unitType: unitType,
         unitClass: UnitClass.aircraft,
-        position: Vector2(size.x * 0.4, size.y * 0.8),
-        size: Vector2(size.x * 0.1, size.x * 0.1),
+        position: Vector2(size.x * 0.41, size.y * 0.8),
+        size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
     );
 
@@ -343,11 +343,11 @@ class UnitDamageComponent extends SpriteComponent {
     final int damage = unitType.damageAgainst(unitClass);
 
     if (damage == 0) {
-      sprite = await Sprite.load('damage/${unitClass.name}_normal.png');
+      sprite = await Sprite.load('counter/${unitClass.name}_normal.png');
     } else if (damage == 1) {
-      sprite = await Sprite.load('damage/${unitClass.name}_good.png');
+      sprite = await Sprite.load('counter/${unitClass.name}_good.png');
     } else if (damage == -1) {
-      sprite = await Sprite.load('damage/${unitClass.name}_bad.png');
+      sprite = await Sprite.load('counter/${unitClass.name}_bad.png');
     }
 
     return super.onLoad();
