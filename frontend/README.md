@@ -1,5 +1,6 @@
 # TODO
 
+- Check shooting at distance
 - Harverster kill reward
 - New harverster free
 - Tutorial screenshots
