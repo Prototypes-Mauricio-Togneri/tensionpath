@@ -1,1 +1,1 @@
-enum UnitClass { infantry, vehicle, air }
+enum UnitClass { infantry, vehicle, aircraft }

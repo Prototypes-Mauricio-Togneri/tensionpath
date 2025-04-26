@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/utils/assets.dart';
 
@@ -155,7 +157,7 @@ enum UnitType {
     thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
   ),
   helicopter(
-    unitClass: UnitClass.air,
+    unitClass: UnitClass.aircraft,
     deploymentCost: 100,
     movementCost: 3,
     maxHealth: 400,
@@ -211,4 +213,27 @@ enum UnitType {
     required this.spriteScale,
     required this.thumbnail,
   });
+
+  int damageAgainst(UnitClass unitClass) {
+    final int maxDamage = max(max(damageInfantry, damageVehicle), damageAir);
+
+    switch (unitClass) {
+      case UnitClass.infantry:
+        return _relativeDamage(damageInfantry, maxDamage);
+      case UnitClass.vehicle:
+        return _relativeDamage(damageVehicle, maxDamage);
+      case UnitClass.aircraft:
+        return _relativeDamage(damageAir, maxDamage);
+    }
+  }
+
+  int _relativeDamage(int damage, int maxDamage) {
+    if (damage == 0) {
+      return -1;
+    } else if (damage == maxDamage) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }

@@ -15,7 +15,7 @@ enum NodeType {
         return true;
       case NodeType.water:
       case NodeType.rock:
-        return unit.type.unitClass == UnitClass.air;
+        return unit.type.unitClass == UnitClass.aircraft;
     }
   }
 

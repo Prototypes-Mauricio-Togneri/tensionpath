@@ -78,7 +78,7 @@ abstract class Unit implements Localizable {
           return type.damageInfantry;
         case UnitClass.vehicle:
           return type.damageVehicle;
-        case UnitClass.air:
+        case UnitClass.aircraft:
           return type.damageAir;
       }
     }
