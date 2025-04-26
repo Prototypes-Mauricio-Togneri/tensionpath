@@ -80,6 +80,8 @@ class MatchComponent extends World {
       component.reconfigure();
     } else if (component is PopcapComponent) {
       component.reconfigure();
+    } else if (component is UnitSelectorComponent) {
+      component.reconfigure();
     }
 
     for (final Component child in component.children) {

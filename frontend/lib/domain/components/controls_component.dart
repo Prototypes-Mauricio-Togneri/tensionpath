@@ -115,6 +115,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   );
   Vector2 initialPosition = Vector2(0, 0);
   bool dragging = false;
+  bool isEnabled = false;
 
   UnitSelectorComponent({
     required this.player,
@@ -125,11 +126,14 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     borderPaint.color = player.color.darken(0.5);
   }
 
-  bool get isEnabled =>
-      match.match.isSelfTurn && (player.resources >= unitType.deploymentCost);
+  void reconfigure() {
+    isEnabled = match.match.canDeployUnit(unitType);
+  }
 
   @override
   FutureOr onLoad() {
+    reconfigure();
+
     add(
       UnitImageComponent(
         player: player,

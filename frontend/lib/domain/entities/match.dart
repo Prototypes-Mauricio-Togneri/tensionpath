@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -60,6 +61,21 @@ class Match {
   bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 
   bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
+
+  int populationOf(Player player) {
+    int result = 0;
+
+    for (final Node node in battlefield.nodes) {
+      if (node.hasUnit && node.unit!.belongsTo(player)) {
+        result++;
+      }
+    }
+
+    return result;
+  }
+
+  bool canDeployUnit(UnitType unitType) =>
+      isSelfTurn && (self.resources >= unitType.deploymentCost) && (populationOf(self) < Constants.MAX_POP_CAP);
 
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
