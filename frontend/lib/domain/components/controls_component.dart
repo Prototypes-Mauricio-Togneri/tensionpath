@@ -130,7 +130,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         player: player,
         unitType: unitType,
         unitClass: UnitClass.infantry,
-        position: Vector2(size.x * 0.1, size.y * 0.8),
+        position: Vector2(size.x * 0.07, size.y * 0.85),
         size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
     );
@@ -140,7 +140,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         player: player,
         unitType: unitType,
         unitClass: UnitClass.vehicle,
-        position: Vector2(size.x * 0.255, size.y * 0.8),
+        position: Vector2(size.x * 0.22, size.y * 0.85),
         size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
     );
@@ -150,7 +150,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
         player: player,
         unitType: unitType,
         unitClass: UnitClass.aircraft,
-        position: Vector2(size.x * 0.41, size.y * 0.8),
+        position: Vector2(size.x * 0.37, size.y * 0.85),
         size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
     );
@@ -159,8 +159,8 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
       UnitCostComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.8, size.y * 0.75),
-        size: Vector2(size.x * 0.4, size.y * 0.5),
+        position: Vector2(size.x * 0.85, size.y * 0.83),
+        size: Vector2(size.x * 0.3, size.y * 0.34),
       ),
     );
 
@@ -312,11 +312,11 @@ class UnitCostComponent extends PositionComponent {
     }
 
     canvas.drawText(
-      text: '🛢️ ${unitType.deploymentCost.toString()}',
-      position: Vector2(size.x * 0.05, size.y * 0.55),
-      size: size.x / 4,
+      text: '${unitType.deploymentCost.toString()}🛢️',
+      position: Vector2(size.x * 1, size.y * 0.55),
+      size: size.x / 3.5,
       color: text.color,
-      anchor: Anchor.centerLeft,
+      anchor: Anchor.centerRight,
     );
   }
 }
@@ -404,8 +404,8 @@ class ResourceCounterComponent extends PositionComponent {
     canvas.drawRect(size.toRect(), fill);
 
     canvas.drawText(
-      text: '🛢️${player.resources.floor().toString()}',
-      position: size / 2,
+      text: '${player.resources.floor().toString()}🛢️',
+      position: Vector2(size.x * 0.55, size.y * 0.5),
       size: size.x / 4,
       color: Palette.CONTROLS_RESOURCES_FOREGROUND,
     );
@@ -416,7 +416,7 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.CONTROLS_RESOURCES_BACKGROUND,
+    color: Palette.CONTROLS_END_TURN_BACKGROUND,
   );
 
   @override
@@ -447,8 +447,8 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
 
     if (match.match.isSelfTurn) {
       canvas.drawText(
-        text: '🛢️${match.match.accumulatedResourcesInTurn.floor()}',
-        position: Vector2(size.x / 2, size.y / 4),
+        text: '${match.match.accumulatedResourcesInTurn.floor()}🛢️',
+        position: Vector2(size.x / 2, size.y / 3.5),
         size: size.x / 6,
         color: Palette.CONTROLS_RESOURCES_FOREGROUND,
       );
