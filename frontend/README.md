@@ -1,6 +1,5 @@
 # TODO
 
-- Check shooting at distance
 - Tutorial screenshots
 - Basic pop cap
 
