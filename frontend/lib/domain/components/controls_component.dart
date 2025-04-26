@@ -13,7 +13,6 @@ import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
-import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -312,7 +311,7 @@ class UnitCostComponent extends PositionComponent {
     canvas.drawText(
       text: '🛢️ ${unitType.deploymentCost.toString()}',
       position: Vector2(size.x * 0.05, size.y * 0.55),
-      size: size.x / 3,
+      size: size.x / 4,
       color: text.color,
       anchor: Anchor.centerLeft,
     );
@@ -334,30 +333,12 @@ class UnitDamageComponent extends SpriteComponent {
   FutureOr onLoad() async {
     final int damage = unitType.damageAgainst(unitClass);
 
-    if (unitClass == UnitClass.infantry) {
-      if (damage == 0) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_INFANTRY_NORMAL);
-      } else if (damage == 1) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_INFANTRY_GOOD);
-      } else if (damage == -1) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_INFANTRY_BAD);
-      }
-    } else if (unitClass == UnitClass.vehicle) {
-      if (damage == 0) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_VEHICLE_NORMAL);
-      } else if (damage == 1) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_VEHICLE_GOOD);
-      } else if (damage == -1) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_VEHICLE_BAD);
-      }
-    } else if (unitClass == UnitClass.aircraft) {
-      if (damage == 0) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_AIRCRAFT_NORMAL);
-      } else if (damage == 1) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_AIRCRAFT_GOOD);
-      } else if (damage == -1) {
-        sprite = await Sprite.load(Assets.IMAGES_DAMAGE_AIRCRAFT_BAD);
-      }
+    if (damage == 0) {
+      sprite = await Sprite.load('damage/${unitClass.name}_normal.png');
+    } else if (damage == 1) {
+      sprite = await Sprite.load('damage/${unitClass.name}_good.png');
+    } else if (damage == -1) {
+      sprite = await Sprite.load('damage/${unitClass.name}_bad.png');
     }
 
     return super.onLoad();
