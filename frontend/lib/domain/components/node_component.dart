@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
+import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -13,7 +14,8 @@ import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
-    with HoverCallbacks {
+    with HoverCallbacks
+    implements Reconfigurable {
   final N node;
   NodeHighlitedComponent? _nodeHighlitedComponent;
   UnitComponent? _unitComponent;
@@ -81,6 +83,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     return super.onLoad();
   }
 
+  @override
   void reconfigure() {
     if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(

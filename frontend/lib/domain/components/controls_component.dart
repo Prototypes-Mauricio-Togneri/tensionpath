@@ -6,6 +6,7 @@ import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -106,7 +107,9 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class UnitSelectorComponent extends PositionComponent with DragCallbacks {
+class UnitSelectorComponent extends PositionComponent
+    with DragCallbacks
+    implements Reconfigurable {
   final Player player;
   final UnitType unitType;
   final Paint borderPaint = Palette.paint(
@@ -126,6 +129,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
     borderPaint.color = player.color.darken(0.5);
   }
 
+  @override
   void reconfigure() {
     isEnabled = match.match.canDeployUnit(unitType);
   }
@@ -240,7 +244,7 @@ class UnitSelectorComponent extends PositionComponent with DragCallbacks {
   }
 }
 
-class UnitImageComponent extends SpriteComponent {
+class UnitImageComponent extends SpriteComponent implements Reconfigurable {
   final Player player;
   final UnitType unitType;
   PaintDecorator? grayscale;
@@ -253,6 +257,7 @@ class UnitImageComponent extends SpriteComponent {
     required super.size,
   }) : super(anchor: Anchor.center);
 
+  @override
   void reconfigure() {
     isEnabled = match.match.canDeployUnit(unitType);
   }
@@ -292,7 +297,7 @@ class UnitImageComponent extends SpriteComponent {
   }
 }
 
-class UnitCostComponent extends PositionComponent {
+class UnitCostComponent extends PositionComponent implements Reconfigurable {
   final Player player;
   final UnitType unitType;
   final Paint textPaint = Palette.paint(
@@ -312,6 +317,7 @@ class UnitCostComponent extends PositionComponent {
     required super.size,
   }) : super(anchor: Anchor.center);
 
+  @override
   void reconfigure() {
     isEnabled = match.match.canDeployUnit(unitType);
   }
@@ -352,7 +358,7 @@ class UnitCostComponent extends PositionComponent {
   }
 }
 
-class UnitDamageComponent extends SpriteComponent {
+class UnitDamageComponent extends SpriteComponent implements Reconfigurable {
   final Player player;
   final UnitType unitType;
   final UnitClass unitClass;
@@ -367,6 +373,7 @@ class UnitDamageComponent extends SpriteComponent {
     required super.size,
   }) : super(anchor: Anchor.center);
 
+  @override
   void reconfigure() {
     isEnabled = match.match.canDeployUnit(unitType);
   }
@@ -413,7 +420,7 @@ class UnitDamageComponent extends SpriteComponent {
   }
 }
 
-class PopcapComponent extends PositionComponent {
+class PopcapComponent extends PositionComponent implements Reconfigurable {
   final Player player;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -441,6 +448,7 @@ class PopcapComponent extends PositionComponent {
     return super.onLoad();
   }
 
+  @override
   void reconfigure() {
     population = 0;
 

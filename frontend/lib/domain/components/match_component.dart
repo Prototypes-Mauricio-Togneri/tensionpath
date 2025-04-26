@@ -6,8 +6,7 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/components/structures/structure_missile_component.dart';
-import 'package:tensionpath/domain/components/structures/structure_pad_component.dart';
+import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -72,22 +71,10 @@ class MatchComponent extends World {
   }
 
   void _iterateChildrenRecursively(Component component) {
-    if (component is StructurePadComponent) {
-      component.reconfigure();
-    } else if (component is NodeComponent) {
-      component.reconfigure();
-    } else if (component is MissileIndicatorComponent) {
-      component.reconfigure();
-    } else if (component is PopcapComponent) {
-      component.reconfigure();
-    } else if (component is UnitSelectorComponent) {
-      component.reconfigure();
-    } else if (component is UnitImageComponent) {
-      component.reconfigure();
-    } else if (component is UnitCostComponent) {
-      component.reconfigure();
-    } else if (component is UnitDamageComponent) {
-      component.reconfigure();
+    final dynamic dynamicComponent = component;
+
+    if (dynamicComponent is Reconfigurable) {
+      dynamicComponent.reconfigure();
     }
 
     for (final Component child in component.children) {

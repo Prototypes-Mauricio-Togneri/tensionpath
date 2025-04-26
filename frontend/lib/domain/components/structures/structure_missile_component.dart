@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
@@ -37,7 +38,8 @@ class StructureMissileComponent extends StructureComponent<StructureMissile> {
   }
 }
 
-class MissileIndicatorComponent extends PositionComponent {
+class MissileIndicatorComponent extends PositionComponent
+    implements Reconfigurable {
   final Missile missile;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -62,6 +64,7 @@ class MissileIndicatorComponent extends PositionComponent {
     return super.onLoad();
   }
 
+  @override
   void reconfigure() {
     final String? owner = missile.owner;
 
