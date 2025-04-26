@@ -115,7 +115,13 @@ class Match {
   Future onAttackBase({required Unit unit, required Node node}) =>
       AttackBaseCallable()(match: this, unit: unit, node: node);
 
-  Future onEndTurn() => EndTurnSelfCallable()(this);
+  Future onEndTurn() {
+    if (isSelfTurn) {
+      return EndTurnSelfCallable()(this);
+    } else {
+      return Future.value();
+    }
+  }
 
   Future onOpponentEndTurn() => EndTurnOpponentCallable()(this);
 }

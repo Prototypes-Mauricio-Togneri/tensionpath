@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
@@ -9,7 +11,7 @@ import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
-class GameComponent extends FlameGame {
+class GameComponent extends FlameGame with KeyboardEvents {
   final MatchState state;
   final Match match;
   StreamSubscription? _matchSubscription;
@@ -60,6 +62,21 @@ class GameComponent extends FlameGame {
   }
 
   void _onMatchQuit() => Navigation.pop();
+
+  @override
+  KeyEventResult onKeyEvent(
+    KeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    if (event is KeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.space) {
+        match.onEndTurn();
+        return KeyEventResult.handled;
+      }
+    }
+
+    return KeyEventResult.ignored;
+  }
 }
 
 mixin GameComponentRef {
