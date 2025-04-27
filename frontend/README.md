@@ -5,4 +5,3 @@
 - New harverster free
 - Manage individual units in a squad
 - Commanders abilities
-- Store events

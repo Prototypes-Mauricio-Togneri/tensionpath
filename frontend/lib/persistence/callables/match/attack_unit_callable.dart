@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_event.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -15,6 +16,12 @@ class AttackUnitCallable {
       unitAttacker: unitAttacker,
       unitDefender: unitDefender,
     );
-    await MatchRepository.update(json);
+    await MatchRepository.update(
+      json: json,
+      event: JsonEvent.attackUnit(
+        nodeIdOrigin: unitAttacker.getLocation.id,
+        nodeIdTarget: unitDefender.getLocation.id,
+      ),
+    );
   }
 }

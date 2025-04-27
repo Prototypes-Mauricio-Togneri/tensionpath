@@ -1,6 +1,7 @@
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_event.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -20,6 +21,9 @@ class DeployUnitCallable {
       unit: unit,
       node: node,
     );
-    await MatchRepository.update(json);
+    await MatchRepository.update(
+      json: json,
+      event: JsonEvent.deployUnit(unitType: unit.type, nodeIdTarget: node.id),
+    );
   }
 }

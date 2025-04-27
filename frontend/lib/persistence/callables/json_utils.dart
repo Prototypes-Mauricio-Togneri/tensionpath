@@ -19,7 +19,7 @@ import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
   static const int FUEL_TRUCK_COLLECTION = 10;
-  static const int OIL_PATCH_DAMAGE = 20;
+  static const int FUEL_PATCH_DAMAGE = 20;
 
   // ================================= PLAYER =================================
 
@@ -383,7 +383,7 @@ class JsonUtils {
       final bool isResourcesStructure =
           node.hasStructure && (node.structure is StructureResources);
       final int health =
-          unit.health - (isResourcesStructure ? OIL_PATCH_DAMAGE : 0);
+          unit.health - (isResourcesStructure ? FUEL_PATCH_DAMAGE : 0);
 
       if (health > 0) {
         return JsonUnit(
