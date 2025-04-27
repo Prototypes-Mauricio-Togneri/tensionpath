@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 
 part 'json_match.g.dart';
@@ -19,15 +20,6 @@ class JsonMatch {
   @JsonKey(name: 'createdAt', toJson: dateToJson)
   final DateTime createdAt;
 
-  @JsonKey(name: 'turn')
-  final int turn;
-
-  @JsonKey(name: 'lastTurnStartedAt', toJson: dateToJson)
-  final DateTime lastTurnStartedAt;
-
-  @JsonKey(name: 'activePlayer')
-  final String activePlayer;
-
   @JsonKey(name: 'players')
   final List<JsonPlayer> players;
 
@@ -37,28 +29,27 @@ class JsonMatch {
   @JsonKey(name: 'config')
   final JsonConfig config;
 
+  @JsonKey(name: 'turn')
+  final JsonTurn turn;
+
   const JsonMatch({
     required this.id,
     required this.version,
     required this.createdAt,
-    required this.turn,
-    required this.lastTurnStartedAt,
-    required this.activePlayer,
     required this.players,
     required this.battlefield,
     required this.config,
+    required this.turn,
   });
 
   JsonMatch withId(String id) => JsonMatch(
     id: id,
     version: version,
     createdAt: createdAt,
-    turn: turn,
-    lastTurnStartedAt: lastTurnStartedAt,
-    activePlayer: activePlayer,
     players: players,
     battlefield: battlefield,
     config: config,
+    turn: turn,
   );
 
   Match object(String selfId) {
@@ -69,9 +60,7 @@ class JsonMatch {
       id: id,
       version: version,
       createdAt: createdAt,
-      turn: turn,
-      lastTurnStartedAt: lastTurnStartedAt,
-      activePlayer: activePlayer,
+      turn: turn.object,
       self: self,
       opponent: opponent,
       battlefield: battlefield.object([self, opponent]),

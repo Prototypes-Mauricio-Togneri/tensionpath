@@ -2,14 +2,16 @@
     "id": "{{ID}}",
     "version": 1,
     "createdAt": "2025-04-01T00:00:00.000Z",
-    "turn": 1,
-    "lastTurnStartedAt": "2025-04-01T00:00:00.000Z",
-    "activePlayer": "1",
     "config": {
         "resourcesPerPatch": 5,
         "resourcesPerTurn": 0,
         "resourcesPerSecond": 0.2,
         "popcap": 7
+    },
+    "turn": {
+        "turn": 1,
+        "startedAt": "2025-04-01T00:00:00.000Z",
+        "player": "1"
     },
     "players": [
         {

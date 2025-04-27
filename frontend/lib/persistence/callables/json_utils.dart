@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
+import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -16,6 +17,7 @@ import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
+import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
@@ -431,7 +433,7 @@ class JsonUtils {
     }
   }
 
-  // ================================= CONFIG ===================================
+  // ================================= TURN ====================================
 
   static JsonConfig configToJson(Config config) => JsonConfig(
     resourcesPerPatch: config.resourcesPerPatch,
@@ -439,6 +441,14 @@ class JsonUtils {
     resourcesPerSecond: config.resourcesPerSecond,
     popcap: config.popcap,
   );
+
+  // ================================= CONFIG ==================================
+
+  static JsonTurn turnToJson(Turn turn) =>
+      JsonTurn(turn: turn.turn, startedAt: turn.startedAt, player: turn.player);
+
+  static JsonTurn nextTurn({required Turn turn, required String player}) =>
+      JsonTurn(turn: turn.turn + 1, startedAt: DateTime.now(), player: player);
 
   // ================================= MATCH ===================================
 
@@ -451,9 +461,7 @@ class JsonUtils {
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
-      turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt,
-      activePlayer: match.activePlayer,
+      turn: turnToJson(match.turn),
       config: configToJson(match.config),
       players: [
         playerUpdate(
@@ -481,9 +489,7 @@ class JsonUtils {
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
-      turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt,
-      activePlayer: match.activePlayer,
+      turn: turnToJson(match.turn),
       config: configToJson(match.config),
       players: [
         playerUpdate(
@@ -510,9 +516,7 @@ class JsonUtils {
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
-      turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt,
-      activePlayer: match.activePlayer,
+      turn: turnToJson(match.turn),
       config: configToJson(match.config),
       players: [playerToJson(match.self), playerToJson(match.opponent)],
       battlefield: battlefieldAttackUnit(
@@ -534,9 +538,7 @@ class JsonUtils {
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
-      turn: match.turn,
-      lastTurnStartedAt: match.lastTurnStartedAt,
-      activePlayer: match.activePlayer,
+      turn: turnToJson(match.turn),
       config: configToJson(match.config),
       players: [
         playerToJson(match.self),
@@ -557,9 +559,7 @@ class JsonUtils {
     id: match.id,
     version: match.version,
     createdAt: match.createdAt,
-    turn: match.turn + 1,
-    lastTurnStartedAt: DateTime.now(),
-    activePlayer: match.opponent.id,
+    turn: nextTurn(turn: match.turn, player: match.opponent.id),
     config: configToJson(match.config),
     players: [
       playerUpdate(
@@ -587,9 +587,7 @@ class JsonUtils {
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
-      turn: match.turn + 1,
-      lastTurnStartedAt: DateTime.now(),
-      activePlayer: match.self.id,
+      turn: nextTurn(turn: match.turn, player: match.self.id),
       config: configToJson(match.config),
       players: [
         playerUpdate(

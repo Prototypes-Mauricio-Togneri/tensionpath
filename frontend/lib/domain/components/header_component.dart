@@ -114,7 +114,7 @@ class CenterIndicatorComponent extends PositionComponent {
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
 
     canvas.drawText(
-      text: 'TURN: ${match.match.turn}',
+      text: 'TURN: ${match.match.turn.turn}',
       position: Vector2(size.x / 2, size.y * 0.3),
       size: size.y / 3,
       color: Palette.HEADER_PLAYER_NAME,

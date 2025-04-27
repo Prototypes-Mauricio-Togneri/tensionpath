@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/attack_base_callable.dart';
@@ -22,9 +23,7 @@ class Match {
   final Player opponent;
   final Battlefield battlefield;
   final Config config;
-  late int _turn;
-  late DateTime _lastTurnStartedAt;
-  late String _activePlayer;
+  final Turn turn;
 
   Match({
     required this.id,
@@ -34,32 +33,20 @@ class Match {
     required this.opponent,
     required this.battlefield,
     required this.config,
-    required int turn,
-    required DateTime lastTurnStartedAt,
-    required String activePlayer,
-  }) {
-    _turn = turn;
-    _lastTurnStartedAt = lastTurnStartedAt;
-    _activePlayer = activePlayer;
-  }
+    required this.turn,
+  });
 
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
-  int get turn => _turn;
-
-  bool get isSelfTurn => _activePlayer == self.id;
-
-  String get activePlayer => _activePlayer;
+  bool get isSelfTurn => turn.player == self.id;
 
   Player get player1 => self.isPlayer1 ? self : opponent;
 
   Player get player2 => self.isPlayer1 ? opponent : self;
 
-  DateTime get lastTurnStartedAt => _lastTurnStartedAt;
-
   int get accumulatedResourcesInTurn {
     final int elapsedSeconds =
-        DateTime.now().difference(_lastTurnStartedAt).inSeconds;
+        DateTime.now().difference(turn.startedAt).inSeconds;
 
     return (elapsedSeconds * config.resourcesPerSecond).floor();
   }
@@ -92,10 +79,7 @@ class Match {
   );
 
   void _onMatchUpated(Match newMatch) {
-    _turn = newMatch._turn;
-    _lastTurnStartedAt = newMatch._lastTurnStartedAt;
-    _activePlayer = newMatch._activePlayer;
-
+    turn.replaceWith(newMatch.turn);
     self.replaceWith(newMatch.self);
     opponent.replaceWith(newMatch.opponent);
     battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
