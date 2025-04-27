@@ -18,6 +18,9 @@ import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
+  static const int FUEL_TRUCK_COLLECTION = 10;
+  static const int OIL_PATCH_DAMAGE = 20;
+
   // ================================= PLAYER =================================
 
   static JsonPlayer playerToJson(Player player) => JsonPlayer(
@@ -380,7 +383,7 @@ class JsonUtils {
       final bool isResourcesStructure =
           node.hasStructure && (node.structure is StructureResources);
       final int health =
-          unit.health - (isResourcesStructure ? Constants.OIL_PATCH_DAMAGE : 0);
+          unit.health - (isResourcesStructure ? OIL_PATCH_DAMAGE : 0);
 
       if (health > 0) {
         return JsonUnit(
@@ -630,7 +633,7 @@ class JsonUtils {
         if ((structure is StructureResources) &&
             unit.belongsTo(player) &&
             (unit is UnitFuelTruck)) {
-          result += Constants.FUEL_TRUCK_COLLECTION;
+          result += FUEL_TRUCK_COLLECTION;
         }
       }
     }
