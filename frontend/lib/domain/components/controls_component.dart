@@ -4,7 +4,6 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -455,7 +454,7 @@ class PopcapComponent extends PositionComponent implements Reconfigurable {
 
     final double gap = size.x / 80;
     final double blockSize =
-        (width - gap * (Constants.MAX_POP_CAP + 1)) / Constants.MAX_POP_CAP;
+        (width - gap * (match.match.popcap + 1)) / match.match.popcap;
 
     for (int i = 0; i < population; i++) {
       canvas.drawRect(
@@ -469,7 +468,7 @@ class PopcapComponent extends PositionComponent implements Reconfigurable {
       );
     }
 
-    for (int i = population; i < Constants.MAX_POP_CAP; i++) {
+    for (int i = population; i < match.match.popcap; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,

@@ -440,6 +440,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      popcap: match.popcap,
       players: [
         playerUpdate(
           player: match.self,
@@ -469,6 +470,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      popcap: match.popcap,
       players: [
         playerUpdate(
           player: match.self,
@@ -497,6 +499,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      popcap: match.popcap,
       players: [playerToJson(match.self), playerToJson(match.opponent)],
       battlefield: battlefieldAttackUnit(
         battlefield: match.battlefield,
@@ -520,6 +523,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      popcap: match.popcap,
       players: [
         playerToJson(match.self),
         playerUpdate(
@@ -542,6 +546,7 @@ class JsonUtils {
     turn: match.turn + 1,
     lastTurnStartedAt: DateTime.now(),
     activePlayer: match.opponent.id,
+    popcap: match.popcap,
     players: [
       playerUpdate(
         player: match.self,
@@ -571,6 +576,7 @@ class JsonUtils {
       turn: match.turn + 1,
       lastTurnStartedAt: DateTime.now(),
       activePlayer: match.self.id,
+      popcap: match.popcap,
       players: [
         playerUpdate(
           player: match.opponent,

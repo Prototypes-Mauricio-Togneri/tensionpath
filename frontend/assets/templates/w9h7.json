@@ -5,6 +5,7 @@
     "turn": 1,
     "lastTurnStartedAt": "2025-04-01T00:00:00.000Z",
     "activePlayer": "1",
+    "popcap": 7,
     "players": [
         {
             "id": "1",
