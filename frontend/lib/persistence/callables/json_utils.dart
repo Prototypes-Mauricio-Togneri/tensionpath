@@ -339,7 +339,7 @@ class JsonUtils {
     x: node.location.x,
     y: node.location.y,
     type: node.type,
-    unit: unitReset(node.unit),
+    unit: unitReset(node: node, unit: node.unit),
     structure: structureToJson(node.structure),
   );
 
@@ -375,15 +375,24 @@ class JsonUtils {
     player: unit.player.id,
   );
 
-  static JsonUnit? unitReset(Unit? unit) {
+  static JsonUnit? unitReset({required Node node, required Unit? unit}) {
     if (unit != null) {
-      return JsonUnit(
-        type: unit.type,
-        health: unit.health,
-        remainingMoves: unit.type.movementRange,
-        remainingAttacks: unit.type.numberOfAttacks,
-        player: unit.player.id,
-      );
+      final bool isResourcesStructure =
+          node.hasStructure && (node.structure is StructureResources);
+      final int health =
+          unit.health - (isResourcesStructure ? Constants.OIL_PATCH_DAMAGE : 0);
+
+      if (health > 0) {
+        return JsonUnit(
+          type: unit.type,
+          health: health,
+          remainingMoves: unit.type.movementRange,
+          remainingAttacks: unit.type.numberOfAttacks,
+          player: unit.player.id,
+        );
+      } else {
+        return null;
+      }
     } else {
       return null;
     }
