@@ -6,6 +6,4 @@ extension ComponentExtension on Component {
   GameComponent get game => GameComponentRef.instance;
 
   MatchComponent get match => MatchComponentRef.instance;
-
-  void reconfigure() {}
 }

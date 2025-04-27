@@ -1,5 +1,6 @@
 # TODO
 
+- Infantry takes damage oil
 - Tutorial screenshots
 - Harverster kill reward
 - New harverster free
