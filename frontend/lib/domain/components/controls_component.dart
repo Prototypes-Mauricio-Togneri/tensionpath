@@ -146,7 +146,7 @@ class UnitSelectorComponent extends PositionComponent
       ),
     );
 
-    add(
+    /*add(
       UnitCounterComponent(
         player: player,
         unitType: unitType,
@@ -174,7 +174,7 @@ class UnitSelectorComponent extends PositionComponent
         position: Vector2(size.x * 0.37, size.y * 0.85),
         size: Vector2(size.x * 0.15, size.x * 0.15),
       ),
-    );
+    );*/
 
     add(
       UnitCostComponent(
@@ -224,7 +224,7 @@ class UnitSelectorComponent extends PositionComponent
     }
   }
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -237,7 +237,7 @@ class UnitSelectorComponent extends PositionComponent
     }
 
     canvas.drawRect(size.toRect(), border);
-  }
+  }*/
 }
 
 class UnitImageComponent extends SpriteComponent implements Reconfigurable {
