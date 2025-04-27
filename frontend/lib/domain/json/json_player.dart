@@ -20,16 +20,12 @@ class JsonPlayer {
   @JsonKey(name: 'resources')
   final int resources;
 
-  @JsonKey(name: 'resourcesRate')
-  final int resourcesRate;
-
   const JsonPlayer({
     required this.id,
     required this.name,
     required this.baseHealth,
     required this.baseMaxHealth,
     required this.resources,
-    required this.resourcesRate,
   });
 
   Player object(bool isSelf) => Player(
@@ -39,7 +35,6 @@ class JsonPlayer {
     baseHealth: baseHealth,
     baseMaxHealth: baseMaxHealth,
     resources: resources,
-    resourcesRate: resourcesRate,
   );
 
   factory JsonPlayer.fromJson(Map<String, dynamic> json) =>

@@ -22,7 +22,6 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
           'missile',
           (v) => JsonMissile.fromJson(v as Map<String, dynamic>),
         ),
-        popcap: $checkedConvert('popcap', (v) => (v as num).toInt()),
         nodes: $checkedConvert(
           'nodes',
           (v) =>
@@ -40,6 +39,5 @@ Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
       'size': instance.size.toJson(),
       'gridRatio': instance.gridRatio.toJson(),
       'missile': instance.missile.toJson(),
-      'popcap': instance.popcap,
       'nodes': instance.nodes.map((e) => e.toJson()).toList(),
     };

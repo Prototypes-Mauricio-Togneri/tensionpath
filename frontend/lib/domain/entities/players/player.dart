@@ -9,7 +9,6 @@ class Player {
   late int _baseHealth;
   final int baseMaxHealth;
   late int _resources;
-  late int _resourcesRate;
 
   Player({
     required this.id,
@@ -18,18 +17,14 @@ class Player {
     required int baseHealth,
     required this.baseMaxHealth,
     required int resources,
-    required int resourcesRate,
   }) {
     _baseHealth = baseHealth;
     _resources = resources;
-    _resourcesRate = resourcesRate;
   }
 
   int get baseHealth => _baseHealth;
 
   int get resources => _resources;
-
-  int get resourcesRate => _resourcesRate;
 
   bool get isPlayer1 => id == Constants.PLAYER_1;
 
@@ -44,7 +39,6 @@ class Player {
   void replaceWith(Player newPlayer) {
     _baseHealth = newPlayer.baseHealth;
     _resources = newPlayer.resources;
-    _resourcesRate = newPlayer.resourcesRate;
   }
 
   static Player? playerById({

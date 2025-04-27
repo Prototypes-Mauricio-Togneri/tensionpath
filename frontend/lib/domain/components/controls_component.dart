@@ -432,7 +432,7 @@ class PopcapComponent extends PositionComponent implements Reconfigurable {
     canvas.drawRect(size.toRect(), background);
 
     final double gap = size.x / 80;
-    final int popcap = match.match.battlefield.popcap;
+    final int popcap = match.match.config.popcap;
     final double blockSize = (width - gap * (popcap + 1)) / popcap;
 
     for (int i = 0; i < population; i++) {

@@ -1,5 +1,6 @@
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -9,6 +10,7 @@ import 'package:tensionpath/domain/entities/structures/structure_resources.dart'
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
@@ -19,7 +21,6 @@ import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
-  static const int FUEL_TRUCK_COLLECTION = 10;
   static const int FUEL_PATCH_DAMAGE = 20;
 
   // ================================= PLAYER =================================
@@ -30,7 +31,6 @@ class JsonUtils {
     baseHealth: player.baseHealth,
     baseMaxHealth: player.baseMaxHealth,
     resources: player.resources,
-    resourcesRate: player.resourcesRate,
   );
 
   static JsonPlayer playerUpdate({
@@ -46,7 +46,6 @@ class JsonUtils {
     ),
     baseMaxHealth: player.baseMaxHealth,
     resources: player.resources + resourcesChange,
-    resourcesRate: player.resourcesRate,
   );
 
   // ================================ MISSILE ==================================
@@ -115,7 +114,6 @@ class JsonUtils {
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
-      popcap: battlefield.popcap,
     );
   }
 
@@ -146,7 +144,6 @@ class JsonUtils {
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
-      popcap: battlefield.popcap,
     );
   }
 
@@ -229,7 +226,6 @@ class JsonUtils {
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
-      popcap: battlefield.popcap,
     );
   }
 
@@ -261,7 +257,6 @@ class JsonUtils {
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
-      popcap: battlefield.popcap,
     );
   }
 
@@ -278,7 +273,6 @@ class JsonUtils {
       gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileNextTurn(battlefield.missile),
       nodes: jsonNodes,
-      popcap: battlefield.popcap,
     );
   }
 
@@ -289,7 +283,6 @@ class JsonUtils {
         gridRatio: battlefield.gridRatio.toJsonRatio(),
         missile: missileToJson(battlefield.missile),
         nodes: battlefield.nodes.map(nodeToJson).toList(),
-        popcap: battlefield.popcap,
       );
 
   // ================================= NODE ===================================
@@ -438,6 +431,14 @@ class JsonUtils {
     }
   }
 
+  // ================================= CONFIG ===================================
+
+  static JsonConfig configToJson(Config config) => JsonConfig(
+    resourcesPerPatch: config.resourcesPerPatch,
+    resourcesPerTurn: config.resourcesPerTurn,
+    popcap: config.popcap,
+  );
+
   // ================================= MATCH ===================================
 
   static JsonMatch matchDeployUnit({
@@ -452,6 +453,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      config: configToJson(match.config),
       players: [
         playerUpdate(
           player: match.self,
@@ -481,6 +483,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      config: configToJson(match.config),
       players: [
         playerUpdate(
           player: match.self,
@@ -509,6 +512,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      config: configToJson(match.config),
       players: [playerToJson(match.self), playerToJson(match.opponent)],
       battlefield: battlefieldAttackUnit(
         battlefield: match.battlefield,
@@ -532,6 +536,7 @@ class JsonUtils {
       turn: match.turn,
       lastTurnStartedAt: match.lastTurnStartedAt,
       activePlayer: match.activePlayer,
+      config: configToJson(match.config),
       players: [
         playerToJson(match.self),
         playerUpdate(
@@ -554,6 +559,7 @@ class JsonUtils {
     turn: match.turn + 1,
     lastTurnStartedAt: DateTime.now(),
     activePlayer: match.opponent.id,
+    config: configToJson(match.config),
     players: [
       playerUpdate(
         player: match.self,
@@ -583,6 +589,7 @@ class JsonUtils {
       turn: match.turn + 1,
       lastTurnStartedAt: DateTime.now(),
       activePlayer: match.self.id,
+      config: configToJson(match.config),
       players: [
         playerUpdate(
           player: match.opponent,
@@ -606,8 +613,12 @@ class JsonUtils {
   }
 
   static int _newResources({required Player player, required Match match}) =>
-      player.resourcesRate +
-      _fuelCollected(player: player, nodes: match.battlefield.nodes) +
+      match.config.resourcesPerTurn +
+      _fuelCollected(
+        match: match,
+        player: player,
+        nodes: match.battlefield.nodes,
+      ) +
       match.accumulatedResourcesInTurn;
 
   static int _missileHit({required Player player, required Missile missile}) {
@@ -623,6 +634,7 @@ class JsonUtils {
   }
 
   static int _fuelCollected({
+    required Match match,
     required Player player,
     required List<Node> nodes,
   }) {
@@ -636,7 +648,7 @@ class JsonUtils {
         if ((structure is StructureResources) &&
             unit.belongsTo(player) &&
             (unit is UnitFuelTruck)) {
-          result += FUEL_TRUCK_COLLECTION;
+          result += match.config.resourcesPerPatch;
         }
       }
     }

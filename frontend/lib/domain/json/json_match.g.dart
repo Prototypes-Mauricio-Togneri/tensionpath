@@ -32,6 +32,10 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
           'battlefield',
           (v) => JsonBattlefield.fromJson(v as Map<String, dynamic>),
         ),
+        config: $checkedConvert(
+          'config',
+          (v) => JsonConfig.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -45,4 +49,5 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
   'activePlayer': instance.activePlayer,
   'players': instance.players.map((e) => e.toJson()).toList(),
   'battlefield': instance.battlefield.toJson(),
+  'config': instance.config.toJson(),
 };

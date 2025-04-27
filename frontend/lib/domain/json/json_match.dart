@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 
@@ -33,6 +34,9 @@ class JsonMatch {
   @JsonKey(name: 'battlefield')
   final JsonBattlefield battlefield;
 
+  @JsonKey(name: 'config')
+  final JsonConfig config;
+
   const JsonMatch({
     required this.id,
     required this.version,
@@ -42,6 +46,7 @@ class JsonMatch {
     required this.activePlayer,
     required this.players,
     required this.battlefield,
+    required this.config,
   });
 
   JsonMatch withId(String id) => JsonMatch(
@@ -53,6 +58,7 @@ class JsonMatch {
     activePlayer: activePlayer,
     players: players,
     battlefield: battlefield,
+    config: config,
   );
 
   Match object(String selfId) {
@@ -69,6 +75,7 @@ class JsonMatch {
       self: self,
       opponent: opponent,
       battlefield: battlefield.object([self, opponent]),
+      config: config.object,
     );
   }
 

@@ -5,23 +5,25 @@
     "turn": 1,
     "lastTurnStartedAt": "2025-04-01T00:00:00.000Z",
     "activePlayer": "1",
-    "popcap": 7,
+    "config": {
+        "resourcesPerPatch": 5,
+        "resourcesPerTurn": 0,
+        "popcap": 7
+    },
     "players": [
         {
             "id": "1",
             "name": "John",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 100,
-            "resourcesRate": 5
+            "resources": 100
         },
         {
             "id": "2",
             "name": "Bob",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 100,
-            "resourcesRate": 5
+            "resources": 100
         }
     ],
     "battlefield": {

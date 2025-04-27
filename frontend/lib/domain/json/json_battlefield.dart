@@ -22,9 +22,6 @@ class JsonBattlefield {
   @JsonKey(name: 'missile')
   final JsonMissile missile;
 
-  @JsonKey(name: 'popcap')
-  final int popcap;
-
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
@@ -33,7 +30,6 @@ class JsonBattlefield {
     required this.size,
     required this.gridRatio,
     required this.missile,
-    required this.popcap,
     required this.nodes,
   });
 
@@ -43,7 +39,6 @@ class JsonBattlefield {
     size: size.object,
     gridRatio: gridRatio.object,
     missile: missile.object,
-    popcap: popcap,
   );
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>

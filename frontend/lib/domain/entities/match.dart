@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
@@ -20,6 +21,7 @@ class Match {
   final Player self;
   final Player opponent;
   final Battlefield battlefield;
+  final Config config;
   late int _turn;
   late DateTime _lastTurnStartedAt;
   late String _activePlayer;
@@ -31,6 +33,7 @@ class Match {
     required this.self,
     required this.opponent,
     required this.battlefield,
+    required this.config,
     required int turn,
     required DateTime lastTurnStartedAt,
     required String activePlayer,
@@ -77,7 +80,7 @@ class Match {
   bool canDeployUnit(UnitType unitType) =>
       isSelfTurn &&
       (self.resources >= unitType.deploymentCost) &&
-      (populationOf(self) < battlefield.popcap);
+      (populationOf(self) < config.popcap);
 
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
