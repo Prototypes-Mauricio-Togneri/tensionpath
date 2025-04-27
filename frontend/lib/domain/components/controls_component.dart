@@ -111,10 +111,6 @@ class UnitSelectorComponent extends PositionComponent
     implements Reconfigurable {
   final Player player;
   final UnitType unitType;
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 5,
-  );
   Vector2 initialPosition = Vector2(0, 0);
   bool dragging = false;
   bool isEnabled = false;
@@ -124,9 +120,7 @@ class UnitSelectorComponent extends PositionComponent
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center) {
-    borderPaint.color = player.color.darken(0.5);
-  }
+  }) : super(anchor: Anchor.center);
 
   @override
   void reconfigure() {
@@ -223,21 +217,6 @@ class UnitSelectorComponent extends PositionComponent
       dragging = false;
     }
   }
-
-  /*@override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    final Paint border = borderPaint;
-
-    if (!dragging && isEnabled) {
-      border.color = border.color.withAlpha(255);
-    } else {
-      border.color = border.color.withAlpha(100);
-    }
-
-    canvas.drawRect(size.toRect(), border);
-  }*/
 }
 
 class UnitImageComponent extends SpriteComponent implements Reconfigurable {

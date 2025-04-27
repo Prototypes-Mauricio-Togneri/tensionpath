@@ -15,6 +15,7 @@ import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
@@ -388,8 +389,10 @@ class JsonUtils {
     if (unit != null) {
       final bool isResourcesStructure =
           node.hasStructure && (node.structure is StructureResources);
-      final int health =
-          unit.health - (isResourcesStructure ? FUEL_PATCH_DAMAGE : 0);
+      final bool isUnitInfantry = unit.type.unitClass == UnitClass.infantry;
+      final int extraDamage =
+          ((isResourcesStructure && isUnitInfantry) ? FUEL_PATCH_DAMAGE : 0);
+      final int health = unit.health - extraDamage;
 
       if (health > 0) {
         return JsonUnit(
