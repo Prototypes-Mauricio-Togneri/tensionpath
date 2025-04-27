@@ -11,18 +11,23 @@ class JsonConfig {
   @JsonKey(name: 'resourcesPerTurn')
   final int resourcesPerTurn;
 
+  @JsonKey(name: 'resourcesPerSecond')
+  final int resourcesPerSecond;
+
   @JsonKey(name: 'popcap')
   final int popcap;
 
   const JsonConfig({
     required this.resourcesPerPatch,
     required this.resourcesPerTurn,
+    required this.resourcesPerSecond,
     required this.popcap,
   });
 
   Config get object => Config(
     resourcesPerPatch: resourcesPerPatch,
     resourcesPerTurn: resourcesPerTurn,
+    resourcesPerSecond: resourcesPerSecond,
     popcap: popcap,
   );
 

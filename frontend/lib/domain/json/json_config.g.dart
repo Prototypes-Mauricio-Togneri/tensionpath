@@ -17,6 +17,10 @@ JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) =>
           'resourcesPerTurn',
           (v) => (v as num).toInt(),
         ),
+        resourcesPerSecond: $checkedConvert(
+          'resourcesPerSecond',
+          (v) => (v as num).toInt(),
+        ),
         popcap: $checkedConvert('popcap', (v) => (v as num).toInt()),
       );
       return val;
@@ -26,5 +30,6 @@ Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
     <String, dynamic>{
       'resourcesPerPatch': instance.resourcesPerPatch,
       'resourcesPerTurn': instance.resourcesPerTurn,
+      'resourcesPerSecond': instance.resourcesPerSecond,
       'popcap': instance.popcap,
     };

@@ -436,6 +436,7 @@ class JsonUtils {
   static JsonConfig configToJson(Config config) => JsonConfig(
     resourcesPerPatch: config.resourcesPerPatch,
     resourcesPerTurn: config.resourcesPerTurn,
+    resourcesPerSecond: config.resourcesPerSecond,
     popcap: config.popcap,
   );
 

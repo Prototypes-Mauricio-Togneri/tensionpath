@@ -57,9 +57,12 @@ class Match {
 
   DateTime get lastTurnStartedAt => _lastTurnStartedAt;
 
-  // TODO(momo): revert to calculated amount
-  int get accumulatedResourcesInTurn => 5;
-  //DateTime.now().difference(_lastTurnStartedAt).inSeconds;
+  int get accumulatedResourcesInTurn {
+    final int elapsedSeconds =
+        DateTime.now().difference(_lastTurnStartedAt).inSeconds;
+
+    return (elapsedSeconds * config.resourcesPerSecond).floor();
+  }
 
   bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 

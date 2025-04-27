@@ -8,6 +8,7 @@
     "config": {
         "resourcesPerPatch": 5,
         "resourcesPerTurn": 0,
+        "resourcesPerSecond": 0.2,
         "popcap": 7
     },
     "players": [
