@@ -108,32 +108,22 @@ class CenterIndicatorComponent extends PositionComponent {
     : super(anchor: Anchor.topLeft);
 
   @override
-  FutureOr onLoad() {
-    add(TimeIndicatorComponent(position: size / 2, size: size * 0.6));
-
-    return super.onLoad();
-  }
-
-  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fillPaint);
-  }
-}
 
-class TimeIndicatorComponent extends PositionComponent {
-  TimeIndicatorComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center);
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
+    canvas.drawText(
+      text: 'TURN: ${match.match.turn}',
+      position: Vector2(size.x / 2, size.y * 0.3),
+      size: size.y / 3,
+      color: Palette.HEADER_PLAYER_NAME,
+    );
 
     canvas.drawText(
       text: Formatter.hoursMinutes(match.match.timeElapsed),
-      position: size / 2,
-      size: size.y,
+      position: Vector2(size.x / 2, size.y * 0.7),
+      size: size.y / 3,
       color: Palette.HEADER_PLAYER_NAME,
     );
   }
