@@ -13,6 +13,7 @@ class Battlefield {
   final Size size;
   final Size gridRatio;
   final Missile missile;
+  final int popcap;
 
   Battlefield({
     required this.id,
@@ -20,6 +21,7 @@ class Battlefield {
     required this.size,
     required this.gridRatio,
     required this.missile,
+    required this.popcap,
   }) {
     final List<Platform> platforms = [];
 

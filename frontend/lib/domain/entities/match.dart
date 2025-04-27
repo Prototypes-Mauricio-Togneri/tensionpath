@@ -20,7 +20,6 @@ class Match {
   final Player self;
   final Player opponent;
   final Battlefield battlefield;
-  final int popcap;
   late int _turn;
   late DateTime _lastTurnStartedAt;
   late String _activePlayer;
@@ -32,7 +31,6 @@ class Match {
     required this.self,
     required this.opponent,
     required this.battlefield,
-    required this.popcap,
     required int turn,
     required DateTime lastTurnStartedAt,
     required String activePlayer,
@@ -56,8 +54,9 @@ class Match {
 
   DateTime get lastTurnStartedAt => _lastTurnStartedAt;
 
-  int get accumulatedResourcesInTurn =>
-      DateTime.now().difference(_lastTurnStartedAt).inSeconds;
+  // TODO(momo): revert to calculated amount
+  int get accumulatedResourcesInTurn => 5;
+  //DateTime.now().difference(_lastTurnStartedAt).inSeconds;
 
   bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 
@@ -78,7 +77,7 @@ class Match {
   bool canDeployUnit(UnitType unitType) =>
       isSelfTurn &&
       (self.resources >= unitType.deploymentCost) &&
-      (populationOf(self) < popcap);
+      (populationOf(self) < battlefield.popcap);
 
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,

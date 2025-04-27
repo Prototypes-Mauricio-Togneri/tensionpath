@@ -21,9 +21,6 @@ class JsonMatch {
   @JsonKey(name: 'turn')
   final int turn;
 
-  @JsonKey(name: 'popcap')
-  final int popcap;
-
   @JsonKey(name: 'lastTurnStartedAt', toJson: dateToJson)
   final DateTime lastTurnStartedAt;
 
@@ -41,7 +38,6 @@ class JsonMatch {
     required this.version,
     required this.createdAt,
     required this.turn,
-    required this.popcap,
     required this.lastTurnStartedAt,
     required this.activePlayer,
     required this.players,
@@ -53,7 +49,6 @@ class JsonMatch {
     version: version,
     createdAt: createdAt,
     turn: turn,
-    popcap: popcap,
     lastTurnStartedAt: lastTurnStartedAt,
     activePlayer: activePlayer,
     players: players,
@@ -71,7 +66,6 @@ class JsonMatch {
       turn: turn,
       lastTurnStartedAt: lastTurnStartedAt,
       activePlayer: activePlayer,
-      popcap: popcap,
       self: self,
       opponent: opponent,
       battlefield: battlefield.object([self, opponent]),
