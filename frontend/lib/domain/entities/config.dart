@@ -1,7 +1,7 @@
 class Config {
   final int resourcesPerPatch;
   final int resourcesPerTurn;
-  final int resourcesPerSecond;
+  final double resourcesPerSecond;
   final int popcap;
 
   const Config({

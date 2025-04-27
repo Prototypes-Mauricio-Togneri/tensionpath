@@ -19,7 +19,7 @@ JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) =>
         ),
         resourcesPerSecond: $checkedConvert(
           'resourcesPerSecond',
-          (v) => (v as num).toInt(),
+          (v) => (v as num).toDouble(),
         ),
         popcap: $checkedConvert('popcap', (v) => (v as num).toInt()),
       );

@@ -12,7 +12,7 @@ class JsonConfig {
   final int resourcesPerTurn;
 
   @JsonKey(name: 'resourcesPerSecond')
-  final int resourcesPerSecond;
+  final double resourcesPerSecond;
 
   @JsonKey(name: 'popcap')
   final int popcap;
