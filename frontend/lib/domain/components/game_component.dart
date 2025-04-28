@@ -37,6 +37,12 @@ class GameComponent extends FlameGame with KeyboardEvents {
           player1: match.player1,
           viewport: camera.viewport,
         ),
+        textRenderer: TextPaint(
+          style: TextStyle(
+            fontSize: camera.viewport.size.y * 0.03,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
 

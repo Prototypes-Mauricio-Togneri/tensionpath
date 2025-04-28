@@ -247,7 +247,7 @@ class Dimensions {
     required Player player1,
     required Viewport viewport,
   }) => Vector2(
-    player1.isSelf ? (viewport.size.x - 90) : 20,
-    viewport.size.y - 40,
+    player1.isSelf ? (viewport.size.x - (viewport.size.x * 0.06)) : 20,
+    viewport.size.y - (viewport.size.y * 0.05),
   );
 }
