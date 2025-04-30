@@ -1,6 +1,5 @@
 # TODO
 
-- Missing artillery player 2 sprite
 - Tutorial screenshots
 - Show how far units shoot
 - Create game on the fly
