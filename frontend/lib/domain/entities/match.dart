@@ -75,7 +75,7 @@ class Match {
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
     selfId: self.id,
-    onUpated: _onMatchUpated,
+    onUpdated: _onMatchUpated,
   );
 
   void _onMatchUpated(Match newMatch) {

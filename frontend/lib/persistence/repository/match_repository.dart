@@ -13,12 +13,12 @@ class MatchRepository {
   static StreamSubscription listen({
     required String matchId,
     required String selfId,
-    required Function(Match) onUpated,
+    required Function(Match) onUpdated,
   }) => _ref(matchId).snapshots().listen((snapshot) {
     if (snapshot.exists) {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
       final Match match = json.object(selfId);
-      onUpated(match);
+      onUpdated(match);
     }
   }, onError: ErrorHandler.process);
 

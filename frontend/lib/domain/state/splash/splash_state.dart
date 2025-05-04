@@ -1,10 +1,8 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/domain/json/json_room.dart';
-import 'package:tensionpath/domain/types/room_status.dart';
-import 'package:tensionpath/domain/types/room_visibility.dart';
-import 'package:tensionpath/persistence/repository/room_repository.dart';
+import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/persistence/callables/room/create_room_callable.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
-import 'package:uuid/uuid.dart';
+import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override
@@ -20,24 +18,8 @@ class SplashState extends BaseState {
   void onFullscreen() => SetFullscreen.set();
 
   Future onCreateRoom() async {
-    final String playerId = const Uuid().v4();
-    const String playerName = 'Pepe';
-
-    final JsonRoom json = JsonRoom(
-      id: '',
-      version: 1,
-      createdAt: DateTime.now(),
-      numberOfPlayers: 2,
-      visibility: RoomVisibility.public,
-      status: RoomStatus.open,
-      matchType: '1v1',
-      playerIds: [playerId],
-      players: {playerId: playerName},
-    );
-
-    final String roomId = await RoomRepository.create(json);
-    print('Room created: $roomId');
-    //Navigation.matchScreen(matchId: matchId, selfId: Constants.PLAYER_1);
+    final Room room = await CreateRoomCallable()(playerName: 'Pepe');
+    Navigation.lobbyScreen(room: room, playerId: room.playerIds.first);
   }
 
   /*Future onCreateMatch() async {
