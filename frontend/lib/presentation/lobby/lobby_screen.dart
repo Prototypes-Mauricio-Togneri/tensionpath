@@ -27,7 +27,10 @@ class LobbyScreen extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             const VBox(20),
-            Text(state.room.id, style: const TextStyle(color: Colors.white)),
+            SelectableText(
+              state.room.id,
+              style: const TextStyle(color: Colors.white),
+            ),
             const VBox(20),
             const CircularProgressIndicator(),
           ],

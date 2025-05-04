@@ -14,6 +14,7 @@ class MatchState extends BaseState {
 
   @override
   void onLoad() {
+    // TODO(momo): load directly into variable without using callback
     MatchRepository.load(
       matchId: matchId,
       selfId: selfId,
