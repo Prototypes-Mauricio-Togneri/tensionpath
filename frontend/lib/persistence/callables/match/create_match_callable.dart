@@ -11,7 +11,11 @@ import 'package:tensionpath/utils/assets.dart';
 class CreateMatchCallable {
   Future call({required Room room}) async {
     final String content = await rootBundle.loadString(Assets.TEMPLATES_W9H7);
-    final JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
+    JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
+    jsonMatch = jsonMatch.clone(
+      createdAt: DateTime.now(),
+      turn: jsonMatch.turn.clone(startedAt: DateTime.now()),
+    );
     final List<JsonPlayer> namedPlayers = [];
 
     for (final JsonPlayer jsonPlayer in jsonMatch.players) {

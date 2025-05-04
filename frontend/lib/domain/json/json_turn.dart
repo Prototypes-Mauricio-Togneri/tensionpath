@@ -21,6 +21,12 @@ class JsonTurn {
     required this.player,
   });
 
+  JsonTurn clone({DateTime? startedAt}) => JsonTurn(
+    turn: turn,
+    startedAt: startedAt ?? this.startedAt,
+    player: player,
+  );
+
   Turn get object => Turn(turn: turn, startedAt: startedAt, player: player);
 
   factory JsonTurn.fromJson(Map<String, dynamic> json) =>

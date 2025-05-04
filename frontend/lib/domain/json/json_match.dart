@@ -42,14 +42,19 @@ class JsonMatch {
     required this.turn,
   });
 
-  JsonMatch clone({String? id, List<JsonPlayer>? players}) => JsonMatch(
+  JsonMatch clone({
+    String? id,
+    DateTime? createdAt,
+    JsonTurn? turn,
+    List<JsonPlayer>? players,
+  }) => JsonMatch(
     id: id ?? this.id,
     version: version,
-    createdAt: createdAt,
+    createdAt: createdAt ?? this.createdAt,
     players: players ?? this.players,
     battlefield: battlefield,
     config: config,
-    turn: turn,
+    turn: turn ?? this.turn,
   );
 
   Match object(String selfId) {
