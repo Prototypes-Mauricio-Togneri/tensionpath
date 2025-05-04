@@ -16,14 +16,14 @@
     "players": [
         {
             "id": "1",
-            "name": "John",
+            "name": "",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
             "resources": 100
         },
         {
             "id": "2",
-            "name": "Bob",
+            "name": "",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
             "resources": 100

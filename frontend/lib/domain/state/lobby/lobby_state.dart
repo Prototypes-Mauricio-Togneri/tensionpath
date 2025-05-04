@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/persistence/callables/match/create_match_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
-import 'package:tensionpath/utils/navigation.dart';
 
 class LobbyState extends BaseState {
   final Room room;
@@ -27,9 +27,10 @@ class LobbyState extends BaseState {
     super.onDestroy();
   }
 
-  void _onUpdated(Room room) {
+  Future _onUpdated(Room room) async {
     if (room.isFull) {
-      Navigation.matchScreen(matchId: matchId, selfId: playerId);
+      final String matchId = await CreateMatchCallable()(players: room.players);
+      print(matchId);
     }
   }
 
