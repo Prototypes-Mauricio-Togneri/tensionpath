@@ -31,7 +31,7 @@ class LobbyState extends BaseState {
   Future _onUpdated(Room room) async {
     if (room.isFull) {
       if (room.hasMatchId) {
-        // launch match screen
+        //Navigation.matchScreen(matchId: 'test', selfId: selfId);
       } else if (playerId == Constants.PLAYER_1) {
         final String matchId = await CreateMatchCallable()(room: room);
         print(matchId);

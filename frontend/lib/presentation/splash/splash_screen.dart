@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/splash/splash_state.dart';
 import 'package:tensionpath/utils/platform.dart';
@@ -14,32 +15,52 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GameContainer(
       child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            /*ElevatedButton(
-              onPressed: () => state.onPlay(Constants.PLAYER_1),
-              child: const Text('PLAY AS PLAYER 1'),
-            ),
-            const VBox(20),
-            ElevatedButton(
-              onPressed: () => state.onPlay(Constants.PLAYER_2),
-              child: const Text('PLAY AS PLAYER 2'),
-            ),
-            const VBox(20),*/
-            ElevatedButton(
-              onPressed: state.onCreateRoom,
-              child: const Text('CREATE MATCH'),
-            ),
-            if (Platform.isMobile)
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  onPressed: state.onFullscreen,
-                  child: const Text('FULL SCREEN'),
+        child: SizedBox(
+          width: 300,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: state.nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
                 ),
               ),
-          ],
+              const Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 20),
+                child: HorizontalDivider(color: Colors.white),
+              ),
+              ElevatedButton(
+                onPressed: state.onCreateRoom,
+                child: const Text('CREATE MATCH'),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 20),
+                child: HorizontalDivider(color: Colors.white),
+              ),
+              TextField(
+                controller: state.roomController,
+                decoration: const InputDecoration(
+                  labelText: 'Room ID',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const VBox(20),
+              ElevatedButton(
+                onPressed: state.onJoinRoom,
+                child: const Text('JOIN MATCH'),
+              ),
+              if (Platform.isMobile)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                    onPressed: state.onFullscreen,
+                    child: const Text('FULL SCREEN'),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
