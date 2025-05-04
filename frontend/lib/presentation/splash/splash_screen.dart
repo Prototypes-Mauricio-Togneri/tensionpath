@@ -49,7 +49,7 @@ class Content extends StatelessWidget {
                       ),
                     ),
                     style: const TextStyle(color: Colors.white),
-                    onChanged: (text) => state.onFormChanged(),
+                    onChanged: (text) => state.notify(),
                   ),
                   if (state.canCreate) ...[
                     const Padding(
@@ -80,7 +80,7 @@ class Content extends StatelessWidget {
                         ),
                       ),
                       style: const TextStyle(color: Colors.white),
-                      onChanged: (text) => state.onFormChanged(),
+                      onChanged: (text) => state.notify(),
                     ),
                     const VBox(20),
                     ElevatedButton(
@@ -90,7 +90,7 @@ class Content extends StatelessWidget {
                   ],
                   if (Platform.isMobile)
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 50),
                       child: ElevatedButton(
                         onPressed: state.onFullscreen,
                         child: const Text('FULL SCREEN'),

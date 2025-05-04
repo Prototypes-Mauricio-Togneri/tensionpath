@@ -27,6 +27,20 @@ class RoomRepository {
     }
   }, onError: ErrorHandler.process);
 
-  static Future update({required JsonRoom json}) =>
-      _ref(json.id).update(json.toJson());
+  static Future<Room> load(String roomId) async {
+    final DocumentSnapshot snapshot = await _ref(roomId).get();
+
+    if (snapshot.exists) {
+      final JsonRoom json = JsonRoom.fromJson(snapshot.json);
+      return json.object;
+    } else {
+      throw Exception('Room with ID $roomId not found');
+    }
+  }
+
+  static Future<Room> update(JsonRoom json) async {
+    await _ref(json.id).update(json.toJson());
+
+    return json.object;
+  }
 }

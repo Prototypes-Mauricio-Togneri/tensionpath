@@ -34,6 +34,6 @@ class CreateMatchCallable {
       matchType: room.matchType,
       matchId: matchId,
     );
-    await RoomRepository.update(json: jsonRoom);
+    await RoomRepository.update(jsonRoom);
   }
 }
