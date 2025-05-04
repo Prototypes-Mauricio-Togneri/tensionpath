@@ -4,6 +4,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/persistence/callables/match/create_match_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
+import 'package:tensionpath/utils/navigation.dart';
 
 class LobbyState extends BaseState {
   final Room room;
@@ -31,10 +32,9 @@ class LobbyState extends BaseState {
   Future _onUpdated(Room room) async {
     if (room.isFull) {
       if (room.hasMatchId) {
-        //Navigation.matchScreen(matchId: 'test', selfId: selfId);
+        Navigation.matchScreen(matchId: room.matchId!, selfId: playerId);
       } else if (playerId == Constants.PLAYER_1) {
-        final String matchId = await CreateMatchCallable()(room: room);
-        print(matchId);
+        await CreateMatchCallable()(room: room);
       }
     }
   }
