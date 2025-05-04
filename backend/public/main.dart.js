@@ -80078,7 +80078,7 @@ var $async$$1$room=A.C(function(a2,a3){if(a2===1)return A.y(a3,r)
 while(true)switch(s){case 0:j=A
 i=B.cd
 s=2
-return A.E($.Fx().ai8("templates/w9h7.json"),$async$$1$room)
+return A.E($.Fx().ai8("assets/templates/w9h7.json"),$async$$1$room)
 case 2:n=j.aqG(i.Rb(a3,null))
 m=Date.now()
 l=n.r

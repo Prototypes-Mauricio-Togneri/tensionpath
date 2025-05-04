@@ -6,11 +6,12 @@ import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
-import 'package:tensionpath/utils/assets.dart';
 
 class CreateMatchCallable {
   Future call({required Room room}) async {
-    final String content = await rootBundle.loadString(Assets.TEMPLATES_W9H7);
+    final String content = await rootBundle.loadString(
+      'assets/templates/w9h7.json',
+    );
     JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
     jsonMatch = jsonMatch.clone(
       createdAt: DateTime.now(),
