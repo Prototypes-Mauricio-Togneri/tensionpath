@@ -1,17 +1,17 @@
 {
     "id": "{{ID}}",
     "version": 1,
-    "createdAt": "2025-04-01T00:00:00.000Z",
+    "createdAt": "1970-01-01T00:00:00.000Z",
     "config": {
         "popcap": 7,
         "resourcesPerPatch": 5,
-        "resourcesPerSecond": 0.2,
+        "resourcesPerSecond": 1,
         "resourcesPerTurn": 0
     },
     "turn": {
         "turn": 1,
-        "startedAt": "2025-04-01T00:00:00.000Z",
-        "player": "1"
+        "player": "1",
+        "startedAt": "1970-01-01T00:00:00.000Z"
     },
     "players": [
         {
