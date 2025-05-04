@@ -16,15 +16,20 @@ class LobbyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GameContainer(
+    return GameContainer(
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Waiting for players'),
-            VBox(20),
-            CircularProgressIndicator(),
+            const Text(
+              'Waiting for players…',
+              style: TextStyle(color: Colors.white),
+            ),
+            const VBox(20),
+            Text(state.room.id, style: const TextStyle(color: Colors.white)),
+            const VBox(20),
+            const CircularProgressIndicator(),
           ],
         ),
       ),

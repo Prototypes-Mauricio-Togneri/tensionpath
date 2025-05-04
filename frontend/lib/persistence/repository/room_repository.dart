@@ -4,13 +4,15 @@ import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/utils/error_handler.dart';
+import 'package:tensionpath/utils/id.dart';
 
 class RoomRepository {
   static DocumentReference _ref([String? roomId]) =>
       FirebaseFirestore.instance.collection('rooms').doc(roomId);
 
   static Future<Room> create(JsonRoom json) async {
-    final DocumentReference ref = _ref();
+    final String roomId = Id.roomId(4);
+    final DocumentReference ref = _ref(roomId);
     final JsonRoom finalJson = json.clone(id: ref.id);
     await ref.set(finalJson.toJson());
 

@@ -17,7 +17,7 @@ class JoinRoomCallable {
       visibility: room.visibility,
       status: room.status,
       matchType: room.matchType,
-      playerIds: [...room.playerIds, Constants.PLAYER_1],
+      playerIds: [...room.playerIds, Constants.PLAYER_2],
       players: {...room.players, Constants.PLAYER_2: playerName},
       matchId: null,
     );
