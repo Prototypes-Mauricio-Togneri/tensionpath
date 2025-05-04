@@ -78,5 +78,6 @@ class Assets {
   static const String IMAGES_UNITS_PLAYER_2_SNIPER =
       'units/player_2/sniper.png';
   static const String IMAGES_UNITS_PLAYER_2_TANK = 'units/player_2/tank.png';
+  static const String TEMPLATES_ROOM = 'templates/room.json';
   static const String TEMPLATES_W9H7 = 'templates/w9h7.json';
 }

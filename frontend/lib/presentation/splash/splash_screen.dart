@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
             ),
             const VBox(20),*/
             ElevatedButton(
-              onPressed: state.onCreateMatch,
+              onPressed: state.onCreateRoom,
               child: const Text('CREATE MATCH'),
             ),
             if (Platform.isMobile)
