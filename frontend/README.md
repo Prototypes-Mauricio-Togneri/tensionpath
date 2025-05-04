@@ -1,7 +1,6 @@
 # TODO
 
 - Tutorial screenshots
-- Create game on the fly
 - Play sound when turn ends
 - Implement unit ability deployment
 - Harverster kill reward
