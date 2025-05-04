@@ -3,10 +3,10 @@
     "version": 1,
     "createdAt": "2025-04-01T00:00:00.000Z",
     "config": {
+        "popcap": 7,
         "resourcesPerPatch": 5,
-        "resourcesPerTurn": 0,
         "resourcesPerSecond": 0.2,
-        "popcap": 7
+        "resourcesPerTurn": 0
     },
     "turn": {
         "turn": 1,

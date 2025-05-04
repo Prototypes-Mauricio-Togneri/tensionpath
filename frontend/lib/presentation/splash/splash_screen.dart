@@ -1,6 +1,4 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/state/splash/splash_state.dart';
 import 'package:tensionpath/utils/platform.dart';
 import 'package:tensionpath/widgets/game_container.dart';
@@ -19,7 +17,7 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(
+            /*ElevatedButton(
               onPressed: () => state.onPlay(Constants.PLAYER_1),
               child: const Text('PLAY AS PLAYER 1'),
             ),
@@ -28,11 +26,11 @@ class SplashScreen extends StatelessWidget {
               onPressed: () => state.onPlay(Constants.PLAYER_2),
               child: const Text('PLAY AS PLAYER 2'),
             ),
-            /*const VBox(20),
+            const VBox(20),*/
             ElevatedButton(
               onPressed: state.onCreateMatch,
               child: const Text('CREATE MATCH'),
-            ),*/
+            ),
             if (Platform.isMobile)
               Padding(
                 padding: const EdgeInsets.only(top: 20),

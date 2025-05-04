@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
@@ -13,18 +14,18 @@ class SplashState extends BaseState {
 
   @override
   void onLoad() {
-    if (Environment.get.isDebug) {
-      Delayed.post(() => onPlay(Constants.PLAYER_1));
-    }
+    /*if (Environment.get.isDebug) {
+      Delayed.post(() => _onPlay(Constants.PLAYER_1));
+    }*/
   }
 
-  void onPlay(String selfId) =>
+  void _onPlay(String selfId) =>
       Navigation.matchScreen(matchId: matchId, selfId: selfId);
 
   void onFullscreen() => SetFullscreen.set();
 
   Future onCreateMatch() async {
-    final String content = await rootBundle.loadString('templates/test.json');
+    final String content = await rootBundle.loadString(Assets.TEMPLATES_W9H7);
     final JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
     final String matchId = await MatchRepository.create(jsonMatch);
     Navigation.matchScreen(matchId: matchId, selfId: Constants.PLAYER_1);

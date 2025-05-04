@@ -61,8 +61,8 @@ class Assets {
   static const String IMAGES_UNITS_PLAYER_1_SNIPER =
       'units/player_1/sniper.png';
   static const String IMAGES_UNITS_PLAYER_1_TANK = 'units/player_1/tank.png';
-  static const String IMAGES_UNITS_PLAYER_2_ARTILLERTY =
-      'units/player_2/artillerty.png';
+  static const String IMAGES_UNITS_PLAYER_2_ARTILLERY =
+      'units/player_2/artillery.png';
   static const String IMAGES_UNITS_PLAYER_2_FUEL_TRUCK =
       'units/player_2/fuel_truck.png';
   static const String IMAGES_UNITS_PLAYER_2_HELICOPTER =
@@ -78,4 +78,5 @@ class Assets {
   static const String IMAGES_UNITS_PLAYER_2_SNIPER =
       'units/player_2/sniper.png';
   static const String IMAGES_UNITS_PLAYER_2_TANK = 'units/player_2/tank.png';
+  static const String TEMPLATES_W9H7 = 'templates/w9h7.json';
 }
