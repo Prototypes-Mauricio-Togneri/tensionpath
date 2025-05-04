@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/persistence/callables/match/create_match_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
@@ -29,8 +30,12 @@ class LobbyState extends BaseState {
 
   Future _onUpdated(Room room) async {
     if (room.isFull) {
-      final String matchId = await CreateMatchCallable()(players: room.players);
-      print(matchId);
+      if (room.hasMatchId) {
+        // launch match screen
+      } else if (playerId == Constants.PLAYER_1) {
+        final String matchId = await CreateMatchCallable()(room: room);
+        print(matchId);
+      }
     }
   }
 

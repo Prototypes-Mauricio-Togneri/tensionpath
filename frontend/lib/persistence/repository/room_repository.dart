@@ -26,4 +26,7 @@ class RoomRepository {
       onUpdated(json.object);
     }
   }, onError: ErrorHandler.process);
+
+  static Future update({required JsonRoom json}) =>
+      _ref(json.id).update(json.toJson());
 }

@@ -26,14 +26,17 @@ class JsonRoom {
   @JsonKey(name: 'status')
   final RoomStatus status;
 
-  @JsonKey(name: 'matchType')
-  final String matchType;
-
   @JsonKey(name: 'playerIds')
   final List<String> playerIds;
 
   @JsonKey(name: 'players')
   final Map<String, String> players;
+
+  @JsonKey(name: 'matchType')
+  final String matchType;
+
+  @JsonKey(name: 'matchId')
+  final String? matchId;
 
   const JsonRoom({
     required this.id,
@@ -42,9 +45,10 @@ class JsonRoom {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.matchType,
     required this.playerIds,
     required this.players,
+    required this.matchType,
+    required this.matchId,
   });
 
   JsonRoom clone({
@@ -60,9 +64,10 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
     visibility: visibility,
     status: status,
-    matchType: matchType,
     playerIds: playerIds ?? this.playerIds,
     players: players ?? this.players,
+    matchType: matchType,
+    matchId: matchId,
   );
 
   Room get object => Room(
@@ -72,9 +77,10 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
-    matchType: matchType,
     playerIds: playerIds,
     players: players,
+    matchType: matchType,
+    matchId: matchId,
   );
 
   factory JsonRoom.fromJson(Map<String, dynamic> json) =>

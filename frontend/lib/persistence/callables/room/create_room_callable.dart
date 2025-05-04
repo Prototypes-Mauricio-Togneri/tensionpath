@@ -17,6 +17,7 @@ class CreateRoomCallable {
       matchType: '1v1',
       playerIds: [Constants.PLAYER_1],
       players: {Constants.PLAYER_1: playerName},
+      matchId: null,
     );
 
     return RoomRepository.create(json);

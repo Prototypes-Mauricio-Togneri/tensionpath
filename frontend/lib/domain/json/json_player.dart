@@ -28,6 +28,14 @@ class JsonPlayer {
     required this.resources,
   });
 
+  JsonPlayer clone({String? name}) => JsonPlayer(
+    id: id,
+    name: name ?? this.name,
+    baseHealth: baseHealth,
+    baseMaxHealth: baseMaxHealth,
+    resources: resources,
+  );
+
   Player object(bool isSelf) => Player(
     id: id,
     name: name,
