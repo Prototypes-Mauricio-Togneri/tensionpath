@@ -9,6 +9,12 @@ class SplashState extends BaseState {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController roomController = TextEditingController();
 
+  bool get canCreate => nameController.text.trim().isNotEmpty;
+
+  bool get canJoin =>
+      nameController.text.trim().isNotEmpty &&
+      roomController.text.trim().isNotEmpty;
+
   @override
   void onLoad() {
     /*if (Environment.get.isDebug) {
@@ -17,6 +23,10 @@ class SplashState extends BaseState {
   }
 
   void onFullscreen() => SetFullscreen.set();
+
+  void onFormChanged() {
+    notify();
+  }
 
   Future onCreateRoom() async {
     final Room room = await CreateRoomCallable()(
