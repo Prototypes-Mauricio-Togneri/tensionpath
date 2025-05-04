@@ -28,6 +28,11 @@ class SplashScreen extends StatelessWidget {
               onPressed: () => state.onPlay(Constants.PLAYER_2),
               child: const Text('PLAY AS PLAYER 2'),
             ),
+            /*const VBox(20),
+            ElevatedButton(
+              onPressed: state.onCreateMatch,
+              child: const Text('CREATE MATCH'),
+            ),*/
             if (Platform.isMobile)
               Padding(
                 padding: const EdgeInsets.only(top: 20),
@@ -36,11 +41,6 @@ class SplashScreen extends StatelessWidget {
                   child: const Text('FULL SCREEN'),
                 ),
               ),
-            /*const VBox(20),
-            ElevatedButton(
-              onPressed: state.onCreateMatch,
-              child: const Text('CREATE MATCH'),
-            ),*/
           ],
         ),
       ),

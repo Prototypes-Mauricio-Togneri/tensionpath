@@ -1,6 +1,5 @@
 # TODO
 
-- Full screen only in mobile
 - Tutorial screenshots
 - Show how far units shoot
 - Create game on the fly
