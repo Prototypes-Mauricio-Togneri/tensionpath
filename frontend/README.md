@@ -1,5 +1,7 @@
 # TODO
 
+- Allow move 2
+- Buy unit and assign it to slot
 - Tooltip unit info
 - Tutorial screenshots (lists of features)
 - Play sound when turn ends
