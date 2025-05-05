@@ -1,6 +1,7 @@
 # TODO
 
-- Tutorial screenshots
+- Tooltip unit info
+- Tutorial screenshots (lists of features)
 - Play sound when turn ends
 - Implement unit ability deployment
 - Harverster kill reward
