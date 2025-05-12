@@ -1,5 +1,7 @@
 # TODO
 
+- No squads to avoid popcaping
+- When passing turn, block button immediately
 - Add changelog to home screen
 - Allow to move but show error if not enough resources
 - Allow move 2
