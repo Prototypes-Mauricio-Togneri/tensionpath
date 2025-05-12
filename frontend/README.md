@@ -1,17 +1,16 @@
 # TODO
 
-- No squads to avoid popcaping
 - When passing turn, block button immediately
 - Add changelog to home screen
 - Allow to move but show error if not enough resources
-- Allow move 2
-- Buy unit and assign it to slot
+- Allow move up to 3 nodes
 - Tooltip unit info
 - Choose map
-- Tutorial screenshots (lists of features)
 - Play sound when turn ends
+
+- Buy unit and assign it to slot
 - Implement unit ability deployment
+- Max 2 haversters
 - Harverster kill reward
 - New harverster free
-- Manage individual units in a squad
 - Commanders abilities
