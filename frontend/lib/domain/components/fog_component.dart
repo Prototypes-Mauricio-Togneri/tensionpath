@@ -1,11 +1,10 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class FogComponent extends PositionComponent {
-  final Paint highlightedPaint = Palette.paint(
+  final Paint paint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.NODE_FOG,
   );
@@ -16,6 +15,6 @@ class FogComponent extends PositionComponent {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
   }
 }
