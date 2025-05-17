@@ -62,34 +62,7 @@ class BattlefieldGridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    /*final Size nodeSize = Dimensions.nodeSize(
-      canvasSize: size,
-      battlefield: battlefield,
-    );
-    final Vector2 mapCenter = size / 2;
-    final Set<String> existingNodes = {};
-
-    for (final Node node in battlefield.nodes) {
-      if (existingNodes.contains(node.id)) {
-        throw Exception('Duplicated node: ${node.id}');
-      } else {
-        final Vector2 position = Dimensions.nodePosition(
-          nodeSize: nodeSize,
-          location: node.location,
-        );
-
-        final NodeComponent nodeComponent = node.component(
-          position: Vector2(mapCenter.x + position.x, mapCenter.y + position.y),
-          size: Vector2(nodeSize.height, nodeSize.height),
-        );
-        nodeComponents.add(nodeComponent);
-        add(nodeComponent);
-
-        existingNodes.add(node.id);
-      }
-    }*/
-
-    final Size nodeSize = Size(
+    final Vector2 nodeSize = Vector2(
       size.x / battlefield.size.width,
       size.y / battlefield.size.height,
     );
@@ -102,14 +75,12 @@ class BattlefieldGridComponent extends PositionComponent {
         if (existingNodes.contains(node.id)) {
           throw Exception('Duplicated node: ${node.id}');
         } else {
-          final Vector2 position = Dimensions.nodePosition(
-            nodeSize: nodeSize,
-            location: Location(x: i, y: j),
-          );
-
           final NodeComponent nodeComponent = node.component(
-            position: Vector2(position.x, position.y),
-            size: Vector2(size.x, size.y),
+            position: Dimensions.nodePosition(
+              nodeSize: nodeSize,
+              location: Location(x: i, y: j),
+            ),
+            size: nodeSize,
           );
           nodeComponents.add(nodeComponent);
           add(nodeComponent);

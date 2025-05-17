@@ -26,7 +26,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     required this.node,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.node.value);
+  }) : super(anchor: Anchor.topLeft, priority: Priority.node.value);
 
   bool get _canBeHighlighted => false;
 
@@ -71,9 +71,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   FutureOr onLoad() async {
-    if (node.type.sprite != null) {
-      add(NodeBackground(node: node, position: size / 2, size: size));
-    }
+    add(NodeBackground(node: node, position: size / 2, size: size));
 
     reconfigure();
 
@@ -189,9 +187,8 @@ class NodeSelectedComponent extends PositionComponent {
   }
 }
 
-class NodeBackground<N extends Node> extends SpriteComponent {
+class NodeBackground<N extends Node> extends PositionComponent {
   final N node;
-  final Vector2 initialPosition = Vector2(0, 0);
 
   NodeBackground({
     required this.node,
@@ -200,9 +197,14 @@ class NodeBackground<N extends Node> extends SpriteComponent {
   }) : super(anchor: Anchor.center, priority: Priority.node.value);
 
   @override
-  FutureOr onLoad() async {
-    sprite = await Sprite.load(node.type.sprite!);
+  void render(Canvas canvas) {
+    super.render(canvas);
 
-    return super.onLoad();
+    final Paint paint = Paint();
+    paint.color = Colors.white;
+    paint.strokeWidth = 5;
+    paint.style = PaintingStyle.stroke;
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
   }
 }
