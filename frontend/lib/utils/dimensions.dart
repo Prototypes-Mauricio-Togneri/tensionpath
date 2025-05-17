@@ -87,87 +87,14 @@ class Dimensions {
     return Vector2(containerSize.x - padding, containerSize.y - padding);
   }
 
-  static double controlsGapSize(Vector2 size) => size.x * 0.07;
+  static Vector2 controlsResourcesPosition(Vector2 size) =>
+      Vector2(0, size.y / 2);
 
-  static Vector2 controlsPopcapSize(Vector2 size) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-    final double width = size.x - (gapSize * 2);
+  static Vector2 controlsResourcesSize(Vector2 size) =>
+      Vector2(size.x * 0.3, size.y);
 
-    return Vector2(width, width / 10);
-  }
-
-  static Vector2 controlsPopcapPosition({
-    required Vector2 size,
-    required Vector2 cardSize,
-    required int numberOfCards,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-
-    return Vector2(
-      gapSize,
-      ((numberOfCards - 2) * cardSize.y) + (gapSize * (numberOfCards - 1)),
-    );
-  }
-
-  static Vector2 controlsCardSize({
-    required Vector2 size,
-    required int numberOfCards,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-    final double cardWidth = size.x - (gapSize * 2);
-    final double cardHeight =
-        (size.y -
-            controlsPopcapSize(size).y -
-            gapSize -
-            (gapSize * (numberOfCards + 1))) /
-        numberOfCards;
-
-    return Vector2(cardWidth, cardHeight);
-  }
-
-  static Vector2 controlsUnitCardPosition({
-    required Vector2 size,
-    required Vector2 cardSize,
-    required int i,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-
-    return Vector2(
-      gapSize + (cardSize.x / 2),
-      ((i + 0.5) * cardSize.y) + ((i + 1) * gapSize),
-    );
-  }
-
-  static Vector2 controlsResourcesCardPosition({
-    required Vector2 size,
-    required Vector2 cardSize,
-    required int numberOfCards,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-
-    return Vector2(
-      gapSize,
-      ((numberOfCards - 2) * cardSize.y) +
-          (gapSize * (numberOfCards - 1)) +
-          controlsPopcapSize(size).y +
-          gapSize,
-    );
-  }
-
-  static Vector2 controlsEndTurnCardPosition({
-    required Vector2 size,
-    required Vector2 cardSize,
-    required int numberOfCards,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-
-    return Vector2(
-      gapSize,
-      ((numberOfCards - 1) * cardSize.y) +
-          (gapSize * numberOfCards) +
-          controlsPopcapSize(size).y +
-          gapSize,
-    );
+  static Vector2 controlsEndTurnPosition(Vector2 size) {
+    return Vector2(100, 100);
   }
 
   static bool pointInHexagon({required Vector2 point, required Vector2 size}) {

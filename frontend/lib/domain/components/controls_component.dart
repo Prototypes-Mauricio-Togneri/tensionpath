@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -8,6 +9,7 @@ import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
@@ -22,68 +24,26 @@ class ControlsComponent extends PositionComponent {
     backgroundPaint.color = player.color.darken(0.2);
   }
 
-  /*@override
+  @override
   FutureOr onLoad() {
-    final int numberOfUnits = UnitType.values.length;
-    final int numberOfCards = numberOfUnits + 2;
-    final Vector2 cardSize = Dimensions.controlsCardSize(
-      size: size,
-      numberOfCards: numberOfCards,
-    );
-
-    for (int i = 0; i < numberOfUnits; i++) {
-      add(
-        UnitSelectorComponent(
-          player: player,
-          unitType: UnitType.values[i],
-          position: Dimensions.controlsUnitCardPosition(
-            size: size,
-            cardSize: cardSize,
-            i: i,
-          ),
-          size: cardSize,
-        ),
-      );
-    }
-
-    add(
-      PopcapComponent(
-        player: player,
-        position: Dimensions.controlsPopcapPosition(
-          size: size,
-          cardSize: cardSize,
-          numberOfCards: numberOfCards,
-        ),
-        size: Dimensions.controlsPopcapSize(size),
-      ),
-    );
-
     add(
       ResourceCounterComponent(
         player: player,
-        position: Dimensions.controlsResourcesCardPosition(
-          size: size,
-          cardSize: cardSize,
-          numberOfCards: numberOfCards,
-        ),
-        size: cardSize,
+        position: Dimensions.controlsResourcesPosition(size),
+        size: Dimensions.controlsResourcesSize(size),
       ),
     );
 
     add(
       EndTurnComponent(
         player: player,
-        position: Dimensions.controlsEndTurnCardPosition(
-          size: size,
-          cardSize: cardSize,
-          numberOfCards: numberOfCards,
-        ),
-        size: cardSize,
+        position: Dimensions.controlsEndTurnPosition(size),
+        size: size,
       ),
     );
 
     return super.onLoad();
-  }*/
+  }
 
   @override
   void render(Canvas canvas) {
@@ -95,41 +55,23 @@ class ControlsComponent extends PositionComponent {
 
 class ResourceCounterComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_RESOURCES_BACKGROUND,
-  );
 
   ResourceCounterComponent({
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft);
-
+  }) : super(anchor: Anchor.centerLeft);
+  
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint background =
-        match.match.isSelfTurn
-            ? backgroundPaint
-            : backgroundPaint.grayscale(0.2);
-
-    canvas.drawRect(size.toRect(), background);
-
-    Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
-
-    if (match.match.isSelfTurn) {
-      activeTextColor = activeTextColor.withAlpha(255);
-    } else {
-      activeTextColor = activeTextColor.withAlpha(128);
-    }
-
     canvas.drawText(
-      text: '${player.resources.floor().toString()}🛢️',
-      position: Vector2(size.x * 0.55, size.y * 0.5),
-      size: size.x / 4,
-      color: activeTextColor,
+      text: '\$ ${player.resources.floor().toString()}',
+      position: Vector2(size.x * 0.07, size.y / 2),
+      size: size.x / 7,
+      color: Palette.CONTROLS_COST_FOREGROUND,
+      anchor: Anchor.centerLeft,
     );
   }
 }
