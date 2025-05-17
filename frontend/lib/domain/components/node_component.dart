@@ -68,8 +68,6 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   FutureOr onLoad() async {
-    add(NodeBackground(node: node, position: size / 2, size: size));
-
     reconfigure();
 
     return super.onLoad();
@@ -181,27 +179,5 @@ class NodeSelectedComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
     canvas.drawHexagon(size: size, borderPaint: selectedPaint);
-  }
-}
-
-class NodeBackground<N extends Node> extends PositionComponent {
-  final N node;
-
-  NodeBackground({
-    required this.node,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.node.value);
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    final Paint paint = Paint();
-    paint.color = Colors.white;
-    paint.strokeWidth = 5;
-    paint.style = PaintingStyle.stroke;
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
   }
 }

@@ -86,11 +86,25 @@ class BattlefieldGridComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint paint = Paint();
-    paint.color = Colors.white;
-    paint.strokeWidth = 5;
-    paint.style = PaintingStyle.stroke;
+    final Paint paintBackground = Paint();
+    paintBackground.color = const Color(0xff444444);
+    paintBackground.style = PaintingStyle.fill;
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paintBackground);
+
+    final double gap = size.x / battlefield.size.width;
+
+    final Paint paintGrid = Paint();
+    paintGrid.color = Colors.black;
+    paintGrid.strokeWidth = gap / 100;
+    paintGrid.style = PaintingStyle.stroke;
+
+    for (int i = 1; i < battlefield.size.width; i++) {
+      canvas.drawLine(Offset(i * gap, 0), Offset(i * gap, size.y), paintGrid);
+    }
+
+    for (int j = 1; j < battlefield.size.height; j++) {
+      canvas.drawLine(Offset(0, j * gap), Offset(size.x, j * gap), paintGrid);
+    }
   }
 }
