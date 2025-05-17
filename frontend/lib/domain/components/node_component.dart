@@ -2,10 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
-import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -18,9 +15,9 @@ class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
   final N node;
   NodeHighlitedComponent? _nodeHighlitedComponent;
-  UnitComponent? _unitComponent;
-  StructureComponent? _structureComponent;
-  FogComponent? _fogComponent;
+  //UnitComponent? _unitComponent;
+  //StructureComponent? _structureComponent;
+  //FogComponent? _fogComponent;
 
   NodeComponent({
     required this.node,
@@ -80,7 +77,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void reconfigure() {
-    if (node.hasStructure && (_structureComponent == null)) {
+    /*if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         position: size / 2,
         size: size,
@@ -122,7 +119,7 @@ class NodeComponent<N extends Node> extends PositionComponent
             );
         match.add(_fogComponent!);
       }
-    }
+    }*/
   }
 
   /*@override
