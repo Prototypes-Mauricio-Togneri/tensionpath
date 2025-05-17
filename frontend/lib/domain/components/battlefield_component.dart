@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -61,7 +62,7 @@ class BattlefieldGridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final Size nodeSize = Dimensions.nodeSize(
+    /*final Size nodeSize = Dimensions.nodeSize(
       canvasSize: size,
       battlefield: battlefield,
     );
@@ -85,6 +86,37 @@ class BattlefieldGridComponent extends PositionComponent {
         add(nodeComponent);
 
         existingNodes.add(node.id);
+      }
+    }*/
+
+    final Size nodeSize = Size(
+      size.x / battlefield.size.width,
+      size.y / battlefield.size.height,
+    );
+    final Set<String> existingNodes = {};
+
+    for (int i = 0; i < battlefield.size.width; i++) {
+      for (int j = 0; j < battlefield.size.height; j++) {
+        final Node node = battlefield.nodes[0];
+
+        if (existingNodes.contains(node.id)) {
+          throw Exception('Duplicated node: ${node.id}');
+        } else {
+          final Vector2 position = Dimensions.nodePosition(
+            nodeSize: nodeSize,
+            location: Location(x: i, y: j),
+          );
+
+          final NodeComponent nodeComponent = node.component(
+            position: Vector2(position.x, position.y),
+            size: Vector2(size.x, size.y),
+          );
+          nodeComponents.add(nodeComponent);
+          add(nodeComponent);
+
+          // TODO(momo): Uncomment when using real nodes from the list
+          // existingNodes.add(node.id);
+        }
       }
     }
 
