@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
-import 'package:tensionpath/extensions/paint_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -38,7 +37,7 @@ class ControlsComponent extends PositionComponent {
       EndTurnComponent(
         player: player,
         position: Dimensions.controlsEndTurnPosition(size),
-        size: size,
+        size: Dimensions.controlsEndTurnSize(size),
       ),
     );
 
@@ -61,7 +60,7 @@ class ResourceCounterComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.centerLeft);
-  
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -83,6 +82,12 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
     color: Palette.CONTROLS_END_TURN_BACKGROUND,
   );
 
+  EndTurnComponent({
+    required this.player,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
   @override
   void onTapUp(TapUpEvent event) {
     if (match.match.isSelfTurn) {
@@ -92,24 +97,13 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
     }
   }
 
-  EndTurnComponent({
-    required this.player,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.topLeft);
-
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint fill =
-        match.match.isSelfTurn
-            ? backgroundPaint
-            : backgroundPaint.grayscale(0.2);
+    canvas.drawRect(size.toRect(), backgroundPaint);
 
-    canvas.drawRect(size.toRect(), fill);
-
-    Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
+    /*Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
 
     if (match.match.isSelfTurn) {
       activeTextColor = activeTextColor.withAlpha(255);
@@ -138,6 +132,6 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
         size: size.x / 10,
         color: activeTextColor,
       );
-    }
+    }*/
   }
 }
