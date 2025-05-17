@@ -33,6 +33,18 @@ class BattlefieldComponent extends PositionComponent {
 
     return super.onLoad();
   }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    final Paint paint = Paint();
+    paint.color = Colors.red;
+    paint.strokeWidth = 5;
+    paint.style = PaintingStyle.stroke;
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
+  }
 }
 
 class BattlefieldGridComponent extends PositionComponent {

@@ -30,34 +30,19 @@ class Dimensions {
   static Vector2 controlsSize(Size resolution) =>
       Vector2(resolution.height * 0.2, resolution.height);
 
-  static Vector2 headerPosition(Size resolution) {
-    return Vector2(-resolution.width / 2, -resolution.height / 2);
-  }
+  static Vector2 headerPosition(Size resolution) =>
+      Vector2(-resolution.width / 2, -resolution.height / 2);
 
   static Vector2 headerSize(Size resolution) =>
       Vector2(resolution.width, Constants.UI_HEADER_HEIGHT);
 
-  static Vector2 battlefieldPosition({
-    required Size resolution,
-    required bool isPlayer1,
-  }) {
-    if (isPlayer1) {
-      return Vector2(
-        (-resolution.width / 2) + controlsSize(resolution).x,
-        (-resolution.height / 2) + headerSize(resolution).y,
-      );
-    } else {
-      return Vector2(
-        -resolution.width / 2,
-        (-resolution.height / 2) + headerSize(resolution).y,
-      );
-    }
-  }
-
-  static Vector2 battlefieldSize(Size resolution) => Vector2(
-    resolution.width - controlsSize(resolution).x,
-    resolution.height - headerSize(resolution).y,
+  static Vector2 battlefieldPosition(Size resolution) => Vector2(
+    -resolution.width / 2,
+    (-resolution.height / 2) + headerSize(resolution).y,
   );
+
+  static Vector2 battlefieldSize(Size resolution) =>
+      Vector2(resolution.width, resolution.height - headerSize(resolution).y);
 
   static Size maxNodeSizeWidth({
     required Vector2 canvasSize,

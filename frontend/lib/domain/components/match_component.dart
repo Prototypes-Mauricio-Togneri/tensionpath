@@ -25,8 +25,7 @@ class MatchComponent extends World {
       BattlefieldComponent(
         battlefield: match.battlefield,
         position: Dimensions.battlefieldPosition(
-          resolution: resolution,
-          isPlayer1: match.self.isPlayer1,
+          resolution,
         ),
         size: Dimensions.battlefieldSize(resolution),
         nodeComponents: nodeComponents,
