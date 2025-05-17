@@ -113,7 +113,6 @@ class JsonUtils {
     return JsonBattlefield(
       id: battlefield.id,
       size: battlefield.size.toJsonSize(),
-      gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
@@ -143,7 +142,6 @@ class JsonUtils {
     return JsonBattlefield(
       id: battlefield.id,
       size: battlefield.size.toJsonSize(),
-      gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
@@ -225,7 +223,6 @@ class JsonUtils {
     return JsonBattlefield(
       id: battlefield.id,
       size: battlefield.size.toJsonSize(),
-      gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
@@ -256,7 +253,6 @@ class JsonUtils {
     return JsonBattlefield(
       id: battlefield.id,
       size: battlefield.size.toJsonSize(),
-      gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
@@ -272,7 +268,6 @@ class JsonUtils {
     return JsonBattlefield(
       id: battlefield.id,
       size: battlefield.size.toJsonSize(),
-      gridRatio: battlefield.gridRatio.toJsonRatio(),
       missile: missileNextTurn(battlefield.missile),
       nodes: jsonNodes,
     );
@@ -282,7 +277,6 @@ class JsonUtils {
       JsonBattlefield(
         id: battlefield.id,
         size: battlefield.size.toJsonSize(),
-        gridRatio: battlefield.gridRatio.toJsonRatio(),
         missile: missileToJson(battlefield.missile),
         nodes: battlefield.nodes.map(nodeToJson).toList(),
       );
@@ -444,11 +438,20 @@ class JsonUtils {
 
   // ================================= CONFIG ==================================
 
-  static JsonTurn turnToJson(Turn turn) =>
-      JsonTurn(turn: turn.turn, startedAt: turn.startedAt, player: turn.player);
+  static JsonTurn turnToJson(Turn turn) => JsonTurn(
+    turn: turn.turn,
+    startedAt: turn.startedAt,
+    player1EndedTurnAt: DateTime.now(),
+    player2EndedTurnAt: DateTime.now(),
+  );
 
   static JsonTurn nextTurn({required Turn turn, required String player}) =>
-      JsonTurn(turn: turn.turn + 1, startedAt: DateTime.now(), player: player);
+      JsonTurn(
+        turn: turn.turn + 1,
+        startedAt: DateTime.now(),
+        player1EndedTurnAt: DateTime.now(),
+        player2EndedTurnAt: DateTime.now(),
+      );
 
   // ================================= MATCH ===================================
 

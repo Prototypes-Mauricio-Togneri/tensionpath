@@ -3,7 +3,6 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
-import 'package:tensionpath/domain/json/json_ratio.dart';
 import 'package:tensionpath/domain/json/json_size.dart';
 
 part 'json_battlefield.g.dart';
@@ -16,9 +15,6 @@ class JsonBattlefield {
   @JsonKey(name: 'size')
   final JsonSize size;
 
-  @JsonKey(name: 'gridRatio')
-  final JsonRatio gridRatio;
-
   @JsonKey(name: 'missile')
   final JsonMissile missile;
 
@@ -28,7 +24,6 @@ class JsonBattlefield {
   const JsonBattlefield({
     required this.id,
     required this.size,
-    required this.gridRatio,
     required this.missile,
     required this.nodes,
   });
@@ -37,7 +32,6 @@ class JsonBattlefield {
     id: id,
     nodes: nodes.map((node) => node.object(players)).toList(),
     size: size.object,
-    gridRatio: gridRatio.object,
     missile: missile.object,
   );
 

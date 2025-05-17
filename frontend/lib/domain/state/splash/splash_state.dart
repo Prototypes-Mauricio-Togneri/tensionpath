@@ -1,6 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/callables/room/create_room_callable.dart';
 import 'package:tensionpath/persistence/callables/room/join_room_callable.dart';
 import 'package:tensionpath/persistence/storage/name_storage.dart';
@@ -23,9 +25,14 @@ class SplashState extends BaseState {
     nameController.text = name;
     notify();
 
-    /*if (Environment.get.isDebug) {
-      Delayed.post(() => _onPlay(Constants.PLAYER_1));
-    }*/
+    if (Environment.get.isDebug) {
+      Delayed.post(
+        () => Navigation.matchScreen(
+          matchId: 'test2',
+          selfId: Constants.PLAYER_1,
+        ),
+      );
+    }
   }
 
   void onFullscreen() => SetFullscreen.set();

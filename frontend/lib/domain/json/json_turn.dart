@@ -12,22 +12,27 @@ class JsonTurn {
   @JsonKey(name: 'startedAt', toJson: dateToJson)
   final DateTime startedAt;
 
-  @JsonKey(name: 'player')
-  final String player;
+  @JsonKey(name: 'player1EndedTurnAt', toJson: dateToJson)
+  final DateTime player1EndedTurnAt;
+
+  @JsonKey(name: 'player2EndedTurnAt', toJson: dateToJson)
+  final DateTime player2EndedTurnAt;
 
   const JsonTurn({
     required this.turn,
     required this.startedAt,
-    required this.player,
+    required this.player1EndedTurnAt,
+    required this.player2EndedTurnAt,
   });
 
   JsonTurn clone({DateTime? startedAt}) => JsonTurn(
     turn: turn,
     startedAt: startedAt ?? this.startedAt,
-    player: player,
+    player1EndedTurnAt: player1EndedTurnAt,
+    player2EndedTurnAt: player2EndedTurnAt,
   );
 
-  Turn get object => Turn(turn: turn, startedAt: startedAt, player: player);
+  Turn get object => Turn(turn: turn, startedAt: startedAt, player: '');
 
   factory JsonTurn.fromJson(Map<String, dynamic> json) =>
       _$JsonTurnFromJson(json);

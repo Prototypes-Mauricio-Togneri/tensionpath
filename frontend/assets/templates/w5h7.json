@@ -10,7 +10,8 @@
     },
     "turn": {
         "turn": 1,
-        "player": "1",
+        "player1EndedTurnAt": "1970-01-01T00:00:00.000Z",
+        "player2EndedTurnAt": "1970-01-01T00:00:00.000Z",
         "startedAt": "1970-01-01T00:00:00.000Z"
     },
     "players": [
@@ -30,9 +31,9 @@
         }
     ],
     "battlefield": {
-        "id": "w9h7",
+        "id": "w5h7",
         "size": {
-            "width": 9,
+            "width": 5,
             "height": 7
         },
         "gridRatio": {
@@ -42,7 +43,7 @@
         "missile": {
             "charge": 0,
             "maxCharge": 10,
-            "platforms": 2
+            "platforms": 3
         },
         "nodes": [
             {

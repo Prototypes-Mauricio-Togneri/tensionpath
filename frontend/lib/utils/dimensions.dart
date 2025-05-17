@@ -122,38 +122,6 @@ class Dimensions {
     return Vector2(containerSize.x - padding, containerSize.y - padding);
   }
 
-  static Vector2 battlefieldBackgroundSize({
-    required Vector2 canvasSize,
-    required Vector2 imageSize,
-    required Vector2 gridSize,
-    required Battlefield battlefield,
-  }) {
-    final double ratio = imageSize.x / imageSize.y;
-
-    final Size maxSizeWidth = maxNodeSizeWidth(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-    final Size maxHeightWidth = maxNodeSizeHeight(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-
-    if (maxSizeWidth.width > maxHeightWidth.width) {
-      final double backgroundHeightAdjusted =
-          gridSize.y / battlefield.gridRatio.height;
-      final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
-
-      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
-    } else {
-      final double backgroundWidthAdjusted =
-          gridSize.x / battlefield.gridRatio.width;
-      final double backgroundHeightAdjusted = backgroundWidthAdjusted / ratio;
-
-      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
-    }
-  }
-
   static double controlsGapSize(Vector2 size) => size.x * 0.07;
 
   static Vector2 controlsPopcapSize(Vector2 size) {

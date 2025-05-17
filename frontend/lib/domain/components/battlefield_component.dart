@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class BattlefieldComponent extends PositionComponent {
@@ -21,23 +20,7 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() async {
-    final Sprite sprite = await Sprite.load(
-      Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
-    );
     final Vector2 gridSize = Dimensions.battlefildGridSize(size);
-
-    add(
-      BattlefieldBackgroundComponent(
-        sprite: sprite,
-        position: size / 2,
-        size: Dimensions.battlefieldBackgroundSize(
-          canvasSize: size,
-          imageSize: sprite.originalSize,
-          gridSize: gridSize,
-          battlefield: battlefield,
-        ),
-      ),
-    );
 
     add(
       BattlefieldGridComponent(
@@ -94,12 +77,4 @@ class BattlefieldGridComponent extends PositionComponent {
 
     return super.onLoad();
   }
-}
-
-class BattlefieldBackgroundComponent extends SpriteComponent {
-  BattlefieldBackgroundComponent({
-    required super.sprite,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.center);
 }

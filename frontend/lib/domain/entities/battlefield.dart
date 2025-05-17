@@ -11,14 +11,12 @@ class Battlefield {
   final String id;
   final List<Node> nodes;
   final Size size;
-  final Size gridRatio;
   final Missile missile;
 
   Battlefield({
     required this.id,
     required this.nodes,
     required this.size,
-    required this.gridRatio,
     required this.missile,
   }) {
     final List<Platform> platforms = [];

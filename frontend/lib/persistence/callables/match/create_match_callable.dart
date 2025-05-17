@@ -10,7 +10,7 @@ import 'package:tensionpath/persistence/repository/room_repository.dart';
 class CreateMatchCallable {
   Future call({required Room room}) async {
     final String content = await rootBundle.loadString(
-      'assets/templates/w9h7.json',
+      'assets/templates/w5h7.json',
     );
     JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
     jsonMatch = jsonMatch.clone(
