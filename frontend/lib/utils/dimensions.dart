@@ -81,10 +81,21 @@ class Dimensions {
     nodeSize.height * 3 / 4 * location.y,
   );
 
-  static Vector2 battlefildGridSize(Vector2 containerSize) {
-    final double padding = containerSize.y * 0.05;
+  static Vector2 battlefildGridPosition(Vector2 size) => size / 2;
 
-    return Vector2(containerSize.x - padding, containerSize.y - padding);
+  static Vector2 battlefildGridSize({
+    required Vector2 size,
+    required Battlefield battlefield,
+  }) {
+    final double battlefieldRatio =
+        battlefield.size.height / battlefield.size.width;
+    final double screenRatio = size.y / size.x;
+
+    if (screenRatio >= battlefieldRatio) {
+      return Vector2(size.x, size.x * battlefieldRatio);
+    } else {
+      return Vector2(size.y / battlefieldRatio, size.y);
+    }
   }
 
   static Vector2 controlsResourcesPosition(Vector2 size) =>

@@ -20,13 +20,14 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() async {
-    final Vector2 gridSize = Dimensions.battlefildGridSize(size);
-
     add(
       BattlefieldGridComponent(
         battlefield: battlefield,
-        position: size / 2,
-        size: gridSize,
+        position: Dimensions.battlefildGridPosition(size),
+        size: Dimensions.battlefildGridSize(
+          size: size,
+          battlefield: battlefield,
+        ),
         nodeComponents: nodeComponents,
       ),
     );
@@ -39,7 +40,7 @@ class BattlefieldComponent extends PositionComponent {
     super.render(canvas);
 
     final Paint paint = Paint();
-    paint.color = Colors.red;
+    paint.color = Colors.green;
     paint.strokeWidth = 5;
     paint.style = PaintingStyle.stroke;
 
@@ -88,5 +89,17 @@ class BattlefieldGridComponent extends PositionComponent {
     }
 
     return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    final Paint paint = Paint();
+    paint.color = Colors.white;
+    paint.strokeWidth = 5;
+    paint.style = PaintingStyle.stroke;
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
   }
 }
