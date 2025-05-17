@@ -15,7 +15,6 @@ import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/paint_extension.dart';
-import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
@@ -30,7 +29,7 @@ class ControlsComponent extends PositionComponent {
     backgroundPaint.color = player.color.darken(0.2);
   }
 
-  @override
+  /*@override
   FutureOr onLoad() {
     final int numberOfUnits = UnitType.values.length;
     final int numberOfCards = numberOfUnits + 2;
@@ -91,9 +90,9 @@ class ControlsComponent extends PositionComponent {
     );
 
     return super.onLoad();
-  }
+  }*/
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -103,6 +102,18 @@ class ControlsComponent extends PositionComponent {
             : backgroundPaint.grayscale(0.2);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fill);
+  }*/
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    final Paint paint = Paint();
+    paint.color = player.color.darken(0.2);
+    paint.strokeWidth = 5;
+    paint.style = PaintingStyle.fill;
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
   }
 }
 

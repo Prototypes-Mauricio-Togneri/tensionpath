@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
+import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
@@ -24,9 +25,7 @@ class MatchComponent extends World {
     add(
       BattlefieldComponent(
         battlefield: match.battlefield,
-        position: Dimensions.battlefieldPosition(
-          resolution,
-        ),
+        position: Dimensions.battlefieldPosition(resolution),
         size: Dimensions.battlefieldSize(resolution),
         nodeComponents: nodeComponents,
       ),
@@ -38,6 +37,14 @@ class MatchComponent extends World {
         player2: match.player2,
         position: Dimensions.headerPosition(resolution),
         size: Dimensions.headerSize(resolution),
+      ),
+    );
+
+    add(
+      ControlsComponent(
+        player: match.self,
+        position: Dimensions.controlsPosition(resolution),
+        size: Dimensions.controlsSize(resolution),
       ),
     );
 
