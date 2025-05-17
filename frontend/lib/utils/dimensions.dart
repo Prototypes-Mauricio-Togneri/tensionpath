@@ -5,7 +5,6 @@ import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
 
 class Dimensions {
   static Size cameraSize(Vector2 canvasSize) => Size(
@@ -177,11 +176,8 @@ class Dimensions {
     return fromCenter.length < size.x * 0.42;
   }
 
-  static Vector2 fpsPosition({
-    required Player player1,
-    required Viewport viewport,
-  }) => Vector2(
-    player1.isSelf ? (viewport.size.x - (viewport.size.x * 0.06)) : 20,
-    viewport.size.y - (viewport.size.y * 0.05),
+  static Vector2 fpsPosition(Viewport viewport) => Vector2(
+    viewport.size.x - (viewport.size.x * 0.078),
+    viewport.size.y - (viewport.size.y * 0.042),
   );
 }

@@ -33,10 +33,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
 
     add(
       FpsTextComponent(
-        position: Dimensions.fpsPosition(
-          player1: match.player1,
-          viewport: camera.viewport,
-        ),
+        position: Dimensions.fpsPosition(camera.viewport),
         textRenderer: TextPaint(
           style: TextStyle(
             fontSize: camera.viewport.size.y * 0.03,
