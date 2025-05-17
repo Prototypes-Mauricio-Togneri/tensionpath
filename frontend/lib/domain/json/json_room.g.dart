@@ -44,7 +44,7 @@ JsonRoom _$JsonRoomFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonRoomToJson(JsonRoom instance) => <String, dynamic>{
   'id': instance.id,
   'version': instance.version,
-  'createdAt': dateToJson(instance.createdAt),
+  if (dateToJson(instance.createdAt) case final value?) 'createdAt': value,
   'numberOfPlayers': instance.numberOfPlayers,
   'visibility': _$RoomVisibilityEnumMap[instance.visibility]!,
   'status': _$RoomStatusEnumMap[instance.status]!,

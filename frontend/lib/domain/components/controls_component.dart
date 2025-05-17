@@ -5,7 +5,6 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -77,9 +76,13 @@ class ResourceCounterComponent extends PositionComponent {
 
 class EndTurnComponent extends PositionComponent with TapCallbacks {
   final Player player;
-  final Paint backgroundPaint = Palette.paint(
+  final Paint backgroundPaintEnabled = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.CONTROLS_END_TURN_BACKGROUND,
+    color: Palette.CONTROLS_END_TURN_BACKGROUND_ENABLED.darken(0.3),
+  );
+  final Paint backgroundPaintDisabled = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.CONTROLS_END_TURN_BACKGROUND_DISABLED.darken(0.3),
   );
 
   EndTurnComponent({
@@ -90,10 +93,8 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent event) {
-    if (match.match.isSelfTurn) {
+    if (!match.match.hasEndedTurn) {
       match.match.onEndTurn();
-    } else if (Environment.get.isDebug) {
-      match.match.onOpponentEndTurn();
     }
   }
 
@@ -101,37 +102,22 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(size.toRect(), backgroundPaint);
-
-    /*Color activeTextColor = Palette.CONTROLS_COST_FOREGROUND;
-
-    if (match.match.isSelfTurn) {
-      activeTextColor = activeTextColor.withAlpha(255);
-    } else {
-      activeTextColor = activeTextColor.withAlpha(128);
-    }
-
-    if (match.match.isSelfTurn) {
+    if (match.match.hasEndedTurn) {
+      canvas.drawRect(size.toRect(), backgroundPaintDisabled);
       canvas.drawText(
-        text: '${match.match.accumulatedResourcesInTurn.floor()}🛢️',
-        position: Vector2(size.x / 2, size.y / 3.5),
-        size: size.x / 6,
-        color: activeTextColor,
+        text: 'WAITING',
+        position: Vector2(size.x / 2, size.y / 2),
+        size: size.x / 8,
+        color: Palette.CONTROLS_COST_FOREGROUND,
       );
-
+    } else {
+      canvas.drawRect(size.toRect(), backgroundPaintEnabled);
       canvas.drawText(
         text: 'END TURN',
-        position: Vector2(size.x / 2, size.y * 3 / 4),
-        size: size.x / 7,
-        color: activeTextColor,
-      );
-    } else {
-      canvas.drawText(
-        text: "WAITING FOR\nOPPONENT'S\nTURN",
         position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 10,
-        color: activeTextColor,
+        size: size.x / 8,
+        color: Palette.CONTROLS_COST_FOREGROUND,
       );
-    }*/
+    }
   }
 }

@@ -659,4 +659,4 @@ class JsonUtils {
   }
 }
 
-DateTime dateToJson(DateTime dateTime) => dateTime.toUtc();
+DateTime? dateToJson(DateTime? dateTime) => dateTime?.toUtc();

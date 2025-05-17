@@ -17,7 +17,8 @@ class Palette {
   static const Color CONTROLS_COST_BACKGROUND = Color(0x77000000);
   static const Color CONTROLS_RESOURCES_BACKGROUND = Colors.grey;
   static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
-  static const Color CONTROLS_END_TURN_BACKGROUND = Colors.green;
+  static const Color CONTROLS_END_TURN_BACKGROUND_ENABLED = Colors.green;
+  static const Color CONTROLS_END_TURN_BACKGROUND_DISABLED = Colors.grey;
   static const Color CONTROLS_POPCAP_BACKGROUND = Colors.white;
 
   static const Color NODE_BORDER = Colors.white;

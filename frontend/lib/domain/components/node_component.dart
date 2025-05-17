@@ -28,10 +28,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.node.value);
 
-  bool get _belongsToSelf => node.belongsTo(match.match.self);
-
-  bool get _canBeHighlighted =>
-      match.match.isSelfTurn && _belongsToSelf && node.hasUnit;
+  bool get _canBeHighlighted => false;
 
   void onHighlighted(bool enabled) {
     if (enabled) {

@@ -16,11 +16,11 @@ JsonTurn _$JsonTurnFromJson(Map<String, dynamic> json) =>
         ),
         player1EndedTurnAt: $checkedConvert(
           'player1EndedTurnAt',
-          (v) => DateTime.parse(v as String),
+          (v) => v == null ? null : DateTime.parse(v as String),
         ),
         player2EndedTurnAt: $checkedConvert(
           'player2EndedTurnAt',
-          (v) => DateTime.parse(v as String),
+          (v) => v == null ? null : DateTime.parse(v as String),
         ),
       );
       return val;
@@ -28,7 +28,9 @@ JsonTurn _$JsonTurnFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonTurnToJson(JsonTurn instance) => <String, dynamic>{
   'turn': instance.turn,
-  'startedAt': dateToJson(instance.startedAt),
-  'player1EndedTurnAt': dateToJson(instance.player1EndedTurnAt),
-  'player2EndedTurnAt': dateToJson(instance.player2EndedTurnAt),
+  if (dateToJson(instance.startedAt) case final value?) 'startedAt': value,
+  if (dateToJson(instance.player1EndedTurnAt) case final value?)
+    'player1EndedTurnAt': value,
+  if (dateToJson(instance.player2EndedTurnAt) case final value?)
+    'player2EndedTurnAt': value,
 };

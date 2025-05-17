@@ -38,7 +38,15 @@ class Match {
 
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
-  bool get isSelfTurn => turn.player == self.id;
+  bool get hasEndedTurn {
+    if (self.isPlayer1) {
+      return turn.player1EndedTurnAt != null;
+    } else if (self.isPlayer2) {
+      return turn.player2EndedTurnAt != null;
+    } else {
+      return false;
+    }
+  }
 
   Player get player1 => self.isPlayer1 ? self : opponent;
 
@@ -68,7 +76,7 @@ class Match {
   }
 
   bool canDeployUnit(UnitType unitType) =>
-      isSelfTurn &&
+      !hasEndedTurn &&
       (self.resources >= unitType.deploymentCost) &&
       (populationOf(self) < config.popcap);
 
@@ -124,7 +132,7 @@ class Match {
       AttackBaseCallable()(match: this, unit: unit, node: node);
 
   Future onEndTurn() {
-    if (isSelfTurn) {
+    if (!hasEndedTurn) {
       return EndTurnSelfCallable()(this);
     } else {
       return Future.value();

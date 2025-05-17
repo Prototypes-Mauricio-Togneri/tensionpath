@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -11,8 +9,7 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitComponent<U extends Unit> extends PositionComponent
-    with DragCallbacks {
+class UnitComponent<U extends Unit> extends PositionComponent {
   final U unit;
   final Node node;
   final Vector2 initialPosition = Vector2(0, 0);
@@ -53,60 +50,6 @@ class UnitComponent<U extends Unit> extends PositionComponent
     );
 
     return super.onLoad();
-  }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    if (unit.player.isSelf && match.match.isSelfTurn) {
-      super.onDragStart(event);
-
-      initialPosition.setFrom(position);
-    }
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    if (unit.player.isSelf && match.match.isSelfTurn) {
-      position += event.localDelta;
-      match.highlightNode(
-        match.getActionTargetAt(position: absolutePosition, unit: unit),
-      );
-    }
-  }
-
-  @override
-  void onDragEnd(DragEndEvent event) {
-    if (unit.player.isSelf && match.match.isSelfTurn) {
-      super.onDragEnd(event);
-
-      final NodeComponent? nodeComponent = match.getActionTargetAt(
-        position: absolutePosition,
-        unit: unit,
-      );
-
-      if (nodeComponent != null) {
-        if (nodeComponent.node.isMovementTarget(unit)) {
-          match.match.onMoveUnit(
-            unit: unit,
-            nodeOrigin: node,
-            nodeTarget: nodeComponent.node,
-          );
-        } else if (nodeComponent.node.isAttackUnitTarget(unit)) {
-          match.match.onAttackUnit(
-            unitAttacker: unit,
-            unitDefender: nodeComponent.node.unit!,
-          );
-          position = initialPosition;
-        } else if (nodeComponent.node.isAttackBaseTarget(unit)) {
-          match.match.onAttackBase(unit: unit, node: nodeComponent.node);
-          position = initialPosition;
-        } else {
-          position = initialPosition;
-        }
-      } else {
-        position = initialPosition;
-      }
-    }
   }
 
   /*@override
@@ -202,7 +145,7 @@ class RemainingMovementComponent<U extends Unit> extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (unit.belongsTo(match.match.self) && match.match.isSelfTurn) {
+    if (unit.belongsTo(match.match.self)) {
       canvas.drawRect(
         Rect.fromLTWH(0, 0, width, height),
         backgroundIndicatorPaint,
@@ -238,7 +181,7 @@ class RemainingAttacksComponent<U extends Unit> extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (unit.belongsTo(match.match.self) && match.match.isSelfTurn) {
+    if (unit.belongsTo(match.match.self)) {
       canvas.drawRect(
         Rect.fromLTWH(0, 0, width, height),
         backgroundIndicatorPaint,

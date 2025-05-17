@@ -41,7 +41,7 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
   'id': instance.id,
   'version': instance.version,
-  'createdAt': dateToJson(instance.createdAt),
+  if (dateToJson(instance.createdAt) case final value?) 'createdAt': value,
   'players': instance.players.map((e) => e.toJson()).toList(),
   'battlefield': instance.battlefield.toJson(),
   'config': instance.config.toJson(),

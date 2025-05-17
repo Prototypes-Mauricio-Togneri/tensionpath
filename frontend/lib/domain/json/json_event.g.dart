@@ -26,7 +26,7 @@ JsonEvent _$JsonEventFromJson(
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'id': instance.id,
   'type': _$EventTypeEnumMap[instance.type]!,
-  'timestamp': dateToJson(instance.timestamp),
+  if (dateToJson(instance.timestamp) case final value?) 'timestamp': value,
   if (instance.nodeIdOrigin case final value?) 'nodeIdOrigin': value,
   if (instance.nodeIdTarget case final value?) 'nodeIdTarget': value,
   if (_$UnitTypeEnumMap[instance.unitType] case final value?) 'unitType': value,
