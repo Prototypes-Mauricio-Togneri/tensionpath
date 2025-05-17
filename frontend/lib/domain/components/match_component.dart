@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
-import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
@@ -38,22 +37,8 @@ class MatchComponent extends World {
       HeaderComponent(
         player1: match.player1,
         player2: match.player2,
-        position: Dimensions.headerPosition(
-          resolution: resolution,
-          isPlayer1: match.self.isPlayer1,
-        ),
+        position: Dimensions.headerPosition(resolution),
         size: Dimensions.headerSize(resolution),
-      ),
-    );
-
-    add(
-      ControlsComponent(
-        player: match.self,
-        position: Dimensions.controlsPosition(
-          resolution: resolution,
-          isPlayer1: match.self.isPlayer1,
-        ),
-        size: Dimensions.controlsSize(resolution),
       ),
     );
 
