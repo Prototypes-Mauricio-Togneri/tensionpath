@@ -20,14 +20,14 @@
             "name": "",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 100
+            "resources": 10
         },
         {
             "id": "2",
             "name": "",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 100
+            "resources": 10
         }
     ],
     "battlefield": {
@@ -49,153 +49,106 @@
             {
                 "x": 0,
                 "y": 0,
-                "type": "land",
-                "structure": {
-                    "type": "missile"
-                }
-            },
-            {
-                "x": 0,
-                "y": -1,
-                "type": "land",
-                "structure": {
-                    "type": "pad",
-                    "platformId": "1"
-                }
-            },
-            {
-                "x": 1,
-                "y": -1,
-                "type": "land"
-            },
-            {
-                "x": 1,
-                "y": 0,
                 "type": "land"
             },
             {
                 "x": 0,
-                "y": 1,
-                "type": "land",
-                "structure": {
-                    "type": "pad",
-                    "platformId": "2"
-                }
-            },
-            {
-                "x": -1,
-                "y": 1,
-                "type": "land"
-            },
-            {
-                "x": -1,
-                "y": 0,
-                "type": "land"
-            },
-            {
-                "x": 1,
-                "y": -2,
-                "type": "land",
-                "structure": {
-                    "type": "pad",
-                    "platformId": "1"
-                }
-            },
-            {
-                "x": 2,
-                "y": -2,
-                "type": "land"
-            },
-            {
-                "x": 2,
-                "y": -1,
-                "type": "land"
-            },
-            {
-                "x": 2,
-                "y": 0,
-                "type": "land"
-            },
-            {
-                "x": 1,
                 "y": 1,
                 "type": "land"
             },
             {
                 "x": 0,
                 "y": 2,
-                "type": "land",
-                "structure": {
-                    "type": "pad",
-                    "platformId": "2"
-                }
-            },
-            {
-                "x": -1,
-                "y": 2,
-                "type": "land",
-                "structure": {
-                    "type": "pad",
-                    "platformId": "2"
-                }
-            },
-            {
-                "x": -2,
-                "y": 2,
-                "type": "land"
-            },
-            {
-                "x": -2,
-                "y": 1,
-                "type": "land"
-            },
-            {
-                "x": -2,
-                "y": 0,
-                "type": "land"
-            },
-            {
-                "x": -1,
-                "y": -1,
                 "type": "land"
             },
             {
                 "x": 0,
-                "y": -2,
-                "type": "land",
-                "structure": {
-                    "type": "pad",
-                    "platformId": "1"
-                }
+                "y": 3,
+                "type": "land"
             },
             {
                 "x": 0,
-                "y": -3,
+                "y": 4,
+                "type": "land"
+            },
+            {
+                "x": 0,
+                "y": 5,
+                "type": "land"
+            },
+            {
+                "x": 0,
+                "y": 6,
                 "type": "land"
             },
             {
                 "x": 1,
-                "y": -3,
+                "y": 0,
+                "type": "land"
+            },
+            {
+                "x": 1,
+                "y": 1,
+                "type": "land"
+            },
+            {
+                "x": 1,
+                "y": 2,
+                "type": "land"
+            },
+            {
+                "x": 1,
+                "y": 3,
+                "type": "land"
+            },
+            {
+                "x": 1,
+                "y": 4,
+                "type": "land"
+            },
+            {
+                "x": 1,
+                "y": 5,
+                "type": "land"
+            },
+            {
+                "x": 1,
+                "y": 6,
                 "type": "land"
             },
             {
                 "x": 2,
-                "y": -3,
+                "y": 0,
                 "type": "land"
             },
             {
-                "x": 3,
-                "y": -3,
+                "x": 2,
+                "y": 1,
                 "type": "land"
             },
             {
-                "x": 3,
-                "y": -2,
+                "x": 2,
+                "y": 2,
                 "type": "land"
             },
             {
-                "x": 3,
-                "y": -1,
+                "x": 2,
+                "y": 3,
+                "type": "land"
+            },
+            {
+                "x": 2,
+                "y": 4,
+                "type": "land"
+            },
+            {
+                "x": 2,
+                "y": 5,
+                "type": "land"
+            },
+            {
+                "x": 2,
+                "y": 6,
                 "type": "land"
             },
             {
@@ -204,204 +157,68 @@
                 "type": "land"
             },
             {
-                "x": 2,
+                "x": 3,
                 "y": 1,
                 "type": "land"
             },
             {
-                "x": 1,
-                "y": 2,
-                "type": "water"
-            },
-            {
-                "x": 0,
-                "y": 3,
-                "type": "land"
-            },
-            {
-                "x": -1,
-                "y": 3,
-                "type": "land"
-            },
-            {
-                "x": -2,
-                "y": 3,
-                "type": "land"
-            },
-            {
-                "x": -3,
-                "y": 3,
-                "type": "land"
-            },
-            {
-                "x": -3,
+                "x": 3,
                 "y": 2,
                 "type": "land"
             },
             {
-                "x": -3,
-                "y": 1,
+                "x": 3,
+                "y": 3,
                 "type": "land"
             },
             {
-                "x": -3,
-                "y": 0,
+                "x": 3,
+                "y": 4,
                 "type": "land"
             },
             {
-                "x": -2,
-                "y": -1,
+                "x": 3,
+                "y": 5,
                 "type": "land"
             },
             {
-                "x": -1,
-                "y": -2,
-                "type": "water"
-            },
-            {
-                "x": 4,
-                "y": -3,
-                "type": "land",
-                "structure": {
-                    "type": "resources"
-                }
-            },
-            {
-                "x": 5,
-                "y": -3,
+                "x": 3,
+                "y": 6,
                 "type": "land"
             },
             {
                 "x": 4,
-                "y": -2,
+                "y": 0,
                 "type": "land"
             },
             {
-                "x": 5,
-                "y": -2,
-                "type": "land",
-                "structure": {
-                    "type": "launcher",
-                    "player": "2"
-                }
-            },
-            {
                 "x": 4,
-                "y": -1,
-                "type": "land",
-                "structure": {
-                    "type": "launcher",
-                    "player": "2"
-                }
-            },
-            {
-                "x": 4,
-                "y": 0,
-                "type": "land",
-                "structure": {
-                    "type": "launcher",
-                    "player": "2"
-                }
-            },
-            {
-                "x": 3,
                 "y": 1,
                 "type": "land"
             },
             {
-                "x": 2,
+                "x": 4,
                 "y": 2,
                 "type": "land"
             },
             {
-                "x": 3,
-                "y": 2,
-                "type": "land",
-                "structure": {
-                    "type": "resources"
-                }
-            },
-            {
-                "x": 1,
+                "x": 4,
                 "y": 3,
                 "type": "land"
             },
             {
-                "x": 2,
-                "y": 3,
+                "x": 4,
+                "y": 4,
                 "type": "land"
             },
             {
-                "x": -1,
-                "y": -3,
+                "x": 4,
+                "y": 5,
                 "type": "land"
             },
             {
-                "x": -2,
-                "y": -3,
-                "type": "land"
-            },
-            {
-                "x": -2,
-                "y": -2,
-                "type": "land"
-            },
-            {
-                "x": -3,
-                "y": -2,
-                "type": "land",
-                "structure": {
-                    "type": "resources"
-                }
-            },
-            {
-                "x": -3,
-                "y": -1,
-                "type": "land"
-            },
-            {
-                "x": -4,
-                "y": 0,
-                "type": "land",
-                "structure": {
-                    "type": "launcher",
-                    "player": "1"
-                }
-            },
-            {
-                "x": -4,
-                "y": 1,
-                "type": "land",
-                "structure": {
-                    "type": "launcher",
-                    "player": "1"
-                }
-            },
-            {
-                "x": -4,
-                "y": 2,
-                "type": "land"
-            },
-            {
-                "x": -5,
-                "y": 2,
-                "type": "land",
-                "structure": {
-                    "type": "launcher",
-                    "player": "1"
-                }
-            },
-            {
-                "x": -4,
-                "y": 3,
-                "type": "land",
-                "structure": {
-                    "type": "resources"
-                }
-            },
-            {
-                "x": -5,
-                "y": 3,
+                "x": 4,
+                "y": 6,
                 "type": "land"
             }
         ]

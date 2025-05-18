@@ -3,7 +3,6 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/dimensions.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
@@ -17,10 +16,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.node.value);
-
-  @override
-  bool containsLocalPoint(Vector2 point) =>
-      Dimensions.pointInHexagon(point: point, size: size);
 
   @override
   FutureOr onLoad() async {
