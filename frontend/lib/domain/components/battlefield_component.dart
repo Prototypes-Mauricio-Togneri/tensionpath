@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/dimensions.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
@@ -39,21 +40,21 @@ class BattlefieldComponent extends PositionComponent {
 class BattlefieldGridComponent extends PositionComponent {
   final Battlefield battlefield;
   final List<NodeComponent> nodeComponents;
-  final Paint paintBackground = Paint();
-  final Paint paintGrid = Paint();
+  final Paint paintBackground = Palette.paint(
+    color: const Color(0xff444444),
+    style: PaintingStyle.fill,
+  );
+  final Paint paintGrid = Palette.paint(
+    color: Colors.black,
+    style: PaintingStyle.stroke,
+  );
 
   BattlefieldGridComponent({
     required this.battlefield,
     required super.position,
     required super.size,
     required this.nodeComponents,
-  }) : super(anchor: Anchor.center) {
-    paintBackground.color = const Color(0xff444444);
-    paintBackground.style = PaintingStyle.fill;
-
-    paintGrid.color = Colors.black;
-    paintGrid.style = PaintingStyle.stroke;
-  }
+  }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() {
