@@ -55,28 +55,21 @@ class Dimensions {
     return Size(maxHeight * (sqrt(3) / 2), maxHeight);
   }
 
-  static Size nodeSize({
-    required Vector2 canvasSize,
-    required Battlefield battlefield,
-  }) {
-    final Size maxSizeWidth = maxNodeSizeWidth(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-    final Size maxHeightWidth = maxNodeSizeHeight(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-
-    return (maxSizeWidth.width > maxHeightWidth.width)
-        ? maxHeightWidth
-        : maxSizeWidth;
-  }
-
   static Vector2 nodePosition({
     required Vector2 nodeSize,
     required Location location,
-  }) => Vector2(nodeSize.x * location.x, nodeSize.y * location.y);
+  }) => Vector2(
+    (nodeSize.x * location.x) + (nodeSize.x / 2),
+    (nodeSize.y * location.y) + nodeSize.y / 2,
+  );
+
+  static Vector2 nodeSize({
+    required Vector2 size,
+    required Battlefield battlefield,
+  }) => Vector2(
+    size.x / battlefield.size.width,
+    size.y / battlefield.size.height,
+  );
 
   static Vector2 battlefildGridPosition(Vector2 size) => size / 2;
 

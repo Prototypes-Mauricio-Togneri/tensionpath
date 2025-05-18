@@ -19,7 +19,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     required this.node,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.node.value);
+  }) : super(anchor: Anchor.center, priority: Priority.node.value);
 
   @override
   FutureOr onLoad() async {

@@ -60,9 +60,9 @@ class BattlefieldGridComponent extends PositionComponent {
     final double gap = (size.x / battlefield.size.width) / 100;
     paintGrid.strokeWidth = gap;
 
-    final Vector2 nodeSize = Vector2(
-      (size.x / battlefield.size.width) - gap,
-      (size.y / battlefield.size.height) - gap,
+    final Vector2 nodeSize = Dimensions.nodeSize(
+      size: size,
+      battlefield: battlefield,
     );
     final Set<String> existingNodes = {};
 
@@ -75,7 +75,7 @@ class BattlefieldGridComponent extends PositionComponent {
             nodeSize: nodeSize,
             location: node.location,
           ),
-          size: nodeSize,
+          size: Vector2(nodeSize.x - gap, nodeSize.y - gap),
         );
         existingNodes.add(node.id);
         nodeComponents.add(nodeComponent);
