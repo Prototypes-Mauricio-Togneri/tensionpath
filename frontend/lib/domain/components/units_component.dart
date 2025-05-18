@@ -4,32 +4,29 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class UnitsComponent extends PositionComponent {
   final Units units;
   final Node node;
+  final Paint paintOutter = Palette.paint(
+    color: Colors.white,
+    style: PaintingStyle.fill,
+  );
+  final Paint paintInner = Palette.paint(style: PaintingStyle.fill);
 
   UnitsComponent({
     required this.units,
     required this.node,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
+  }) : super(anchor: Anchor.center, priority: Priority.unit.value) {
+    paintInner.color = units.player.color;
+  }
 
   @override
   void render(Canvas canvas) {
-    final Paint paintOutter =
-        Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.fill;
-
     canvas.drawCircle((size / 2).toOffset(), size.x / 3, paintOutter);
-
-    final Paint paintInner =
-        Paint()
-          ..color = units.player.color
-          ..style = PaintingStyle.fill;
-
     canvas.drawCircle((size / 2).toOffset(), size.x / 3.2, paintInner);
 
     canvas.drawText(
