@@ -17,6 +17,10 @@ class Units implements Localizable {
     amount = newUnits.amount;
   }
 
+  void addUnit() {
+    amount++;
+  }
+
   bool belongsTo(Player player) => this.player.id == player.id;
 
   @override

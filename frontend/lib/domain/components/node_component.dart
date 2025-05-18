@@ -49,7 +49,7 @@ class NodeComponent<N extends Node> extends PositionComponent
       if (node.hasUnits && (_unitsComponent == null)) {
         _unitsComponent = node.units!.component(
           node: node,
-          position: absolutePosition,
+          position: size / 2,
           size: size / 1.5,
         );
         add(_unitsComponent!);
@@ -66,7 +66,7 @@ class NodeComponent<N extends Node> extends PositionComponent
       /*if (_fogComponent == null) {
         _fogComponent =
             _fogComponent = FogComponent(
-              position: absolutePosition,
+              position: size / 2,
               size: size,
             );
         add(_fogComponent!);
@@ -81,13 +81,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     canvas.drawText(
       text: '${node.location}',
       position: size / 2,
-      size: size.x / 8,
-      color: Colors.white,
-    );
-
-    canvas.drawText(
-      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
-      position: Vector2(size.x / 2, size.y * 2 / 4),
       size: size.x / 8,
       color: Colors.white,
     );

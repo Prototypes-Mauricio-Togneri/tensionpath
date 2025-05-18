@@ -97,6 +97,8 @@ class Match {
   void onDeployUnit(Node node) {
     if (self.hasResources(Constants.COST_DEPLOY_UNIT)) {
       actions.add(ActionDeployUnit(node: node));
+      node.addUnit(self);
+      MatchComponentRef.instance.reconfigure();
     } else {
       throw Exception('Insufficient funds');
     }

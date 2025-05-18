@@ -56,9 +56,11 @@ class MatchComponent extends World {
     } else if (match.opponentWon) {
       GameComponentRef.instance.onMatchFinished(false);
     } else {
-      _iterateChildrenRecursively(this);
+      reconfigure();
     }
   }
+
+  void reconfigure() => _iterateChildrenRecursively(this);
 
   void _iterateChildrenRecursively(Component component) {
     final dynamic dynamicComponent = component;
