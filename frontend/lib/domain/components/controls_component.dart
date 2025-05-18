@@ -110,6 +110,7 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
         size: size.x / 8,
         color: Palette.CONTROLS_COST_FOREGROUND,
       );
+    } else {
       canvas.drawRect(size.toRect(), backgroundPaintDisabled);
       canvas.drawText(
         text: 'WAITING',
@@ -117,7 +118,6 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
         size: size.x / 8,
         color: Palette.CONTROLS_COST_FOREGROUND,
       );
-    } else {
     }
   }
 }

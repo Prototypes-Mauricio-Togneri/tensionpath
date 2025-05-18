@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -73,32 +72,19 @@ class MatchComponent extends World {
     }
   }
 
-  NodeComponent? getLauncherAt(Vector2 position) {
-    for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) &&
-          nodeComponent.node.isDeploymentTarget(match.self)) {
-        return nodeComponent;
-      }
-    }
-
-    return null;
-  }
-
-  NodeComponent? getActionTargetAt({
+  /*NodeComponent? getActionTargetAt({
     required Vector2 position,
-    required Unit unit,
+    required Units unit,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) &&
-          (nodeComponent.node.isMovementTarget(unit) ||
-              nodeComponent.node.isAttackUnitTarget(unit) ||
-              nodeComponent.node.isAttackBaseTarget(unit))) {
+          nodeComponent.node.isMovementTarget(unit)) {
         return nodeComponent;
       }
     }
 
     return null;
-  }
+  }*/
 }
 
 mixin MatchComponentRef {

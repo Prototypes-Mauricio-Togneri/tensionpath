@@ -12,10 +12,10 @@ class Platform {
     int player2 = 0;
 
     for (final Node node in nodes) {
-      if (node.hasUnit) {
-        if (node.unit!.player.isPlayer1) {
+      if (node.hasUnits) {
+        if (node.units!.player.isPlayer1) {
           player1++;
-        } else if (node.unit!.player.isPlayer2) {
+        } else if (node.units!.player.isPlayer2) {
           player2++;
         }
       }

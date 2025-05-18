@@ -2,14 +2,14 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
-import 'package:tensionpath/domain/components/units/unit_component.dart';
+import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
   final N node;
-  UnitComponent? _unitComponent;
+  UnitsComponent? _unitsComponent;
   StructureComponent? _structureComponent;
   //FogComponent? _fogComponent;
 
@@ -46,21 +46,21 @@ class NodeComponent<N extends Node> extends PositionComponent
         _fogComponent = null;
       }*/
 
-      if (node.hasUnit && (_unitComponent == null)) {
-        _unitComponent = node.unit!.component(
+      if (node.hasUnits && (_unitsComponent == null)) {
+        _unitsComponent = node.units!.component(
           node: node,
           position: absolutePosition,
           size: size / 1.5,
         );
-        add(_unitComponent!);
-      } else if (!node.hasUnit && (_unitComponent != null)) {
-        remove(_unitComponent!);
-        _unitComponent = null;
+        add(_unitsComponent!);
+      } else if (!node.hasUnits && (_unitsComponent != null)) {
+        remove(_unitsComponent!);
+        _unitsComponent = null;
       }
     } else {
-      if (_unitComponent != null) {
-        remove(_unitComponent!);
-        _unitComponent = null;
+      if (_unitsComponent != null) {
+        remove(_unitsComponent!);
+        _unitsComponent = null;
       }
 
       /*if (_fogComponent == null) {

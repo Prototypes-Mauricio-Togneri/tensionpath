@@ -1,4 +1,4 @@
-import 'package:tensionpath/app/constants.dart';
+/*import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/match.dart';
@@ -8,8 +8,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
-import 'package:tensionpath/domain/entities/units/unit_fuel_truck.dart';
+import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
@@ -18,12 +17,12 @@ import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/json/json_unit.dart';
+import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
-import 'package:tensionpath/extensions/size_extension.dart';
+import 'package:tensionpath/extensions/size_extension.dart';*/
 
 class JsonUtils {
-  static const int FUEL_PATCH_DAMAGE = 20;
+  /*static const int FUEL_PATCH_DAMAGE = 20;
 
   // ================================= PLAYER =================================
 
@@ -97,7 +96,7 @@ class JsonUtils {
 
   static JsonBattlefield battlefieldDeployUnit({
     required Battlefield battlefield,
-    required Unit unit,
+    required Units units,
     required Node nodeTarget,
   }) {
     final List<JsonNode> jsonNodes = [];
@@ -352,8 +351,8 @@ class JsonUtils {
 
   // ================================= UNIT ====================================
 
-  static JsonUnit unitMoved({required Unit unit, required int distance}) =>
-      JsonUnit(
+  static JsonUnits unitMoved({required Unit unit, required int distance}) =>
+      JsonUnits(
         type: unit.type,
         health: unit.health,
         remainingMoves: unit.remainingMoves - distance,
@@ -361,12 +360,12 @@ class JsonUtils {
         player: unit.player.id,
       );
 
-  static JsonUnit unitBattled({
+  static JsonUnits unitBattled({
     required Unit unit,
     required int health,
     required int remainingMoves,
     required int remainingAttacks,
-  }) => JsonUnit(
+  }) => JsonUnits(
     type: unit.type,
     health: health,
     remainingMoves: remainingMoves,
@@ -374,7 +373,7 @@ class JsonUtils {
     player: unit.player.id,
   );
 
-  static JsonUnit? unitReset({required Node node, required Unit? unit}) {
+  static JsonUnits? unitReset({required Node node, required Unit? unit}) {
     if (unit != null) {
       final bool isResourcesStructure =
           node.hasStructure && (node.structure is StructureResources);
@@ -384,7 +383,7 @@ class JsonUtils {
       final int health = unit.health - extraDamage;
 
       if (health > 0) {
-        return JsonUnit(
+        return JsonUnits(
           type: unit.type,
           health: health,
           remainingMoves: unit.type.movementRange,
@@ -399,9 +398,9 @@ class JsonUtils {
     }
   }
 
-  static JsonUnit? unitToJson(Unit? unit) {
+  static JsonUnits? unitToJson(Unit? unit) {
     if (unit != null) {
-      return JsonUnit(
+      return JsonUnits(
         type: unit.type,
         health: unit.health,
         remainingMoves: unit.remainingMoves,
@@ -656,7 +655,7 @@ class JsonUtils {
     }
 
     return result;
-  }
+  }*/
 }
 
 DateTime? dateToJson(DateTime? dateTime) => dateTime?.toUtc();

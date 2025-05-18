@@ -15,7 +15,7 @@ JsonNode _$JsonNodeFromJson(
     type: $checkedConvert('type', (v) => $enumDecode(_$NodeTypeEnumMap, v)),
     unit: $checkedConvert(
       'unit',
-      (v) => v == null ? null : JsonUnit.fromJson(v as Map<String, dynamic>),
+      (v) => v == null ? null : JsonUnits.fromJson(v as Map<String, dynamic>),
     ),
     structure: $checkedConvert(
       'structure',

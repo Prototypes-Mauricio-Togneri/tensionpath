@@ -8,13 +8,9 @@ import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/persistence/callables/match/attack_base_callable.dart';
-import 'package:tensionpath/persistence/callables/match/attack_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
-import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class Match {
@@ -70,7 +66,7 @@ class Match {
     int result = 0;
 
     for (final Node node in battlefield.nodes) {
-      if (node.hasUnit && node.unit!.belongsTo(player)) {
+      if (node.hasUnits && node.units!.belongsTo(player)) {
         result++;
       }
     }
@@ -106,8 +102,8 @@ class Match {
     }
   }
 
-  Future onMoveUnit({
-    required Unit unit,
+  /*Future onMoveUnit({
+    required Units unit,
     required Node nodeOrigin,
     required Node nodeTarget,
   }) => MoveUnitCallable()(
@@ -115,19 +111,7 @@ class Match {
     unit: unit,
     nodeOrigin: nodeOrigin,
     nodeTarget: nodeTarget,
-  );
-
-  Future onAttackUnit({
-    required Unit unitAttacker,
-    required Unit unitDefender,
-  }) => AttackUnitCallable()(
-    match: this,
-    unitAttacker: unitAttacker,
-    unitDefender: unitDefender,
-  );
-
-  Future onAttackBase({required Unit unit, required Node node}) =>
-      AttackBaseCallable()(match: this, unit: unit, node: node);
+  );*/
 
   Future onEndTurn() {
     if (hasActiveTurn) {

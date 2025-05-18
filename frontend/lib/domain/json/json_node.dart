@@ -3,7 +3,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
-import 'package:tensionpath/domain/json/json_unit.dart';
+import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 
 part 'json_node.g.dart';
@@ -20,7 +20,7 @@ class JsonNode {
   final NodeType type;
 
   @JsonKey(name: 'unit')
-  final JsonUnit? unit;
+  final JsonUnits? unit;
 
   @JsonKey(name: 'structure')
   final JsonStructure? structure;
@@ -39,7 +39,7 @@ class JsonNode {
     return Node(
       location: location,
       type: type,
-      unit: unit?.object(location: location, players: players),
+      units: unit?.object(location: location, players: players),
       structure: structure?.object(location: location, players: players),
     );
   }

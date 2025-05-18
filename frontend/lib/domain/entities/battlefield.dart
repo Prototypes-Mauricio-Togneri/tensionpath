@@ -1,10 +1,11 @@
 import 'package:flutter/services.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Battlefield {
@@ -61,13 +62,13 @@ class Battlefield {
       final Node oldNode = nodeById(newNode.id);
       oldNode.replaceWith(newNode);
 
-      if (oldNode.hasUnit) {
-        final Unit unit = oldNode.unit!;
+      if (oldNode.hasUnits) {
+        final Units unit = oldNode.units!;
 
         if (unit.belongsTo(self)) {
           visibleNodes.addAll(
             oldNode.visibleNodes(
-              visibilityRange: unit.visibilityRange,
+              visibilityRange: Constants.UNITS_VISIBILITY_RANGE,
               nodes: nodes,
             ),
           );
