@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
@@ -75,7 +73,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     }
   }
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -86,11 +84,11 @@ class NodeComponent<N extends Node> extends PositionComponent
       color: Colors.white,
     );
 
-    /*canvas.drawText(
+    canvas.drawText(
       text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
       position: Vector2(size.x / 2, size.y * 2 / 4),
       size: size.x / 8,
       color: Colors.white,
-    );*/
-  }
+    );
+  }*/
 }
