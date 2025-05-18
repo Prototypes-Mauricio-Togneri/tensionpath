@@ -57,9 +57,12 @@ class BattlefieldGridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
+    final double gap = (size.x / battlefield.size.width) / 100;
+    paintGrid.strokeWidth = gap;
+
     final Vector2 nodeSize = Vector2(
-      size.x / battlefield.size.width,
-      size.y / battlefield.size.height,
+      (size.x / battlefield.size.width) - gap,
+      (size.y / battlefield.size.height) - gap,
     );
     final Set<String> existingNodes = {};
 
@@ -79,9 +82,6 @@ class BattlefieldGridComponent extends PositionComponent {
         add(nodeComponent);
       }
     }
-
-    final double gap = size.x / battlefield.size.width;
-    paintGrid.strokeWidth = gap / 100;
 
     return super.onLoad();
   }
