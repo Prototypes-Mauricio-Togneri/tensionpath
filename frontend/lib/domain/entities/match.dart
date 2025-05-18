@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -74,11 +73,6 @@ class Match {
     return result;
   }
 
-  bool canDeployUnit(UnitType unitType) =>
-      hasActiveTurn &&
-      (self.resources >= unitType.deploymentCost) &&
-      (populationOf(self) < config.popcap);
-
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
     selfId: self.id,
@@ -94,8 +88,13 @@ class Match {
     MatchComponentRef.instance.onMatchUpdated(this);
   }
 
+  bool get _canDeployUnit =>
+      hasActiveTurn &&
+      (self.resources >= Constants.COST_DEPLOY_UNIT) &&
+      (populationOf(self) < config.popcap);
+
   void onDeployUnit(Node node) {
-    if (self.hasResources(Constants.COST_DEPLOY_UNIT)) {
+    if (_canDeployUnit) {
       actions.add(ActionDeployUnit(node: node));
       node.addUnit(self);
       MatchComponentRef.instance.reconfigure();

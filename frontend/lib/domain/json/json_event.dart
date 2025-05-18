@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 import 'package:uuid/uuid.dart';
 
@@ -22,28 +21,20 @@ class JsonEvent {
   @JsonKey(name: 'nodeIdTarget')
   final String? nodeIdTarget;
 
-  @JsonKey(name: 'unitType')
-  final UnitType? unitType;
-
   const JsonEvent({
     required this.id,
     required this.type,
     required this.timestamp,
     required this.nodeIdOrigin,
     required this.nodeIdTarget,
-    required this.unitType,
   });
 
-  factory JsonEvent.deployUnit({
-    required UnitType unitType,
-    required String nodeIdTarget,
-  }) => JsonEvent(
+  factory JsonEvent.deployUnit(String nodeIdTarget) => JsonEvent(
     id: const Uuid().v4(),
     type: EventType.deploy_unit,
     timestamp: DateTime.now(),
     nodeIdOrigin: null,
     nodeIdTarget: nodeIdTarget,
-    unitType: unitType,
   );
 
   factory JsonEvent.moveUnit({
@@ -55,7 +46,6 @@ class JsonEvent {
     timestamp: DateTime.now(),
     nodeIdOrigin: nodeIdOrigin,
     nodeIdTarget: nodeIdTarget,
-    unitType: null,
   );
 
   factory JsonEvent.attackUnit({
@@ -67,7 +57,6 @@ class JsonEvent {
     timestamp: DateTime.now(),
     nodeIdOrigin: nodeIdOrigin,
     nodeIdTarget: nodeIdTarget,
-    unitType: null,
   );
 
   factory JsonEvent.attackBase({
@@ -79,7 +68,6 @@ class JsonEvent {
     timestamp: DateTime.now(),
     nodeIdOrigin: nodeIdOrigin,
     nodeIdTarget: nodeIdTarget,
-    unitType: null,
   );
 
   factory JsonEvent.endTurnSelf() => JsonEvent(
@@ -88,7 +76,6 @@ class JsonEvent {
     timestamp: DateTime.now(),
     nodeIdOrigin: null,
     nodeIdTarget: null,
-    unitType: null,
   );
 
   factory JsonEvent.endTurnOpponent() => JsonEvent(
@@ -97,7 +84,6 @@ class JsonEvent {
     timestamp: DateTime.now(),
     nodeIdOrigin: null,
     nodeIdTarget: null,
-    unitType: null,
   );
 
   factory JsonEvent.fromJson(Map<String, dynamic> json) =>
