@@ -7,6 +7,7 @@ import 'package:tensionpath/utils/assets.dart';
 class StructureResourcesComponent
     extends StructureComponent<StructureResources> {
   StructureResourcesComponent({
+    required super.node,
     required super.structure,
     required super.position,
     required super.size,

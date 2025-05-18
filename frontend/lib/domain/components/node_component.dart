@@ -30,6 +30,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void reconfigure() {
     if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
+        node: node,
         position: size / 2,
         size: size,
       );

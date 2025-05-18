@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/structures/structure_pad_component.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
@@ -15,7 +16,13 @@ class StructurePad extends Structure {
 
   @override
   StructureComponent component({
+    required Node node,
     required Vector2 position,
     required Vector2 size,
-  }) => StructurePadComponent(structure: this, position: position, size: size);
+  }) => StructurePadComponent(
+    node: node,
+    structure: this,
+    position: position,
+    size: size,
+  );
 }

@@ -13,6 +13,7 @@ class StructurePadComponent extends StructureComponent<StructurePad>
   late final Platform platform;
 
   StructurePadComponent({
+    required super.node,
     required super.structure,
     required super.position,
     required super.size,

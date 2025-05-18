@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
+import 'package:tensionpath/domain/entities/actions/action.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -9,7 +12,6 @@ import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/attack_base_callable.dart';
 import 'package:tensionpath/persistence/callables/match/attack_unit_callable.dart';
-import 'package:tensionpath/persistence/callables/match/deploy_unit_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/callables/match/move_unit_callable.dart';
@@ -24,6 +26,7 @@ class Match {
   final Battlefield battlefield;
   final Config config;
   final Turn turn;
+  final List<Action> actions = [];
 
   Match({
     required this.id,
@@ -38,11 +41,11 @@ class Match {
 
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
-  bool get hasEndedTurn {
+  bool get hasActiveTurn {
     if (self.isPlayer1) {
-      return turn.player1EndedTurnAt != null;
+      return turn.player1EndedTurnAt == null;
     } else if (self.isPlayer2) {
-      return turn.player2EndedTurnAt != null;
+      return turn.player2EndedTurnAt == null;
     } else {
       return false;
     }
@@ -76,7 +79,7 @@ class Match {
   }
 
   bool canDeployUnit(UnitType unitType) =>
-      !hasEndedTurn &&
+      hasActiveTurn &&
       (self.resources >= unitType.deploymentCost) &&
       (populationOf(self) < config.popcap);
 
@@ -95,17 +98,12 @@ class Match {
     MatchComponentRef.instance.onMatchUpdated(this);
   }
 
-  Future onDeployUnit({required Node node, required UnitType unitType}) async {
-    final Unit unit = Unit.create(
-      unitType: unitType,
-      location: node.location,
-      player: self,
-      health: unitType.maxHealth,
-      remainingMoves: 0,
-      remainingAttacks: unitType.numberOfAttacks,
-    );
-
-    return DeployUnitCallable()(match: this, node: node, unit: unit);
+  void onDeployUnit(Node node) {
+    if (self.hasResources(Constants.COST_DEPLOY_UNIT)) {
+      actions.add(ActionDeployUnit(node: node));
+    } else {
+      throw Exception('Insufficient funds');
+    }
   }
 
   Future onMoveUnit({
@@ -132,7 +130,7 @@ class Match {
       AttackBaseCallable()(match: this, unit: unit, node: node);
 
   Future onEndTurn() {
-    if (!hasEndedTurn) {
+    if (hasActiveTurn) {
       return EndTurnSelfCallable()(this);
     } else {
       return Future.value();

@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 
-class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
+class StructureLauncherComponent extends StructureComponent<StructureLauncher>
+    with TapCallbacks {
   StructureLauncherComponent({
+    required super.node,
     required super.structure,
     required super.position,
     required super.size,
@@ -20,5 +24,12 @@ class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
     }
 
     return super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    if (match.match.hasActiveTurn) {
+      match.match.onDeployUnit(node);
+    }
   }
 }

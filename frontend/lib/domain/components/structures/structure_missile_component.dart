@@ -15,6 +15,7 @@ class StructureMissileComponent extends StructureComponent<StructureMissile> {
   late final Missile missile;
 
   StructureMissileComponent({
+    required super.node,
     required super.structure,
     required super.position,
     required super.size,

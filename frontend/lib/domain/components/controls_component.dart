@@ -93,7 +93,7 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
 
   @override
   void onTapUp(TapUpEvent event) {
-    if (!match.match.hasEndedTurn) {
+    if (match.match.hasActiveTurn) {
       match.match.onEndTurn();
     }
   }
@@ -102,7 +102,14 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (match.match.hasEndedTurn) {
+    if (match.match.hasActiveTurn) {
+      canvas.drawRect(size.toRect(), backgroundPaintEnabled);
+      canvas.drawText(
+        text: 'END TURN',
+        position: Vector2(size.x / 2, size.y / 2),
+        size: size.x / 8,
+        color: Palette.CONTROLS_COST_FOREGROUND,
+      );
       canvas.drawRect(size.toRect(), backgroundPaintDisabled);
       canvas.drawText(
         text: 'WAITING',
@@ -111,13 +118,6 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
         color: Palette.CONTROLS_COST_FOREGROUND,
       );
     } else {
-      canvas.drawRect(size.toRect(), backgroundPaintEnabled);
-      canvas.drawText(
-        text: 'END TURN',
-        position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 8,
-        color: Palette.CONTROLS_COST_FOREGROUND,
-      );
     }
   }
 }

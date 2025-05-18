@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
@@ -25,6 +26,7 @@ abstract class Structure {
   void replaceWith(Structure newStructure) {}
 
   StructureComponent component({
+    required Node node,
     required Vector2 position,
     required Vector2 size,
   });
