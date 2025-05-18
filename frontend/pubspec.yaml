@@ -43,10 +43,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/counter/
     - assets/images/nodes/
     - assets/images/structures/
-    - assets/images/thumbnails/
-    - assets/images/units/player_1/
-    - assets/images/units/player_2/
     - assets/templates/

@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:tensionpath/domain/types/unit_class.dart';
-import 'package:tensionpath/utils/assets.dart';
 
 enum UnitType {
   fuel_truck(
@@ -21,7 +19,6 @@ enum UnitType {
     damageStructure: 0,
     spriteName: 'fuel_truck',
     spriteScale: 0.8,
-    thumbnail: Assets.IMAGES_THUMBNAILS_FUEL_TRUCK,
   ),
   rifle_squad(
     unitClass: UnitClass.infantry,
@@ -40,7 +37,6 @@ enum UnitType {
     damageStructure: 50,
     spriteName: 'rifle_squad',
     spriteScale: 0.5,
-    thumbnail: Assets.IMAGES_THUMBNAILS_RIFLE_SQUAD,
   ),
   rpg_team(
     unitClass: UnitClass.infantry,
@@ -59,7 +55,6 @@ enum UnitType {
     damageStructure: 80,
     spriteName: 'rpg_team',
     spriteScale: 0.6,
-    thumbnail: Assets.IMAGES_THUMBNAILS_RPG_TEAM,
   ),
   sniper(
     unitClass: UnitClass.infantry,
@@ -78,7 +73,6 @@ enum UnitType {
     damageStructure: 40,
     spriteName: 'sniper',
     spriteScale: 0.4,
-    thumbnail: Assets.IMAGES_THUMBNAILS_SNIPER,
   ),
   humvee(
     unitClass: UnitClass.vehicle,
@@ -97,7 +91,6 @@ enum UnitType {
     damageStructure: 80,
     spriteName: 'humvee',
     spriteScale: 0.6,
-    thumbnail: Assets.IMAGES_THUMBNAILS_HUMVEE,
   ),
   rocket_vehicle(
     unitClass: UnitClass.vehicle,
@@ -116,7 +109,6 @@ enum UnitType {
     damageStructure: 100,
     spriteName: 'rocket_vehicle',
     spriteScale: 0.6,
-    thumbnail: Assets.IMAGES_THUMBNAILS_ROCKET_VEHICLE,
   ),
   tank(
     unitClass: UnitClass.vehicle,
@@ -135,7 +127,6 @@ enum UnitType {
     damageStructure: 150,
     spriteName: 'tank',
     spriteScale: 0.8,
-    thumbnail: Assets.IMAGES_THUMBNAILS_TANK,
   ),
   artillery(
     unitClass: UnitClass.vehicle,
@@ -154,7 +145,6 @@ enum UnitType {
     damageStructure: 200,
     spriteName: 'artillery',
     spriteScale: 0.7,
-    thumbnail: Assets.IMAGES_THUMBNAILS_ARTILLERY,
   ),
   helicopter(
     unitClass: UnitClass.aircraft,
@@ -173,7 +163,6 @@ enum UnitType {
     damageStructure: 150,
     spriteName: 'helicopter',
     spriteScale: 0.8,
-    thumbnail: Assets.IMAGES_THUMBNAILS_HELICOPTER,
   );
 
   final UnitClass unitClass;
@@ -192,7 +181,6 @@ enum UnitType {
   final int damageStructure;
   final String spriteName;
   final double spriteScale;
-  final String thumbnail;
 
   const UnitType({
     required this.unitClass,
@@ -211,7 +199,6 @@ enum UnitType {
     required this.damageStructure,
     required this.spriteName,
     required this.spriteScale,
-    required this.thumbnail,
   });
 
   int damageAgainst(UnitClass unitClass) {
