@@ -184,7 +184,11 @@
             {
                 "x": 3,
                 "y": 3,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "pad",
+                    "platformId": "2"
+                }
             },
             {
                 "x": 3,
@@ -219,12 +223,20 @@
             {
                 "x": 4,
                 "y": 3,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "pad",
+                    "platformId": "2"
+                }
             },
             {
                 "x": 4,
                 "y": 4,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "pad",
+                    "platformId": "2"
+                }
             },
             {
                 "x": 4,
