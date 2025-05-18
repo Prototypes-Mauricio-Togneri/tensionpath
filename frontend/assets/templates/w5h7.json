@@ -134,7 +134,10 @@
             {
                 "x": 2,
                 "y": 3,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "missile"
+                }
             },
             {
                 "x": 2,
