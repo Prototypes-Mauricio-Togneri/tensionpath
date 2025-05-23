@@ -51,8 +51,7 @@
                 "y": 0,
                 "type": "land",
                 "structure": {
-                    "type": "launcher",
-                    "player": "2"
+                    "type": "missile"
                 }
             },
             {
