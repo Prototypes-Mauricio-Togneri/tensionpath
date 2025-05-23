@@ -11,6 +11,10 @@ class StructureComponent<S extends Structure> extends SpriteComponent {
     required this.node,
     required this.structure,
     required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.structure.value);
+    required Vector2 size,
+  }) : super(
+         anchor: Anchor.center,
+         priority: Priority.structure.value,
+         size: size * 0.97,
+       );
 }

@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
@@ -14,6 +15,10 @@ class NodeComponent<N extends Node> extends PositionComponent
   UnitsComponent? _unitsComponent;
   StructureComponent? _structureComponent;
   //FogComponent? _fogComponent;
+  final Paint backgroundPaint = Palette.paint(
+    color: Colors.grey,
+    style: PaintingStyle.fill,
+  );
 
   NodeComponent({
     required this.node,
@@ -80,12 +85,11 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final Paint borderPaint = Paint();
-    borderPaint.color = Colors.white;
-    borderPaint.style = PaintingStyle.stroke;
-    borderPaint.strokeWidth = 3;
-
-    canvas.drawHexagon(size: size, borderPaint: borderPaint);
+    canvas.drawHexagon(
+      center: size / 2,
+      size: size * 0.97,
+      borderPaint: backgroundPaint,
+    );
 
     canvas.drawText(
       text: node.location.toString(),

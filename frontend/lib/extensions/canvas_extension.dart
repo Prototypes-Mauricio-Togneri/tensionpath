@@ -44,11 +44,12 @@ extension CanvasExtension on Canvas {
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
 
   void drawHexagon({
+    required Vector2 center,
     required Vector2 size,
     Paint? fillPaint,
     Paint? borderPaint,
   }) {
-    final Path hexagonPath = _createHexagonPath(size);
+    final Path hexagonPath = _createHexagonPath(center: center, size: size);
 
     if (fillPaint != null) {
       drawPath(hexagonPath, fillPaint);
@@ -59,18 +60,14 @@ extension CanvasExtension on Canvas {
     }
   }
 
-  Path _createHexagonPath(Vector2 size) {
+  Path _createHexagonPath({required Vector2 center, required Vector2 size}) {
     final Path path = Path();
-    final double width = size.x;
-    final double height = size.y;
-    final double centerX = width / 2;
-    final double centerY = height / 2;
-    final double radius = width / 2;
+    final double radius = size.x / 2;
 
     for (int i = 0; i < 6; i++) {
       final double angle = (pi / 3) * i;
-      final double x = centerX + radius * cos(angle);
-      final double y = centerY + radius * sin(angle);
+      final double x = center.x + radius * cos(angle);
+      final double y = center.y + radius * sin(angle);
 
       if (i == 0) {
         path.moveTo(x, y);
