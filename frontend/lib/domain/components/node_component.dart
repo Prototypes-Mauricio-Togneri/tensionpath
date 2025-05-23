@@ -95,7 +95,7 @@ class NodeComponent<N extends Node> extends PositionComponent
       text: node.location.toString(),
       color: Colors.white,
       position: size / 2,
-      size: size.x / 4,
+      size: size.x / 6,
     );
   }
 }
