@@ -59,23 +59,24 @@ class Dimensions {
 
   //----------------------------------------------------------------------------
 
+  static double get hexagonWidthHeightRatio => sqrt(3) / 2;
+
   static Vector2 maxNodeSizeWidth({
     required Vector2 size,
     required Battlefield battlefield,
   }) {
-    final double maxWidth = size.x / battlefield.size.width;
+    final double maxWidth = size.x / (battlefield.size.width * 3 / 4);
 
-    return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
+    return Vector2(maxWidth, maxWidth * hexagonWidthHeightRatio);
   }
 
   static Vector2 maxNodeSizeHeight({
     required Vector2 size,
     required Battlefield battlefield,
   }) {
-    final double maxHeight =
-        size.y / ((battlefield.size.height * 3 / 4) + 0.25);
+    final double maxHeight = size.y / battlefield.size.height;
 
-    return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
+    return Vector2(maxHeight / hexagonWidthHeightRatio, maxHeight);
   }
 
   static Vector2 nodePosition({
@@ -94,12 +95,12 @@ class Dimensions {
       size: size,
       battlefield: battlefield,
     );
-    final Vector2 maxHeightWidth = maxNodeSizeHeight(
+    final Vector2 maxSizeHeight = maxNodeSizeHeight(
       size: size,
       battlefield: battlefield,
     );
 
-    return (maxSizeWidth.x > maxHeightWidth.x) ? maxHeightWidth : maxSizeWidth;
+    return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
   }
 
   static bool pointInHexagon({required Vector2 point, required Vector2 size}) {
