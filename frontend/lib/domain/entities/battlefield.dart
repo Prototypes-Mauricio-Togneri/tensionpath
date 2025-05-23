@@ -31,10 +31,9 @@ class Battlefield {
       platforms.add(
         Platform(
           platformId: platformId,
-          nodes:
-              nodePads
-                  .where((node) => node.structure?.getPlatformId == platformId)
-                  .toList(),
+          nodes: nodePads
+              .where((node) => node.structure?.getPlatformId == platformId)
+              .toList(),
         ),
       );
     }

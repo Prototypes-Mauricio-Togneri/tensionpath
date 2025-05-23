@@ -51,8 +51,9 @@ class Match {
   Player get player2 => self.isPlayer1 ? opponent : self;
 
   int get accumulatedResourcesInTurn {
-    final int elapsedSeconds =
-        DateTime.now().difference(turn.startedAt).inSeconds;
+    final int elapsedSeconds = DateTime.now()
+        .difference(turn.startedAt)
+        .inSeconds;
 
     return (elapsedSeconds * config.resourcesPerSecond).floor();
   }

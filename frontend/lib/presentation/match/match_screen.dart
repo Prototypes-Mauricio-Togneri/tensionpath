@@ -19,9 +19,8 @@ class MatchScreen extends StatelessWidget {
     return GameContainer(
       child: StateProvider<MatchState>(
         state: state,
-        builder:
-            (context, state) =>
-                state.isInitialized ? Content(state) : const Empty(),
+        builder: (context, state) =>
+            state.isInitialized ? Content(state) : const Empty(),
       ),
     );
   }
