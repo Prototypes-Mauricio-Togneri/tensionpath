@@ -31,7 +31,7 @@ class BigScreenContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final double canvasWidth = constraints.maxHeight / 2;
+        final double canvasWidth = constraints.maxHeight / 1.9;
         final double paddingWidth =
             ((constraints.maxWidth - canvasWidth) / 2) + 1;
 

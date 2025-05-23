@@ -57,28 +57,6 @@ class Dimensions {
     viewport.size.y - (viewport.size.y * 0.042),
   );
 
-  //----------------------------------------------------------------------------
-
-  static double get hexagonWidthHeightRatio => sqrt(3) / 2;
-
-  static Vector2 maxNodeSizeWidth({
-    required Vector2 size,
-    required Battlefield battlefield,
-  }) {
-    final double maxWidth = size.x / (3 / 4 * (battlefield.size.width - 1) + 1);
-
-    return Vector2(maxWidth, maxWidth * hexagonWidthHeightRatio);
-  }
-
-  static Vector2 maxNodeSizeHeight({
-    required Vector2 size,
-    required Battlefield battlefield,
-  }) {
-    final double maxHeight = size.y / battlefield.size.height;
-
-    return Vector2(maxHeight / hexagonWidthHeightRatio, maxHeight);
-  }
-
   static Vector2 nodePosition({
     required Vector2 nodeSize,
     required Location location,
@@ -93,16 +71,36 @@ class Dimensions {
     required Vector2 size,
     required Battlefield battlefield,
   }) {
-    final Vector2 maxSizeWidth = maxNodeSizeWidth(
+    final Vector2 maxSizeWidth = _maxNodeSizeWidth(
       size: size,
       battlefield: battlefield,
     );
-    final Vector2 maxSizeHeight = maxNodeSizeHeight(
+    final Vector2 maxSizeHeight = _maxNodeSizeHeight(
       size: size,
       battlefield: battlefield,
     );
 
     return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
+  }
+
+  static double get hexagonWidthHeightRatio => sqrt(3) / 2;
+
+  static Vector2 _maxNodeSizeWidth({
+    required Vector2 size,
+    required Battlefield battlefield,
+  }) {
+    final double maxWidth = size.x / (3 / 4 * (battlefield.size.width - 1) + 1);
+
+    return Vector2(maxWidth, maxWidth * hexagonWidthHeightRatio);
+  }
+
+  static Vector2 _maxNodeSizeHeight({
+    required Vector2 size,
+    required Battlefield battlefield,
+  }) {
+    final double maxHeight = size.y / battlefield.size.height;
+
+    return Vector2(maxHeight / hexagonWidthHeightRatio, maxHeight);
   }
 
   static bool pointInHexagon({required Vector2 point, required Vector2 size}) {
