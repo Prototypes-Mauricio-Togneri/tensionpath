@@ -65,7 +65,7 @@ class Dimensions {
     required Vector2 size,
     required Battlefield battlefield,
   }) {
-    final double maxWidth = size.x / (battlefield.size.width * 3 / 4);
+    final double maxWidth = size.x / (battlefield.size.width * (2 / 3));
 
     return Vector2(maxWidth, maxWidth * hexagonWidthHeightRatio);
   }
@@ -82,10 +82,13 @@ class Dimensions {
   static Vector2 nodePosition({
     required Vector2 nodeSize,
     required Location location,
-  }) => Vector2(
-    nodeSize.x * 0.75 * location.x,
-    nodeSize.y * ((location.x / 2.4) + location.y * 0.85),
-  );
+  }) {
+    final double x = location.x * (2 / 3);
+    final double y =
+        (location.x / 2.3) + (location.y * hexagonWidthHeightRatio);
+
+    return Vector2(x * nodeSize.x, y * nodeSize.y);
+  }
 
   static Vector2 nodeSize({
     required Vector2 size,
