@@ -25,10 +25,7 @@ class BattlefieldComponent extends PositionComponent {
       BattlefieldGridComponent(
         battlefield: battlefield,
         position: Dimensions.battlefildGridPosition(size),
-        size: Dimensions.battlefildGridSize(
-          size: size,
-          battlefield: battlefield,
-        ),
+        size: Dimensions.battlefildGridSize(size),
         nodeComponents: nodeComponents,
       ),
     );
@@ -95,15 +92,5 @@ class BattlefieldGridComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paintBackground);
-
-    final double gap = size.x / battlefield.size.width;
-
-    for (int i = 1; i < battlefield.size.width; i++) {
-      canvas.drawLine(Offset(i * gap, 0), Offset(i * gap, size.y), paintGrid);
-    }
-
-    for (int j = 1; j < battlefield.size.height; j++) {
-      canvas.drawLine(Offset(0, j * gap), Offset(size.x, j * gap), paintGrid);
-    }
   }
 }
