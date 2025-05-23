@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
+import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -11,7 +12,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
   final N node;
   UnitsComponent? _unitsComponent;
-  //StructureComponent? _structureComponent;
+  StructureComponent? _structureComponent;
   //FogComponent? _fogComponent;
 
   NodeComponent({
@@ -29,7 +30,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void reconfigure() {
-    /*if (node.hasStructure && (_structureComponent == null)) {
+    if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         node: node,
         position: size / 2,
@@ -39,7 +40,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     } else if (!node.hasStructure && (_structureComponent != null)) {
       remove(_structureComponent!);
       _structureComponent = null;
-    }*/
+    }
 
     if (node.isRevealed) {
       /*if (_fogComponent != null) {
