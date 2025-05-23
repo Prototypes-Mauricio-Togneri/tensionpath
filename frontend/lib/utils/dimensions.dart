@@ -50,7 +50,7 @@ class Dimensions {
 
   static Vector2 battlefildGridPosition(Vector2 size) => size / 2;
 
-  static Vector2 battlefildGridSize(Vector2 size) => size;
+  static Vector2 battlefildGridSize(Vector2 size) => size * 0.95;
 
   static Vector2 fpsPosition(Viewport viewport) => Vector2(
     viewport.size.x - (viewport.size.x * 0.078),
@@ -83,10 +83,8 @@ class Dimensions {
     required Vector2 nodeSize,
     required Location location,
   }) {
-    final double x = location.x * (2 / 3);
-    final double y =
-        (location.x * (nodeSize.y / nodeSize.x / 2)) +
-        (location.y * hexagonWidthHeightRatio);
+    final double x = location.x * (3 / 4);
+    final double y = (location.x / 2) + location.y;
 
     return Vector2(x * nodeSize.x, y * nodeSize.y);
   }

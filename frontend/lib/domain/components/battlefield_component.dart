@@ -11,6 +11,10 @@ import 'package:tensionpath/utils/palette.dart';
 class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
   final List<NodeComponent> nodeComponents;
+  final Paint paintBackground = Palette.paint(
+    color: const Color(0xff444444),
+    style: PaintingStyle.fill,
+  );
 
   BattlefieldComponent({
     required this.battlefield,
@@ -32,15 +36,18 @@ class BattlefieldComponent extends PositionComponent {
 
     return super.onLoad();
   }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paintBackground);
+  }
 }
 
 class BattlefieldGridComponent extends PositionComponent {
   final Battlefield battlefield;
   final List<NodeComponent> nodeComponents;
-  final Paint paintBackground = Palette.paint(
-    color: const Color(0xff444444),
-    style: PaintingStyle.fill,
-  );
 
   BattlefieldGridComponent({
     required this.battlefield,
@@ -78,12 +85,5 @@ class BattlefieldGridComponent extends PositionComponent {
     }
 
     return super.onLoad();
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paintBackground);
   }
 }
