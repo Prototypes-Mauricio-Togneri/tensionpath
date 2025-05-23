@@ -85,7 +85,8 @@ class Dimensions {
   }) {
     final double x = location.x * (2 / 3);
     final double y =
-        (location.x / 2.3) + (location.y * hexagonWidthHeightRatio);
+        (location.x * (nodeSize.y / nodeSize.x / 2)) +
+        (location.y * hexagonWidthHeightRatio);
 
     return Vector2(x * nodeSize.x, y * nodeSize.y);
   }
