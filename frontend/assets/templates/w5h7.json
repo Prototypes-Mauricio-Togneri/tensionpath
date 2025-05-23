@@ -77,12 +77,20 @@
             {
                 "x": -1,
                 "y": 1,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "pad",
+                    "platformId": "1"
+                }
             },
             {
                 "x": -1,
                 "y": 0,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "pad",
+                    "platformId": "1"
+                }
             },
             {
                 "x": 0,
@@ -132,7 +140,11 @@
             {
                 "x": -2,
                 "y": 1,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "pad",
+                    "platformId": "1"
+                }
             },
             {
                 "x": -2,
