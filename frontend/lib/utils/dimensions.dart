@@ -65,7 +65,7 @@ class Dimensions {
     required Vector2 size,
     required Battlefield battlefield,
   }) {
-    final double maxWidth = size.x / (battlefield.size.width * (2 / 3));
+    final double maxWidth = size.x / (3 / 4 * (battlefield.size.width - 1) + 1);
 
     return Vector2(maxWidth, maxWidth * hexagonWidthHeightRatio);
   }

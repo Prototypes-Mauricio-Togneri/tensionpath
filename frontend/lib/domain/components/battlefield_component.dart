@@ -76,7 +76,7 @@ class BattlefieldGridComponent extends PositionComponent {
                 location: node.location,
               ) +
               center,
-          size: Vector2(nodeSize.x - gap, nodeSize.y - gap),
+          size: nodeSize,
         );
         existingNodes.add(node.id);
         nodeComponents.add(nodeComponent);
