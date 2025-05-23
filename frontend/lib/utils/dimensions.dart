@@ -59,8 +59,8 @@ class Dimensions {
     required Vector2 nodeSize,
     required Location location,
   }) => Vector2(
-    (nodeSize.x * location.x) + (nodeSize.x / 2),
-    (nodeSize.y * location.y) + nodeSize.y / 2,
+    nodeSize.x * 0.75 * location.x,
+    nodeSize.y * ((location.x / 2.4) + location.y * 0.85),
   );
 
   static Vector2 nodeSize({

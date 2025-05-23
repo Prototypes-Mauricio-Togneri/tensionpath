@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
@@ -41,4 +42,45 @@ extension CanvasExtension on Canvas {
     required Vector2 point,
     required Vector2 size,
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
+
+  void drawHexagon({
+    required Vector2 size,
+    Paint? fillPaint,
+    Paint? borderPaint,
+  }) {
+    final Path hexagonPath = _createHexagonPath(size);
+
+    if (fillPaint != null) {
+      drawPath(hexagonPath, fillPaint);
+    }
+
+    if (borderPaint != null) {
+      drawPath(hexagonPath, borderPaint);
+    }
+  }
+
+  Path _createHexagonPath(Vector2 size) {
+    final Path path = Path();
+    final double width = size.x;
+    final double height = size.y;
+    final double centerX = width / 2;
+    final double centerY = height / 2;
+    final double radius = min(width, height) / 2;
+
+    for (int i = 0; i < 6; i++) {
+      final double angle = (pi / 3) * i;
+      final double x = centerX + radius * cos(angle);
+      final double y = centerY + radius * sin(angle);
+
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+
+    path.close();
+
+    return path;
+  }
 }

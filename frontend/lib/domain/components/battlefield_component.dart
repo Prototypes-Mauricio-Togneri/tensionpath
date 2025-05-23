@@ -66,16 +66,19 @@ class BattlefieldGridComponent extends PositionComponent {
       battlefield: battlefield,
     );
     final Set<String> existingNodes = {};
+    final Vector2 center = size / 2;
 
     for (final Node node in battlefield.nodes) {
       if (existingNodes.contains(node.id)) {
         throw Exception('Duplicated node: ${node.id}');
       } else {
         final NodeComponent nodeComponent = node.component(
-          position: Dimensions.nodePosition(
-            nodeSize: nodeSize,
-            location: node.location,
-          ),
+          position:
+              Dimensions.nodePosition(
+                nodeSize: nodeSize,
+                location: node.location,
+              ) +
+              center,
           size: Vector2(nodeSize.x - gap, nodeSize.y - gap),
         );
         existingNodes.add(node.id);

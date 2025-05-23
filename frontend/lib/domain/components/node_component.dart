@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
   final N node;
   UnitsComponent? _unitsComponent;
-  StructureComponent? _structureComponent;
+  //StructureComponent? _structureComponent;
   //FogComponent? _fogComponent;
 
   NodeComponent({
@@ -28,7 +29,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void reconfigure() {
-    if (node.hasStructure && (_structureComponent == null)) {
+    /*if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         node: node,
         position: size / 2,
@@ -38,7 +39,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     } else if (!node.hasStructure && (_structureComponent != null)) {
       remove(_structureComponent!);
       _structureComponent = null;
-    }
+    }*/
 
     if (node.isRevealed) {
       /*if (_fogComponent != null) {
@@ -74,15 +75,22 @@ class NodeComponent<N extends Node> extends PositionComponent
     }
   }
 
-  /*@override
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
+    final Paint borderPaint = Paint();
+    borderPaint.color = Colors.white;
+    borderPaint.style = PaintingStyle.stroke;
+    borderPaint.strokeWidth = 3;
+
+    canvas.drawHexagon(size: size, borderPaint: borderPaint);
+
     canvas.drawText(
-      text: '${node.location}',
-      position: size / 2,
-      size: size.x / 8,
+      text: node.location.toString(),
       color: Colors.white,
+      position: size / 2,
+      size: size.x / 4,
     );
-  }*/
+  }
 }
