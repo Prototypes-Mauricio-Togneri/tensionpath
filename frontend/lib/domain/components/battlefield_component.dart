@@ -41,10 +41,6 @@ class BattlefieldGridComponent extends PositionComponent {
     color: const Color(0xff444444),
     style: PaintingStyle.fill,
   );
-  final Paint paintGrid = Palette.paint(
-    color: Colors.black,
-    style: PaintingStyle.stroke,
-  );
 
   BattlefieldGridComponent({
     required this.battlefield,
@@ -55,9 +51,6 @@ class BattlefieldGridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final double gap = (size.x / battlefield.size.width) / 100;
-    paintGrid.strokeWidth = gap;
-
     final Vector2 nodeSize = Dimensions.nodeSize(
       size: size,
       battlefield: battlefield,
