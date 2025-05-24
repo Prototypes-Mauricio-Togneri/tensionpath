@@ -20,7 +20,9 @@ class Location {
   }
 
   bool isStraightLine(Localizable target) {
-    return (x == target.getLocation.x) || (y == target.getLocation.y);
+    return (x == target.getLocation.x) ||
+        (y == target.getLocation.y) ||
+        (x - target.getLocation.x == target.getLocation.y - y);
   }
 
   @override
