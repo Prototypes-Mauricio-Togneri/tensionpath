@@ -21,11 +21,7 @@ class BattlefieldComponent extends PositionComponent {
     required super.position,
     required super.size,
     required this.nodeComponents,
-  }) : super(
-         anchor: Anchor.center,
-         priority: Priority.battlefield.value,
-         //angle: pi,
-       );
+  }) : super(anchor: Anchor.center, priority: Priority.battlefield.value);
 
   @override
   FutureOr onLoad() async {

@@ -55,6 +55,9 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
       final Vector2 direction = targetPosition! - (size / 2);
 
+      // If board is flipped, invert the direction
+      // direction = direction * -1;
+
       final NodeComponent? nodeComponent = match.getActionTargetAt(
         absolutePosition + direction,
       );
