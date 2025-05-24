@@ -26,7 +26,8 @@ class Palette {
 
   static const Color NODE_BACKGROUND = Color.fromARGB(255, 235, 181, 101);
 
-  static const Color UNIT_INDICATOR = Colors.white;
+  static const Color UNIT_AMOUNT_INDICATOR = Colors.white;
+  static const Color UNIT_MOVEMENT_INDICATOR = Colors.white;
 
   static const Color MISSILE_OWNER_NONE = Colors.grey;
   static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);

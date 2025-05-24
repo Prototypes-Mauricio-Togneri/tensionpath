@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -74,9 +75,19 @@ class MatchComponent extends World {
     }
   }
 
-  NodeComponent? getActionTargetAt(Vector2 position) {
+  NodeComponent? getActionTargetAtPoint(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position)) {
+        return nodeComponent;
+      }
+    }
+
+    return null;
+  }
+
+  NodeComponent? getActionTargetAtLocation(Location location) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      if (nodeComponent.node.location == location) {
         return nodeComponent;
       }
     }

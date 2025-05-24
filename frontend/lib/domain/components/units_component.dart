@@ -60,7 +60,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       // If board is flipped, invert the direction
       // direction = direction * -1;
 
-      final NodeComponent? nodeComponent = match.getActionTargetAt(
+      final NodeComponent? nodeComponent = match.getActionTargetAtPoint(
         absolutePosition + direction,
       );
 
@@ -82,18 +82,36 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
     canvas.drawText(
       text: units.amount.toString(),
-      color: Palette.UNIT_INDICATOR,
+      color: Palette.UNIT_AMOUNT_INDICATOR,
       position: size / 2,
       size: size.x / 4,
     );
+
+    if (units.moveTo != null) {
+      final NodeComponent? nodeTarget = match.getActionTargetAtLocation(
+        units.moveTo!,
+      );
+
+      if (nodeTarget != null) {
+        final Vector2 direction =
+            nodeTarget.absolutePosition - absolutePosition;
+        canvas.drawLine(
+          (size / 2).toOffset(),
+          direction.toOffset(),
+          Paint()
+            ..color = Palette.UNIT_MOVEMENT_INDICATOR
+            ..strokeWidth = size.x / 20,
+        );
+      }
+    }
 
     if (targetPosition != null) {
       canvas.drawLine(
         (size / 2).toOffset(),
         targetPosition!.toOffset(),
         Paint()
-          ..color = Colors.white
-          ..strokeWidth = 2.0,
+          ..color = Palette.UNIT_MOVEMENT_INDICATOR
+          ..strokeWidth = size.x / 20,
       );
     }
   }
