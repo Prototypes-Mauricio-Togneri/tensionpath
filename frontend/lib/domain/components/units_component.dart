@@ -93,24 +93,22 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       if (nodeTarget != null) {
         final Vector2 direction =
             nodeTarget.absolutePosition - absolutePosition + (size / 2);
-        canvas.drawLine(
-          (size / 2).toOffset(),
-          direction.toOffset(),
-          Paint()
-            ..color = Palette.UNIT_MOVEMENT_INDICATOR
-            ..strokeWidth = size.x / 20,
-        );
+        _lineTo(canvas: canvas, target: direction);
       }
     }
 
     if (targetPosition != null) {
-      canvas.drawLine(
-        (size / 2).toOffset(),
-        targetPosition!.toOffset(),
-        Paint()
-          ..color = Palette.UNIT_MOVEMENT_INDICATOR
-          ..strokeWidth = size.x / 20,
-      );
+      _lineTo(canvas: canvas, target: targetPosition!);
     }
+  }
+
+  void _lineTo({required Canvas canvas, required Vector2 target}) {
+    canvas.drawLine(
+      (size / 2).toOffset(),
+      target.toOffset(),
+      Paint()
+        ..color = Palette.UNIT_MOVEMENT_INDICATOR
+        ..strokeWidth = size.x / 20,
+    );
   }
 }
