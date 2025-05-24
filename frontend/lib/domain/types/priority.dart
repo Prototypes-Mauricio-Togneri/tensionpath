@@ -4,9 +4,8 @@ enum Priority {
   structure(2),
   unit(3),
   fog(4),
-  damage(5),
-  header(6),
-  controls(7);
+  header(5),
+  controls(6);
 
   final int value;
 
