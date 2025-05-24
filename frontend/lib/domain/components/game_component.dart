@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame with KeyboardEvents {
   final MatchState state;
@@ -37,7 +38,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
         textRenderer: TextPaint(
           style: TextStyle(
             fontSize: camera.viewport.size.y * 0.03,
-            color: Colors.white,
+            color: Palette.DEBUG_TEXT,
           ),
         ),
       ),

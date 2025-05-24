@@ -16,7 +16,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   StructureComponent? _structureComponent;
   //FogComponent? _fogComponent;
   final Paint backgroundPaint = Palette.paint(
-    color: Colors.grey,
+    color: Palette.NODE_BACKGROUND,
     style: PaintingStyle.fill,
   );
 
@@ -93,7 +93,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
     canvas.drawText(
       text: node.location.toString(),
-      color: Colors.white,
+      color: Palette.DEBUG_TEXT,
       position: size / 2,
       size: size.x / 6,
     );
