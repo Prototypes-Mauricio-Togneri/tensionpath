@@ -52,10 +52,11 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
   void onDragEnd(DragEndEvent event) {
     if (units.player.isSelf && match.match.hasActiveTurn) {
       super.onDragEnd(event);
-      targetPosition = null;
+
+      final Vector2 direction = targetPosition! - (size / 2);
 
       final NodeComponent? nodeComponent = match.getActionTargetAt(
-        absolutePosition,
+        absolutePosition + direction,
       );
 
       if ((nodeComponent != null) && (nodeComponent.node != node)) {
@@ -64,6 +65,8 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
           nodeTarget: nodeComponent.node,
         );
       }
+
+      targetPosition = null;
     }
   }
 

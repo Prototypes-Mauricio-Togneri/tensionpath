@@ -100,8 +100,17 @@ class NodeComponent<N extends Node> extends PositionComponent
       canvas.drawText(
         text: node.location.toString(),
         color: Palette.DEBUG_TEXT,
-        position: size / 2,
-        size: size.x / 6,
+        position: Vector2(size.x / 2, size.y / 3),
+        size: size.x / 7,
+      );
+
+      canvas.drawText(
+        text:
+            '${absolutePosition.x.toInt()}, '
+            '${absolutePosition.y.toInt()}',
+        color: Palette.DEBUG_TEXT,
+        position: Vector2(size.x / 2, size.y / 2),
+        size: size.x / 7,
       );
     }
   }
