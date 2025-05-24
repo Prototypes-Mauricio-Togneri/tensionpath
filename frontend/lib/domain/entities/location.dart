@@ -16,7 +16,7 @@ class Location {
             (y - location.y).abs()) /
         2;
 
-    return distance.toInt();
+    return distance.toInt().abs();
   }
 
   @override

@@ -96,11 +96,11 @@ class Match {
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
-  bool _canMoveUnit(Node node) =>
+  bool _canMoveUnit({required Node node, required int cost}) =>
       hasActiveTurn &&
       node.hasUnits &&
       node.units!.belongsTo(self) &&
-      (self.resources >= Constants.COST_MOVE_UNIT);
+      (self.resources >= cost);
 
   void onDeployUnit(Node nodeTarget) {
     if (_canDeployUnit(nodeTarget)) {
@@ -112,8 +112,11 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (_canMoveUnit(nodeOrigin)) {
-      self.spendResources(Constants.COST_MOVE_UNIT);
+    final int distance = nodeTarget.distance(nodeOrigin);
+    final int cost = distance * Constants.COST_MOVE_UNIT;
+
+    if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
+      self.spendResources(cost);
       actions.add(
         ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
       );
