@@ -75,7 +75,7 @@ class MatchComponent extends World {
     }
   }
 
-  NodeComponent? getActionTargetAtPoint(Vector2 position) {
+  NodeComponent? getNodeAtPosition(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position)) {
         return nodeComponent;
@@ -85,7 +85,7 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getActionTargetAtLocation(Location location) {
+  NodeComponent? getNodeAtLocation(Location location) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.node.location == location) {
         return nodeComponent;
