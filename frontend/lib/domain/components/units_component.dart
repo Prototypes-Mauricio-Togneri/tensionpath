@@ -19,14 +19,14 @@ class UnitsComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.unit.value) {
-    paintOutter.color = units.player.color.darken(0.5);
+    paintOutter.color = units.player.color.brighten(0.5);
     paintInner.color = units.player.color;
   }
 
   @override
   void render(Canvas canvas) {
     canvas.drawCircle((size / 2).toOffset(), size.x / 3, paintOutter);
-    canvas.drawCircle((size / 2).toOffset(), size.x / 3.2, paintInner);
+    canvas.drawCircle((size / 2).toOffset(), size.x / 3.5, paintInner);
 
     canvas.drawText(
       text: units.amount.toString(),
