@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -53,33 +54,16 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       super.onDragEnd(event);
       targetPosition = null;
 
-      /*final NodeComponent? nodeComponent = match.getActionTargetAt(
-        position: absolutePosition,
-        unit: unit,
+      final NodeComponent? nodeComponent = match.getActionTargetAt(
+        absolutePosition,
       );
 
-      if (nodeComponent != null) {
-        if (nodeComponent.node.isMovementTarget(unit)) {
-          match.match.onMoveUnit(
-            unit: unit,
-            nodeOrigin: node,
-            nodeTarget: nodeComponent.node,
-          );
-        } else if (nodeComponent.node.isAttackUnitTarget(unit)) {
-          match.match.onAttackUnit(
-            unitAttacker: unit,
-            unitDefender: nodeComponent.node.unit!,
-          );
-          position = targetPosition;
-        } else if (nodeComponent.node.isAttackBaseTarget(unit)) {
-          match.match.onAttackBase(unit: unit, node: nodeComponent.node);
-          position = targetPosition;
-        } else {
-          position = targetPosition;
-        }
-      } else {
-        position = targetPosition;
-      }*/
+      if ((nodeComponent != null) && (nodeComponent.node != node)) {
+        match.match.onMoveUnit(
+          nodeOrigin: node,
+          nodeTarget: nodeComponent.node,
+        );
+      }
     }
   }
 

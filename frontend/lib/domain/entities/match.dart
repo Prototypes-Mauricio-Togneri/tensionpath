@@ -3,6 +3,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -94,6 +95,9 @@ class Match {
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
+  bool get _canMoveUnit =>
+      hasActiveTurn && (self.resources >= Constants.COST_MOVE_UNIT);
+
   void onDeployUnit(Node node) {
     if (_canDeployUnit) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
@@ -103,16 +107,16 @@ class Match {
     }
   }
 
-  /*Future onMoveUnit({
-    required Units unit,
-    required Node nodeOrigin,
-    required Node nodeTarget,
-  }) => MoveUnitCallable()(
-    match: this,
-    unit: unit,
-    nodeOrigin: nodeOrigin,
-    nodeTarget: nodeTarget,
-  );*/
+  void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
+    if (_canMoveUnit) {
+      self.spendResources(Constants.COST_MOVE_UNIT);
+      actions.add(
+        ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
+      );
+      // TODO(momo): mark unit to move
+      MatchComponentRef.instance.reconfigure();
+    }
+  }
 
   Future onEndTurn() {
     if (hasActiveTurn) {

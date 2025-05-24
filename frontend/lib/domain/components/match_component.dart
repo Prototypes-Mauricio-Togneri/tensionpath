@@ -74,19 +74,15 @@ class MatchComponent extends World {
     }
   }
 
-  /*NodeComponent? getActionTargetAt({
-    required Vector2 position,
-    required Units unit,
-  }) {
+  NodeComponent? getActionTargetAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) &&
-          nodeComponent.node.isMovementTarget(unit)) {
+      if (nodeComponent.containsPoint(position)) {
         return nodeComponent;
       }
     }
 
     return null;
-  }*/
+  }
 }
 
 mixin MatchComponentRef {
