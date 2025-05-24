@@ -96,6 +96,7 @@ class Match {
 
   void onDeployUnit(Node node) {
     if (_canDeployUnit) {
+      self.spendResources(Constants.COST_DEPLOY_UNIT);
       actions.add(ActionDeployUnit(node: node));
       node.addUnit(self);
       MatchComponentRef.instance.reconfigure();

@@ -36,6 +36,12 @@ class Player {
 
   bool hasResources(int value) => resources >= value;
 
+  void spendResources(int value) {
+    if (hasResources(value)) {
+      _resources -= value;
+    }
+  }
+
   void replaceWith(Player newPlayer) {
     _baseHealth = newPlayer.baseHealth;
     _resources = newPlayer.resources;
