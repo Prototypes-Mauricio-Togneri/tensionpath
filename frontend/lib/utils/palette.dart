@@ -6,6 +6,8 @@ class Palette {
 
   static const Color GAME_BACKGROUND = Colors.black;
 
+  static const Color SNACK_BACKGROUND = Colors.red;
+
   static const Color DEBUG_TEXT = Colors.white;
 
   static const Color PLAYER_1 = Color(0xff2479ae);

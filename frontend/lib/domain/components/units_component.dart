@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units.dart';
@@ -71,7 +72,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
             nodeTarget: nodeComponent.node,
           );
         } else {
-          print('Not straight line');
+          GameComponentRef.instance.onNotStraightLineMove();
         }
       }
 

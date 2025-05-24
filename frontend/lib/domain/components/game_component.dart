@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
+import 'package:tensionpath/presentation/snackbar.dart/custom_snackbar.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -56,6 +57,8 @@ class GameComponent extends FlameGame with KeyboardEvents {
 
     super.onRemove();
   }
+
+  void onNotStraightLineMove() => CustomSnackbar.notStraightLineMove();
 
   void onMatchFinished(bool won) {
     if (won) {
