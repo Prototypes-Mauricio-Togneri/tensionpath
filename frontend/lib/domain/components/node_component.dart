@@ -90,7 +90,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (_structureComponent == null) {
+    if ((_structureComponent == null) && (_unitsComponent == null)) {
       canvas.drawHexagon(
         center: size / 2,
         size: size * 0.97,
