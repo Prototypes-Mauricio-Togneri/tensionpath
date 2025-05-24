@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
@@ -80,6 +81,10 @@ class NodeComponent<N extends Node> extends PositionComponent
       }*/
     }
   }
+
+  @override
+  bool containsLocalPoint(Vector2 point) =>
+      Dimensions.pointInHexagon(point: point, size: size);
 
   @override
   void render(Canvas canvas) {

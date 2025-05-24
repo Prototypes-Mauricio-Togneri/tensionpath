@@ -38,10 +38,7 @@ class Dimensions {
   static Vector2 controlsEndTurnSize(Vector2 size) =>
       Vector2(size.x / 4, size.y * 0.8);
 
-  static Vector2 battlefieldPosition(Size resolution) => Vector2(
-    -resolution.width / 2,
-    (-resolution.height / 2) + headerSize(resolution).y,
-  );
+  static Vector2 battlefieldPosition(Size resolution) => Vector2(0, 0);
 
   static Vector2 battlefieldSize(Size resolution) => Vector2(
     resolution.width,
