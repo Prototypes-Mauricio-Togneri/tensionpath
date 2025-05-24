@@ -117,6 +117,7 @@ class Match {
 
     if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
       self.spendResources(cost);
+      _removeMoveActions(nodeOrigin);
       actions.add(
         ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
       );
@@ -134,4 +135,8 @@ class Match {
   }
 
   Future onOpponentEndTurn() => EndTurnOpponentCallable()(this);
+
+  void _removeMoveActions(Node nodeOrigin) => actions.removeWhere(
+    (action) => (action is ActionMoveUnit) && (action.nodeOrigin == nodeOrigin),
+  );
 }
