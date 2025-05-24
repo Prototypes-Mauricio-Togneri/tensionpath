@@ -102,11 +102,11 @@ class Match {
       node.units!.belongsTo(self) &&
       (self.resources >= Constants.COST_MOVE_UNIT);
 
-  void onDeployUnit(Node node) {
-    if (_canDeployUnit(node)) {
+  void onDeployUnit(Node nodeTarget) {
+    if (_canDeployUnit(nodeTarget)) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
-      actions.add(ActionDeployUnit(node: node));
-      node.addUnit(self);
+      actions.add(ActionDeployUnit(node: nodeTarget));
+      nodeTarget.addUnit(self);
       MatchComponentRef.instance.reconfigure();
     }
   }

@@ -28,13 +28,15 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     paintInner.color = units.player.color;
   }
 
+  bool get _canDrag => units.player.isSelf && match.match.hasActiveTurn;
+
   @override
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
   @override
   void onDragStart(DragStartEvent event) {
-    if (units.player.isSelf && match.match.hasActiveTurn) {
+    if (_canDrag) {
       super.onDragStart(event);
 
       targetPosition = Vector2.copy(event.localPosition);
@@ -43,14 +45,14 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    if (units.player.isSelf && match.match.hasActiveTurn) {
+    if (_canDrag) {
       targetPosition!.add(event.localDelta);
     }
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
-    if (units.player.isSelf && match.match.hasActiveTurn) {
+    if (_canDrag) {
       super.onDragEnd(event);
 
       final Vector2 direction = targetPosition! - (size / 2);
