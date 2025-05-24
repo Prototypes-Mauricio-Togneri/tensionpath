@@ -90,17 +90,19 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawHexagon(
-      center: size / 2,
-      size: size * 0.97,
-      borderPaint: backgroundPaint,
-    );
+    if (_structureComponent == null) {
+      canvas.drawHexagon(
+        center: size / 2,
+        size: size * 0.97,
+        borderPaint: backgroundPaint,
+      );
 
-    canvas.drawText(
-      text: node.location.toString(),
-      color: Palette.DEBUG_TEXT,
-      position: size / 2,
-      size: size.x / 6,
-    );
+      canvas.drawText(
+        text: node.location.toString(),
+        color: Palette.DEBUG_TEXT,
+        position: size / 2,
+        size: size.x / 6,
+      );
+    }
   }
 }
