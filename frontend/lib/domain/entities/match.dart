@@ -12,6 +12,7 @@ import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
+import 'package:tensionpath/presentation/snackbar.dart/custom_snackbar.dart';
 
 class Match {
   final String id;
@@ -112,17 +113,26 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    final int distance = nodeTarget.distance(nodeOrigin);
-    final int cost = distance * Constants.COST_MOVE_UNIT;
+    if (nodeOrigin.location.isStraightLine(nodeTarget)) {
+      final int distance = nodeTarget.distance(nodeOrigin);
 
-    if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
-      self.spendResources(cost);
-      _removeMoveActions(nodeOrigin);
-      actions.add(
-        ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
-      );
-      nodeOrigin.moveUnit(nodeTarget);
-      MatchComponentRef.instance.reconfigure();
+      if (distance <= Constants.UNITS_MAX_MOVEMENT) {
+        final int cost = distance * Constants.COST_MOVE_UNIT;
+
+        if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
+          self.spendResources(cost);
+          _removeMoveActions(nodeOrigin);
+          actions.add(
+            ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
+          );
+          nodeOrigin.moveUnit(nodeTarget);
+          MatchComponentRef.instance.reconfigure();
+        }
+      } else {
+        CustomSnackbar.movementDistanceTooBig();
+      }
+    } else {
+      CustomSnackbar.notStraightLineMove();
     }
   }
 
