@@ -90,16 +90,20 @@ class Match {
     MatchComponentRef.instance.onMatchUpdated(this);
   }
 
-  bool get _canDeployUnit =>
+  bool _canDeployUnit(Node node) =>
       hasActiveTurn &&
+      node.belongsTo(self) &&
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
-  bool get _canMoveUnit =>
-      hasActiveTurn && (self.resources >= Constants.COST_MOVE_UNIT);
+  bool _canMoveUnit(Node node) =>
+      hasActiveTurn &&
+      node.hasUnits &&
+      node.units!.belongsTo(self) &&
+      (self.resources >= Constants.COST_MOVE_UNIT);
 
   void onDeployUnit(Node node) {
-    if (_canDeployUnit) {
+    if (_canDeployUnit(node)) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
       actions.add(ActionDeployUnit(node: node));
       node.addUnit(self);
@@ -108,12 +112,12 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (_canMoveUnit) {
+    if (_canMoveUnit(nodeOrigin)) {
       self.spendResources(Constants.COST_MOVE_UNIT);
       actions.add(
         ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
       );
-      // TODO(momo): mark unit to move
+      nodeOrigin.moveUnit(nodeTarget);
       MatchComponentRef.instance.reconfigure();
     }
   }

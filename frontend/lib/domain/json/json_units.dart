@@ -13,13 +13,27 @@ class JsonUnits {
   @JsonKey(name: 'amount')
   final int amount;
 
-  const JsonUnits({required this.player, required this.amount});
+  @JsonKey(name: 'moveToX')
+  final int? moveToX;
+
+  @JsonKey(name: 'moveToY')
+  final int? moveToY;
+
+  const JsonUnits({
+    required this.player,
+    required this.amount,
+    required this.moveToX,
+    required this.moveToY,
+  });
 
   Units object({required Location location, required List<Player> players}) =>
       Units(
         player: Player.playerById(id: player, players: players)!,
         amount: amount,
         location: location,
+        moveTo: ((moveToX != null) && (moveToY != null))
+            ? Location(x: moveToX!, y: moveToY!)
+            : null,
       );
 
   factory JsonUnits.fromJson(Map<String, dynamic> json) =>
