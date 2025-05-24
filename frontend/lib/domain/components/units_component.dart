@@ -92,7 +92,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
       if (nodeTarget != null) {
         final Vector2 direction =
-            nodeTarget.absolutePosition - absolutePosition;
+            nodeTarget.absolutePosition - absolutePosition + (size / 2);
         canvas.drawLine(
           (size / 2).toOffset(),
           direction.toOffset(),
