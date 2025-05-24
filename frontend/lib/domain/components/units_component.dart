@@ -111,7 +111,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     final Vector2 origin = _moveTowards(
       origin: size / 2,
       target: target,
-      distance: size.x / 3.5,
+      distance: size.x / 3,
     );
 
     canvas.drawLine(
