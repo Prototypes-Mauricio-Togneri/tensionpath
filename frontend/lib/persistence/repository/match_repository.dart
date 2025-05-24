@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/json/json_event.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/utils/error_handler.dart';
@@ -22,12 +21,7 @@ class MatchRepository {
     }
   }, onError: ErrorHandler.process);
 
-  static Future update({required JsonMatch json, required JsonEvent event}) {
-    final Map<String, dynamic> data = json.toJson();
-    data['events'] = FieldValue.arrayUnion([event.toJson()]);
-
-    return _ref(json.id).update(data);
-  }
+  static Future update(JsonMatch json) => _ref(json.id).update(json.toJson());
 
   static Future load({
     required String matchId,

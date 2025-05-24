@@ -20,10 +20,27 @@ import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/extensions/size_extension.dart';*/
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/config.dart';
+import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
+import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/structures/structure.dart';
+import 'package:tensionpath/domain/entities/turn.dart';
+import 'package:tensionpath/domain/entities/units.dart';
+import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_config.dart';
+import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/json_missile.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_structure.dart';
+import 'package:tensionpath/domain/json/json_turn.dart';
+import 'package:tensionpath/domain/json/json_units.dart';
+import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
-  /*static const int FUEL_PATCH_DAMAGE = 20;
-
   // ================================= PLAYER =================================
 
   static JsonPlayer playerToJson(Player player) => JsonPlayer(
@@ -57,7 +74,7 @@ class JsonUtils {
     platforms: missile.numberOfPlatforms,
   );
 
-  static JsonMissile missileNextTurn(Missile missile) {
+  /*static JsonMissile missileNextTurn(Missile missile) {
     if (_missileFull(missile)) {
       return JsonMissile(
         charge: 0,
@@ -278,11 +295,26 @@ class JsonUtils {
         size: battlefield.size.toJsonSize(),
         missile: missileToJson(battlefield.missile),
         nodes: battlefield.nodes.map(nodeToJson).toList(),
-      );
+      );*/
+
+  static JsonBattlefield battlefieldWithActions(Battlefield battlefield) {
+    final List<JsonNode> jsonNodes = [];
+
+    for (final Node node in battlefield.nodes) {
+      jsonNodes.add(nodeToJson(node));
+    }
+
+    return JsonBattlefield(
+      id: battlefield.id,
+      size: battlefield.size.toJsonSize(),
+      missile: missileToJson(battlefield.missile),
+      nodes: jsonNodes,
+    );
+  }
 
   // ================================= NODE ===================================
 
-  static JsonNode nodeUnitDeployed({required Node node, required Unit unit}) =>
+  /*static JsonNode nodeUnitDeployed({required Node node, required Unit unit}) =>
       JsonNode(
         x: node.location.x,
         y: node.location.y,
@@ -339,19 +371,19 @@ class JsonUtils {
     type: node.type,
     unit: unitReset(node: node, unit: node.unit),
     structure: structureToJson(node.structure),
-  );
+  );*/
 
   static JsonNode nodeToJson(Node node) => JsonNode(
     x: node.location.x,
     y: node.location.y,
     type: node.type,
-    unit: unitToJson(node.unit),
+    unit: unitToJson(node.units),
     structure: structureToJson(node.structure),
   );
 
   // ================================= UNIT ====================================
 
-  static JsonUnits unitMoved({required Unit unit, required int distance}) =>
+  /*static JsonUnits unitMoved({required Unit unit, required int distance}) =>
       JsonUnits(
         type: unit.type,
         health: unit.health,
@@ -396,16 +428,15 @@ class JsonUtils {
     } else {
       return null;
     }
-  }
+  }*/
 
-  static JsonUnits? unitToJson(Unit? unit) {
-    if (unit != null) {
+  static JsonUnits? unitToJson(Units? units) {
+    if (units != null) {
       return JsonUnits(
-        type: unit.type,
-        health: unit.health,
-        remainingMoves: unit.remainingMoves,
-        remainingAttacks: unit.remainingAttacks,
-        player: unit.player.id,
+        player: units.player.id,
+        amount: units.amount,
+        moveToX: units.moveTo?.x,
+        moveToY: units.moveTo?.y,
       );
     } else {
       return null;
@@ -444,6 +475,17 @@ class JsonUtils {
     player2EndedTurnAt: DateTime.now(),
   );
 
+  static JsonTurn endTurn({
+    required Turn turn,
+    required DateTime? player1EndedTurnAt,
+    required DateTime? player2EndedTurnAt,
+  }) => JsonTurn(
+    turn: turn.turn,
+    startedAt: turn.startedAt,
+    player1EndedTurnAt: player1EndedTurnAt ?? turn.player1EndedTurnAt,
+    player2EndedTurnAt: player2EndedTurnAt ?? turn.player2EndedTurnAt,
+  );
+
   static JsonTurn nextTurn({required Turn turn, required String player}) =>
       JsonTurn(
         turn: turn.turn + 1,
@@ -454,7 +496,7 @@ class JsonUtils {
 
   // ================================= MATCH ===================================
 
-  static JsonMatch matchDeployUnit({
+  /*static JsonMatch matchDeployUnit({
     required Match match,
     required Unit unit,
     required Node node,
@@ -582,38 +624,25 @@ class JsonUtils {
       ),
     ],
     battlefield: battlefieldNexTurn(match.battlefield),
-  );
+  );*/
 
   static JsonMatch endTurnOpponent(Match match) {
     return JsonMatch(
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
-      turn: nextTurn(turn: match.turn, player: match.self.id),
+      turn: endTurn(
+        turn: match.turn,
+        player1EndedTurnAt: match.self.isPlayer2 ? DateTime.now() : null,
+        player2EndedTurnAt: match.self.isPlayer1 ? DateTime.now() : null,
+      ),
       config: configToJson(match.config),
-      players: [
-        playerUpdate(
-          player: match.opponent,
-          resourcesChange: 0,
-          healthChange: _missileHit(
-            player: match.opponent,
-            missile: match.battlefield.missile,
-          ),
-        ),
-        playerUpdate(
-          player: match.self,
-          resourcesChange: _newResources(player: match.self, match: match),
-          healthChange: _missileHit(
-            player: match.self,
-            missile: match.battlefield.missile,
-          ),
-        ),
-      ],
-      battlefield: battlefieldNexTurn(match.battlefield),
+      players: [playerToJson(match.opponent), playerToJson(match.self)],
+      battlefield: battlefieldWithActions(match.battlefield),
     );
   }
 
-  static int _newResources({required Player player, required Match match}) =>
+  /*static int _newResources({required Player player, required Match match}) =>
       match.config.resourcesPerTurn +
       _fuelCollected(
         match: match,

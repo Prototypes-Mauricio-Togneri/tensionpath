@@ -95,6 +95,8 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
   void onTapUp(TapUpEvent event) {
     if (match.match.hasActiveTurn) {
       match.match.onEndTurn();
+    } else {
+      match.match.onOpponentEndTurn();
     }
   }
 
