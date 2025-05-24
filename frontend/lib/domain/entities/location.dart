@@ -19,6 +19,10 @@ class Location {
     return distance.toInt().abs();
   }
 
+  bool isStraightLine(Localizable target) {
+    return (x == target.getLocation.x) || (y == target.getLocation.y);
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {

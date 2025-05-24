@@ -65,10 +65,14 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       );
 
       if ((nodeComponent != null) && (nodeComponent.node != node)) {
-        match.match.onMoveUnit(
-          nodeOrigin: node,
-          nodeTarget: nodeComponent.node,
-        );
+        if (node.location.isStraightLine(nodeComponent.node)) {
+          match.match.onMoveUnit(
+            nodeOrigin: node,
+            nodeTarget: nodeComponent.node,
+          );
+        } else {
+          print('Not straight line');
+        }
       }
 
       targetPosition = null;
