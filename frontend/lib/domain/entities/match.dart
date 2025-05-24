@@ -99,8 +99,6 @@ class Match {
       actions.add(ActionDeployUnit(node: node));
       node.addUnit(self);
       MatchComponentRef.instance.reconfigure();
-    } else {
-      throw Exception('Insufficient funds');
     }
   }
 

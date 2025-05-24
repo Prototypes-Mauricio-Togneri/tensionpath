@@ -27,9 +27,5 @@ class StructureLauncherComponent extends StructureComponent<StructureLauncher>
   }
 
   @override
-  void onTapUp(TapUpEvent event) {
-    if (match.match.hasActiveTurn) {
-      match.match.onDeployUnit(node);
-    }
-  }
+  void onTapUp(TapUpEvent event) => match.match.onDeployUnit(node);
 }
