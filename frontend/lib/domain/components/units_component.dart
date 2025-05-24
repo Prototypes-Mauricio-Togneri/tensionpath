@@ -103,12 +103,32 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
   }
 
   void _lineTo({required Canvas canvas, required Vector2 target}) {
+    final Vector2 origin = _moveTowards(
+      origin: size / 2,
+      target: target,
+      distance: size.x / 3.5,
+    );
+
     canvas.drawLine(
-      (size / 2).toOffset(),
+      origin.toOffset(),
       target.toOffset(),
       Paint()
         ..color = Palette.UNIT_MOVEMENT_INDICATOR
         ..strokeWidth = size.x / 20,
     );
+  }
+
+  Vector2 _moveTowards({
+    required Vector2 origin,
+    required Vector2 target,
+    required double distance,
+  }) {
+    final Vector2 direction = target - origin;
+
+    if (direction.length == 0) {
+      return origin;
+    } else {
+      return origin + direction.normalized() * distance;
+    }
   }
 }
