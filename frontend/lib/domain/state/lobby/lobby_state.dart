@@ -34,7 +34,7 @@ class LobbyState extends BaseState {
       if (room.hasMatchId) {
         Navigation.matchScreen(matchId: room.matchId!, selfId: playerId);
       } else if (playerId == Constants.PLAYER_1) {
-        await CreateMatchCallable()(room: room);
+        await CreateMatchCallable()(room);
       }
     }
   }
