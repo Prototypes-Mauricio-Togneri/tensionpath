@@ -1,20 +1,29 @@
+import 'package:tensionpath/domain/types/player_status.dart';
+
 class Turn {
   int turn;
   DateTime startedAt;
-  DateTime? player1EndedTurnAt;
-  DateTime? player2EndedTurnAt;
+  TurnPlayer player1;
+  TurnPlayer player2;
 
   Turn({
     required this.turn,
     required this.startedAt,
-    required this.player1EndedTurnAt,
-    required this.player2EndedTurnAt,
+    required this.player1,
+    required this.player2,
   });
 
   void replaceWith(Turn newTurn) {
     turn = newTurn.turn;
     startedAt = newTurn.startedAt;
-    player1EndedTurnAt = newTurn.player1EndedTurnAt;
-    player2EndedTurnAt = newTurn.player2EndedTurnAt;
+    player1 = newTurn.player1;
+    player2 = newTurn.player2;
   }
+}
+
+class TurnPlayer {
+  final PlayerStatus status;
+  DateTime? turnEndedAt;
+
+  TurnPlayer({required this.status, required this.turnEndedAt});
 }

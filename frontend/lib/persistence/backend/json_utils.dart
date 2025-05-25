@@ -37,7 +37,9 @@ import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
+import 'package:tensionpath/domain/json/json_turn_player.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
+import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
@@ -468,12 +470,12 @@ class JsonUtils {
 
   // ================================= CONFIG ==================================
 
-  static JsonTurn turnToJson(Turn turn) => JsonTurn(
+  /*static JsonTurn turnToJson(Turn turn) => JsonTurn(
     turn: turn.turn,
     startedAt: turn.startedAt,
-    player1EndedTurnAt: DateTime.now(),
-    player2EndedTurnAt: DateTime.now(),
-  );
+    player1: turnPlayerToJson(turn.player1),
+    player2: turnPlayerToJson(turn.player2),
+  );*/
 
   static JsonTurn endTurn({
     required Turn turn,
@@ -482,17 +484,30 @@ class JsonUtils {
   }) => JsonTurn(
     turn: turn.turn,
     startedAt: turn.startedAt,
-    player1EndedTurnAt: player1EndedTurnAt ?? turn.player1EndedTurnAt,
-    player2EndedTurnAt: player2EndedTurnAt ?? turn.player2EndedTurnAt,
+    player1: player1EndedTurnAt != null
+        ? endTurnPlayerToJson(player1EndedTurnAt)
+        : turnPlayerToJson(turn.player1),
+    player2: player2EndedTurnAt != null
+        ? endTurnPlayerToJson(player2EndedTurnAt)
+        : turnPlayerToJson(turn.player2),
   );
 
-  static JsonTurn nextTurn({required Turn turn, required String player}) =>
+  /*static JsonTurn nextTurn({required Turn turn, required String player}) =>
       JsonTurn(
         turn: turn.turn + 1,
         startedAt: DateTime.now(),
-        player1EndedTurnAt: DateTime.now(),
-        player2EndedTurnAt: DateTime.now(),
+        player1: DateTime.now(),
+        player2: DateTime.now(),
+      );*/
+
+  static JsonTurnPlayer turnPlayerToJson(TurnPlayer turnPlayer) =>
+      JsonTurnPlayer(
+        status: turnPlayer.status,
+        turnEndedAt: turnPlayer.turnEndedAt,
       );
+
+  static JsonTurnPlayer endTurnPlayerToJson(DateTime dateTime) =>
+      JsonTurnPlayer(status: PlayerStatus.waiting, turnEndedAt: dateTime);
 
   // ================================= MATCH ===================================
 

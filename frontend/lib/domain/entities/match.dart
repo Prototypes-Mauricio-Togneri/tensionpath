@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
+import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -40,9 +41,9 @@ class Match {
 
   bool get hasActiveTurn {
     if (self.isPlayer1) {
-      return turn.player1EndedTurnAt == null;
+      return turn.player1.status == PlayerStatus.playing;
     } else if (self.isPlayer2) {
-      return turn.player2EndedTurnAt == null;
+      return turn.player2.status == PlayerStatus.playing;
     } else {
       return false;
     }

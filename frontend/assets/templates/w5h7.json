@@ -10,9 +10,15 @@
     },
     "turn": {
         "turn": 1,
-        "player1EndedTurnAt": "1970-01-01T00:00:00.000Z",
-        "player2EndedTurnAt": "1970-01-01T00:00:00.000Z",
-        "startedAt": "1970-01-01T00:00:00.000Z"
+        "startedAt": "1970-01-01T00:00:00.000Z",
+        "player1": {
+            "status": "playing",
+            "turnEndedAt": "1970-01-01T00:00:00.000Z"
+        },
+        "player2": {
+            "status": "playing",
+            "turnEndedAt": "1970-01-01T00:00:00.000Z"
+        }
     },
     "players": [
         {
