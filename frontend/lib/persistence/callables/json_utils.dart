@@ -287,7 +287,7 @@ class JsonUtils {
       missile: missileNextTurn(battlefield.missile),
       nodes: jsonNodes,
     );
-  }
+  }*/
 
   static JsonBattlefield battlefieldToJson(Battlefield battlefield) =>
       JsonBattlefield(
@@ -295,7 +295,7 @@ class JsonUtils {
         size: battlefield.size.toJsonSize(),
         missile: missileToJson(battlefield.missile),
         nodes: battlefield.nodes.map(nodeToJson).toList(),
-      );*/
+      );
 
   static JsonBattlefield battlefieldWithActions(Battlefield battlefield) {
     final List<JsonNode> jsonNodes = [];
@@ -597,48 +597,35 @@ class JsonUtils {
         unit: unit,
       ),
     );
-  }
+  }*/
 
   static JsonMatch endTurnSelf(Match match) => JsonMatch(
     id: match.id,
     version: match.version,
     createdAt: match.createdAt,
-    turn: nextTurn(turn: match.turn, player: match.opponent.id),
     config: configToJson(match.config),
-    players: [
-      playerUpdate(
-        player: match.self,
-        resourcesChange: 0,
-        healthChange: _missileHit(
-          player: match.self,
-          missile: match.battlefield.missile,
-        ),
-      ),
-      playerUpdate(
-        player: match.opponent,
-        resourcesChange: _newResources(player: match.opponent, match: match),
-        healthChange: _missileHit(
-          player: match.opponent,
-          missile: match.battlefield.missile,
-        ),
-      ),
-    ],
-    battlefield: battlefieldNexTurn(match.battlefield),
-  );*/
+    turn: endTurn(
+      turn: match.turn,
+      player1EndedTurnAt: match.self.isPlayer1 ? DateTime.now() : null,
+      player2EndedTurnAt: match.self.isPlayer2 ? DateTime.now() : null,
+    ),
+    players: [playerToJson(match.opponent), playerToJson(match.self)],
+    battlefield: battlefieldWithActions(match.battlefield),
+  );
 
   static JsonMatch endTurnOpponent(Match match) {
     return JsonMatch(
       id: match.id,
       version: match.version,
       createdAt: match.createdAt,
+      config: configToJson(match.config),
       turn: endTurn(
         turn: match.turn,
         player1EndedTurnAt: match.self.isPlayer2 ? DateTime.now() : null,
         player2EndedTurnAt: match.self.isPlayer1 ? DateTime.now() : null,
       ),
-      config: configToJson(match.config),
       players: [playerToJson(match.opponent), playerToJson(match.self)],
-      battlefield: battlefieldWithActions(match.battlefield),
+      battlefield: battlefieldToJson(match.battlefield),
     );
   }
 
