@@ -6,8 +6,10 @@ import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/persistence/backend/create_match.dart';
+import 'package:tensionpath/persistence/backend/create_room.dart';
 import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
+import 'package:tensionpath/persistence/backend/join_room.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
 class Backend {
@@ -35,6 +37,14 @@ class Backend {
   }
 
   // =============================== END POINTS ================================
+
+  static Future<Room> createRoom(String playerName) =>
+      CreateRoom().call(playerName);
+
+  static Future<Room> joinRoom({
+    required String roomId,
+    required String playerName,
+  }) => JoinRoom().call(roomId: roomId, playerName: playerName);
 
   static Future createMatch(Room room) => CreateMatch().call(room: room);
 

@@ -38,7 +38,7 @@ class SplashState extends BaseState {
   void onFullscreen() => SetFullscreen.set();
 
   Future onCreateRoom() async {
-    final Room room = await CreateRoomCallable()(playerName: await _playerName);
+    final Room room = await CreateRoomCallable()(await _playerName);
     Navigation.lobbyScreen(room: room, playerId: room.playerIds.first);
   }
 
