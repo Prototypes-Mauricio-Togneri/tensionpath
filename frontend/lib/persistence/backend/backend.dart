@@ -4,12 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/persistence/backend/create_match.dart';
 import 'package:tensionpath/persistence/backend/create_room.dart';
 import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
 import 'package:tensionpath/persistence/backend/join_room.dart';
+import 'package:tensionpath/persistence/backend/json_utils.dart';
+import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
 class Backend {
@@ -32,8 +35,11 @@ class Backend {
     _subscription = null;
   }
 
-  static void _onUpdated(JsonMatch json) {
-    // Handle the updated match object
+  static Future _onUpdated(JsonMatch json) async {
+    if (json.turn.player1.status == PlayerStatus.waiting &&
+        json.turn.player2.status == PlayerStatus.waiting) {
+      await MatchRepository.update(JsonUtils.nexTurn(json));
+    }
   }
 
   // =============================== END POINTS ================================

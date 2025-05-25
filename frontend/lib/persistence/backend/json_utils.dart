@@ -492,14 +492,6 @@ class JsonUtils {
         : turnPlayerToJson(turn.player2),
   );
 
-  /*static JsonTurn nextTurn({required Turn turn, required String player}) =>
-      JsonTurn(
-        turn: turn.turn + 1,
-        startedAt: DateTime.now(),
-        player1: DateTime.now(),
-        player2: DateTime.now(),
-      );*/
-
   static JsonTurnPlayer turnPlayerToJson(TurnPlayer turnPlayer) =>
       JsonTurnPlayer(
         status: turnPlayer.status,
@@ -641,6 +633,29 @@ class JsonUtils {
       ),
       players: [playerToJson(match.opponent), playerToJson(match.self)],
       battlefield: battlefieldToJson(match.battlefield),
+    );
+  }
+
+  static JsonMatch nexTurn(JsonMatch json) {
+    return JsonMatch(
+      id: json.id,
+      version: json.version,
+      createdAt: json.createdAt,
+      config: json.config,
+      turn: JsonTurn(
+        turn: json.turn.turn + 1,
+        startedAt: DateTime.now(),
+        player1: const JsonTurnPlayer(
+          status: PlayerStatus.playing,
+          turnEndedAt: null,
+        ),
+        player2: const JsonTurnPlayer(
+          status: PlayerStatus.playing,
+          turnEndedAt: null,
+        ),
+      ),
+      players: json.players,
+      battlefield: json.battlefield,
     );
   }
 
