@@ -5,7 +5,7 @@ import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/persistence/callables/json_utils.dart';
+import 'package:tensionpath/persistence/backend/json_utils.dart';
 
 part 'json_match.g.dart';
 

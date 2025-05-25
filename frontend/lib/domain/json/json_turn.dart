@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/persistence/callables/json_utils.dart';
+import 'package:tensionpath/persistence/backend/json_utils.dart';
 
 part 'json_turn.g.dart';
 
