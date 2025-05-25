@@ -39,7 +39,7 @@ class Match {
 
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
-  bool get hasActiveTurn {
+  bool get isSelfPlaying {
     if (self.isPlayer1) {
       return turn.player1.status == PlayerStatus.playing;
     } else if (self.isPlayer2) {
@@ -93,13 +93,13 @@ class Match {
   }
 
   bool _canDeployUnit(Node node) =>
-      hasActiveTurn &&
+      isSelfPlaying &&
       node.belongsTo(self) &&
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
   bool _canMoveUnit({required Node node, required int cost}) =>
-      hasActiveTurn &&
+      isSelfPlaying &&
       node.hasUnits &&
       node.units!.belongsTo(self) &&
       (self.resources >= cost);
@@ -138,7 +138,7 @@ class Match {
   }
 
   Future onEndTurn() {
-    if (hasActiveTurn) {
+    if (isSelfPlaying) {
       return EndTurnSelfCallable()(this);
     } else {
       return Future.value();

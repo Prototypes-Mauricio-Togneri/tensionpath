@@ -28,7 +28,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     paintInner.color = units.player.color;
   }
 
-  bool get _canDrag => units.player.isSelf && match.match.hasActiveTurn;
+  bool get _canDrag => units.player.isSelf && match.match.isSelfPlaying;
 
   @override
   bool containsLocalPoint(Vector2 point) =>
