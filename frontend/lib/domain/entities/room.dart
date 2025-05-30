@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
+import 'package:tensionpath/utils/authentication.dart';
 
 class Room {
   final String id;
@@ -23,6 +24,8 @@ class Room {
     required this.matchType,
     required this.matchId,
   });
+
+  String get playerId => players[Authentication.userId]?.playerId ?? '';
 
   bool get isReady => (players.length >= numberOfPlayers) && (matchId != null);
 }

@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
@@ -19,8 +18,8 @@ class Navigation {
     BasicRoute(HomeScreen.instance(), name: 'home'),
   );
 
-  static void lobbyScreen(MatchmakingInfo info) =>
-      get.routes.push(BasicRoute(LobbyScreen.instance(info), name: 'lobby'));
+  static void lobbyScreen(String roomId) =>
+      get.routes.push(BasicRoute(LobbyScreen.instance(roomId), name: 'lobby'));
 
   static void matchScreen({required String matchId, required String selfId}) =>
       get.routes.pushReplacement(

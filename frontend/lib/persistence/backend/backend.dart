@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
@@ -41,7 +40,7 @@ class Backend {
 
   // =============================== END POINTS ================================
 
-  static Future<MatchmakingInfo> matchmaking({
+  static Future<String> matchmaking({
     required String userId,
     required String playerName,
   }) => Matchmaking().call(userId: userId, playerName: playerName);

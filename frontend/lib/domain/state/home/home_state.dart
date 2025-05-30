@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/callables/room/matchmaking_callable.dart';
 import 'package:tensionpath/persistence/storage/name_storage.dart';
@@ -36,11 +35,11 @@ class HomeState extends BaseState {
     final String userId = Authentication.userId;
     final String name = await _playerName;
 
-    final MatchmakingInfo info = await MatchmakingCallable()(
+    final String roomId = await MatchmakingCallable()(
       userId: userId,
       playerName: name,
     );
-    Navigation.lobbyScreen(info);
+    Navigation.lobbyScreen(roomId);
   }
 
   Future<String> get _playerName async {

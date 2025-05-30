@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_match_player.dart';
@@ -17,7 +16,7 @@ class RoomRepository {
   static DocumentReference _ref([String? roomId]) =>
       FirebaseFirestore.instance.collection('rooms').doc(roomId);
 
-  static Future<MatchmakingInfo> startMatchmaking({
+  static Future<String> startMatchmaking({
     required String userId,
     required String playerName,
   }) async {
@@ -73,7 +72,7 @@ class RoomRepository {
     }
   }
 
-  static Future<MatchmakingInfo> _createRoom({
+  static Future<String> _createRoom({
     required String userId,
     required String playerName,
   }) async {
@@ -94,10 +93,10 @@ class RoomRepository {
     );
     await ref.set(jsonRoom.toJson());
 
-    return MatchmakingInfo(roomId: jsonRoom.id, playerId: Constants.PLAYER_1);
+    return jsonRoom.id;
   }
 
-  static Future<MatchmakingInfo> _joinRoom({
+  static Future<String> _joinRoom({
     required String userId,
     required String playerName,
     required JsonRoom json,
@@ -114,7 +113,7 @@ class RoomRepository {
 
     await RoomRepository.update(jsonRoom);
 
-    return MatchmakingInfo(roomId: jsonRoom.id, playerId: Constants.PLAYER_2);
+    return jsonRoom.id;
   }
 
   static Future<String> _createMatch(JsonRoom room) async {
