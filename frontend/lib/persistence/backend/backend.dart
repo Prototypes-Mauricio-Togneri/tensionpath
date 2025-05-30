@@ -16,22 +16,20 @@ import 'package:tensionpath/utils/stream_listener.dart';
 class Backend {
   static final StreamListener _matchListener = StreamListener();
 
-  static void start(String matchId) {
+  static void start(String matchId) => _matchListener.start(_listen(matchId));
+
+  static void stop() => _matchListener.stop();
+
+  static StreamSubscription _listen(String matchId) {
     final DocumentReference reference = FirebaseFirestore.instance
         .collection('matches')
         .doc(matchId);
-    _matchListener.start(
-      reference.snapshots().listen((snapshot) {
-        if (snapshot.exists) {
-          final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-          _onUpdated(json);
-        }
-      }, onError: ErrorHandler.process),
-    );
-  }
-
-  static void stop() {
-    _matchListener.stop();
+    return reference.snapshots().listen((snapshot) {
+      if (snapshot.exists) {
+        final JsonMatch json = JsonMatch.fromJson(snapshot.json);
+        _onUpdated(json);
+      }
+    }, onError: ErrorHandler.process);
   }
 
   static Future _onUpdated(JsonMatch json) async {
