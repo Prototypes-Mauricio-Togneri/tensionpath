@@ -12,11 +12,12 @@ import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
+import 'package:tensionpath/utils/stream_listener.dart';
 
 class GameComponent extends FlameGame with KeyboardEvents {
   final MatchState state;
   final Match match;
-  StreamSubscription? _matchSubscription;
+  final StreamListener _matchListener = StreamListener();
 
   GameComponent({required this.state, required this.match}) : super() {
     GameComponentRef.instance = this;
@@ -45,7 +46,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
       ),
     );
 
-    _matchSubscription = match.listen();
+    _matchListener.start(match.listen());
     Backend.start(match.id);
 
     return super.onLoad();
@@ -53,8 +54,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
 
   @override
   void onRemove() {
-    _matchSubscription?.cancel();
-    _matchSubscription = null;
+    _matchListener.stop();
     Backend.stop();
 
     super.onRemove();

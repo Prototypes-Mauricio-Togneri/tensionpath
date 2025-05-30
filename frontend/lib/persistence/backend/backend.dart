@@ -11,25 +11,27 @@ import 'package:tensionpath/persistence/backend/json_utils.dart';
 import 'package:tensionpath/persistence/backend/matchmaking.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/utils/error_handler.dart';
+import 'package:tensionpath/utils/stream_listener.dart';
 
 class Backend {
-  static StreamSubscription? _subscription;
+  static final StreamListener _matchListener = StreamListener();
 
   static void start(String matchId) {
     final DocumentReference reference = FirebaseFirestore.instance
         .collection('matches')
         .doc(matchId);
-    _subscription = reference.snapshots().listen((snapshot) {
-      if (snapshot.exists) {
-        final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-        _onUpdated(json);
-      }
-    }, onError: ErrorHandler.process);
+    _matchListener.start(
+      reference.snapshots().listen((snapshot) {
+        if (snapshot.exists) {
+          final JsonMatch json = JsonMatch.fromJson(snapshot.json);
+          _onUpdated(json);
+        }
+      }, onError: ErrorHandler.process),
+    );
   }
 
   static void stop() {
-    _subscription?.cancel();
-    _subscription = null;
+    _matchListener.stop();
   }
 
   static Future _onUpdated(JsonMatch json) async {
