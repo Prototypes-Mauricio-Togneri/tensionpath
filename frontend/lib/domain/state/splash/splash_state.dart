@@ -32,7 +32,11 @@ class SplashState extends BaseState {
   void onFullscreen() => SetFullscreen.set();
 
   Future onPlay() async {
-    final MatchmakingInfo info = await MatchmakingCallable()(await _playerName);
+    final String name = await _playerName;
+    final MatchmakingInfo info = await MatchmakingCallable()(
+      userId: 'USER_ID',
+      playerName: name,
+    );
     Navigation.lobbyScreen(info);
   }
 

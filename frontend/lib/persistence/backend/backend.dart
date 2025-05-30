@@ -41,8 +41,10 @@ class Backend {
 
   // =============================== END POINTS ================================
 
-  static Future<MatchmakingInfo> matchmaking(String playerName) =>
-      Matchmaking().call(playerName);
+  static Future<MatchmakingInfo> matchmaking({
+    required String userId,
+    required String playerName,
+  }) => Matchmaking().call(userId: userId, playerName: playerName);
 
   static Future endTurn(Match match) => EndTurn().call(match);
 

@@ -16,23 +16,73 @@ class RoomRepository {
   static DocumentReference _ref([String? roomId]) =>
       FirebaseFirestore.instance.collection('rooms').doc(roomId);
 
-  static Future<MatchmakingInfo> search(String playerName) async {
+  static Future<MatchmakingInfo> getAvailableRoom({
+    required String userId,
+    required String playerName,
+  }) async {
+    final JsonRoom? joinedRoom = await _getJoinedRoom(
+      userId: userId,
+      playerName: playerName,
+    );
+
+    if (joinedRoom != null) {
+      return _joinRoom(playerName: playerName, json: joinedRoom);
+    } else {
+      final JsonRoom? openRoom = await _getOpenRoom();
+
+      if (openRoom != null) {
+        return _joinRoom(playerName: playerName, json: openRoom);
+      } else {
+        return _createRoom(playerName);
+      }
+    }
+  }
+
+  static Future<JsonRoom?> _getJoinedRoom({
+    required String userId,
+    required String playerName,
+  }) async {
     final CollectionReference ref = FirebaseFirestore.instance.collection(
       'rooms',
     );
 
     final Query query = ref
+        .where('status', isEqualTo: RoomStatus.open.name)
+        .where('version', isEqualTo: 1)
+        .where('matchType', isEqualTo: '1v1')
+        .where('userIds', arrayContains: userId)
         .where('numberOfPlayers', isEqualTo: 2)
         .where('visibility', isEqualTo: RoomVisibility.public.name)
-        .where('status', isEqualTo: RoomStatus.open.name)
-        .where('matchType', isEqualTo: '1v1');
+        .limit(1);
 
     final QuerySnapshot snapshot = await query.get();
 
-    if (snapshot.docs.isEmpty) {
-      return _createRoom(playerName);
+    if (snapshot.docs.isNotEmpty) {
+      return JsonRoom.fromJson(snapshot.docs.first.json);
     } else {
-      return _joinRoom(playerName: playerName, doc: snapshot.docs.first);
+      return null;
+    }
+  }
+
+  static Future<JsonRoom?> _getOpenRoom() async {
+    final CollectionReference ref = FirebaseFirestore.instance.collection(
+      'rooms',
+    );
+
+    final Query query = ref
+        .where('status', isEqualTo: RoomStatus.open.name)
+        .where('version', isEqualTo: 1)
+        .where('matchType', isEqualTo: '1v1')
+        .where('numberOfPlayers', isEqualTo: 2)
+        .where('visibility', isEqualTo: RoomVisibility.public.name)
+        .limit(1);
+
+    final QuerySnapshot snapshot = await query.get();
+
+    if (snapshot.docs.isNotEmpty) {
+      return JsonRoom.fromJson(snapshot.docs.first.json);
+    } else {
+      return null;
     }
   }
 
@@ -56,12 +106,11 @@ class RoomRepository {
 
   static Future<MatchmakingInfo> _joinRoom({
     required String playerName,
-    required DocumentSnapshot doc,
+    required JsonRoom json,
   }) async {
-    JsonRoom jsonRoom = JsonRoom.fromJson(doc.json);
-    jsonRoom = jsonRoom.clone(
+    JsonRoom jsonRoom = json.clone(
       status: RoomStatus.closed,
-      players: {...jsonRoom.players, Constants.PLAYER_2: playerName},
+      players: {...json.players, Constants.PLAYER_2: playerName},
     );
     final String matchId = await _createMatch(jsonRoom);
     jsonRoom = jsonRoom.clone(matchId: matchId);
