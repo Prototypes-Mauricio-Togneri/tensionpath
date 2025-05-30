@@ -65,7 +65,7 @@ class RoomRepository {
       players: {...jsonRoom.players, Constants.PLAYER_2: playerName},
     );
     final String matchId = await _createMatch(jsonRoom);
-    jsonRoom.clone(matchId: matchId);
+    jsonRoom = jsonRoom.clone(matchId: matchId);
 
     await RoomRepository.update(jsonRoom);
 
