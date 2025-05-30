@@ -9,7 +9,8 @@ class Room {
   final int numberOfPlayers;
   final RoomVisibility visibility;
   final RoomStatus status;
-  final Map<String, RoomPlayer> players;
+  final List<String> userIds;
+  final Map<String, String> users;
   final String matchType;
   final String? matchId;
 
@@ -20,19 +21,21 @@ class Room {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.players,
+    required this.userIds,
+    required this.users,
     required this.matchType,
     required this.matchId,
   });
 
-  String get playerId => players[Authentication.userId]?.playerId ?? '';
+  String get playerId {
+    for (int i = 0; i < userIds.length; i++) {
+      if (userIds[i] == Authentication.userId) {
+        return (i + 1).toString();
+      }
+    }
 
-  bool get isReady => (players.length >= numberOfPlayers) && (matchId != null);
-}
+    throw Exception('User not found in room');
+  }
 
-class RoomPlayer {
-  final String playerId;
-  final String name;
-
-  const RoomPlayer({required this.playerId, required this.name});
+  bool get isReady => (users.length >= numberOfPlayers) && (matchId != null);
 }

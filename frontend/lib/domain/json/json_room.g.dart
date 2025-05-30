@@ -6,43 +6,35 @@ part of 'json_room.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonRoom _$JsonRoomFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonRoom', json, ($checkedConvert) {
-      final val = JsonRoom(
-        id: $checkedConvert('id', (v) => v as String),
-        version: $checkedConvert('version', (v) => (v as num).toInt()),
-        createdAt: $checkedConvert(
-          'createdAt',
-          (v) => DateTime.parse(v as String),
-        ),
-        numberOfPlayers: $checkedConvert(
-          'numberOfPlayers',
-          (v) => (v as num).toInt(),
-        ),
-        visibility: $checkedConvert(
-          'visibility',
-          (v) => $enumDecode(_$RoomVisibilityEnumMap, v),
-        ),
-        status: $checkedConvert(
-          'status',
-          (v) => $enumDecode(_$RoomStatusEnumMap, v),
-        ),
-        userIds: $checkedConvert(
-          'userIds',
-          (v) => (v as List<dynamic>).map((e) => e as String).toList(),
-        ),
-        players: $checkedConvert(
-          'players',
-          (v) => (v as Map<String, dynamic>).map(
-            (k, e) =>
-                MapEntry(k, JsonRoomPlayer.fromJson(e as Map<String, dynamic>)),
-          ),
-        ),
-        matchType: $checkedConvert('matchType', (v) => v as String),
-        matchId: $checkedConvert('matchId', (v) => v as String?),
-      );
-      return val;
-    });
+JsonRoom _$JsonRoomFromJson(
+  Map<String, dynamic> json,
+) => $checkedCreate('JsonRoom', json, ($checkedConvert) {
+  final val = JsonRoom(
+    id: $checkedConvert('id', (v) => v as String),
+    version: $checkedConvert('version', (v) => (v as num).toInt()),
+    createdAt: $checkedConvert('createdAt', (v) => DateTime.parse(v as String)),
+    numberOfPlayers: $checkedConvert(
+      'numberOfPlayers',
+      (v) => (v as num).toInt(),
+    ),
+    visibility: $checkedConvert(
+      'visibility',
+      (v) => $enumDecode(_$RoomVisibilityEnumMap, v),
+    ),
+    status: $checkedConvert(
+      'status',
+      (v) => $enumDecode(_$RoomStatusEnumMap, v),
+    ),
+    userIds: $checkedConvert(
+      'userIds',
+      (v) => (v as List<dynamic>).map((e) => e as String).toList(),
+    ),
+    users: $checkedConvert('users', (v) => Map<String, String>.from(v as Map)),
+    matchType: $checkedConvert('matchType', (v) => v as String),
+    matchId: $checkedConvert('matchId', (v) => v as String?),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$JsonRoomToJson(JsonRoom instance) => <String, dynamic>{
   'id': instance.id,
@@ -52,7 +44,7 @@ Map<String, dynamic> _$JsonRoomToJson(JsonRoom instance) => <String, dynamic>{
   'visibility': _$RoomVisibilityEnumMap[instance.visibility]!,
   'status': _$RoomStatusEnumMap[instance.status]!,
   'userIds': instance.userIds,
-  'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
+  'users': instance.users,
   'matchType': instance.matchType,
   if (instance.matchId case final value?) 'matchId': value,
 };

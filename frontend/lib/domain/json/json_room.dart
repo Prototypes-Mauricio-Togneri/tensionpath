@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/domain/json/json_room_player.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
@@ -30,8 +29,8 @@ class JsonRoom {
   @JsonKey(name: 'userIds')
   final List<String> userIds;
 
-  @JsonKey(name: 'players')
-  final Map<String, JsonRoomPlayer> players;
+  @JsonKey(name: 'users')
+  final Map<String, String> users;
 
   @JsonKey(name: 'matchType')
   final String matchType;
@@ -47,7 +46,7 @@ class JsonRoom {
     required this.visibility,
     required this.status,
     required this.userIds,
-    required this.players,
+    required this.users,
     required this.matchType,
     required this.matchId,
   });
@@ -55,7 +54,7 @@ class JsonRoom {
   JsonRoom clone({
     RoomStatus? status,
     List<String>? userIds,
-    Map<String, JsonRoomPlayer>? players,
+    Map<String, String>? users,
     String? matchId,
   }) => JsonRoom(
     id: id,
@@ -66,7 +65,7 @@ class JsonRoom {
     matchType: matchType,
     userIds: userIds ?? this.userIds,
     status: status ?? this.status,
-    players: players ?? this.players,
+    users: users ?? this.users,
     matchId: matchId ?? this.matchId,
   );
 
@@ -77,13 +76,24 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
-    players: players.map(
-      (key, value) =>
-          MapEntry(key, RoomPlayer(playerId: value.playerId, name: value.name)),
-    ),
+    userIds: userIds,
+    users: users,
     matchType: matchType,
     matchId: matchId,
   );
+
+  Map<String, String> get playersMap {
+    final Map<String, String> result = {};
+
+    for (int i = 0; i < userIds.length; i++) {
+      final String playerId = (i + 1).toString();
+      final String playerName = users[userIds[i]]!;
+
+      result[playerId] = playerName;
+    }
+
+    return result;
+  }
 
   factory JsonRoom.fromJson(Map<String, dynamic> json) =>
       _$JsonRoomFromJson(json);

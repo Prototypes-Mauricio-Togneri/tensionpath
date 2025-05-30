@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/persistence/callables/room/matchmaking_callable.dart';
+import 'package:tensionpath/persistence/callables/room/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/storage/name_storage.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/authentication.dart';
@@ -35,7 +35,7 @@ class HomeState extends BaseState {
     final String userId = Authentication.userId;
     final String name = await _playerName;
 
-    final String roomId = await MatchmakingCallable()(
+    final String roomId = await StartMatchmakingCallable()(
       userId: userId,
       playerName: name,
     );

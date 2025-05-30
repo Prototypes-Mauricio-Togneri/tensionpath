@@ -7,7 +7,8 @@ import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
-import 'package:tensionpath/persistence/backend/matchmaking.dart';
+import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
+import 'package:tensionpath/persistence/backend/stop_matchmaking.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 import 'package:tensionpath/utils/stream_listener.dart';
@@ -40,10 +41,15 @@ class Backend {
 
   // =============================== END POINTS ================================
 
-  static Future<String> matchmaking({
+  static Future<String> startMatchmaking({
     required String userId,
     required String playerName,
-  }) => Matchmaking().call(userId: userId, playerName: playerName);
+  }) => StartMatchmaking().call(userId: userId, playerName: playerName);
+
+  static Future stopMatchmaking({
+    required String userId,
+    required String roomId,
+  }) => StopMatchmaking().call(userId: userId, roomId: roomId);
 
   static Future endTurn(Match match) => EndTurn().call(match);
 
