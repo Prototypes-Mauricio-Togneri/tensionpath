@@ -61,7 +61,7 @@ class RoomRepository {
     required String playerName,
     required DocumentSnapshot doc,
   }) async {
-    JsonRoom json = JsonRoom.fromJson(doc.json).clone();
+    JsonRoom json = JsonRoom.fromJson(doc.json);
     json = json.clone(
       playerIds: [...json.playerIds, Constants.PLAYER_2],
       players: {...json.players, Constants.PLAYER_2: playerName},
