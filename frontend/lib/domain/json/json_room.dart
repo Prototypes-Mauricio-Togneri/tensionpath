@@ -54,6 +54,7 @@ class JsonRoom {
 
   JsonRoom clone({
     RoomStatus? status,
+    List<String>? userIds,
     Map<String, JsonRoomPlayer>? players,
     String? matchId,
   }) => JsonRoom(
@@ -63,7 +64,7 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     matchType: matchType,
-    userIds: userIds,
+    userIds: userIds ?? this.userIds,
     status: status ?? this.status,
     players: players ?? this.players,
     matchId: matchId ?? this.matchId,

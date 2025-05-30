@@ -111,6 +111,7 @@ class RoomRepository {
   }) async {
     JsonRoom jsonRoom = json.clone(
       status: RoomStatus.closed,
+      userIds: [...json.userIds, userId],
       players: {
         ...json.players,
         userId: JsonRoomPlayer(playerId: Constants.PLAYER_2, name: playerName),
