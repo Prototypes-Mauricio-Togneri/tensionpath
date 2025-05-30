@@ -61,6 +61,7 @@ class RoomRepository {
   }) async {
     JsonRoom jsonRoom = JsonRoom.fromJson(doc.json);
     jsonRoom = jsonRoom.clone(
+      status: RoomStatus.close,
       playerIds: [...jsonRoom.playerIds, Constants.PLAYER_2],
       players: {...jsonRoom.players, Constants.PLAYER_2: playerName},
     );

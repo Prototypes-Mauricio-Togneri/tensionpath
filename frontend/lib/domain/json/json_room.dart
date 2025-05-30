@@ -52,23 +52,21 @@ class JsonRoom {
   });
 
   JsonRoom clone({
-    String? id,
-    DateTime? createdAt,
-    int? numberOfPlayers,
+    RoomStatus? status,
     List<String>? playerIds,
     Map<String, String>? players,
     String? matchId,
   }) => JsonRoom(
-    id: id ?? this.id,
+    id: id,
     version: version,
-    createdAt: createdAt ?? this.createdAt,
-    numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
+    createdAt: createdAt,
+    numberOfPlayers: numberOfPlayers,
     visibility: visibility,
-    status: status,
+    matchType: matchType,
+    status: status ?? this.status,
     playerIds: playerIds ?? this.playerIds,
     players: players ?? this.players,
-    matchType: matchType,
-    matchId: matchId,
+    matchId: matchId ?? this.matchId,
   );
 
   Room get object => Room(
