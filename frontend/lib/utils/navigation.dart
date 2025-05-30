@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/entities/matchmaking_info.dart';
+import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
@@ -13,6 +14,10 @@ class Navigation {
   static BuildContext context() => get.routes.key.currentContext!;
 
   static void pop<T>([T? result]) => get.routes.pop(result);
+
+  static void homeScreen() => get.routes.pushReplacement(
+    BasicRoute(HomeScreen.instance(), name: 'home'),
+  );
 
   static void lobbyScreen(MatchmakingInfo info) =>
       get.routes.push(BasicRoute(LobbyScreen.instance(info), name: 'lobby'));

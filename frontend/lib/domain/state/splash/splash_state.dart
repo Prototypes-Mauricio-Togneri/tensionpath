@@ -1,49 +1,26 @@
+import 'dart:async';
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/widgets.dart';
-import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/matchmaking_info.dart';
-import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/persistence/callables/room/matchmaking_callable.dart';
-import 'package:tensionpath/persistence/storage/name_storage.dart';
-import 'package:tensionpath/platform/operations/set_fullscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
-  final TextEditingController nameController = TextEditingController();
-
   @override
-  Future onLoad() async {
-    final String name = await NameStorage.load();
-    nameController.text = name;
-    notify();
-
-    if (!Environment.get.isDebug) {
-      Delayed.post(
-        () => Navigation.matchScreen(
-          matchId: 'test2',
-          selfId: Constants.PLAYER_1,
-        ),
-      );
-    }
-  }
-
-  bool get canPlay => nameController.text.trim().isNotEmpty;
-
-  void onFullscreen() => SetFullscreen.set();
-
-  Future onPlay() async {
-    final String name = await _playerName;
-    final MatchmakingInfo info = await MatchmakingCallable()(
-      userId: 'USER_ID',
-      playerName: name,
+  void onLoad() {
+    Authentication.checkIfAuthenticated(
+      onSuccess: _onSuccess,
+      onError: _onError,
     );
-    Navigation.lobbyScreen(info);
   }
 
-  Future<String> get _playerName async {
-    final String name = nameController.text.trim();
-    await NameStorage.save(name);
-
-    return name;
+  void _onSuccess(User user) {
+    _processUser(user);
   }
+
+  Future _onError() async {
+    final User user = await Authentication.signInAnonymously();
+    _processUser(user);
+  }
+
+  void _processUser(User user) => Navigation.homeScreen();
 }
