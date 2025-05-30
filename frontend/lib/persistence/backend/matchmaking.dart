@@ -5,5 +5,5 @@ class Matchmaking {
   Future<MatchmakingInfo> call({
     required String userId,
     required String playerName,
-  }) => RoomRepository.getAvailableRoom(userId: userId, playerName: playerName);
+  }) => RoomRepository.startMatchmaking(userId: userId, playerName: playerName);
 }

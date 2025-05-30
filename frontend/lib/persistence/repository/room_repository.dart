@@ -17,37 +17,23 @@ class RoomRepository {
   static DocumentReference _ref([String? roomId]) =>
       FirebaseFirestore.instance.collection('rooms').doc(roomId);
 
-  static Future<MatchmakingInfo> getAvailableRoom({
+  static Future<MatchmakingInfo> startMatchmaking({
     required String userId,
     required String playerName,
   }) async {
-    final JsonRoom? joinedRoom = await _getJoinedRoom(
+    final JsonRoom? jsonRoom = await _getAvailableRoom(
       userId: userId,
       playerName: playerName,
     );
 
-    if (joinedRoom != null) {
-      return _joinRoom(
-        userId: userId,
-        playerName: playerName,
-        json: joinedRoom,
-      );
+    if (jsonRoom == null) {
+      return _createRoom(userId: userId, playerName: playerName);
     } else {
-      final JsonRoom? openRoom = await _getOpenRoom();
-
-      if (openRoom != null) {
-        return _joinRoom(
-          userId: userId,
-          playerName: playerName,
-          json: openRoom,
-        );
-      } else {
-        return _createRoom(userId: userId, playerName: playerName);
-      }
+      return _joinRoom(userId: userId, playerName: playerName, json: jsonRoom);
     }
   }
 
-  static Future<JsonRoom?> _getJoinedRoom({
+  static Future<JsonRoom?> _getAvailableRoom({
     required String userId,
     required String playerName,
   }) async {
@@ -55,7 +41,7 @@ class RoomRepository {
       'rooms',
     );
 
-    final Query query = ref
+    final Query queryJoinedRoom = ref
         .where('status', isEqualTo: RoomStatus.open.name)
         .where('version', isEqualTo: 1)
         .where('matchType', isEqualTo: '1v1')
@@ -64,34 +50,26 @@ class RoomRepository {
         .where('visibility', isEqualTo: RoomVisibility.public.name)
         .limit(1);
 
-    final QuerySnapshot snapshot = await query.get();
+    final QuerySnapshot snapshotJoinedRoom = await queryJoinedRoom.get();
 
-    if (snapshot.docs.isNotEmpty) {
-      return JsonRoom.fromJson(snapshot.docs.first.json);
+    if (snapshotJoinedRoom.docs.isNotEmpty) {
+      return JsonRoom.fromJson(snapshotJoinedRoom.docs.first.json);
     } else {
-      return null;
-    }
-  }
+      final Query queryOpenRoom = ref
+          .where('status', isEqualTo: RoomStatus.open.name)
+          .where('version', isEqualTo: 1)
+          .where('matchType', isEqualTo: '1v1')
+          .where('numberOfPlayers', isEqualTo: 2)
+          .where('visibility', isEqualTo: RoomVisibility.public.name)
+          .limit(1);
 
-  static Future<JsonRoom?> _getOpenRoom() async {
-    final CollectionReference ref = FirebaseFirestore.instance.collection(
-      'rooms',
-    );
+      final QuerySnapshot snapshotOpenRoom = await queryOpenRoom.get();
 
-    final Query query = ref
-        .where('status', isEqualTo: RoomStatus.open.name)
-        .where('version', isEqualTo: 1)
-        .where('matchType', isEqualTo: '1v1')
-        .where('numberOfPlayers', isEqualTo: 2)
-        .where('visibility', isEqualTo: RoomVisibility.public.name)
-        .limit(1);
-
-    final QuerySnapshot snapshot = await query.get();
-
-    if (snapshot.docs.isNotEmpty) {
-      return JsonRoom.fromJson(snapshot.docs.first.json);
-    } else {
-      return null;
+      if (snapshotOpenRoom.docs.isNotEmpty) {
+        return JsonRoom.fromJson(snapshotOpenRoom.docs.first.json);
+      } else {
+        return null;
+      }
     }
   }
 
