@@ -57,6 +57,7 @@ class JsonRoom {
     int? numberOfPlayers,
     List<String>? playerIds,
     Map<String, String>? players,
+    String? matchId,
   }) => JsonRoom(
     id: id ?? this.id,
     version: version,

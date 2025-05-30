@@ -61,24 +61,17 @@ class RoomRepository {
     required String playerName,
     required DocumentSnapshot doc,
   }) async {
-    final JsonRoom json = JsonRoom.fromJson(doc.json);
-    final String matchId = await _createMatch(json);
-
-    final JsonRoom jsonUpdated = JsonRoom(
-      id: json.id,
-      version: json.version,
-      createdAt: json.createdAt,
-      numberOfPlayers: json.numberOfPlayers,
-      visibility: json.visibility,
-      status: json.status,
-      matchType: json.matchType,
+    JsonRoom json = JsonRoom.fromJson(doc.json).clone();
+    json = json.clone(
       playerIds: [...json.playerIds, Constants.PLAYER_2],
       players: {...json.players, Constants.PLAYER_2: playerName},
-      matchId: matchId,
     );
-    await RoomRepository.update(jsonUpdated);
+    final String matchId = await _createMatch(json);
+    json.clone(matchId: matchId);
 
-    return jsonUpdated.object;
+    await RoomRepository.update(json);
+
+    return json.object;
   }
 
   static Future<String> _createMatch(JsonRoom room) async {
