@@ -9,7 +9,8 @@ class LobbyScreen extends StatelessWidget {
 
   const LobbyScreen._(this.state);
 
-  factory LobbyScreen.instance(MatchmakingInfo info) => LobbyScreen._(LobbyState(info));
+  factory LobbyScreen.instance(MatchmakingInfo info) =>
+      LobbyScreen._(LobbyState(info));
 
   @override
   Widget build(BuildContext context) {

@@ -1,1 +1,1 @@
-enum RoomStatus { open, close }
+enum RoomStatus { open, closed }

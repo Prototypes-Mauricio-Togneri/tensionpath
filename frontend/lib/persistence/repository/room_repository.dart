@@ -46,7 +46,6 @@ class RoomRepository {
       visibility: RoomVisibility.public,
       status: RoomStatus.open,
       matchType: '1v1',
-      playerIds: [Constants.PLAYER_1],
       players: {Constants.PLAYER_1: playerName},
       matchId: null,
     );
@@ -61,8 +60,7 @@ class RoomRepository {
   }) async {
     JsonRoom jsonRoom = JsonRoom.fromJson(doc.json);
     jsonRoom = jsonRoom.clone(
-      status: RoomStatus.close,
-      playerIds: [...jsonRoom.playerIds, Constants.PLAYER_2],
+      status: RoomStatus.closed,
       players: {...jsonRoom.players, Constants.PLAYER_2: playerName},
     );
     final String matchId = await _createMatch(jsonRoom);

@@ -15,12 +15,7 @@ class Navigation {
   static void pop<T>([T? result]) => get.routes.pop(result);
 
   static void lobbyScreen(MatchmakingInfo info) =>
-      get.routes.push(
-        BasicRoute(
-          LobbyScreen.instance(info),
-          name: 'lobby',
-        ),
-      );
+      get.routes.push(BasicRoute(LobbyScreen.instance(info), name: 'lobby'));
 
   static void matchScreen({required String matchId, required String selfId}) =>
       get.routes.pushReplacement(

@@ -26,9 +26,6 @@ class JsonRoom {
   @JsonKey(name: 'status')
   final RoomStatus status;
 
-  @JsonKey(name: 'playerIds')
-  final List<String> playerIds;
-
   @JsonKey(name: 'players')
   final Map<String, String> players;
 
@@ -45,7 +42,6 @@ class JsonRoom {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.playerIds,
     required this.players,
     required this.matchType,
     required this.matchId,
@@ -53,7 +49,6 @@ class JsonRoom {
 
   JsonRoom clone({
     RoomStatus? status,
-    List<String>? playerIds,
     Map<String, String>? players,
     String? matchId,
   }) => JsonRoom(
@@ -64,7 +59,6 @@ class JsonRoom {
     visibility: visibility,
     matchType: matchType,
     status: status ?? this.status,
-    playerIds: playerIds ?? this.playerIds,
     players: players ?? this.players,
     matchId: matchId ?? this.matchId,
   );
@@ -76,7 +70,6 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
-    playerIds: playerIds,
     players: players,
     matchType: matchType,
     matchId: matchId,
