@@ -24,7 +24,5 @@ class Room {
     required this.matchId,
   });
 
-  bool get isFull => players.length >= numberOfPlayers;
-
-  bool get hasMatchId => matchId != null;
+  bool get isReady => (players.length >= numberOfPlayers) && (matchId != null);
 }

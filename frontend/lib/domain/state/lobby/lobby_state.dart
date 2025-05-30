@@ -28,7 +28,7 @@ class LobbyState extends BaseState {
   }
 
   Future _onUpdated(Room room) async {
-    if (room.isFull && room.hasMatchId) {
+    if (room.isReady) {
       Navigation.matchScreen(matchId: room.matchId!, selfId: info.playerId);
     }
   }
