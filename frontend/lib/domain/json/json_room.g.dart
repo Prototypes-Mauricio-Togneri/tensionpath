@@ -56,5 +56,5 @@ const _$RoomVisibilityEnumMap = {
 
 const _$RoomStatusEnumMap = {
   RoomStatus.open: 'open',
-  RoomStatus.closed: 'close',
+  RoomStatus.closed: 'closed',
 };

@@ -4,6 +4,7 @@
     "createdAt": "1970-01-01T00:00:00.000Z",
     "config": {
         "popcap": 7,
+        "baseMaxHealth": 1000,
         "resourcesPerPatch": 5,
         "resourcesPerSecond": 1,
         "resourcesPerTurn": 0
@@ -25,14 +26,12 @@
             "id": "1",
             "name": "",
             "baseHealth": 1000,
-            "baseMaxHealth": 1000,
             "resources": 10
         },
         {
             "id": "2",
             "name": "",
             "baseHealth": 1000,
-            "baseMaxHealth": 1000,
             "resources": 10
         }
     ],

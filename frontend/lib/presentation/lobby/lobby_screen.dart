@@ -22,7 +22,7 @@ class LobbyScreen extends StatelessWidget {
           children: [
             Text('Waiting for players…', style: TextStyle(color: Colors.white)),
             VBox(20),
-            CircularProgressIndicator(),
+            CircularProgressIndicator(color: Colors.white),
           ],
         ),
       ),

@@ -7,7 +7,6 @@ class Player {
   final String name;
   final bool isSelf;
   late int _baseHealth;
-  final int baseMaxHealth;
   late int _resources;
 
   Player({
@@ -15,7 +14,6 @@ class Player {
     required this.name,
     required this.isSelf,
     required int baseHealth,
-    required this.baseMaxHealth,
     required int resources,
   }) {
     _baseHealth = baseHealth;

@@ -49,22 +49,18 @@ class JsonUtils {
     id: player.id,
     name: player.name,
     baseHealth: player.baseHealth,
-    baseMaxHealth: player.baseMaxHealth,
     resources: player.resources,
   );
 
   static JsonPlayer playerUpdate({
     required Player player,
+    required int baseMaxHealth,
     required int resourcesChange,
     required int healthChange,
   }) => JsonPlayer(
     id: player.id,
     name: player.name,
-    baseHealth: (player.baseHealth - healthChange).clamp(
-      0,
-      player.baseMaxHealth,
-    ),
-    baseMaxHealth: player.baseMaxHealth,
+    baseHealth: (player.baseHealth - healthChange).clamp(0, baseMaxHealth),
     resources: player.resources + resourcesChange,
   );
 
@@ -462,10 +458,11 @@ class JsonUtils {
   // ================================= TURN ====================================
 
   static JsonConfig configToJson(Config config) => JsonConfig(
+    popcap: config.popcap,
+    baseMaxHealth: config.baseMaxHealth,
     resourcesPerPatch: config.resourcesPerPatch,
     resourcesPerTurn: config.resourcesPerTurn,
     resourcesPerSecond: config.resourcesPerSecond,
-    popcap: config.popcap,
   );
 
   // ================================= CONFIG ==================================

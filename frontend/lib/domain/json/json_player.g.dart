@@ -12,10 +12,6 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
         id: $checkedConvert('id', (v) => v as String),
         name: $checkedConvert('name', (v) => v as String),
         baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
-        baseMaxHealth: $checkedConvert(
-          'baseMaxHealth',
-          (v) => (v as num).toInt(),
-        ),
         resources: $checkedConvert('resources', (v) => (v as num).toInt()),
       );
       return val;
@@ -26,6 +22,5 @@ Map<String, dynamic> _$JsonPlayerToJson(JsonPlayer instance) =>
       'id': instance.id,
       'name': instance.name,
       'baseHealth': instance.baseHealth,
-      'baseMaxHealth': instance.baseMaxHealth,
       'resources': instance.resources,
     };

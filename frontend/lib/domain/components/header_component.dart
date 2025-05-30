@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -11,10 +12,12 @@ import 'package:tensionpath/utils/palette.dart';
 class HeaderComponent extends PositionComponent {
   final Player player1;
   final Player player2;
+  final Config config;
 
   HeaderComponent({
     required this.player1,
     required this.player2,
+    required this.config,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.header.value);
@@ -27,6 +30,7 @@ class HeaderComponent extends PositionComponent {
     add(
       PlayerIndicatorComponent(
         player: player1,
+        config: config,
         position: Vector2(0, 0),
         size: Vector2(playerIndicatorWidth, height),
       ),
@@ -35,6 +39,7 @@ class HeaderComponent extends PositionComponent {
     add(
       PlayerIndicatorComponent(
         player: player2,
+        config: config,
         position: Vector2(playerIndicatorWidth + centerIndicatorWidth, 0),
         size: Vector2(playerIndicatorWidth, height),
       ),
@@ -53,6 +58,7 @@ class HeaderComponent extends PositionComponent {
 
 class PlayerIndicatorComponent extends PositionComponent {
   final Player player;
+  final Config config;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.HEADER_INDICATOR_BACKGROUND,
@@ -61,6 +67,7 @@ class PlayerIndicatorComponent extends PositionComponent {
 
   PlayerIndicatorComponent({
     required this.player,
+    required this.config,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft) {
@@ -74,7 +81,7 @@ class PlayerIndicatorComponent extends PositionComponent {
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
     final double healthWidth =
-        width * (player.baseHealth / player.baseMaxHealth);
+        width * (player.baseHealth / config.baseMaxHealth);
 
     if (player.isPlayer1) {
       canvas.drawRect(

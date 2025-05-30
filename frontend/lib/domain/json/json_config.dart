@@ -5,6 +5,11 @@ part 'json_config.g.dart';
 
 @JsonSerializable()
 class JsonConfig {
+  @JsonKey(name: 'popcap')
+  final int popcap;
+
+  @JsonKey(name: 'baseMaxHealth')
+  final int baseMaxHealth;
   @JsonKey(name: 'resourcesPerPatch')
   final int resourcesPerPatch;
 
@@ -14,21 +19,20 @@ class JsonConfig {
   @JsonKey(name: 'resourcesPerSecond')
   final double resourcesPerSecond;
 
-  @JsonKey(name: 'popcap')
-  final int popcap;
-
   const JsonConfig({
+    required this.popcap,
+    required this.baseMaxHealth,
     required this.resourcesPerPatch,
     required this.resourcesPerTurn,
     required this.resourcesPerSecond,
-    required this.popcap,
   });
 
   Config get object => Config(
+    popcap: popcap,
+    baseMaxHealth: baseMaxHealth,
     resourcesPerPatch: resourcesPerPatch,
     resourcesPerTurn: resourcesPerTurn,
     resourcesPerSecond: resourcesPerSecond,
-    popcap: popcap,
   );
 
   factory JsonConfig.fromJson(Map<String, dynamic> json) =>

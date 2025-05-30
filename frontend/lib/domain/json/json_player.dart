@@ -14,9 +14,6 @@ class JsonPlayer {
   @JsonKey(name: 'baseHealth')
   final int baseHealth;
 
-  @JsonKey(name: 'baseMaxHealth')
-  final int baseMaxHealth;
-
   @JsonKey(name: 'resources')
   final int resources;
 
@@ -24,7 +21,6 @@ class JsonPlayer {
     required this.id,
     required this.name,
     required this.baseHealth,
-    required this.baseMaxHealth,
     required this.resources,
   });
 
@@ -32,7 +28,6 @@ class JsonPlayer {
     id: id,
     name: name ?? this.name,
     baseHealth: baseHealth,
-    baseMaxHealth: baseMaxHealth,
     resources: resources,
   );
 
@@ -41,7 +36,6 @@ class JsonPlayer {
     name: name,
     isSelf: isSelf,
     baseHealth: baseHealth,
-    baseMaxHealth: baseMaxHealth,
     resources: resources,
   );
 

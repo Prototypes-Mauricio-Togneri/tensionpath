@@ -9,6 +9,11 @@ part of 'json_config.dart';
 JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonConfig', json, ($checkedConvert) {
       final val = JsonConfig(
+        popcap: $checkedConvert('popcap', (v) => (v as num).toInt()),
+        baseMaxHealth: $checkedConvert(
+          'baseMaxHealth',
+          (v) => (v as num).toInt(),
+        ),
         resourcesPerPatch: $checkedConvert(
           'resourcesPerPatch',
           (v) => (v as num).toInt(),
@@ -21,15 +26,15 @@ JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) =>
           'resourcesPerSecond',
           (v) => (v as num).toDouble(),
         ),
-        popcap: $checkedConvert('popcap', (v) => (v as num).toInt()),
       );
       return val;
     });
 
 Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
     <String, dynamic>{
+      'popcap': instance.popcap,
+      'baseMaxHealth': instance.baseMaxHealth,
       'resourcesPerPatch': instance.resourcesPerPatch,
       'resourcesPerTurn': instance.resourcesPerTurn,
       'resourcesPerSecond': instance.resourcesPerSecond,
-      'popcap': instance.popcap,
     };
