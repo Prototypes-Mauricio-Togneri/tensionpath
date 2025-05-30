@@ -50,43 +50,22 @@ class Content extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text) => state.notify(),
               ),
-              if (state.canCreate) ...[
-                const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  child: HorizontalDivider(color: Colors.white),
+              const VBox(20),
+              ElevatedButton(
+                onPressed: state.canPlay ? state.onPlay : null,
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                    states,
+                  ) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return Colors.grey;
+                    } else {
+                      return Colors.white;
+                    }
+                  }),
                 ),
-                ElevatedButton(
-                  onPressed: state.canCreate ? state.onCreateRoom : null,
-                  child: const Text('CREATE MATCH'),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  child: HorizontalDivider(color: Colors.white),
-                ),
-                TextField(
-                  controller: state.roomController,
-                  decoration: const InputDecoration(
-                    labelText: 'Room Id',
-                    labelStyle: TextStyle(color: Colors.white),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                  onChanged: (text) => state.notify(),
-                ),
-                const VBox(20),
-                ElevatedButton(
-                  onPressed: state.canJoin ? state.onJoinRoom : null,
-                  child: const Text('JOIN MATCH'),
-                ),
-              ],
+                child: const Text('PLAY'),
+              ),
               if (Platform.isMobile)
                 Padding(
                   padding: const EdgeInsets.only(top: 50),

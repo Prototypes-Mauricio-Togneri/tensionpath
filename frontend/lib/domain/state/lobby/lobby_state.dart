@@ -1,22 +1,20 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/persistence/callables/match/create_match_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class LobbyState extends BaseState {
-  final Room room;
-  final String playerId;
+  final MatchmakingInfo info;
   StreamSubscription? _roomSubscription;
 
-  LobbyState({required this.room, required this.playerId});
+  LobbyState(this.info);
 
   @override
   void onLoad() {
     _roomSubscription = RoomRepository.listen(
-      roomId: room.id,
+      roomId: info.roomId,
       onUpdated: _onUpdated,
     );
   }
@@ -30,12 +28,8 @@ class LobbyState extends BaseState {
   }
 
   Future _onUpdated(Room room) async {
-    if (room.isFull) {
-      if (room.hasMatchId) {
-        Navigation.matchScreen(matchId: room.matchId!, selfId: playerId);
-      } else if (playerId == Constants.PLAYER_1) {
-        await CreateMatchCallable()(room);
-      }
+    if (room.isFull && room.hasMatchId) {
+      Navigation.matchScreen(matchId: room.matchId!, selfId: info.playerId);
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
 import 'package:tensionpath/widgets/game_container.dart';
 
@@ -9,30 +9,19 @@ class LobbyScreen extends StatelessWidget {
 
   const LobbyScreen._(this.state);
 
-  factory LobbyScreen.instance({
-    required Room room,
-    required String playerId,
-  }) => LobbyScreen._(LobbyState(room: room, playerId: playerId));
+  factory LobbyScreen.instance(MatchmakingInfo info) => LobbyScreen._(LobbyState(info));
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(
+    return const GameContainer(
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Waiting for players…',
-              style: TextStyle(color: Colors.white),
-            ),
-            const VBox(20),
-            SelectableText(
-              state.room.id,
-              style: const TextStyle(color: Colors.white),
-            ),
-            const VBox(20),
-            const CircularProgressIndicator(),
+            Text('Waiting for players…', style: TextStyle(color: Colors.white)),
+            VBox(20),
+            CircularProgressIndicator(),
           ],
         ),
       ),
