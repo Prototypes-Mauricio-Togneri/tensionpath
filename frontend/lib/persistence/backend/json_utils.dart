@@ -32,9 +32,9 @@ import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/json_match_player.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_turn_player.dart';
@@ -45,19 +45,19 @@ import 'package:tensionpath/extensions/size_extension.dart';
 class JsonUtils {
   // ================================= PLAYER =================================
 
-  static JsonPlayer playerToJson(Player player) => JsonPlayer(
+  static JsonMatchPlayer playerToJson(Player player) => JsonMatchPlayer(
     id: player.id,
     name: player.name,
     baseHealth: player.baseHealth,
     resources: player.resources,
   );
 
-  static JsonPlayer playerUpdate({
+  static JsonMatchPlayer playerUpdate({
     required Player player,
     required int baseMaxHealth,
     required int resourcesChange,
     required int healthChange,
-  }) => JsonPlayer(
+  }) => JsonMatchPlayer(
     id: player.id,
     name: player.name,
     baseHealth: (player.baseHealth - healthChange).clamp(0, baseMaxHealth),

@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_player.dart';
+part of 'json_match_player.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonPlayer', json, ($checkedConvert) {
-      final val = JsonPlayer(
+JsonMatchPlayer _$JsonMatchPlayerFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonMatchPlayer', json, ($checkedConvert) {
+      final val = JsonMatchPlayer(
         id: $checkedConvert('id', (v) => v as String),
         name: $checkedConvert('name', (v) => v as String),
         baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
@@ -17,7 +17,7 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$JsonPlayerToJson(JsonPlayer instance) =>
+Map<String, dynamic> _$JsonMatchPlayerToJson(JsonMatchPlayer instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

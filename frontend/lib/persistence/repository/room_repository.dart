@@ -4,8 +4,9 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/matchmaking_info.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_match_player.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
+import 'package:tensionpath/domain/json/json_room_player.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
@@ -26,12 +27,20 @@ class RoomRepository {
     );
 
     if (joinedRoom != null) {
-      return _joinRoom(playerName: playerName, json: joinedRoom);
+      return _joinRoom(
+        userId: userId,
+        playerName: playerName,
+        json: joinedRoom,
+      );
     } else {
       final JsonRoom? openRoom = await _getOpenRoom();
 
       if (openRoom != null) {
-        return _joinRoom(playerName: playerName, json: openRoom);
+        return _joinRoom(
+          userId: userId,
+          playerName: playerName,
+          json: openRoom,
+        );
       } else {
         return _createRoom(userId: userId, playerName: playerName);
       }
@@ -100,7 +109,9 @@ class RoomRepository {
       status: RoomStatus.open,
       matchType: '1v1',
       userIds: [userId],
-      players: {Constants.PLAYER_1: playerName},
+      players: {
+        userId: JsonRoomPlayer(playerId: Constants.PLAYER_1, name: playerName),
+      },
       matchId: null,
     );
     await ref.set(jsonRoom.toJson());
@@ -109,12 +120,16 @@ class RoomRepository {
   }
 
   static Future<MatchmakingInfo> _joinRoom({
+    required String userId,
     required String playerName,
     required JsonRoom json,
   }) async {
     JsonRoom jsonRoom = json.clone(
       status: RoomStatus.closed,
-      players: {...json.players, Constants.PLAYER_2: playerName},
+      players: {
+        ...json.players,
+        userId: JsonRoomPlayer(playerId: Constants.PLAYER_2, name: playerName),
+      },
     );
     final String matchId = await _createMatch(jsonRoom);
     jsonRoom = jsonRoom.clone(matchId: matchId);
@@ -128,19 +143,32 @@ class RoomRepository {
     JsonMatch jsonMatch = await JsonMatch.fromTemplate(
       'assets/templates/w5h7.json',
     );
-    final List<JsonPlayer> namedPlayers = [];
-
-    for (final JsonPlayer jsonPlayer in jsonMatch.players) {
-      namedPlayers.add(jsonPlayer.clone(name: room.players[jsonPlayer.id]));
-    }
-
     jsonMatch = jsonMatch.clone(
       createdAt: DateTime.now(),
       turn: jsonMatch.turn.clone(startedAt: DateTime.now()),
-      players: namedPlayers,
+      players: _mergePlayers(
+        roomPlayers: room.players,
+        players: jsonMatch.players,
+      ),
     );
 
     return MatchRepository.create(jsonMatch);
+  }
+
+  static List<JsonMatchPlayer> _mergePlayers({
+    required Map<String, JsonRoomPlayer> roomPlayers,
+    required List<JsonMatchPlayer> players,
+  }) {
+    final List<JsonMatchPlayer> result = [];
+
+    for (final JsonMatchPlayer player in players) {
+      final JsonRoomPlayer roomPlayer = roomPlayers.values.firstWhere(
+        (roomPlayer) => roomPlayer.playerId == player.id,
+      );
+      result.add(player.clone(name: roomPlayer.name));
+    }
+
+    return result;
   }
 
   static StreamSubscription listen({

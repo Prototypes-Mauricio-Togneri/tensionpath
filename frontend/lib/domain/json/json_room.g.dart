@@ -33,7 +33,10 @@ JsonRoom _$JsonRoomFromJson(Map<String, dynamic> json) =>
         ),
         players: $checkedConvert(
           'players',
-          (v) => Map<String, String>.from(v as Map),
+          (v) => (v as Map<String, dynamic>).map(
+            (k, e) =>
+                MapEntry(k, JsonRoomPlayer.fromJson(e as Map<String, dynamic>)),
+          ),
         ),
         matchType: $checkedConvert('matchType', (v) => v as String),
         matchId: $checkedConvert('matchId', (v) => v as String?),
@@ -49,7 +52,7 @@ Map<String, dynamic> _$JsonRoomToJson(JsonRoom instance) => <String, dynamic>{
   'visibility': _$RoomVisibilityEnumMap[instance.visibility]!,
   'status': _$RoomStatusEnumMap[instance.status]!,
   'userIds': instance.userIds,
-  'players': instance.players,
+  'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
   'matchType': instance.matchType,
   if (instance.matchId case final value?) 'matchId': value,
 };

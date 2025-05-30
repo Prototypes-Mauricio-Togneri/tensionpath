@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/domain/json/json_room_player.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
@@ -30,7 +31,7 @@ class JsonRoom {
   final List<String> userIds;
 
   @JsonKey(name: 'players')
-  final Map<String, String> players;
+  final Map<String, JsonRoomPlayer> players;
 
   @JsonKey(name: 'matchType')
   final String matchType;
@@ -53,7 +54,7 @@ class JsonRoom {
 
   JsonRoom clone({
     RoomStatus? status,
-    Map<String, String>? players,
+    Map<String, JsonRoomPlayer>? players,
     String? matchId,
   }) => JsonRoom(
     id: id,
@@ -75,7 +76,10 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
-    players: players,
+    players: players.map(
+      (key, value) =>
+          MapEntry(key, RoomPlayer(playerId: value.playerId, name: value.name)),
+    ),
     matchType: matchType,
     matchId: matchId,
   );

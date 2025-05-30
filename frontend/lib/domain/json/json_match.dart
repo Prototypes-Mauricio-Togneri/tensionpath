@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_match_player.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
 
@@ -24,7 +24,7 @@ class JsonMatch {
   final DateTime createdAt;
 
   @JsonKey(name: 'players')
-  final List<JsonPlayer> players;
+  final List<JsonMatchPlayer> players;
 
   @JsonKey(name: 'battlefield')
   final JsonBattlefield battlefield;
@@ -49,7 +49,7 @@ class JsonMatch {
     String? id,
     DateTime? createdAt,
     JsonTurn? turn,
-    List<JsonPlayer>? players,
+    List<JsonMatchPlayer>? players,
   }) => JsonMatch(
     id: id ?? this.id,
     version: version,
@@ -77,7 +77,7 @@ class JsonMatch {
   }
 
   Player _getSelf(String id) {
-    for (final JsonPlayer player in players) {
+    for (final JsonMatchPlayer player in players) {
       if (player.id == id) {
         return player.object(true);
       }
@@ -87,7 +87,7 @@ class JsonMatch {
   }
 
   Player _getOpponent(String id) {
-    for (final JsonPlayer player in players) {
+    for (final JsonMatchPlayer player in players) {
       if (player.id != id) {
         return player.object(false);
       }

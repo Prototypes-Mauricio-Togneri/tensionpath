@@ -18,7 +18,7 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
         players: $checkedConvert(
           'players',
           (v) => (v as List<dynamic>)
-              .map((e) => JsonPlayer.fromJson(e as Map<String, dynamic>))
+              .map((e) => JsonMatchPlayer.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
         battlefield: $checkedConvert(

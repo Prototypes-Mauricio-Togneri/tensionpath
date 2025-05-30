@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 
-part 'json_player.g.dart';
+part 'json_match_player.g.dart';
 
 @JsonSerializable()
-class JsonPlayer {
+class JsonMatchPlayer {
   @JsonKey(name: 'id')
   final String id;
 
@@ -17,14 +17,14 @@ class JsonPlayer {
   @JsonKey(name: 'resources')
   final int resources;
 
-  const JsonPlayer({
+  const JsonMatchPlayer({
     required this.id,
     required this.name,
     required this.baseHealth,
     required this.resources,
   });
 
-  JsonPlayer clone({String? name}) => JsonPlayer(
+  JsonMatchPlayer clone({String? name}) => JsonMatchPlayer(
     id: id,
     name: name ?? this.name,
     baseHealth: baseHealth,
@@ -39,8 +39,8 @@ class JsonPlayer {
     resources: resources,
   );
 
-  factory JsonPlayer.fromJson(Map<String, dynamic> json) =>
-      _$JsonPlayerFromJson(json);
+  factory JsonMatchPlayer.fromJson(Map<String, dynamic> json) =>
+      _$JsonMatchPlayerFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonPlayerToJson(this);
+  Map<String, dynamic> toJson() => _$JsonMatchPlayerToJson(this);
 }

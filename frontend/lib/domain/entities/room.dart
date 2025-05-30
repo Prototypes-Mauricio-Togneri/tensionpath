@@ -8,7 +8,7 @@ class Room {
   final int numberOfPlayers;
   final RoomVisibility visibility;
   final RoomStatus status;
-  final Map<String, String> players;
+  final Map<String, RoomPlayer> players;
   final String matchType;
   final String? matchId;
 
@@ -25,4 +25,11 @@ class Room {
   });
 
   bool get isReady => (players.length >= numberOfPlayers) && (matchId != null);
+}
+
+class RoomPlayer {
+  final String playerId;
+  final String name;
+
+  const RoomPlayer({required this.playerId, required this.name});
 }
