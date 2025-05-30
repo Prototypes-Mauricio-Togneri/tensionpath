@@ -49,7 +49,7 @@
         "missile": {
             "charge": 0,
             "maxCharge": 10,
-            "platforms": 3
+            "platforms": 2
         },
         "nodes": [
             {
