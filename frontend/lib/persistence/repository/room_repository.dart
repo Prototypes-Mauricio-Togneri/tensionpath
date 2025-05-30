@@ -28,7 +28,15 @@ class RoomRepository {
     if (jsonRoom == null) {
       return _createRoom(userId: userId, playerName: playerName);
     } else {
-      return _joinRoom(userId: userId, playerName: playerName, json: jsonRoom);
+      if (jsonRoom.players.containsKey(userId)) {
+        return jsonRoom.id;
+      } else {
+        return _joinRoom(
+          userId: userId,
+          playerName: playerName,
+          json: jsonRoom,
+        );
+      }
     }
   }
 
