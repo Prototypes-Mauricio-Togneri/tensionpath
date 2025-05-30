@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
@@ -95,6 +98,13 @@ class JsonMatch {
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);
+
+  static Future<JsonMatch> fromTemplate(String template) async {
+    final String content = await rootBundle.loadString(
+      'assets/templates/w5h7.json',
+    );
+    return JsonMatch.fromJson(jsonDecode(content));
+  }
 
   Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
 }

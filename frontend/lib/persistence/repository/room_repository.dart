@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
@@ -61,27 +59,22 @@ class RoomRepository {
     required String playerName,
     required DocumentSnapshot doc,
   }) async {
-    JsonRoom json = JsonRoom.fromJson(doc.json);
-    json = json.clone(
-      playerIds: [...json.playerIds, Constants.PLAYER_2],
-      players: {...json.players, Constants.PLAYER_2: playerName},
+    JsonRoom jsonRoom = JsonRoom.fromJson(doc.json);
+    jsonRoom = jsonRoom.clone(
+      playerIds: [...jsonRoom.playerIds, Constants.PLAYER_2],
+      players: {...jsonRoom.players, Constants.PLAYER_2: playerName},
     );
-    final String matchId = await _createMatch(json);
-    json.clone(matchId: matchId);
+    final String matchId = await _createMatch(jsonRoom);
+    jsonRoom.clone(matchId: matchId);
 
-    await RoomRepository.update(json);
+    await RoomRepository.update(jsonRoom);
 
-    return json.object;
+    return jsonRoom.object;
   }
 
   static Future<String> _createMatch(JsonRoom room) async {
-    final String content = await rootBundle.loadString(
+    JsonMatch jsonMatch = await JsonMatch.fromTemplate(
       'assets/templates/w5h7.json',
-    );
-    JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
-    jsonMatch = jsonMatch.clone(
-      createdAt: DateTime.now(),
-      turn: jsonMatch.turn.clone(startedAt: DateTime.now()),
     );
     final List<JsonPlayer> namedPlayers = [];
 
@@ -89,7 +82,13 @@ class RoomRepository {
       namedPlayers.add(jsonPlayer.clone(name: room.players[jsonPlayer.id]));
     }
 
-    return MatchRepository.create(jsonMatch.clone(players: namedPlayers));
+    jsonMatch = jsonMatch.clone(
+      createdAt: DateTime.now(),
+      turn: jsonMatch.turn.clone(startedAt: DateTime.now()),
+      players: namedPlayers,
+    );
+
+    return MatchRepository.create(jsonMatch);
   }
 
   static Future<Room> create(JsonRoom json) async {
