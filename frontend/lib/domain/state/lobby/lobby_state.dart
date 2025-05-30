@@ -23,6 +23,8 @@ class LobbyState extends BaseState {
     _roomListener.stop();
   }
 
+  void onCancel() => Navigation.pop();
+
   Future _onUpdated(Room room) async {
     if (room.isReady) {
       Navigation.matchScreen(matchId: room.matchId!, selfId: room.playerId);

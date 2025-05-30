@@ -13,15 +13,27 @@ class LobbyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GameContainer(
+    return GameContainer(
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Waiting for players…', style: TextStyle(color: Colors.white)),
-            VBox(20),
-            CircularProgressIndicator(color: Colors.white),
+            const Text(
+              'Waiting for players…',
+              style: TextStyle(color: Colors.white),
+            ),
+            const VBox(20),
+            const CircularProgressIndicator(color: Colors.white),
+            const VBox(40),
+            ElevatedButton(
+              onPressed: state.onCancel,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Red background
+                foregroundColor: Colors.white, // White text
+              ),
+              child: const Text('CANCEL'),
+            ),
           ],
         ),
       ),
