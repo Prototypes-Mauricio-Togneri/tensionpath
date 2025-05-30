@@ -33,7 +33,7 @@ class RoomRepository {
       if (openRoom != null) {
         return _joinRoom(playerName: playerName, json: openRoom);
       } else {
-        return _createRoom(playerName);
+        return _createRoom(userId: userId, playerName: playerName);
       }
     }
   }
@@ -86,7 +86,10 @@ class RoomRepository {
     }
   }
 
-  static Future<MatchmakingInfo> _createRoom(String playerName) async {
+  static Future<MatchmakingInfo> _createRoom({
+    required String userId,
+    required String playerName,
+  }) async {
     final DocumentReference ref = _ref();
     final JsonRoom jsonRoom = JsonRoom(
       id: ref.id,
@@ -96,6 +99,7 @@ class RoomRepository {
       visibility: RoomVisibility.public,
       status: RoomStatus.open,
       matchType: '1v1',
+      userIds: [userId],
       players: {Constants.PLAYER_1: playerName},
       matchId: null,
     );
