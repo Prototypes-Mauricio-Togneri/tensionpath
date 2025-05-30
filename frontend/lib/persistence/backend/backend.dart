@@ -12,6 +12,7 @@ import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
 import 'package:tensionpath/persistence/backend/join_room.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
+import 'package:tensionpath/persistence/backend/matchmaking.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
@@ -43,6 +44,9 @@ class Backend {
   }
 
   // =============================== END POINTS ================================
+
+  static Future<Room> matchmaking(String playerName) =>
+      Matchmaking().call(playerName);
 
   static Future<Room> createRoom(String playerName) =>
       CreateRoom().call(playerName);
