@@ -54,6 +54,8 @@ class Player {
   void replaceWith(Player newPlayer) {
     _baseHealth = newPlayer.baseHealth;
     _resources = newPlayer.resources;
+    _status = newPlayer.status;
+    _turnEndedAt = newPlayer.turnEndedAt;
   }
 
   static Player? playerById({
