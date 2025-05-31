@@ -11,28 +11,24 @@
     },
     "turn": {
         "turn": 1,
-        "startedAt": "1970-01-01T00:00:00.000Z",
-        "player1": {
-            "status": "playing",
-            "turnEndedAt": "1970-01-01T00:00:00.000Z"
-        },
-        "player2": {
-            "status": "playing",
-            "turnEndedAt": "1970-01-01T00:00:00.000Z"
-        }
+        "startedAt": "1970-01-01T00:00:00.000Z"
     },
     "players": [
         {
             "id": "1",
             "name": "",
             "baseHealth": 1000,
-            "resources": 10
+            "resources": 10,
+            "status": "playing",
+            "turnEndedAt": null
         },
         {
             "id": "2",
             "name": "",
             "baseHealth": 1000,
-            "resources": 10
+            "resources": 10,
+            "status": "playing",
+            "turnEndedAt": null
         }
     ],
     "battlefield": {
