@@ -1,47 +1,32 @@
-import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/missile.dart';
-import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/domain/entities/units.dart';
-import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_missile.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
-import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
   // ================================= PLAYER =================================
 
-  static JsonPlayer playerToJson(Player player) => JsonPlayer(
-    name: player.name,
-    baseHealth: player.baseHealth,
-    resources: player.resources,
-    status: player.status,
-    turnEndedAt: player.turnEndedAt,
-  );
+  /*static JsonPlayer playerToJson(JsonPlayer jsonPlayer) => JsonPlayer(
+    name: jsonPlayer.name,
+    baseHealth: jsonPlayer.baseHealth,
+    resources: jsonPlayer.resources,
+    status: jsonPlayer.status,
+    turnEndedAt: jsonPlayer.turnEndedAt,
+  );*/
 
-  static JsonPlayer playerUpdate({
-    required Player player,
+  /*static JsonPlayer playerUpdate({
+    required JsonPlayer jsonPlayer,
     required int baseMaxHealth,
     required int resourcesChange,
     required int healthChange,
     required DateTime? turnEndedAt,
   }) => JsonPlayer(
-    name: player.name,
-    baseHealth: (player.baseHealth - healthChange).clamp(0, baseMaxHealth),
-    resources: player.resources + resourcesChange,
-    status: turnEndedAt != null ? PlayerStatus.waiting : player.status,
-    turnEndedAt: turnEndedAt ?? player.turnEndedAt,
-  );
+    name: jsonPlayer.name,
+    baseHealth: (jsonPlayer.baseHealth - healthChange).clamp(0, baseMaxHealth),
+    resources: jsonPlayer.resources + resourcesChange,
+    status: turnEndedAt != null ? PlayerStatus.waiting : jsonPlayer.status,
+    turnEndedAt: turnEndedAt ?? jsonPlayer.turnEndedAt,
+  );*/
 
   static JsonPlayer playerNextTurn(JsonPlayer player) => JsonPlayer(
     name: player.name,
@@ -53,11 +38,11 @@ class JsonUtils {
 
   // ================================ MISSILE ==================================
 
-  static JsonMissile missileToJson(Missile missile) => JsonMissile(
-    charge: missile.charge,
-    maxCharge: missile.maxCharge,
-    platforms: missile.numberOfPlatforms,
-  );
+  /*static JsonMissile missileToJson(JsonMissile jsonMissile) => JsonMissile(
+    charge: jsonMissile.charge,
+    maxCharge: jsonMissile.maxCharge,
+    platforms: jsonMissile.platforms,
+  );*/
 
   /*static JsonMissile missileNextTurn(Missile missile) {
     if (_missileFull(missile)) {
@@ -73,9 +58,9 @@ class JsonUtils {
         platforms: missile.numberOfPlatforms,
       );
     }
-  }
+  }*/
 
-  static int _missileNextCharge(Missile missile) {
+  /*static int _missileNextCharge(Missile missile) {
     final String? owner = missile.owner;
     final bool charging =
         owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
@@ -87,16 +72,16 @@ class JsonUtils {
     } else {
       return missile.charge;
     }
-  }
+  }*/
 
-  static bool _missileFull(Missile missile) =>
+  /*static bool _missileFull(Missile missile) =>
       (missile.charge == missile.maxCharge) &&
       ((missile.owner == Constants.PLAYER_1) ||
-          (missile.owner == Constants.PLAYER_2));
+          (missile.owner == Constants.PLAYER_2));*/
 
   // ============================== BATTLEFIELD ================================
 
-  static JsonBattlefield battlefieldDeployUnit({
+  /*static JsonBattlefield battlefieldDeployUnit({
     required Battlefield battlefield,
     required Units units,
     required Node nodeTarget,
@@ -117,9 +102,9 @@ class JsonUtils {
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
-  }
+  }*/
 
-  static JsonBattlefield battlefieldMoveUnit({
+  /*static JsonBattlefield battlefieldMoveUnit({
     required Battlefield battlefield,
     required Node nodeOrigin,
     required Node nodeTarget,
@@ -146,9 +131,9 @@ class JsonUtils {
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
-  }
+  }*/
 
-  static JsonBattlefield battlefieldAttackUnit({
+  /*static JsonBattlefield battlefieldAttackUnit({
     required Battlefield battlefield,
     required Unit unitAttacker,
     required Unit unitDefender,
@@ -227,9 +212,9 @@ class JsonUtils {
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
-  }
+  }*/
 
-  static JsonBattlefield battlefieldAttackBase({
+  /*static JsonBattlefield battlefieldAttackBase({
     required Battlefield battlefield,
     required Unit unit,
   }) {
@@ -257,9 +242,9 @@ class JsonUtils {
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
-  }
+  }*/
 
-  static JsonBattlefield battlefieldNexTurn(Battlefield battlefield) {
+  /*static JsonBattlefield battlefieldNexTurn(Battlefield battlefield) {
     final List<JsonNode> jsonNodes = [];
 
     for (final Node node in battlefield.nodes) {
@@ -274,15 +259,15 @@ class JsonUtils {
     );
   }*/
 
-  static JsonBattlefield battlefieldToJson(Battlefield battlefield) =>
+  /*static JsonBattlefield battlefieldToJson(JsonBattlefield jsonBattlefield) =>
       JsonBattlefield(
-        id: battlefield.id,
-        size: battlefield.size.toJsonSize(),
-        missile: missileToJson(battlefield.missile),
-        nodes: battlefield.nodes.map(nodeToJson).toList(),
-      );
+        id: jsonBattlefield.id,
+        size: jsonBattlefield.size,
+        missile: jsonBattlefield.missile,
+        nodes: jsonBattlefield.nodes,
+      );*/
 
-  static JsonBattlefield battlefieldWithActions(Battlefield battlefield) {
+  /*static JsonBattlefield battlefieldWithActions(Battlefield battlefield) {
     final List<JsonNode> jsonNodes = [];
 
     for (final Node node in battlefield.nodes) {
@@ -295,7 +280,7 @@ class JsonUtils {
       missile: missileToJson(battlefield.missile),
       nodes: jsonNodes,
     );
-  }
+  }*/
 
   // ================================= NODE ===================================
 
@@ -306,17 +291,17 @@ class JsonUtils {
         type: node.type,
         unit: unitToJson(unit),
         structure: structureToJson(node.structure),
-      );
+      );*/
 
-  static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
+  /*static JsonNode nodeUnitUndeployed(Node node) => JsonNode(
     x: node.location.x,
     y: node.location.y,
     type: node.type,
     unit: null,
     structure: structureToJson(node.structure),
-  );
+  );*/
 
-  static JsonNode nodeUnitMoved({
+  /*static JsonNode nodeUnitMoved({
     required Node node,
     required Unit unit,
     required int distance,
@@ -326,9 +311,9 @@ class JsonUtils {
     type: node.type,
     unit: unitMoved(unit: unit, distance: distance),
     structure: structureToJson(node.structure),
-  );
+  );*/
 
-  static JsonNode nodeUnitBattled({
+  /*static JsonNode nodeUnitBattled({
     required Node node,
     required Unit? unit,
     required int health,
@@ -348,9 +333,9 @@ class JsonUtils {
             )
             : null,
     structure: structureToJson(node.structure),
-  );
+  );*/
 
-  static JsonNode nodeUnitReset(Node node) => JsonNode(
+  /*static JsonNode nodeUnitReset(Node node) => JsonNode(
     x: node.location.x,
     y: node.location.y,
     type: node.type,
@@ -358,13 +343,13 @@ class JsonUtils {
     structure: structureToJson(node.structure),
   );*/
 
-  static JsonNode nodeToJson(Node node) => JsonNode(
+  /*static JsonNode nodeToJson(Node node) => JsonNode(
     x: node.location.x,
     y: node.location.y,
     type: node.type,
     unit: unitToJson(node.units),
     structure: structureToJson(node.structure),
-  );
+  );*/
 
   // ================================= UNIT ====================================
 
@@ -375,9 +360,9 @@ class JsonUtils {
         remainingMoves: unit.remainingMoves - distance,
         remainingAttacks: unit.remainingAttacks,
         player: unit.player.id,
-      );
+      );*/
 
-  static JsonUnits unitBattled({
+  /*static JsonUnits unitBattled({
     required Unit unit,
     required int health,
     required int remainingMoves,
@@ -388,9 +373,9 @@ class JsonUtils {
     remainingMoves: remainingMoves,
     remainingAttacks: remainingAttacks,
     player: unit.player.id,
-  );
+  );*/
 
-  static JsonUnits? unitReset({required Node node, required Unit? unit}) {
+  /*static JsonUnits? unitReset({required Node node, required Unit? unit}) {
     if (unit != null) {
       final bool isResourcesStructure =
           node.hasStructure && (node.structure is StructureResources);
@@ -415,7 +400,7 @@ class JsonUtils {
     }
   }*/
 
-  static JsonUnits? unitToJson(Units? units) {
+  /*static JsonUnits? unitToJson(Units? units) {
     if (units != null) {
       return JsonUnits(
         player: units.player.id,
@@ -426,11 +411,11 @@ class JsonUtils {
     } else {
       return null;
     }
-  }
+  }*/
 
   // ================================= STRUCTURE ===============================
 
-  static JsonStructure? structureToJson(Structure? structure) {
+  /*static JsonStructure? structureToJson(Structure? structure) {
     if (structure != null) {
       return JsonStructure(
         type: structure.type,
@@ -440,22 +425,22 @@ class JsonUtils {
     } else {
       return null;
     }
-  }
+  }*/
 
-  // ================================= TURN ====================================
+  // ================================= CONFIG ==================================
 
-  static JsonConfig configToJson(Config config) => JsonConfig(
+  /*static JsonConfig configToJson(Config config) => JsonConfig(
     popcap: config.popcap,
     baseMaxHealth: config.baseMaxHealth,
     resourcesPerPatch: config.resourcesPerPatch,
     resourcesPerTurn: config.resourcesPerTurn,
     resourcesPerSecond: config.resourcesPerSecond,
-  );
+  );*/
 
-  // ================================= CONFIG ==================================
+  // ================================= TURN ====================================
 
-  static JsonTurn turnToJson(Turn turn) =>
-      JsonTurn(turn: turn.turn, startedAt: turn.startedAt);
+  static JsonTurn nextTurn(JsonTurn jsonTurn) =>
+      JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
   // ================================= MATCH ===================================
 
@@ -484,9 +469,9 @@ class JsonUtils {
         nodeTarget: node,
       ),
     );
-  }
+  }*/
 
-  static JsonMatch matchMoveUnit({
+  /*static JsonMatch matchMoveUnit({
     required Match match,
     required Unit unitOrigin,
     required Node nodeOrigin,
@@ -512,9 +497,9 @@ class JsonUtils {
         nodeTarget: nodeTarget,
       ),
     );
-  }
+  }*/
 
-  static JsonMatch matchAttackUnit({
+  /*static JsonMatch matchAttackUnit({
     required Match match,
     required Unit unitAttacker,
     required Unit unitDefender,
@@ -532,9 +517,9 @@ class JsonUtils {
         unitDefender: unitDefender,
       ),
     );
-  }
+  }*/
 
-  static JsonMatch matchAttackBase({
+  /*static JsonMatch matchAttackBase({
     required Match match,
     required Unit unit,
     required Node node,
@@ -568,7 +553,7 @@ class JsonUtils {
       version: json.version,
       createdAt: json.createdAt,
       config: json.config,
-      turn: JsonTurn(turn: json.turn.turn + 1, startedAt: DateTime.now()),
+      turn: nextTurn(json.turn),
       players: Map.fromEntries(
         json.players.entries.map(
           (entry) => MapEntry(entry.key, playerNextTurn(entry.value)),
@@ -585,9 +570,9 @@ class JsonUtils {
         player: player,
         nodes: match.battlefield.nodes,
       ) +
-      match.accumulatedResourcesInTurn;
+      match.accumulatedResourcesInTurn;*/
 
-  static int _missileHit({required Player player, required Missile missile}) {
+  /*static int _missileHit({required Player player, required Missile missile}) {
     if (_missileFull(missile)) {
       if (missile.owner != player.id) {
         return player.baseMaxHealth ~/ 2;
@@ -597,9 +582,9 @@ class JsonUtils {
     } else {
       return 0;
     }
-  }
+  }*/
 
-  static int _fuelCollected({
+  /*static int _fuelCollected({
     required Match match,
     required Player player,
     required List<Node> nodes,
