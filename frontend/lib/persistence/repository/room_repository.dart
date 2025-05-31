@@ -121,7 +121,7 @@ class RoomRepository {
     return jsonRoom.id;
   }
 
-  static Future<String> _createMatch(JsonRoom room) async {
+  static Future<String> _createMatch(JsonRoom jsonRoom) async {
     JsonMatch jsonMatch = await JsonMatch.fromTemplate(
       'assets/templates/w5h7.json',
     );
@@ -132,7 +132,7 @@ class RoomRepository {
         jsonMatch.players.entries.map(
           (entry) => MapEntry(
             entry.key,
-            entry.value.clone(name: room.playersMap[entry.key]),
+            entry.value.clone(name: jsonRoom.playersMap[entry.key]),
           ),
         ),
       ),

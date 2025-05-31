@@ -39,8 +39,8 @@ class Backend {
         .doc(matchId);
     return reference.snapshots().listen((snapshot) {
       if (snapshot.exists) {
-        final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-        _onUpdated(json);
+        final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
+        _onUpdated(jsonMatch);
       }
     }, onError: ErrorHandler.process);
   }
