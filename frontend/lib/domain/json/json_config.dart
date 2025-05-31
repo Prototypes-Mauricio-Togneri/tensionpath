@@ -10,6 +10,7 @@ class JsonConfig {
 
   @JsonKey(name: 'baseMaxHealth')
   final int baseMaxHealth;
+
   @JsonKey(name: 'resourcesPerPatch')
   final int resourcesPerPatch;
 

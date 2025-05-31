@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
@@ -129,26 +128,17 @@ class RoomRepository {
     jsonMatch = jsonMatch.clone(
       createdAt: DateTime.now(),
       turn: jsonMatch.turn.clone(startedAt: DateTime.now()),
-      players: _mergePlayers(
-        roomPlayers: room.playersMap,
-        matchPlayers: jsonMatch.players,
+      players: Map.fromEntries(
+        jsonMatch.players.entries.map(
+          (entry) => MapEntry(
+            entry.key,
+            entry.value.clone(name: room.playersMap[entry.key]),
+          ),
+        ),
       ),
     );
 
     return MatchRepository.create(jsonMatch);
-  }
-
-  static Map<String, JsonPlayer> _mergePlayers({
-    required Map<String, String> roomPlayers,
-    required Map<String, JsonPlayer> matchPlayers,
-  }) {
-    final Map<String, JsonPlayer> result = {};
-
-    for (final MapEntry<String, JsonPlayer> entry in matchPlayers.entries) {
-      result[entry.key] = entry.value.clone(name: roomPlayers[entry.key]);
-    }
-
-    return result;
   }
 
   static Future stopMatchmaking({
