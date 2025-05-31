@@ -19,7 +19,7 @@ import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
-import 'package:tensionpath/persistence/backend/json_utils.dart';
+import 'package:tensionpath/persistence/backend/next_turn.dart';
 import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
 import 'package:tensionpath/persistence/backend/stop_matchmaking.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -45,13 +45,14 @@ class Backend {
     }, onError: ErrorHandler.process);
   }
 
-  static Future _onUpdated(JsonMatch json) async {
-    final bool allWaiting = json.players.values.every(
+  static Future _onUpdated(JsonMatch jsonMatch) async {
+    final bool allWaiting = jsonMatch.players.values.every(
       (p) => p.status == PlayerStatus.waiting,
     );
 
     if (allWaiting) {
-      await MatchRepository.update(JsonUtils.nexTurn(json));
+      final JsonMatch jsonMatchUpdated = NextTurn()(jsonMatch);
+      await MatchRepository.update(jsonMatchUpdated);
     }
   }
 
@@ -60,20 +61,20 @@ class Backend {
   static Future<String> startMatchmaking({
     required String userId,
     required String playerName,
-  }) => StartMatchmaking().call(userId: userId, playerName: playerName);
+  }) => StartMatchmaking()(userId: userId, playerName: playerName);
 
   static Future stopMatchmaking({
     required String userId,
     required String roomId,
-  }) => StopMatchmaking().call(userId: userId, roomId: roomId);
+  }) => StopMatchmaking()(userId: userId, roomId: roomId);
 
   static Future endTurnSelf({required Match match, required String selfId}) =>
-      EndTurn().call(jsonMatch: _jsonMatch(match), selfId: selfId);
+      EndTurn()(jsonMatch: _jsonMatch(match), selfId: selfId);
 
   static Future endTurnOpponent({
     required Match match,
     required String selfId,
-  }) => EndTurnOpponent().call(jsonMatch: _jsonMatch(match), selfId: selfId);
+  }) => EndTurnOpponent()(jsonMatch: _jsonMatch(match), selfId: selfId);
 
   static JsonMatch _jsonMatch(Match match) => JsonMatch(
     id: match.id,

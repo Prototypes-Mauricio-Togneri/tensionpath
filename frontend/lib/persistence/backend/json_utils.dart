@@ -1,8 +1,3 @@
-import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/types/player_status.dart';
-
 class JsonUtils {
   // ================================= PLAYER =================================
 
@@ -27,22 +22,6 @@ class JsonUtils {
     status: turnEndedAt != null ? PlayerStatus.waiting : jsonPlayer.status,
     turnEndedAt: turnEndedAt ?? jsonPlayer.turnEndedAt,
   );*/
-
-  static Map<String, JsonPlayer> _playersNextTurn(
-    Map<String, JsonPlayer> jsonPlayers,
-  ) => Map.fromEntries(
-    jsonPlayers.entries.map(
-      (entry) => MapEntry(entry.key, _playerNextTurn(entry.value)),
-    ),
-  );
-
-  static JsonPlayer _playerNextTurn(JsonPlayer player) => JsonPlayer(
-    name: player.name,
-    baseHealth: player.baseHealth,
-    resources: player.resources,
-    status: PlayerStatus.playing,
-    turnEndedAt: null,
-  );
 
   // ================================ MISSILE ==================================
 
@@ -447,9 +426,6 @@ class JsonUtils {
 
   // ================================= TURN ====================================
 
-  static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
-      JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
-
   // ================================= MATCH ===================================
 
   /*static JsonMatch matchDeployUnit({
@@ -554,16 +530,6 @@ class JsonUtils {
       ),
     );
   }*/
-
-  static JsonMatch nexTurn(JsonMatch json) => JsonMatch(
-    id: json.id,
-    version: json.version,
-    createdAt: json.createdAt,
-    config: json.config,
-    turn: _nextTurn(json.turn),
-    players: _playersNextTurn(json.players),
-    battlefield: json.battlefield,
-  );
 
   /*static int _newResources({required Player player, required Match match}) =>
       match.config.resourcesPerTurn +
