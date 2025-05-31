@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -8,6 +9,8 @@ class Player {
   final bool isSelf;
   late int _baseHealth;
   late int _resources;
+  late PlayerStatus _status;
+  late DateTime? _turnEndedAt;
 
   Player({
     required this.id,
@@ -15,9 +18,13 @@ class Player {
     required this.isSelf,
     required int baseHealth,
     required int resources,
+    required PlayerStatus status,
+    required DateTime? turnEndedAt,
   }) {
     _baseHealth = baseHealth;
     _resources = resources;
+    _status = status;
+    _turnEndedAt = turnEndedAt;
   }
 
   int get baseHealth => _baseHealth;
@@ -31,6 +38,10 @@ class Player {
   bool get isOpponent => !isSelf;
 
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
+
+  PlayerStatus get status => _status;
+
+  DateTime? get turnEndedAt => _turnEndedAt;
 
   bool hasResources(int value) => resources >= value;
 

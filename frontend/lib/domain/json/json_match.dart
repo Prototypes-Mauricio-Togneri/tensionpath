@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
-import 'package:tensionpath/domain/json/json_match_player.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
 
@@ -24,7 +24,7 @@ class JsonMatch {
   final DateTime createdAt;
 
   @JsonKey(name: 'players')
-  final List<JsonMatchPlayer> players;
+  final Map<String, JsonPlayer> players;
 
   @JsonKey(name: 'battlefield')
   final JsonBattlefield battlefield;
@@ -49,7 +49,7 @@ class JsonMatch {
     String? id,
     DateTime? createdAt,
     JsonTurn? turn,
-    List<JsonMatchPlayer>? players,
+    Map<String, JsonPlayer>? players,
   }) => JsonMatch(
     id: id ?? this.id,
     version: version,
@@ -76,24 +76,24 @@ class JsonMatch {
     );
   }
 
-  Player _getSelf(String id) {
-    for (final JsonMatchPlayer player in players) {
-      if (player.id == id) {
-        return player.object(true);
+  Player _getSelf(String selfId) {
+    for (final MapEntry<String, JsonPlayer> entry in players.entries) {
+      if (entry.key == selfId) {
+        return entry.value.object(id: entry.key, isSelf: true);
       }
     }
 
-    throw Exception('Player with id $id not found');
+    throw Exception('Player with id $selfId not found');
   }
 
-  Player _getOpponent(String id) {
-    for (final JsonMatchPlayer player in players) {
-      if (player.id != id) {
-        return player.object(false);
+  Player _getOpponent(String selfId) {
+    for (final MapEntry<String, JsonPlayer> entry in players.entries) {
+      if (entry.key != selfId) {
+        return entry.value.object(id: entry.key, isSelf: false);
       }
     }
 
-    throw Exception('Player with id $id not found');
+    throw Exception('Player with id $selfId not found');
   }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>

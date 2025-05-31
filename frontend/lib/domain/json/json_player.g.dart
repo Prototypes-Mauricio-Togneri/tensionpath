@@ -1,14 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_turn_player.dart';
+part of 'json_player.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonTurnPlayer _$JsonTurnPlayerFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonTurnPlayer', json, ($checkedConvert) {
-      final val = JsonTurnPlayer(
+JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonPlayer', json, ($checkedConvert) {
+      final val = JsonPlayer(
+        name: $checkedConvert('name', (v) => v as String),
+        baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
+        resources: $checkedConvert('resources', (v) => (v as num).toInt()),
         status: $checkedConvert(
           'status',
           (v) => $enumDecode(_$PlayerStatusEnumMap, v),
@@ -21,9 +24,12 @@ JsonTurnPlayer _$JsonTurnPlayerFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$JsonTurnPlayerToJson(
-  JsonTurnPlayer instance,
+Map<String, dynamic> _$JsonPlayerToJson(
+  JsonPlayer instance,
 ) => <String, dynamic>{
+  'name': instance.name,
+  'baseHealth': instance.baseHealth,
+  'resources': instance.resources,
   'status': _$PlayerStatusEnumMap[instance.status]!,
   if (dateToJson(instance.turnEndedAt) case final value?) 'turnEndedAt': value,
 };

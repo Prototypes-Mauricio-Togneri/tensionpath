@@ -17,9 +17,10 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
         ),
         players: $checkedConvert(
           'players',
-          (v) => (v as List<dynamic>)
-              .map((e) => JsonMatchPlayer.fromJson(e as Map<String, dynamic>))
-              .toList(),
+          (v) => (v as Map<String, dynamic>).map(
+            (k, e) =>
+                MapEntry(k, JsonPlayer.fromJson(e as Map<String, dynamic>)),
+          ),
         ),
         battlefield: $checkedConvert(
           'battlefield',
@@ -41,7 +42,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
   'id': instance.id,
   'version': instance.version,
   if (dateToJson(instance.createdAt) case final value?) 'createdAt': value,
-  'players': instance.players.map((e) => e.toJson()).toList(),
+  'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
   'battlefield': instance.battlefield.toJson(),
   'config': instance.config.toJson(),
   'turn': instance.turn.toJson(),

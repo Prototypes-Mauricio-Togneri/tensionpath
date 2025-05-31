@@ -33,8 +33,11 @@ class Backend {
   }
 
   static Future _onUpdated(JsonMatch json) async {
-    if (json.turn.player1.status == PlayerStatus.waiting &&
-        json.turn.player2.status == PlayerStatus.waiting) {
+    final bool allWaiting = json.players.values.every(
+      (p) => p.status == PlayerStatus.waiting,
+    );
+
+    if (allWaiting) {
       await MatchRepository.update(JsonUtils.nexTurn(json));
     }
   }

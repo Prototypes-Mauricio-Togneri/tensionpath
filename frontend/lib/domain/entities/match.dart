@@ -39,15 +39,7 @@ class Match {
 
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
-  bool get isSelfPlaying {
-    if (self.isPlayer1) {
-      return turn.player1.status == PlayerStatus.playing;
-    } else if (self.isPlayer2) {
-      return turn.player2.status == PlayerStatus.playing;
-    } else {
-      return false;
-    }
-  }
+  bool get isSelfPlaying => self.status == PlayerStatus.playing;
 
   Player get player1 => self.isPlayer1 ? self : opponent;
 

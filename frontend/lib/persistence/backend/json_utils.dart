@@ -1,12 +1,9 @@
-/*import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -18,50 +15,40 @@ import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
-import 'package:tensionpath/domain/types/unit_class.dart';
-import 'package:tensionpath/extensions/size_extension.dart';*/
-import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/missile.dart';
-import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/domain/entities/units.dart';
-import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/domain/json/json_config.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_match_player.dart';
-import 'package:tensionpath/domain/json/json_missile.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
-import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/json/json_turn_player.dart';
-import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
 
 class JsonUtils {
   // ================================= PLAYER =================================
 
-  static JsonMatchPlayer playerToJson(Player player) => JsonMatchPlayer(
-    id: player.id,
+  static JsonPlayer playerToJson(Player player) => JsonPlayer(
     name: player.name,
     baseHealth: player.baseHealth,
     resources: player.resources,
+    status: player.status,
+    turnEndedAt: player.turnEndedAt,
   );
 
-  static JsonMatchPlayer playerUpdate({
+  static JsonPlayer playerUpdate({
     required Player player,
     required int baseMaxHealth,
     required int resourcesChange,
     required int healthChange,
-  }) => JsonMatchPlayer(
-    id: player.id,
+    required DateTime? turnEndedAt,
+  }) => JsonPlayer(
     name: player.name,
     baseHealth: (player.baseHealth - healthChange).clamp(0, baseMaxHealth),
     resources: player.resources + resourcesChange,
+    status: turnEndedAt != null ? PlayerStatus.waiting : player.status,
+    turnEndedAt: turnEndedAt ?? player.turnEndedAt,
+  );
+
+  static JsonPlayer playerNextTurn(JsonPlayer player) => JsonPlayer(
+    name: player.name,
+    baseHealth: player.baseHealth,
+    resources: player.resources,
+    status: PlayerStatus.playing,
+    turnEndedAt: null,
   );
 
   // ================================ MISSILE ==================================
@@ -467,36 +454,8 @@ class JsonUtils {
 
   // ================================= CONFIG ==================================
 
-  /*static JsonTurn turnToJson(Turn turn) => JsonTurn(
-    turn: turn.turn,
-    startedAt: turn.startedAt,
-    player1: turnPlayerToJson(turn.player1),
-    player2: turnPlayerToJson(turn.player2),
-  );*/
-
-  static JsonTurn endTurn({
-    required Turn turn,
-    required DateTime? player1EndedTurnAt,
-    required DateTime? player2EndedTurnAt,
-  }) => JsonTurn(
-    turn: turn.turn,
-    startedAt: turn.startedAt,
-    player1: player1EndedTurnAt != null
-        ? endTurnPlayerToJson(player1EndedTurnAt)
-        : turnPlayerToJson(turn.player1),
-    player2: player2EndedTurnAt != null
-        ? endTurnPlayerToJson(player2EndedTurnAt)
-        : turnPlayerToJson(turn.player2),
-  );
-
-  static JsonTurnPlayer turnPlayerToJson(TurnPlayer turnPlayer) =>
-      JsonTurnPlayer(
-        status: turnPlayer.status,
-        turnEndedAt: turnPlayer.turnEndedAt,
-      );
-
-  static JsonTurnPlayer endTurnPlayerToJson(DateTime dateTime) =>
-      JsonTurnPlayer(status: PlayerStatus.waiting, turnEndedAt: dateTime);
+  static JsonTurn turnToJson(Turn turn) =>
+      JsonTurn(turn: turn.turn, startedAt: turn.startedAt);
 
   // ================================= MATCH ===================================
 
@@ -603,55 +562,18 @@ class JsonUtils {
     );
   }*/
 
-  static JsonMatch endTurnSelf(Match match) => JsonMatch(
-    id: match.id,
-    version: match.version,
-    createdAt: match.createdAt,
-    config: configToJson(match.config),
-    turn: endTurn(
-      turn: match.turn,
-      player1EndedTurnAt: match.self.isPlayer1 ? DateTime.now() : null,
-      player2EndedTurnAt: match.self.isPlayer2 ? DateTime.now() : null,
-    ),
-    players: [playerToJson(match.opponent), playerToJson(match.self)],
-    battlefield: battlefieldWithActions(match.battlefield),
-  );
-
-  static JsonMatch endTurnOpponent(Match match) {
-    return JsonMatch(
-      id: match.id,
-      version: match.version,
-      createdAt: match.createdAt,
-      config: configToJson(match.config),
-      turn: endTurn(
-        turn: match.turn,
-        player1EndedTurnAt: match.self.isPlayer2 ? DateTime.now() : null,
-        player2EndedTurnAt: match.self.isPlayer1 ? DateTime.now() : null,
-      ),
-      players: [playerToJson(match.opponent), playerToJson(match.self)],
-      battlefield: battlefieldToJson(match.battlefield),
-    );
-  }
-
   static JsonMatch nexTurn(JsonMatch json) {
     return JsonMatch(
       id: json.id,
       version: json.version,
       createdAt: json.createdAt,
       config: json.config,
-      turn: JsonTurn(
-        turn: json.turn.turn + 1,
-        startedAt: DateTime.now(),
-        player1: const JsonTurnPlayer(
-          status: PlayerStatus.playing,
-          turnEndedAt: null,
-        ),
-        player2: const JsonTurnPlayer(
-          status: PlayerStatus.playing,
-          turnEndedAt: null,
+      turn: JsonTurn(turn: json.turn.turn + 1, startedAt: DateTime.now()),
+      players: Map.fromEntries(
+        json.players.entries.map(
+          (entry) => MapEntry(entry.key, playerNextTurn(entry.value)),
         ),
       ),
-      players: json.players,
       battlefield: json.battlefield,
     );
   }
