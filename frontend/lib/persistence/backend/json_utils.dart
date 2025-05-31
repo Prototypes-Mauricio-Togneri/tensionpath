@@ -28,7 +28,15 @@ class JsonUtils {
     turnEndedAt: turnEndedAt ?? jsonPlayer.turnEndedAt,
   );*/
 
-  static JsonPlayer playerNextTurn(JsonPlayer player) => JsonPlayer(
+  static Map<String, JsonPlayer> _playersNextTurn(
+    Map<String, JsonPlayer> jsonPlayers,
+  ) => Map.fromEntries(
+    jsonPlayers.entries.map(
+      (entry) => MapEntry(entry.key, _playerNextTurn(entry.value)),
+    ),
+  );
+
+  static JsonPlayer _playerNextTurn(JsonPlayer player) => JsonPlayer(
     name: player.name,
     baseHealth: player.baseHealth,
     resources: player.resources,
@@ -439,7 +447,7 @@ class JsonUtils {
 
   // ================================= TURN ====================================
 
-  static JsonTurn nextTurn(JsonTurn jsonTurn) =>
+  static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
   // ================================= MATCH ===================================
@@ -547,21 +555,15 @@ class JsonUtils {
     );
   }*/
 
-  static JsonMatch nexTurn(JsonMatch json) {
-    return JsonMatch(
-      id: json.id,
-      version: json.version,
-      createdAt: json.createdAt,
-      config: json.config,
-      turn: nextTurn(json.turn),
-      players: Map.fromEntries(
-        json.players.entries.map(
-          (entry) => MapEntry(entry.key, playerNextTurn(entry.value)),
-        ),
-      ),
-      battlefield: json.battlefield,
-    );
-  }
+  static JsonMatch nexTurn(JsonMatch json) => JsonMatch(
+    id: json.id,
+    version: json.version,
+    createdAt: json.createdAt,
+    config: json.config,
+    turn: _nextTurn(json.turn),
+    players: _playersNextTurn(json.players),
+    battlefield: json.battlefield,
+  );
 
   /*static int _newResources({required Player player, required Match match}) =>
       match.config.resourcesPerTurn +
