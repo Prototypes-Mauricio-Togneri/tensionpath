@@ -1,32 +1,52 @@
-import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/persistence/backend/json_utils.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class EndTurnOpponent {
-  Future call(Match match) async {
-    final JsonMatch json = _endTurnOpponent(match);
-    await MatchRepository.update(json);
-  }
+  Future call({required JsonMatch jsonMatch, required String selfId}) =>
+      MatchRepository.update(
+        _endTurnOpponent(jsonMatch: jsonMatch, selfId: selfId),
+      );
 
-  JsonMatch _endTurnOpponent(Match match) {
-    return JsonMatch(
-      id: match.id,
-      version: match.version,
-      createdAt: match.createdAt,
-      config: JsonUtils.configToJson(match.config),
-      turn: JsonUtils.turnToJson(match.turn),
-      players: {
-        match.self.id: JsonUtils.playerToJson(match.self),
-        match.opponent.id: JsonUtils.playerUpdate(
-          player: match.opponent,
-          baseMaxHealth: match.config.baseMaxHealth,
-          resourcesChange: match.opponent.resources,
-          healthChange: 0,
-          turnEndedAt: DateTime.now(),
+  JsonMatch _endTurnOpponent({
+    required JsonMatch jsonMatch,
+    required String selfId,
+  }) => JsonMatch(
+    id: jsonMatch.id,
+    version: jsonMatch.version,
+    createdAt: jsonMatch.createdAt,
+    config: jsonMatch.config,
+    turn: jsonMatch.turn,
+    players: Map.fromEntries(
+      jsonMatch.players.entries.map(
+        (entry) => MapEntry(
+          entry.key,
+          _jsonPlayer(
+            playerId: entry.key,
+            jsonPlayer: entry.value,
+            selfId: selfId,
+          ),
         ),
-      },
-      battlefield: JsonUtils.battlefieldToJson(match.battlefield),
-    );
+      ),
+    ),
+    battlefield: jsonMatch.battlefield,
+  );
+
+  JsonPlayer _jsonPlayer({
+    required String playerId,
+    required JsonPlayer jsonPlayer,
+    required String selfId,
+  }) {
+    if (playerId != selfId) {
+      return JsonPlayer(
+        name: jsonPlayer.name,
+        baseHealth: jsonPlayer.baseHealth,
+        resources: jsonPlayer.resources,
+        status: jsonPlayer.status,
+        turnEndedAt: DateTime.now(),
+      );
+    } else {
+      return jsonPlayer;
+    }
   }
 }

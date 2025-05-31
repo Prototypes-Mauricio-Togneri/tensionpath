@@ -2,5 +2,6 @@ import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/persistence/backend/backend.dart';
 
 class EndTurnSelfCallable {
-  Future call(Match match) => Backend.endTurn(match);
+  Future call({required Match match, required String selfId}) =>
+      Backend.endTurnSelf(match: match, selfId: selfId);
 }

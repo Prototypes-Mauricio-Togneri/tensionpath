@@ -131,13 +131,14 @@ class Match {
 
   Future onEndTurn() {
     if (isSelfPlaying) {
-      return EndTurnSelfCallable()(this);
+      return EndTurnSelfCallable()(match: this, selfId: self.id);
     } else {
       return Future.value();
     }
   }
 
-  Future onOpponentEndTurn() => EndTurnOpponentCallable()(this);
+  Future onOpponentEndTurn() =>
+      EndTurnOpponentCallable()(match: this, selfId: self.id);
 
   void _removeMoveActions(Node nodeOrigin) => actions.removeWhere(
     (action) => (action is ActionMoveUnit) && (action.nodeOrigin == nodeOrigin),
