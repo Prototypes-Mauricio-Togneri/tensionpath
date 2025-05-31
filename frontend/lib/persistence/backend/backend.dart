@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
+import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
@@ -29,21 +33,22 @@ import 'package:tensionpath/utils/stream_listener.dart';
 class Backend {
   static final StreamListener _matchListener = StreamListener();
 
-  static void start(String matchId) => _matchListener.start(_listen(matchId));
-
-  static void stop() => _matchListener.stop();
-
-  static StreamSubscription _listen(String matchId) {
+  static void start(String matchId) {
     final DocumentReference reference = FirebaseFirestore.instance
         .collection('matches')
         .doc(matchId);
-    return reference.snapshots().listen((snapshot) {
-      if (snapshot.exists) {
-        final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
-        _onUpdated(jsonMatch);
-      }
-    }, onError: ErrorHandler.process);
+
+    _matchListener.start(
+      reference.snapshots().listen((snapshot) {
+        if (snapshot.exists) {
+          final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
+          _onUpdated(jsonMatch);
+        }
+      }, onError: ErrorHandler.process),
+    );
   }
+
+  static void stop() => _matchListener.stop();
 
   static Future _onUpdated(JsonMatch jsonMatch) async {
     final bool allWaiting = jsonMatch.players.values.every(
@@ -76,33 +81,33 @@ class Backend {
     required String selfId,
   }) => EndTurnOpponent()(jsonMatch: _jsonMatch(match), selfId: selfId);
 
+  // ================================= UTILS ===================================
+
   static JsonMatch _jsonMatch(Match match) => JsonMatch(
     id: match.id,
     version: match.version,
     createdAt: match.createdAt,
-    config: JsonConfig(
-      popcap: match.config.popcap,
-      baseMaxHealth: match.config.baseMaxHealth,
-      resourcesPerPatch: match.config.resourcesPerPatch,
-      resourcesPerTurn: match.config.resourcesPerTurn,
-      resourcesPerSecond: match.config.resourcesPerSecond,
-    ),
-    turn: JsonTurn(turn: match.turn.turn, startedAt: match.turn.startedAt),
-    players: {
-      match.self.id: _playerToJson(match.self),
-      match.opponent.id: _playerToJson(match.opponent),
-    },
-    battlefield: JsonBattlefield(
-      id: match.battlefield.id,
-      size: match.battlefield.size.toJsonSize(),
-      missile: JsonMissile(
-        charge: match.battlefield.missile.charge,
-        maxCharge: match.battlefield.missile.maxCharge,
-        platforms: match.battlefield.missile.numberOfPlatforms,
-      ),
-      nodes: match.battlefield.nodes.map(_nodeToJson).toList(),
-    ),
+    config: _configToJson(match.config),
+    turn: _turnToJson(match.turn),
+    players: _playersToJson(match),
+    battlefield: _battlefieldToJson(match.battlefield),
   );
+
+  static JsonConfig _configToJson(Config config) => JsonConfig(
+    popcap: config.popcap,
+    baseMaxHealth: config.baseMaxHealth,
+    resourcesPerPatch: config.resourcesPerPatch,
+    resourcesPerTurn: config.resourcesPerTurn,
+    resourcesPerSecond: config.resourcesPerSecond,
+  );
+
+  static JsonTurn _turnToJson(Turn turn) =>
+      JsonTurn(turn: turn.turn, startedAt: turn.startedAt);
+
+  static Map<String, JsonPlayer> _playersToJson(Match match) => {
+    match.self.id: _playerToJson(match.self),
+    match.opponent.id: _playerToJson(match.opponent),
+  };
 
   static JsonPlayer _playerToJson(Player player) => JsonPlayer(
     name: player.name,
@@ -118,6 +123,20 @@ class Backend {
     type: node.type,
     unit: _unitsToJson(node.units),
     structure: _structureToJson(node.structure),
+  );
+
+  static JsonBattlefield _battlefieldToJson(Battlefield battlefield) =>
+      JsonBattlefield(
+        id: battlefield.id,
+        size: battlefield.size.toJsonSize(),
+        missile: _missileToJson(battlefield.missile),
+        nodes: battlefield.nodes.map(_nodeToJson).toList(),
+      );
+
+  static JsonMissile _missileToJson(Missile missile) => JsonMissile(
+    charge: missile.charge,
+    maxCharge: missile.maxCharge,
+    platforms: missile.numberOfPlatforms,
   );
 
   static JsonUnits? _unitsToJson(Units? units) {

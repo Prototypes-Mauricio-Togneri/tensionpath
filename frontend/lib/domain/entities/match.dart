@@ -129,12 +129,10 @@ class Match {
     }
   }
 
-  Future onEndTurn() {
+  Future onEndTurn() async {
     if (isSelfPlaying) {
       return EndTurnSelfCallable()(match: this, selfId: self.id);
-    } else {
-      return Future.value();
-    }
+    } 
   }
 
   Future onOpponentEndTurn() =>
