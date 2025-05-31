@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/match.dart';
@@ -18,20 +18,14 @@ import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
-import 'package:tensionpath/domain/types/player_status.dart';
-import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/extensions/size_extension.dart';
-import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
-import 'package:tensionpath/persistence/backend/next_turn.dart';
+import 'package:tensionpath/persistence/backend/end_turn_self.dart';
 import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
 import 'package:tensionpath/persistence/backend/stop_matchmaking.dart';
-import 'package:tensionpath/persistence/repository/match_repository.dart';
-import 'package:tensionpath/utils/error_handler.dart';
-import 'package:tensionpath/utils/stream_listener.dart';
 
 class Backend {
-  static final StreamListener _matchListener = StreamListener();
+  /*static final StreamListener _matchListener = StreamListener();
 
   static void start(String matchId) {
     final DocumentReference reference = FirebaseFirestore.instance
@@ -59,7 +53,7 @@ class Backend {
       final JsonMatch jsonMatchUpdated = NextTurn()(jsonMatch);
       await MatchRepository.update(jsonMatchUpdated);
     }
-  }
+  }*/
 
   // =============================== END POINTS ================================
 
@@ -74,7 +68,7 @@ class Backend {
   }) => StopMatchmaking()(userId: userId, roomId: roomId);
 
   static Future endTurnSelf({required Match match, required String selfId}) =>
-      EndTurn()(jsonMatch: _jsonMatch(match), selfId: selfId);
+      EndTurnSelf()(jsonMatch: _jsonMatch(match), selfId: selfId);
 
   static Future endTurnOpponent({
     required Match match,

@@ -1,12 +1,19 @@
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/types/player_status.dart';
+import 'package:tensionpath/persistence/backend/next_turn.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
-class EndTurn {
-  Future call({required JsonMatch jsonMatch, required String selfId}) =>
-      MatchRepository.update(
-        _endTurnSelf(jsonMatch: jsonMatch, selfId: selfId),
-      );
+class EndTurnSelf {
+  Future call({required JsonMatch jsonMatch, required String selfId}) async {
+    JsonMatch jsonMatchUpdated = _endTurnSelf(
+      jsonMatch: jsonMatch,
+      selfId: selfId,
+    );
+    jsonMatchUpdated = await NextTurn()(jsonMatchUpdated);
+
+    return MatchRepository.update(jsonMatchUpdated);
+  }
 
   JsonMatch _endTurnSelf({
     required JsonMatch jsonMatch,
@@ -42,7 +49,7 @@ class EndTurn {
         name: jsonPlayer.name,
         baseHealth: jsonPlayer.baseHealth,
         resources: jsonPlayer.resources,
-        status: jsonPlayer.status,
+        status: PlayerStatus.waiting,
         turnEndedAt: DateTime.now(),
       );
     } else {
