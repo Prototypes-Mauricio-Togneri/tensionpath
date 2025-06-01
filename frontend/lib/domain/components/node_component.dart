@@ -31,6 +31,8 @@ class NodeComponent<N extends Node> extends PositionComponent
   FutureOr onLoad() async {
     reconfigure();
 
+    add(NewStructureComponent(node: node, position: size / 2, size: size));
+
     return super.onLoad();
   }
 
@@ -90,7 +92,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (node.hasStructure) {
+    /*if (node.hasStructure) {
       _renderStructure(
         structure: node.structure!,
         position: size / 2,
@@ -103,7 +105,7 @@ class NodeComponent<N extends Node> extends PositionComponent
         size: size * 0.97,
         paint: backgroundPaint,
       );
-    }
+    }*/
 
     //if ((_structureComponent == null) && (_unitsComponent == null)) {
 
@@ -124,6 +126,56 @@ class NodeComponent<N extends Node> extends PositionComponent
       );*/
     //}
   }
+}
+
+class NewStructureComponent extends PositionComponent
+    implements Reconfigurable {
+  final Node node;
+  final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint emptyPaint = Palette.paint(
+    color: Palette.NODE_BACKGROUND,
+    style: PaintingStyle.fill,
+  );
+
+  NewStructureComponent({
+    required this.node,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.node.value);
+
+  @override
+  FutureOr onLoad() async {
+    reconfigure();
+
+    return super.onLoad();
+  }
+
+  @override
+  void reconfigure() {
+    innerPaint.color = Colors.red;
+    outterPaint.color = Colors.green;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    if (node.hasStructure) {
+      _renderStructure(
+        structure: node.structure!,
+        position: size / 2,
+        size: size * 0.97,
+        canvas: canvas,
+      );
+    } else {
+      canvas.drawHexagon(
+        center: size / 2,
+        size: size * 0.97,
+        paint: emptyPaint,
+      );
+    }
+  }
 
   void _renderStructure({
     required Structure structure,
@@ -131,18 +183,12 @@ class NodeComponent<N extends Node> extends PositionComponent
     required Vector2 size,
     required Canvas canvas,
   }) {
-    final Paint paintOutter = Palette.paint(style: PaintingStyle.fill);
-    paintOutter.color = Colors.red;
-
-    final Paint paintInner = Palette.paint(style: PaintingStyle.fill);
-    paintInner.color = Colors.green;
-
     if (structure is StructureLauncher) {
       canvas.drawStructureHexagon(
         position: position,
         size: size,
-        paintOutter: paintOutter,
-        paintInner: paintInner,
+        paintOutter: outterPaint,
+        paintInner: innerPaint,
       );
     }
   }
