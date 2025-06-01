@@ -15,6 +15,10 @@ class ActionsComponent extends PositionComponent {
   final Vector2 nodeSize;
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint movementPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.UNIT_MOVEMENT_INDICATOR_VALID,
+  );
 
   ActionsComponent({
     required this.player,
@@ -84,8 +88,8 @@ class ActionsComponent extends PositionComponent {
     canvas.movementLine(
       origin: origin,
       target: target,
-      size: nodeSize,
-      color: Palette.UNIT_MOVEMENT_INDICATOR_VALID,
+      radius: nodeSize.x,
+      paint: movementPaint,
     );
   }
 }

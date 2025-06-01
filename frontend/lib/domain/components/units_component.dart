@@ -19,6 +19,7 @@ class UnitsComponent extends PositionComponent
   final Node node;
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint movementPaint = Palette.paint(style: PaintingStyle.stroke);
   Vector2? targetPosition;
   bool validTarget = false;
 
@@ -116,13 +117,15 @@ class UnitsComponent extends PositionComponent
       );
 
       if (targetPosition != null) {
+        movementPaint.color = validTarget
+            ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
+            : Palette.UNIT_MOVEMENT_INDICATOR_INVALID;
+
         canvas.movementLine(
           origin: size / 2,
           target: targetPosition!,
-          size: size,
-          color: validTarget
-              ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
-              : Palette.UNIT_MOVEMENT_INDICATOR_INVALID,
+          radius: size.x,
+          paint: movementPaint,
         );
       }
     }
