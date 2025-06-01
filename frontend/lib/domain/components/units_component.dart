@@ -116,52 +116,14 @@ class UnitsComponent extends PositionComponent
       );
 
       if (targetPosition != null) {
-        _lineTo(
-          canvas: canvas,
+        canvas.movementLine(
           target: targetPosition!,
+          size: size,
           color: validTarget
               ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
               : Palette.UNIT_MOVEMENT_INDICATOR_INVALID,
         );
       }
-    }
-  }
-
-  void _lineTo({
-    required Canvas canvas,
-    required Vector2 target,
-    required Color color,
-  }) {
-    final double distance = (size / 2).distanceTo(target);
-
-    if (distance >= size.x / 4.5) {
-      final Vector2 origin = _moveTowards(
-        origin: size / 2,
-        target: target,
-        distance: size.x / 4.5,
-      );
-
-      canvas.drawLine(
-        origin.toOffset(),
-        target.toOffset(),
-        Paint()
-          ..color = color
-          ..strokeWidth = size.x / 20,
-      );
-    }
-  }
-
-  Vector2 _moveTowards({
-    required Vector2 origin,
-    required Vector2 target,
-    required double distance,
-  }) {
-    final Vector2 direction = target - origin;
-
-    if (direction.length == 0) {
-      return origin;
-    } else {
-      return origin + direction.normalized() * distance;
     }
   }
 }

@@ -119,4 +119,42 @@ extension CanvasExtension on Canvas {
 
     return path;
   }
+
+  void movementLine({
+    required Vector2 target,
+    required Vector2 size,
+    required Color color,
+  }) {
+    final double distance = (size / 2).distanceTo(target);
+
+    if (distance >= size.x / 4.5) {
+      final Vector2 origin = _moveTowards(
+        origin: size / 2,
+        target: target,
+        distance: size.x / 4.5,
+      );
+
+      drawLine(
+        origin.toOffset(),
+        target.toOffset(),
+        Paint()
+          ..color = color
+          ..strokeWidth = size.x / 20,
+      );
+    }
+  }
+
+  Vector2 _moveTowards({
+    required Vector2 origin,
+    required Vector2 target,
+    required double distance,
+  }) {
+    final Vector2 direction = target - origin;
+
+    if (direction.length == 0) {
+      return origin;
+    } else {
+      return origin + direction.normalized() * distance;
+    }
+  }
 }
