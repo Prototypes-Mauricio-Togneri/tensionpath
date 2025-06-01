@@ -50,8 +50,8 @@ class CustomSnackbar {
     }
   }*/
 
-  static void notStraightLineMove() =>
-      show(text: 'Not a straight line', duration: DURATION_MEDIUM);
+  static void invalidMove() =>
+      show(text: 'Invalid move', duration: DURATION_MEDIUM);
 
   static void movementDistanceTooBig() =>
       show(text: 'Max distance is 3', duration: DURATION_MEDIUM);

@@ -19,7 +19,7 @@ class Location {
     return distance.toInt().abs();
   }
 
-  bool isStraightLine(Localizable target) {
+  bool isValidTarget(Localizable target) {
     return (x == target.getLocation.x) ||
         (y == target.getLocation.y) ||
         (x - target.getLocation.x == target.getLocation.y - y);

@@ -106,7 +106,7 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (nodeOrigin.location.isStraightLine(nodeTarget)) {
+    if (nodeOrigin.location.isValidTarget(nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
 
       if (distance <= Constants.UNITS_MAX_MOVEMENT) {
@@ -125,7 +125,7 @@ class Match {
         CustomSnackbar.movementDistanceTooBig();
       }
     } else {
-      CustomSnackbar.notStraightLineMove();
+      CustomSnackbar.invalidMove();
     }
   }
 

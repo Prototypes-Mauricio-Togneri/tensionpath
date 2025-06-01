@@ -53,7 +53,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
       if (nodeComponent != null) {
         validTarget =
-            node.location.isStraightLine(nodeComponent.node) &&
+            node.location.isValidTarget(nodeComponent.node) &&
             (nodeComponent.node != node);
       }
     }
