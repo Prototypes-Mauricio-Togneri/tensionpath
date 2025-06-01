@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
@@ -11,6 +13,7 @@ import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -156,8 +159,21 @@ class NodeBackgroundComponent extends PositionComponent
         innerPaint.color = Palette.NODE_MISSILE_BACKGROUND;
         outterPaint.color = Palette.NODE_MISSILE_BORDER;
       } else if (structure is StructurePad) {
-        innerPaint.color = Colors.red;
-        outterPaint.color = Colors.green;
+        final Platform platform = match.match.battlefield.platformById(
+          structure.platformId,
+        );
+
+        innerPaint.color = Palette.NODE_PAD_BACKGROUND;
+
+        if (platform.owner == Constants.PLAYER_1) {
+          outterPaint.color = Palette.PLAYER_1;
+        } else if (platform.owner == Constants.PLAYER_2) {
+          outterPaint.color = Palette.PLAYER_2;
+        } else if (platform.owner == '') {
+          outterPaint.color = Palette.NODE_PAD_CONTESTED_BORDER;
+        } else if (platform.owner == null) {
+          outterPaint.color = Palette.NODE_PAD_NEUTRAL_BORDER;
+        }
       } else if (structure is StructureResources) {
         innerPaint.color = Palette.NODE_RESOURCES_BACKGROUND;
         outterPaint.color = Palette.NODE_RESOURCES_BORDER;

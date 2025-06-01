@@ -35,6 +35,10 @@ class Palette {
   static const Color NODE_RESOURCES_BORDER = Color(0xff131313);
   static const Color NODE_RESOURCES_BACKGROUND = Color(0xff353535);
 
+  static const Color NODE_PAD_NEUTRAL_BORDER = Color(0xff686A68);
+  static const Color NODE_PAD_CONTESTED_BORDER = Color(0xffECAA0D);
+  static const Color NODE_PAD_BACKGROUND = Color(0xff8A898B);
+
   static const Color UNIT_AMOUNT_INDICATOR = Colors.white;
   static const Color UNIT_MOVEMENT_INDICATOR_VALID = Colors.white;
   static const Color UNIT_MOVEMENT_INDICATOR_INVALID = Color(0xff444444);
