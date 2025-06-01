@@ -3,21 +3,23 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
-final usedElements = <String>{};
-final declaredElements = <String, String>{};
+final Set<String> usedElements = {};
+final Map<String, String> declaredElements = {};
 
 void main() async {
-  final rootDir = Directory('lib');
-  await for (final file in rootDir.list(recursive: true)) {
+  final Directory rootDir = Directory('lib');
+  await for (final FileSystemEntity file in rootDir.list(recursive: true)) {
     if (file is File && file.path.endsWith('.dart')) {
-      final content = await file.readAsString();
-      final unit = parseString(content: content, path: file.path).unit;
-
+      final String content = await file.readAsString();
+      final CompilationUnit unit = parseString(
+        content: content,
+        path: file.path,
+      ).unit;
       unit.visitChildren(_MethodVisitor(file.path));
     }
   }
 
-  final unused = declaredElements.keys
+  final List<String> unused = declaredElements.keys
       .where((m) => !usedElements.contains(m))
       .toList();
 
@@ -26,7 +28,7 @@ void main() async {
   } else {
     print('🧹 Possibly unused public methods:');
     for (final method in unused) {
-      print('- $method (${declaredElements[method]})');
+      print('$method: ${declaredElements[method]}');
     }
   }
 }
