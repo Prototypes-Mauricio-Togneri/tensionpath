@@ -66,15 +66,6 @@ class _MethodVisitor extends RecursiveAstVisitor<void> {
   }
 
   @override
-  void visitPropertyAccess(PropertyAccess node) {
-    final name = node.propertyName.name;
-    if (!name.startsWith('_')) {
-      declaredElements[name] = filePath;
-    }
-    super.visitPropertyAccess(node);
-  }
-
-  @override
   void visitMethodInvocation(MethodInvocation node) {
     usedElements.add(node.methodName.name);
     super.visitMethodInvocation(node);
@@ -86,5 +77,23 @@ class _MethodVisitor extends RecursiveAstVisitor<void> {
       usedElements.add((node.function as Identifier).name);
     }
     super.visitFunctionExpressionInvocation(node);
+  }
+
+  @override
+  void visitPropertyAccess(PropertyAccess node) {
+    usedElements.add(node.propertyName.name);
+    super.visitPropertyAccess(node);
+  }
+
+  @override
+  void visitPrefixedIdentifier(PrefixedIdentifier node) {
+    usedElements.add(node.identifier.name);
+    super.visitPrefixedIdentifier(node);
+  }
+
+  @override
+  void visitSimpleIdentifier(SimpleIdentifier node) {
+    usedElements.add(node.name);
+    super.visitSimpleIdentifier(node);
   }
 }
