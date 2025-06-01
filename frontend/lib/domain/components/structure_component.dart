@@ -24,6 +24,10 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
     color: Palette.NODE_EMPTY_BACKGROUND,
     style: PaintingStyle.fill,
   );
+  final Paint fogPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.NODE_FOG,
+  );
   Platform? platform;
 
   StructureComponent({
@@ -109,10 +113,18 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
       );
     }
 
-    /*canvas  .drawText(
-      text:   node.location.toString(),
-        color: Palette.DEBUG_TEXT,
-        position: Vector2(size.x / 2, size.y * 0.87),
+    if (!node.isRevealed) {
+      canvas.drawHexagon(
+        center: size / 2,
+        size: size * sizeFactor,
+        paint: fogPaint,
+      );
+    }
+
+    /*canvas.drawText(
+      text: node.location.toString(),
+      color: Palette.DEBUG_TEXT,
+      position: Vector2(size.x / 2, size.y * 0.87),
       size: size.x / 10,
     );*/
     /*canvas.drawText(
