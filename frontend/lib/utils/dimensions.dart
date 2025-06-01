@@ -49,10 +49,8 @@ class Dimensions {
 
   static Vector2 battlefildGridSize(Vector2 size) => size * 0.95;
 
-  static Vector2 fpsPosition(Viewport viewport) => Vector2(
-    viewport.size.x - (viewport.size.x * 0.078),
-    viewport.size.y - (viewport.size.y * 0.042),
-  );
+  static Vector2 fpsPosition(Viewport viewport) =>
+      Vector2(viewport.size.x * 0.89, viewport.size.y * 0.922);
 
   static Vector2 nodePosition({
     required Vector2 nodeSize,
