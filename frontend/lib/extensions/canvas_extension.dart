@@ -80,6 +80,16 @@ extension CanvasExtension on Canvas {
     );
   }
 
+  void drawStructureHexagon({
+    required Vector2 position,
+    required Vector2 size,
+    required Paint paintOutter,
+    required Paint paintInner,
+  }) {
+    drawHexagon(center: position, size: size, paint: paintOutter);
+    drawHexagon(center: position, size: size * 0.9, paint: paintInner);
+  }
+
   void drawHexagon({
     required Vector2 center,
     required Vector2 size,

@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/structures/structure.dart';
+import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -14,7 +15,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
   final N node;
   UnitsComponent? _unitsComponent;
-  StructureComponent? _structureComponent;
   //FogComponent? _fogComponent;
   final Paint backgroundPaint = Palette.paint(
     color: Palette.NODE_BACKGROUND,
@@ -36,7 +36,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void reconfigure() {
-    if (node.hasStructure && (_structureComponent == null)) {
+    /*if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         node: node,
         position: size / 2,
@@ -46,7 +46,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     } else if (!node.hasStructure && (_structureComponent != null)) {
       remove(_structureComponent!);
       _structureComponent = null;
-    }
+    }*/
 
     if (node.isRevealed) {
       /*if (_fogComponent != null) {
@@ -90,21 +90,31 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if ((_structureComponent == null) && (_unitsComponent == null)) {
+    if (node.hasStructure) {
+      _renderStructure(
+        structure: node.structure!,
+        position: size / 2,
+        size: size * 0.97,
+        canvas: canvas,
+      );
+    } else {
       canvas.drawHexagon(
         center: size / 2,
         size: size * 0.97,
         paint: backgroundPaint,
       );
+    }
 
-      canvas.drawText(
-        text: node.location.toString(),
-        color: Palette.DEBUG_TEXT,
-        position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 7,
-      );
+    //if ((_structureComponent == null) && (_unitsComponent == null)) {
 
-      /*canvas.drawText(
+    canvas.drawText(
+      text: node.location.toString(),
+      color: Palette.DEBUG_TEXT,
+      position: Vector2(size.x / 2, size.y / 2),
+      size: size.x / 7,
+    );
+
+    /*canvas.drawText(
         text:
             '${absolutePosition.x.toInt()}, '
             '${absolutePosition.y.toInt()}',
@@ -112,6 +122,28 @@ class NodeComponent<N extends Node> extends PositionComponent
         position: Vector2(size.x / 2, size.y / 2),
         size: size.x / 7,
       );*/
+    //}
+  }
+
+  void _renderStructure({
+    required Structure structure,
+    required Vector2 position,
+    required Vector2 size,
+    required Canvas canvas,
+  }) {
+    final Paint paintOutter = Palette.paint(style: PaintingStyle.fill);
+    paintOutter.color = Colors.red;
+
+    final Paint paintInner = Palette.paint(style: PaintingStyle.fill);
+    paintInner.color = Colors.green;
+
+    if (structure is StructureLauncher) {
+      canvas.drawStructureHexagon(
+        position: position,
+        size: size,
+        paintOutter: paintOutter,
+        paintInner: paintInner,
+      );
     }
   }
 }
