@@ -132,7 +132,7 @@ class Match {
   Future onEndTurn() async {
     if (isSelfPlaying) {
       return EndTurnSelfCallable()(match: this, selfId: self.id);
-    } 
+    }
   }
 
   Future onOpponentEndTurn() =>

@@ -253,18 +253,18 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "27eb0ae77836989a3bc541ce55595e8ceee0992807f14511552a898ddd0d88ac"
+      sha256: "5b236382b47ee411741447c1f1e111459c941ea1b3f2b540dde54c210a3662af"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   daunused:
     dependency: "direct dev"
     description:
       name: daunused
-      sha256: "67879471d67faa432009dbedb3a853f62a5cdf38f74fe05920a9578e3f9af862"
+      sha256: "4643da38fe12f45776a71285e6a6359c43af92fccc59e1a2e35dafec67a04f1b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.1"
+    version: "1.7.2"
   fake_async:
     dependency: transitive
     description:

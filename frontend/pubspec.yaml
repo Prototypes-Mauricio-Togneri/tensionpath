@@ -33,7 +33,7 @@ dependencies:
 dev_dependencies:
   dalocale: ^2.6.0
   daassets: ^1.5.0
-  daunused: ^1.6.1
+  daunused: ^1.7.2
   dapublock: ^1.1.0
   build_runner: ^2.4.15
   flutter_lints: ^6.0.0
