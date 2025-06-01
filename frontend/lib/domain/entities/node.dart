@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
-import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Node implements Localizable {
   final NodeType type;
@@ -39,8 +38,6 @@ class Node implements Localizable {
   bool get hasUnits => _units != null;
 
   bool get hasStructure => _structure != null;
-
-  bool get hasLauncher => _structure?.type == StructureType.launcher;
 
   bool get isRevealed => _isRevealed;
 

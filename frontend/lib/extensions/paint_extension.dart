@@ -1,16 +1,6 @@
 import 'dart:ui';
 
 extension PaintExtension on Paint {
-  Paint grayscale(double opacity) {
-    final Paint result = Paint();
-    result.style = style;
-    result.strokeWidth = strokeWidth;
-    result.color = Color.fromARGB((255 * opacity).toInt(), 0, 0, 0);
-    result.blendMode = BlendMode.luminosity;
-
-    return result;
-  }
-
   Paint clone({
     Color? color,
     BlendMode? blendMode,

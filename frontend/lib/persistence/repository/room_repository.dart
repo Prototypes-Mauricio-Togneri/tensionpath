@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
 class RoomRepository {
@@ -123,7 +124,7 @@ class RoomRepository {
 
   static Future<String> _createMatch(JsonRoom jsonRoom) async {
     JsonMatch jsonMatch = await JsonMatch.fromTemplate(
-      'assets/templates/w5h7.json',
+      'assets/${Assets.TEMPLATES_W5H7}',
     );
     jsonMatch = jsonMatch.clone(
       createdAt: DateTime.now(),

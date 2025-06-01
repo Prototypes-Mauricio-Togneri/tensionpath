@@ -21,7 +21,6 @@ class Palette {
   static const Color CONTROLS_END_TURN_BACKGROUND_ENABLED = Colors.green;
   static const Color CONTROLS_END_TURN_BACKGROUND_DISABLED = Colors.grey;
 
-  static const Color NODE_BORDER = Colors.white;
   static const Color NODE_FOG = Color(0x88000000);
 
   static const Color BATTLEFIELD_BACKGROUND = Color(0xff222222);

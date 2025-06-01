@@ -100,9 +100,7 @@ class JsonMatch {
       _$JsonMatchFromJson(json);
 
   static Future<JsonMatch> fromTemplate(String template) async {
-    final String content = await rootBundle.loadString(
-      'assets/templates/w5h7.json',
-    );
+    final String content = await rootBundle.loadString(template);
     return JsonMatch.fromJson(jsonDecode(content));
   }
 
