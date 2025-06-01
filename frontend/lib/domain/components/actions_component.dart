@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -50,7 +51,12 @@ class ActionsComponent extends PositionComponent {
         Dimensions.nodePosition(nodeSize: nodeSize, location: action.target) +
         center;
 
-    canvas.drawCircle(position.toOffset(), nodeSize.x / 3, paintOutter);
-    canvas.drawCircle(position.toOffset(), nodeSize.x / 3.5, paintInner);
+    canvas.drawUnitHexagon(
+      position: position,
+      size: size,
+      paintOutter: paintOutter,
+      paintInner: paintInner,
+      amount: action.amount,
+    );
   }
 }

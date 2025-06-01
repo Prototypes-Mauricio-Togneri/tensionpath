@@ -88,16 +88,14 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
   @override
   void render(Canvas canvas) {
-    canvas.drawCircle((size / 2).toOffset(), size.x / 3, paintOutter);
-    canvas.drawCircle((size / 2).toOffset(), size.x / 3.5, paintInner);
-
-    canvas.drawText(
-      text: units.amount.toString(),
-      color: Palette.UNIT_AMOUNT_INDICATOR,
+    canvas.drawUnitCircle(
       position: size / 2,
-      size: size.x / 4,
+      size: size,
+      paintOutter: paintOutter,
+      paintInner: paintInner,
+      amount: units.amount,
     );
-    
+
     if (targetPosition != null) {
       _lineTo(
         canvas: canvas,

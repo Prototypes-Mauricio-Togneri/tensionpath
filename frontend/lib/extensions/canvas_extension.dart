@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 extension CanvasExtension on Canvas {
   void drawText({
@@ -43,21 +44,49 @@ extension CanvasExtension on Canvas {
     required Vector2 size,
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
 
+  void drawUnitCircle({
+    required Vector2 position,
+    required Vector2 size,
+    required Paint paintOutter,
+    required Paint paintInner,
+    required int amount,
+  }) {
+    drawCircle(position.toOffset(), size.x / 3, paintOutter);
+    drawCircle(position.toOffset(), size.x / 3.5, paintInner);
+
+    drawText(
+      text: amount.toString(),
+      color: Palette.UNIT_AMOUNT_INDICATOR,
+      position: position,
+      size: size.x / 4,
+    );
+  }
+
+  void drawUnitHexagon({
+    required Vector2 position,
+    required Vector2 size,
+    required Paint paintOutter,
+    required Paint paintInner,
+    required int amount,
+  }) {
+    drawHexagon(center: position, size: size / 7, paint: paintOutter);
+    drawHexagon(center: position, size: size / 8, paint: paintInner);
+
+    drawText(
+      text: amount.toString(),
+      color: Palette.UNIT_AMOUNT_INDICATOR,
+      position: position,
+      size: size.x / 16,
+    );
+  }
+
   void drawHexagon({
     required Vector2 center,
     required Vector2 size,
-    Paint? fillPaint,
-    Paint? borderPaint,
+    required paint,
   }) {
     final Path hexagonPath = _createHexagonPath(center: center, size: size);
-
-    if (fillPaint != null) {
-      drawPath(hexagonPath, fillPaint);
-    }
-
-    if (borderPaint != null) {
-      drawPath(hexagonPath, borderPaint);
-    }
+    drawPath(hexagonPath, paint);
   }
 
   Path _createHexagonPath({required Vector2 center, required Vector2 size}) {

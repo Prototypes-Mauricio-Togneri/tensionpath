@@ -94,7 +94,7 @@ class NodeComponent<N extends Node> extends PositionComponent
       canvas.drawHexagon(
         center: size / 2,
         size: size * 0.97,
-        borderPaint: backgroundPaint,
+        paint: backgroundPaint,
       );
 
       canvas.drawText(
