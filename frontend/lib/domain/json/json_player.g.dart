@@ -20,6 +20,10 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
           'turnEndedAt',
           (v) => v == null ? null : DateTime.parse(v as String),
         ),
+        actions: $checkedConvert(
+          'actions',
+          (v) => JsonAction.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -32,6 +36,7 @@ Map<String, dynamic> _$JsonPlayerToJson(
   'resources': instance.resources,
   'status': _$PlayerStatusEnumMap[instance.status]!,
   if (dateToJson(instance.turnEndedAt) case final value?) 'turnEndedAt': value,
+  'actions': instance.actions.toJson(),
 };
 
 const _$PlayerStatusEnumMap = {

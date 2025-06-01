@@ -1,3 +1,7 @@
+import 'package:tensionpath/domain/types/action_type.dart';
+
 class Action {
-  const Action();
+  final ActionType type;
+
+  const Action(this.type);
 }

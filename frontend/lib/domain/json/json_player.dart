@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/backend/json_utils.dart';
 
@@ -22,12 +23,16 @@ class JsonPlayer {
   @JsonKey(name: 'turnEndedAt', toJson: dateToJson)
   final DateTime? turnEndedAt;
 
+  @JsonKey(name: 'actions')
+  final JsonAction actions;
+
   const JsonPlayer({
     required this.name,
     required this.baseHealth,
     required this.resources,
     required this.status,
     required this.turnEndedAt,
+    required this.actions,
   });
 
   JsonPlayer clone({String? name}) => JsonPlayer(
@@ -36,6 +41,7 @@ class JsonPlayer {
     resources: resources,
     status: status,
     turnEndedAt: turnEndedAt,
+    actions: actions,
   );
 
   Player object({required String id, required bool isSelf}) => Player(

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
@@ -99,7 +99,7 @@ class Match {
   void onDeployUnit(Node nodeTarget) {
     if (_canDeployUnit(nodeTarget)) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
-      actions.add(ActionDeployUnit(node: nodeTarget));
+      actions.add(ActionDeployUnits(node: nodeTarget));
       nodeTarget.addUnit(self);
       MatchComponentRef.instance.reconfigure();
     }
@@ -115,7 +115,7 @@ class Match {
         if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
           self.spendResources(cost);
           actions.add(
-            ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
+            ActionMoveUnits(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
           );
           nodeOrigin.moveUnit(nodeTarget);
           MatchComponentRef.instance.reconfigure();

@@ -1,19 +1,19 @@
 import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 
 class Actions {
   final List<Action> _pending = [];
 
   void add(Action action) {
-    if (action is ActionMoveUnit) {
+    if (action is ActionMoveUnits) {
       _removeMoveActions(action.nodeOrigin);
       _pending.add(action);
-    } else if (action is ActionDeployUnit) {
+    } else if (action is ActionDeployUnits) {
       final bool alreadyExists = _pending.any(
         (existingAction) =>
-            existingAction is ActionDeployUnit &&
+            existingAction is ActionDeployUnits &&
             existingAction.node == action.node,
       );
 
@@ -26,6 +26,7 @@ class Actions {
   }
 
   void _removeMoveActions(Node nodeOrigin) => _pending.removeWhere(
-    (action) => (action is ActionMoveUnit) && (action.nodeOrigin == nodeOrigin),
+    (action) =>
+        (action is ActionMoveUnits) && (action.nodeOrigin == nodeOrigin),
   );
 }
