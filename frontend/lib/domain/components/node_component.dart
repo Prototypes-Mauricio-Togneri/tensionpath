@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
@@ -18,6 +19,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent<N extends Node> extends PositionComponent
+    with TapCallbacks
     implements Reconfigurable {
   final N node;
   UnitsComponent? _unitsComponent;
@@ -94,29 +96,8 @@ class NodeComponent<N extends Node> extends PositionComponent
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
-  //@override
-  //void onTapUp(TapUpEvent event) => match.match.onDeployUnit(node);
-
   @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawText(
-      text: node.location.toString(),
-      color: Palette.DEBUG_TEXT,
-      position: Vector2(size.x / 2, size.y / 2),
-      size: size.x / 7,
-    );
-
-    /*canvas.drawText(
-        text:
-            '${absolutePosition.x.toInt()}, '
-            '${absolutePosition.y.toInt()}',
-        color: Palette.DEBUG_TEXT,
-        position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 7,
-      );*/
-  }
+  void onTapUp(TapUpEvent event) => match.match.onDeployUnit(node);
 }
 
 class NodeBackgroundComponent extends PositionComponent
@@ -208,6 +189,14 @@ class NodeBackgroundComponent extends PositionComponent
       position: Vector2(size.x / 2, size.y * 0.87),
       size: size.x / 10,
     );
+    /*canvas.drawText(
+      text:
+          '${absolutePosition.x.toInt()}, '
+          '${absolutePosition.y.toInt()}',
+      color: Palette.DEBUG_TEXT,
+      position: Vector2(size.x / 2, size.y / 2),
+      size: size.x / 7,
+    );*/
   }
 
   void _renderStructure({

@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
@@ -84,8 +85,10 @@ class Match {
 
   bool _canDeployUnit(Node node) =>
       isSelfPlaying &&
-      node.belongsTo(self) &&
       !node.hasUnits &&
+      node.hasStructure &&
+      (node.structure is StructureLauncher) &&
+      node.belongsTo(self) &&
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
