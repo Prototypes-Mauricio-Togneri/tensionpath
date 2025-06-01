@@ -121,23 +121,25 @@ extension CanvasExtension on Canvas {
   }
 
   void movementLine({
+    required Vector2 origin,
     required Vector2 target,
     required Vector2 size,
     required Color color,
   }) {
-    final double distance = (size / 2).distanceTo(target);
+    final double distance = origin.distanceTo(target);
+    final double threshold = size.x / 4.5;
 
-    if (distance >= size.x / 4.5) {
-      final Vector2 origin = _moveTowards(
-        origin: size / 2,
+    if (distance >= threshold) {
+      final Vector2 originPoint = _moveTowards(
+        origin: origin,
         target: target,
-        distance: size.x / 4.5,
+        distance: threshold,
       );
 
       drawLine(
-        origin.toOffset(),
+        originPoint.toOffset(),
         target.toOffset(),
-        Paint()
+        Paint() // TODO(momo): extract paint
           ..color = color
           ..strokeWidth = size.x / 20,
       );

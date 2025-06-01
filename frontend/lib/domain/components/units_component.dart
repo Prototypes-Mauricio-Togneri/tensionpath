@@ -117,6 +117,7 @@ class UnitsComponent extends PositionComponent
 
       if (targetPosition != null) {
         canvas.movementLine(
+          origin: size / 2,
           target: targetPosition!,
           size: size,
           color: validTarget

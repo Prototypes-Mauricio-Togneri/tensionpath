@@ -73,5 +73,19 @@ class ActionsComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 center,
     required Canvas canvas,
-  }) {}
+  }) {
+    final Vector2 origin =
+        Dimensions.nodePosition(nodeSize: nodeSize, location: action.origin) +
+        center;
+    final Vector2 target =
+        Dimensions.nodePosition(nodeSize: nodeSize, location: action.target) +
+        center;
+
+    canvas.movementLine(
+      origin: origin,
+      target: target,
+      size: nodeSize,
+      color: Palette.UNIT_MOVEMENT_INDICATOR_VALID,
+    );
+  }
 }
