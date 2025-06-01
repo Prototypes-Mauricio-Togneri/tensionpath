@@ -12,10 +12,10 @@ JsonAction _$JsonActionFromJson(Map<String, dynamic> json) => $checkedCreate(
   ($checkedConvert) {
     final val = JsonAction(
       type: $checkedConvert('type', (v) => $enumDecode(_$ActionTypeEnumMap, v)),
-      originX: $checkedConvert('originX', (v) => (v as num).toInt()),
-      originY: $checkedConvert('originY', (v) => (v as num).toInt()),
-      targetX: $checkedConvert('targetX', (v) => (v as num?)?.toInt()),
-      targetY: $checkedConvert('targetY', (v) => (v as num?)?.toInt()),
+      originX: $checkedConvert('originX', (v) => (v as num?)?.toInt()),
+      originY: $checkedConvert('originY', (v) => (v as num?)?.toInt()),
+      targetX: $checkedConvert('targetX', (v) => (v as num).toInt()),
+      targetY: $checkedConvert('targetY', (v) => (v as num).toInt()),
       amount: $checkedConvert('amount', (v) => (v as num?)?.toInt()),
     );
     return val;
@@ -25,10 +25,10 @@ JsonAction _$JsonActionFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$JsonActionToJson(JsonAction instance) =>
     <String, dynamic>{
       'type': _$ActionTypeEnumMap[instance.type]!,
-      'originX': instance.originX,
-      'originY': instance.originY,
-      if (instance.targetX case final value?) 'targetX': value,
-      if (instance.targetY case final value?) 'targetY': value,
+      if (instance.originX case final value?) 'originX': value,
+      if (instance.originY case final value?) 'originY': value,
+      'targetX': instance.targetX,
+      'targetY': instance.targetY,
       if (instance.amount case final value?) 'amount': value,
     };
 

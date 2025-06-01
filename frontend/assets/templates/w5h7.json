@@ -19,14 +19,16 @@
             "baseHealth": 1000,
             "resources": 10,
             "status": "playing",
-            "turnEndedAt": null
+            "turnEndedAt": null,
+            "actions": []
         },
         "2": {
             "name": "",
             "baseHealth": 1000,
             "resources": 10,
             "status": "playing",
-            "turnEndedAt": null
+            "turnEndedAt": null,
+            "actions": []
         }
     },
     "battlefield": {

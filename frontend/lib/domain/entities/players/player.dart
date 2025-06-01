@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/entities/actions/action.dart';
+import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -7,6 +9,7 @@ class Player {
   final String id;
   final String name;
   final bool isSelf;
+  final Actions actions;
   late int _baseHealth;
   late int _resources;
   late PlayerStatus _status;
@@ -16,6 +19,7 @@ class Player {
     required this.id,
     required this.name,
     required this.isSelf,
+    required this.actions,
     required int baseHealth,
     required int resources,
     required PlayerStatus status,
@@ -54,6 +58,10 @@ class Player {
     _resources = newPlayer.resources;
     _status = newPlayer.status;
     _turnEndedAt = newPlayer.turnEndedAt;
+  }
+
+  void addAction(Action action) {
+    actions.add(action);
   }
 
   static Player? playerById({

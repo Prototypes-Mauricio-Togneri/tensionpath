@@ -51,6 +51,7 @@ class EndTurnSelf {
         resources: jsonPlayer.resources,
         status: PlayerStatus.waiting,
         turnEndedAt: DateTime.now(),
+        actions: jsonPlayer.actions,
       );
     } else {
       return jsonPlayer;

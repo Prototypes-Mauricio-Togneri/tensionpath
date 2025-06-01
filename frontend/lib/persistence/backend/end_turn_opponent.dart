@@ -51,6 +51,7 @@ class EndTurnOpponent {
         resources: jsonPlayer.resources,
         status: PlayerStatus.waiting,
         turnEndedAt: DateTime.now(),
+        actions: [],
       );
     } else {
       return jsonPlayer;

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:tensionpath/domain/entities/actions/action.dart';
+import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/match.dart';
@@ -9,6 +11,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/entities/units.dart';
+import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
@@ -109,7 +112,18 @@ class Backend {
     resources: player.resources,
     status: player.status,
     turnEndedAt: player.turnEndedAt,
+    actions: _actionsToJson(player.actions),
   );
+
+  static List<JsonAction> _actionsToJson(Actions actions) {
+    final List<JsonAction> result = [];
+
+    for (final Action action in actions) {
+      result.add(JsonAction.fromAction(action));
+    }
+
+    return result;
+  }
 
   static JsonNode _nodeToJson(Node node) => JsonNode(
     x: node.location.x,

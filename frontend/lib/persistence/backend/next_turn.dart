@@ -41,5 +41,6 @@ class NextTurn {
     resources: player.resources,
     status: PlayerStatus.playing,
     turnEndedAt: null,
+    actions: [],
   );
 }

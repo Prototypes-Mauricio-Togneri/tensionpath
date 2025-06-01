@@ -1,9 +1,11 @@
 import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
 
 class ActionDeployUnits extends Action {
-  final Node node;
+  final Location target;
+  final int amount;
 
-  const ActionDeployUnits({required this.node}) : super(ActionType.deploy);
+  const ActionDeployUnits({required this.target, required this.amount})
+    : super(ActionType.deploy);
 }

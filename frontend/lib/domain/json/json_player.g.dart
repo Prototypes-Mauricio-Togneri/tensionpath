@@ -22,7 +22,9 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
         ),
         actions: $checkedConvert(
           'actions',
-          (v) => JsonAction.fromJson(v as Map<String, dynamic>),
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonAction.fromJson(e as Map<String, dynamic>))
+              .toList(),
         ),
       );
       return val;
@@ -36,7 +38,7 @@ Map<String, dynamic> _$JsonPlayerToJson(
   'resources': instance.resources,
   'status': _$PlayerStatusEnumMap[instance.status]!,
   if (dateToJson(instance.turnEndedAt) case final value?) 'turnEndedAt': value,
-  'actions': instance.actions.toJson(),
+  'actions': instance.actions.map((e) => e.toJson()).toList(),
 };
 
 const _$PlayerStatusEnumMap = {

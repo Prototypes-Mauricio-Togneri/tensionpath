@@ -3,7 +3,6 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
 import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
-import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -24,7 +23,6 @@ class Match {
   final Battlefield battlefield;
   final Config config;
   final Turn turn;
-  final Actions actions = Actions();
 
   Match({
     required this.id,
@@ -99,7 +97,7 @@ class Match {
   void onDeployUnit(Node nodeTarget) {
     if (_canDeployUnit(nodeTarget)) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
-      actions.add(ActionDeployUnits(node: nodeTarget));
+      self.addAction(ActionDeployUnits(target: nodeTarget.location, amount: 1));
       nodeTarget.addUnit(self);
       MatchComponentRef.instance.reconfigure();
     }
@@ -114,8 +112,11 @@ class Match {
 
         if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
           self.spendResources(cost);
-          actions.add(
-            ActionMoveUnits(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
+          self.addAction(
+            ActionMoveUnits(
+              origin: nodeOrigin.location,
+              target: nodeTarget.location,
+            ),
           );
           nodeOrigin.moveUnit(nodeTarget);
           MatchComponentRef.instance.reconfigure();
