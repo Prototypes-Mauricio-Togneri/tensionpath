@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/units_component.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
@@ -121,6 +122,16 @@ class NodeBackgroundComponent extends PositionComponent
   FutureOr onLoad() async {
     reconfigure();
 
+    if ((node.hasStructure) && (node.structure is StructureMissile)) {
+      add(
+        MissileIndicatorComponent(
+          missile: match.match.battlefield.missile,
+          position: size / 2,
+          size: Vector2(size.x * 0.7, size.y * 0.08),
+        ),
+      );
+    }
+
     return super.onLoad();
   }
 
@@ -146,7 +157,7 @@ class NodeBackgroundComponent extends PositionComponent
             match.match.battlefield.platformById(structure.platformId);
 
         innerPaint.color = Palette.NODE_PAD_BACKGROUND;
-  
+
         if (platform!.owner == Constants.PLAYER_1) {
           outterPaint.color = Palette.PLAYER_1;
         } else if (platform!.owner == Constants.PLAYER_2) {
@@ -212,5 +223,82 @@ class NodeBackgroundComponent extends PositionComponent
       outterPaint: outterPaint,
       innerPaint: innerPaint,
     );
+  }
+}
+
+class MissileIndicatorComponent extends PositionComponent
+    implements Reconfigurable {
+  final Missile missile;
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_INDICATOR_BACKGROUND,
+  );
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint placeholderPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
+  );
+
+  MissileIndicatorComponent({
+    required this.missile,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() async {
+    reconfigure();
+
+    return super.onLoad();
+  }
+
+  @override
+  void reconfigure() {
+    final String? owner = missile.owner;
+
+    if (owner == null) {
+      foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
+    } else if (owner == '') {
+      foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
+    } else if (owner == Constants.PLAYER_1) {
+      foregroundPaint.color = Palette.PLAYER_1;
+    } else if (owner == Constants.PLAYER_2) {
+      foregroundPaint.color = Palette.PLAYER_2;
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+
+    final double gap = size.x / 80;
+    final double blockSize =
+        (width - gap * (missile.maxCharge + 1)) / missile.maxCharge;
+
+    for (int i = 0; i < missile.charge; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        foregroundPaint,
+      );
+    }
+
+    for (int i = missile.charge; i < missile.maxCharge; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        placeholderPaint,
+      );
+    }
   }
 }
