@@ -85,6 +85,7 @@ class Match {
   bool _canDeployUnit(Node node) =>
       isSelfPlaying &&
       node.belongsTo(self) &&
+      !node.hasUnits &&
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
