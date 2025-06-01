@@ -44,6 +44,8 @@ class JsonNode {
     );
   }
 
+  Location get location => Location(x: x, y: y);
+
   factory JsonNode.fromJson(Map<String, dynamic> json) =>
       _$JsonNodeFromJson(json);
 

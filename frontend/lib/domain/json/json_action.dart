@@ -52,6 +52,12 @@ class JsonAction {
     }
   }
 
+  Location? get originLocation => (originX != null && originY != null)
+      ? Location(x: originX!, y: originY!)
+      : null;
+
+  Location get targetLocation => Location(x: targetX, y: targetY);
+
   factory JsonAction.fromAction(Action action) {
     if (action is ActionDeployUnits) {
       return JsonAction(
