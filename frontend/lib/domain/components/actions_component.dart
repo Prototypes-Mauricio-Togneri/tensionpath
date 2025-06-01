@@ -53,7 +53,7 @@ class ActionsComponent extends PositionComponent {
 
     canvas.drawUnitHexagon(
       position: position,
-      size: size,
+      size: nodeSize,
       paintOutter: paintOutter,
       paintInner: paintInner,
       amount: action.amount,

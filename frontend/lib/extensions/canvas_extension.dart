@@ -69,14 +69,14 @@ extension CanvasExtension on Canvas {
     required Paint paintInner,
     required int amount,
   }) {
-    drawHexagon(center: position, size: size / 7, paint: paintOutter);
-    drawHexagon(center: position, size: size / 8, paint: paintInner);
+    drawHexagon(center: position, size: size / 2, paint: paintOutter);
+    drawHexagon(center: position, size: size / 2.35, paint: paintInner);
 
     drawText(
       text: amount.toString(),
       color: Palette.UNIT_AMOUNT_INDICATOR,
       position: position,
-      size: size.x / 16,
+      size: size.x / 6,
     );
   }
 
