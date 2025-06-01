@@ -43,6 +43,10 @@ class Actions extends Iterable<Action> {
     (action) => (action is ActionMoveUnits) && (action.origin == location),
   );
 
+  void reset() {
+    _actions.clear();
+  }
+
   @override
   Iterator<Action> get iterator => _actions.iterator;
 }

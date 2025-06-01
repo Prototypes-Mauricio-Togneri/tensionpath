@@ -39,6 +39,8 @@ class Player {
 
   bool get isPlayer2 => id == Constants.PLAYER_2;
 
+  bool get hasActions => actions.isNotEmpty;
+
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
   PlayerStatus get status => _status;
@@ -58,6 +60,10 @@ class Player {
     _resources = newPlayer.resources;
     _status = newPlayer.status;
     _turnEndedAt = newPlayer.turnEndedAt;
+
+    if (newPlayer.actions.isEmpty) {
+      actions.reset();
+    }
   }
 
   void addAction(Action action) {
