@@ -17,6 +17,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
   final Paint paintOutter = Palette.paint(style: PaintingStyle.fill);
   final Paint paintInner = Palette.paint(style: PaintingStyle.fill);
   Vector2? targetPosition;
+  bool validTarget = false;
 
   UnitsComponent({
     required this.units,
@@ -47,6 +48,14 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     if (_canDrag) {
       targetPosition!.add(event.localDelta);
+
+      final NodeComponent? nodeComponent = _getTargetNode();
+
+      if (nodeComponent != null) {
+        validTarget =
+            node.location.isStraightLine(nodeComponent.node) &&
+            (nodeComponent.node != node);
+      }
     }
   }
 
@@ -55,14 +64,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     if (_canDrag) {
       super.onDragEnd(event);
 
-      final Vector2 direction = targetPosition! - (size / 2);
-
-      // If board is flipped, invert the direction
-      // direction = direction * -1;
-
-      final NodeComponent? nodeComponent = match.getNodeAtPosition(
-        absolutePosition + direction,
-      );
+      final NodeComponent? nodeComponent = _getTargetNode();
 
       if ((nodeComponent != null) && (nodeComponent.node != node)) {
         match.match.onMoveUnit(
@@ -73,6 +75,15 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
       targetPosition = null;
     }
+  }
+
+  NodeComponent? _getTargetNode() {
+    final Vector2 direction = targetPosition! - (size / 2);
+
+    // If board is flipped, invert the direction
+    // direction = direction * -1;
+
+    return match.getNodeAtPosition(absolutePosition + direction);
   }
 
   @override
@@ -93,16 +104,30 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       if (nodeTarget != null) {
         final Vector2 direction =
             nodeTarget.absolutePosition - absolutePosition + (size / 2);
-        _lineTo(canvas: canvas, target: direction);
+        _lineTo(
+          canvas: canvas,
+          target: direction,
+          color: Palette.UNIT_MOVEMENT_INDICATOR_VALID,
+        );
       }
     }
 
     if (targetPosition != null) {
-      _lineTo(canvas: canvas, target: targetPosition!);
+      _lineTo(
+        canvas: canvas,
+        target: targetPosition!,
+        color: validTarget
+            ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
+            : Palette.UNIT_MOVEMENT_INDICATOR_INVALID,
+      );
     }
   }
 
-  void _lineTo({required Canvas canvas, required Vector2 target}) {
+  void _lineTo({
+    required Canvas canvas,
+    required Vector2 target,
+    required Color color,
+  }) {
     final Vector2 origin = _moveTowards(
       origin: size / 2,
       target: target,
@@ -113,7 +138,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       origin.toOffset(),
       target.toOffset(),
       Paint()
-        ..color = Palette.UNIT_MOVEMENT_INDICATOR
+        ..color = color
         ..strokeWidth = size.x / 20,
     );
   }

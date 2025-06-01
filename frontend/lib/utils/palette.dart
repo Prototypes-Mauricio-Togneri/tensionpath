@@ -28,7 +28,8 @@ class Palette {
   static const Color NODE_BACKGROUND = Color(0xff333333);
 
   static const Color UNIT_AMOUNT_INDICATOR = Colors.white;
-  static const Color UNIT_MOVEMENT_INDICATOR = Colors.white;
+  static const Color UNIT_MOVEMENT_INDICATOR_VALID = Colors.white;
+  static const Color UNIT_MOVEMENT_INDICATOR_INVALID = Color(0xff444444);
 
   static const Color MISSILE_OWNER_NONE = Colors.grey;
   static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);
