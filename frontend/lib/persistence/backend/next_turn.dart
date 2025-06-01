@@ -24,7 +24,7 @@ class NextTurn {
         players: _nextPlayers(jsonMatch.players),
         battlefield: _nextBattlefield(
           jsonBattlefield: jsonMatch.battlefield,
-          players: jsonMatch.players,
+          jsonPlayers: jsonMatch.players,
         ),
       );
     } else {
@@ -43,10 +43,10 @@ class NextTurn {
     ),
   );
 
-  static JsonPlayer _nextPlayer(JsonPlayer player) => JsonPlayer(
-    name: player.name,
-    baseHealth: player.baseHealth,
-    resources: player.resources,
+  static JsonPlayer _nextPlayer(JsonPlayer jsonPlayer) => JsonPlayer(
+    name: jsonPlayer.name,
+    baseHealth: jsonPlayer.baseHealth,
+    resources: jsonPlayer.resources,
     status: PlayerStatus.playing,
     turnEndedAt: null,
     actions: [],
@@ -54,23 +54,26 @@ class NextTurn {
 
   static JsonBattlefield _nextBattlefield({
     required JsonBattlefield jsonBattlefield,
-    required Map<String, JsonPlayer> players,
+    required Map<String, JsonPlayer> jsonPlayers,
   }) {
     return JsonBattlefield(
       id: jsonBattlefield.id,
       size: jsonBattlefield.size,
       missile: jsonBattlefield.missile,
-      nodes: _nextNodes(jsonNodes: jsonBattlefield.nodes, players: players),
+      nodes: _nextNodes(
+        jsonNodes: jsonBattlefield.nodes,
+        jsonActions: jsonPlayers.values.expand((p) => p.actions).toList(),
+      ),
     );
   }
 
   static List<JsonNode> _nextNodes({
     required List<JsonNode> jsonNodes,
-    required Map<String, JsonPlayer> players,
+    required List<JsonAction> jsonActions,
   }) {
     final List<JsonNode> withDeployments = _nextNodesDeployments(
       jsonNodes: jsonNodes,
-      players: players,
+      jsonActions: jsonActions,
     );
 
     return withDeployments;
@@ -78,44 +81,21 @@ class NextTurn {
 
   static List<JsonNode> _nextNodesDeployments({
     required List<JsonNode> jsonNodes,
-    required Map<String, JsonPlayer> players,
-  }) {
-    List<JsonNode> result = jsonNodes;
-
-    for (final MapEntry<String, JsonPlayer> entry in players.entries) {
-      result = _nextNodesDeploymentsForPlayer(
-        jsonNodes: result,
-        playerId: entry.key,
-        jsonActions: entry.value.actions,
-      );
-    }
-
-    return result;
-  }
-
-  static List<JsonNode> _nextNodesDeploymentsForPlayer({
-    required List<JsonNode> jsonNodes,
-    required String playerId,
     required List<JsonAction> jsonActions,
   }) {
     final List<JsonNode> result = [];
 
     for (final JsonNode jsonNode in jsonNodes) {
       result.add(
-        _nextNodeDeploymentsForPlayer(
-          jsonNode: jsonNode,
-          playerId: playerId,
-          jsonActions: jsonActions,
-        ),
+        _nextNodeDeployments(jsonNode: jsonNode, jsonActions: jsonActions),
       );
     }
 
     return result;
   }
 
-  static JsonNode _nextNodeDeploymentsForPlayer({
+  static JsonNode _nextNodeDeployments({
     required JsonNode jsonNode,
-    required String playerId,
     required List<JsonAction> jsonActions,
   }) {
     for (final JsonAction jsonAction in jsonActions) {
@@ -123,7 +103,6 @@ class NextTurn {
           jsonAction.targetLocation == jsonNode.location) {
         return _nextNodeTargetDeploy(
           jsonNode: jsonNode,
-          playerId: playerId,
           jsonAction: jsonAction,
         );
       }
@@ -134,14 +113,13 @@ class NextTurn {
 
   static JsonNode _nextNodeTargetDeploy({
     required JsonNode jsonNode,
-    required String playerId,
     required JsonAction jsonAction,
   }) {
     return JsonNode(
       x: jsonNode.x,
       y: jsonNode.y,
       type: jsonNode.type,
-      units: JsonUnits(player: playerId, amount: jsonAction.amount!),
+      units: JsonUnits(player: jsonAction.playerId, amount: jsonAction.amount!),
       structure: jsonNode.structure,
     );
   }
