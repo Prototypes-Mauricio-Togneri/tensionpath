@@ -109,6 +109,7 @@ class NodeBackgroundComponent extends PositionComponent
     color: Palette.NODE_EMPTY_BACKGROUND,
     style: PaintingStyle.fill,
   );
+  Platform? platform;
 
   NodeBackgroundComponent({
     required this.node,
@@ -140,19 +141,19 @@ class NodeBackgroundComponent extends PositionComponent
         innerPaint.color = Palette.NODE_MISSILE_BACKGROUND;
         outterPaint.color = Palette.NODE_MISSILE_BORDER;
       } else if (structure is StructurePad) {
-        final Platform platform = match.match.battlefield.platformById(
-          structure.platformId,
-        );
+        platform =
+            platform ??
+            match.match.battlefield.platformById(structure.platformId);
 
         innerPaint.color = Palette.NODE_PAD_BACKGROUND;
-
-        if (platform.owner == Constants.PLAYER_1) {
+  
+        if (platform!.owner == Constants.PLAYER_1) {
           outterPaint.color = Palette.PLAYER_1;
-        } else if (platform.owner == Constants.PLAYER_2) {
+        } else if (platform!.owner == Constants.PLAYER_2) {
           outterPaint.color = Palette.PLAYER_2;
-        } else if (platform.owner == '') {
+        } else if (platform!.owner == '') {
           outterPaint.color = Palette.NODE_PAD_CONTESTED_BORDER;
-        } else if (platform.owner == null) {
+        } else if (platform!.owner == null) {
           outterPaint.color = Palette.NODE_PAD_NEUTRAL_BORDER;
         }
       } else if (structure is StructureResources) {
