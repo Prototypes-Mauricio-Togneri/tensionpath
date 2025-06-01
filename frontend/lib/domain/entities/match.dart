@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
-import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
 import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
+import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -24,7 +24,7 @@ class Match {
   final Battlefield battlefield;
   final Config config;
   final Turn turn;
-  final List<Action> actions = [];
+  final Actions actions = Actions();
 
   Match({
     required this.id,
@@ -114,7 +114,6 @@ class Match {
 
         if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
           self.spendResources(cost);
-          _removeMoveActions(nodeOrigin);
           actions.add(
             ActionMoveUnit(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget),
           );
@@ -137,8 +136,4 @@ class Match {
 
   Future onOpponentEndTurn() =>
       EndTurnOpponentCallable()(match: this, selfId: self.id);
-
-  void _removeMoveActions(Node nodeOrigin) => actions.removeWhere(
-    (action) => (action is ActionMoveUnit) && (action.nodeOrigin == nodeOrigin),
-  );
 }
