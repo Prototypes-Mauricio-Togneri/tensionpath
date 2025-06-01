@@ -15,7 +15,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     with TapCallbacks
     implements Reconfigurable {
   final N node;
-  UnitsComponent? _unitsComponent;
   //FogComponent? _fogComponent;
   final Paint backgroundPaint = Palette.paint(
     color: Palette.NODE_EMPTY_BACKGROUND,
@@ -33,6 +32,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     reconfigure();
 
     add(StructureComponent(node: node, position: size / 2, size: size));
+    add(UnitsComponent(node: node, position: size / 2, size: size));
 
     return super.onLoad();
   }
@@ -51,11 +51,11 @@ class NodeComponent<N extends Node> extends PositionComponent
       _structureComponent = null;
     }*/
 
-    if (node.isRevealed) {
-      /*if (_fogComponent != null) {
+    /*if (node.isRevealed) {
+      if (_fogComponent != null) {
         remove(_fogComponent!);
         _fogComponent = null;
-      }*/
+      }
 
       if (node.hasUnits && (_unitsComponent == null)) {
         _unitsComponent = node.units!.component(
@@ -74,15 +74,15 @@ class NodeComponent<N extends Node> extends PositionComponent
         _unitsComponent = null;
       }
 
-      /*if (_fogComponent == null) {
+      if (_fogComponent == null) {
         _fogComponent =
             _fogComponent = FogComponent(
               position: size / 2,
               size: size,
             );
         add(_fogComponent!);
-      }*/
-    }
+      }
+    }*/
   }
 
   @override

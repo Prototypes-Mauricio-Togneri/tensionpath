@@ -97,23 +97,23 @@ class StructureComponent extends PositionComponent
 
     if (node.hasStructure) {
       _renderStructure(
-        structure: node.structure!,
-        position: size / 2,
-        size: size * sizeFactor,
-        canvas: canvas,
-      );
-    } else {
-      canvas.drawHexagon(
+          structure: node.structure!,
+          position: size / 2,
+          size: size * sizeFactor,
+          canvas: canvas,
+        );
+    }   else {
+        canvas.drawHexagon(
         center: size / 2,
-        size: size * sizeFactor,
-        paint: emptyPaint,
-      );
-    }
-
-    /*canvas.drawText(
-      text: node.location.toString(),
-      color: Palette.DEBUG_TEXT,
-      position: Vector2(size.x / 2, size.y * 0.87),
+          size: size * sizeFactor,
+          paint: emptyPaint,
+      );  
+    }  
+  
+    /*canvas  .drawText(
+      text:   node.location.toString(),
+        color: Palette.DEBUG_TEXT,
+        position: Vector2(size.x / 2, size.y * 0.87),
       size: size.x / 10,
     );*/
     /*canvas.drawText(

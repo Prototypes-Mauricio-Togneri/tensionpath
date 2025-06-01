@@ -51,14 +51,14 @@ extension CanvasExtension on Canvas {
     required Paint innerPaint,
     required int amount,
   }) {
-    drawCircle(position.toOffset(), size.x / 3, outterPaint);
-    drawCircle(position.toOffset(), size.x / 3.5, innerPaint);
+    drawCircle(position.toOffset(), size.x / 4.5, outterPaint);
+    drawCircle(position.toOffset(), size.x / 5.25, innerPaint);
 
     drawText(
       text: amount.toString(),
       color: Palette.UNIT_AMOUNT_INDICATOR,
       position: position,
-      size: size.x / 4,
+      size: size.x / 6,
     );
   }
 

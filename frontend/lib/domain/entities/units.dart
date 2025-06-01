@@ -1,8 +1,5 @@
-import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 
 class Units implements Localizable {
@@ -23,10 +20,4 @@ class Units implements Localizable {
   Location get getLocation => location;
 
   int distance(Localizable localizable) => location.distance(localizable);
-
-  UnitsComponent component({
-    required Node node,
-    required Vector2 position,
-    required Vector2 size,
-  }) => UnitsComponent(units: this, node: node, position: position, size: size);
 }

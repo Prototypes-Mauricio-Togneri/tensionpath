@@ -3,6 +3,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -11,8 +12,9 @@ import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitsComponent extends PositionComponent with DragCallbacks {
-  final Units units;
+class UnitsComponent extends PositionComponent
+    with DragCallbacks
+    implements Reconfigurable {
   final Node node;
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
@@ -20,20 +22,27 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
   bool validTarget = false;
 
   UnitsComponent({
-    required this.units,
     required this.node,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.unit.value) {
-    outterPaint.color = units.player.color.brighten(0.5);
-    innerPaint.color = units.player.color;
-  }
+  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
 
-  bool get _canDrag => units.player.isSelf && match.match.isSelfPlaying;
+  bool get _canDrag =>
+      node.hasUnits && node.units!.player.isSelf && match.match.isSelfPlaying;
 
   @override
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
+
+  @override
+  void reconfigure() {
+    if (node.hasUnits) {
+      final Units units = node.units!;
+
+      outterPaint.color = units.player.color.brighten(0.5);
+      innerPaint.color = units.player.color;
+    }
+  }
 
   @override
   void onDragStart(DragStartEvent event) {
@@ -88,22 +97,26 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
 
   @override
   void render(Canvas canvas) {
-    canvas.drawUnitCircle(
-      position: size / 2,
-      size: size,
-      outterPaint: outterPaint,
-      innerPaint: innerPaint,
-      amount: units.amount,
-    );
+    if (node.hasUnits) {
+      final Units units = node.units!;
 
-    if (targetPosition != null) {
-      _lineTo(
-        canvas: canvas,
-        target: targetPosition!,
-        color: validTarget
-            ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
-            : Palette.UNIT_MOVEMENT_INDICATOR_INVALID,
+      canvas.drawUnitCircle(
+        position: size / 2,
+        size: size,
+        outterPaint: outterPaint,
+        innerPaint: innerPaint,
+        amount: units.amount,
       );
+
+      if (targetPosition != null) {
+        _lineTo(
+          canvas: canvas,
+          target: targetPosition!,
+          color: validTarget
+              ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
+              : Palette.UNIT_MOVEMENT_INDICATOR_INVALID,
+        );
+      }
     }
   }
 
@@ -112,19 +125,23 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     required Vector2 target,
     required Color color,
   }) {
-    final Vector2 origin = _moveTowards(
-      origin: size / 2,
-      target: target,
-      distance: size.x / 3,
-    );
+    final double distance = (size / 2).distanceTo(target);
 
-    canvas.drawLine(
-      origin.toOffset(),
-      target.toOffset(),
-      Paint()
-        ..color = color
-        ..strokeWidth = size.x / 20,
-    );
+    if (distance >= size.x / 4.5) {
+      final Vector2 origin = _moveTowards(
+        origin: size / 2,
+        target: target,
+        distance: size.x / 4.5,
+      );
+
+      canvas.drawLine(
+        origin.toOffset(),
+        target.toOffset(),
+        Paint()
+          ..color = color
+          ..strokeWidth = size.x / 20,
+      );
+    }
   }
 
   Vector2 _moveTowards({
