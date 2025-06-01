@@ -3,10 +3,12 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
-void main() async {
+void main(List<String> args) async {
   final Map<String, String> declaredElements = {};
   final Set<String> usedElements = {};
-  final Directory rootDir = Directory('lib');
+
+  final String rootPath = args[0];
+  final Directory rootDir = Directory(rootPath);
 
   await for (final FileSystemEntity file in rootDir.list(recursive: true)) {
     if (file is File && file.path.endsWith('.dart')) {
