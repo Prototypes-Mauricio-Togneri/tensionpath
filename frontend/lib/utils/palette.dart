@@ -26,7 +26,7 @@ class Palette {
 
   static const Color BATTLEFIELD_BACKGROUND = Color(0xff222222);
 
-  static const Color NODE_BACKGROUND = Color.fromARGB(255, 235, 181, 101);
+  static const Color NODE_BACKGROUND = Color(0xff333333);
 
   static const Color UNIT_AMOUNT_INDICATOR = Colors.white;
   static const Color UNIT_MOVEMENT_INDICATOR = Colors.white;
