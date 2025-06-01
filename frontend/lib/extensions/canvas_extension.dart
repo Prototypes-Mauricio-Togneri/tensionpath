@@ -135,10 +135,15 @@ extension CanvasExtension on Canvas {
         target: target,
         distance: threshold,
       );
+      final Vector2 targetPoint = _moveTowards(
+        origin: target,
+        target: origin,
+        distance: threshold,
+      );
 
       drawLine(
         originPoint.toOffset(),
-        target.toOffset(),
+        targetPoint.toOffset(),
         Paint() // TODO(momo): extract paint
           ..color = color
           ..strokeWidth = size.x / 20,
