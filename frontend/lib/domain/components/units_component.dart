@@ -97,21 +97,7 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
       position: size / 2,
       size: size.x / 4,
     );
-
-    if (units.moveTo != null) {
-      final NodeComponent? nodeTarget = match.getNodeAtLocation(units.moveTo!);
-
-      if (nodeTarget != null) {
-        final Vector2 direction =
-            nodeTarget.absolutePosition - absolutePosition + (size / 2);
-        _lineTo(
-          canvas: canvas,
-          target: direction,
-          color: Palette.UNIT_MOVEMENT_INDICATOR_VALID,
-        );
-      }
-    }
-
+    
     if (targetPosition != null) {
       _lineTo(
         canvas: canvas,

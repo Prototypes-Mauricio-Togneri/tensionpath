@@ -12,8 +12,8 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) =>
         x: $checkedConvert('x', (v) => (v as num).toInt()),
         y: $checkedConvert('y', (v) => (v as num).toInt()),
         type: $checkedConvert('type', (v) => $enumDecode(_$NodeTypeEnumMap, v)),
-        unit: $checkedConvert(
-          'unit',
+        units: $checkedConvert(
+          'units',
           (v) =>
               v == null ? null : JsonUnits.fromJson(v as Map<String, dynamic>),
         ),
@@ -31,7 +31,7 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
   'x': instance.x,
   'y': instance.y,
   'type': _$NodeTypeEnumMap[instance.type]!,
-  if (instance.unit?.toJson() case final value?) 'unit': value,
+  if (instance.units?.toJson() case final value?) 'units': value,
   if (instance.structure?.toJson() case final value?) 'structure': value,
 };
 

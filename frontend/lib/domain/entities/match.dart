@@ -98,7 +98,6 @@ class Match {
     if (_canDeployUnit(nodeTarget)) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
       self.addAction(ActionDeployUnits(target: nodeTarget.location, amount: 1));
-      nodeTarget.addUnit(self);
       MatchComponentRef.instance.reconfigure();
     }
   }
@@ -118,7 +117,6 @@ class Match {
               target: nodeTarget.location,
             ),
           );
-          nodeOrigin.moveUnit(nodeTarget);
           MatchComponentRef.instance.reconfigure();
         }
       } else {

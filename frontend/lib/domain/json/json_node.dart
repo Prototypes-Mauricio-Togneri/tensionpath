@@ -19,8 +19,8 @@ class JsonNode {
   @JsonKey(name: 'type')
   final NodeType type;
 
-  @JsonKey(name: 'unit')
-  final JsonUnits? unit;
+  @JsonKey(name: 'units')
+  final JsonUnits? units;
 
   @JsonKey(name: 'structure')
   final JsonStructure? structure;
@@ -29,7 +29,7 @@ class JsonNode {
     required this.x,
     required this.y,
     required this.type,
-    required this.unit,
+    required this.units,
     required this.structure,
   });
 
@@ -39,7 +39,7 @@ class JsonNode {
     return Node(
       location: location,
       type: type,
-      units: unit?.object(location: location, players: players),
+      units: units?.object(location: location, players: players),
       structure: structure?.object(location: location, players: players),
     );
   }

@@ -24,7 +24,7 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     add(
       BattlefieldComponent(
-        battlefield: match.battlefield,
+        match: match,
         position: Dimensions.battlefieldPosition(resolution),
         size: Dimensions.battlefieldSize(resolution),
         nodeComponents: nodeComponents,

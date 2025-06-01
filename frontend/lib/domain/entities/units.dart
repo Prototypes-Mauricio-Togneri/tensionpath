@@ -9,26 +9,12 @@ class Units implements Localizable {
   Player player;
   int amount;
   final Location location;
-  Location? moveTo;
 
-  Units({
-    required this.player,
-    required this.amount,
-    required this.location,
-    required this.moveTo,
-  });
+  Units({required this.player, required this.amount, required this.location});
 
   void replaceWith(Units newUnits) {
     player = newUnits.player;
     amount = newUnits.amount;
-  }
-
-  void addUnit() {
-    amount++;
-  }
-
-  void moveUnit(Location newLocation) {
-    moveTo = newLocation;
   }
 
   bool belongsTo(Player player) => this.player.id == player.id;

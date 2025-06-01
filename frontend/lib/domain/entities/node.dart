@@ -93,25 +93,6 @@ class Node implements Localizable {
     return result;
   }
 
-  void addUnit(Player player) {
-    if (_units == null) {
-      _units = Units(
-        player: player,
-        amount: 1,
-        location: location,
-        moveTo: null,
-      );
-    } else {
-      _units!.addUnit();
-    }
-  }
-
-  void moveUnit(Node target) {
-    if (_units != null) {
-      _units!.moveUnit(target.location);
-    }
-  }
-
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {

@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/actions_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
-  final Battlefield battlefield;
+  final Match match;
   final List<NodeComponent> nodeComponents;
   final Paint paintBackground = Palette.paint(
     color: Palette.BATTLEFIELD_BACKGROUND,
@@ -17,7 +18,7 @@ class BattlefieldComponent extends PositionComponent {
   );
 
   BattlefieldComponent({
-    required this.battlefield,
+    required this.match,
     required super.position,
     required super.size,
     required this.nodeComponents,
@@ -27,7 +28,7 @@ class BattlefieldComponent extends PositionComponent {
   FutureOr onLoad() async {
     add(
       BattlefieldGridComponent(
-        battlefield: battlefield,
+        match: match,
         position: Dimensions.battlefildGridPosition(size),
         size: Dimensions.battlefildGridSize(size),
         nodeComponents: nodeComponents,
@@ -46,11 +47,11 @@ class BattlefieldComponent extends PositionComponent {
 }
 
 class BattlefieldGridComponent extends PositionComponent {
-  final Battlefield battlefield;
+  final Match match;
   final List<NodeComponent> nodeComponents;
 
   BattlefieldGridComponent({
-    required this.battlefield,
+    required this.match,
     required super.position,
     required super.size,
     required this.nodeComponents,
@@ -60,12 +61,12 @@ class BattlefieldGridComponent extends PositionComponent {
   FutureOr onLoad() {
     final Vector2 nodeSize = Dimensions.nodeSize(
       size: size,
-      battlefield: battlefield,
+      battlefield: match.battlefield,
     );
     final Set<String> existingNodes = {};
     final Vector2 center = size / 2;
 
-    for (final Node node in battlefield.nodes) {
+    for (final Node node in match.battlefield.nodes) {
       if (existingNodes.contains(node.id)) {
         throw Exception('Duplicated node: ${node.id}');
       } else {
@@ -83,6 +84,15 @@ class BattlefieldGridComponent extends PositionComponent {
         add(nodeComponent);
       }
     }
+
+    add(
+      ActionsComponent(
+        player: match.self,
+        nodeSize: nodeSize,
+        position: size / 2,
+        size: size,
+      ),
+    );
 
     return super.onLoad();
   }

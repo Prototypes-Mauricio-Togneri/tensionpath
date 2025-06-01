@@ -129,7 +129,7 @@ class Backend {
     x: node.location.x,
     y: node.location.y,
     type: node.type,
-    unit: _unitsToJson(node.units),
+    units: _unitsToJson(node.units),
     structure: _structureToJson(node.structure),
   );
 
@@ -149,12 +149,7 @@ class Backend {
 
   static JsonUnits? _unitsToJson(Units? units) {
     if (units != null) {
-      return JsonUnits(
-        player: units.player.id,
-        amount: units.amount,
-        moveToX: units.moveTo?.x,
-        moveToY: units.moveTo?.y,
-      );
+      return JsonUnits(player: units.player.id, amount: units.amount);
     } else {
       return null;
     }
