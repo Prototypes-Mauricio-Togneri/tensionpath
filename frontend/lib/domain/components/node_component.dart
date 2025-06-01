@@ -20,7 +20,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   UnitsComponent? _unitsComponent;
   //FogComponent? _fogComponent;
   final Paint backgroundPaint = Palette.paint(
-    color: Palette.NODE_BACKGROUND,
+    color: Palette.NODE_EMPTY_BACKGROUND,
     style: PaintingStyle.fill,
   );
 
@@ -119,7 +119,7 @@ class NodeBackgroundComponent extends PositionComponent
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint emptyPaint = Palette.paint(
-    color: Palette.NODE_BACKGROUND,
+    color: Palette.NODE_EMPTY_BACKGROUND,
     style: PaintingStyle.fill,
   );
 
@@ -138,8 +138,28 @@ class NodeBackgroundComponent extends PositionComponent
 
   @override
   void reconfigure() {
-    innerPaint.color = Colors.red;
-    outterPaint.color = Colors.green;
+    if (node.hasStructure) {
+      final Structure structure = node.structure!;
+
+      if (structure is StructureLauncher) {
+        if (structure.player.isPlayer1) {
+          innerPaint.color = Palette.NODE_LAUNCHER_1_BACKGROUND;
+          outterPaint.color = Palette.NODE_LAUNCHER_1_BORDER;
+        } else if (structure.player.isPlayer2) {
+          innerPaint.color = Palette.NODE_LAUNCHER_2_BACKGROUND;
+          outterPaint.color = Palette.NODE_LAUNCHER_2_BORDER;
+        }
+      } else if (structure is StructureMissile) {
+        innerPaint.color = Palette.NODE_MISSILE_BACKGROUND;
+        outterPaint.color = Palette.NODE_MISSILE_BORDER;
+      } else if (structure is StructurePad) {
+        innerPaint.color = Colors.red;
+        outterPaint.color = Colors.green;
+      } else if (structure is StructureResources) {
+        innerPaint.color = Palette.NODE_RESOURCES_BACKGROUND;
+        outterPaint.color = Palette.NODE_RESOURCES_BORDER;
+      }
+    }
   }
 
   @override
@@ -170,35 +190,12 @@ class NodeBackgroundComponent extends PositionComponent
     required Vector2 size,
     required Canvas canvas,
   }) {
-    if (structure is StructureLauncher) {
-      canvas.drawStructureHexagon(
-        position: position,
-        size: size,
-        outterPaint: outterPaint,
-        innerPaint: innerPaint,
-      );
-    } else if (structure is StructureMissile) {
-      canvas.drawStructureHexagon(
-        position: position,
-        size: size,
-        outterPaint: outterPaint,
-        innerPaint: innerPaint,
-      );
-    } else if (structure is StructurePad) {
-      canvas.drawStructureHexagon(
-        position: position,
-        size: size,
-        outterPaint: outterPaint,
-        innerPaint: innerPaint,
-      );
-    } else if (structure is StructureResources) {
-      canvas.drawStructureHexagon(
-        position: position,
-        size: size,
-        outterPaint: outterPaint,
-        innerPaint: innerPaint,
-      );
-    }
+    canvas.drawStructureHexagon(
+      position: position,
+      size: size,
+      outterPaint: outterPaint,
+      innerPaint: innerPaint,
+    );
 
     canvas.drawText(
       text: node.location.toString(),
