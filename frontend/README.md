@@ -1,5 +1,9 @@
 # TODO
 
+- Fix movement line displayed behind nodes
+- Don't allow to move backwards
+- Move units one by one and resolve battles in between
+
 - When passing turn, block button immediately
 - Allow to move but show error if not enough resources
 - Toxic tiles that kill units
