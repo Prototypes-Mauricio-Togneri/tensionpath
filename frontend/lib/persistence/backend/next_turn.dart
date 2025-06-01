@@ -75,12 +75,10 @@ class NextTurn {
     required Map<String, JsonNode> nodesById,
     required List<JsonAction> jsonActions,
   }) {
-    final Map<String, JsonNode> withDeployments = _nextNodesDeployments(
-      nodesById: nodesById,
-      jsonActions: jsonActions,
-    );
+    _nextNodesDeployments(nodesById: nodesById, jsonActions: jsonActions);
+    _nextNodesMovements(nodesById: nodesById, jsonActions: jsonActions);
 
-    return withDeployments;
+    return nodesById;
   }
 
   static Map<String, JsonNode> _nextNodesDeployments({
@@ -89,9 +87,10 @@ class NextTurn {
   }) {
     for (final JsonAction jsonAction in jsonActions) {
       if (jsonAction.type == ActionType.deploy) {
-        final JsonNode jsonNode = nodesById[jsonAction.targetLocation.id]!;
-        nodesById[jsonAction.targetLocation.id] = _nextNodeTargetDeploy(
-          jsonNode: jsonNode,
+        final JsonNode targetJsonNode =
+            nodesById[jsonAction.targetLocation.id]!;
+        nodesById[jsonAction.targetLocation.id] = _nextNodeTargetDeployment(
+          jsonNode: targetJsonNode,
           jsonAction: jsonAction,
         );
       }
@@ -100,7 +99,32 @@ class NextTurn {
     return nodesById;
   }
 
-  static JsonNode _nextNodeTargetDeploy({
+  static Map<String, JsonNode> _nextNodesMovements({
+    required Map<String, JsonNode> nodesById,
+    required List<JsonAction> jsonActions,
+  }) {
+    for (final JsonAction jsonAction in jsonActions) {
+      if (jsonAction.type == ActionType.move) {
+        final JsonNode originJsonNode =
+            nodesById[jsonAction.originLocation!.id]!;
+        nodesById[jsonAction.originLocation!.id] = _nextNodeOriginMovement(
+          jsonNode: originJsonNode,
+          jsonAction: jsonAction,
+        );
+
+        final JsonNode targetJsonNode =
+            nodesById[jsonAction.targetLocation.id]!;
+        nodesById[jsonAction.targetLocation.id] = _nextNodeTargetMovement(
+          jsonNode: targetJsonNode,
+          jsonAction: jsonAction,
+        );
+      }
+    }
+
+    return nodesById;
+  }
+
+  static JsonNode _nextNodeTargetDeployment({
     required JsonNode jsonNode,
     required JsonAction jsonAction,
   }) {
@@ -109,6 +133,37 @@ class NextTurn {
       y: jsonNode.y,
       type: jsonNode.type,
       units: JsonUnits(player: jsonAction.playerId, amount: jsonAction.amount!),
+      structure: jsonNode.structure,
+    );
+  }
+
+  static JsonNode _nextNodeOriginMovement({
+    required JsonNode jsonNode,
+    required JsonAction jsonAction,
+  }) {
+    return JsonNode(
+      x: jsonNode.x,
+      y: jsonNode.y,
+      type: jsonNode.type,
+      units: null,
+      structure: jsonNode.structure,
+    );
+  }
+
+  static JsonNode _nextNodeTargetMovement({
+    required JsonNode jsonNode,
+    required JsonAction jsonAction,
+  }) {
+    return JsonNode(
+      x: jsonNode.x,
+      y: jsonNode.y,
+      type: jsonNode.type,
+      units: (jsonNode.units != null)
+          ? JsonUnits(
+              player: jsonAction.playerId,
+              amount: jsonNode.units!.amount + jsonAction.amount!,
+            )
+          : JsonUnits(player: jsonAction.playerId, amount: jsonAction.amount!),
       structure: jsonNode.structure,
     );
   }
