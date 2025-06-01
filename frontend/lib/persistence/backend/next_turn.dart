@@ -16,7 +16,7 @@ class NextTurn {
         createdAt: jsonMatch.createdAt,
         config: jsonMatch.config,
         turn: _nextTurn(jsonMatch.turn),
-        players: _playersNextTurn(jsonMatch.players),
+        players: _nextPlayers(jsonMatch.players),
         battlefield: jsonMatch.battlefield,
       );
     } else {
@@ -27,15 +27,15 @@ class NextTurn {
   static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
-  static Map<String, JsonPlayer> _playersNextTurn(
+  static Map<String, JsonPlayer> _nextPlayers(
     Map<String, JsonPlayer> jsonPlayers,
   ) => Map.fromEntries(
     jsonPlayers.entries.map(
-      (entry) => MapEntry(entry.key, _playerNextTurn(entry.value)),
+      (entry) => MapEntry(entry.key, _nextPlayer(entry.value)),
     ),
   );
 
-  static JsonPlayer _playerNextTurn(JsonPlayer player) => JsonPlayer(
+  static JsonPlayer _nextPlayer(JsonPlayer player) => JsonPlayer(
     name: player.name,
     baseHealth: player.baseHealth,
     resources: player.resources,
