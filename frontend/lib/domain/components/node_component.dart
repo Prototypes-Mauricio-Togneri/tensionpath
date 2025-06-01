@@ -183,12 +183,12 @@ class NodeBackgroundComponent extends PositionComponent
       );
     }
 
-    canvas.drawText(
+    /*canvas.drawText(
       text: node.location.toString(),
       color: Palette.DEBUG_TEXT,
       position: Vector2(size.x / 2, size.y * 0.87),
       size: size.x / 10,
-    );
+    );*/
     /*canvas.drawText(
       text:
           '${absolutePosition.x.toInt()}, '
