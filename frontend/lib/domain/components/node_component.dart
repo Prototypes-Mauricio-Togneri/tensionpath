@@ -91,6 +91,9 @@ class NodeComponent<N extends Node> extends PositionComponent
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
+  //@override
+  //void onTapUp(TapUpEvent event) => match.match.onDeployUnit(node);
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
