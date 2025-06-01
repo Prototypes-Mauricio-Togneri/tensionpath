@@ -32,7 +32,7 @@ void main(List<String> args) async {
   }
 
   final List<String> unused = declaredElements.keys
-      .where((m) => !usedElements.contains(m))
+      .where((e) => !usedElements.contains(e))
       .toList();
 
   if (unused.isEmpty) {
