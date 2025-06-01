@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -31,8 +32,11 @@ class UnitsComponent extends PositionComponent
       node.hasUnits && node.units!.player.isSelf && match.match.isSelfPlaying;
 
   @override
-  bool containsLocalPoint(Vector2 point) =>
-      Dimensions.pointInHexagon(point: point, size: size);
+  FutureOr onLoad() async {
+    reconfigure();
+
+    return super.onLoad();
+  }
 
   @override
   void reconfigure() {
@@ -43,6 +47,10 @@ class UnitsComponent extends PositionComponent
       innerPaint.color = units.player.color;
     }
   }
+
+  @override
+  bool containsLocalPoint(Vector2 point) =>
+      Dimensions.pointInHexagon(point: point, size: size);
 
   @override
   void onDragStart(DragStartEvent event) {
