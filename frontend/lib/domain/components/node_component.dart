@@ -6,6 +6,9 @@ import 'package:tensionpath/domain/components/units_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
+import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
+import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
+import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -31,7 +34,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   FutureOr onLoad() async {
     reconfigure();
 
-    add(NewStructureComponent(node: node, position: size / 2, size: size));
+    add(NodeBackgroundComponent(node: node, position: size / 2, size: size));
 
     return super.onLoad();
   }
@@ -92,23 +95,6 @@ class NodeComponent<N extends Node> extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
-    /*if (node.hasStructure) {
-      _renderStructure(
-        structure: node.structure!,
-        position: size / 2,
-        size: size * 0.97,
-        canvas: canvas,
-      );
-    } else {
-      canvas.drawHexagon(
-        center: size / 2,
-        size: size * 0.97,
-        paint: backgroundPaint,
-      );
-    }*/
-
-    //if ((_structureComponent == null) && (_unitsComponent == null)) {
-
     canvas.drawText(
       text: node.location.toString(),
       color: Palette.DEBUG_TEXT,
@@ -124,11 +110,10 @@ class NodeComponent<N extends Node> extends PositionComponent
         position: Vector2(size.x / 2, size.y / 2),
         size: size.x / 7,
       );*/
-    //}
   }
 }
 
-class NewStructureComponent extends PositionComponent
+class NodeBackgroundComponent extends PositionComponent
     implements Reconfigurable {
   final Node node;
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
@@ -138,7 +123,7 @@ class NewStructureComponent extends PositionComponent
     style: PaintingStyle.fill,
   );
 
-  NewStructureComponent({
+  NodeBackgroundComponent({
     required this.node,
     required super.position,
     required super.size,
@@ -161,17 +146,19 @@ class NewStructureComponent extends PositionComponent
   void render(Canvas canvas) {
     super.render(canvas);
 
+    const double sizeFactor = 0.97;
+
     if (node.hasStructure) {
       _renderStructure(
         structure: node.structure!,
         position: size / 2,
-        size: size * 0.97,
+        size: size * sizeFactor,
         canvas: canvas,
       );
     } else {
       canvas.drawHexagon(
         center: size / 2,
-        size: size * 0.97,
+        size: size * sizeFactor,
         paint: emptyPaint,
       );
     }
@@ -190,6 +177,34 @@ class NewStructureComponent extends PositionComponent
         outterPaint: outterPaint,
         innerPaint: innerPaint,
       );
+    } else if (structure is StructureMissile) {
+      canvas.drawStructureHexagon(
+        position: position,
+        size: size,
+        outterPaint: outterPaint,
+        innerPaint: innerPaint,
+      );
+    } else if (structure is StructurePad) {
+      canvas.drawStructureHexagon(
+        position: position,
+        size: size,
+        outterPaint: outterPaint,
+        innerPaint: innerPaint,
+      );
+    } else if (structure is StructureResources) {
+      canvas.drawStructureHexagon(
+        position: position,
+        size: size,
+        outterPaint: outterPaint,
+        innerPaint: innerPaint,
+      );
     }
+
+    canvas.drawText(
+      text: node.location.toString(),
+      color: Palette.DEBUG_TEXT,
+      position: Vector2(size.x / 2, size.y * 0.87),
+      size: size.x / 10,
+    );
   }
 }
