@@ -21,11 +21,11 @@ class Palette {
   static const Color CONTROLS_END_TURN_BACKGROUND_ENABLED = Colors.green;
   static const Color CONTROLS_END_TURN_BACKGROUND_DISABLED = Colors.grey;
 
-  static const Color NODE_FOG = Color(0x88000000);
+  static const Color NODE_FOG = Color(0xaa000000);
 
   static const Color BATTLEFIELD_BACKGROUND = Color(0xff222222);
 
-  static const Color NODE_EMPTY_BACKGROUND = Color(0xff333333);
+  static const Color NODE_EMPTY_BACKGROUND = Color(0xFF7C5603); // 333333
   static const Color NODE_LAUNCHER_1_BORDER = Color(0xff135179);
   static const Color NODE_LAUNCHER_1_BACKGROUND = Color(0xff2882B4);
   static const Color NODE_LAUNCHER_2_BORDER = Color(0xffA9271E);
