@@ -107,16 +107,16 @@ class NextTurn {
       if (jsonAction.type == ActionType.move) {
         final JsonNode originJsonNode =
             nodesById[jsonAction.originLocation!.id]!;
-        nodesById[jsonAction.originLocation!.id] = _nextNodeOriginMovement(
-          jsonNode: originJsonNode,
-          jsonAction: jsonAction,
-        );
-
         final JsonNode targetJsonNode =
             nodesById[jsonAction.targetLocation.id]!;
+
         nodesById[jsonAction.targetLocation.id] = _nextNodeTargetMovement(
-          jsonNode: targetJsonNode,
+          originJsonNode: originJsonNode,
+          targetJsonNode: targetJsonNode,
           jsonAction: jsonAction,
+        );
+        nodesById[jsonAction.originLocation!.id] = _nextNodeOriginMovement(
+          originJsonNode,
         );
       }
     }
@@ -137,10 +137,7 @@ class NextTurn {
     );
   }
 
-  static JsonNode _nextNodeOriginMovement({
-    required JsonNode jsonNode,
-    required JsonAction jsonAction,
-  }) {
+  static JsonNode _nextNodeOriginMovement(JsonNode jsonNode) {
     return JsonNode(
       x: jsonNode.x,
       y: jsonNode.y,
@@ -151,20 +148,22 @@ class NextTurn {
   }
 
   static JsonNode _nextNodeTargetMovement({
-    required JsonNode jsonNode,
+    required JsonNode originJsonNode,
+    required JsonNode targetJsonNode,
     required JsonAction jsonAction,
   }) {
+    final int unitsInSource = originJsonNode.units!.amount;
+    final int unitsInTarget = targetJsonNode.units?.amount ?? 0;
+
     return JsonNode(
-      x: jsonNode.x,
-      y: jsonNode.y,
-      type: jsonNode.type,
-      units: (jsonNode.units != null)
-          ? JsonUnits(
-              player: jsonAction.playerId,
-              amount: jsonNode.units!.amount + jsonAction.amount!,
-            )
-          : JsonUnits(player: jsonAction.playerId, amount: jsonAction.amount!),
-      structure: jsonNode.structure,
+      x: targetJsonNode.x,
+      y: targetJsonNode.y,
+      type: targetJsonNode.type,
+      units: JsonUnits(
+        player: jsonAction.playerId,
+        amount: unitsInSource + unitsInTarget,
+      ),
+      structure: targetJsonNode.structure,
     );
   }
 }
