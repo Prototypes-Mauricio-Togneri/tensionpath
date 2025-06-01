@@ -16,8 +16,7 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class StructureComponent extends PositionComponent
-    implements Reconfigurable {
+class StructureComponent extends PositionComponent implements Reconfigurable {
   final Node node;
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
@@ -97,19 +96,19 @@ class StructureComponent extends PositionComponent
 
     if (node.hasStructure) {
       _renderStructure(
-          structure: node.structure!,
-          position: size / 2,
-          size: size * sizeFactor,
-          canvas: canvas,
-        );
-    }   else {
-        canvas.drawHexagon(
+        structure: node.structure!,
+        position: size / 2,
+        size: size * sizeFactor,
+        canvas: canvas,
+      );
+    } else {
+      canvas.drawHexagon(
         center: size / 2,
-          size: size * sizeFactor,
-          paint: emptyPaint,
-      );  
-    }  
-  
+        size: size * sizeFactor,
+        paint: emptyPaint,
+      );
+    }
+
     /*canvas  .drawText(
       text:   node.location.toString(),
         color: Palette.DEBUG_TEXT,

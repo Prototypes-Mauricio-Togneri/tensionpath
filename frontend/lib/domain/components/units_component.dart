@@ -42,7 +42,6 @@ class UnitsComponent extends PositionComponent
   void reconfigure() {
     if (node.hasUnits) {
       final Units units = node.units!;
-
       outterPaint.color = units.player.color.brighten(0.5);
       innerPaint.color = units.player.color;
     }
@@ -105,7 +104,7 @@ class UnitsComponent extends PositionComponent
 
   @override
   void render(Canvas canvas) {
-    if (node.hasUnits) {
+    if (node.isRevealed && node.hasUnits) {
       final Units units = node.units!;
 
       canvas.drawUnitCircle(
