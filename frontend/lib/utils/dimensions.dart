@@ -33,7 +33,7 @@ class Dimensions {
       Vector2(size.x * 0.3, size.y);
 
   static Vector2 controlsEndTurnPosition(Vector2 size) =>
-      Vector2(size.x / 2, size.y / 2);
+      Vector2(size.x * 0.86, size.y / 2);
 
   static Vector2 controlsEndTurnSize(Vector2 size) =>
       Vector2(size.x / 4, size.y * 0.8);
