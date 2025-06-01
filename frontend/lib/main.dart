@@ -3,8 +3,8 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
-final calledMethods = <String>{};
-final declaredPublicMethods = <String, String>{}; // methodName -> file
+final usedElements = <String>{};
+final declaredElements = <String, String>{};
 
 void main() async {
   final rootDir = Directory('lib');
@@ -17,8 +17,8 @@ void main() async {
     }
   }
 
-  final unused = declaredPublicMethods.keys
-      .where((m) => !calledMethods.contains(m))
+  final unused = declaredElements.keys
+      .where((m) => !usedElements.contains(m))
       .toList();
 
   if (unused.isEmpty) {
@@ -26,7 +26,7 @@ void main() async {
   } else {
     print('🧹 Possibly unused public methods:');
     for (final method in unused) {
-      print('- $method (${declaredPublicMethods[method]})');
+      print('- $method (${declaredElements[method]})');
     }
   }
 }
@@ -39,8 +39,8 @@ class _MethodVisitor extends RecursiveAstVisitor<void> {
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
     final name = node.name.lexeme;
-    if (!name.startsWith('_') && node.parent is ClassDeclaration) {
-      declaredPublicMethods[name] = filePath;
+    if (!name.startsWith('_')) {
+      declaredElements[name] = filePath;
     }
     super.visitMethodDeclaration(node);
   }
@@ -49,21 +49,41 @@ class _MethodVisitor extends RecursiveAstVisitor<void> {
   void visitFunctionDeclaration(FunctionDeclaration node) {
     final name = node.name.lexeme;
     if (!name.startsWith('_')) {
-      declaredPublicMethods[name] = filePath;
+      declaredElements[name] = filePath;
     }
     super.visitFunctionDeclaration(node);
   }
 
   @override
+  void visitFieldDeclaration(FieldDeclaration node) {
+    for (final varDecl in node.fields.variables) {
+      final name = varDecl.name.lexeme;
+      if (!name.startsWith('_')) {
+        declaredElements[name] = filePath;
+      }
+    }
+    super.visitFieldDeclaration(node);
+  }
+
+  @override
+  void visitPropertyAccess(PropertyAccess node) {
+    final name = node.propertyName.name;
+    if (!name.startsWith('_')) {
+      declaredElements[name] = filePath;
+    }
+    super.visitPropertyAccess(node);
+  }
+
+  @override
   void visitMethodInvocation(MethodInvocation node) {
-    calledMethods.add(node.methodName.name);
+    usedElements.add(node.methodName.name);
     super.visitMethodInvocation(node);
   }
 
   @override
   void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
     if (node.function is Identifier) {
-      calledMethods.add((node.function as Identifier).name);
+      usedElements.add((node.function as Identifier).name);
     }
     super.visitFunctionExpressionInvocation(node);
   }
