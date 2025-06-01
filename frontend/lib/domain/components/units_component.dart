@@ -107,7 +107,7 @@ class UnitsComponent extends PositionComponent
     if (node.isRevealed && node.hasUnits) {
       final Units units = node.units!;
 
-      canvas.drawUnitCircle(
+      canvas.drawUnitHexagon(
         position: size / 2,
         size: size,
         outterPaint: outterPaint,

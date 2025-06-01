@@ -59,7 +59,7 @@ class ActionsComponent extends PositionComponent {
         Dimensions.nodePosition(nodeSize: nodeSize, location: action.target) +
         center;
 
-    canvas.drawUnitHexagon(
+    canvas.drawUnitCircle(
       position: position,
       size: nodeSize,
       outterPaint: outterPaint,
