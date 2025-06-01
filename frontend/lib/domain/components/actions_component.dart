@@ -3,6 +3,7 @@ import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart' hide Actions, Action;
 import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -37,6 +38,13 @@ class ActionsComponent extends PositionComponent {
           center: center,
           canvas: canvas,
         );
+      } else if (action is ActionMoveUnits) {
+        _renderMove(
+          action: action,
+          nodeSize: nodeSize,
+          center: center,
+          canvas: canvas,
+        );
       }
     }
   }
@@ -59,4 +67,11 @@ class ActionsComponent extends PositionComponent {
       amount: action.amount,
     );
   }
+
+  void _renderMove({
+    required ActionMoveUnits action,
+    required Vector2 nodeSize,
+    required Vector2 center,
+    required Canvas canvas,
+  }) {}
 }
