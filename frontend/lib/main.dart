@@ -6,6 +6,9 @@ import 'package:analyzer/dart/ast/visitor.dart';
 void main(List<String> args) async {
   final Map<String, String> declaredElements = {};
   final Set<String> usedElements = {};
+  final List<String> whitelist = args.length > 1
+      ? args[1].split(',').map((e) => e.trim()).toList()
+      : [];
 
   final String rootPath = args[0];
   final Directory rootDir = Directory(rootPath);
@@ -22,6 +25,7 @@ void main(List<String> args) async {
           filePath: file.path,
           declaredElements: declaredElements,
           usedElements: usedElements,
+          whitelist: whitelist,
         ),
       );
     }
@@ -34,8 +38,8 @@ void main(List<String> args) async {
   if (unused.isEmpty) {
     print('🎉 No unused public methods found!');
   } else {
-    print('🧹 Possibly unused public methods:');
-    for (final method in unused) {
+    print('🧹 ${unused.length} possibly unused public methods:');
+    for (final String method in unused) {
       print('$method: ${declaredElements[method]}');
     }
   }
@@ -45,15 +49,17 @@ class _MethodVisitor extends RecursiveAstVisitor<void> {
   final String filePath;
   final Map<String, String> declaredElements;
   final Set<String> usedElements;
+  final List<String> whitelist;
 
   _MethodVisitor({
     required this.filePath,
     required this.declaredElements,
     required this.usedElements,
+    required this.whitelist,
   });
 
   void _addDeclaredElement(String name) {
-    if (!name.startsWith('_')) {
+    if (!name.startsWith('_') && !whitelist.contains(name)) {
       declaredElements[name] = filePath;
     }
   }
