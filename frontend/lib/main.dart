@@ -3,11 +3,11 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
-final Set<String> usedElements = {};
-final Map<String, String> declaredElements = {};
-
 void main() async {
+  final Map<String, String> declaredElements = {};
+  final Set<String> usedElements = {};
   final Directory rootDir = Directory('lib');
+
   await for (final FileSystemEntity file in rootDir.list(recursive: true)) {
     if (file is File && file.path.endsWith('.dart')) {
       final String content = await file.readAsString();
@@ -15,7 +15,13 @@ void main() async {
         content: content,
         path: file.path,
       ).unit;
-      unit.visitChildren(_MethodVisitor(file.path));
+      unit.visitChildren(
+        _MethodVisitor(
+          filePath: file.path,
+          declaredElements: declaredElements,
+          usedElements: usedElements,
+        ),
+      );
     }
   }
 
@@ -35,24 +41,36 @@ void main() async {
 
 class _MethodVisitor extends RecursiveAstVisitor<void> {
   final String filePath;
+  final Map<String, String> declaredElements;
+  final Set<String> usedElements;
 
-  _MethodVisitor(this.filePath);
+  _MethodVisitor({
+    required this.filePath,
+    required this.declaredElements,
+    required this.usedElements,
+  });
+
+  void _addDeclaredElement(String name) {
+    if (!name.startsWith('_')) {
+      declaredElements[name] = filePath;
+    }
+  }
+
+  void _addUsedElement(String name) {
+    usedElements.add(name);
+  }
 
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
     final name = node.name.lexeme;
-    if (!name.startsWith('_')) {
-      declaredElements[name] = filePath;
-    }
+    _addDeclaredElement(name);
     super.visitMethodDeclaration(node);
   }
 
   @override
   void visitFunctionDeclaration(FunctionDeclaration node) {
     final name = node.name.lexeme;
-    if (!name.startsWith('_')) {
-      declaredElements[name] = filePath;
-    }
+    _addDeclaredElement(name);
     super.visitFunctionDeclaration(node);
   }
 
@@ -60,42 +78,40 @@ class _MethodVisitor extends RecursiveAstVisitor<void> {
   void visitFieldDeclaration(FieldDeclaration node) {
     for (final varDecl in node.fields.variables) {
       final name = varDecl.name.lexeme;
-      if (!name.startsWith('_')) {
-        declaredElements[name] = filePath;
-      }
+      _addDeclaredElement(name);
     }
     super.visitFieldDeclaration(node);
   }
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
-    usedElements.add(node.methodName.name);
+    _addUsedElement(node.methodName.name);
     super.visitMethodInvocation(node);
   }
 
   @override
   void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
     if (node.function is Identifier) {
-      usedElements.add((node.function as Identifier).name);
+      _addUsedElement((node.function as Identifier).name);
     }
     super.visitFunctionExpressionInvocation(node);
   }
 
   @override
   void visitPropertyAccess(PropertyAccess node) {
-    usedElements.add(node.propertyName.name);
+    _addUsedElement(node.propertyName.name);
     super.visitPropertyAccess(node);
   }
 
   @override
   void visitPrefixedIdentifier(PrefixedIdentifier node) {
-    usedElements.add(node.identifier.name);
+    _addUsedElement(node.identifier.name);
     super.visitPrefixedIdentifier(node);
   }
 
   @override
   void visitSimpleIdentifier(SimpleIdentifier node) {
-    usedElements.add(node.name);
+    _addUsedElement(node.name);
     super.visitSimpleIdentifier(node);
   }
 }
