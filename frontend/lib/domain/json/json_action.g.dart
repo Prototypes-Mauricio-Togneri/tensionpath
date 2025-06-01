@@ -12,6 +12,7 @@ JsonAction _$JsonActionFromJson(Map<String, dynamic> json) => $checkedCreate(
   ($checkedConvert) {
     final val = JsonAction(
       type: $checkedConvert('type', (v) => $enumDecode(_$ActionTypeEnumMap, v)),
+      playerId: $checkedConvert('playerId', (v) => v as String),
       originX: $checkedConvert('originX', (v) => (v as num?)?.toInt()),
       originY: $checkedConvert('originY', (v) => (v as num?)?.toInt()),
       targetX: $checkedConvert('targetX', (v) => (v as num).toInt()),
@@ -25,6 +26,7 @@ JsonAction _$JsonActionFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$JsonActionToJson(JsonAction instance) =>
     <String, dynamic>{
       'type': _$ActionTypeEnumMap[instance.type]!,
+      'playerId': instance.playerId,
       if (instance.originX case final value?) 'originX': value,
       if (instance.originY case final value?) 'originY': value,
       'targetX': instance.targetX,

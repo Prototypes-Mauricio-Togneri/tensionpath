@@ -6,6 +6,9 @@ class ActionDeployUnits extends Action {
   final Location target;
   final int amount;
 
-  const ActionDeployUnits({required this.target, required this.amount})
-    : super(ActionType.deploy);
+  const ActionDeployUnits({
+    required super.playerId,
+    required this.target,
+    required this.amount,
+  }) : super(type: ActionType.deploy);
 }

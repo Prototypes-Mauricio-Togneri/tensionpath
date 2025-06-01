@@ -30,6 +30,7 @@ class Actions extends Iterable<Action> {
 
       _actions.add(
         ActionDeployUnits(
+          playerId: action.playerId,
           target: action.target,
           amount: currentAmount + action.amount,
         ),

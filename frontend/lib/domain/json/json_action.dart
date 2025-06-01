@@ -12,6 +12,9 @@ class JsonAction {
   @JsonKey(name: 'type')
   final ActionType type;
 
+  @JsonKey(name: 'playerId')
+  final String playerId;
+
   @JsonKey(name: 'originX')
   final int? originX;
 
@@ -29,6 +32,7 @@ class JsonAction {
 
   const JsonAction({
     required this.type,
+    required this.playerId,
     required this.originX,
     required this.originY,
     required this.targetX,
@@ -39,11 +43,13 @@ class JsonAction {
   Action get object {
     if (type == ActionType.deploy) {
       return ActionDeployUnits(
+        playerId: playerId,
         target: Location(x: targetX, y: targetY),
         amount: amount!,
       );
     } else if (type == ActionType.move) {
       return ActionMoveUnits(
+        playerId: playerId,
         origin: Location(x: originX!, y: originY!),
         target: Location(x: targetX, y: targetY),
       );
@@ -62,6 +68,7 @@ class JsonAction {
     if (action is ActionDeployUnits) {
       return JsonAction(
         type: action.type,
+        playerId: action.playerId,
         originX: null,
         originY: null,
         targetX: action.target.x,
@@ -71,6 +78,7 @@ class JsonAction {
     } else if (action is ActionMoveUnits) {
       return JsonAction(
         type: action.type,
+        playerId: action.playerId,
         originX: action.origin.x,
         originY: action.origin.y,
         targetX: action.target.x,

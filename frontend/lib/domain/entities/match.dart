@@ -98,7 +98,13 @@ class Match {
   void onDeployUnit(Node nodeTarget) {
     if (_canDeployUnit(nodeTarget)) {
       self.spendResources(Constants.COST_DEPLOY_UNIT);
-      self.addAction(ActionDeployUnits(target: nodeTarget.location, amount: 1));
+      self.addAction(
+        ActionDeployUnits(
+          playerId: self.id,
+          target: nodeTarget.location,
+          amount: 1,
+        ),
+      );
       MatchComponentRef.instance.reconfigure();
     }
   }
@@ -114,6 +120,7 @@ class Match {
           self.spendResources(cost);
           self.addAction(
             ActionMoveUnits(
+              playerId: self.id,
               origin: nodeOrigin.location,
               target: nodeTarget.location,
             ),

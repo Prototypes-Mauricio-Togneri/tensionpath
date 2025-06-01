@@ -6,6 +6,9 @@ class ActionMoveUnits extends Action {
   final Location origin;
   final Location target;
 
-  const ActionMoveUnits({required this.origin, required this.target})
-    : super(ActionType.move);
+  const ActionMoveUnits({
+    required super.playerId,
+    required this.origin,
+    required this.target,
+  }) : super(type: ActionType.move);
 }
