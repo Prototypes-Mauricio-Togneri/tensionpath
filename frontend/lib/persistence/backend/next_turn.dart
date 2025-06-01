@@ -56,59 +56,48 @@ class NextTurn {
     required JsonBattlefield jsonBattlefield,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
+    final Map<String, JsonNode> nodesById = Map.fromEntries(
+      jsonBattlefield.nodes.map((node) => MapEntry(node.location.id, node)),
+    );
+
     return JsonBattlefield(
       id: jsonBattlefield.id,
       size: jsonBattlefield.size,
       missile: jsonBattlefield.missile,
       nodes: _nextNodes(
-        jsonNodes: jsonBattlefield.nodes,
+        nodesById: nodesById,
         jsonActions: jsonPlayers.values.expand((p) => p.actions).toList(),
-      ),
+      ).values.toList(),
     );
   }
 
-  static List<JsonNode> _nextNodes({
-    required List<JsonNode> jsonNodes,
+  static Map<String, JsonNode> _nextNodes({
+    required Map<String, JsonNode> nodesById,
     required List<JsonAction> jsonActions,
   }) {
-    final List<JsonNode> withDeployments = _nextNodesDeployments(
-      jsonNodes: jsonNodes,
+    final Map<String, JsonNode> withDeployments = _nextNodesDeployments(
+      nodesById: nodesById,
       jsonActions: jsonActions,
     );
 
     return withDeployments;
   }
 
-  static List<JsonNode> _nextNodesDeployments({
-    required List<JsonNode> jsonNodes,
-    required List<JsonAction> jsonActions,
-  }) {
-    final List<JsonNode> result = [];
-
-    for (final JsonNode jsonNode in jsonNodes) {
-      result.add(
-        _nextNodeDeployments(jsonNode: jsonNode, jsonActions: jsonActions),
-      );
-    }
-
-    return result;
-  }
-
-  static JsonNode _nextNodeDeployments({
-    required JsonNode jsonNode,
+  static Map<String, JsonNode> _nextNodesDeployments({
+    required Map<String, JsonNode> nodesById,
     required List<JsonAction> jsonActions,
   }) {
     for (final JsonAction jsonAction in jsonActions) {
-      if (jsonAction.type == ActionType.deploy &&
-          jsonAction.targetLocation == jsonNode.location) {
-        return _nextNodeTargetDeploy(
+      if (jsonAction.type == ActionType.deploy) {
+        final JsonNode jsonNode = nodesById[jsonAction.targetLocation.id]!;
+        nodesById[jsonAction.targetLocation.id] = _nextNodeTargetDeploy(
           jsonNode: jsonNode,
           jsonAction: jsonAction,
         );
       }
     }
 
-    return jsonNode;
+    return nodesById;
   }
 
   static JsonNode _nextNodeTargetDeploy({
