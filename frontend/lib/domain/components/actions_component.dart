@@ -12,8 +12,8 @@ import 'package:tensionpath/utils/palette.dart';
 class ActionsComponent extends PositionComponent {
   final Player player;
   final Vector2 nodeSize;
-  final Paint paintOutter = Palette.paint(style: PaintingStyle.fill);
-  final Paint paintInner = Palette.paint(style: PaintingStyle.fill);
+  final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
 
   ActionsComponent({
     required this.player,
@@ -21,8 +21,8 @@ class ActionsComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.actions.value) {
-    paintOutter.color = player.color.brighten(0.5);
-    paintInner.color = player.color;
+    outterPaint.color = player.color.brighten(0.5);
+    innerPaint.color = player.color;
   }
 
   @override
@@ -54,8 +54,8 @@ class ActionsComponent extends PositionComponent {
     canvas.drawUnitHexagon(
       position: position,
       size: nodeSize,
-      paintOutter: paintOutter,
-      paintInner: paintInner,
+      outterPaint: outterPaint,
+      innerPaint: innerPaint,
       amount: action.amount,
     );
   }

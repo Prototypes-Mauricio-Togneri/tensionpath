@@ -187,8 +187,8 @@ class NewStructureComponent extends PositionComponent
       canvas.drawStructureHexagon(
         position: position,
         size: size,
-        paintOutter: outterPaint,
-        paintInner: innerPaint,
+        outterPaint: outterPaint,
+        innerPaint: innerPaint,
       );
     }
   }

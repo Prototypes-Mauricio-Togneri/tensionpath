@@ -47,12 +47,12 @@ extension CanvasExtension on Canvas {
   void drawUnitCircle({
     required Vector2 position,
     required Vector2 size,
-    required Paint paintOutter,
-    required Paint paintInner,
+    required Paint outterPaint,
+    required Paint innerPaint,
     required int amount,
   }) {
-    drawCircle(position.toOffset(), size.x / 3, paintOutter);
-    drawCircle(position.toOffset(), size.x / 3.5, paintInner);
+    drawCircle(position.toOffset(), size.x / 3, outterPaint);
+    drawCircle(position.toOffset(), size.x / 3.5, innerPaint);
 
     drawText(
       text: amount.toString(),
@@ -65,12 +65,12 @@ extension CanvasExtension on Canvas {
   void drawUnitHexagon({
     required Vector2 position,
     required Vector2 size,
-    required Paint paintOutter,
-    required Paint paintInner,
+    required Paint outterPaint,
+    required Paint innerPaint,
     required int amount,
   }) {
-    drawHexagon(center: position, size: size / 2, paint: paintOutter);
-    drawHexagon(center: position, size: size / 2.35, paint: paintInner);
+    drawHexagon(center: position, size: size / 2, paint: outterPaint);
+    drawHexagon(center: position, size: size / 2.35, paint: innerPaint);
 
     drawText(
       text: amount.toString(),
@@ -83,11 +83,11 @@ extension CanvasExtension on Canvas {
   void drawStructureHexagon({
     required Vector2 position,
     required Vector2 size,
-    required Paint paintOutter,
-    required Paint paintInner,
+    required Paint outterPaint,
+    required Paint innerPaint,
   }) {
-    drawHexagon(center: position, size: size, paint: paintOutter);
-    drawHexagon(center: position, size: size * 0.9, paint: paintInner);
+    drawHexagon(center: position, size: size, paint: outterPaint);
+    drawHexagon(center: position, size: size * 0.9, paint: innerPaint);
   }
 
   void drawHexagon({

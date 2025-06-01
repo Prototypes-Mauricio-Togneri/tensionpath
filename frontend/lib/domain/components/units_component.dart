@@ -14,8 +14,8 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitsComponent extends PositionComponent with DragCallbacks {
   final Units units;
   final Node node;
-  final Paint paintOutter = Palette.paint(style: PaintingStyle.fill);
-  final Paint paintInner = Palette.paint(style: PaintingStyle.fill);
+  final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
   Vector2? targetPosition;
   bool validTarget = false;
 
@@ -25,8 +25,8 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.unit.value) {
-    paintOutter.color = units.player.color.brighten(0.5);
-    paintInner.color = units.player.color;
+    outterPaint.color = units.player.color.brighten(0.5);
+    innerPaint.color = units.player.color;
   }
 
   bool get _canDrag => units.player.isSelf && match.match.isSelfPlaying;
@@ -91,8 +91,8 @@ class UnitsComponent extends PositionComponent with DragCallbacks {
     canvas.drawUnitCircle(
       position: size / 2,
       size: size,
-      paintOutter: paintOutter,
-      paintInner: paintInner,
+      outterPaint: outterPaint,
+      innerPaint: innerPaint,
       amount: units.amount,
     );
 
