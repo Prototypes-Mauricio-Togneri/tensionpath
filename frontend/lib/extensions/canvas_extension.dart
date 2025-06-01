@@ -136,13 +136,49 @@ extension CanvasExtension on Canvas {
         target: target,
         distance: threshold,
       );
-      final Vector2 targetPoint = _moveTowards(
+      final Vector2 targetPoint2 = _moveTowards(
+        origin: target,
+        target: origin,
+        distance: threshold + 10,
+      );
+
+      paint.style = PaintingStyle.stroke;
+      drawLine(originPoint.toOffset(), targetPoint2.toOffset(), paint);
+
+      // --- Draw arrowhead as a triangle at the end (targetPoint) ---
+      final Vector2 arrowTip = _moveTowards(
         origin: target,
         target: origin,
         distance: threshold,
       );
+      const double arrowLength = 20;
+      const double arrowAngle = pi / 7; // Angle between arrow sides
 
-      drawLine(originPoint.toOffset(), targetPoint.toOffset(), paint);
+      final Vector2 direction = (originPoint - arrowTip).normalized();
+      final double angle = atan2(direction.y, direction.x);
+
+      // Calculate the three points of the triangle
+      final Vector2 left =
+          arrowTip +
+          Vector2(
+            arrowLength * cos(angle + arrowAngle),
+            arrowLength * sin(angle + arrowAngle),
+          );
+      final Vector2 right =
+          arrowTip +
+          Vector2(
+            arrowLength * cos(angle - arrowAngle),
+            arrowLength * sin(angle - arrowAngle),
+          );
+
+      final Path arrowHead = Path()
+        ..moveTo(arrowTip.x, arrowTip.y)
+        ..lineTo(left.x, left.y)
+        ..lineTo(right.x, right.y)
+        ..close();
+
+      paint.style = PaintingStyle.fill;
+      drawPath(arrowHead, paint);
     }
   }
 
