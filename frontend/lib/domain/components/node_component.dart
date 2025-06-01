@@ -201,6 +201,13 @@ class NodeBackgroundComponent extends PositionComponent
         paint: emptyPaint,
       );
     }
+
+    canvas.drawText(
+      text: node.location.toString(),
+      color: Palette.DEBUG_TEXT,
+      position: Vector2(size.x / 2, size.y * 0.87),
+      size: size.x / 10,
+    );
   }
 
   void _renderStructure({
@@ -214,13 +221,6 @@ class NodeBackgroundComponent extends PositionComponent
       size: size,
       outterPaint: outterPaint,
       innerPaint: innerPaint,
-    );
-
-    canvas.drawText(
-      text: node.location.toString(),
-      color: Palette.DEBUG_TEXT,
-      position: Vector2(size.x / 2, size.y * 0.87),
-      size: size.x / 10,
     );
   }
 }
