@@ -19,7 +19,10 @@ class NextTurn {
     );
 
     if (allWaiting) {
-      final Map<String, JsonPlayer> players = _nextPlayers(jsonMatch.players);
+      final JsonBattlefield jsonBattlefield = _nextBattlefield(
+        jsonBattlefield: jsonMatch.battlefield,
+        jsonPlayers: jsonMatch.players,
+      );
 
       return JsonMatch(
         id: jsonMatch.id,
@@ -27,11 +30,8 @@ class NextTurn {
         createdAt: jsonMatch.createdAt,
         config: jsonMatch.config,
         turn: _nextTurn(jsonMatch.turn),
-        players: players,
-        battlefield: _nextBattlefield(
-          jsonBattlefield: jsonMatch.battlefield,
-          jsonPlayers: players,
-        ),
+        players: _nextPlayers(jsonMatch.players),
+        battlefield: jsonBattlefield,
       );
     } else {
       return jsonMatch;
