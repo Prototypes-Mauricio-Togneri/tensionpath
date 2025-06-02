@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
@@ -38,6 +39,10 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
 
   @override
   FutureOr onLoad() async {
+    if (match.match.self.isPlayer2) {
+      angle = pi;
+    }
+
     reconfigure();
 
     if ((node.hasStructure) && (node.structure is StructureMissile)) {
