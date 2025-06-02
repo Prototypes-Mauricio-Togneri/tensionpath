@@ -13,11 +13,5 @@
   - Drop bomb
     - Single tile
     - Center tile and adjacents (more expensive)
-  - Drop mine
-- Moving:
-  - 1 cell: 100%
-  - 2 cells: 50%
-  - 3 cells: 25%
-  - 4 cells: 12.5%
+  - Drop mine (mines expire?)
 - Can only build factories on the first line
-- Buy a deploy mines (mines expire?)
