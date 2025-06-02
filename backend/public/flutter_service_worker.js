@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "0481fc2acf1ce02bd0f38312c9d9e377",
-"main.dart.js": "5ec6500a63040d3c76bf685d68c800cb",
+const RESOURCES = {"flutter_bootstrap.js": "01ce179cbc110c825f87406cc409f144",
+"main.dart.js": "e7b17a49d3429a1d8e3d4f9bfa5860fd",
 "assets/NOTICES": "dc8e3f45275aad6d673fe3c87e06fcd7",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/images/structures/pad_contested.png": "175b52a282bfc4ea85f7d6ac6c849978",
@@ -17,7 +17,7 @@ const RESOURCES = {"flutter_bootstrap.js": "0481fc2acf1ce02bd0f38312c9d9e377",
 "assets/assets/images/structures/launcher_1.png": "8bc2a17e2620eb0297335fba7e620aed",
 "assets/assets/images/nodes/rock.png": "0cfa506264d6f88dfb9160b1dd8fe72c",
 "assets/assets/images/nodes/water.png": "90a8b341879936560970b1f76353b147",
-"assets/assets/templates/w5h7.json": "c9b95c887d076563f202a39925db9a7a",
+"assets/assets/templates/w5h7.json": "b8faa2cfdc1dcdffb89ea2b69f1d3a64",
 "assets/fonts/MaterialIcons-Regular.otf": "c0ad29d56cfe3890223c02da3c6e0448",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
 "assets/AssetManifest.bin": "c6cb06c05d3ee60b93b965d2bcaa1263",

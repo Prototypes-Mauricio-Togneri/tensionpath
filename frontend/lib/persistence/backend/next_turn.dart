@@ -94,7 +94,7 @@ class NextTurn {
           (jsonNode.units != null)) {
         extraResources[jsonNode.units!.player] =
             extraResources[jsonNode.units!.player]! +
-            jsonConfig.resourcesPerPatch * jsonNode.units!.amount;
+            jsonConfig.resourcesPerPatch;
       }
     }
 
