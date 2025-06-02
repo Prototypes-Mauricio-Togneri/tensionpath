@@ -31,7 +31,10 @@ class NextTurn {
         createdAt: jsonMatch.createdAt,
         config: jsonMatch.config,
         turn: _nextTurn(jsonMatch.turn),
-        players: _nextPlayers(jsonMatch.players),
+        players: _nextPlayers(
+          jsonPlayers: jsonMatch.players,
+          jsonBattlefield: jsonBattlefield,
+        ),
         battlefield: jsonBattlefield,
       );
     } else {
@@ -42,9 +45,10 @@ class NextTurn {
   static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
-  static Map<String, JsonPlayer> _nextPlayers(
-    Map<String, JsonPlayer> jsonPlayers,
-  ) {
+  static Map<String, JsonPlayer> _nextPlayers({
+    required Map<String, JsonPlayer> jsonPlayers,
+    required JsonBattlefield jsonBattlefield,
+  }) {
     final DateTime player1TurnEndedAt =
         jsonPlayers[Constants.PLAYER_1]!.turnEndedAt!;
     final DateTime player2TurnEndedAt =
@@ -67,6 +71,14 @@ class NextTurn {
           .inSeconds;
       extraResources[Constants.PLAYER_1] =
           diffSeconds * Constants.RESOURCES_PER_SECOND;
+    }
+
+    for (final JsonNode jsonNode in jsonBattlefield.nodes) {
+      if ((jsonNode.structure != null) &&
+          (jsonNode.structure!.type == StructureType.resources) &&
+          (jsonNode.units != null)) {
+        extraResources[jsonNode.units!.player] = jsonNode.units!.amount;
+      }
     }
 
     return Map.fromEntries(
