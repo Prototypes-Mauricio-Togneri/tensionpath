@@ -13,6 +13,6 @@
   - Increase units visibility
   - Drop bomb
     - Single tile
-    - Center tile and adjacents (more expensive)
+    - Center tile and adjacents (more expensive or less damage in each node)
   - Drop mine (mines expire?)
 - Can only build factories on the first line
