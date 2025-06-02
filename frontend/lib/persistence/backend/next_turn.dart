@@ -137,15 +137,38 @@ class NextTurn {
     required MuttableNode targetNode,
     required MuttableAction action,
   }) {
+    final MuttableUnits sourceUnits = originNode.units!;
+    final MuttableUnits? targetUnits = targetNode.units;
+
+    if (targetUnits == null) {
+      // Target node is empty
+      targetNode.units = MuttableUnits(
+        player: action.playerId,
+        amount: sourceUnits.amount,
+      );
+    } else {
+      if (sourceUnits.player == targetUnits.player) {
+        // Same player's unit in source and target
+        targetUnits.amount += sourceUnits.amount;
+      } else {
+        // Battle between players units
+        if (sourceUnits.amount > targetUnits.amount) {
+          // Source node has more units
+          targetUnits.amount = sourceUnits.amount - targetUnits.amount;
+          targetUnits.player = sourceUnits.player;
+        } else if (sourceUnits.amount < targetUnits.amount) {
+          // Target node has more units
+          targetUnits.amount = targetUnits.amount - sourceUnits.amount;
+          targetUnits.player = targetUnits.player;
+        } else {
+          // All units are destroyed
+          originNode.units = null;
+          targetNode.units = null;
+        }
+      }
+    }
+
     originNode.units = null;
-
-    final int unitsInSource = originNode.units!.amount;
-    final int unitsInTarget = targetNode.units?.amount ?? 0;
-
-    targetNode.units = MuttableUnits(
-      player: action.playerId,
-      amount: unitsInSource + unitsInTarget,
-    );
   }
 }
 
