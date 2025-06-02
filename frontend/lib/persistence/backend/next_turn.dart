@@ -1,3 +1,4 @@
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -52,7 +53,7 @@ class NextTurn {
   static JsonPlayer _nextPlayer(JsonPlayer jsonPlayer) => JsonPlayer(
     name: jsonPlayer.name,
     baseHealth: jsonPlayer.baseHealth,
-    resources: jsonPlayer.resources,
+    resources: jsonPlayer.resources + Constants.RESOURCES_PER_TURN,
     status: PlayerStatus.playing,
     turnEndedAt: null,
     actions: [],

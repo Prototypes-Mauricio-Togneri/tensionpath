@@ -1,9 +1,9 @@
 # TODO
 
 - Collect resources:
-    - From patches
-    - From time between turns
-    - From turn passing
+    [ ] From patches
+    [ ] From time between turns
+    [x] From turn passing
 
 - Increate/decrease missile charging
 
