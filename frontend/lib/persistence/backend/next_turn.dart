@@ -4,10 +4,13 @@ import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
+import 'package:tensionpath/domain/types/structure_type.dart';
 
 class NextTurn {
   Future<JsonMatch> call(JsonMatch jsonMatch) async {
@@ -57,8 +60,10 @@ class NextTurn {
     required JsonBattlefield jsonBattlefield,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
-    final Map<String, JsonNode> nodesById = Map.fromEntries(
-      jsonBattlefield.nodes.map((node) => MapEntry(node.location.id, node)),
+    final Map<String, MuttableNode> nodesById = Map.fromEntries(
+      jsonBattlefield.nodes.map(
+        (node) => MapEntry(node.location.id, MuttableNode.fromJson(node)),
+      ),
     );
 
     return JsonBattlefield(
@@ -71,12 +76,12 @@ class NextTurn {
             .expand((p) => p.actions)
             .map(MuttableAction.fromJson)
             .toList(),
-      ).values.toList(),
+      ),
     );
   }
 
-  static Map<String, JsonNode> _nextNodes({
-    required Map<String, JsonNode> nodesById,
+  static List<JsonNode> _nextNodes({
+    required Map<String, MuttableNode> nodesById,
     required List<MuttableAction> actions,
   }) {
     _nextNodesDeployments(
@@ -88,17 +93,16 @@ class NextTurn {
       actions: actions.where((a) => a.type == ActionType.move).toList(),
     );
 
-    return nodesById;
+    return nodesById.values.map((node) => node.toJson()).toList();
   }
 
-  static Map<String, JsonNode> _nextNodesDeployments({
-    required Map<String, JsonNode> nodesById,
+  static Map<String, MuttableNode> _nextNodesDeployments({
+    required Map<String, MuttableNode> nodesById,
     required List<MuttableAction> actions,
   }) {
     for (final MuttableAction action in actions) {
-      final JsonNode targetJsonNode = nodesById[action.targetLocation.id]!;
-      nodesById[action.targetLocation.id] = _nextNodeTargetDeployment(
-        jsonNode: targetJsonNode,
+      _nextNodeTargetDeployment(
+        node: nodesById[action.targetLocation.id]!,
         action: action,
       );
     }
@@ -106,67 +110,41 @@ class NextTurn {
     return nodesById;
   }
 
-  static Map<String, JsonNode> _nextNodesMovements({
-    required Map<String, JsonNode> nodesById,
+  static Map<String, MuttableNode> _nextNodesMovements({
+    required Map<String, MuttableNode> nodesById,
     required List<MuttableAction> actions,
   }) {
     for (final MuttableAction action in actions) {
-      final JsonNode originJsonNode = nodesById[action.originLocation.id]!;
-      final JsonNode targetJsonNode = nodesById[action.targetLocation.id]!;
-
-      nodesById[action.targetLocation.id] = _nextNodeTargetMovement(
-        originJsonNode: originJsonNode,
-        targetJsonNode: targetJsonNode,
+      _nextNodesMovement(
+        originNode: nodesById[action.originLocation.id]!,
+        targetNode: nodesById[action.targetLocation.id]!,
         action: action,
-      );
-      nodesById[action.originLocation.id] = _nextNodeOriginMovement(
-        originJsonNode,
       );
     }
 
     return nodesById;
   }
 
-  static JsonNode _nextNodeTargetDeployment({
-    required JsonNode jsonNode,
+  static void _nextNodeTargetDeployment({
+    required MuttableNode node,
     required MuttableAction action,
   }) {
-    return JsonNode(
-      x: jsonNode.x,
-      y: jsonNode.y,
-      type: jsonNode.type,
-      units: JsonUnits(player: action.playerId, amount: action.amount),
-      structure: jsonNode.structure,
-    );
+    node.units = MuttableUnits(player: action.playerId, amount: action.amount);
   }
 
-  static JsonNode _nextNodeOriginMovement(JsonNode jsonNode) {
-    return JsonNode(
-      x: jsonNode.x,
-      y: jsonNode.y,
-      type: jsonNode.type,
-      units: null,
-      structure: jsonNode.structure,
-    );
-  }
-
-  static JsonNode _nextNodeTargetMovement({
-    required JsonNode originJsonNode,
-    required JsonNode targetJsonNode,
+  static void _nextNodesMovement({
+    required MuttableNode originNode,
+    required MuttableNode targetNode,
     required MuttableAction action,
   }) {
-    final int unitsInSource = originJsonNode.units!.amount;
-    final int unitsInTarget = targetJsonNode.units?.amount ?? 0;
+    originNode.units = null;
 
-    return JsonNode(
-      x: targetJsonNode.x,
-      y: targetJsonNode.y,
-      type: targetJsonNode.type,
-      units: JsonUnits(
-        player: action.playerId,
-        amount: unitsInSource + unitsInTarget,
-      ),
-      structure: targetJsonNode.structure,
+    final int unitsInSource = originNode.units!.amount;
+    final int unitsInTarget = targetNode.units?.amount ?? 0;
+
+    targetNode.units = MuttableUnits(
+      player: action.playerId,
+      amount: unitsInSource + unitsInTarget,
     );
   }
 }
@@ -194,15 +172,83 @@ class MuttableAction {
 
   Location get targetLocation => Location(x: targetX, y: targetY);
 
-  factory MuttableAction.fromJson(JsonAction json) {
-    return MuttableAction(
-      type: json.type,
-      playerId: json.playerId,
-      originX: json.originX ?? 0,
-      originY: json.originY ?? 0,
-      targetX: json.targetX,
-      targetY: json.targetY,
-      amount: json.amount ?? 0,
-    );
-  }
+  factory MuttableAction.fromJson(JsonAction json) => MuttableAction(
+    type: json.type,
+    playerId: json.playerId,
+    originX: json.originX ?? 0,
+    originY: json.originY ?? 0,
+    targetX: json.targetX,
+    targetY: json.targetY,
+    amount: json.amount ?? 0,
+  );
+}
+
+class MuttableNode {
+  String id;
+  int x;
+  int y;
+  NodeType type;
+  MuttableUnits? units;
+  MuttableStructure? structure;
+
+  MuttableNode({
+    required this.id,
+    required this.x,
+    required this.y,
+    required this.type,
+    this.units,
+    this.structure,
+  });
+
+  factory MuttableNode.fromJson(JsonNode json) => MuttableNode(
+    id: json.location.id,
+    x: json.x,
+    y: json.y,
+    type: json.type,
+    units: (json.units != null) ? MuttableUnits.fromJson(json.units!) : null,
+    structure: (json.structure != null)
+        ? MuttableStructure.fromJson(json.structure!)
+        : null,
+  );
+
+  JsonNode toJson() => JsonNode(
+    x: x,
+    y: y,
+    type: type,
+    units: units?.toJson(),
+    structure: structure?.toJson(),
+  );
+}
+
+class MuttableUnits {
+  String player;
+  int amount;
+
+  MuttableUnits({required this.player, required this.amount});
+
+  factory MuttableUnits.fromJson(JsonUnits json) =>
+      MuttableUnits(player: json.player, amount: json.amount);
+
+  JsonUnits toJson() => JsonUnits(player: player, amount: amount);
+}
+
+class MuttableStructure {
+  StructureType type;
+  String? player;
+  String? platformId;
+
+  MuttableStructure({
+    required this.type,
+    required this.player,
+    required this.platformId,
+  });
+
+  factory MuttableStructure.fromJson(JsonStructure json) => MuttableStructure(
+    type: json.type,
+    player: json.player,
+    platformId: json.platformId,
+  );
+
+  JsonStructure toJson() =>
+      JsonStructure(type: type, player: player, platformId: platformId);
 }
