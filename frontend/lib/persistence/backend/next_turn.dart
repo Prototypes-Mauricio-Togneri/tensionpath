@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
@@ -38,6 +39,7 @@ class NextTurn {
         players: _nextPlayers(
           jsonPlayers: jsonMatch.players,
           jsonBattlefield: jsonBattlefield,
+          jsonConfig: jsonMatch.config,
         ),
         battlefield: jsonBattlefield,
       );
@@ -52,6 +54,7 @@ class NextTurn {
   static Map<String, JsonPlayer> _nextPlayers({
     required Map<String, JsonPlayer> jsonPlayers,
     required JsonBattlefield jsonBattlefield,
+    required JsonConfig jsonConfig,
   }) {
     final DateTime player1TurnEndedAt =
         jsonPlayers[Constants.PLAYER_1]!.turnEndedAt!;
@@ -85,12 +88,23 @@ class NextTurn {
       }
     }
 
+    final Missile missile = _getMissile(
+      jsonMissile: jsonBattlefield.missile,
+      jsonNodes: jsonBattlefield.nodes,
+      jsonPlayers: jsonPlayers,
+    );
+
     return Map.fromEntries(
       jsonPlayers.entries.map(
         (entry) => MapEntry(
           entry.key,
           _nextPlayer(
             jsonPlayer: entry.value,
+            damange: _missileHit(
+              playerId: entry.key,
+              baseMaxHealth: jsonConfig.baseMaxHealth,
+              missile: missile,
+            ),
             extraResources: extraResources[entry.key]!,
           ),
         ),
@@ -100,16 +114,33 @@ class NextTurn {
 
   static JsonPlayer _nextPlayer({
     required JsonPlayer jsonPlayer,
+    required int damange,
     required int extraResources,
   }) => JsonPlayer(
     name: jsonPlayer.name,
-    baseHealth: jsonPlayer.baseHealth,
+    baseHealth: jsonPlayer.baseHealth - damange,
     resources:
         jsonPlayer.resources + Constants.RESOURCES_PER_TURN + extraResources,
     status: PlayerStatus.playing,
     turnEndedAt: null,
     actions: [],
   );
+
+  static int _missileHit({
+    required String playerId,
+    required int baseMaxHealth,
+    required Missile missile,
+  }) {
+    if (_missileFull(missile)) {
+      if (missile.owner != playerId) {
+        return baseMaxHealth ~/ 2;
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
+  }
 
   static JsonBattlefield _nextBattlefield({
     required JsonBattlefield jsonBattlefield,
@@ -143,6 +174,32 @@ class NextTurn {
     required List<JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
+    final Missile missile = _getMissile(
+      jsonMissile: jsonMissile,
+      jsonNodes: jsonNodes,
+      jsonPlayers: jsonPlayers,
+    );
+
+    if (_missileFull(missile)) {
+      return JsonMissile(
+        charge: 0,
+        maxCharge: jsonMissile.maxCharge,
+        platforms: jsonMissile.platforms,
+      );
+    } else {
+      return JsonMissile(
+        charge: _missileNextCharge(missile),
+        maxCharge: jsonMissile.maxCharge,
+        platforms: jsonMissile.platforms,
+      );
+    }
+  }
+
+  static Missile _getMissile({
+    required JsonMissile jsonMissile,
+    required List<JsonNode> jsonNodes,
+    required Map<String, JsonPlayer> jsonPlayers,
+  }) {
     final Missile missile = jsonMissile.object;
     final List<Platform> platforms = [];
 
@@ -172,19 +229,7 @@ class NextTurn {
 
     missile.setPlatforms(platforms);
 
-    if (_missileFull(missile)) {
-      return JsonMissile(
-        charge: 0,
-        maxCharge: jsonMissile.maxCharge,
-        platforms: jsonMissile.platforms,
-      );
-    } else {
-      return JsonMissile(
-        charge: _missileNextCharge(missile),
-        maxCharge: jsonMissile.maxCharge,
-        platforms: jsonMissile.platforms,
-      );
-    }
+    return missile;
   }
 
   static int _missileNextCharge(Missile missile) {
