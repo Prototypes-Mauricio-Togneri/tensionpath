@@ -1,7 +1,5 @@
 # TODO
 
-- Increate/decrease missile charging
-
 - Don't allow to move backwards
 - Move units one by one
 - Don't allow jump missile
