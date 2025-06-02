@@ -89,23 +89,26 @@ class Match {
       node.hasStructure &&
       (node.structure is StructureLauncher) &&
       node.belongsTo(self) &&
-      (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
   bool _canMoveUnit(Node node) =>
       isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
 
   void onDeployUnit(Node nodeTarget) {
-    if (_canDeployUnit(nodeTarget)) {
-      self.spendResources(Constants.COST_DEPLOY_UNIT);
-      self.addAction(
-        ActionDeployUnits(
-          playerId: self.id,
-          target: nodeTarget.location,
-          amount: 1,
-        ),
-      );
-      MatchComponentRef.instance.reconfigure();
+    if (self.resources >= Constants.COST_DEPLOY_UNIT) {
+      if (_canDeployUnit(nodeTarget)) {
+        self.spendResources(Constants.COST_DEPLOY_UNIT);
+        self.addAction(
+          ActionDeployUnits(
+            playerId: self.id,
+            target: nodeTarget.location,
+            amount: 1,
+          ),
+        );
+        MatchComponentRef.instance.reconfigure();
+      }
+    } else {
+      CustomSnackbar.insufficientResources();
     }
   }
 

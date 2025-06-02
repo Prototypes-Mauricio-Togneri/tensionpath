@@ -4,7 +4,6 @@
 - Move units one by one and resolve battles in between
 
 - When passing turn, block button immediately
-- Allow to move but show error if not enough resources
 - Toxic tiles that kill units
 - Choose map
 - Play sound when turn ends
