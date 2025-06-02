@@ -133,7 +133,10 @@
             {
                 "x": 1,
                 "y": 1,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "resources"
+                }
             },
             {
                 "x": 0,
@@ -167,7 +170,10 @@
             {
                 "x": -1,
                 "y": -1,
-                "type": "land"
+                "type": "land",
+                "structure": {
+                    "type": "resources"
+                }
             },
             {
                 "x": -2,

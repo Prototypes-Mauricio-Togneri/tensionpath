@@ -126,6 +126,7 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
       color: Palette.DEBUG_TEXT,
       position: Vector2(size.x / 2, size.y * 0.87),
       size: size.x / 10,
+      angle: match.match.self.isPlayer2 ? pi : 0,
     );*/
     /*canvas.drawText(
       text:

@@ -114,9 +114,6 @@ class UnitsComponent extends PositionComponent
   NodeComponent? _getTargetNode() {
     final Vector2 direction = targetPosition - (size / 2);
 
-    // If board is flipped, invert the direction
-    // direction = direction * -1;
-
     return match.getNodeAtPosition(absolutePosition + direction);
   }
 
