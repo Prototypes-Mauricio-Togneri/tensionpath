@@ -20,7 +20,7 @@ class UnitsComponent extends PositionComponent
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint movementPaint = Palette.paint(style: PaintingStyle.stroke);
-  Vector2? targetPosition;
+  final Vector2 targetPosition = Vector2.zero();
   bool validTarget = false;
 
   UnitsComponent({
@@ -57,14 +57,14 @@ class UnitsComponent extends PositionComponent
     if (_canDrag) {
       super.onDragStart(event);
 
-      targetPosition = Vector2.copy(event.localPosition);
+      targetPosition.setFrom(Vector2.copy(event.localPosition));
     }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (_canDrag) {
-      targetPosition!.add(event.localDelta);
+      targetPosition.add(event.localDelta);
 
       final NodeComponent? nodeComponent = _getTargetNode();
 
@@ -72,6 +72,8 @@ class UnitsComponent extends PositionComponent
         validTarget =
             node.location.isValidTarget(nodeComponent.node) &&
             (nodeComponent.node != node);
+      } else {
+        validTarget = false;
       }
     }
   }
@@ -90,12 +92,12 @@ class UnitsComponent extends PositionComponent
         );
       }
 
-      targetPosition = null;
+      targetPosition.setFrom(Vector2.zero());
     }
   }
 
   NodeComponent? _getTargetNode() {
-    final Vector2 direction = targetPosition! - (size / 2);
+    final Vector2 direction = targetPosition - (size / 2);
 
     // If board is flipped, invert the direction
     // direction = direction * -1;
@@ -116,16 +118,17 @@ class UnitsComponent extends PositionComponent
         amount: units.amount,
       );
 
-      if (targetPosition != null) {
+      if (!targetPosition.isZero()) {
         movementPaint.color = validTarget
             ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
             : Palette.UNIT_MOVEMENT_INDICATOR_INVALID;
 
         canvas.movementLine(
           origin: size / 2,
-          target: targetPosition!,
+          target: targetPosition,
           radius: size.x,
           paint: movementPaint,
+          moving: true,
         );
       }
     }

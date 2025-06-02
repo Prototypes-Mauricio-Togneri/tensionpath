@@ -125,6 +125,7 @@ extension CanvasExtension on Canvas {
     required Vector2 target,
     required double radius,
     required Paint paint,
+    required bool moving,
   }) {
     final double distance = origin.distanceTo(target);
     final double threshold = radius / 4.5;
@@ -139,7 +140,7 @@ extension CanvasExtension on Canvas {
       final Vector2 targetPoint2 = _moveTowards(
         origin: target,
         target: origin,
-        distance: threshold + 10,
+        distance: moving ? 0 : threshold + 10,
       );
 
       paint.style = PaintingStyle.stroke;
@@ -149,7 +150,7 @@ extension CanvasExtension on Canvas {
       final Vector2 arrowTip = _moveTowards(
         origin: target,
         target: origin,
-        distance: threshold,
+        distance: moving ? -10 : threshold,
       );
       const double arrowLength = 20;
       const double arrowAngle = pi / 7; // Angle between arrow sides

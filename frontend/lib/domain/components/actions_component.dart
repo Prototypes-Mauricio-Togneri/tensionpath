@@ -90,6 +90,7 @@ class ActionsComponent extends PositionComponent {
       target: target,
       radius: nodeSize.x,
       paint: movementPaint,
+      moving: false,
     );
   }
 }
