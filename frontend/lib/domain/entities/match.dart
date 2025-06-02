@@ -92,11 +92,8 @@ class Match {
       (self.resources >= Constants.COST_DEPLOY_UNIT) &&
       (populationOf(self) < config.popcap);
 
-  bool _canMoveUnit({required Node node, required int cost}) =>
-      isSelfPlaying &&
-      node.hasUnits &&
-      node.units!.belongsTo(self) &&
-      (self.resources >= cost);
+  bool _canMoveUnit(Node node) =>
+      isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
 
   void onDeployUnit(Node nodeTarget) {
     if (_canDeployUnit(nodeTarget)) {
@@ -119,22 +116,26 @@ class Match {
       if (distance <= Constants.UNITS_MAX_MOVEMENT) {
         final int cost = distance * Constants.COST_MOVE_UNIT;
 
-        if (_canMoveUnit(node: nodeOrigin, cost: cost)) {
-          self.spendResources(cost);
-          self.addAction(
-            ActionMoveUnits(
-              playerId: self.id,
-              origin: nodeOrigin.location,
-              target: nodeTarget.location,
-            ),
-          );
-          MatchComponentRef.instance.reconfigure();
+        if (self.resources >= cost) {
+          if (_canMoveUnit(nodeOrigin)) {
+            self.spendResources(cost);
+            self.addAction(
+              ActionMoveUnits(
+                playerId: self.id,
+                origin: nodeOrigin.location,
+                target: nodeTarget.location,
+              ),
+            );
+            MatchComponentRef.instance.reconfigure();
+          }
+        } else {
+          CustomSnackbar.insufficientResources();
         }
       } else {
         CustomSnackbar.movementDistanceTooBig();
       }
     } else {
-      CustomSnackbar.invalidMove();
+      CustomSnackbar.invalidTarget();
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -50,9 +51,14 @@ class CustomSnackbar {
     }
   }*/
 
-  static void invalidMove() =>
-      show(text: 'Invalid move', duration: DURATION_MEDIUM);
+  static void insufficientResources() =>
+      show(text: 'Insufficient resources', duration: DURATION_MEDIUM);
 
-  static void movementDistanceTooBig() =>
-      show(text: 'Max distance is 3', duration: DURATION_MEDIUM);
+  static void invalidTarget() =>
+      show(text: 'Invalid target', duration: DURATION_MEDIUM);
+
+  static void movementDistanceTooBig() => show(
+    text: 'Max distance is ${Constants.UNITS_MAX_MOVEMENT}',
+    duration: DURATION_MEDIUM,
+  );
 }
