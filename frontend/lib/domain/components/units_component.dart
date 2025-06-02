@@ -36,6 +36,16 @@ class UnitsComponent extends PositionComponent
   FutureOr onLoad() async {
     reconfigure();
 
+    match.add(
+      MovementArrowComponent(
+        node: node,
+        movementPaint: movementPaint,
+        targetPosition: targetPosition,
+        position: absolutePosition,
+        size: size,
+      ),
+    );
+
     return super.onLoad();
   }
 
@@ -122,15 +132,34 @@ class UnitsComponent extends PositionComponent
         movementPaint.color = validTarget
             ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
             : Palette.UNIT_MOVEMENT_INDICATOR_INVALID;
-
-        canvas.movementLine(
-          origin: size / 2,
-          target: targetPosition,
-          radius: size.x,
-          paint: movementPaint,
-          moving: true,
-        );
       }
+    }
+  }
+}
+
+class MovementArrowComponent extends PositionComponent {
+  final Node node;
+  final Paint movementPaint;
+  final Vector2 targetPosition;
+
+  MovementArrowComponent({
+    required this.node,
+    required this.movementPaint,
+    required this.targetPosition,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
+
+  @override
+  void render(Canvas canvas) {
+    if (node.isRevealed && node.hasUnits && !targetPosition.isZero()) {
+      canvas.movementLine(
+        origin: size / 2,
+        target: targetPosition,
+        radius: size.x,
+        paint: movementPaint,
+        moving: true,
+      );
     }
   }
 }
