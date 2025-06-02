@@ -101,7 +101,7 @@ class NextTurn {
     required List<MuttableAction> actions,
   }) {
     for (final MuttableAction action in actions) {
-      _nextNodeTargetDeployment(
+      _nextNodeDeployment(
         node: nodesById[action.targetLocation.id]!,
         action: action,
       );
@@ -125,7 +125,7 @@ class NextTurn {
     return nodesById;
   }
 
-  static void _nextNodeTargetDeployment({
+  static void _nextNodeDeployment({
     required MuttableNode node,
     required MuttableAction action,
   }) {
