@@ -1,8 +1,12 @@
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
+import 'package:tensionpath/domain/entities/platform.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
@@ -120,10 +124,80 @@ class NextTurn {
     return JsonBattlefield(
       id: jsonBattlefield.id,
       size: jsonBattlefield.size,
-      missile: jsonBattlefield.missile,
+      missile: _nextMissile(
+        jsonBattlefield: jsonBattlefield,
+        jsonPlayers: jsonPlayers,
+      ),
       nodes: _nextNodes(nodesById: nodesById, jsonPlayers: jsonPlayers),
     );
   }
+
+  static JsonMissile _nextMissile({
+    required JsonBattlefield jsonBattlefield,
+    required Map<String, JsonPlayer> jsonPlayers,
+  }) {
+    final Missile missile = jsonBattlefield.missile.object;
+    final List<Platform> platforms = [];
+
+    final Iterable<JsonNode> nodePads = jsonBattlefield.nodes.where(
+      (node) =>
+          (node.structure != null) && node.structure?.type == StructureType.pad,
+    );
+
+    final List<Player> players = [];
+
+    for (final MapEntry<String, JsonPlayer> entry in jsonPlayers.entries) {
+      players.add(entry.value.object(id: entry.key, isSelf: false));
+    }
+
+    for (int i = 0; i < missile.numberOfPlatforms; i++) {
+      final String platformId = '${i + 1}';
+      platforms.add(
+        Platform(
+          platformId: platformId,
+          nodes: nodePads
+              .where((node) => node.structure?.platformId == platformId)
+              .map((node) => node.object(players))
+              .toList(),
+        ),
+      );
+    }
+
+    missile.setPlatforms(platforms);
+
+    if (_missileFull(missile)) {
+      return JsonMissile(
+        charge: 0,
+        maxCharge: jsonBattlefield.missile.maxCharge,
+        platforms: jsonBattlefield.missile.platforms,
+      );
+    } else {
+      return JsonMissile(
+        charge: _missileNextCharge(missile),
+        maxCharge: jsonBattlefield.missile.maxCharge,
+        platforms: jsonBattlefield.missile.platforms,
+      );
+    }
+  }
+
+  static int _missileNextCharge(Missile missile) {
+    final String? owner = missile.owner;
+    final bool charging =
+        owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
+
+    if (charging) {
+      return missile.charge + 1;
+    } else if ((owner == '') && (missile.charge > missile.bufferCharge)) {
+      return missile.charge - 1;
+    } else {
+      return missile.charge;
+    }
+  }
+
+  static bool _missileFull(Missile missile) =>
+      (missile.charge == missile.maxCharge) &&
+      ((missile.owner == Constants.PLAYER_1) ||
+          (missile.owner == Constants.PLAYER_2));
 
   static List<JsonNode> _nextNodes({
     required Map<String, MuttableNode> nodesById,
