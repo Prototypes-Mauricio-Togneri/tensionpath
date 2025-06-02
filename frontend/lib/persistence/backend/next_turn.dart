@@ -44,16 +44,52 @@ class NextTurn {
 
   static Map<String, JsonPlayer> _nextPlayers(
     Map<String, JsonPlayer> jsonPlayers,
-  ) => Map.fromEntries(
-    jsonPlayers.entries.map(
-      (entry) => MapEntry(entry.key, _nextPlayer(entry.value)),
-    ),
-  );
+  ) {
+    final DateTime player1TurnEndedAt =
+        jsonPlayers[Constants.PLAYER_1]!.turnEndedAt!;
+    final DateTime player2TurnEndedAt =
+        jsonPlayers[Constants.PLAYER_2]!.turnEndedAt!;
 
-  static JsonPlayer _nextPlayer(JsonPlayer jsonPlayer) => JsonPlayer(
+    final Map<String, int> extraResources = {
+      Constants.PLAYER_1: 0,
+      Constants.PLAYER_2: 0,
+    };
+
+    if (player1TurnEndedAt.isAfter(player2TurnEndedAt)) {
+      final int diffSeconds = player1TurnEndedAt
+          .difference(player2TurnEndedAt)
+          .inSeconds;
+      extraResources[Constants.PLAYER_2] =
+          diffSeconds * Constants.RESOURCES_PER_SECOND;
+    } else if (player2TurnEndedAt.isAfter(player1TurnEndedAt)) {
+      final int diffSeconds = player2TurnEndedAt
+          .difference(player1TurnEndedAt)
+          .inSeconds;
+      extraResources[Constants.PLAYER_1] =
+          diffSeconds * Constants.RESOURCES_PER_SECOND;
+    }
+
+    return Map.fromEntries(
+      jsonPlayers.entries.map(
+        (entry) => MapEntry(
+          entry.key,
+          _nextPlayer(
+            jsonPlayer: entry.value,
+            extraResources: extraResources[entry.key]!,
+          ),
+        ),
+      ),
+    );
+  }
+
+  static JsonPlayer _nextPlayer({
+    required JsonPlayer jsonPlayer,
+    required int extraResources,
+  }) => JsonPlayer(
     name: jsonPlayer.name,
     baseHealth: jsonPlayer.baseHealth,
-    resources: jsonPlayer.resources + Constants.RESOURCES_PER_TURN,
+    resources:
+        jsonPlayer.resources + Constants.RESOURCES_PER_TURN + extraResources,
     status: PlayerStatus.playing,
     turnEndedAt: null,
     actions: [],
