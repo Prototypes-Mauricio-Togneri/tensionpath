@@ -25,9 +25,15 @@ class NextTurn {
     );
 
     if (allWaiting) {
+      final Map<String, JsonPlayer> playesUpdated = _checkMissileLaunch(
+        jsonPlayers: jsonMatch.players,
+        jsonBattlefield: jsonMatch.battlefield,
+        jsonConfig: jsonMatch.config,
+      );
+
       final JsonBattlefield jsonBattlefield = _nextBattlefield(
         jsonBattlefield: jsonMatch.battlefield,
-        jsonPlayers: jsonMatch.players,
+        jsonPlayers: playesUpdated,
       );
 
       return JsonMatch(
@@ -37,7 +43,7 @@ class NextTurn {
         config: jsonMatch.config,
         turn: _nextTurn(jsonMatch.turn),
         players: _nextPlayers(
-          jsonPlayers: jsonMatch.players,
+          jsonPlayers: playesUpdated,
           jsonBattlefield: jsonBattlefield,
           jsonConfig: jsonMatch.config,
         ),
@@ -88,6 +94,25 @@ class NextTurn {
       }
     }
 
+    return Map.fromEntries(
+      jsonPlayers.entries.map(
+        (entry) => MapEntry(
+          entry.key,
+          _nextPlayer(
+            jsonPlayer: entry.value,
+            extraResources:
+                Constants.RESOURCES_PER_TURN + extraResources[entry.key]!,
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Map<String, JsonPlayer> _checkMissileLaunch({
+    required Map<String, JsonPlayer> jsonPlayers,
+    required JsonBattlefield jsonBattlefield,
+    required JsonConfig jsonConfig,
+  }) {
     final Missile missile = _getMissile(
       jsonMissile: jsonBattlefield.missile,
       jsonNodes: jsonBattlefield.nodes,
@@ -98,14 +123,13 @@ class NextTurn {
       jsonPlayers.entries.map(
         (entry) => MapEntry(
           entry.key,
-          _nextPlayer(
+          _nextPlayerDamage(
             jsonPlayer: entry.value,
             damange: _missileHit(
               playerId: entry.key,
               baseMaxHealth: jsonConfig.baseMaxHealth,
               missile: missile,
             ),
-            extraResources: extraResources[entry.key]!,
           ),
         ),
       ),
@@ -114,16 +138,26 @@ class NextTurn {
 
   static JsonPlayer _nextPlayer({
     required JsonPlayer jsonPlayer,
-    required int damange,
     required int extraResources,
   }) => JsonPlayer(
     name: jsonPlayer.name,
-    baseHealth: jsonPlayer.baseHealth - damange,
-    resources:
-        jsonPlayer.resources + Constants.RESOURCES_PER_TURN + extraResources,
+    baseHealth: jsonPlayer.baseHealth,
+    resources: jsonPlayer.resources + extraResources,
     status: PlayerStatus.playing,
     turnEndedAt: null,
     actions: [],
+  );
+
+  static JsonPlayer _nextPlayerDamage({
+    required JsonPlayer jsonPlayer,
+    required int damange,
+  }) => JsonPlayer(
+    name: jsonPlayer.name,
+    baseHealth: jsonPlayer.baseHealth - damange,
+    resources: jsonPlayer.resources,
+    status: jsonPlayer.status,
+    turnEndedAt: jsonPlayer.turnEndedAt,
+    actions: jsonPlayer.actions,
   );
 
   static int _missileHit({
