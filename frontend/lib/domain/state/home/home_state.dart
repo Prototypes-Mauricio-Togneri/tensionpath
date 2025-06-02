@@ -19,10 +19,8 @@ class HomeState extends BaseState {
 
     if (Environment.get.isDebug) {
       Delayed.post(
-        () => Navigation.matchScreen(
-          matchId: 'vlXnp9UXuox8K3fy1Iti',
-          selfId: Constants.PLAYER_1,
-        ),
+        () =>
+            Navigation.matchScreen(matchId: 'test', selfId: Constants.PLAYER_1),
       );
     }
   }

@@ -113,8 +113,6 @@ class Match {
         );
         MatchComponentRef.instance.reconfigure();
       }
-    } else {
-      CustomSnackbar.insufficientResources();
     }
   }
 
