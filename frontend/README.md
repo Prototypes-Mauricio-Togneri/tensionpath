@@ -1,6 +1,5 @@
 # TODO
 
-- Fix movement line displayed behind nodes
 - Don't allow to move backwards
 - Move units one by one and resolve battles in between
 
