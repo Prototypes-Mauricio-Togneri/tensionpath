@@ -4,10 +4,10 @@
     "createdAt": "1970-01-01T00:00:00.000Z",
     "config": {
         "popcap": 7,
-        "baseMaxHealth": 1000,
-        "resourcesPerPatch": 5,
+        "baseMaxHealth": 100,
+        "resourcesPerPatch": 1,
         "resourcesPerSecond": 1,
-        "resourcesPerTurn": 0
+        "resourcesPerTurn": 5
     },
     "turn": {
         "turn": 1,
