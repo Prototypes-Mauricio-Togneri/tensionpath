@@ -1,7 +1,8 @@
 # TODO
 
 - Don't allow to move backwards
-- Move units one by one and resolve battles in between
+- Move units one by one
+- Don't allow jump missile
 
 - When passing turn, block button immediately
 - Toxic tiles that kill units
