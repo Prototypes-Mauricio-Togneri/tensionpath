@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
+import 'package:tensionpath/domain/types/structure_type.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -91,6 +92,11 @@ class Match {
       node.belongsTo(self) &&
       (populationOf(self) < config.popcap);
 
+  bool _validTarget({required Node nodeOrigin, required Node nodeTarget}) =>
+      nodeOrigin.location.isValidTarget(nodeTarget) &&
+      (nodeTarget.structure == null ||
+          nodeTarget.structure!.type != StructureType.missile);
+
   bool _canMoveUnit(Node node) =>
       isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
 
@@ -113,7 +119,7 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (nodeOrigin.location.isValidTarget(nodeTarget)) {
+    if (_validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
 
       if (distance <= Constants.UNITS_MAX_MOVEMENT) {
