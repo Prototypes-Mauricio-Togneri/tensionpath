@@ -8,9 +8,6 @@ class Constants {
   static const int UNITS_MAX_MOVEMENT = 3;
   static const int UNITS_VISIBILITY_RANGE = 1;
 
-  static const int RESOURCES_PER_SECOND = 1;
-  static const int RESOURCES_PER_TURN = 5;
-
   static const String PLAYER_1 = '1';
   static const String PLAYER_2 = '2';
 }

@@ -68,8 +68,8 @@ class NextTurn {
         jsonPlayers[Constants.PLAYER_2]!.turnEndedAt!;
 
     final Map<String, int> extraResources = {
-      Constants.PLAYER_1: 0,
-      Constants.PLAYER_2: 0,
+      Constants.PLAYER_1: jsonConfig.resourcesPerTurn,
+      Constants.PLAYER_2: jsonConfig.resourcesPerTurn,
     };
 
     if (player1TurnEndedAt.isAfter(player2TurnEndedAt)) {
@@ -77,13 +77,15 @@ class NextTurn {
           .difference(player2TurnEndedAt)
           .inSeconds;
       extraResources[Constants.PLAYER_2] =
-          diffSeconds * Constants.RESOURCES_PER_SECOND;
+          extraResources[Constants.PLAYER_2]! +
+          (diffSeconds * jsonConfig.resourcesPerSecond.floor());
     } else if (player2TurnEndedAt.isAfter(player1TurnEndedAt)) {
       final int diffSeconds = player2TurnEndedAt
           .difference(player1TurnEndedAt)
           .inSeconds;
       extraResources[Constants.PLAYER_1] =
-          diffSeconds * Constants.RESOURCES_PER_SECOND;
+          extraResources[Constants.PLAYER_1]! +
+          (diffSeconds * jsonConfig.resourcesPerSecond.floor());
     }
 
     for (final JsonNode jsonNode in jsonBattlefield.nodes) {
@@ -100,8 +102,7 @@ class NextTurn {
           entry.key,
           _nextPlayer(
             jsonPlayer: entry.value,
-            extraResources:
-                Constants.RESOURCES_PER_TURN + extraResources[entry.key]!,
+            extraResources: extraResources[entry.key]!,
           ),
         ),
       ),
