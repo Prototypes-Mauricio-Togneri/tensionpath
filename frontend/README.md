@@ -1,5 +1,12 @@
 # TODO
 
+- Collect resources:
+    - From patches
+    - From time between turns
+    - From turn passing
+
+- Increate/decrease missile charging
+
 - Don't allow to move backwards
 - Move units one by one
 - Don't allow jump missile
