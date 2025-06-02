@@ -14,9 +14,8 @@ class Navigation {
 
   static void pop<T>([T? result]) => get.routes.pop(result);
 
-  static void homeScreen() => get.routes.pushReplacement(
-    BasicRoute(HomeScreen.instance(), name: 'home'),
-  );
+  static void homeScreen() =>
+      get.routes.pushAlone(BasicRoute(HomeScreen.instance(), name: 'home'));
 
   static void lobbyScreen(String roomId) =>
       get.routes.push(BasicRoute(LobbyScreen.instance(roomId), name: 'lobby'));
