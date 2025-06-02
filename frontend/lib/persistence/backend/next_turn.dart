@@ -19,16 +19,18 @@ class NextTurn {
     );
 
     if (allWaiting) {
+      final Map<String, JsonPlayer> players = _nextPlayers(jsonMatch.players);
+
       return JsonMatch(
         id: jsonMatch.id,
         version: jsonMatch.version,
         createdAt: jsonMatch.createdAt,
         config: jsonMatch.config,
         turn: _nextTurn(jsonMatch.turn),
-        players: _nextPlayers(jsonMatch.players),
+        players: players,
         battlefield: _nextBattlefield(
           jsonBattlefield: jsonMatch.battlefield,
-          jsonPlayers: jsonMatch.players,
+          jsonPlayers: players,
         ),
       );
     } else {
@@ -70,20 +72,19 @@ class NextTurn {
       id: jsonBattlefield.id,
       size: jsonBattlefield.size,
       missile: jsonBattlefield.missile,
-      nodes: _nextNodes(
-        nodesById: nodesById,
-        actions: jsonPlayers.values
-            .expand((p) => p.actions)
-            .map(MuttableAction.fromJson)
-            .toList(),
-      ),
+      nodes: _nextNodes(nodesById: nodesById, jsonPlayers: jsonPlayers),
     );
   }
 
   static List<JsonNode> _nextNodes({
     required Map<String, MuttableNode> nodesById,
-    required List<MuttableAction> actions,
+    required Map<String, JsonPlayer> jsonPlayers,
   }) {
+    final List<MuttableAction> actions = jsonPlayers.values
+        .expand((p) => p.actions)
+        .map(MuttableAction.fromJson)
+        .toList();
+
     _nextNodesDeployments(
       nodesById: nodesById,
       actions: actions.where((a) => a.type == ActionType.deploy).toList(),
@@ -91,6 +92,7 @@ class NextTurn {
     _nextNodesMovements(
       nodesById: nodesById,
       actions: actions.where((a) => a.type == ActionType.move).toList(),
+      jsonPlayers: jsonPlayers,
     );
 
     return nodesById.values.map((node) => node.toJson()).toList();
@@ -113,12 +115,14 @@ class NextTurn {
   static Map<String, MuttableNode> _nextNodesMovements({
     required Map<String, MuttableNode> nodesById,
     required List<MuttableAction> actions,
+    required Map<String, JsonPlayer> jsonPlayers,
   }) {
     for (final MuttableAction action in actions) {
       _nextNodesMovement(
         originNode: nodesById[action.originLocation.id]!,
         targetNode: nodesById[action.targetLocation.id]!,
         action: action,
+        jsonPlayers: jsonPlayers,
       );
     }
 
@@ -136,6 +140,7 @@ class NextTurn {
     required MuttableNode originNode,
     required MuttableNode targetNode,
     required MuttableAction action,
+    required Map<String, JsonPlayer> jsonPlayers,
   }) {
     final MuttableUnits sourceUnits = originNode.units!;
     final MuttableUnits? targetUnits = targetNode.units;
@@ -169,6 +174,28 @@ class NextTurn {
     }
 
     originNode.units = null;
+
+    final MuttableStructure? targetNodeStructure = targetNode.structure;
+
+    if (targetNodeStructure != null &&
+        targetNodeStructure.type == StructureType.launcher) {
+      final MuttableUnits targetUnitsAfterBattle = targetNode.units!;
+
+      if (targetUnitsAfterBattle.player != targetNodeStructure.player) {
+        // Attack player's base
+        final JsonPlayer player = jsonPlayers[targetNodeStructure.player!]!;
+        jsonPlayers[targetNodeStructure.player!] = JsonPlayer(
+          name: player.name,
+          baseHealth: player.baseHealth - targetUnitsAfterBattle.amount,
+          resources: player.resources,
+          status: player.status,
+          turnEndedAt: player.turnEndedAt,
+          actions: player.actions,
+        );
+
+        targetNode.units = null;
+      }
+    }
   }
 }
 

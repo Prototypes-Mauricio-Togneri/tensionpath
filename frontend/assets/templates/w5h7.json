@@ -16,7 +16,7 @@
     "players": {
         "1": {
             "name": "",
-            "baseHealth": 1000,
+            "baseHealth": 100,
             "resources": 10,
             "status": "playing",
             "turnEndedAt": null,
@@ -24,7 +24,7 @@
         },
         "2": {
             "name": "",
-            "baseHealth": 1000,
+            "baseHealth": 100,
             "resources": 10,
             "status": "playing",
             "turnEndedAt": null,
