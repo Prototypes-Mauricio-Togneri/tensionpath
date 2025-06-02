@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/actions_component.dart';
@@ -26,6 +27,10 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() async {
+    if (match.self.isPlayer2) {
+      angle = pi;
+    }
+
     add(
       BattlefieldGridComponent(
         match: match,

@@ -21,7 +21,7 @@ class HomeState extends BaseState {
       Delayed.post(
         () => Navigation.matchScreen(
           matchId: 'vlXnp9UXuox8K3fy1Iti',
-          selfId: Constants.PLAYER_1,
+          selfId: Constants.PLAYER_2,
         ),
       );
     }

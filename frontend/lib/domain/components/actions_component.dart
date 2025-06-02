@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart' hide Actions, Action;
@@ -7,6 +8,7 @@ import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -69,6 +71,7 @@ class ActionsComponent extends PositionComponent {
       outterPaint: outterPaint,
       innerPaint: innerPaint,
       amount: action.amount,
+      angle: (match.match.self.isPlayer2) ? pi : 0,
     );
   }
 

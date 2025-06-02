@@ -14,6 +14,7 @@ extension CanvasExtension on Canvas {
     Color? color,
     Paint? foreground,
     Paint? background,
+    double angle = 0,
   }) {
     final TextStyle textStyle = TextStyle(
       fontSize: size,
@@ -30,15 +31,44 @@ extension CanvasExtension on Canvas {
     );
     textPainter.layout();
 
-    final Vector2 translatedPosition = translate(
+    final Vector2 textSize = Vector2(
+      textPainter.size.width,
+      textPainter.size.height,
+    );
+
+    final Vector2 translatedPosition = translatePosition(
       anchor: anchor,
       point: Vector2(position.x, position.y),
-      size: Vector2(textPainter.size.width, textPainter.size.height),
+      size: textSize,
     );
-    textPainter.paint(this, translatedPosition.toOffset());
+
+    if (angle == 0) {
+      textPainter.paint(this, translatedPosition.toOffset());
+    } else {
+      // Save the canvas state
+      save();
+
+      // Move the canvas to the center of the text
+      translate(
+        translatedPosition.x + textSize.x / 2,
+        translatedPosition.y + textSize.y / 2,
+      );
+
+      // Rotate 180 degrees (π radians)
+      rotate(pi);
+
+      // Move the origin back by half the size so text is centered
+      translate(-textSize.x / 2, -textSize.y / 2);
+
+      // Paint the text at the new origin
+      textPainter.paint(this, Offset.zero);
+
+      // Restore the canvas state
+      restore();
+    }
   }
 
-  Vector2 translate({
+  Vector2 translatePosition({
     required Anchor anchor,
     required Vector2 point,
     required Vector2 size,
@@ -50,6 +80,7 @@ extension CanvasExtension on Canvas {
     required Paint outterPaint,
     required Paint innerPaint,
     required int amount,
+    required double angle,
   }) {
     drawCircle(position.toOffset(), size.x / 4.5, outterPaint);
     drawCircle(position.toOffset(), size.x / 5.25, innerPaint);
@@ -59,6 +90,7 @@ extension CanvasExtension on Canvas {
       color: Palette.UNIT_AMOUNT_INDICATOR,
       position: position,
       size: size.x / 6,
+      angle: angle,
     );
   }
 

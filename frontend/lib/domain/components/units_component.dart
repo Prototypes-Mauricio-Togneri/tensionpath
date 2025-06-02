@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -34,6 +35,10 @@ class UnitsComponent extends PositionComponent
 
   @override
   FutureOr onLoad() async {
+    if (match.match.self.isPlayer2) {
+      angle = pi;
+    }
+
     reconfigure();
 
     match.add(
