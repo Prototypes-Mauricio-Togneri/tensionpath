@@ -121,25 +121,32 @@ class NextTurn {
       ),
     );
 
+    final List<JsonNode> jsonNodes = _nextNodes(
+      nodesById: nodesById,
+      jsonPlayers: jsonPlayers,
+    );
+
     return JsonBattlefield(
       id: jsonBattlefield.id,
       size: jsonBattlefield.size,
       missile: _nextMissile(
-        jsonBattlefield: jsonBattlefield,
+        jsonMissile: jsonBattlefield.missile,
+        jsonNodes: jsonNodes,
         jsonPlayers: jsonPlayers,
       ),
-      nodes: _nextNodes(nodesById: nodesById, jsonPlayers: jsonPlayers),
+      nodes: jsonNodes,
     );
   }
 
   static JsonMissile _nextMissile({
-    required JsonBattlefield jsonBattlefield,
+    required JsonMissile jsonMissile,
+    required List<JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
-    final Missile missile = jsonBattlefield.missile.object;
+    final Missile missile = jsonMissile.object;
     final List<Platform> platforms = [];
 
-    final Iterable<JsonNode> nodePads = jsonBattlefield.nodes.where(
+    final Iterable<JsonNode> nodePads = jsonNodes.where(
       (node) =>
           (node.structure != null) && node.structure?.type == StructureType.pad,
     );
@@ -168,14 +175,14 @@ class NextTurn {
     if (_missileFull(missile)) {
       return JsonMissile(
         charge: 0,
-        maxCharge: jsonBattlefield.missile.maxCharge,
-        platforms: jsonBattlefield.missile.platforms,
+        maxCharge: jsonMissile.maxCharge,
+        platforms: jsonMissile.platforms,
       );
     } else {
       return JsonMissile(
         charge: _missileNextCharge(missile),
-        maxCharge: jsonBattlefield.missile.maxCharge,
-        platforms: jsonBattlefield.missile.platforms,
+        maxCharge: jsonMissile.maxCharge,
+        platforms: jsonMissile.platforms,
       );
     }
   }
