@@ -130,12 +130,12 @@ class NextTurn {
     required Map<String, JsonNode> jsonNodes,
     required List<JsonAction> jsonActions,
   }) {
-    for (final JsonAction action in jsonActions) {
-      final String locationId = _locationId(action.targetX, action.targetY);
+    for (final JsonAction jsonAction in jsonActions) {
+      final String locationId = _locationId(jsonAction.targetX, jsonAction.targetY);
       final JsonNode jsonNode = jsonNodes[locationId]!;
       jsonNode.units = JsonUnits(
-        playerId: action.playerId,
-        amount: action.amount!,
+        playerId: jsonAction.playerId,
+        amount: jsonAction.amount!,
       );
     }
   }
@@ -145,23 +145,23 @@ class NextTurn {
     required Map<String, JsonPlayer> jsonPlayers,
     required List<JsonAction> jsonActions,
   }) {
-    for (final JsonAction action in jsonActions) {
+    for (final JsonAction jsonAction in jsonActions) {
       final String originLocationId = _locationId(
-        action.originX!,
-        action.originY!,
+        jsonAction.originX!,
+        jsonAction.originY!,
       );
       final JsonNode originNode = jsonNodes[originLocationId]!;
 
       final String targetLocationId = _locationId(
-        action.targetX,
-        action.targetY,
+        jsonAction.targetX,
+        jsonAction.targetY,
       );
       final JsonNode targetNode = jsonNodes[targetLocationId]!;
 
       _nextNodesMovement(
         originNode: originNode,
         targetNode: targetNode,
-        action: action,
+        jsonAtion: jsonAction,
         jsonPlayers: jsonPlayers,
       );
     }
@@ -170,7 +170,7 @@ class NextTurn {
   void _nextNodesMovement({
     required JsonNode originNode,
     required JsonNode targetNode,
-    required JsonAction action,
+    required JsonAction jsonAtion,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
     final JsonUnits sourceUnits = originNode.units!;
@@ -179,7 +179,7 @@ class NextTurn {
     if (targetUnits == null) {
       // Target node is empty
       targetNode.units = JsonUnits(
-        playerId: action.playerId,
+        playerId: jsonAtion.playerId,
         amount: sourceUnits.amount,
       );
     } else {
@@ -329,10 +329,10 @@ class NextTurn {
     int player1 = 0;
     int player2 = 0;
 
-    for (final JsonNode node in platformNodes) {
-      if (node.units?.playerId == Constants.PLAYER_1) {
+    for (final JsonNode jsonNode in platformNodes) {
+      if (jsonNode.units?.playerId == Constants.PLAYER_1) {
         player1++;
-      } else if (node.units?.playerId == Constants.PLAYER_2) {
+      } else if (jsonNode.units?.playerId == Constants.PLAYER_2) {
         player2++;
       }
     }
