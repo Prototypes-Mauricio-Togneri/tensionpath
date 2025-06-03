@@ -174,7 +174,8 @@ class NextTurn {
   }) {
     final Map<String, MuttableNode> nodesById = Map.fromEntries(
       jsonBattlefield.nodes.map(
-        (node) => MapEntry(node.location.id, MuttableNode.fromJson(node)),
+        (node) =>
+            MapEntry(_locationId(node.x, node.y), MuttableNode.fromJson(node)),
       ),
     );
 
@@ -361,6 +362,8 @@ class NextTurn {
       }
     }
   }
+
+  static String _locationId(int x, int y) => '$x,$y';
 }
 
 class MuttableAction {
@@ -415,7 +418,7 @@ class MuttableNode {
   });
 
   factory MuttableNode.fromJson(JsonNode json) => MuttableNode(
-    id: json.location.id,
+    id: '${json.x},${json.y}',
     x: json.x,
     y: json.y,
     type: json.type,
