@@ -1,3 +1,4 @@
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
@@ -91,6 +92,12 @@ class NextTurn {
         jsonActions: jsonActions
             .where((a) => a.type == ActionType.move)
             .toList(),
+      );
+
+      _updatePlayerResources(
+        jsonPlayers: jsonMatch.players,
+        jsonNodes: jsonMatch.battlefield.nodes,
+        jsonConfig: jsonMatch.config,
       );
     }
 
@@ -231,62 +238,46 @@ class NextTurn {
     }
   }
 
-  /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
-      JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
-
-  static Map<String, JsonPlayer> _nextPlayers({
+  static void _updatePlayerResources({
     required Map<String, JsonPlayer> jsonPlayers,
-    required JsonBattlefield jsonBattlefield,
+    required List<JsonNode> jsonNodes,
     required JsonConfig jsonConfig,
   }) {
-    final DateTime player1TurnEndedAt =
-        jsonPlayers[Constants.PLAYER_1]!.turnEndedAt!;
-    final DateTime player2TurnEndedAt =
-        jsonPlayers[Constants.PLAYER_2]!.turnEndedAt!;
+    final JsonPlayer jsonPlayer1 = jsonPlayers[Constants.PLAYER_1]!;
+    final JsonPlayer jsonPlayer2 = jsonPlayers[Constants.PLAYER_2]!;
 
-    final Map<String, int> extraResources = {
-      Constants.PLAYER_1: jsonConfig.resourcesPerTurn,
-      Constants.PLAYER_2: jsonConfig.resourcesPerTurn,
-    };
+    jsonPlayer1.resources += jsonConfig.resourcesPerTurn;
+    jsonPlayer2.resources += jsonConfig.resourcesPerTurn;
+
+    final DateTime player1TurnEndedAt = jsonPlayer1.turnEndedAt!;
+    final DateTime player2TurnEndedAt = jsonPlayer2.turnEndedAt!;
 
     if (player1TurnEndedAt.isAfter(player2TurnEndedAt)) {
       final int diffSeconds = player1TurnEndedAt
           .difference(player2TurnEndedAt)
           .inSeconds;
-      extraResources[Constants.PLAYER_2] =
-          extraResources[Constants.PLAYER_2]! +
-          (diffSeconds * jsonConfig.resourcesPerSecond.floor());
+      jsonPlayer2.resources += (diffSeconds * jsonConfig.resourcesPerSecond)
+          .floor();
     } else if (player2TurnEndedAt.isAfter(player1TurnEndedAt)) {
       final int diffSeconds = player2TurnEndedAt
           .difference(player1TurnEndedAt)
           .inSeconds;
-      extraResources[Constants.PLAYER_1] =
-          extraResources[Constants.PLAYER_1]! +
-          (diffSeconds * jsonConfig.resourcesPerSecond.floor());
+      jsonPlayer1.resources += (diffSeconds * jsonConfig.resourcesPerSecond)
+          .floor();
     }
 
-    for (final JsonNode jsonNode in jsonBattlefield.nodes) {
+    for (final JsonNode jsonNode in jsonNodes) {
       if ((jsonNode.structure != null) &&
           (jsonNode.structure!.type == StructureType.resources) &&
           (jsonNode.units != null)) {
-        extraResources[jsonNode.units!.playerId] =
-            extraResources[jsonNode.units!.playerId]! +
-            jsonConfig.resourcesPerPatch;
+        final JsonPlayer jsonPlayer = jsonPlayers[jsonNode.units!.playerId]!;
+        jsonPlayer.resources += jsonConfig.resourcesPerPatch;
       }
     }
-
-    return Map.fromEntries(
-      jsonPlayers.entries.map(
-        (entry) => MapEntry(
-          entry.key,
-          _nextPlayer(
-            jsonPlayer: entry.value,
-            extraResources: extraResources[entry.key]!,
-          ),
-        ),
-      ),
-    );
   }
+
+  /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
+      JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
   static JsonPlayer _nextPlayer({
     required JsonPlayer jsonPlayer,
