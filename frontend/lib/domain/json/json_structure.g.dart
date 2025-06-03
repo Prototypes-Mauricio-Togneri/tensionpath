@@ -13,7 +13,7 @@ JsonStructure _$JsonStructureFromJson(Map<String, dynamic> json) =>
           'type',
           (v) => $enumDecode(_$StructureTypeEnumMap, v),
         ),
-        player: $checkedConvert('player', (v) => v as String?),
+        playerId: $checkedConvert('playerId', (v) => v as String?),
         platformId: $checkedConvert('platformId', (v) => v as String?),
       );
       return val;
@@ -22,7 +22,7 @@ JsonStructure _$JsonStructureFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonStructureToJson(JsonStructure instance) =>
     <String, dynamic>{
       'type': _$StructureTypeEnumMap[instance.type]!,
-      if (instance.player case final value?) 'player': value,
+      if (instance.playerId case final value?) 'playerId': value,
       if (instance.platformId case final value?) 'platformId': value,
     };
 

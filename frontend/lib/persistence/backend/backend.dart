@@ -144,7 +144,10 @@ class Backend {
   static JsonMissile _missileToJson(Missile missile) => JsonMissile(
     charge: missile.charge,
     maxCharge: missile.maxCharge,
-    platforms: missile.numberOfPlatforms,
+    bufferCharge: missile.bufferCharge,
+    numberOfPlatforms: missile.numberOfPlatforms,
+    platforms: missile.platforms,
+    owner: missile.owner,
   );
 
   static JsonUnits? _unitsToJson(Units? units) {
@@ -159,7 +162,7 @@ class Backend {
     if (structure != null) {
       return JsonStructure(
         type: structure.type,
-        player: structure.getPlayerId,
+        playerId: structure.getPlayerId,
         platformId: structure.getPlatformId,
       );
     } else {

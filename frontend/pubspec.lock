@@ -261,10 +261,10 @@ packages:
     dependency: "direct dev"
     description:
       name: daunused
-      sha256: "4643da38fe12f45776a71285e6a6359c43af92fccc59e1a2e35dafec67a04f1b"
+      sha256: f68f9e03b246bf387e995a25e086ec8b9894c353bf9f5926e81db645f6eb3974
       url: "https://pub.dev"
     source: hosted
-    version: "1.7.2"
+    version: "1.7.4"
   fake_async:
     dependency: transitive
     description:

@@ -6,7 +6,6 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
@@ -29,7 +28,6 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
     style: PaintingStyle.fill,
     color: Palette.NODE_FOG,
   );
-  Platform? platform;
 
   StructureComponent({
     required this.node,
@@ -75,19 +73,19 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
         innerPaint.color = Palette.NODE_MISSILE_BACKGROUND;
         outterPaint.color = Palette.NODE_MISSILE_BORDER;
       } else if (structure is StructurePad) {
-        platform =
-            platform ??
-            match.match.battlefield.platformById(structure.platformId);
+        final String? platformOwner = match.match.battlefield.platformOwner(
+          structure.platformId,
+        );
 
         innerPaint.color = Palette.NODE_PAD_BACKGROUND;
 
-        if (platform!.owner == Constants.PLAYER_1) {
+        if (platformOwner == Constants.PLAYER_1) {
           outterPaint.color = Palette.PLAYER_1;
-        } else if (platform!.owner == Constants.PLAYER_2) {
+        } else if (platformOwner == Constants.PLAYER_2) {
           outterPaint.color = Palette.PLAYER_2;
-        } else if (platform!.owner == '') {
+        } else if (platformOwner == '') {
           outterPaint.color = Palette.NODE_PAD_CONTESTED_BORDER;
-        } else if (platform!.owner == null) {
+        } else if (platformOwner == null) {
           outterPaint.color = Palette.NODE_PAD_NEUTRAL_BORDER;
         }
       } else if (structure is StructureResources) {

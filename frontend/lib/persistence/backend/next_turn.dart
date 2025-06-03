@@ -1,8 +1,5 @@
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/missile.dart';
-import 'package:tensionpath/domain/entities/platform.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
@@ -115,29 +112,21 @@ class NextTurn {
     required Map<String, JsonPlayer> jsonPlayers,
     required JsonBattlefield jsonBattlefield,
     required JsonConfig jsonConfig,
-  }) {
-    final Missile missile = _getMissile(
-      jsonMissile: jsonBattlefield.missile,
-      jsonNodes: jsonBattlefield.nodes,
-      jsonPlayers: jsonPlayers,
-    );
-
-    return Map.fromEntries(
-      jsonPlayers.entries.map(
-        (entry) => MapEntry(
-          entry.key,
-          _nextPlayerDamage(
-            jsonPlayer: entry.value,
-            damange: _missileHit(
-              playerId: entry.key,
-              baseMaxHealth: jsonConfig.baseMaxHealth,
-              missile: missile,
-            ),
+  }) => Map.fromEntries(
+    jsonPlayers.entries.map(
+      (entry) => MapEntry(
+        entry.key,
+        _nextPlayerDamage(
+          jsonPlayer: entry.value,
+          damange: _missileHit(
+            playerId: entry.key,
+            baseMaxHealth: jsonConfig.baseMaxHealth,
+            jsonMissile: jsonBattlefield.missile,
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 
   static JsonPlayer _nextPlayer({
     required JsonPlayer jsonPlayer,
@@ -166,10 +155,10 @@ class NextTurn {
   static int _missileHit({
     required String playerId,
     required int baseMaxHealth,
-    required Missile missile,
+    required JsonMissile jsonMissile,
   }) {
-    if (_missileFull(missile)) {
-      if (missile.owner != playerId) {
+    if (_missileFull(jsonMissile)) {
+      if (jsonMissile.owner != playerId) {
         return baseMaxHealth ~/ 2;
       } else {
         return 0;
@@ -211,65 +200,28 @@ class NextTurn {
     required List<JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
-    final Missile missile = _getMissile(
-      jsonMissile: jsonMissile,
-      jsonNodes: jsonNodes,
-      jsonPlayers: jsonPlayers,
-    );
-
-    if (_missileFull(missile)) {
+    if (_missileFull(jsonMissile)) {
       return JsonMissile(
         charge: 0,
         maxCharge: jsonMissile.maxCharge,
+        bufferCharge: jsonMissile.bufferCharge,
+        numberOfPlatforms: jsonMissile.numberOfPlatforms,
         platforms: jsonMissile.platforms,
+        owner: jsonMissile.owner,
       );
     } else {
       return JsonMissile(
-        charge: _missileNextCharge(missile),
+        charge: _missileNextCharge(jsonMissile),
         maxCharge: jsonMissile.maxCharge,
+        bufferCharge: jsonMissile.bufferCharge,
+        numberOfPlatforms: jsonMissile.numberOfPlatforms,
         platforms: jsonMissile.platforms,
+        owner: jsonMissile.owner,
       );
     }
   }
 
-  static Missile _getMissile({
-    required JsonMissile jsonMissile,
-    required List<JsonNode> jsonNodes,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
-    final Missile missile = jsonMissile.object;
-    final List<Platform> platforms = [];
-
-    final Iterable<JsonNode> nodePads = jsonNodes.where(
-      (node) =>
-          (node.structure != null) && node.structure?.type == StructureType.pad,
-    );
-
-    final List<Player> players = [];
-
-    for (final MapEntry<String, JsonPlayer> entry in jsonPlayers.entries) {
-      players.add(entry.value.object(id: entry.key, isSelf: false));
-    }
-
-    for (int i = 0; i < missile.numberOfPlatforms; i++) {
-      final String platformId = '${i + 1}';
-      platforms.add(
-        Platform(
-          platformId: platformId,
-          nodes: nodePads
-              .where((node) => node.structure?.platformId == platformId)
-              .map((node) => node.object(players))
-              .toList(),
-        ),
-      );
-    }
-
-    missile.setPlatforms(platforms);
-
-    return missile;
-  }
-
-  static int _missileNextCharge(Missile missile) {
+  static int _missileNextCharge(JsonMissile missile) {
     final String? owner = missile.owner;
     final bool charging =
         owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
@@ -283,7 +235,7 @@ class NextTurn {
     }
   }
 
-  static bool _missileFull(Missile missile) =>
+  static bool _missileFull(JsonMissile missile) =>
       (missile.charge == missile.maxCharge) &&
       ((missile.owner == Constants.PLAYER_1) ||
           (missile.owner == Constants.PLAYER_2));
@@ -393,10 +345,10 @@ class NextTurn {
         targetNodeStructure.type == StructureType.launcher) {
       final MuttableUnits targetUnitsAfterBattle = targetNode.units!;
 
-      if (targetUnitsAfterBattle.player != targetNodeStructure.player) {
+      if (targetUnitsAfterBattle.player != targetNodeStructure.playerId) {
         // Attack player's base
-        final JsonPlayer player = jsonPlayers[targetNodeStructure.player!]!;
-        jsonPlayers[targetNodeStructure.player!] = JsonPlayer(
+        final JsonPlayer player = jsonPlayers[targetNodeStructure.playerId!]!;
+        jsonPlayers[targetNodeStructure.playerId!] = JsonPlayer(
           name: player.name,
           baseHealth: player.baseHealth - targetUnitsAfterBattle.amount,
           resources: player.resources,
@@ -496,21 +448,21 @@ class MuttableUnits {
 
 class MuttableStructure {
   StructureType type;
-  String? player;
+  String? playerId;
   String? platformId;
 
   MuttableStructure({
     required this.type,
-    required this.player,
+    required this.playerId,
     required this.platformId,
   });
 
   factory MuttableStructure.fromJson(JsonStructure json) => MuttableStructure(
     type: json.type,
-    player: json.player,
+    playerId: json.playerId,
     platformId: json.platformId,
   );
 
   JsonStructure toJson() =>
-      JsonStructure(type: type, player: player, platformId: platformId);
+      JsonStructure(type: type, playerId: playerId, platformId: platformId);
 }

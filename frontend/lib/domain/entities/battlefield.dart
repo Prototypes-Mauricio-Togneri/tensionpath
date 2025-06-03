@@ -2,11 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units.dart';
-import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Battlefield {
   final String id;
@@ -19,37 +17,9 @@ class Battlefield {
     required this.nodes,
     required this.size,
     required this.missile,
-  }) {
-    final List<Platform> platforms = [];
+  });
 
-    final Iterable<Node> nodePads = nodes.where(
-      (node) => node.hasStructure && node.structure?.type == StructureType.pad,
-    );
-
-    for (int i = 0; i < missile.numberOfPlatforms; i++) {
-      final String platformId = '${i + 1}';
-      platforms.add(
-        Platform(
-          platformId: platformId,
-          nodes: nodePads
-              .where((node) => node.structure?.getPlatformId == platformId)
-              .toList(),
-        ),
-      );
-    }
-
-    missile.setPlatforms(platforms);
-  }
-
-  Platform platformById(String id) {
-    for (final Platform platform in missile.platforms) {
-      if (platform.platformId == id) {
-        return platform;
-      }
-    }
-
-    throw Exception('Platform with id "$id" not found');
-  }
+  String? platformOwner(String id) => missile.platformOwner(id);
 
   void replaceWith({
     required Player self,
@@ -58,7 +28,7 @@ class Battlefield {
     final Set<String> visibleNodes = {};
 
     for (final Node newNode in newBattlefield.nodes) {
-      final Node oldNode = nodeById(newNode.id);
+      final Node oldNode = _nodeById(newNode.id);
       oldNode.replaceWith(newNode);
 
       if (oldNode.hasUnits) {
@@ -95,7 +65,7 @@ class Battlefield {
     missile.replaceWith(newBattlefield.missile);
   }
 
-  Node nodeById(String id) {
+  Node _nodeById(String id) {
     for (final Node node in nodes) {
       if (node.id == id) {
         return node;
