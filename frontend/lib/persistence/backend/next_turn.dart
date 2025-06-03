@@ -84,7 +84,10 @@ class NextTurn {
 
       _resetPlayers(jsonMatch.players);
 
-      _updateMissile(jsonMatch.battlefield.missile);
+      _updateMissile(
+        jsonMissile: jsonMatch.battlefield.missile,
+        jsonNodes: jsonMatch.battlefield.nodes,
+      );
 
       _updateTurn(jsonMatch.turn);
     }
@@ -272,16 +275,86 @@ class NextTurn {
     }
   }
 
-  void _updateMissile(JsonMissile jsonMissile) {
-    // TODO(momo): update values
-    //platforms: jsonMissile.platforms,
-    //owner: jsonMissile.owner,
+  void _updateMissile({
+    required JsonMissile jsonMissile,
+    required List<JsonNode> jsonNodes,
+  }) {
+    final Map<String, String?> jsonPlatforms = jsonMissile.platforms;
+    int player1 = 0;
+    int player2 = 0;
+    int none = 0;
+
+    for (final String platformId in jsonPlatforms.keys) {
+      final String? platformOwner = _platformOwner(
+        platformId: platformId,
+        jsonNodes: jsonNodes,
+      );
+      jsonPlatforms[platformId] = platformOwner;
+
+      if (platformOwner == Constants.PLAYER_1) {
+        player1++;
+      } else if (platformOwner == Constants.PLAYER_2) {
+        player2++;
+      } else if (platformOwner == null) {
+        none++;
+      }
+    }
+
+    if (none == jsonMissile.numberOfPlatforms) {
+      jsonMissile.owner = null;
+    } else if (player1 > player2) {
+      jsonMissile.owner = Constants.PLAYER_1;
+    } else if (player2 > player1) {
+      jsonMissile.owner = Constants.PLAYER_2;
+    } else if (player1 == player2) {
+      jsonMissile.owner = '';
+    }
 
     if (_isMissileFull(jsonMissile)) {
       jsonMissile.charge = 0;
     } else {
       jsonMissile.charge = _nextMissileCharge(jsonMissile);
     }
+  }
+
+  String? _platformOwner({
+    required String platformId,
+    required List<JsonNode> jsonNodes,
+  }) {
+    final List<JsonNode> platformNodes = _platformNodes(
+      platformId: platformId,
+      jsonNodes: jsonNodes,
+    );
+
+    int player1 = 0;
+    int player2 = 0;
+
+    for (final JsonNode node in platformNodes) {
+      if (node.units?.playerId == Constants.PLAYER_1) {
+        player1++;
+      } else if (node.units?.playerId == Constants.PLAYER_2) {
+        player2++;
+      }
+    }
+
+    if ((player1 > 0) && (player2 == 0)) {
+      return Constants.PLAYER_1;
+    } else if ((player2 > 0) && (player1 == 0)) {
+      return Constants.PLAYER_2;
+    } else if ((player1 > 0) && (player2 > 0)) {
+      return '';
+    } else {
+      return null;
+    }
+  }
+
+  List<JsonNode> _platformNodes({
+    required String platformId,
+    required List<JsonNode> jsonNodes,
+  }) {
+    return jsonNodes
+        .where((node) => node.structure?.platformId == platformId)
+        .toList();
   }
 
   int _nextMissileCharge(JsonMissile missile) {
