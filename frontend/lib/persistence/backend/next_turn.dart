@@ -43,7 +43,7 @@ class NextTurn {
   // * Update turn
   //    * Increase turn counter
   //    * Set turn started at
-  static JsonMatch _updateMatch(JsonMatch jsonMatch) {
+  JsonMatch _updateMatch(JsonMatch jsonMatch) {
     _checkMissile(
       jsonMissile: jsonMatch.battlefield.missile,
       jsonPlayers: jsonMatch.players,
@@ -92,7 +92,7 @@ class NextTurn {
     return jsonMatch;
   }
 
-  static void _checkMissile({
+  void _checkMissile({
     required JsonMissile jsonMissile,
     required Map<String, JsonPlayer> jsonPlayers,
     required JsonConfig jsonConfig,
@@ -109,11 +109,11 @@ class NextTurn {
     }
   }
 
-  static bool _isMissileFull(JsonMissile missile) =>
+  bool _isMissileFull(JsonMissile missile) =>
       (missile.charge == missile.maxCharge) &&
       ((missile.owner != '') || (missile.owner != null));
 
-  static bool _checkPlayersAlive(Map<String, JsonPlayer> jsonPlayers) {
+  bool _checkPlayersAlive(Map<String, JsonPlayer> jsonPlayers) {
     for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
       if (jsonPlayer.baseHealth <= 0) {
         return false;
@@ -123,7 +123,7 @@ class NextTurn {
     return true;
   }
 
-  static void _executeUnitDeployments({
+  void _executeUnitDeployments({
     required Map<String, JsonNode> jsonNodes,
     required List<JsonAction> jsonActions,
   }) {
@@ -137,7 +137,7 @@ class NextTurn {
     }
   }
 
-  static void _executeUnitMovements({
+  void _executeUnitMovements({
     required Map<String, JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
     required List<JsonAction> jsonActions,
@@ -164,7 +164,7 @@ class NextTurn {
     }
   }
 
-  static void _nextNodesMovement({
+  void _nextNodesMovement({
     required JsonNode originNode,
     required JsonNode targetNode,
     required JsonAction action,
@@ -226,7 +226,7 @@ class NextTurn {
     }
   }
 
-  static void _updatePlayerResources({
+  void _updatePlayerResources({
     required Map<String, JsonPlayer> jsonPlayers,
     required List<JsonNode> jsonNodes,
     required JsonConfig jsonConfig,
@@ -264,7 +264,7 @@ class NextTurn {
     }
   }
 
-  static void _resetPlayers(Map<String, JsonPlayer> jsonPlayers) {
+  void _resetPlayers(Map<String, JsonPlayer> jsonPlayers) {
     for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
       jsonPlayer.status = PlayerStatus.playing;
       jsonPlayer.turnEndedAt = null;
@@ -272,19 +272,19 @@ class NextTurn {
     }
   }
 
-  static void _updateMissile(JsonMissile jsonMissile) {
+  void _updateMissile(JsonMissile jsonMissile) {
+    // TODO(momo): update values
+    //platforms: jsonMissile.platforms,
+    //owner: jsonMissile.owner,
+
     if (_isMissileFull(jsonMissile)) {
       jsonMissile.charge = 0;
     } else {
-      // TODO(momo): update values
-      //platforms: jsonMissile.platforms,
-      //owner: jsonMissile.owner,
-
       jsonMissile.charge = _nextMissileCharge(jsonMissile);
     }
   }
 
-  static int _nextMissileCharge(JsonMissile missile) {
+  int _nextMissileCharge(JsonMissile missile) {
     final bool charging =
         missile.owner == Constants.PLAYER_1 ||
         missile.owner == Constants.PLAYER_2;
@@ -299,10 +299,10 @@ class NextTurn {
     }
   }
 
-  static void _updateTurn(JsonTurn jsonTurn) {
+  void _updateTurn(JsonTurn jsonTurn) {
     jsonTurn.turn += 1;
     jsonTurn.startedAt = DateTime.now();
   }
 
-  static String _locationId(int x, int y) => '$x,$y';
+  String _locationId(int x, int y) => '$x,$y';
 }
