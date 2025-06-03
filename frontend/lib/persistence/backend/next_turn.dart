@@ -112,10 +112,6 @@ class NextTurn {
     }
   }
 
-  bool _isMissileFull(JsonMissile jsonMissile) =>
-      (jsonMissile.charge == jsonMissile.maxCharge) &&
-      ((jsonMissile.owner != '') || (jsonMissile.owner != null));
-
   bool _checkPlayersAlive(Map<String, JsonPlayer> jsonPlayers) {
     for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
       if (jsonPlayer.baseHealth <= 0) {
@@ -361,12 +357,15 @@ class NextTurn {
         .toList();
   }
 
-  int _nextMissileCharge(JsonMissile jsonMissile) {
-    final bool charging =
-        jsonMissile.owner == Constants.PLAYER_1 ||
-        jsonMissile.owner == Constants.PLAYER_2;
+  bool _isMissileFull(JsonMissile jsonMissile) =>
+      (jsonMissile.charge == jsonMissile.maxCharge) &&
+      _isMissileCharging(jsonMissile);
 
-    if (charging) {
+  bool _isMissileCharging(JsonMissile jsonMissile) =>
+      (jsonMissile.owner != '') || (jsonMissile.owner != null);
+
+  int _nextMissileCharge(JsonMissile jsonMissile) {
+    if (_isMissileCharging(jsonMissile)) {
       return jsonMissile.charge + 1;
     } else if ((jsonMissile.owner == '') &&
         (jsonMissile.charge > jsonMissile.bufferCharge)) {
