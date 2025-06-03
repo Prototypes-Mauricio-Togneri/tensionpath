@@ -50,7 +50,7 @@ class NextTurn {
       jsonConfig: jsonMatch.config,
     );
 
-    if (_checkPlayersAlive(jsonMatch.players.values.toList())) {
+    if (_checkPlayersAlive(jsonMatch.players)) {
       final Map<String, JsonNode> jsonNodes = Map.fromEntries(
         jsonMatch.battlefield.nodes.map(
           (node) => MapEntry(_locationId(node.x, node.y), node),
@@ -113,8 +113,8 @@ class NextTurn {
       (missile.charge == missile.maxCharge) &&
       ((missile.owner != '') || (missile.owner != null));
 
-  static bool _checkPlayersAlive(List<JsonPlayer> jsonPlayers) {
-    for (final JsonPlayer jsonPlayer in jsonPlayers) {
+  static bool _checkPlayersAlive(Map<String, JsonPlayer> jsonPlayers) {
+    for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
       if (jsonPlayer.baseHealth <= 0) {
         return false;
       }
