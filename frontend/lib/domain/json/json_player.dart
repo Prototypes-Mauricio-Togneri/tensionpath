@@ -10,24 +10,24 @@ part 'json_player.g.dart';
 @JsonSerializable()
 class JsonPlayer {
   @JsonKey(name: 'name')
-  final String name;
+  String name;
 
   @JsonKey(name: 'baseHealth')
-  final int baseHealth;
+  int baseHealth;
 
   @JsonKey(name: 'resources')
-  final int resources;
+  int resources;
 
   @JsonKey(name: 'status')
-  final PlayerStatus status;
+  PlayerStatus status;
 
   @JsonKey(name: 'turnEndedAt', toJson: dateToJson)
-  final DateTime? turnEndedAt;
+  DateTime? turnEndedAt;
 
   @JsonKey(name: 'actions')
-  final List<JsonAction> actions;
+  List<JsonAction> actions;
 
-  const JsonPlayer({
+  JsonPlayer({
     required this.name,
     required this.baseHealth,
     required this.resources,

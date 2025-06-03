@@ -7,17 +7,17 @@ part 'json_units.g.dart';
 
 @JsonSerializable()
 class JsonUnits {
-  @JsonKey(name: 'player')
-  final String player;
+  @JsonKey(name: 'playerId')
+  String playerId;
 
   @JsonKey(name: 'amount')
-  final int amount;
+  int amount;
 
-  const JsonUnits({required this.player, required this.amount});
+  JsonUnits({required this.playerId, required this.amount});
 
   Units object({required Location location, required List<Player> players}) =>
       Units(
-        player: Player.playerById(id: player, players: players)!,
+        player: Player.playerById(id: playerId, players: players)!,
         amount: amount,
         location: location,
       );

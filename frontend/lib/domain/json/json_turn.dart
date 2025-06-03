@@ -7,12 +7,12 @@ part 'json_turn.g.dart';
 @JsonSerializable()
 class JsonTurn {
   @JsonKey(name: 'turn')
-  final int turn;
+  int turn;
 
   @JsonKey(name: 'startedAt', toJson: dateToJson)
-  final DateTime startedAt;
+  DateTime startedAt;
 
-  const JsonTurn({required this.turn, required this.startedAt});
+  JsonTurn({required this.turn, required this.startedAt});
 
   JsonTurn clone({DateTime? startedAt}) =>
       JsonTurn(turn: turn, startedAt: startedAt ?? this.startedAt);

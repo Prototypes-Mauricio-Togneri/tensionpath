@@ -89,8 +89,8 @@ class NextTurn {
       if ((jsonNode.structure != null) &&
           (jsonNode.structure!.type == StructureType.resources) &&
           (jsonNode.units != null)) {
-        extraResources[jsonNode.units!.player] =
-            extraResources[jsonNode.units!.player]! +
+        extraResources[jsonNode.units!.playerId] =
+            extraResources[jsonNode.units!.playerId]! +
             jsonConfig.resourcesPerPatch;
       }
     }
@@ -444,9 +444,9 @@ class MuttableUnits {
   MuttableUnits({required this.player, required this.amount});
 
   factory MuttableUnits.fromJson(JsonUnits json) =>
-      MuttableUnits(player: json.player, amount: json.amount);
+      MuttableUnits(player: json.playerId, amount: json.amount);
 
-  JsonUnits toJson() => JsonUnits(player: player, amount: amount);
+  JsonUnits toJson() => JsonUnits(playerId: player, amount: amount);
 }
 
 class MuttableStructure {

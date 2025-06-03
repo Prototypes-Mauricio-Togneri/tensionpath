@@ -9,13 +9,13 @@ part of 'json_units.dart';
 JsonUnits _$JsonUnitsFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonUnits', json, ($checkedConvert) {
       final val = JsonUnits(
-        player: $checkedConvert('player', (v) => v as String),
+        playerId: $checkedConvert('playerId', (v) => v as String),
         amount: $checkedConvert('amount', (v) => (v as num).toInt()),
       );
       return val;
     });
 
 Map<String, dynamic> _$JsonUnitsToJson(JsonUnits instance) => <String, dynamic>{
-  'player': instance.player,
+  'playerId': instance.playerId,
   'amount': instance.amount,
 };

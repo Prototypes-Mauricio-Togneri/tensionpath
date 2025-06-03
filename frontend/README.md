@@ -5,7 +5,6 @@
 - Don't allow jump missile
 
 - Check base destroyed before missile
-- Store platform info in missile
 
 - When passing turn, block button immediately
 - Toxic tiles that kill units

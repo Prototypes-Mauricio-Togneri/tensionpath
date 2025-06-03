@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:tensionpath/domain/entities/actions/action.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
@@ -119,7 +121,33 @@ class Backend {
     final List<JsonAction> result = [];
 
     for (final Action action in actions) {
-      result.add(JsonAction.fromAction(action));
+      if (action is ActionDeployUnits) {
+        result.add(
+          JsonAction(
+            type: action.type,
+            playerId: action.playerId,
+            originX: null,
+            originY: null,
+            targetX: action.target.x,
+            targetY: action.target.y,
+            amount: action.amount,
+          ),
+        );
+      } else if (action is ActionMoveUnits) {
+        result.add(
+          JsonAction(
+            type: action.type,
+            playerId: action.playerId,
+            originX: action.origin.x,
+            originY: action.origin.y,
+            targetX: action.target.x,
+            targetY: action.target.y,
+            amount: null,
+          ),
+        );
+      } else {
+        throw Exception('Unsupported action type: ${action.runtimeType}');
+      }
     }
 
     return result;
@@ -152,7 +180,7 @@ class Backend {
 
   static JsonUnits? _unitsToJson(Units? units) {
     if (units != null) {
-      return JsonUnits(player: units.player.id, amount: units.amount);
+      return JsonUnits(playerId: units.player.id, amount: units.amount);
     } else {
       return null;
     }

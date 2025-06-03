@@ -10,27 +10,27 @@ part 'json_action.g.dart';
 @JsonSerializable()
 class JsonAction {
   @JsonKey(name: 'type')
-  final ActionType type;
+  ActionType type;
 
   @JsonKey(name: 'playerId')
-  final String playerId;
+  String playerId;
 
   @JsonKey(name: 'originX')
-  final int? originX;
+  int? originX;
 
   @JsonKey(name: 'originY')
-  final int? originY;
+  int? originY;
 
   @JsonKey(name: 'targetX')
-  final int targetX;
+  int targetX;
 
   @JsonKey(name: 'targetY')
-  final int targetY;
+  int targetY;
 
   @JsonKey(name: 'amount')
-  final int? amount;
+  int? amount;
 
-  const JsonAction({
+  JsonAction({
     required this.type,
     required this.playerId,
     required this.originX,
@@ -55,32 +55,6 @@ class JsonAction {
       );
     } else {
       throw Exception('Unsupported action type: $type');
-    }
-  }
-
-  factory JsonAction.fromAction(Action action) {
-    if (action is ActionDeployUnits) {
-      return JsonAction(
-        type: action.type,
-        playerId: action.playerId,
-        originX: null,
-        originY: null,
-        targetX: action.target.x,
-        targetY: action.target.y,
-        amount: action.amount,
-      );
-    } else if (action is ActionMoveUnits) {
-      return JsonAction(
-        type: action.type,
-        playerId: action.playerId,
-        originX: action.origin.x,
-        originY: action.origin.y,
-        targetX: action.target.x,
-        targetY: action.target.y,
-        amount: null,
-      );
-    } else {
-      throw Exception('Unsupported action type: ${action.runtimeType}');
     }
   }
 

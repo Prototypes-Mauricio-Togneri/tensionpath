@@ -11,21 +11,21 @@ part 'json_node.g.dart';
 @JsonSerializable()
 class JsonNode {
   @JsonKey(name: 'x')
-  final int x;
+  int x;
 
   @JsonKey(name: 'y')
-  final int y;
+  int y;
 
   @JsonKey(name: 'type')
-  final NodeType type;
+  NodeType type;
 
   @JsonKey(name: 'units')
-  final JsonUnits? units;
+  JsonUnits? units;
 
   @JsonKey(name: 'structure')
-  final JsonStructure? structure;
+  JsonStructure? structure;
 
-  const JsonNode({
+  JsonNode({
     required this.x,
     required this.y,
     required this.type,
