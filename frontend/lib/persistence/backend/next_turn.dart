@@ -49,7 +49,12 @@ class NextTurn {
   // * Calculate unit deployments
   // * Calculate unit movements
   //    * Update player base health in case of attack
-  // * Update players resources
+  // * Update players
+  //    * Update resources
+  //    * Reset player
+  //       * Set status to playing
+  //       * Clear turnEndedAt
+  //       * Clear actions
   // * Update missile
   //    * Update charge
   //    * Update platform owners
@@ -57,10 +62,6 @@ class NextTurn {
   // * Update turn
   //    * Increase turn counter
   //    * Set turn started at
-  // * Reset players
-  //    * Clear actions
-  //    * Clear turnEndedAt
-  //    * Set status to playing
   static JsonMatch _updateMatch(JsonMatch jsonMatch) {
     _checkMissile(
       jsonMissile: jsonMatch.battlefield.missile,
@@ -99,6 +100,8 @@ class NextTurn {
         jsonNodes: jsonMatch.battlefield.nodes,
         jsonConfig: jsonMatch.config,
       );
+
+      _resetPlayers(jsonMatch.players);
     }
 
     return jsonMatch;
@@ -276,20 +279,16 @@ class NextTurn {
     }
   }
 
+  static void _resetPlayers(Map<String, JsonPlayer> jsonPlayers) {
+    for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
+      jsonPlayer.status = PlayerStatus.playing;
+      jsonPlayer.turnEndedAt = null;
+      jsonPlayer.actions.clear();
+    }
+  }
+
   /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
-
-  static JsonPlayer _nextPlayer({
-    required JsonPlayer jsonPlayer,
-    required int extraResources,
-  }) => JsonPlayer(
-    name: jsonPlayer.name,
-    baseHealth: jsonPlayer.baseHealth,
-    resources: jsonPlayer.resources + extraResources,
-    status: PlayerStatus.playing,
-    turnEndedAt: null,
-    actions: [],
-  );
 
   static JsonBattlefield _nextBattlefield({
     required JsonBattlefield jsonBattlefield,
