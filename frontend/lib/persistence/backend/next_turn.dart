@@ -14,35 +14,15 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 
 class NextTurn {
   Future<JsonMatch> call(JsonMatch jsonMatch) async {
-    final bool allWaiting = jsonMatch.players.values.every(
-      (p) => p.status == PlayerStatus.waiting,
-    );
-
-    if (allWaiting) {
-      /*
-      final JsonBattlefield jsonBattlefield = _nextBattlefield(
-        jsonBattlefield: jsonMatch.battlefield,
-        jsonPlayers: playersUpdated,
-      );
-
-      return JsonMatch(
-        id: jsonMatch.id,
-        version: jsonMatch.version,
-        createdAt: jsonMatch.createdAt,
-        config: jsonMatch.config,
-        turn: _nextTurn(jsonMatch.turn),
-        players: _nextPlayers(
-          jsonPlayers: playersUpdated,
-          jsonBattlefield: jsonBattlefield,
-          jsonConfig: jsonMatch.config,
-        ),
-        battlefield: jsonBattlefield,
-      );*/
+    if (_allPlayersWaiting(jsonMatch)) {
       return _updateMatch(jsonMatch);
     } else {
       return jsonMatch;
     }
   }
+
+  bool _allPlayersWaiting(JsonMatch jsonMatch) =>
+      jsonMatch.players.values.every((p) => p.status == PlayerStatus.waiting);
 
   // Update steps:
   // * Check if the missile is full and launch it + update base health
