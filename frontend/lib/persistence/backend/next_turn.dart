@@ -4,8 +4,11 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
+import 'package:tensionpath/domain/types/action_type.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
+import 'package:tensionpath/domain/types/structure_type.dart';
 
 class NextTurn {
   Future<JsonMatch> call(JsonMatch jsonMatch) async {
@@ -14,12 +17,7 @@ class NextTurn {
     );
 
     if (allWaiting) {
-      /*final Map<String, JsonPlayer> playersUpdated = _checkMissileLaunch(
-        jsonPlayers: jsonMatch.players,
-        jsonBattlefield: jsonMatch.battlefield,
-        jsonConfig: jsonMatch.config,
-      );
-
+      /*
       final JsonBattlefield jsonBattlefield = _nextBattlefield(
         jsonBattlefield: jsonMatch.battlefield,
         jsonPlayers: playersUpdated,
@@ -80,7 +78,20 @@ class NextTurn {
           .toList();
 
       // Implement
-      _executeUnitDeployments(jsonNodes: jsonNodes, jsonActions: jsonActions);
+      _executeUnitDeployments(
+        jsonNodes: jsonNodes,
+        jsonActions: jsonActions
+            .where((a) => a.type == ActionType.deploy)
+            .toList(),
+      );
+
+      _executeUnitMovements(
+        jsonNodes: jsonNodes,
+        jsonPlayers: jsonMatch.players,
+        jsonActions: jsonActions
+            .where((a) => a.type == ActionType.move)
+            .toList(),
+      );
     }
 
     return jsonMatch;
@@ -128,6 +139,95 @@ class NextTurn {
         playerId: action.playerId,
         amount: action.amount!,
       );
+    }
+  }
+
+  static void _executeUnitMovements({
+    required Map<String, JsonNode> jsonNodes,
+    required Map<String, JsonPlayer> jsonPlayers,
+    required List<JsonAction> jsonActions,
+  }) {
+    for (final JsonAction action in jsonActions) {
+      final String originLocationId = _locationId(
+        action.originX!,
+        action.originY!,
+      );
+      final JsonNode originNode = jsonNodes[originLocationId]!;
+
+      final String targetLocationId = _locationId(
+        action.targetX,
+        action.targetY,
+      );
+      final JsonNode targetNode = jsonNodes[targetLocationId]!;
+
+      _nextNodesMovement(
+        originNode: originNode,
+        targetNode: targetNode,
+        action: action,
+        jsonPlayers: jsonPlayers,
+      );
+    }
+  }
+
+  static void _nextNodesMovement({
+    required JsonNode originNode,
+    required JsonNode targetNode,
+    required JsonAction action,
+    required Map<String, JsonPlayer> jsonPlayers,
+  }) {
+    final JsonUnits sourceUnits = originNode.units!;
+    final JsonUnits? targetUnits = targetNode.units;
+
+    if (targetUnits == null) {
+      // Target node is empty
+      targetNode.units = JsonUnits(
+        playerId: action.playerId,
+        amount: sourceUnits.amount,
+      );
+    } else {
+      if (sourceUnits.playerId == targetUnits.playerId) {
+        // Same player's unit in source and target
+        targetUnits.amount += sourceUnits.amount;
+      } else {
+        // Battle between players units
+        if (sourceUnits.amount > targetUnits.amount) {
+          // Source node has more units
+          targetUnits.amount = sourceUnits.amount - targetUnits.amount;
+          targetUnits.playerId = sourceUnits.playerId;
+        } else if (sourceUnits.amount < targetUnits.amount) {
+          // Target node has more units
+          targetUnits.amount = targetUnits.amount - sourceUnits.amount;
+          targetUnits.playerId = targetUnits.playerId;
+        } else {
+          // All units are destroyed
+          originNode.units = null;
+          targetNode.units = null;
+        }
+      }
+    }
+
+    originNode.units = null;
+
+    final JsonStructure? targetNodeStructure = targetNode.structure;
+
+    if (targetNodeStructure != null &&
+        targetNodeStructure.type == StructureType.launcher) {
+      final JsonUnits targetUnitsAfterBattle = targetNode.units!;
+
+      if (targetUnitsAfterBattle.playerId != targetNodeStructure.playerId) {
+        // Attack player's base
+        final JsonPlayer player = jsonPlayers[targetNodeStructure.playerId!]!;
+        jsonPlayers[targetNodeStructure.playerId!] = JsonPlayer(
+          name: player.name,
+          baseHealth: player.baseHealth - targetUnitsAfterBattle.amount,
+          resources: player.resources,
+          status: player.status,
+          turnEndedAt: player.turnEndedAt,
+          actions: player.actions,
+        );
+
+        targetNode.units = null;
+      }
     }
   }
 
@@ -187,26 +287,6 @@ class NextTurn {
       ),
     );
   }
-
-  static Map<String, JsonPlayer> _checkMissileLaunch({
-    required Map<String, JsonPlayer> jsonPlayers,
-    required JsonBattlefield jsonBattlefield,
-    required JsonConfig jsonConfig,
-  }) => Map.fromEntries(
-    jsonPlayers.entries.map(
-      (entry) => MapEntry(
-        entry.key,
-        _nextPlayerDamage(
-          jsonPlayer: entry.value,
-          damange: _missileHit(
-            playerId: entry.key,
-            baseMaxHealth: jsonConfig.baseMaxHealth,
-            jsonMissile: jsonBattlefield.missile,
-          ),
-        ),
-      ),
-    ),
-  );
 
   static JsonPlayer _nextPlayer({
     required JsonPlayer jsonPlayer,
@@ -286,107 +366,7 @@ class NextTurn {
       return missile.charge;
     }
   }
-
-  static List<JsonNode> _nextNodes({
-    required Map<String, JsonNode> nodesById,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
-    final List<JsonAction> actions = jsonPlayers.values
-        .expand((p) => p.actions)
-        .toList();
-
-    _nextNodesDeployments(
-      nodesById: nodesById,
-      actions: actions.where((a) => a.type == ActionType.deploy).toList(),
-    );
-    _nextNodesMovements(
-      nodesById: nodesById,
-      actions: actions.where((a) => a.type == ActionType.move).toList(),
-      jsonPlayers: jsonPlayers,
-    );
-
-    return nodesById.values.toList();
-  }
-
-
-  static Map<String, JsonNode> _nextNodesMovements({
-    required Map<String, JsonNode> nodesById,
-    required List<JsonAction> actions,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
-    for (final JsonAction action in actions) {
-      _nextNodesMovement(
-        originNode: nodesById[_locationId(action.originX!, action.originY!)]!,
-        targetNode: nodesById[_locationId(action.targetX, action.targetY)]!,
-        action: action,
-        jsonPlayers: jsonPlayers,
-      );
-    }
-
-    return nodesById;
-  }
-
-  static void _nextNodesMovement({
-    required JsonNode originNode,
-    required JsonNode targetNode,
-    required JsonAction action,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
-    final JsonUnits sourceUnits = originNode.units!;
-    final JsonUnits? targetUnits = targetNode.units;
-
-    if (targetUnits == null) {
-      // Target node is empty
-      targetNode.units = JsonUnits(
-        playerId: action.playerId,
-        amount: sourceUnits.amount,
-      );
-    } else {
-      if (sourceUnits.playerId == targetUnits.playerId) {
-        // Same player's unit in source and target
-        targetUnits.amount += sourceUnits.amount;
-      } else {
-        // Battle between players units
-        if (sourceUnits.amount > targetUnits.amount) {
-          // Source node has more units
-          targetUnits.amount = sourceUnits.amount - targetUnits.amount;
-          targetUnits.playerId = sourceUnits.playerId;
-        } else if (sourceUnits.amount < targetUnits.amount) {
-          // Target node has more units
-          targetUnits.amount = targetUnits.amount - sourceUnits.amount;
-          targetUnits.playerId = targetUnits.playerId;
-        } else {
-          // All units are destroyed
-          originNode.units = null;
-          targetNode.units = null;
-        }
-      }
-    }
-
-    originNode.units = null;
-
-    final JsonStructure? targetNodeStructure = targetNode.structure;
-
-    if (targetNodeStructure != null &&
-        targetNodeStructure.type == StructureType.launcher) {
-      final JsonUnits targetUnitsAfterBattle = targetNode.units!;
-
-      if (targetUnitsAfterBattle.playerId != targetNodeStructure.playerId) {
-        // Attack player's base
-        final JsonPlayer player = jsonPlayers[targetNodeStructure.playerId!]!;
-        jsonPlayers[targetNodeStructure.playerId!] = JsonPlayer(
-          name: player.name,
-          baseHealth: player.baseHealth - targetUnitsAfterBattle.amount,
-          resources: player.resources,
-          status: player.status,
-          turnEndedAt: player.turnEndedAt,
-          actions: player.actions,
-        );
-
-        targetNode.units = null;
-      }
-    }
-  }*/
+*/
 
   static String _locationId(int x, int y) => '$x,$y';
 }
