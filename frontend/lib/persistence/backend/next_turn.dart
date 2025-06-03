@@ -20,7 +20,26 @@ class NextTurn {
     );
 
     if (allWaiting) {
-      final Map<String, JsonPlayer> playesUpdated = _checkMissileLaunch(
+      // Update steps:
+      // * Check if the missile is full and launch it + update base health
+      // * If both players are alive, continue. If not, skip.
+      // * Calculate unit deployments
+      // * Calculate unit movements
+      //    * Update player base health in case of attack
+      // * Update players resources
+      // * Update missile
+      //    * Update charge
+      //    * Update platform owners
+      //    * Update missile owner
+      // * Update turn
+      //    * Increase turn counter
+      //    * Set turn started at
+      // * Reset players
+      //    * Clear actions
+      //    * Clear turnEndedAt
+      //    * Set status to playing
+
+      final Map<String, JsonPlayer> playersUpdated = _checkMissileLaunch(
         jsonPlayers: jsonMatch.players,
         jsonBattlefield: jsonMatch.battlefield,
         jsonConfig: jsonMatch.config,
@@ -28,7 +47,7 @@ class NextTurn {
 
       final JsonBattlefield jsonBattlefield = _nextBattlefield(
         jsonBattlefield: jsonMatch.battlefield,
-        jsonPlayers: playesUpdated,
+        jsonPlayers: playersUpdated,
       );
 
       return JsonMatch(
@@ -38,7 +57,7 @@ class NextTurn {
         config: jsonMatch.config,
         turn: _nextTurn(jsonMatch.turn),
         players: _nextPlayers(
-          jsonPlayers: playesUpdated,
+          jsonPlayers: playersUpdated,
           jsonBattlefield: jsonBattlefield,
           jsonConfig: jsonMatch.config,
         ),
