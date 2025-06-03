@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
+import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
@@ -104,6 +105,8 @@ class NextTurn {
       _resetPlayers(jsonMatch.players);
 
       _updateMissile(jsonMatch.battlefield.missile);
+
+      _updateTurn(jsonMatch.turn);
     }
 
     return jsonMatch;
@@ -316,37 +319,10 @@ class NextTurn {
     }
   }
 
-  /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
-      JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
-
-  static JsonBattlefield _nextBattlefield({
-    required JsonBattlefield jsonBattlefield,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
-    final Map<String, JsonNode> nodesById = Map.fromEntries(
-      jsonBattlefield.nodes.map(
-        (node) => MapEntry(_locationId(node.x, node.y), node),
-      ),
-    );
-
-    final List<JsonNode> jsonNodes = _nextNodes(
-      nodesById: nodesById,
-      jsonPlayers: jsonPlayers,
-    );
-
-    return JsonBattlefield(
-      id: jsonBattlefield.id,
-      size: jsonBattlefield.size,
-      missile: _nextMissile(
-        jsonMissile: jsonBattlefield.missile,
-        jsonNodes: jsonNodes,
-        jsonPlayers: jsonPlayers,
-      ),
-      nodes: jsonNodes,
-    );
+  static void _updateTurn(JsonTurn jsonTurn) {
+    jsonTurn.turn += 1;
+    jsonTurn.startedAt = DateTime.now();
   }
-
-*/
 
   static String _locationId(int x, int y) => '$x,$y';
 }
