@@ -103,18 +103,18 @@ class NextTurn {
     if (_isMissileFull(jsonMissile)) {
       for (final MapEntry<String, JsonPlayer> entry in jsonPlayers.entries) {
         final String playerId = entry.key;
-        final JsonPlayer player = entry.value;
+        final JsonPlayer jsonPlayer = entry.value;
 
         if (jsonMissile.owner != playerId) {
-          player.baseHealth -= jsonConfig.baseMaxHealth ~/ 2;
+          jsonPlayer.baseHealth -= jsonConfig.baseMaxHealth ~/ 2;
         }
       }
     }
   }
 
-  bool _isMissileFull(JsonMissile missile) =>
-      (missile.charge == missile.maxCharge) &&
-      ((missile.owner != '') || (missile.owner != null));
+  bool _isMissileFull(JsonMissile jsonMissile) =>
+      (jsonMissile.charge == jsonMissile.maxCharge) &&
+      ((jsonMissile.owner != '') || (jsonMissile.owner != null));
 
   bool _checkPlayersAlive(Map<String, JsonPlayer> jsonPlayers) {
     for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
@@ -131,7 +131,10 @@ class NextTurn {
     required List<JsonAction> jsonActions,
   }) {
     for (final JsonAction jsonAction in jsonActions) {
-      final String locationId = _locationId(jsonAction.targetX, jsonAction.targetY);
+      final String locationId = _locationId(
+        jsonAction.targetX,
+        jsonAction.targetY,
+      );
       final JsonNode jsonNode = jsonNodes[locationId]!;
       jsonNode.units = JsonUnits(
         playerId: jsonAction.playerId,
@@ -214,14 +217,15 @@ class NextTurn {
 
       if (targetUnitsAfterBattle.playerId != targetNodeStructure.playerId) {
         // Attack player's base
-        final JsonPlayer player = jsonPlayers[targetNodeStructure.playerId!]!;
+        final JsonPlayer jsonPlayer =
+            jsonPlayers[targetNodeStructure.playerId!]!;
         jsonPlayers[targetNodeStructure.playerId!] = JsonPlayer(
-          name: player.name,
-          baseHealth: player.baseHealth - targetUnitsAfterBattle.amount,
-          resources: player.resources,
-          status: player.status,
-          turnEndedAt: player.turnEndedAt,
-          actions: player.actions,
+          name: jsonPlayer.name,
+          baseHealth: jsonPlayer.baseHealth - targetUnitsAfterBattle.amount,
+          resources: jsonPlayer.resources,
+          status: jsonPlayer.status,
+          turnEndedAt: jsonPlayer.turnEndedAt,
+          actions: jsonPlayer.actions,
         );
 
         targetNode.units = null;
@@ -357,18 +361,18 @@ class NextTurn {
         .toList();
   }
 
-  int _nextMissileCharge(JsonMissile missile) {
+  int _nextMissileCharge(JsonMissile jsonMissile) {
     final bool charging =
-        missile.owner == Constants.PLAYER_1 ||
-        missile.owner == Constants.PLAYER_2;
+        jsonMissile.owner == Constants.PLAYER_1 ||
+        jsonMissile.owner == Constants.PLAYER_2;
 
     if (charging) {
-      return missile.charge + 1;
-    } else if ((missile.owner == '') &&
-        (missile.charge > missile.bufferCharge)) {
-      return missile.charge - 1;
+      return jsonMissile.charge + 1;
+    } else if ((jsonMissile.owner == '') &&
+        (jsonMissile.charge > jsonMissile.bufferCharge)) {
+      return jsonMissile.charge - 1;
     } else {
-      return missile.charge;
+      return jsonMissile.charge;
     }
   }
 
