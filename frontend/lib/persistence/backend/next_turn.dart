@@ -102,6 +102,8 @@ class NextTurn {
       );
 
       _resetPlayers(jsonMatch.players);
+
+      _updateMissile(jsonMatch.battlefield.missile);
     }
 
     return jsonMatch;
@@ -287,6 +289,33 @@ class NextTurn {
     }
   }
 
+  static void _updateMissile(JsonMissile jsonMissile) {
+    if (_isMissileFull(jsonMissile)) {
+      jsonMissile.charge = 0;
+    } else {
+      // TODO(momo): update values
+      //platforms: jsonMissile.platforms,
+      //owner: jsonMissile.owner,
+
+      jsonMissile.charge = _nextMissileCharge(jsonMissile);
+    }
+  }
+
+  static int _nextMissileCharge(JsonMissile missile) {
+    final bool charging =
+        missile.owner == Constants.PLAYER_1 ||
+        missile.owner == Constants.PLAYER_2;
+
+    if (charging) {
+      return missile.charge + 1;
+    } else if ((missile.owner == '') &&
+        (missile.charge > missile.bufferCharge)) {
+      return missile.charge - 1;
+    } else {
+      return missile.charge;
+    }
+  }
+
   /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
@@ -317,45 +346,6 @@ class NextTurn {
     );
   }
 
-  static JsonMissile _nextMissile({
-    required JsonMissile jsonMissile,
-    required List<JsonNode> jsonNodes,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
-    if (_missileFull(jsonMissile)) {
-      return JsonMissile(
-        charge: 0,
-        maxCharge: jsonMissile.maxCharge,
-        bufferCharge: jsonMissile.bufferCharge,
-        numberOfPlatforms: jsonMissile.numberOfPlatforms,
-        platforms: jsonMissile.platforms,
-        owner: jsonMissile.owner,
-      );
-    } else {
-      return JsonMissile(
-        charge: _missileNextCharge(jsonMissile),
-        maxCharge: jsonMissile.maxCharge,
-        bufferCharge: jsonMissile.bufferCharge,
-        numberOfPlatforms: jsonMissile.numberOfPlatforms,
-        platforms: jsonMissile.platforms,
-        owner: jsonMissile.owner,
-      );
-    }
-  }
-
-  static int _missileNextCharge(JsonMissile missile) {
-    final String? owner = missile.owner;
-    final bool charging =
-        owner == Constants.PLAYER_1 || owner == Constants.PLAYER_2;
-
-    if (charging) {
-      return missile.charge + 1;
-    } else if ((owner == '') && (missile.charge > missile.bufferCharge)) {
-      return missile.charge - 1;
-    } else {
-      return missile.charge;
-    }
-  }
 */
 
   static String _locationId(int x, int y) => '$x,$y';
