@@ -1,17 +1,8 @@
-import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/json_action.dart';
-import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
-import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/json/json_units.dart';
-import 'package:tensionpath/domain/types/action_type.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
-import 'package:tensionpath/domain/types/structure_type.dart';
 
 class NextTurn {
   Future<JsonMatch> call(JsonMatch jsonMatch) async {
@@ -20,26 +11,7 @@ class NextTurn {
     );
 
     if (allWaiting) {
-      // Update steps:
-      // * Check if the missile is full and launch it + update base health
-      // * If both players are alive, continue. If not, skip.
-      // * Calculate unit deployments
-      // * Calculate unit movements
-      //    * Update player base health in case of attack
-      // * Update players resources
-      // * Update missile
-      //    * Update charge
-      //    * Update platform owners
-      //    * Update missile owner
-      // * Update turn
-      //    * Increase turn counter
-      //    * Set turn started at
-      // * Reset players
-      //    * Clear actions
-      //    * Clear turnEndedAt
-      //    * Set status to playing
-
-      final Map<String, JsonPlayer> playersUpdated = _checkMissileLaunch(
+      /*final Map<String, JsonPlayer> playersUpdated = _checkMissileLaunch(
         jsonPlayers: jsonMatch.players,
         jsonBattlefield: jsonMatch.battlefield,
         jsonConfig: jsonMatch.config,
@@ -62,13 +34,63 @@ class NextTurn {
           jsonConfig: jsonMatch.config,
         ),
         battlefield: jsonBattlefield,
-      );
+      );*/
+      return _updateMatch(jsonMatch);
     } else {
       return jsonMatch;
     }
   }
 
-  static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
+  // Update steps:
+  // * Check if the missile is full and launch it + update base health
+  // * If both players are alive, continue. If not, skip.
+  // * Calculate unit deployments
+  // * Calculate unit movements
+  //    * Update player base health in case of attack
+  // * Update players resources
+  // * Update missile
+  //    * Update charge
+  //    * Update platform owners
+  //    * Update missile owner
+  // * Update turn
+  //    * Increase turn counter
+  //    * Set turn started at
+  // * Reset players
+  //    * Clear actions
+  //    * Clear turnEndedAt
+  //    * Set status to playing
+  static JsonMatch _updateMatch(JsonMatch jsonMatch) {
+    _checkMissile(
+      jsonMissile: jsonMatch.battlefield.missile,
+      jsonPlayers: jsonMatch.players,
+      jsonConfig: jsonMatch.config,
+    );
+
+    return jsonMatch;
+  }
+
+  static void _checkMissile({
+    required JsonMissile jsonMissile,
+    required Map<String, JsonPlayer> jsonPlayers,
+    required JsonConfig jsonConfig,
+  }) {
+    if (_isMissileFull(jsonMissile)) {
+      for (final MapEntry<String, JsonPlayer> entry in jsonPlayers.entries) {
+        final String playerId = entry.key;
+        final JsonPlayer player = entry.value;
+
+        if (jsonMissile.owner != playerId) {
+          player.baseHealth -= jsonConfig.baseMaxHealth ~/ 2;
+        }
+      }
+    }
+  }
+
+  static bool _isMissileFull(JsonMissile missile) =>
+      (missile.charge == missile.maxCharge) &&
+      ((missile.owner != '') || (missile.owner != null));
+
+  /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
 
   static Map<String, JsonPlayer> _nextPlayers({
@@ -252,11 +274,6 @@ class NextTurn {
     }
   }
 
-  static bool _missileFull(JsonMissile missile) =>
-      (missile.charge == missile.maxCharge) &&
-      ((missile.owner == Constants.PLAYER_1) ||
-          (missile.owner == Constants.PLAYER_2));
-
   static List<JsonNode> _nextNodes({
     required Map<String, JsonNode> nodesById,
     required Map<String, JsonPlayer> jsonPlayers,
@@ -378,5 +395,5 @@ class NextTurn {
     }
   }
 
-  static String _locationId(int x, int y) => '$x,$y';
+  static String _locationId(int x, int y) => '$x,$y';*/
 }
