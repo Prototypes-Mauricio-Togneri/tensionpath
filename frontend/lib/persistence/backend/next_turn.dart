@@ -1,7 +1,10 @@
+import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 
 class NextTurn {
@@ -66,6 +69,20 @@ class NextTurn {
       jsonConfig: jsonMatch.config,
     );
 
+    if (_checkPlayersAlive(jsonMatch.players.values.toList())) {
+      final Map<String, JsonNode> jsonNodes = Map.fromEntries(
+        jsonMatch.battlefield.nodes.map(
+          (node) => MapEntry(_locationId(node.x, node.y), node),
+        ),
+      );
+      final List<JsonAction> jsonActions = jsonMatch.players.values
+          .expand((p) => p.actions)
+          .toList();
+
+      // Implement
+      _executeUnitDeployments(jsonNodes: jsonNodes, jsonActions: jsonActions);
+    }
+
     return jsonMatch;
   }
 
@@ -89,6 +106,30 @@ class NextTurn {
   static bool _isMissileFull(JsonMissile missile) =>
       (missile.charge == missile.maxCharge) &&
       ((missile.owner != '') || (missile.owner != null));
+
+  static bool _checkPlayersAlive(List<JsonPlayer> jsonPlayers) {
+    for (final JsonPlayer jsonPlayer in jsonPlayers) {
+      if (jsonPlayer.baseHealth <= 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  static void _executeUnitDeployments({
+    required Map<String, JsonNode> jsonNodes,
+    required List<JsonAction> jsonActions,
+  }) {
+    for (final JsonAction action in jsonActions) {
+      final String locationId = _locationId(action.targetX, action.targetY);
+      final JsonNode jsonNode = jsonNodes[locationId]!;
+      jsonNode.units = JsonUnits(
+        playerId: action.playerId,
+        amount: action.amount!,
+      );
+    }
+  }
 
   /*static JsonTurn _nextTurn(JsonTurn jsonTurn) =>
       JsonTurn(turn: jsonTurn.turn + 1, startedAt: DateTime.now());
@@ -179,34 +220,6 @@ class NextTurn {
     actions: [],
   );
 
-  static JsonPlayer _nextPlayerDamage({
-    required JsonPlayer jsonPlayer,
-    required int damange,
-  }) => JsonPlayer(
-    name: jsonPlayer.name,
-    baseHealth: jsonPlayer.baseHealth - damange,
-    resources: jsonPlayer.resources,
-    status: jsonPlayer.status,
-    turnEndedAt: jsonPlayer.turnEndedAt,
-    actions: jsonPlayer.actions,
-  );
-
-  static int _missileHit({
-    required String playerId,
-    required int baseMaxHealth,
-    required JsonMissile jsonMissile,
-  }) {
-    if (_missileFull(jsonMissile)) {
-      if (jsonMissile.owner != playerId) {
-        return baseMaxHealth ~/ 2;
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
-    }
-  }
-
   static JsonBattlefield _nextBattlefield({
     required JsonBattlefield jsonBattlefield,
     required Map<String, JsonPlayer> jsonPlayers,
@@ -295,19 +308,6 @@ class NextTurn {
     return nodesById.values.toList();
   }
 
-  static Map<String, JsonNode> _nextNodesDeployments({
-    required Map<String, JsonNode> nodesById,
-    required List<JsonAction> actions,
-  }) {
-    for (final JsonAction action in actions) {
-      _nextNodeDeployment(
-        node: nodesById[_locationId(action.targetX, action.targetY)]!,
-        action: action,
-      );
-    }
-
-    return nodesById;
-  }
 
   static Map<String, JsonNode> _nextNodesMovements({
     required Map<String, JsonNode> nodesById,
@@ -324,13 +324,6 @@ class NextTurn {
     }
 
     return nodesById;
-  }
-
-  static void _nextNodeDeployment({
-    required JsonNode node,
-    required JsonAction action,
-  }) {
-    node.units = JsonUnits(playerId: action.playerId, amount: action.amount!);
   }
 
   static void _nextNodesMovement({
@@ -393,7 +386,7 @@ class NextTurn {
         targetNode.units = null;
       }
     }
-  }
+  }*/
 
-  static String _locationId(int x, int y) => '$x,$y';*/
+  static String _locationId(int x, int y) => '$x,$y';
 }
