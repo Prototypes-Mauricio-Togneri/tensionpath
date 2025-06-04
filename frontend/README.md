@@ -1,5 +1,8 @@
 # TODO
 
+- Fix actions refresh
+- Wrap match u
+
 - Give advantage to defender units in a battle
 - Move units one by one
 
