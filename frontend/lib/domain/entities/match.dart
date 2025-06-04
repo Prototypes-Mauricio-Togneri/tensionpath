@@ -10,7 +10,6 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
-import 'package:tensionpath/domain/types/structure_type.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
@@ -94,8 +93,7 @@ class Match {
 
   bool _validTarget({required Node nodeOrigin, required Node nodeTarget}) =>
       nodeOrigin.location.isValidTarget(player: self, target: nodeTarget) &&
-      (nodeTarget.structure == null ||
-          nodeTarget.structure!.type != StructureType.missile);
+      (nodeTarget.structure == null || nodeTarget.structure!.type.canMoveUnit);
 
   bool _canMoveUnit(Node node) =>
       isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
