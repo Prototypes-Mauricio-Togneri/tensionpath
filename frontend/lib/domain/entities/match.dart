@@ -92,7 +92,7 @@ class Match {
       node.belongsTo(self) &&
       (populationOf(self) < config.popcap);
 
-  bool _validTarget({required Node nodeOrigin, required Node nodeTarget}) {
+  bool validTarget({required Node nodeOrigin, required Node nodeTarget}) {
     if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
       final List<Location> locations = nodeOrigin.location.pathNodes(
         player: self,
@@ -133,7 +133,7 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (_validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
+    if (validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
 
       if (distance <= Constants.UNITS_MAX_MOVEMENT) {

@@ -1,9 +1,7 @@
 # TODO
 
 - Give advantage to defender units in a battle
-
 - Move units one by one
-- Don't allow jump missile
 
 - Toxic tiles that kill units
 - Choose map

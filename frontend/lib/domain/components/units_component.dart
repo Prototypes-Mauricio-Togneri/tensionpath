@@ -88,9 +88,9 @@ class UnitsComponent extends PositionComponent
 
       if (nodeComponent != null) {
         validTarget =
-            node.location.isValidTarget(
-              player: self,
-              target: nodeComponent.node,
+            match.match.validTarget(
+              nodeOrigin: node,
+              nodeTarget: nodeComponent.node,
             ) &&
             (nodeComponent.node != node);
       } else {
