@@ -47,6 +47,50 @@ class Location {
     return false;
   }
 
+  List<Location> pathNodes({
+    required Player player,
+    required Localizable target,
+  }) {
+    final List<Location> result = [];
+
+    if (x == target.getLocation.x) {
+      // Move vertically
+      if (player.isPlayer1) {
+        for (int i = 1; i <= (y - target.getLocation.y); i++) {
+          result.add(Location(x: x, y: y - i));
+        }
+      } else {
+        for (int i = 1; i <= (target.getLocation.y - y); i++) {
+          result.add(Location(x: x, y: y + i));
+        }
+      }
+    } else if (y == target.getLocation.y) {
+      // Move diagonally
+      if (player.isPlayer1) {
+        for (int i = 1; i <= (x - target.getLocation.x); i++) {
+          result.add(Location(x: x - i, y: y));
+        }
+      } else {
+        for (int i = 1; i <= (target.getLocation.x - x); i++) {
+          result.add(Location(x: x + i, y: y));
+        }
+      }
+    } else if (x - target.getLocation.x == target.getLocation.y - y) {
+      // Move diagonally
+      if (player.isPlayer1) {
+        for (int i = 1; i <= (y - target.getLocation.y); i++) {
+          result.add(Location(x: x + i, y: y - i));
+        }
+      } else {
+        for (int i = 1; i <= (target.getLocation.y - y); i++) {
+          result.add(Location(x: x - i, y: y + i));
+        }
+      }
+    }
+
+    return result;
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {

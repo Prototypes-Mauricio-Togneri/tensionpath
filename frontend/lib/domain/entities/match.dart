@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
 import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
@@ -91,9 +92,26 @@ class Match {
       node.belongsTo(self) &&
       (populationOf(self) < config.popcap);
 
-  bool _validTarget({required Node nodeOrigin, required Node nodeTarget}) =>
-      nodeOrigin.location.isValidTarget(player: self, target: nodeTarget) &&
-      (nodeTarget.structure == null || nodeTarget.structure!.type.canMoveUnit);
+  bool _validTarget({required Node nodeOrigin, required Node nodeTarget}) {
+    if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
+      final List<Location> locations = nodeOrigin.location.pathNodes(
+        player: self,
+        target: nodeTarget,
+      );
+
+      for (final Location location in locations) {
+        final Node node = battlefield.nodeById(location.id);
+
+        if (node.structure != null && !node.structure!.type.canMoveUnit) {
+          return false;
+        }
+      }
+
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   bool _canMoveUnit(Node node) =>
       isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);

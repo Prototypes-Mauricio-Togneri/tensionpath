@@ -28,7 +28,7 @@ class Battlefield {
     final Set<String> visibleNodes = {};
 
     for (final Node newNode in newBattlefield.nodes) {
-      final Node oldNode = _nodeById(newNode.id);
+      final Node oldNode = nodeById(newNode.id);
       oldNode.replaceWith(newNode);
 
       if (oldNode.hasUnits) {
@@ -65,7 +65,7 @@ class Battlefield {
     missile.replaceWith(newBattlefield.missile);
   }
 
-  Node _nodeById(String id) {
+  Node nodeById(String id) {
     for (final Node node in nodes) {
       if (node.id == id) {
         return node;
