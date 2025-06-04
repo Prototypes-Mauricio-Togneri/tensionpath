@@ -2,7 +2,6 @@
 
 - Give advantage to defender units in a battle
 
-- Don't allow to move backwards
 - Move units one by one
 - Don't allow jump missile
 
