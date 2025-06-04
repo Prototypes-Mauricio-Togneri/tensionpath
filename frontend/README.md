@@ -7,7 +7,6 @@
 
 - Toxic tiles that kill units
 - Choose map
-- Play sound when turn ends
 - Can only build factories on the first line
 - Commanders abilities
   - Reveal map

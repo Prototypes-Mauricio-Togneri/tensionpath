@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override
-  void onLoad() {
+  Future onLoad() async {
+    await Audio.get.load();
     Authentication.checkIfAuthenticated(
       onSuccess: _onSuccess,
       onError: _onError,

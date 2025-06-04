@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/platform/operations/set_url_strategy.dart';
+import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/platform.dart';
 
@@ -44,6 +45,7 @@ class Locator {
 
     locator.registerSingleton<Environment>(environment);
     locator.registerSingleton<Navigation>(Navigation());
+    locator.registerSingleton<Audio>(Audio());
 
     await environment.configure();
   }

@@ -1,4 +1,5 @@
 class Assets {
+  static const String AUDIO_SOUND_NEWTURN = 'assets/audio/sound_newTurn.mp3';
   static const String IMAGES_NODES_ROCK = 'nodes/rock.png';
   static const String IMAGES_NODES_WATER = 'nodes/water.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =
