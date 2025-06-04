@@ -1,7 +1,7 @@
 # TODO
 
 - Fix actions refresh
-- Wrap match u
+- Wrap match update in transaction
 
 - Give advantage to defender units in a battle
 - Move units one by one
