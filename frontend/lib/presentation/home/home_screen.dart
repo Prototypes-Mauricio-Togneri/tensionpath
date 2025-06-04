@@ -47,6 +47,7 @@ class Content extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
+                  counterText: '',
                 ),
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text) => state.notify(),
