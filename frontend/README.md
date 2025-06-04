@@ -8,6 +8,7 @@
 - Toxic tiles that kill units
 - Choose map
 - Play sound when turn ends
+- Can only build factories on the first line
 - Commanders abilities
   - Reveal map
   - Increase units visibility
@@ -15,4 +16,3 @@
     - Single tile
     - Center tile and adjacents (more expensive or less damage in each node)
   - Drop mine (mines expire?)
-- Can only build factories on the first line
