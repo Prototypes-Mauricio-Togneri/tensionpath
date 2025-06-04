@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
+import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
 import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
+import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
@@ -10,6 +12,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
+import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
@@ -165,10 +168,50 @@ class Match {
   Future onEndTurn() async {
     if (isSelfPlaying) {
       self.setWaiting();
-      return EndTurnSelfCallable()(match: this, selfId: self.id);
+      return EndTurnSelfCallable()(
+        matchId: id,
+        selfId: self.id,
+        actions: _actionsToJson(self.actions),
+      );
     }
   }
 
   Future onOpponentEndTurn() =>
-      EndTurnOpponentCallable()(match: this, selfId: self.id);
+      EndTurnOpponentCallable()(matchId: id, selfId: self.id);
+
+  List<JsonAction> _actionsToJson(Actions actions) {
+    final List<JsonAction> result = [];
+
+    for (final Action action in actions) {
+      if (action is ActionDeployUnits) {
+        result.add(
+          JsonAction(
+            type: action.type,
+            playerId: action.playerId,
+            originX: null,
+            originY: null,
+            targetX: action.target.x,
+            targetY: action.target.y,
+            amount: action.amount,
+          ),
+        );
+      } else if (action is ActionMoveUnits) {
+        result.add(
+          JsonAction(
+            type: action.type,
+            playerId: action.playerId,
+            originX: action.origin.x,
+            originY: action.origin.y,
+            targetX: action.target.x,
+            targetY: action.target.y,
+            amount: null,
+          ),
+        );
+      } else {
+        throw Exception('Unsupported action type: ${action.runtimeType}');
+      }
+    }
+
+    return result;
+  }
 }

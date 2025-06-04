@@ -1,7 +1,6 @@
-import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/persistence/backend/backend.dart';
 
 class EndTurnOpponentCallable {
-  Future call({required Match match, required String selfId}) =>
-      Backend.endTurnOpponent(match: match, selfId: selfId);
+  Future call({required String matchId, required String selfId}) =>
+      Backend.endTurnOpponent(matchId: matchId, selfId: selfId);
 }

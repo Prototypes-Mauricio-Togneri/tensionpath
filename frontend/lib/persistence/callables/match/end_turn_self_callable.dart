@@ -1,7 +1,10 @@
-import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/persistence/backend/backend.dart';
 
 class EndTurnSelfCallable {
-  Future call({required Match match, required String selfId}) =>
-      Backend.endTurnSelf(match: match, selfId: selfId);
+  Future call({
+    required String matchId,
+    required String selfId,
+    required List<JsonAction> actions,
+  }) => Backend.endTurnSelf(matchId: matchId, selfId: selfId, actions: actions);
 }

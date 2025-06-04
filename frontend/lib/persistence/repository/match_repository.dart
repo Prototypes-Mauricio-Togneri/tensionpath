@@ -37,6 +37,21 @@ class MatchRepository {
     }
   }
 
+  static Future<JsonMatch> get({
+    required String matchId,
+    required String selfId,
+  }) async {
+    final DocumentSnapshot snapshot = await _ref(matchId).get();
+
+    if (snapshot.exists) {
+      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
+
+      return json;
+    } else {
+      throw Exception('Match with id $matchId not found');
+    }
+  }
+
   static Future<String> create(JsonMatch json) async {
     final DocumentReference ref = _ref();
     await ref.set(json.clone(id: ref.id).toJson());

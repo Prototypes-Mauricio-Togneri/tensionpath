@@ -1,29 +1,5 @@
 import 'dart:async';
-
-import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
-import 'package:tensionpath/domain/entities/actions/actions.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/missile.dart';
-import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/turn.dart';
-import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
-import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/domain/json/json_config.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_missile.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
-import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/json/json_units.dart';
-import 'package:tensionpath/extensions/size_extension.dart';
 import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
 import 'package:tensionpath/persistence/backend/end_turn_self.dart';
 import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
@@ -72,129 +48,14 @@ class Backend {
     required String roomId,
   }) => StopMatchmaking()(userId: userId, roomId: roomId);
 
-  static Future endTurnSelf({required Match match, required String selfId}) =>
-      EndTurnSelf()(jsonMatch: _jsonMatch(match), selfId: selfId);
+  static Future endTurnSelf({
+    required String matchId,
+    required String selfId,
+    required List<JsonAction> actions,
+  }) => EndTurnSelf()(matchId: matchId, selfId: selfId, actions: actions);
 
   static Future endTurnOpponent({
-    required Match match,
+    required String matchId,
     required String selfId,
-  }) => EndTurnOpponent()(jsonMatch: _jsonMatch(match), selfId: selfId);
-
-  // ================================= UTILS ===================================
-
-  static JsonMatch _jsonMatch(Match match) => JsonMatch(
-    id: match.id,
-    version: match.version,
-    createdAt: match.createdAt,
-    config: _configToJson(match.config),
-    turn: _turnToJson(match.turn),
-    players: _playersToJson(match),
-    battlefield: _battlefieldToJson(match.battlefield),
-  );
-
-  static JsonConfig _configToJson(Config config) => JsonConfig(
-    popcap: config.popcap,
-    baseMaxHealth: config.baseMaxHealth,
-    resourcesPerPatch: config.resourcesPerPatch,
-    resourcesPerTurn: config.resourcesPerTurn,
-    resourcesPerSecond: config.resourcesPerSecond,
-  );
-
-  static JsonTurn _turnToJson(Turn turn) =>
-      JsonTurn(turn: turn.turn, startedAt: turn.startedAt);
-
-  static Map<String, JsonPlayer> _playersToJson(Match match) => {
-    match.self.id: _playerToJson(match.self),
-    match.opponent.id: _playerToJson(match.opponent),
-  };
-
-  static JsonPlayer _playerToJson(Player player) => JsonPlayer(
-    name: player.name,
-    baseHealth: player.baseHealth,
-    resources: player.resources,
-    status: player.status,
-    turnEndedAt: player.turnEndedAt,
-    actions: _actionsToJson(player.actions),
-  );
-
-  static List<JsonAction> _actionsToJson(Actions actions) {
-    final List<JsonAction> result = [];
-
-    for (final Action action in actions) {
-      if (action is ActionDeployUnits) {
-        result.add(
-          JsonAction(
-            type: action.type,
-            playerId: action.playerId,
-            originX: null,
-            originY: null,
-            targetX: action.target.x,
-            targetY: action.target.y,
-            amount: action.amount,
-          ),
-        );
-      } else if (action is ActionMoveUnits) {
-        result.add(
-          JsonAction(
-            type: action.type,
-            playerId: action.playerId,
-            originX: action.origin.x,
-            originY: action.origin.y,
-            targetX: action.target.x,
-            targetY: action.target.y,
-            amount: null,
-          ),
-        );
-      } else {
-        throw Exception('Unsupported action type: ${action.runtimeType}');
-      }
-    }
-
-    return result;
-  }
-
-  static JsonNode _nodeToJson(Node node) => JsonNode(
-    x: node.location.x,
-    y: node.location.y,
-    type: node.type,
-    units: _unitsToJson(node.units),
-    structure: _structureToJson(node.structure),
-  );
-
-  static JsonBattlefield _battlefieldToJson(Battlefield battlefield) =>
-      JsonBattlefield(
-        id: battlefield.id,
-        size: battlefield.size.toJsonSize(),
-        missile: _missileToJson(battlefield.missile),
-        nodes: battlefield.nodes.map(_nodeToJson).toList(),
-      );
-
-  static JsonMissile _missileToJson(Missile missile) => JsonMissile(
-    charge: missile.charge,
-    maxCharge: missile.maxCharge,
-    bufferCharge: missile.bufferCharge,
-    numberOfPlatforms: missile.numberOfPlatforms,
-    platforms: missile.platforms,
-    owner: missile.owner,
-  );
-
-  static JsonUnits? _unitsToJson(Units? units) {
-    if (units != null) {
-      return JsonUnits(playerId: units.player.id, amount: units.amount);
-    } else {
-      return null;
-    }
-  }
-
-  static JsonStructure? _structureToJson(Structure? structure) {
-    if (structure != null) {
-      return JsonStructure(
-        type: structure.type,
-        playerId: structure.getPlayerId,
-        platformId: structure.getPlatformId,
-      );
-    } else {
-      return null;
-    }
-  }
+  }) => EndTurnOpponent()(matchId: matchId, selfId: selfId);
 }

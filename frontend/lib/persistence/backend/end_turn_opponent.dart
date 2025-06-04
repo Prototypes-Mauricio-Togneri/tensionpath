@@ -5,56 +5,26 @@ import 'package:tensionpath/persistence/backend/next_turn.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class EndTurnOpponent {
-  Future call({required JsonMatch jsonMatch, required String selfId}) async {
-    JsonMatch jsonMatchUpdated = _endTurnOpponent(
-      jsonMatch: jsonMatch,
+  Future call({required String matchId, required String selfId}) async {
+    JsonMatch jsonMatch = await MatchRepository.get(
+      matchId: matchId,
       selfId: selfId,
     );
-    jsonMatchUpdated = await NextTurn()(jsonMatchUpdated);
 
-    return MatchRepository.update(jsonMatchUpdated);
-  }
+    for (final MapEntry<String, JsonPlayer> entry
+        in jsonMatch.players.entries) {
+      final String playerId = entry.key;
+      final JsonPlayer jsonPlayer = entry.value;
 
-  JsonMatch _endTurnOpponent({
-    required JsonMatch jsonMatch,
-    required String selfId,
-  }) => JsonMatch(
-    id: jsonMatch.id,
-    version: jsonMatch.version,
-    createdAt: jsonMatch.createdAt,
-    config: jsonMatch.config,
-    turn: jsonMatch.turn,
-    players: Map.fromEntries(
-      jsonMatch.players.entries.map(
-        (entry) => MapEntry(
-          entry.key,
-          _jsonPlayer(
-            playerId: entry.key,
-            jsonPlayer: entry.value,
-            selfId: selfId,
-          ),
-        ),
-      ),
-    ),
-    battlefield: jsonMatch.battlefield,
-  );
-
-  JsonPlayer _jsonPlayer({
-    required String playerId,
-    required JsonPlayer jsonPlayer,
-    required String selfId,
-  }) {
-    if (playerId != selfId) {
-      return JsonPlayer(
-        name: jsonPlayer.name,
-        baseHealth: jsonPlayer.baseHealth,
-        resources: jsonPlayer.resources,
-        status: PlayerStatus.waiting,
-        turnEndedAt: DateTime.now(),
-        actions: [],
-      );
-    } else {
-      return jsonPlayer;
+      if (playerId != selfId) {
+        jsonPlayer.status = PlayerStatus.waiting;
+        jsonPlayer.turnEndedAt = DateTime.now();
+        jsonPlayer.actions = [];
+      }
     }
+
+    jsonMatch = await NextTurn()(jsonMatch);
+
+    return MatchRepository.update(jsonMatch);
   }
 }
