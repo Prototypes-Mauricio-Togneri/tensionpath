@@ -12,6 +12,7 @@ class Missile {
     required this.bufferCharge,
     required this.numberOfPlatforms,
     required this.platforms,
+    required this.owner,
   });
 
   void replaceWith(Missile newMissile) {

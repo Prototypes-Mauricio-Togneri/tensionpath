@@ -362,7 +362,7 @@ class NextTurn {
       _isMissileCharging(jsonMissile);
 
   bool _isMissileCharging(JsonMissile jsonMissile) =>
-      (jsonMissile.owner != '') || (jsonMissile.owner != null);
+      (jsonMissile.owner != '') && (jsonMissile.owner != null);
 
   int _nextMissileCharge(JsonMissile jsonMissile) {
     if (_isMissileCharging(jsonMissile)) {

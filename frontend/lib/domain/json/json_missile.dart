@@ -38,6 +38,7 @@ class JsonMissile {
     bufferCharge: bufferCharge,
     numberOfPlatforms: numberOfPlatforms,
     platforms: platforms,
+    owner: owner,
   );
 
   factory JsonMissile.fromJson(Map<String, dynamic> json) =>
