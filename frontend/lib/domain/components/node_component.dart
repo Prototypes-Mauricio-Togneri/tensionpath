@@ -21,7 +21,14 @@ class NodeComponent<N extends Node> extends PositionComponent
   @override
   FutureOr onLoad() async {
     add(StructureComponent(node: node, position: size / 2, size: size));
-    add(UnitsComponent(node: node, position: size / 2, size: size));
+    add(
+      UnitsComponent(
+        self: match.match.self,
+        node: node,
+        position: size / 2,
+        size: size,
+      ),
+    );
 
     return super.onLoad();
   }

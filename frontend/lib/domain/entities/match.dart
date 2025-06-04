@@ -93,7 +93,7 @@ class Match {
       (populationOf(self) < config.popcap);
 
   bool _validTarget({required Node nodeOrigin, required Node nodeTarget}) =>
-      nodeOrigin.location.isValidTarget(nodeTarget) &&
+      nodeOrigin.location.isValidTarget(player: self, target: nodeTarget) &&
       (nodeTarget.structure == null ||
           nodeTarget.structure!.type != StructureType.missile);
 

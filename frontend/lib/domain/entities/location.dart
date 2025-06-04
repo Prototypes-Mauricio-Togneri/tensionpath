@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/entities/localizable.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class Location {
   final int x;
@@ -19,10 +20,31 @@ class Location {
     return distance.toInt().abs();
   }
 
-  bool isValidTarget(Localizable target) {
-    return (x == target.getLocation.x) ||
-        (y == target.getLocation.y) ||
-        (x - target.getLocation.x == target.getLocation.y - y);
+  bool isValidTarget({required Player player, required Localizable target}) {
+    if (x == target.getLocation.x) {
+      // Move vertically
+      if (player.isPlayer1) {
+        return y > target.getLocation.y;
+      } else {
+        return y < target.getLocation.y;
+      }
+    } else if (y == target.getLocation.y) {
+      // Move diagonally
+      if (player.isPlayer1) {
+        return x > target.getLocation.x;
+      } else {
+        return x < target.getLocation.x;
+      }
+    } else if (x - target.getLocation.x == target.getLocation.y - y) {
+      // Move diagonally
+      if (player.isPlayer1) {
+        return y > target.getLocation.y;
+      } else {
+        return y < target.getLocation.y;
+      }
+    }
+
+    return false;
   }
 
   @override

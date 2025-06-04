@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -17,6 +18,7 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitsComponent extends PositionComponent
     with DragCallbacks
     implements Reconfigurable {
+  final Player self;
   final Node node;
   final Paint outterPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
@@ -25,6 +27,7 @@ class UnitsComponent extends PositionComponent
   bool validTarget = false;
 
   UnitsComponent({
+    required this.self,
     required this.node,
     required super.position,
     required super.size,
@@ -85,7 +88,10 @@ class UnitsComponent extends PositionComponent
 
       if (nodeComponent != null) {
         validTarget =
-            node.location.isValidTarget(nodeComponent.node) &&
+            node.location.isValidTarget(
+              player: self,
+              target: nodeComponent.node,
+            ) &&
             (nodeComponent.node != node);
       } else {
         validTarget = false;
