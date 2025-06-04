@@ -93,12 +93,12 @@ class PlayerIndicatorComponent extends PositionComponent {
     }
 
     canvas.drawText(
-      text: player.name.toUpperCase(),
+      text: player.name,
       position: Vector2(
         player.isPlayer1 ? (width * 0.05) : (width * 0.95),
         size.y / 2,
       ),
-      size: size.y * 0.5,
+      size: size.y * 0.4,
       color: Palette.HEADER_PLAYER_NAME,
       anchor: player.isPlayer1 ? Anchor.centerLeft : Anchor.centerRight,
     );
@@ -123,14 +123,14 @@ class CenterIndicatorComponent extends PositionComponent {
     canvas.drawText(
       text: 'TURN: ${match.match.turn.turn}',
       position: Vector2(size.x / 2, size.y * 0.3),
-      size: size.y / 3,
+      size: size.y / 4,
       color: Palette.HEADER_PLAYER_NAME,
     );
 
     canvas.drawText(
       text: Formatter.hoursMinutes(match.match.timeElapsed),
       position: Vector2(size.x / 2, size.y * 0.7),
-      size: size.y / 3,
+      size: size.y / 4,
       color: Palette.HEADER_PLAYER_NAME,
     );
   }
