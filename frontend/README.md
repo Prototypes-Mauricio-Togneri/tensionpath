@@ -5,7 +5,6 @@
 - Move units one by one
 - Don't allow jump missile
 
-- When passing turn, block button immediately
 - Toxic tiles that kill units
 - Choose map
 - Play sound when turn ends

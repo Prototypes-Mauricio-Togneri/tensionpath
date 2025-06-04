@@ -49,6 +49,10 @@ class Player {
 
   bool hasResources(int value) => resources >= value;
 
+  void setWaiting() {
+    _status = PlayerStatus.waiting;
+  }
+
   void spendResources(int value) {
     if (hasResources(value)) {
       _resources -= value;
