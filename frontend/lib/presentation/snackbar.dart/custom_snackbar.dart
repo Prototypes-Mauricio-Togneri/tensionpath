@@ -52,13 +52,13 @@ class CustomSnackbar {
   }*/
 
   static void insufficientResources() =>
-      show(text: 'Insufficient resources', duration: DURATION_MEDIUM);
+      show(text: 'Insufficient resources', duration: DURATION_SHORT);
 
   static void invalidTarget() =>
-      show(text: 'Invalid target', duration: DURATION_MEDIUM);
+      show(text: 'Invalid target', duration: DURATION_SHORT);
 
   static void movementDistanceTooBig() => show(
     text: 'Max distance is ${Constants.UNITS_MAX_MOVEMENT}',
-    duration: DURATION_MEDIUM,
+    duration: DURATION_SHORT,
   );
 }
