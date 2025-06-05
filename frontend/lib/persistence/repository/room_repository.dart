@@ -117,7 +117,7 @@ class RoomRepository {
           : RoomStatus.open,
     );
 
-    await RoomRepository.update(jsonRoom);
+    await RoomRepository._update(jsonRoom);
 
     return jsonRoom.id;
   }
@@ -167,7 +167,7 @@ class RoomRepository {
         users: jsonRoom.users..removeWhere((key, value) => key == userId),
       );
 
-      await RoomRepository.update(jsonRoom);
+      await RoomRepository._update(jsonRoom);
     }
   }
 
@@ -181,7 +181,7 @@ class RoomRepository {
     }
   }, onError: ErrorHandler.process);
 
-  static Future<Room> update(JsonRoom json) async {
+  static Future<Room> _update(JsonRoom json) async {
     await _ref(json.id).update(json.toJson());
 
     return json.object;

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
@@ -10,8 +11,9 @@ class EndTurnSelf {
     required String matchId,
     required String selfId,
     required List<JsonAction> actions,
-  }) async {
+  }) => FirebaseFirestore.instance.runTransaction((transaction) async {
     JsonMatch jsonMatch = await MatchRepository.get(
+      transaction: transaction,
       matchId: matchId,
       selfId: selfId,
     );
@@ -30,6 +32,6 @@ class EndTurnSelf {
 
     jsonMatch = await NextTurn()(jsonMatch);
 
-    return MatchRepository.update(jsonMatch);
-  }
+    MatchRepository.update(transaction: transaction, json: jsonMatch);
+  });
 }

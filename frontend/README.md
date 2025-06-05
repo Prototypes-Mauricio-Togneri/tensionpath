@@ -1,9 +1,7 @@
 # TODO
 
-- Wrap match update in transaction
-
+- Problem moving units in wrong order
 - Give advantage to defender units in a battle
-- Move units one by one
 
 - Toxic tiles that kill units
 - Choose map

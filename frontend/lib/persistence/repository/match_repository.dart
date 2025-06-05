@@ -21,8 +21,6 @@ class MatchRepository {
     }
   }, onError: ErrorHandler.process);
 
-  static Future update(JsonMatch json) => _ref(json.id).update(json.toJson());
-
   static Future load({
     required String matchId,
     required String selfId,
@@ -38,10 +36,11 @@ class MatchRepository {
   }
 
   static Future<JsonMatch> get({
+    required Transaction transaction,
     required String matchId,
     required String selfId,
   }) async {
-    final DocumentSnapshot snapshot = await _ref(matchId).get();
+    final DocumentSnapshot snapshot = await transaction.get(_ref(matchId));
 
     if (snapshot.exists) {
       final JsonMatch json = JsonMatch.fromJson(snapshot.json);
@@ -51,6 +50,11 @@ class MatchRepository {
       throw Exception('Match with id $matchId not found');
     }
   }
+
+  static void update({
+    required Transaction transaction,
+    required JsonMatch json,
+  }) => transaction.update(_ref(json.id), json.toJson());
 
   static Future<String> create(JsonMatch json) async {
     final DocumentReference ref = _ref();
