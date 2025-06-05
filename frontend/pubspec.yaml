@@ -13,7 +13,7 @@ dependencies:
   logger: ^2.5.0
   get_it: ^8.0.3
   dafluta: ^5.4.0
-  just_audio: ^0.10.3
+  just_audio: ^0.10.4
   url_strategy: ^0.3.0
   json_annotation: ^4.9.0
   shared_preferences: ^2.5.3
@@ -34,7 +34,7 @@ dependencies:
 dev_dependencies:
   dalocale: ^2.6.0
   daassets: ^1.5.0
-  daunused: ^1.7.2
+  daunused: ^1.7.4
   dapublock: ^1.1.0
   build_runner: ^2.4.15
   flutter_lints: ^6.0.0
@@ -45,6 +45,5 @@ flutter:
 
   assets:
     - assets/audio/
-    - assets/images/nodes/
-    - assets/images/structures/
+    #- assets/images/nodes/
     - assets/templates/

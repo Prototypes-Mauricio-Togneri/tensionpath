@@ -1,5 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:tensionpath/environments/environment.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/locator.dart';
 
 class Audio {
@@ -8,7 +9,7 @@ class Audio {
   final bool _enabled = true;
   //AudioPlayer? _playerToResume;
 
-  static const String NEW_TURN = 'sound_newTurn';
+  static const String NEW_TURN = Assets.AUDIO_SOUND_NEWTURN;
 
   static Audio get get => locator<Audio>();
 
@@ -78,15 +79,15 @@ class Audio {
   Future load() async {
     //_enabled = await SettingsStorage.loadAudio();
 
-    _soundPlayers[NEW_TURN] = await _getPlayer(NEW_TURN);
+    _soundPlayers[NEW_TURN] = await _getPlayer(path: NEW_TURN);
   }
 
-  Future<AudioPlayer> _getPlayer(
-    String name, [
+  Future<AudioPlayer> _getPlayer({
+    required String path,
     LoopMode loopMode = LoopMode.off,
-  ]) async {
+  }) async {
     final AudioPlayer player = AudioPlayer();
-    await player.setAsset('assets/audio/$name.mp3');
+    await player.setAsset(path);
 
     if (loopMode != LoopMode.off) {
       await player.setLoopMode(loopMode);
