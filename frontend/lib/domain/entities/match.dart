@@ -48,14 +48,6 @@ class Match {
 
   Player get player2 => self.isPlayer1 ? opponent : self;
 
-  int get accumulatedResourcesInTurn {
-    final int elapsedSeconds = DateTime.now()
-        .difference(turn.startedAt)
-        .inSeconds;
-
-    return (elapsedSeconds * config.resourcesPerSecond).floor();
-  }
-
   bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 
   bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
