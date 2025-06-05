@@ -143,6 +143,8 @@ class NextTurn {
     required Map<String, JsonPlayer> jsonPlayers,
     required List<JsonAction> jsonActions,
   }) {
+    _resetTemporaryUnits(jsonNodes);
+
     for (final JsonAction jsonAction in jsonActions) {
       final String originLocationId = _locationId(
         jsonAction.originX!,
@@ -162,6 +164,12 @@ class NextTurn {
         jsonAtion: jsonAction,
         jsonPlayers: jsonPlayers,
       );
+    }
+  }
+
+  void _resetTemporaryUnits(Map<String, JsonNode> jsonNodes) {
+    for (final JsonNode jsonNode in jsonNodes.values) {
+      jsonNode.temporaryUnits = [];
     }
   }
 
@@ -214,15 +222,8 @@ class NextTurn {
         // Attack player's base
         final JsonPlayer jsonPlayer =
             jsonPlayers[targetNodeStructure.playerId!]!;
-        jsonPlayers[targetNodeStructure.playerId!] = JsonPlayer(
-          name: jsonPlayer.name,
-          baseHealth: jsonPlayer.baseHealth - targetUnitsAfterBattle.amount,
-          resources: jsonPlayer.resources,
-          status: jsonPlayer.status,
-          turnEndedAt: jsonPlayer.turnEndedAt,
-          actions: jsonPlayer.actions,
-        );
-
+        jsonPlayer.baseHealth -= targetUnitsAfterBattle.amount;
+        
         targetNode.units = null;
       }
     }
