@@ -1,6 +1,5 @@
 # TODO
 
-- Problem moving units in wrong order
 - Give advantage to defender units in a battle
 
 - Toxic tiles that kill units
