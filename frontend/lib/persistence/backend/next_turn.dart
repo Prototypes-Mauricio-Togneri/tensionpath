@@ -105,6 +105,10 @@ class NextTurn {
 
         if (jsonMissile.owner != playerId) {
           jsonPlayer.baseHealth -= jsonConfig.baseMaxHealth ~/ 2;
+
+          if (jsonPlayer.baseHealth < 0) {
+            jsonPlayer.baseHealth = 0;
+          }
         }
       }
     }
@@ -193,17 +197,14 @@ class NextTurn {
         jsonNode.units = jsonNode.temporaryUnits.first;
       } else if (jsonNode.temporaryUnits.length > 1) {
         // More than one unit in the node, resolve battle
-        _resolveBattle(jsonNode: jsonNode, jsonPlayers: jsonPlayers);
+        _resolveBattle(jsonNode);
       }
 
       jsonNode.temporaryUnits.clear();
     }
   }
 
-  void _resolveBattle({
-    required JsonNode jsonNode,
-    required Map<String, JsonPlayer> jsonPlayers,
-  }) {
+  void _resolveBattle(JsonNode jsonNode) {
     int player1Units = 0;
     int player2Units = 0;
 
@@ -239,10 +240,15 @@ class NextTurn {
   }) {
     for (final JsonNode jsonNode in jsonNodes.values) {
       if ((jsonNode.structure?.type == StructureType.launcher) &&
-          (jsonNode.units?.playerId == jsonNode.structure?.playerId)) {
+          (jsonNode.units?.playerId != jsonNode.structure?.playerId)) {
         final JsonPlayer jsonPlayer =
             jsonPlayers[jsonNode.structure!.playerId]!;
         jsonPlayer.baseHealth -= jsonNode.units!.amount;
+
+        if (jsonPlayer.baseHealth < 0) {
+          jsonPlayer.baseHealth = 0;
+        }
+
         jsonNode.units = null;
       }
     }
