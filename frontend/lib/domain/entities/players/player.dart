@@ -57,13 +57,16 @@ class Player {
     }
   }
 
-  void replaceWith(Player newPlayer) {
+  void replaceWith({
+    required Player newPlayer,
+    required bool isNewTurn,
+  }) {
     _baseHealth = newPlayer.baseHealth;
     _resources = newPlayer.resources;
     _status = newPlayer.status;
     _turnEndedAt = newPlayer.turnEndedAt;
 
-    if (newPlayer.actions.isEmpty) {
+    if (isNewTurn) {
       actions.reset();
     }
   }

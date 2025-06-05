@@ -18,6 +18,7 @@ import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callab
 import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/presentation/snackbar.dart/custom_snackbar.dart';
+import 'package:tensionpath/utils/audio.dart';
 
 class Match {
   final String id;
@@ -71,9 +72,15 @@ class Match {
   );
 
   void _onMatchUpated(Match newMatch) {
+    final bool isNewTurn = newMatch.turn.turn > turn.turn;
+
+    if (isNewTurn) {
+      Audio.get.playSound(Audio.NEW_TURN);
+    }
+
     turn.replaceWith(newMatch.turn);
-    self.replaceWith(newMatch.self);
-    opponent.replaceWith(newMatch.opponent);
+    self.replaceWith(newPlayer: newMatch.self, isNewTurn: isNewTurn);
+    opponent.replaceWith(newPlayer: newMatch.opponent, isNewTurn: isNewTurn);
     battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
 
     MatchComponentRef.instance.onMatchUpdated(this);
