@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_units.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
@@ -145,32 +144,13 @@ class NextTurn {
   }) {
     _resetTemporaryUnits(jsonNodes);
     _fillTemporaryUnits(jsonNodes: jsonNodes, jsonActions: jsonActions);
-
-    for (final JsonAction jsonAction in jsonActions) {
-      final String originLocationId = _locationId(
-        jsonAction.originX!,
-        jsonAction.originY!,
-      );
-      final JsonNode originNode = jsonNodes[originLocationId]!;
-
-      final String targetLocationId = _locationId(
-        jsonAction.targetX,
-        jsonAction.targetY,
-      );
-      final JsonNode targetNode = jsonNodes[targetLocationId]!;
-
-      _nextNodesMovement(
-        originNode: originNode,
-        targetNode: targetNode,
-        jsonAtion: jsonAction,
-        jsonPlayers: jsonPlayers,
-      );
-    }
+    _resolveBattles(jsonNodes: jsonNodes, jsonPlayers: jsonPlayers);
+    _checkBaseAttacks(jsonNodes: jsonNodes, jsonPlayers: jsonPlayers);
   }
 
   void _resetTemporaryUnits(Map<String, JsonNode> jsonNodes) {
     for (final JsonNode jsonNode in jsonNodes.values) {
-      jsonNode.temporaryUnits = [];
+      jsonNode.temporaryUnits.clear();
     }
   }
 
@@ -203,58 +183,67 @@ class NextTurn {
     }
   }
 
-  void _nextNodesMovement({
-    required JsonNode originNode,
-    required JsonNode targetNode,
-    required JsonAction jsonAtion,
+  void _resolveBattles({
+    required Map<String, JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
-    final JsonUnits sourceUnits = originNode.units!;
-    final JsonUnits? targetUnits = targetNode.units;
+    for (final JsonNode jsonNode in jsonNodes.values) {
+      if (jsonNode.temporaryUnits.length == 1) {
+        // Only one unit in the node, no battle
+        jsonNode.units = jsonNode.temporaryUnits.first;
+      } else if (jsonNode.temporaryUnits.length > 1) {
+        // More than one unit in the node, resolve battle
+        _resolveBattle(jsonNode: jsonNode, jsonPlayers: jsonPlayers);
+      }
 
-    if (targetUnits == null) {
-      // Target node is empty
-      targetNode.units = JsonUnits(
-        playerId: jsonAtion.playerId,
-        amount: sourceUnits.amount,
-      );
-    } else {
-      if (sourceUnits.playerId == targetUnits.playerId) {
-        // Same player's unit in source and target
-        targetUnits.amount += sourceUnits.amount;
-      } else {
-        // Battle between players units
-        if (sourceUnits.amount > targetUnits.amount) {
-          // Source node has more units
-          targetUnits.amount = sourceUnits.amount - targetUnits.amount;
-          targetUnits.playerId = sourceUnits.playerId;
-        } else if (sourceUnits.amount < targetUnits.amount) {
-          // Target node has more units
-          targetUnits.amount = targetUnits.amount - sourceUnits.amount;
-          targetUnits.playerId = targetUnits.playerId;
-        } else {
-          // All units are destroyed
-          originNode.units = null;
-          targetNode.units = null;
-        }
+      jsonNode.temporaryUnits.clear();
+    }
+  }
+
+  void _resolveBattle({
+    required JsonNode jsonNode,
+    required Map<String, JsonPlayer> jsonPlayers,
+  }) {
+    int player1Units = 0;
+    int player2Units = 0;
+
+    for (final JsonUnits jsonUnits in jsonNode.temporaryUnits) {
+      if (jsonUnits.playerId == Constants.PLAYER_1) {
+        player1Units += jsonUnits.amount;
+      } else if (jsonUnits.playerId == Constants.PLAYER_2) {
+        player2Units += jsonUnits.amount;
       }
     }
 
-    originNode.units = null;
+    if (player1Units > player2Units) {
+      // Player 1 wins
+      jsonNode.units = JsonUnits(
+        playerId: Constants.PLAYER_1,
+        amount: player1Units - player2Units,
+      );
+    } else if (player2Units > player1Units) {
+      // Player 2 wins
+      jsonNode.units = JsonUnits(
+        playerId: Constants.PLAYER_2,
+        amount: player2Units - player1Units,
+      );
+    } else {
+      // Both players lose all units
+      jsonNode.units = null;
+    }
+  }
 
-    final JsonStructure? targetNodeStructure = targetNode.structure;
-
-    if (targetNodeStructure != null &&
-        targetNodeStructure.type == StructureType.launcher) {
-      final JsonUnits targetUnitsAfterBattle = targetNode.units!;
-
-      if (targetUnitsAfterBattle.playerId != targetNodeStructure.playerId) {
-        // Attack player's base
+  void _checkBaseAttacks({
+    required Map<String, JsonNode> jsonNodes,
+    required Map<String, JsonPlayer> jsonPlayers,
+  }) {
+    for (final JsonNode jsonNode in jsonNodes.values) {
+      if ((jsonNode.structure?.type == StructureType.launcher) &&
+          (jsonNode.units?.playerId == jsonNode.structure?.playerId)) {
         final JsonPlayer jsonPlayer =
-            jsonPlayers[targetNodeStructure.playerId!]!;
-        jsonPlayer.baseHealth -= targetUnitsAfterBattle.amount;
-
-        targetNode.units = null;
+            jsonPlayers[jsonNode.structure!.playerId]!;
+        jsonPlayer.baseHealth -= jsonNode.units!.amount;
+        jsonNode.units = null;
       }
     }
   }
