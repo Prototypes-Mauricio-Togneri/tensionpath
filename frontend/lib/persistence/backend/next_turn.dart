@@ -239,8 +239,10 @@ class NextTurn {
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
     for (final JsonNode jsonNode in jsonNodes.values) {
-      if ((jsonNode.structure?.type == StructureType.launcher) &&
-          (jsonNode.units?.playerId != jsonNode.structure?.playerId)) {
+      if ((jsonNode.structure != null) &&
+          (jsonNode.units != null) &&
+          (jsonNode.structure!.type == StructureType.launcher) &&
+          (jsonNode.units!.playerId != jsonNode.structure!.playerId)) {
         final JsonPlayer jsonPlayer =
             jsonPlayers[jsonNode.structure!.playerId]!;
         jsonPlayer.baseHealth -= jsonNode.units!.amount;
