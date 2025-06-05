@@ -3,7 +3,7 @@ import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
-import 'package:tensionpath/persistence/backend/json_utils.dart';
+import 'package:tensionpath/utils/json.dart';
 
 part 'json_player.g.dart';
 

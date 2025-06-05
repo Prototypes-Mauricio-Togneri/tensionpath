@@ -39,8 +39,6 @@ class Player {
 
   bool get isPlayer2 => id == Constants.PLAYER_2;
 
-  bool get hasActions => actions.isNotEmpty;
-
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
   PlayerStatus get status => _status;

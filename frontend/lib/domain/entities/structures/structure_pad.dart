@@ -6,7 +6,4 @@ class StructurePad extends Structure {
 
   StructurePad({required super.location, required this.platformId})
     : super(type: StructureType.pad);
-
-  @override
-  String? get getPlatformId => platformId;
 }

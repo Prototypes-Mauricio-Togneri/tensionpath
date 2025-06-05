@@ -62,13 +62,13 @@ class Audio {
     }
   }*/
 
-  void volumeSound(String id, double volume) =>
-      _soundPlayers[id]!.setVolume(volume);
+  /*void volumeSound(String id, double volume) =>
+      _soundPlayers[id]!.setVolume(volume);*/
 
-  void speed(double value) {
+  /*void speed(double value) {
     _soundPlayers.forEach((key, player) => player.setSpeed(value));
-    //_musicPlayers.forEach((key, player) => player.setSpeed(value));
-  }
+    _musicPlayers.forEach((key, player) => player.setSpeed(value));
+  }*/
 
   void dispose() {
     //stopMusic();
