@@ -101,10 +101,14 @@ class Match {
         target: nodeTarget,
       );
 
-      for (final Location location in locations) {
+      for (int i = 0; i < locations.length; i++) {
+        final Location location = locations[i];
         final Node node = battlefield.nodeById(location.id);
 
-        if (node.structure != null && !node.structure!.type.canMoveUnit) {
+        if (_cannotPassThroughNode(
+          node: node,
+          lastNode: i == locations.length - 1,
+        )) {
           return false;
         }
       }
@@ -113,6 +117,14 @@ class Match {
     } else {
       return false;
     }
+  }
+
+  bool _cannotPassThroughNode({required Node node, required bool lastNode}) {
+    final bool invalidStructure =
+        node.structure != null && !node.structure!.type.canMoveUnit;
+    final bool nodeHasUnits = !lastNode && node.hasUnits;
+
+    return invalidStructure || nodeHasUnits;
   }
 
   bool _canMoveUnit(Node node) =>

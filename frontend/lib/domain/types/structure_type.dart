@@ -1,6 +1,6 @@
 enum StructureType {
   resources(visibilityRange: 0, canMoveUnit: true),
-  launcher(visibilityRange: 2, canMoveUnit: false),
+  launcher(visibilityRange: 2, canMoveUnit: true),
   missile(visibilityRange: 0, canMoveUnit: false),
   pad(visibilityRange: 0, canMoveUnit: true);
 

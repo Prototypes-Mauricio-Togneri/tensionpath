@@ -1,6 +1,5 @@
 # TODO
 
-- Fix attacking enemy 
 - Wrap match update in transaction
 
 - Give advantage to defender units in a battle
