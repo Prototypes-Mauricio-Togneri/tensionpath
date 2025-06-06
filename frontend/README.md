@@ -1,7 +1,5 @@
 # TODO
 
-- Store game states in history
-
 - Toxic tiles that kill units
 - Choose map
 - Can only build factories on the first line
