@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/backend/next_turn.dart';
+import 'package:tensionpath/persistence/repository/history_repository.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
 class EndTurnSelf {
@@ -30,8 +31,17 @@ class EndTurnSelf {
       }
     }
 
+    final int turnBefore = jsonMatch.turn.turn;
+
     jsonMatch = await NextTurn()(jsonMatch);
 
     MatchRepository.update(transaction: transaction, json: jsonMatch);
+
+    if (jsonMatch.turn.turn != turnBefore) {
+      HistoryRepository.addSnapshotTransaction(
+        transaction: transaction,
+        jsonMatch: jsonMatch,
+      );
+    }
   });
 }
