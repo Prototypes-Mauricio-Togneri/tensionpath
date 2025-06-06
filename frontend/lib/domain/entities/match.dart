@@ -95,6 +95,8 @@ class Match {
       (populationOf(self) < config.popcap);
 
   bool validTarget({required Node nodeOrigin, required Node nodeTarget}) {
+    final int distance = nodeTarget.distance(nodeOrigin);
+
     if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
       final List<Location> locations = nodeOrigin.location.pathNodes(
         player: self,
@@ -113,7 +115,7 @@ class Match {
         }
       }
 
-      return true;
+      return distance <= Constants.UNITS_MAX_MOVEMENT;
     } else {
       return false;
     }
