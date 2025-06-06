@@ -130,15 +130,15 @@ class Match {
   bool _canMoveUnit(Node node) =>
       isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
 
-  void onDeployUnit(Node nodeTarget) {
-    if (self.resources >= Constants.COST_DEPLOY_UNIT) {
+  void onDeployUnit({required Node nodeTarget, required int amount}) {
+    if (self.resources >= amount) {
       if (_canDeployUnit(nodeTarget)) {
-        self.spendResources(Constants.COST_DEPLOY_UNIT);
+        self.spendResources(amount);
         self.addAction(
           ActionDeployUnits(
             playerId: self.id,
             target: nodeTarget.location,
-            amount: 1,
+            amount: amount,
           ),
         );
         MatchComponentRef.instance.reconfigure();

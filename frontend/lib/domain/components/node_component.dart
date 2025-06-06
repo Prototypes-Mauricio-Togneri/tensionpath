@@ -38,5 +38,12 @@ class NodeComponent<N extends Node> extends PositionComponent
       Dimensions.pointInHexagon(point: point, size: size);
 
   @override
-  void onTapUp(TapUpEvent event) => match.match.onDeployUnit(node);
+  void onTapUp(TapUpEvent event) =>
+      match.match.onDeployUnit(nodeTarget: node, amount: 1);
+
+  @override
+  void onLongTapDown(TapDownEvent event) => match.match.onDeployUnit(
+    nodeTarget: node,
+    amount: match.match.self.resources,
+  );
 }
