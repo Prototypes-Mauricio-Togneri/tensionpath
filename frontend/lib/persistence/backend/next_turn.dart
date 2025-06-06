@@ -175,13 +175,19 @@ class NextTurn {
       );
       final JsonNode targetNode = jsonNodes[targetLocationId]!;
 
-      targetNode.temporaryUnits.add(originNode.units!);
+      final JsonUnits jsonUnits = originNode.units!;
+      jsonUnits.hasMoved = true;
+
+      targetNode.temporaryUnits.add(jsonUnits);
       originNode.units = null;
     }
 
     for (final JsonNode jsonNode in jsonNodes.values) {
       if (jsonNode.units != null) {
-        jsonNode.temporaryUnits.add(jsonNode.units!);
+        final JsonUnits jsonUnits = jsonNode.units!;
+        jsonUnits.hasMoved = false;
+
+        jsonNode.temporaryUnits.add(jsonUnits);
         jsonNode.units = null;
       }
     }
@@ -194,7 +200,10 @@ class NextTurn {
     for (final JsonNode jsonNode in jsonNodes.values) {
       if (jsonNode.temporaryUnits.length == 1) {
         // Only one unit in the node, no battle
-        jsonNode.units = jsonNode.temporaryUnits.first;
+        final JsonUnits jsonUnits = jsonNode.temporaryUnits.first;
+        jsonUnits.hasMoved = false;
+
+        jsonNode.units = jsonUnits;
       } else if (jsonNode.temporaryUnits.length > 1) {
         // More than one unit in the node, resolve battle
         _resolveBattle(jsonNode);

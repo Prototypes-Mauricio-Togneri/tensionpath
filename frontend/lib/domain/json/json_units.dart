@@ -13,6 +13,8 @@ class JsonUnits {
   @JsonKey(name: 'amount')
   int amount;
 
+  bool hasMoved = false;
+
   JsonUnits({required this.playerId, required this.amount});
 
   Units object({required Location location, required List<Player> players}) =>
