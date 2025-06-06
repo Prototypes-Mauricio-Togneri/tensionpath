@@ -75,6 +75,22 @@ class UnitsComponent extends PositionComponent
     if (_canMove) {
       match.match.onCancelUnitMovement(node);
     }
+    event.continuePropagation = true;
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    event.continuePropagation = true;
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    event.continuePropagation = true;
+  }
+
+  @override
+  void onTapCancel(TapCancelEvent event) {
+    event.continuePropagation = true;
   }
 
   @override
