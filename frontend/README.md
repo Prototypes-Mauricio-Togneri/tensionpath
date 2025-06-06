@@ -1,7 +1,6 @@
 # TODO
 
 - Store game states in history
-- Give advantage to defender units in a battle
 
 - Toxic tiles that kill units
 - Choose map
