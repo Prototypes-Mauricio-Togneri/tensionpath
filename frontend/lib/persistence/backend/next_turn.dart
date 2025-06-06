@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
@@ -216,26 +217,41 @@ class NextTurn {
   void _resolveBattle(JsonNode jsonNode) {
     int player1Units = 0;
     int player2Units = 0;
+    bool player1Moved = false;
+    bool player2Moved = false;
 
     for (final JsonUnits jsonUnits in jsonNode.temporaryUnits) {
       if (jsonUnits.playerId == Constants.PLAYER_1) {
         player1Units += jsonUnits.amount;
+        player1Moved |= jsonUnits.hasMoved;
       } else if (jsonUnits.playerId == Constants.PLAYER_2) {
         player2Units += jsonUnits.amount;
+        player2Moved |= jsonUnits.hasMoved;
       }
     }
 
-    if (player1Units > player2Units) {
+    final int player1EffectiveUnits = player1Moved
+        ? player1Units
+        : (player1Units * 1.1).ceil();
+    final int player2EffectiveUnits = player2Moved
+        ? player2Units
+        : (player2Units * 1.1).ceil();
+
+    if (player1EffectiveUnits > player2EffectiveUnits) {
+      final int remainingUnits = player1EffectiveUnits - player2EffectiveUnits;
+
       // Player 1 wins
       jsonNode.units = JsonUnits(
         playerId: Constants.PLAYER_1,
-        amount: player1Units - player2Units,
+        amount: min(remainingUnits, player1Units),
       );
-    } else if (player2Units > player1Units) {
+    } else if (player2EffectiveUnits > player1EffectiveUnits) {
+      final int remainingUnits = player2EffectiveUnits - player1EffectiveUnits;
+
       // Player 2 wins
       jsonNode.units = JsonUnits(
         playerId: Constants.PLAYER_2,
-        amount: player2Units - player1Units,
+        amount: min(remainingUnits, player2Units),
       );
     } else {
       // Both players lose all units
