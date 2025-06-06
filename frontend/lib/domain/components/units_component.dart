@@ -61,7 +61,7 @@ class UnitsComponent extends PositionComponent
   void reconfigure() {
     if (node.hasUnits) {
       final Units units = node.units!;
-      outterPaint.color = units.player.color.brighten(0.5);
+      outterPaint.color = units.player.color.darken(0.3);
       innerPaint.color = units.player.color;
     }
   }
