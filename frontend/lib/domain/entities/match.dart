@@ -178,6 +178,11 @@ class Match {
     }
   }
 
+  void onCancelUnitMovement(Node nodeOrigin) {
+    self.removeMovementAction(nodeOrigin.location);
+    MatchComponentRef.instance.reconfigure();
+  }
+
   Future onEndTurn() async {
     if (isSelfPlaying) {
       self.setWaiting();

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/actions/actions.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -57,10 +58,7 @@ class Player {
     }
   }
 
-  void replaceWith({
-    required Player newPlayer,
-    required bool isNewTurn,
-  }) {
+  void replaceWith({required Player newPlayer, required bool isNewTurn}) {
     _baseHealth = newPlayer.baseHealth;
     _resources = newPlayer.resources;
     _status = newPlayer.status;
@@ -74,6 +72,9 @@ class Player {
   void addAction(Action action) {
     actions.add(action);
   }
+
+  void removeMovementAction(Location location) =>
+      actions.removeMoveActions(location);
 
   static Player? playerById({
     required String? id,

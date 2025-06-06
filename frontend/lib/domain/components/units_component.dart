@@ -16,7 +16,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitsComponent extends PositionComponent
-    with DragCallbacks
+    with DragCallbacks, TapCallbacks
     implements Reconfigurable {
   final Player self;
   final Node node;
@@ -33,7 +33,7 @@ class UnitsComponent extends PositionComponent
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.unit.value);
 
-  bool get _canDrag =>
+  bool get _canMove =>
       node.hasUnits && node.units!.player.isSelf && match.match.isSelfPlaying;
 
   @override
@@ -71,8 +71,15 @@ class UnitsComponent extends PositionComponent
       Dimensions.pointInHexagon(point: point, size: size);
 
   @override
+  void onLongTapDown(TapDownEvent event) {
+    if (_canMove) {
+      match.match.onCancelUnitMovement(node);
+    }
+  }
+
+  @override
   void onDragStart(DragStartEvent event) {
-    if (_canDrag) {
+    if (_canMove) {
       super.onDragStart(event);
 
       targetPosition.setFrom(Vector2.copy(event.localPosition));
@@ -81,7 +88,7 @@ class UnitsComponent extends PositionComponent
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    if (_canDrag) {
+    if (_canMove) {
       targetPosition.add(event.localDelta);
 
       final NodeComponent? nodeComponent = _getTargetNode();
@@ -101,7 +108,7 @@ class UnitsComponent extends PositionComponent
 
   @override
   void onDragEnd(DragEndEvent event) {
-    if (_canDrag) {
+    if (_canMove) {
       super.onDragEnd(event);
 
       final NodeComponent? nodeComponent = _getTargetNode();

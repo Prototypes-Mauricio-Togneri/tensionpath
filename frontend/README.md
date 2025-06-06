@@ -1,7 +1,6 @@
 # TODO
 
-Unit visibility 2. Store game states in history
-
+- Store game states in history
 - Give advantage to defender units in a battle
 
 - Toxic tiles that kill units

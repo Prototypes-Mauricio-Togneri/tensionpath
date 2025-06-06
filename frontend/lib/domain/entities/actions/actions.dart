@@ -10,7 +10,7 @@ class Actions extends Iterable<Action> {
 
   void add(Action action) {
     if (action is ActionMoveUnits) {
-      _removeMoveActions(action.origin);
+      removeMoveActions(action.origin);
       _actions.add(action);
     } else if (action is ActionDeployUnits) {
       int currentAmount = 0;
@@ -40,7 +40,7 @@ class Actions extends Iterable<Action> {
     }
   }
 
-  void _removeMoveActions(Location location) => _actions.removeWhere(
+  void removeMoveActions(Location location) => _actions.removeWhere(
     (action) => (action is ActionMoveUnits) && (action.origin == location),
   );
 
