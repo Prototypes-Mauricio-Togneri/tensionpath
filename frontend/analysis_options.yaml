@@ -113,3 +113,7 @@ linter:
     - use_rethrow_when_possible
     - valid_regexps
     - void_checks
+
+dart_code_metrics:
+  extends:
+    - recommended
