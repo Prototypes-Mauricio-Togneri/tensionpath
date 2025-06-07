@@ -1,6 +1,8 @@
 # TODO
 
+- shop popcap indicator
 - 1 resource per unit in patch (max 5)
+- resources per turn = popcap - units deployed on the battlefield (the more units deployed, the less resources)
 - Display history
 
 - Toxic tiles that kill units
