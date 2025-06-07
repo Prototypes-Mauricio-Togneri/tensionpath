@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
 import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
@@ -73,8 +74,13 @@ class Player {
     actions.add(action);
   }
 
-  void removeMovementAction(Location location) =>
-      actions.removeMoveAction(location);
+  void removeMovementAction(Location location) {
+    final ActionMoveUnits? removedAction = actions.removeMoveAction(location);
+
+    if (removedAction != null) {
+      _resources += removedAction.cost;
+    }
+  }
 
   static Player? playerById({
     required String? id,

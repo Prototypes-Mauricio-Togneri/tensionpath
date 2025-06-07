@@ -11,4 +11,7 @@ class ActionDeployUnits extends Action {
     required this.target,
     required this.amount,
   }) : super(type: ActionType.deploy);
+
+  @override
+  int get cost => amount;
 }

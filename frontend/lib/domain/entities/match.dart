@@ -149,7 +149,6 @@ class Match {
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
     if (validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
-
       final int cost = distance * Constants.COST_MOVE_UNIT;
 
       if (self.resources >= cost) {
