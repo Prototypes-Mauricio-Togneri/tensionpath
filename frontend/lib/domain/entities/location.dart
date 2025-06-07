@@ -9,8 +9,7 @@ class Location {
 
   String get id => '$x,$y';
 
-  int distance(Localizable localizable) {
-    final Location location = localizable.getLocation;
+  int distance(Location location) {
     final double distance =
         ((x - location.x).abs() +
             (x + y - location.x - location.y).abs() +

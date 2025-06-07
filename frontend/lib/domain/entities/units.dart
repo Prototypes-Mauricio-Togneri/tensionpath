@@ -19,5 +19,6 @@ class Units implements Localizable {
   @override
   Location get getLocation => location;
 
-  int distance(Localizable localizable) => location.distance(localizable);
+  int distance(Localizable localizable) =>
+      location.distance(localizable.getLocation);
 }

@@ -76,7 +76,8 @@ class Node implements Localizable {
       (_units?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);
 
-  int distance(Localizable localizable) => location.distance(localizable);
+  int distance(Localizable localizable) =>
+      location.distance(localizable.getLocation);
 
   Set<String> visibleNodes({
     required int visibilityRange,
