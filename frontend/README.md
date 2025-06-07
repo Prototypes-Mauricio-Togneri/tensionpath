@@ -1,6 +1,5 @@
 # TODO
 
-- Undo deployment (return money)
 - Display history
 
 - Toxic tiles that kill units
