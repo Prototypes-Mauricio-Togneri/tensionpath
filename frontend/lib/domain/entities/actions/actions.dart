@@ -13,26 +13,16 @@ class Actions extends Iterable<Action> {
       removeMoveActions(action.origin);
       _actions.add(action);
     } else if (action is ActionDeployUnits) {
-      int currentAmount = 0;
-      Action? toRemove;
-
-      for (final Action existingAction in _actions) {
-        if (existingAction is ActionDeployUnits &&
-            existingAction.target == action.target) {
-          currentAmount += existingAction.amount;
-          toRemove = existingAction;
-        }
-      }
-
-      if (toRemove != null) {
-        _actions.remove(toRemove);
-      }
+      final ActionDeployUnits? removedAction = removeDeployAction(
+        action.target,
+      );
+      final int removedActionAmount = removedAction?.amount ?? 0;
 
       _actions.add(
         ActionDeployUnits(
           playerId: action.playerId,
           target: action.target,
-          amount: currentAmount + action.amount,
+          amount: removedActionAmount + action.amount,
         ),
       );
     } else {
@@ -55,17 +45,17 @@ class Actions extends Iterable<Action> {
     return removed;
   }
 
-  List<Action> removeDeployActions(Location location) {
-    final List<Action> removed = _actions
-        .where(
-          (action) =>
-              (action is ActionDeployUnits) && (action.target == location),
-        )
-        .toList();
+  ActionDeployUnits? removeDeployAction(Location location) {
+    ActionDeployUnits? removed;
 
-    _actions.removeWhere(
-      (action) => (action is ActionDeployUnits) && (action.target == location),
-    );
+    _actions.removeWhere((action) {
+      if (action is ActionDeployUnits && action.target == location) {
+        removed = action;
+        return true;
+      } else {
+        return false;
+      }
+    });
 
     return removed;
   }
