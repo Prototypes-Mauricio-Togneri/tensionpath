@@ -42,8 +42,5 @@ class NodeComponent<N extends Node> extends PositionComponent
       match.match.onDeployUnit(nodeTarget: node, amount: 1);
 
   @override
-  void onLongTapDown(TapDownEvent event) => match.match.onDeployUnit(
-    nodeTarget: node,
-    amount: match.match.self.resources,
-  );
+  void onLongTapDown(TapDownEvent event) => match.match.onDeployMaxUnits(node);
 }

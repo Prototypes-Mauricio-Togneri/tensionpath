@@ -146,6 +146,14 @@ class Match {
     }
   }
 
+  void onDeployMaxUnits(Node nodeTarget) {
+    if (self.resources > 0) {
+      onDeployUnit(nodeTarget: nodeTarget, amount: self.resources);
+    } else {
+      self.removeDeploymentAction(nodeTarget.location);
+    }
+  }
+
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
     if (validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
