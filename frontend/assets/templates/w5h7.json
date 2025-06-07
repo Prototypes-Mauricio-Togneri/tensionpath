@@ -6,8 +6,9 @@
         "popcap": 7,
         "baseMaxHealth": 100,
         "resourcesPerPatch": 3,
+        "resourcesPerTurn": 5,
         "resourcesPerSecond": 1,
-        "resourcesPerTurn": 5
+        "defenseFactor": 1.1
     },
     "turn": {
         "turn": 1,

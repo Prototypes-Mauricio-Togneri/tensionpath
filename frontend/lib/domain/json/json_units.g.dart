@@ -12,10 +12,12 @@ JsonUnits _$JsonUnitsFromJson(Map<String, dynamic> json) =>
         playerId: $checkedConvert('playerId', (v) => v as String),
         amount: $checkedConvert('amount', (v) => (v as num).toInt()),
       );
+      $checkedConvert('hasMoved', (v) => val.hasMoved = v as bool);
       return val;
     });
 
 Map<String, dynamic> _$JsonUnitsToJson(JsonUnits instance) => <String, dynamic>{
   'playerId': instance.playerId,
   'amount': instance.amount,
+  'hasMoved': instance.hasMoved,
 };

@@ -20,12 +20,16 @@ class JsonConfig {
   @JsonKey(name: 'resourcesPerSecond')
   final double resourcesPerSecond;
 
+  @JsonKey(name: 'defenseFactor')
+  final double defenseFactor;
+
   const JsonConfig({
     required this.popcap,
     required this.baseMaxHealth,
     required this.resourcesPerPatch,
     required this.resourcesPerTurn,
     required this.resourcesPerSecond,
+    required this.defenseFactor,
   });
 
   Config get object => Config(
@@ -34,6 +38,7 @@ class JsonConfig {
     resourcesPerPatch: resourcesPerPatch,
     resourcesPerTurn: resourcesPerTurn,
     resourcesPerSecond: resourcesPerSecond,
+    defenseFactor: defenseFactor,
   );
 
   factory JsonConfig.fromJson(Map<String, dynamic> json) =>

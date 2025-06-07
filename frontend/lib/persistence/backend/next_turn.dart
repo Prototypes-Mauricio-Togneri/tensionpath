@@ -73,6 +73,7 @@ class NextTurn {
         jsonActions: jsonActions
             .where((a) => a.type == ActionType.move)
             .toList(),
+        jsonConfig: jsonMatch.config,
       );
 
       _updatePlayerResources(
@@ -146,10 +147,15 @@ class NextTurn {
     required Map<String, JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
     required List<JsonAction> jsonActions,
+    required JsonConfig jsonConfig,
   }) {
     _resetTemporaryUnits(jsonNodes);
     _fillTemporaryUnits(jsonNodes: jsonNodes, jsonActions: jsonActions);
-    _resolveBattles(jsonNodes: jsonNodes, jsonPlayers: jsonPlayers);
+    _resolveBattles(
+      jsonNodes: jsonNodes,
+      jsonPlayers: jsonPlayers,
+      jsonConfig: jsonConfig,
+    );
     _checkBaseAttacks(jsonNodes: jsonNodes, jsonPlayers: jsonPlayers);
   }
 
@@ -197,6 +203,7 @@ class NextTurn {
   void _resolveBattles({
     required Map<String, JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
+    required JsonConfig jsonConfig,
   }) {
     for (final JsonNode jsonNode in jsonNodes.values) {
       if (jsonNode.temporaryUnits.length == 1) {
@@ -207,14 +214,17 @@ class NextTurn {
         jsonNode.units = jsonUnits;
       } else if (jsonNode.temporaryUnits.length > 1) {
         // More than one unit in the node, resolve battle
-        _resolveBattle(jsonNode);
+        _resolveBattle(jsonNode: jsonNode, jsonConfig: jsonConfig);
       }
 
       jsonNode.temporaryUnits.clear();
     }
   }
 
-  void _resolveBattle(JsonNode jsonNode) {
+  void _resolveBattle({
+    required JsonNode jsonNode,
+    required JsonConfig jsonConfig,
+  }) {
     int player1Units = 0;
     int player2Units = 0;
     bool player1Moved = false;

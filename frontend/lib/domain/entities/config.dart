@@ -4,6 +4,7 @@ class Config {
   final int resourcesPerPatch;
   final int resourcesPerTurn;
   final double resourcesPerSecond;
+  final double defenseFactor;
 
   const Config({
     required this.popcap,
@@ -11,5 +12,6 @@ class Config {
     required this.resourcesPerPatch,
     required this.resourcesPerTurn,
     required this.resourcesPerSecond,
+    required this.defenseFactor,
   });
 }
