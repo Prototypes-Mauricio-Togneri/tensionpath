@@ -86,7 +86,8 @@ class Match {
     MatchComponentRef.instance.onMatchUpdated(this);
   }
 
-  bool _canDeployUnit(Node node) =>
+  bool _canDeployUnit({required Node node, required int amount}) =>
+      (self.resources >= amount) &&
       isSelfPlaying &&
       !node.hasUnits &&
       node.hasStructure &&
@@ -132,18 +133,16 @@ class Match {
       isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
 
   void onDeployUnit({required Node nodeTarget, required int amount}) {
-    if (self.resources >= amount) {
-      if (_canDeployUnit(nodeTarget)) {
-        self.spendResources(amount);
-        self.addAction(
-          ActionDeployUnits(
-            playerId: self.id,
-            target: nodeTarget.location,
-            amount: amount,
-          ),
-        );
-        MatchComponentRef.instance.reconfigure();
-      }
+    if (_canDeployUnit(node: nodeTarget, amount: amount)) {
+      self.spendResources(amount);
+      self.addAction(
+        ActionDeployUnits(
+          playerId: self.id,
+          target: nodeTarget.location,
+          amount: amount,
+        ),
+      );
+      MatchComponentRef.instance.reconfigure();
     }
   }
 
