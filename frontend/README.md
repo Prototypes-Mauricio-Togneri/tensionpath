@@ -1,6 +1,5 @@
 # TODO
 
-- Undo movement (return money)
 - Undo deployment (return money)
 - Display history
 
