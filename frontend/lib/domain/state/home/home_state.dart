@@ -17,7 +17,7 @@ class HomeState extends BaseState {
     nameController.text = name;
     notify();
 
-    if (Environment.get.isDebug) {
+    if (!Environment.get.isDebug) {
       Delayed.post(
         () =>
             Navigation.matchScreen(matchId: 'test', selfId: Constants.PLAYER_1),
