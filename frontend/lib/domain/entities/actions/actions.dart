@@ -40,9 +40,35 @@ class Actions extends Iterable<Action> {
     }
   }
 
-  void removeMoveActions(Location location) => _actions.removeWhere(
-    (action) => (action is ActionMoveUnits) && (action.origin == location),
-  );
+  List<Action> removeMoveActions(Location location) {
+    final List<Action> removed = _actions
+        .where(
+          (action) =>
+              (action is ActionMoveUnits) && (action.origin == location),
+        )
+        .toList();
+
+    _actions.removeWhere(
+      (action) => (action is ActionMoveUnits) && (action.origin == location),
+    );
+
+    return removed;
+  }
+
+  List<Action> removeDeployActions(Location location) {
+    final List<Action> removed = _actions
+        .where(
+          (action) =>
+              (action is ActionDeployUnits) && (action.target == location),
+        )
+        .toList();
+
+    _actions.removeWhere(
+      (action) => (action is ActionDeployUnits) && (action.target == location),
+    );
+
+    return removed;
+  }
 
   void reset() {
     _actions.clear();
