@@ -1,5 +1,6 @@
 # TODO
 
+- 1 resource per unit in patch (max 5)
 - Display history
 
 - Toxic tiles that kill units
