@@ -8,10 +8,12 @@ class Actions extends Iterable<Action> {
 
   const Actions(List<Action> actions) : _actions = actions;
 
-  void add(Action action) {
+  int add(Action action) {
     if (action is ActionMoveUnits) {
-      removeMoveAction(action.origin);
+      final ActionMoveUnits? removedAction = removeMoveAction(action.origin);
       _actions.add(action);
+
+      return removedAction?.cost ?? 0;
     } else if (action is ActionDeployUnits) {
       final ActionDeployUnits? removedAction = removeDeployAction(
         action.target,
@@ -25,6 +27,8 @@ class Actions extends Iterable<Action> {
           amount: removedActionAmount + action.amount,
         ),
       );
+
+      return 0;
     } else {
       throw Exception('Unsupported action type: ${action.runtimeType}');
     }

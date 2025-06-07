@@ -134,14 +134,14 @@ class Match {
 
   void onDeployUnit({required Node nodeTarget, required int amount}) {
     if (_canDeployUnit(node: nodeTarget, amount: amount)) {
-      self.spendResources(amount);
-      self.addAction(
+      final int cashBack = self.addAction(
         ActionDeployUnits(
           playerId: self.id,
           target: nodeTarget.location,
           amount: amount,
         ),
       );
+      self.spendResources(amount - cashBack);
       MatchComponentRef.instance.reconfigure();
     }
   }
@@ -153,14 +153,14 @@ class Match {
 
       if (self.resources >= cost) {
         if (_canMoveUnit(nodeOrigin)) {
-          self.spendResources(cost);
-          self.addAction(
+          final int cashBack = self.addAction(
             ActionMoveUnits(
               playerId: self.id,
               origin: nodeOrigin.location,
               target: nodeTarget.location,
             ),
           );
+          self.spendResources(cost - cashBack);
           MatchComponentRef.instance.reconfigure();
         }
       } else {

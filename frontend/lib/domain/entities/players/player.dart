@@ -70,9 +70,7 @@ class Player {
     }
   }
 
-  void addAction(Action action) {
-    actions.add(action);
-  }
+  int addAction(Action action) => actions.add(action);
 
   void removeMovementAction(Location location) {
     final ActionMoveUnits? removedAction = actions.removeMoveAction(location);
