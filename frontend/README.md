@@ -1,5 +1,9 @@
 # TODO
 
+- Double tap to remove movement
+- Config for 1.1 factor
+- Display history
+
 - Toxic tiles that kill units
 - Choose map
 - Can only build factories on the first line
