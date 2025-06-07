@@ -74,7 +74,7 @@ class Player {
   }
 
   void removeMovementAction(Location location) =>
-      actions.removeMoveActions(location);
+      actions.removeMoveAction(location);
 
   static Player? playerById({
     required String? id,

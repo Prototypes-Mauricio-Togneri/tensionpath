@@ -10,7 +10,7 @@ class Actions extends Iterable<Action> {
 
   void add(Action action) {
     if (action is ActionMoveUnits) {
-      removeMoveActions(action.origin);
+      removeMoveAction(action.origin);
       _actions.add(action);
     } else if (action is ActionDeployUnits) {
       final ActionDeployUnits? removedAction = removeDeployAction(
@@ -30,17 +30,17 @@ class Actions extends Iterable<Action> {
     }
   }
 
-  List<Action> removeMoveActions(Location location) {
-    final List<Action> removed = _actions
-        .where(
-          (action) =>
-              (action is ActionMoveUnits) && (action.origin == location),
-        )
-        .toList();
+  ActionMoveUnits? removeMoveAction(Location location) {
+    ActionMoveUnits? removed;
 
-    _actions.removeWhere(
-      (action) => (action is ActionMoveUnits) && (action.origin == location),
-    );
+    _actions.removeWhere((action) {
+      if (action is ActionMoveUnits && action.origin == location) {
+        removed = action;
+        return true;
+      } else {
+        return false;
+      }
+    });
 
     return removed;
   }
