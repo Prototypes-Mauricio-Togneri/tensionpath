@@ -8,8 +8,10 @@
 - Commanders abilities
   - Reveal map
   - Increase units visibility
-  - Drop bomb
+  - Bomb
     - Toxic bomb (removes units on each turn)
     - Single tile
     - Center tile and adjacents (more expensive or less damage in each node)
-  - Drop mine (mines expire?)
+    - Vertical (affects 2 tiles in a column)
+  - Mine
+  - Paratroopers
