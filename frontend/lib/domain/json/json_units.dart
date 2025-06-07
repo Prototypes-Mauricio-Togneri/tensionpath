@@ -13,6 +13,7 @@ class JsonUnits {
   @JsonKey(name: 'amount')
   int amount;
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   bool hasMoved = false;
 
   JsonUnits({required this.playerId, required this.amount});

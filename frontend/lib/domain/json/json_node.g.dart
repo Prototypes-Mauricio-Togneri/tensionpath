@@ -24,12 +24,6 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) =>
               : JsonStructure.fromJson(v as Map<String, dynamic>),
         ),
       );
-      $checkedConvert(
-        'temporaryUnits',
-        (v) => val.temporaryUnits = (v as List<dynamic>)
-            .map((e) => JsonUnits.fromJson(e as Map<String, dynamic>))
-            .toList(),
-      );
       return val;
     });
 
@@ -39,7 +33,6 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
   'type': _$NodeTypeEnumMap[instance.type]!,
   if (instance.units?.toJson() case final value?) 'units': value,
   if (instance.structure?.toJson() case final value?) 'structure': value,
-  'temporaryUnits': instance.temporaryUnits.map((e) => e.toJson()).toList(),
 };
 
 const _$NodeTypeEnumMap = {

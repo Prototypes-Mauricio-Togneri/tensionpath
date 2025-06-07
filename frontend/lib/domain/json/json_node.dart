@@ -25,6 +25,7 @@ class JsonNode {
   @JsonKey(name: 'structure')
   JsonStructure? structure;
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   List<JsonUnits> temporaryUnits = [];
 
   JsonNode({
