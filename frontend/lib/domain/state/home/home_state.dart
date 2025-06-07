@@ -1,5 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/callables/room/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/storage/name_storage.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
@@ -15,12 +17,12 @@ class HomeState extends BaseState {
     nameController.text = name;
     notify();
 
-    /*if (!Environment.get.isDebug) {
+    if (Environment.get.isDebug) {
       Delayed.post(
         () =>
             Navigation.matchScreen(matchId: 'test', selfId: Constants.PLAYER_1),
       );
-    }*/
+    }
   }
 
   bool get canPlay => nameController.text.trim().isNotEmpty;

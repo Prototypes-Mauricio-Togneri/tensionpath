@@ -33,6 +33,14 @@ class ControlsComponent extends PositionComponent {
     );
 
     add(
+      PopcapCounterComponent(
+        player: player,
+        position: Dimensions.controlsPopcapPosition(size),
+        size: Dimensions.controlsPopcapSize(size),
+      ),
+    );
+
+    add(
       EndTurnComponent(
         player: player,
         position: Dimensions.controlsEndTurnPosition(size),
@@ -70,6 +78,29 @@ class ResourceCounterComponent extends PositionComponent {
       size: size.x / 7,
       color: Palette.CONTROLS_COST_FOREGROUND,
       anchor: Anchor.centerLeft,
+    );
+  }
+}
+
+class PopcapCounterComponent extends PositionComponent {
+  final Player player;
+
+  PopcapCounterComponent({
+    required this.player,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawText(
+      text: '1 / 7',
+      position: size / 2,
+      size: size.x / 12,
+      color: Palette.CONTROLS_COST_FOREGROUND,
+      anchor: Anchor.center,
     );
   }
 }
