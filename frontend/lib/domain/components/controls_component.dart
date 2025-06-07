@@ -3,6 +3,8 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/reconfigurable.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -82,8 +84,20 @@ class ResourceCounterComponent extends PositionComponent {
   }
 }
 
-class PopcapCounterComponent extends PositionComponent {
+class PopcapCounterComponent extends PositionComponent
+    implements Reconfigurable {
   final Player player;
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_INDICATOR_BACKGROUND,
+  );
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint placeholderPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
+  );
+  int popcap = 0;
+  int counter = 0;
 
   PopcapCounterComponent({
     required this.player,
@@ -92,16 +106,57 @@ class PopcapCounterComponent extends PositionComponent {
   }) : super(anchor: Anchor.center);
 
   @override
+  FutureOr onLoad() async {
+    popcap = match.match.config.popcap;
+    foregroundPaint.color = player.color;
+    reconfigure();
+
+    return super.onLoad();
+  }
+
+  @override
+  void reconfigure() {
+    counter = 0;
+
+    for (final Node node in match.match.battlefield.nodes) {
+      if (node.hasUnits && node.units!.belongsTo(player)) {
+        counter++;
+      }
+    }
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawText(
-      text: '1 / 7',
-      position: size / 2,
-      size: size.x / 12,
-      color: Palette.CONTROLS_COST_FOREGROUND,
-      anchor: Anchor.center,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+
+    final double gap = size.x / 80;
+    final double blockSize = (width - gap * (popcap + 1)) / popcap;
+
+    for (int i = 0; i < counter; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        foregroundPaint,
+      );
+    }
+
+    for (int i = counter; i < popcap; i++) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          gap + (blockSize + gap) * i,
+          gap,
+          blockSize,
+          height - (gap * 2),
+        ),
+        placeholderPaint,
+      );
+    }
   }
 }
 
