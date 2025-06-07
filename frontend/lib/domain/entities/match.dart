@@ -95,8 +95,6 @@ class Match {
       (populationOf(self) < config.popcap);
 
   bool validTarget({required Node nodeOrigin, required Node nodeTarget}) {
-    final int distance = nodeTarget.distance(nodeOrigin);
-
     if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
       final List<Location> locations = nodeOrigin.location.pathNodes(
         player: self,
@@ -115,7 +113,7 @@ class Match {
         }
       }
 
-      return distance <= Constants.UNITS_MAX_MOVEMENT;
+      return true;
     } else {
       return false;
     }
@@ -125,8 +123,9 @@ class Match {
     final bool invalidStructure =
         node.structure != null && !node.structure!.type.canMoveUnit;
     final bool nodeHasUnits = !lastNode && node.hasUnits;
+    final bool isNotRevealed = !lastNode && !node.isRevealed;
 
-    return invalidStructure || nodeHasUnits;
+    return invalidStructure || nodeHasUnits || isNotRevealed;
   }
 
   bool _canMoveUnit(Node node) =>
@@ -152,26 +151,22 @@ class Match {
     if (validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
 
-      if (distance <= Constants.UNITS_MAX_MOVEMENT) {
-        final int cost = distance * Constants.COST_MOVE_UNIT;
+      final int cost = distance * Constants.COST_MOVE_UNIT;
 
-        if (self.resources >= cost) {
-          if (_canMoveUnit(nodeOrigin)) {
-            self.spendResources(cost);
-            self.addAction(
-              ActionMoveUnits(
-                playerId: self.id,
-                origin: nodeOrigin.location,
-                target: nodeTarget.location,
-              ),
-            );
-            MatchComponentRef.instance.reconfigure();
-          }
-        } else {
-          CustomSnackbar.insufficientResources();
+      if (self.resources >= cost) {
+        if (_canMoveUnit(nodeOrigin)) {
+          self.spendResources(cost);
+          self.addAction(
+            ActionMoveUnits(
+              playerId: self.id,
+              origin: nodeOrigin.location,
+              target: nodeTarget.location,
+            ),
+          );
+          MatchComponentRef.instance.reconfigure();
         }
       } else {
-        CustomSnackbar.movementDistanceTooBig();
+        CustomSnackbar.insufficientResources();
       }
     } else {
       CustomSnackbar.invalidTarget();
