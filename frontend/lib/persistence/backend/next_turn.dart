@@ -324,7 +324,11 @@ class NextTurn {
           (jsonNode.structure!.type == StructureType.resources) &&
           (jsonNode.units != null)) {
         final JsonPlayer jsonPlayer = jsonPlayers[jsonNode.units!.playerId]!;
-        jsonPlayer.resources += jsonConfig.resourcesPerPatch;
+        final int newResources = jsonNode.units!.amount.clamp(
+          0,
+          jsonConfig.resourcesPerPatch,
+        );
+        jsonPlayer.resources += newResources;
       }
     }
   }
