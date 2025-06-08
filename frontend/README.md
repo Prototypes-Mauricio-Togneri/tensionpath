@@ -74,15 +74,15 @@
 - Units can move only in a straight line
 - Units can only move forward
 - Units can move any amount of tiles at once but:
-    1. They can't jump other units
-    2. They can't cross over the missile
-    3. They can only move to one unrevealed tile
+  1. They can't jump other units
+  2. They can't cross over the missile
+  3. They can only move to one unrevealed tile
 - Each movement has a cost
 - Only units of one player can occupy a given hexagon
 - Units also have a range of visibility
 - Units remove the fog of war
 - When 2 units battle, there is the concept of attacker and defender
 - If a unit participating in a battle:
-    1. Didn't move in that turn, then it's considered the defender
-    2. It did move in that turn, then it's considered the attacker
-- Defender units have an extra amount of units
+  1. Didn't move in that turn, then it's considered the defender
+  2. It did move in that turn, then it's considered the attacker
+- Defender units have an extra amount of units during battle
