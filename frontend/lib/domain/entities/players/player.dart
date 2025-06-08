@@ -61,10 +61,9 @@ class Player {
   }
 
   void replaceWith({required Player newPlayer, required bool isNewTurn}) {
-    _status = newPlayer.status;
-    _turnEndedAt = newPlayer.turnEndedAt;
-
     if (isNewTurn) {
+      _status = newPlayer.status;
+      _turnEndedAt = newPlayer.turnEndedAt;
       _baseHealth = newPlayer.baseHealth;
       _resources = newPlayer.resources;
       actions.reset();
@@ -74,7 +73,9 @@ class Player {
   int addAction(Action action) => actions.add(action);
 
   void removeDeploymentAction(Location location) {
-    final ActionDeployUnits? removedAction = actions.removeDeployAction(location);
+    final ActionDeployUnits? removedAction = actions.removeDeployAction(
+      location,
+    );
 
     if (removedAction != null) {
       _resources += removedAction.cost;
