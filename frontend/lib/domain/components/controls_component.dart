@@ -4,7 +4,6 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -116,13 +115,7 @@ class PopcapCounterComponent extends PositionComponent
 
   @override
   void reconfigure() {
-    counter = 0;
-
-    for (final Node node in match.match.battlefield.nodes) {
-      if (node.hasUnits && node.units!.belongsTo(player)) {
-        counter++;
-      }
-    }
+    counter = match.match.populationOf(player);
   }
 
   @override
