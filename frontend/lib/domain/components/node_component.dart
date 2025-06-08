@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionpath/domain/components/structure_component.dart';
@@ -38,8 +39,10 @@ class NodeComponent<N extends Node> extends PositionComponent
       Dimensions.pointInHexagon(point: point, size: size);
 
   @override
-  void onTapUp(TapUpEvent event) =>
-      match.match.onDeployUnit(nodeTarget: node, amount: 1);
+  void onTapUp(TapUpEvent event) => match.match.onDeployUnit(
+    nodeTarget: node,
+    amount: game.controlPressed ? min(5, match.match.self.resources) : 1,
+  );
 
   @override
   void onLongTapDown(TapDownEvent event) => match.match.onDeployMaxUnits(node);

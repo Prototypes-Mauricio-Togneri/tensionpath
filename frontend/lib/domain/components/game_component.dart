@@ -17,6 +17,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
   final MatchState state;
   final Match match;
   final StreamListener _matchListener = StreamListener();
+  bool controlPressed = false;
 
   GameComponent({required this.state, required this.match}) : super() {
     GameComponentRef.instance = this;
@@ -77,6 +78,16 @@ class GameComponent extends FlameGame with KeyboardEvents {
         match.onEndTurn();
         return KeyEventResult.handled;
       }
+    }
+
+    if (event.logicalKey == LogicalKeyboardKey.controlLeft ||
+        event.logicalKey == LogicalKeyboardKey.controlRight) {
+      if (event is KeyDownEvent) {
+        controlPressed = true;
+      } else if (event is KeyUpEvent) {
+        controlPressed = false;
+      }
+      return KeyEventResult.handled;
     }
 
     return KeyEventResult.ignored;
