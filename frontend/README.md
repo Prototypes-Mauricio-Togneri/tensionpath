@@ -1,6 +1,7 @@
 # TODO
 
-- resources per turn = popcap - population (the more units deployed, the less resources)
+- Dialog to quit match?
+- Resources per turn = popcap - population (the more units deployed, the less resources)
 - Display history
 
 - Toxic tiles that kill units
