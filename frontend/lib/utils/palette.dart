@@ -25,13 +25,13 @@ class Palette {
 
   static const Color BATTLEFIELD_BACKGROUND = Color(0xff222222);
 
-  static const Color NODE_EMPTY_BACKGROUND = Color(0xFF7C5603);
+  static const Color NODE_EMPTY_BACKGROUND = Color(0xFFFFC13C);
   static const Color NODE_LAUNCHER_1_BORDER = Color(0xff135179);
   static const Color NODE_LAUNCHER_1_BACKGROUND = Color(0xff2882B4);
   static const Color NODE_LAUNCHER_2_BORDER = Color(0xffA9271E);
   static const Color NODE_LAUNCHER_2_BACKGROUND = Color(0xffD14034);
-  static const Color NODE_MISSILE_BORDER = Color(0xffEBA80E);
-  static const Color NODE_MISSILE_BACKGROUND = Color(0xffF3C11E);
+  static const Color NODE_MISSILE_BORDER = Color.fromARGB(255, 94, 16, 167);
+  static const Color NODE_MISSILE_BACKGROUND = Color(0xFF7E35C4);
   static const Color NODE_RESOURCES_BORDER = Color(0xFF14742F);
   static const Color NODE_RESOURCES_BACKGROUND = Color(0xFF1E9941);
 

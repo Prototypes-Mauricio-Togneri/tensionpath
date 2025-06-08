@@ -64,7 +64,7 @@ class Match {
 
     for (final Action action in player.actions) {
       if (action is ActionDeployUnits && action.belongsTo(player)) {
-        result += action.amount;
+        result++;
       }
     }
 
