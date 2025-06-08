@@ -29,10 +29,10 @@
 - There are 2 ways to destroy an enemy's base
 - The first one (and most common), is to shoot the missile in the center
 - I'll explain later how to do that
-- The second way is to use your units to shoot the base directly
-- This two ways are not mutually exclusive
+- The second way is to use your units to attack the enemy's base directly
+- These two ways are not mutually exclusive
 - The difference is that the missile takes half of the enemy's base hit point
-- And the units damage depending on their level
+- And the units damage it depending on their level
 
 ## Map
 
@@ -69,11 +69,12 @@
 ## Units
 
 - To deploy a unit, click on one of the launchers of your base
-- There is a maximum of unit groups that can be deployed at any given time
-- Increases when a group is deployed and decreases when it's destroyed
+- There is a maximum of units that can be deployed at any given time
+- Increases when a unit is deployed and decreases when it's destroyed
 - The last button allows you to end your turn
 - Units can move only in a straight line
 - Units can only move forward
+- Units can be merged and their level is combined
 - Units can move any amount of tiles at once but:
   1. They can't jump other units
   2. They can't cross over the missile
