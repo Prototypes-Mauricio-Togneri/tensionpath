@@ -171,13 +171,7 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
   }) : super(anchor: Anchor.center);
 
   @override
-  void onTapUp(TapUpEvent event) {
-    if (match.match.isSelfPlaying) {
-      match.match.onEndTurn();
-    } else {
-      match.match.onOpponentEndTurn();
-    }
-  }
+  void onTapUp(TapUpEvent event) => match.match.onEndTurn();
 
   @override
   void render(Canvas canvas) {

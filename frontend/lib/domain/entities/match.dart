@@ -14,8 +14,7 @@ import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
-import 'package:tensionpath/persistence/callables/match/end_turn_opponent_callable.dart';
-import 'package:tensionpath/persistence/callables/match/end_turn_self_callable.dart';
+import 'package:tensionpath/persistence/callables/match/end_turn_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/presentation/snackbar.dart/custom_snackbar.dart';
 import 'package:tensionpath/utils/audio.dart';
@@ -193,16 +192,13 @@ class Match {
   Future onEndTurn() async {
     if (isSelfPlaying) {
       self.setWaiting();
-      return EndTurnSelfCallable()(
+      return EndTurnCallable()(
         matchId: id,
         selfId: self.id,
         actions: _actionsToJson(self.actions),
       );
     }
   }
-
-  Future onOpponentEndTurn() =>
-      EndTurnOpponentCallable()(matchId: id, selfId: self.id);
 
   List<JsonAction> _actionsToJson(Actions actions) {
     final List<JsonAction> result = [];

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:tensionpath/domain/json/json_action.dart';
-import 'package:tensionpath/persistence/backend/end_turn_opponent.dart';
-import 'package:tensionpath/persistence/backend/end_turn_self.dart';
+import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
 import 'package:tensionpath/persistence/backend/stop_matchmaking.dart';
 
@@ -48,14 +47,9 @@ class Backend {
     required String roomId,
   }) => StopMatchmaking()(userId: userId, roomId: roomId);
 
-  static Future endTurnSelf({
+  static Future endTurn({
     required String matchId,
     required String selfId,
     required List<JsonAction> actions,
-  }) => EndTurnSelf()(matchId: matchId, selfId: selfId, actions: actions);
-
-  static Future endTurnOpponent({
-    required String matchId,
-    required String selfId,
-  }) => EndTurnOpponent()(matchId: matchId, selfId: selfId);
+  }) => EndTurn()(matchId: matchId, selfId: selfId, actions: actions);
 }

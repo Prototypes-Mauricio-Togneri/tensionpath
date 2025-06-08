@@ -9,7 +9,7 @@ import 'package:tensionpath/persistence/backend/next_turn.dart';
 import 'package:tensionpath/persistence/repository/history_repository.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
-class EndTurnSelf {
+class EndTurn {
   Future call({
     required String matchId,
     required String selfId,
