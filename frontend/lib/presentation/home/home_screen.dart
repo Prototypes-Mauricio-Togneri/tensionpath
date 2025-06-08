@@ -35,6 +35,7 @@ class Content extends StatelessWidget {
               TextField(
                 controller: state.nameController,
                 maxLength: 15,
+                textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Name',
                   labelStyle: TextStyle(color: Colors.white),
