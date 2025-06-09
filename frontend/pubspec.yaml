@@ -13,7 +13,7 @@ dependencies:
   flame: ^1.29.0
   logger: ^2.5.0
   get_it: ^8.0.3
-  dafluta: ^5.4.0
+  dafluta: ^5.5.1
   just_audio: ^0.10.4
   url_strategy: ^0.3.0
   package_info_plus: ^8.3.0

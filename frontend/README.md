@@ -1,7 +1,5 @@
 # TODO
 
-- Dialog to quit match?
-
 - Resources per turn = popcap - population (the more units deployed, the less resources)
 - Display history
 

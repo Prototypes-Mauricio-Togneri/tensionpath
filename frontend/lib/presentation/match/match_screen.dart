@@ -16,11 +16,14 @@ class MatchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(
-      child: StateProvider<MatchState>(
-        state: state,
-        builder: (context, state) =>
-            state.isInitialized ? Content(state) : const Empty(),
+    return OnClose(
+      onClose: state.onClose,
+      child: GameContainer(
+        child: StateProvider<MatchState>(
+          state: state,
+          builder: (context, state) =>
+              state.isInitialized ? Content(state) : const Empty(),
+        ),
       ),
     );
   }
