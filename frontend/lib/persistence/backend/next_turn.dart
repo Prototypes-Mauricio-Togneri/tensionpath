@@ -82,15 +82,15 @@ class NextTurn {
         jsonConfig: jsonMatch.config,
       );
 
-      _resetPlayers(jsonMatch.players);
-
       _updateMissile(
         jsonMissile: jsonMatch.battlefield.missile,
         jsonNodes: jsonMatch.battlefield.nodes,
       );
-
-      _updateTurn(jsonMatch.turn);
     }
+
+    _resetPlayers(jsonMatch.players);
+
+    _updateTurn(jsonMatch.turn);
 
     return jsonMatch;
   }
