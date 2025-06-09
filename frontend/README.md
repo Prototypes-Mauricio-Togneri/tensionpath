@@ -1,5 +1,8 @@
 # TODO
 
+- Allow to add more deploy actions
+- Bug in last missile
+
 - Resources per turn = popcap - population (the more units deployed, the less resources)
 - Display history
 

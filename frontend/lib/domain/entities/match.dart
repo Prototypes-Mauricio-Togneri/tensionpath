@@ -98,7 +98,8 @@ class Match {
       node.hasStructure &&
       (node.structure is StructureLauncher) &&
       node.belongsTo(self) &&
-      (populationOf(self) < config.popcap);
+      ((populationOf(self) < config.popcap) ||
+          self.actions.hasDeployableActionsOn(node.location));
 
   bool validTarget({required Node nodeOrigin, required Node nodeTarget}) {
     if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
@@ -157,6 +158,7 @@ class Match {
     } else {
       self.removeDeploymentAction(nodeTarget.location);
     }
+    MatchComponentRef.instance.reconfigure();
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {

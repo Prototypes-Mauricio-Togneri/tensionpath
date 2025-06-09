@@ -64,6 +64,10 @@ class Actions extends Iterable<Action> {
     return removed;
   }
 
+  bool hasDeployableActionsOn(Location location) => _actions.any(
+    (action) => action is ActionDeployUnits && action.target == location,
+  );
+
   void reset() {
     _actions.clear();
   }
