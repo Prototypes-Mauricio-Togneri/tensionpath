@@ -1,7 +1,7 @@
-import {onRequest} from 'firebase-functions/v2/https'
 import * as fs from 'fs'
+import {app} from '..'
 
-export const version = onRequest((_, res) => {
+export const version = app.get('/version', (_, res) => {
   const data = fs.readFileSync('static/frontend/version.json', 'utf8')
 
   try {
