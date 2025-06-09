@@ -1,5 +1,6 @@
 # TODO
 
+- Warning if not using latest version
 - Dialog to quit match?
 - Double tap without propagating
 
