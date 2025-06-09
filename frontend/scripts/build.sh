@@ -3,7 +3,6 @@
 set -e
 
 flutter clean
-#dart lib/build/generate_version.dart
 flutter build web -t lib/main/main_remote.dart --release
 
 OUTPUT="../backend/public"
@@ -21,8 +20,10 @@ cp -r build/web/** ${OUTPUT}
 
 cd ../backend
 
+cp ./public/version.json ./functions/static/frontend
+
 firebase use remote
-firebase deploy #--only hosting
+firebase deploy
 firebase use local
 
 cd ../frontend

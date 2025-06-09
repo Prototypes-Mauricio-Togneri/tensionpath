@@ -1,10 +1,8 @@
 import {onRequest} from 'firebase-functions/v2/https'
 import * as fs from 'fs'
-import * as path from 'path'
 
 export const version = onRequest((_, res) => {
-  const filePath = path.join(__dirname, '../../../../version.json')
-  const data = fs.readFileSync(filePath, 'utf8')
+  const data = fs.readFileSync('static/frontend/version.json', 'utf8')
 
   try {
     const json = JSON.parse(data)

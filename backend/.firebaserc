@@ -3,5 +3,15 @@
     "default": "tension-path",
     "local": "tension-path",
     "remote": "tension-path"
+  },
+  "targets": {},
+  "etags": {
+    "tension-path": {
+      "extensionInstances": {
+        "firestore-bigquery-history": "e26a34278545975254bace7177b4e102ca232232a459a6636dc889970831d00c",
+        "firestore-bigquery-matches": "412d0047558d1a53dd695f1f4641543ba07b82ba4844d27f7a970bc0a1fe9e20",
+        "firestore-bigquery-rooms": "4a845b2cb35cce8742587f7d3aae16293c873d3574cbc4b9dafb45d8566b7640"
+      }
+    }
   }
 }
