@@ -1,7 +1,6 @@
 # TODO
 
 - Dialog to quit match?
-- Double tap without propagating
 
 - Resources per turn = popcap - population (the more units deployed, the less resources)
 - Display history
