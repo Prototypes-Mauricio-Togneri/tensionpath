@@ -89,3 +89,4 @@ export class Context {
 }
 
 export * from './callables/index'
+export * from './http-requests/index'

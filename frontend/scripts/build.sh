@@ -22,7 +22,7 @@ cp -r build/web/** ${OUTPUT}
 cd ../backend
 
 firebase use remote
-firebase deploy --only hosting
+firebase deploy #--only hosting
 firebase use local
 
 cd ../frontend

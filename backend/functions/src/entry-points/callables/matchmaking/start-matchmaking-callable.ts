@@ -5,7 +5,6 @@ import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
 import {RoomStatus} from '../../../types/room-status'
-import {createMatchServerRoom} from '../../../clients/match-server-client'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {RoomVisibility} from '../../../types/room-visibility'
 
@@ -61,7 +60,7 @@ const joinExistingRoom = async (params: {
   })
 
   if (newRoom.status === RoomStatus.closed) {
-    const created = await createMatchServerRoom(newRoom)
+    const created = false
 
     if (!created) {
       throw new CustomInternalError({
