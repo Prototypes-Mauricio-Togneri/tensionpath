@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionpath/domain/components/structure_component.dart';
-import 'package:tensionpath/domain/components/units_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -23,7 +23,7 @@ class NodeComponent<N extends Node> extends PositionComponent
   FutureOr onLoad() async {
     add(StructureComponent(node: node, position: size / 2, size: size));
     add(
-      UnitsComponent(
+      UnitComponent(
         self: match.match.self,
         node: node,
         position: size / 2,
@@ -41,9 +41,9 @@ class NodeComponent<N extends Node> extends PositionComponent
   @override
   void onTapUp(TapUpEvent event) => match.match.onDeployUnit(
     nodeTarget: node,
-    amount: game.controlPressed ? min(5, match.match.self.resources) : 1,
+    level: game.controlPressed ? min(5, match.match.self.resources) : 1,
   );
 
   @override
-  void onLongTapDown(TapDownEvent event) => match.match.onDeployMaxUnits(node);
+  void onLongTapDown(TapDownEvent event) => match.match.onDeployMaxUnit(node);
 }

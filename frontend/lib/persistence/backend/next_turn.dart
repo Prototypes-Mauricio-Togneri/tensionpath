@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/json/json_units.dart';
+import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
@@ -136,9 +136,9 @@ class NextTurn {
         jsonAction.targetY,
       );
       final JsonNode jsonNode = jsonNodes[locationId]!;
-      jsonNode.units = JsonUnits(
+      jsonNode.unit = JsonUnit(
         playerId: jsonAction.playerId,
-        amount: jsonAction.amount!,
+        level: jsonAction.level!,
       );
     }
   }
@@ -182,20 +182,20 @@ class NextTurn {
       );
       final JsonNode targetNode = jsonNodes[targetLocationId]!;
 
-      final JsonUnits jsonUnits = originNode.units!;
-      jsonUnits.hasMoved = true;
+      final JsonUnit jsonUnit = originNode.unit!;
+      jsonUnit.hasMoved = true;
 
-      targetNode.temporaryUnits.add(jsonUnits);
-      originNode.units = null;
+      targetNode.temporaryUnits.add(jsonUnit);
+      originNode.unit = null;
     }
 
     for (final JsonNode jsonNode in jsonNodes.values) {
-      if (jsonNode.units != null) {
-        final JsonUnits jsonUnits = jsonNode.units!;
-        jsonUnits.hasMoved = false;
+      if (jsonNode.unit != null) {
+        final JsonUnit jsonUnit = jsonNode.unit!;
+        jsonUnit.hasMoved = false;
 
-        jsonNode.temporaryUnits.add(jsonUnits);
-        jsonNode.units = null;
+        jsonNode.temporaryUnits.add(jsonUnit);
+        jsonNode.unit = null;
       }
     }
   }
@@ -208,10 +208,10 @@ class NextTurn {
     for (final JsonNode jsonNode in jsonNodes.values) {
       if (jsonNode.temporaryUnits.length == 1) {
         // Only one unit in the node, no battle
-        final JsonUnits jsonUnits = jsonNode.temporaryUnits.first;
-        jsonUnits.hasMoved = false;
+        final JsonUnit jsonUnit = jsonNode.temporaryUnits.first;
+        jsonUnit.hasMoved = false;
 
-        jsonNode.units = jsonUnits;
+        jsonNode.unit = jsonUnit;
       } else if (jsonNode.temporaryUnits.length > 1) {
         // More than one unit in the node, resolve battle
         _resolveBattle(jsonNode: jsonNode, jsonConfig: jsonConfig);
@@ -230,13 +230,13 @@ class NextTurn {
     bool player1Moved = false;
     bool player2Moved = false;
 
-    for (final JsonUnits jsonUnits in jsonNode.temporaryUnits) {
-      if (jsonUnits.playerId == Constants.PLAYER_1) {
-        player1Units += jsonUnits.amount;
-        player1Moved |= jsonUnits.hasMoved;
-      } else if (jsonUnits.playerId == Constants.PLAYER_2) {
-        player2Units += jsonUnits.amount;
-        player2Moved |= jsonUnits.hasMoved;
+    for (final JsonUnit jsonUnit in jsonNode.temporaryUnits) {
+      if (jsonUnit.playerId == Constants.PLAYER_1) {
+        player1Units += jsonUnit.level;
+        player1Moved |= jsonUnit.hasMoved;
+      } else if (jsonUnit.playerId == Constants.PLAYER_2) {
+        player2Units += jsonUnit.level;
+        player2Moved |= jsonUnit.hasMoved;
       }
     }
 
@@ -251,21 +251,21 @@ class NextTurn {
       final int remainingUnits = player1EffectiveUnits - player2EffectiveUnits;
 
       // Player 1 wins
-      jsonNode.units = JsonUnits(
+      jsonNode.unit = JsonUnit(
         playerId: Constants.PLAYER_1,
-        amount: min(remainingUnits, player1Units),
+        level: min(remainingUnits, player1Units),
       );
     } else if (player2EffectiveUnits > player1EffectiveUnits) {
       final int remainingUnits = player2EffectiveUnits - player1EffectiveUnits;
 
       // Player 2 wins
-      jsonNode.units = JsonUnits(
+      jsonNode.unit = JsonUnit(
         playerId: Constants.PLAYER_2,
-        amount: min(remainingUnits, player2Units),
+        level: min(remainingUnits, player2Units),
       );
     } else {
       // Both players lose all units
-      jsonNode.units = null;
+      jsonNode.unit = null;
     }
   }
 
@@ -275,18 +275,18 @@ class NextTurn {
   }) {
     for (final JsonNode jsonNode in jsonNodes.values) {
       if ((jsonNode.structure != null) &&
-          (jsonNode.units != null) &&
+          (jsonNode.unit != null) &&
           (jsonNode.structure!.type == StructureType.launcher) &&
-          (jsonNode.units!.playerId != jsonNode.structure!.playerId)) {
+          (jsonNode.unit!.playerId != jsonNode.structure!.playerId)) {
         final JsonPlayer jsonPlayer =
             jsonPlayers[jsonNode.structure!.playerId]!;
-        jsonPlayer.baseHealth -= jsonNode.units!.amount;
+        jsonPlayer.baseHealth -= jsonNode.unit!.level;
 
         if (jsonPlayer.baseHealth < 0) {
           jsonPlayer.baseHealth = 0;
         }
 
-        jsonNode.units = null;
+        jsonNode.unit = null;
       }
     }
   }
@@ -322,9 +322,9 @@ class NextTurn {
     for (final JsonNode jsonNode in jsonNodes) {
       if ((jsonNode.structure != null) &&
           (jsonNode.structure!.type == StructureType.resources) &&
-          (jsonNode.units != null)) {
-        final JsonPlayer jsonPlayer = jsonPlayers[jsonNode.units!.playerId]!;
-        final int newResources = jsonNode.units!.amount.clamp(
+          (jsonNode.unit != null)) {
+        final JsonPlayer jsonPlayer = jsonPlayers[jsonNode.unit!.playerId]!;
+        final int newResources = jsonNode.unit!.level.clamp(
           0,
           jsonConfig.resourcesPerPatch,
         );
@@ -396,9 +396,9 @@ class NextTurn {
     int player2 = 0;
 
     for (final JsonNode jsonNode in platformNodes) {
-      if (jsonNode.units?.playerId == Constants.PLAYER_1) {
+      if (jsonNode.unit?.playerId == Constants.PLAYER_1) {
         player1++;
-      } else if (jsonNode.units?.playerId == Constants.PLAYER_2) {
+      } else if (jsonNode.unit?.playerId == Constants.PLAYER_2) {
         player2++;
       }
     }

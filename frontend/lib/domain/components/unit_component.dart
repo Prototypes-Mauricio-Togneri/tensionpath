@@ -8,14 +8,14 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/units.dart';
+import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitsComponent extends PositionComponent
+class UnitComponent extends PositionComponent
     with DragCallbacks, TapCallbacks
     implements Reconfigurable {
   final Player self;
@@ -26,7 +26,7 @@ class UnitsComponent extends PositionComponent
   final Vector2 targetPosition = Vector2.zero();
   bool validTarget = false;
 
-  UnitsComponent({
+  UnitComponent({
     required this.self,
     required this.node,
     required super.position,
@@ -34,7 +34,7 @@ class UnitsComponent extends PositionComponent
   }) : super(anchor: Anchor.center, priority: Priority.unit.value);
 
   bool get _canMove =>
-      node.hasUnits && node.units!.player.isSelf && match.match.isSelfPlaying;
+      node.hasUnit && node.unit!.player.isSelf && match.match.isSelfPlaying;
 
   @override
   FutureOr onLoad() async {
@@ -59,10 +59,10 @@ class UnitsComponent extends PositionComponent
 
   @override
   void reconfigure() {
-    if (node.hasUnits) {
-      final Units units = node.units!;
-      outterPaint.color = units.player.color.darken(0.3);
-      innerPaint.color = units.player.color;
+    if (node.hasUnit) {
+      final Unit unit = node.unit!;
+      outterPaint.color = unit.player.color.darken(0.3);
+      innerPaint.color = unit.player.color;
     }
   }
 
@@ -148,15 +148,15 @@ class UnitsComponent extends PositionComponent
 
   @override
   void render(Canvas canvas) {
-    if (node.isRevealed && node.hasUnits) {
-      final Units units = node.units!;
+    if (node.isRevealed && node.hasUnit) {
+      final Unit unit = node.unit!;
 
       canvas.drawUnitHexagon(
         position: size / 2,
         size: size,
         outterPaint: outterPaint,
         innerPaint: innerPaint,
-        amount: units.amount,
+        level: unit.level,
       );
 
       if (!targetPosition.isZero()) {
@@ -183,7 +183,7 @@ class MovementArrowComponent extends PositionComponent {
 
   @override
   void render(Canvas canvas) {
-    if (node.isRevealed && node.hasUnits && !targetPosition.isZero()) {
+    if (node.isRevealed && node.hasUnit && !targetPosition.isZero()) {
       canvas.movementLine(
         origin: size / 2,
         target: targetPosition,

@@ -1,17 +1,18 @@
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
 
-class ActionDeployUnits extends Action {
+class ActionMoveUnit extends Action {
+  final Location origin;
   final Location target;
-  final int amount;
 
-  const ActionDeployUnits({
+  const ActionMoveUnit({
     required super.playerId,
+    required this.origin,
     required this.target,
-    required this.amount,
-  }) : super(type: ActionType.deploy);
+  }) : super(type: ActionType.move);
 
   @override
-  int get cost => amount;
+  int get cost => origin.distance(target) * Constants.COST_MOVE_UNIT;
 }

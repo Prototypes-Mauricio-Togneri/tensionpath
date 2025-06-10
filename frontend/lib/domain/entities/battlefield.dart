@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/units.dart';
+import 'package:tensionpath/domain/entities/unit.dart';
 
 class Battlefield {
   final String id;
@@ -31,13 +31,13 @@ class Battlefield {
       final Node oldNode = nodeById(newNode.id);
       oldNode.replaceWith(newNode);
 
-      if (oldNode.hasUnits) {
-        final Units unit = oldNode.units!;
+      if (oldNode.hasUnit) {
+        final Unit unit = oldNode.unit!;
 
         if (unit.belongsTo(self)) {
           visibleNodes.addAll(
             oldNode.visibleNodes(
-              visibilityRange: Constants.UNITS_VISIBILITY_RANGE,
+              visibilityRange: Constants.UNIT_VISIBILITY_RANGE,
               nodes: nodes,
             ),
           );

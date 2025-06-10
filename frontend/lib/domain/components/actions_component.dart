@@ -3,8 +3,8 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart' hide Actions, Action;
 import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -37,14 +37,14 @@ class ActionsComponent extends PositionComponent {
     final Vector2 center = size / 2;
 
     for (final Action action in player.actions) {
-      if (action is ActionDeployUnits) {
+      if (action is ActionDeployUnit) {
         _renderDeploy(
           action: action,
           nodeSize: nodeSize,
           center: center,
           canvas: canvas,
         );
-      } else if (action is ActionMoveUnits) {
+      } else if (action is ActionMoveUnit) {
         _renderMove(
           action: action,
           nodeSize: nodeSize,
@@ -56,7 +56,7 @@ class ActionsComponent extends PositionComponent {
   }
 
   void _renderDeploy({
-    required ActionDeployUnits action,
+    required ActionDeployUnit action,
     required Vector2 nodeSize,
     required Vector2 center,
     required Canvas canvas,
@@ -70,13 +70,13 @@ class ActionsComponent extends PositionComponent {
       size: nodeSize,
       outterPaint: outterPaint,
       innerPaint: innerPaint,
-      amount: action.amount,
+      level: action.level,
       angle: (match.match.self.isPlayer2) ? pi : 0,
     );
   }
 
   void _renderMove({
-    required ActionMoveUnits action,
+    required ActionMoveUnit action,
     required Vector2 nodeSize,
     required Vector2 center,
     required Canvas canvas,

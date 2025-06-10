@@ -1,6 +1,5 @@
 # TODO
 
-- Units -> unit
 - Surrender callable
 - Match status: active, finished
 - Real time db
@@ -95,4 +94,4 @@
 - If a unit participating in a battle:
   1. Didn't move in that turn, then it's considered the defender
   2. It did move in that turn, then it's considered the attacker
-- Defender units have an extra amount of units during battle
+- Defender units have extra levels during battle

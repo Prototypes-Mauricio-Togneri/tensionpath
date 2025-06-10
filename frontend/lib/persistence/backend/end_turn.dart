@@ -53,7 +53,7 @@ class EndTurn {
 
     for (final JsonAction jsonAction in jsonActions) {
       if (jsonAction.type == ActionType.deploy) {
-        result += jsonAction.amount!;
+        result += jsonAction.level!;
       } else if (jsonAction.type == ActionType.move) {
         final Location originLocation = Location(
           x: jsonAction.originX!,

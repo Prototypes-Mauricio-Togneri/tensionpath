@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
 import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
@@ -56,13 +56,13 @@ class Match {
     int result = 0;
 
     for (final Node node in battlefield.nodes) {
-      if (node.hasUnits && node.units!.belongsTo(player)) {
+      if (node.hasUnit && node.unit!.belongsTo(player)) {
         result++;
       }
     }
 
     for (final Action action in player.actions) {
-      if (action is ActionDeployUnits && action.belongsTo(player)) {
+      if (action is ActionDeployUnit && action.belongsTo(player)) {
         result++;
       }
     }
@@ -91,10 +91,10 @@ class Match {
     MatchComponentRef.instance.onMatchUpdated(this);
   }
 
-  bool _canDeployUnit({required Node node, required int amount}) =>
-      (self.resources >= amount) &&
+  bool _canDeployUnit({required Node node, required int level}) =>
+      (self.resources >= level) &&
       isSelfPlaying &&
-      !node.hasUnits &&
+      !node.hasUnit &&
       node.hasStructure &&
       (node.structure is StructureLauncher) &&
       node.belongsTo(self) &&
@@ -129,32 +129,32 @@ class Match {
   bool _cannotPassThroughNode({required Node node, required bool lastNode}) {
     final bool invalidStructure =
         node.structure != null && !node.structure!.type.canMoveUnit;
-    final bool nodeHasUnits = !lastNode && node.hasUnits;
+    final bool nodeHasUnit = !lastNode && node.hasUnit;
     final bool isNotRevealed = !lastNode && !node.isRevealed;
 
-    return invalidStructure || nodeHasUnits || isNotRevealed;
+    return invalidStructure || nodeHasUnit || isNotRevealed;
   }
 
   bool _canMoveUnit(Node node) =>
-      isSelfPlaying && node.hasUnits && node.units!.belongsTo(self);
+      isSelfPlaying && node.hasUnit && node.unit!.belongsTo(self);
 
-  void onDeployUnit({required Node nodeTarget, required int amount}) {
-    if (_canDeployUnit(node: nodeTarget, amount: amount)) {
+  void onDeployUnit({required Node nodeTarget, required int level}) {
+    if (_canDeployUnit(node: nodeTarget, level: level)) {
       final int cashBack = self.addAction(
-        ActionDeployUnits(
+        ActionDeployUnit(
           playerId: self.id,
           target: nodeTarget.location,
-          amount: amount,
+          level: level,
         ),
       );
-      self.spendResources(amount - cashBack);
+      self.spendResources(level - cashBack);
       MatchComponentRef.instance.reconfigure();
     }
   }
 
-  void onDeployMaxUnits(Node nodeTarget) {
+  void onDeployMaxUnit(Node nodeTarget) {
     if (self.resources > 0) {
-      onDeployUnit(nodeTarget: nodeTarget, amount: self.resources);
+      onDeployUnit(nodeTarget: nodeTarget, level: self.resources);
     } else {
       self.removeDeploymentAction(nodeTarget.location);
     }
@@ -169,7 +169,7 @@ class Match {
       if (self.resources >= cost) {
         if (_canMoveUnit(nodeOrigin)) {
           final int cashBack = self.addAction(
-            ActionMoveUnits(
+            ActionMoveUnit(
               playerId: self.id,
               origin: nodeOrigin.location,
               target: nodeTarget.location,
@@ -206,7 +206,7 @@ class Match {
     final List<JsonAction> result = [];
 
     for (final Action action in actions) {
-      if (action is ActionDeployUnits) {
+      if (action is ActionDeployUnit) {
         result.add(
           JsonAction(
             type: action.type,
@@ -215,10 +215,10 @@ class Match {
             originY: null,
             targetX: action.target.x,
             targetY: action.target.y,
-            amount: action.amount,
+            level: action.level,
           ),
         );
-      } else if (action is ActionMoveUnits) {
+      } else if (action is ActionMoveUnit) {
         result.add(
           JsonAction(
             type: action.type,
@@ -227,7 +227,7 @@ class Match {
             originY: action.origin.y,
             targetX: action.target.x,
             targetY: action.target.y,
-            amount: null,
+            level: null,
           ),
         );
       } else {

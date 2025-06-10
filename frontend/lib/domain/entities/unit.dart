@@ -2,16 +2,16 @@ import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 
-class Units implements Localizable {
+class Unit implements Localizable {
   Player player;
-  int amount;
+  int level;
   final Location location;
 
-  Units({required this.player, required this.amount, required this.location});
+  Unit({required this.player, required this.level, required this.location});
 
-  void replaceWith(Units newUnits) {
-    player = newUnits.player;
-    amount = newUnits.amount;
+  void replaceWith(Unit newUnit) {
+    player = newUnit.player;
+    level = newUnit.level;
   }
 
   bool belongsTo(Player player) => this.player.id == player.id;

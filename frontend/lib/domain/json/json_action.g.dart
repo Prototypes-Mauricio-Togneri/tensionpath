@@ -17,7 +17,7 @@ JsonAction _$JsonActionFromJson(Map<String, dynamic> json) => $checkedCreate(
       originY: $checkedConvert('originY', (v) => (v as num?)?.toInt()),
       targetX: $checkedConvert('targetX', (v) => (v as num).toInt()),
       targetY: $checkedConvert('targetY', (v) => (v as num).toInt()),
-      amount: $checkedConvert('amount', (v) => (v as num?)?.toInt()),
+      level: $checkedConvert('level', (v) => (v as num?)?.toInt()),
     );
     return val;
   },
@@ -31,7 +31,7 @@ Map<String, dynamic> _$JsonActionToJson(JsonAction instance) =>
       if (instance.originY case final value?) 'originY': value,
       'targetX': instance.targetX,
       'targetY': instance.targetY,
-      if (instance.amount case final value?) 'amount': value,
+      if (instance.level case final value?) 'level': value,
     };
 
 const _$ActionTypeEnumMap = {

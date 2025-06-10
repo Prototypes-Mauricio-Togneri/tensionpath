@@ -79,15 +79,15 @@ extension CanvasExtension on Canvas {
     required Vector2 size,
     required Paint outterPaint,
     required Paint innerPaint,
-    required int amount,
+    required int level,
     required double angle,
   }) {
     drawCircle(position.toOffset(), size.x / 4.5, outterPaint);
     drawCircle(position.toOffset(), size.x / 5.25, innerPaint);
 
     drawText(
-      text: amount.toString(),
-      color: Palette.UNIT_AMOUNT_INDICATOR,
+      text: level.toString(),
+      color: Palette.UNIT_LEVEL_INDICATOR,
       position: position,
       size: size.x / 6,
       angle: angle,
@@ -99,14 +99,14 @@ extension CanvasExtension on Canvas {
     required Vector2 size,
     required Paint outterPaint,
     required Paint innerPaint,
-    required int amount,
+    required int level,
   }) {
     drawHexagon(center: position, size: size / 2, paint: outterPaint);
     drawHexagon(center: position, size: size / 2.35, paint: innerPaint);
 
     drawText(
-      text: amount.toString(),
-      color: Palette.UNIT_AMOUNT_INDICATOR,
+      text: level.toString(),
+      color: Palette.UNIT_LEVEL_INDICATOR,
       position: position,
       size: size.x / 6,
     );

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_units.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_units.dart';
+import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
+import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
 
@@ -27,8 +27,8 @@ class JsonAction {
   @JsonKey(name: 'targetY')
   int targetY;
 
-  @JsonKey(name: 'amount')
-  int? amount;
+  @JsonKey(name: 'level')
+  int? level;
 
   JsonAction({
     required this.type,
@@ -37,18 +37,18 @@ class JsonAction {
     required this.originY,
     required this.targetX,
     required this.targetY,
-    required this.amount,
+    required this.level,
   });
 
   Action get object {
     if (type == ActionType.deploy) {
-      return ActionDeployUnits(
+      return ActionDeployUnit(
         playerId: playerId,
         target: Location(x: targetX, y: targetY),
-        amount: amount!,
+        level: level!,
       );
     } else if (type == ActionType.move) {
-      return ActionMoveUnits(
+      return ActionMoveUnit(
         playerId: playerId,
         origin: Location(x: originX!, y: originY!),
         target: Location(x: targetX, y: targetY),

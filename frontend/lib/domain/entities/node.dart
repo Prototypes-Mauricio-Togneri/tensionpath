@@ -4,23 +4,23 @@ import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/units.dart';
+import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 
 class Node implements Localizable {
   final NodeType type;
   final Location location;
-  late Units? _units;
+  late Unit? _unit;
   Structure? _structure;
   bool _isRevealed = false;
 
   Node({
     required this.type,
     required this.location,
-    required Units? units,
+    required Unit? unit,
     required Structure? structure,
   }) {
-    _units = units;
+    _unit = unit;
     _structure = structure;
   }
 
@@ -31,11 +31,11 @@ class Node implements Localizable {
 
   String get id => location.id;
 
-  Units? get units => _units;
+  Unit? get unit => _unit;
 
   Structure? get structure => _structure;
 
-  bool get hasUnits => _units != null;
+  bool get hasUnit => _unit != null;
 
   bool get hasStructure => _structure != null;
 
@@ -48,21 +48,11 @@ class Node implements Localizable {
     _isRevealed = value;
   }
 
-  /*bool isMovementTarget(Units unit) {
-    final bool isAllowedTarget =
-        ((_structure == null) || _structure!.type.canMoveUnit) &&
-        type.canMoveUnit(unit);
-    final bool hasMoves = unit.remainingMoves > 0;
-    final bool inDistance = distance(unit) <= unit.movementRange;
-
-    return isAllowedTarget && hasMoves && inDistance;
-  }*/
-
   void replaceWith(Node newNode) {
-    if ((newNode.units != null) && (_units != null)) {
-      _units!.replaceWith(newNode.units!);
+    if ((newNode.unit != null) && (_unit != null)) {
+      _unit!.replaceWith(newNode.unit!);
     } else {
-      _units = newNode.units;
+      _unit = newNode.unit;
     }
 
     if ((newNode.structure != null) && (_structure != null)) {
@@ -73,7 +63,7 @@ class Node implements Localizable {
   }
 
   bool belongsTo(Player player) =>
-      (_units?.belongsTo(player) ?? false) ||
+      (_unit?.belongsTo(player) ?? false) ||
       (_structure?.belongsTo(player) ?? false);
 
   int distance(Localizable localizable) =>

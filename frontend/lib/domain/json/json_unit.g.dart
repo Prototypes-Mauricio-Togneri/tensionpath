@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_units.dart';
+part of 'json_unit.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonUnits _$JsonUnitsFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonUnits', json, ($checkedConvert) {
-      final val = JsonUnits(
+JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonUnit', json, ($checkedConvert) {
+      final val = JsonUnit(
         playerId: $checkedConvert('playerId', (v) => v as String),
-        amount: $checkedConvert('amount', (v) => (v as num).toInt()),
+        level: $checkedConvert('level', (v) => (v as num).toInt()),
       );
       return val;
     });
 
-Map<String, dynamic> _$JsonUnitsToJson(JsonUnits instance) => <String, dynamic>{
+Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
   'playerId': instance.playerId,
-  'amount': instance.amount,
+  'level': instance.level,
 };

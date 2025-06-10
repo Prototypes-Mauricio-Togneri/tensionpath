@@ -4,7 +4,7 @@ class Constants {
   static const double UI_CONTROLS_HEIGHT = 50;
 
   static const int COST_MOVE_UNIT = 1;
-  static const int UNITS_VISIBILITY_RANGE = 2;
+  static const int UNIT_VISIBILITY_RANGE = 2;
 
   static const String PLAYER_1 = '1';
   static const String PLAYER_2 = '2';
