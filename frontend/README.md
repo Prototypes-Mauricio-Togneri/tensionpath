@@ -1,7 +1,6 @@
 # TODO
 
 - Surrender callable
-- Match status: active, finished
 - Real time db
 - AI
 - Animations

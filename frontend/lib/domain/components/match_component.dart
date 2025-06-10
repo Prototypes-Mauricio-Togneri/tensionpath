@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -53,10 +54,14 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(Match match) {
-    if (match.selfWon) {
-      GameComponentRef.instance.onMatchFinished(true);
-    } else if (match.opponentWon) {
-      GameComponentRef.instance.onMatchFinished(false);
+    if (match.status == MatchStatus.finished) {
+      if (match.selfWon) {
+        GameComponentRef.instance.onMatchFinished(true);
+      } else if (match.opponentWon) {
+        GameComponentRef.instance.onMatchFinished(false);
+      } else {
+        GameComponentRef.instance.onMatchFinished(null);
+      }
     } else {
       reconfigure();
     }

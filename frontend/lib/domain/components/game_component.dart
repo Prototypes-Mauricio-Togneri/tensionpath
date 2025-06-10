@@ -58,11 +58,13 @@ class GameComponent extends FlameGame with KeyboardEvents {
     super.onRemove();
   }
 
-  void onMatchFinished(bool won) {
-    if (won) {
+  void onMatchFinished(bool? won) {
+    if (won == true) {
       InfoDialog.won(_onMatchQuit);
-    } else {
+    } else if (won == false) {
       InfoDialog.lost(_onMatchQuit);
+    } else {
+      InfoDialog.draw(_onMatchQuit);
     }
   }
 
