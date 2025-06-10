@@ -1,6 +1,5 @@
 # TODO
 
-- Remove test match
 - Units -> unit
 - Surrender callable
 - Match status: active, finished

@@ -14,13 +14,6 @@ class HomeState extends BaseState {
     final String name = await NameStorage.load();
     nameController.text = name;
     notify();
-
-    /*if (Environment.get.isDebug) {
-      Delayed.post(
-        () =>
-            Navigation.matchScreen(matchId: 'test', selfId: Constants.PLAYER_1),
-      );
-    }*/
   }
 
   bool get canPlay => nameController.text.trim().isNotEmpty;
