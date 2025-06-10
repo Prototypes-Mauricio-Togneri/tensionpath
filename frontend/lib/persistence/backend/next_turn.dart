@@ -27,19 +27,18 @@ class NextTurn {
   // Update steps:
   // * Check if the missile is full and launch it + update base health
   // * If both players are alive, continue. If not, skip.
-  // * Calculate unit deployments
-  // * Calculate unit movements
+  // * Execute unit deployments
+  // * Execute unit movements
   //    * Update player base health in case of attack
-  // * Update players
-  //    * Update resources
-  //    * Reset player
-  //       * Set status to playing
-  //       * Clear turnEndedAt
-  //       * Clear actions
+  // * Update players resources
   // * Update missile
   //    * Update charge
   //    * Update platform owners
   //    * Update missile owner
+  // * Reset players
+  //    * Set status to playing
+  //    * Clear turnEndedAt
+  //    * Clear actions
   // * Update turn
   //    * Increase turn counter
   //    * Set turn started at
