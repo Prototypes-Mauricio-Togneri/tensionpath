@@ -23,13 +23,13 @@ import 'package:tensionpath/utils/audio.dart';
 class Match {
   final String id;
   final int version;
-  final MatchStatus status;
   final DateTime createdAt;
   final Player self;
   final Player opponent;
   final Battlefield battlefield;
   final Config config;
   final Turn turn;
+  MatchStatus status;
 
   Match({
     required this.id,
@@ -86,6 +86,7 @@ class Match {
       Audio.get.playSound(Audio.NEW_TURN);
     }
 
+    status = newMatch.status;
     turn.replaceWith(newMatch.turn);
     self.replaceWith(newPlayer: newMatch.self, isNewTurn: isNewTurn);
     opponent.replaceWith(newPlayer: newMatch.opponent, isNewTurn: isNewTurn);

@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/persistence/backend/end_turn.dart';
 import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
 import 'package:tensionpath/persistence/backend/stop_matchmaking.dart';
+import 'package:tensionpath/persistence/backend/surrender.dart';
 
 class Backend {
   /*static final StreamListener _matchListener = StreamListener();
@@ -52,4 +53,7 @@ class Backend {
     required String selfId,
     required List<JsonAction> actions,
   }) => EndTurn()(matchId: matchId, selfId: selfId, actions: actions);
+
+  static Future surrender({required String matchId, required String selfId}) =>
+      Surrender()(matchId: matchId, selfId: selfId);
 }
