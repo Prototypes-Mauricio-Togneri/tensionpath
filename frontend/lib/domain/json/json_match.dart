@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/utils/json.dart';
 
 part 'json_match.g.dart';
@@ -18,6 +19,9 @@ class JsonMatch {
 
   @JsonKey(name: 'version')
   int version;
+
+  @JsonKey(name: 'status')
+  MatchStatus status;
 
   @JsonKey(name: 'createdAt', toJson: dateToJson)
   DateTime createdAt;
@@ -37,27 +41,13 @@ class JsonMatch {
   JsonMatch({
     required this.id,
     required this.version,
+    required this.status,
     required this.createdAt,
     required this.players,
     required this.battlefield,
     required this.config,
     required this.turn,
   });
-
-  JsonMatch clone({
-    String? id,
-    DateTime? createdAt,
-    JsonTurn? turn,
-    Map<String, JsonPlayer>? players,
-  }) => JsonMatch(
-    id: id ?? this.id,
-    version: version,
-    createdAt: createdAt ?? this.createdAt,
-    players: players ?? this.players,
-    battlefield: battlefield,
-    config: config,
-    turn: turn ?? this.turn,
-  );
 
   Match object(String selfId) {
     final Player self = _getSelf(selfId);

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
@@ -32,7 +33,7 @@ class RoomRepository {
         return _joinRoom(
           userId: userId,
           playerName: playerName,
-          json: jsonRoom,
+          jsonRoom: jsonRoom,
         );
       }
     }
@@ -103,19 +104,17 @@ class RoomRepository {
   static Future<String> _joinRoom({
     required String userId,
     required String playerName,
-    required JsonRoom json,
+    required JsonRoom jsonRoom,
   }) async {
-    JsonRoom jsonRoom = json.clone(
-      userIds: [...json.userIds, userId],
-      users: {...json.users, userId: playerName},
-    );
+    jsonRoom.userIds = [...jsonRoom.userIds, userId];
+    jsonRoom.users = {...jsonRoom.users, userId: playerName};
+
     final String matchId = await _createMatch(jsonRoom);
-    jsonRoom = jsonRoom.clone(
-      matchId: matchId,
-      status: jsonRoom.users.length == jsonRoom.numberOfPlayers
-          ? RoomStatus.closed
-          : RoomStatus.open,
-    );
+
+    jsonRoom.matchId = matchId;
+    jsonRoom.status = jsonRoom.users.length == jsonRoom.numberOfPlayers
+        ? RoomStatus.closed
+        : RoomStatus.open;
 
     await RoomRepository._update(jsonRoom);
 
@@ -123,21 +122,16 @@ class RoomRepository {
   }
 
   static Future<String> _createMatch(JsonRoom jsonRoom) async {
-    JsonMatch jsonMatch = await JsonMatch.fromTemplate(
+    final JsonMatch jsonMatch = await JsonMatch.fromTemplate(
       'assets/${Assets.TEMPLATES_W5H7}',
     );
-    jsonMatch = jsonMatch.clone(
-      createdAt: DateTime.now(),
-      turn: jsonMatch.turn.clone(startedAt: DateTime.now()),
-      players: Map.fromEntries(
-        jsonMatch.players.entries.map(
-          (entry) => MapEntry(
-            entry.key,
-            entry.value.clone(name: jsonRoom.playersMap[entry.key]),
-          ),
-        ),
-      ),
-    );
+    jsonMatch.createdAt = DateTime.now();
+    jsonMatch.turn.startedAt = DateTime.now();
+
+    for (final MapEntry<String, JsonPlayer> entry
+        in jsonMatch.players.entries) {
+      entry.value.name = jsonRoom.playersMap[entry.key]!;
+    }
 
     return MatchRepository.create(jsonMatch);
   }
@@ -148,7 +142,7 @@ class RoomRepository {
   }) async {
     final DocumentReference ref = _ref(roomId);
     final DocumentSnapshot snapshot = await ref.get();
-    JsonRoom jsonRoom = JsonRoom.fromJson(snapshot.json);
+    final JsonRoom jsonRoom = JsonRoom.fromJson(snapshot.json);
 
     if (!jsonRoom.users.containsKey(userId)) {
       throw Exception('User is not in the room');
@@ -161,11 +155,10 @@ class RoomRepository {
     if (jsonRoom.users.length == 1) {
       await ref.delete();
     } else {
-      jsonRoom = jsonRoom.clone(
-        status: RoomStatus.closed,
-        userIds: jsonRoom.userIds.where((id) => id != userId).toList(),
-        users: jsonRoom.users..removeWhere((key, value) => key == userId),
-      );
+      jsonRoom.status = RoomStatus.closed;
+      jsonRoom.userIds = jsonRoom.userIds.where((id) => id != userId).toList();
+      jsonRoom.users = jsonRoom.users
+        ..removeWhere((key, value) => key == userId);
 
       await RoomRepository._update(jsonRoom);
     }

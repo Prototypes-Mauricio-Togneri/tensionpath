@@ -11,6 +11,10 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
       final val = JsonMatch(
         id: $checkedConvert('id', (v) => v as String),
         version: $checkedConvert('version', (v) => (v as num).toInt()),
+        status: $checkedConvert(
+          'status',
+          (v) => $enumDecode(_$MatchStatusEnumMap, v),
+        ),
         createdAt: $checkedConvert(
           'createdAt',
           (v) => DateTime.parse(v as String),
@@ -41,9 +45,15 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
   'id': instance.id,
   'version': instance.version,
+  'status': _$MatchStatusEnumMap[instance.status]!,
   if (dateToJson(instance.createdAt) case final value?) 'createdAt': value,
   'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
   'battlefield': instance.battlefield.toJson(),
   'config': instance.config.toJson(),
   'turn': instance.turn.toJson(),
+};
+
+const _$MatchStatusEnumMap = {
+  MatchStatus.active: 'active',
+  MatchStatus.finished: 'finished',
 };

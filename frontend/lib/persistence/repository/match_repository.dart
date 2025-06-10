@@ -59,9 +59,9 @@ class MatchRepository {
 
   static Future<String> create(JsonMatch jsonMatch) async {
     final DocumentReference ref = _ref();
-    final JsonMatch jsonMatchWithId = jsonMatch.clone(id: ref.id);
-    await ref.set(jsonMatchWithId.toJson());
-    await HistoryRepository.addSnapshot(jsonMatchWithId);
+    jsonMatch.id = ref.id;
+    await ref.set(jsonMatch.toJson());
+    await HistoryRepository.addSnapshot(jsonMatch);
 
     return ref.id;
   }

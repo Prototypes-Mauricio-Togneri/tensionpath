@@ -36,15 +36,6 @@ class JsonPlayer {
     required this.actions,
   });
 
-  JsonPlayer clone({String? name}) => JsonPlayer(
-    name: name ?? this.name,
-    baseHealth: baseHealth,
-    resources: resources,
-    status: status,
-    turnEndedAt: turnEndedAt,
-    actions: actions,
-  );
-
   Player object({required String id, required bool isSelf}) => Player(
     id: id,
     name: name,
