@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionpath/domain/json/json_version.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
@@ -19,27 +20,35 @@ class SplashState extends BaseState {
   }
 
   Future _fetchLatestVersion() async {
-    final response = await http.get(
-      Uri.parse(
-        'https://europe-west6-tension-path.cloudfunctions.net/api/version',
-      ),
-    );
-    if (response.statusCode == 200) {
-      final JsonVersion data = JsonVersion.fromJson(jsonDecode(response.body));
-      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      if ((data.buildNumber != packageInfo.buildNumber) ||
-          (data.version != packageInfo.version)) {
-        newVersionAvailable = true;
-        notify();
-      } else {
-        Authentication.checkIfAuthenticated(
-          onSuccess: _onSuccess,
-          onError: _onError,
+    if (Environment.get.isRelease) {
+      final Response response = await get(
+        Uri.parse(
+          'https://europe-west6-tension-path.cloudfunctions.net/api/version',
+        ),
+      );
+      if (response.statusCode == 200) {
+        final JsonVersion data = JsonVersion.fromJson(
+          jsonDecode(response.body),
         );
+        final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+        if ((data.buildNumber != packageInfo.buildNumber) ||
+            (data.version != packageInfo.version)) {
+          newVersionAvailable = true;
+          notify();
+        } else {
+          _authenticate();
+        }
       }
+    } else {
+      _authenticate();
     }
   }
+
+  void _authenticate() => Authentication.checkIfAuthenticated(
+    onSuccess: _onSuccess,
+    onError: _onError,
+  );
 
   void _onSuccess(User user) {
     _processUser(user);
