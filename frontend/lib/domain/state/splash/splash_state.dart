@@ -21,27 +21,29 @@ class SplashState extends BaseState {
 
   Future _fetchLatestVersion() async {
     if (Environment.get.isRelease) {
-      final Response response = await get(
-        Uri.parse(
-          'https://europe-west6-tension-path.cloudfunctions.net/api/version',
-        ),
-      );
-      if (response.statusCode == 200) {
-        final JsonVersion data = JsonVersion.fromJson(
-          jsonDecode(response.body),
-        );
-        final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-        if ((data.buildNumber != packageInfo.buildNumber) ||
-            (data.version != packageInfo.version)) {
-          newVersionAvailable = true;
-          notify();
-        } else {
-          _authenticate();
-        }
-      }
+      await _checkVersion();
     } else {
       _authenticate();
+    }
+  }
+
+  Future _checkVersion() async {
+    final Response response = await get(
+      Uri.parse(
+        'https://europe-west6-tension-path.cloudfunctions.net/api/version',
+      ),
+    );
+    if (response.statusCode == 200) {
+      final JsonVersion data = JsonVersion.fromJson(jsonDecode(response.body));
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+      if ((data.buildNumber != packageInfo.buildNumber) ||
+          (data.version != packageInfo.version)) {
+        newVersionAvailable = true;
+        notify();
+      } else {
+        _authenticate();
+      }
     }
   }
 
