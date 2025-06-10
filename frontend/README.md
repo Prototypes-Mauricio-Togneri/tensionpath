@@ -1,5 +1,13 @@
 # TODO
 
+- Remove test match
+- Units -> unit
+- Surrender callable
+- Match status: active, finished
+- Real time db
+- AI
+- Animations
+
 - Resources per turn = popcap - population (the more units deployed, the less resources)
 - Display history
 
