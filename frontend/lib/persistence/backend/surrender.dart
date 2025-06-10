@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
+import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/repository/history_repository.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 
@@ -14,13 +15,23 @@ class Surrender {
           selfId: selfId,
         );
 
-        print(jsonMatch.status);
-
         if (jsonMatch.status == MatchStatus.active) {
-          final JsonPlayer jsonPlayer = jsonMatch.players[selfId]!;
-          jsonPlayer.baseHealth = 0;
+          for (final MapEntry<String, JsonPlayer> entry
+              in jsonMatch.players.entries) {
+            final String playerId = entry.key;
+            final JsonPlayer jsonPlayer = entry.value;
+
+            jsonPlayer.status = PlayerStatus.waiting;
+            jsonPlayer.turnEndedAt = DateTime.now();
+
+            if (playerId == selfId) {
+              jsonPlayer.baseHealth = 0;
+            }
+          }
 
           jsonMatch.status = MatchStatus.finished;
+          jsonMatch.turn.turn += 1;
+          jsonMatch.turn.startedAt = DateTime.now();
 
           MatchRepository.update(
             transaction: transaction,

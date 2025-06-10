@@ -1,6 +1,5 @@
 # TODO
 
-- Surrender callable
 - Real time db
 - AI
 - Animations
