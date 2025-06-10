@@ -169,14 +169,14 @@ class RoomRepository {
     required Function(Room) onUpdated,
   }) => _ref(roomId).snapshots().listen((snapshot) {
     if (snapshot.exists) {
-      final JsonRoom json = JsonRoom.fromJson(snapshot.json);
-      onUpdated(json.object);
+      final JsonRoom jsonRoom = JsonRoom.fromJson(snapshot.json);
+      onUpdated(jsonRoom.object);
     }
   }, onError: ErrorHandler.process);
 
-  static Future<Room> _update(JsonRoom json) async {
-    await _ref(json.id).update(json.toJson());
+  static Future<Room> _update(JsonRoom jsonRoom) async {
+    await _ref(jsonRoom.id).update(jsonRoom.toJson());
 
-    return json.object;
+    return jsonRoom.object;
   }
 }

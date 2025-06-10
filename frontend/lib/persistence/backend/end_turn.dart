@@ -38,7 +38,7 @@ class EndTurn {
 
     jsonMatch = await NextTurn()(jsonMatch);
 
-    MatchRepository.update(transaction: transaction, json: jsonMatch);
+    MatchRepository.update(transaction: transaction, jsonMatch: jsonMatch);
 
     if (jsonMatch.turn.turn != turnBefore) {
       HistoryRepository.addSnapshotTransaction(

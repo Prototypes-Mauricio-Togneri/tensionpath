@@ -16,8 +16,8 @@ class MatchRepository {
     required Function(Match) onUpdated,
   }) => _ref(matchId).snapshots().listen((snapshot) {
     if (snapshot.exists) {
-      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      final Match match = json.object(selfId);
+      final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
+      final Match match = jsonMatch.object(selfId);
       onUpdated(match);
     }
   }, onError: ErrorHandler.process);
@@ -30,8 +30,8 @@ class MatchRepository {
     final DocumentSnapshot snapshot = await _ref(matchId).get();
 
     if (snapshot.exists) {
-      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
-      final Match match = json.object(selfId);
+      final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
+      final Match match = jsonMatch.object(selfId);
       onLoaded(match);
     }
   }
@@ -44,9 +44,9 @@ class MatchRepository {
     final DocumentSnapshot snapshot = await transaction.get(_ref(matchId));
 
     if (snapshot.exists) {
-      final JsonMatch json = JsonMatch.fromJson(snapshot.json);
+      final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
 
-      return json;
+      return jsonMatch;
     } else {
       throw Exception('Match with id $matchId not found');
     }
@@ -54,8 +54,8 @@ class MatchRepository {
 
   static void update({
     required Transaction transaction,
-    required JsonMatch json,
-  }) => transaction.update(_ref(json.id), json.toJson());
+    required JsonMatch jsonMatch,
+  }) => transaction.update(_ref(jsonMatch.id), jsonMatch.toJson());
 
   static Future<String> create(JsonMatch jsonMatch) async {
     final DocumentReference ref = _ref();
