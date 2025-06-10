@@ -56,6 +56,7 @@ class JsonMatch {
     return Match(
       id: id,
       version: version,
+      status: status,
       createdAt: createdAt,
       turn: turn.object,
       self: self,
