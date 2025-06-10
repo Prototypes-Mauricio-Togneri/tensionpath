@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
@@ -49,7 +50,10 @@ class NextTurn {
       jsonConfig: jsonMatch.config,
     );
 
-    if (_checkPlayersAlive(jsonMatch.players)) {
+    if (_checkPlayersAlive(
+      jsonMatch: jsonMatch,
+      jsonPlayers: jsonMatch.players,
+    )) {
       final Map<String, JsonNode> jsonNodes = Map.fromEntries(
         jsonMatch.battlefield.nodes.map(
           (node) => MapEntry(_locationId(node.x, node.y), node),
@@ -67,6 +71,7 @@ class NextTurn {
       );
 
       _executeUnitMovements(
+        jsonMatch: jsonMatch,
         jsonNodes: jsonNodes,
         jsonPlayers: jsonMatch.players,
         jsonActions: jsonActions
@@ -115,14 +120,23 @@ class NextTurn {
     }
   }
 
-  bool _checkPlayersAlive(Map<String, JsonPlayer> jsonPlayers) {
+  bool _checkPlayersAlive({
+    required JsonMatch jsonMatch,
+    required Map<String, JsonPlayer> jsonPlayers,
+  }) {
+    bool result = true;
+
     for (final JsonPlayer jsonPlayer in jsonPlayers.values) {
       if (jsonPlayer.baseHealth <= 0) {
-        return false;
+        result = false;
       }
     }
 
-    return true;
+    if (!result) {
+      jsonMatch.status = MatchStatus.finished;
+    }
+
+    return result;
   }
 
   void _executeUnitDeployments({
@@ -143,6 +157,7 @@ class NextTurn {
   }
 
   void _executeUnitMovements({
+    required JsonMatch jsonMatch,
     required Map<String, JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
     required List<JsonAction> jsonActions,
@@ -155,7 +170,11 @@ class NextTurn {
       jsonPlayers: jsonPlayers,
       jsonConfig: jsonConfig,
     );
-    _checkBaseAttacks(jsonNodes: jsonNodes, jsonPlayers: jsonPlayers);
+    _checkBaseAttacks(
+      jsonMatch: jsonMatch,
+      jsonNodes: jsonNodes,
+      jsonPlayers: jsonPlayers,
+    );
   }
 
   void _resetTemporaryUnits(Map<String, JsonNode> jsonNodes) {
@@ -269,6 +288,7 @@ class NextTurn {
   }
 
   void _checkBaseAttacks({
+    required JsonMatch jsonMatch,
     required Map<String, JsonNode> jsonNodes,
     required Map<String, JsonPlayer> jsonPlayers,
   }) {
@@ -283,6 +303,7 @@ class NextTurn {
 
         if (jsonPlayer.baseHealth < 0) {
           jsonPlayer.baseHealth = 0;
+          jsonMatch.status = MatchStatus.finished;
         }
 
         jsonNode.unit = null;
