@@ -7,8 +7,8 @@ import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
 
 interface StopMatchmakingCallableParams {
-  userId: string
-  roomId: string
+  userId: string,
+  roomId: string,
 }
 
 export const stopMatchmakingCallable = registerCallable(async (params: StopMatchmakingCallableParams) => {
