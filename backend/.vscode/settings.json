@@ -1,28 +1,35 @@
 {
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.editor.enablePreview": false,
-    "editor.minimap.enabled": false,
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
-    "editor.fontSize": 16,
-    "editor.detectIndentation": false,
-    "editor.formatOnSave": true,
-    "editor.fontFamily": "'Source Code Pro'",
-    "files.autoSave": "afterDelay",
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-    "eslint.enable": true,
-    "eslint.validate": [
-        "javascript",
-        "typescript"
-    ],
-    "eslint.workingDirectories": [
-        "functions"
-    ],
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
-    },
-    "eslint.format.enable": true,
-    "eslint.run": "onSave",
-    "cSpell.words": [],
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.enablePreview": false,
+  "editor.minimap.enabled": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.fontSize": 16,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.fontFamily": "'Source Code Pro'",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "files.autoSave": "afterDelay",
+  "eslint.run": "onSave",
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "cSpell.words": [],
 }

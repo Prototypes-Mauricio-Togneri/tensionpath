@@ -9,7 +9,7 @@ import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {RoomVisibility} from '../../../types/room-visibility'
 
 interface StartMatchmakingCallableParams {
-  playerId: string
+  userId: string
   playerName: string
   version: number
   matchType: string
@@ -21,7 +21,7 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
   return Database.runTransaction(async (database) => {
     const room = await getAvailableRoomDocument({
       database: database,
-      playerId: params.playerId,
+      userId: params.userId,
       version: params.version,
       matchType: params.matchType,
       numberOfPlayers: params.numberOfPlayers,
@@ -31,13 +31,13 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
       return joinExistingRoom({
         database: database,
         room: room,
-        playerId: params.playerId,
+        playerId: params.userId,
         playerName: params.playerName,
       })
     } else {
       return createNewRoom({
         database: database,
-        playerId: params.playerId,
+        playerId: params.userId,
         playerName: params.playerName,
         version: params.version,
         matchType: params.matchType,

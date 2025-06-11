@@ -7,7 +7,7 @@ export const version = app.get('/version', (_, res) => {
   try {
     const json = JSON.parse(data)
     res.status(200).json(json)
-  } catch (e) {
+  } catch (_) {
     res.status(500)
   }
 })
