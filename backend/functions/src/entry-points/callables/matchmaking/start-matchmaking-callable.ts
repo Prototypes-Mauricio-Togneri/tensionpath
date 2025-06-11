@@ -4,8 +4,6 @@ import {updateRoomDocument} from '../../../collections/rooms/update-room-documen
 import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
-import {RoomStatus} from '../../../types/room-status'
-import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {RoomVisibility} from '../../../types/room-visibility'
 
 interface StartMatchmakingCallableParams {
@@ -17,7 +15,7 @@ interface StartMatchmakingCallableParams {
   visibility: RoomVisibility,
 }
 
-export const startMatchmakingCallable = registerCallable(async (params: StartMatchmakingCallableParams) => {
+export const startMatchmakingCallable = registerCallable(async (params: StartMatchmakingCallableParams): Promise<Room> => {
   return Database.runTransaction(async (database) => {
     const room = await getAvailableRoomDocument({
       database: database,
@@ -32,8 +30,8 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
       return joinExistingRoom({
         database: database,
         room: room,
-        playerId: params.userId,
-        playerName: params.playerName,
+        userId: params.userId,
+        name: params.playerName,
       })
     } else {
       return createNewRoom({
@@ -52,35 +50,24 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
 const joinExistingRoom = async (params: {
   database: Database,
   room: Room,
-  playerId: string,
-  playerName: string,
-}) => {
-  const newRoom = params.room.join({
-    userId: params.playerId,
-    name: params.playerName,
-  })
+  userId: string,
+  name: string,
+}): Promise<Room> => {
+  if (params.room.hasUser(params.userId)) {
+    return params.room
+  } else {
+    const newRoom = params.room.join({
+      userId: params.userId,
+      name: params.name,
+    })
 
-  if (newRoom.status === RoomStatus.closed) {
-    const created = false
+    await updateRoomDocument({
+      database: params.database,
+      room: newRoom,
+    })
 
-    if (!created) {
-      throw new CustomInternalError({
-        message: 'Cannot create remote room',
-        data: {
-          room: JSON.stringify(params.room),
-          playerId: params.playerId,
-          playerName: params.playerName,
-        },
-      })
-    }
+    return newRoom
   }
-
-  await updateRoomDocument({
-    database: params.database,
-    room: newRoom,
-  })
-
-  return newRoom
 }
 
 const createNewRoom = async (params: {
@@ -91,7 +78,7 @@ const createNewRoom = async (params: {
   matchType: string,
   numberOfPlayers: number,
   visibility: RoomVisibility,
-}) => {
+}): Promise<Room> => {
   const newRoom = Room.create({
     userId: params.playerId,
     name: params.playerName,

@@ -57,17 +57,16 @@ export class Room implements IRoom {
     userId: string,
     name: string
   }): Room {
-    const userInRoom = this.hasUser(params.userId)
-    const roomFull = !userInRoom && (this.numberOfPlayers === (this.joinedUsers + 1))
-
-    const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
-    const newUserIds = this.userIds
-    const newUsers = this.users
-
-    if (!userInRoom) {
-      newUserIds.push(params.userId)
-      newUsers[params.userId] = params.name
+    const newUserIds = [
+      ...this.userIds,
+      params.userId,
+    ]
+    const newUsers = {
+      ...this.users,
+      [params.userId]: params.name,
     }
+    const roomFull = this.numberOfPlayers === newUserIds.length
+    const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
 
     return this.with({
       status: newStatus,
