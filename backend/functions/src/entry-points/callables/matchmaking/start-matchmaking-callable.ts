@@ -55,8 +55,8 @@ const joinExistingRoom = async (params: {
   playerName: string,
 }) => {
   const newRoom = params.room.join({
-    playerId: params.playerId,
-    playerName: params.playerName,
+    userId: params.playerId,
+    name: params.playerName,
   })
 
   if (newRoom.status === RoomStatus.closed) {
@@ -92,8 +92,8 @@ const createNewRoom = async (params: {
   visibility: RoomVisibility,
 }) => {
   const newRoom = Room.create({
-    playerId: params.playerId,
-    playerName: params.playerName,
+    userId: params.playerId,
+    name: params.playerName,
     version: params.version,
     matchType: params.matchType,
     numberOfPlayers: params.numberOfPlayers,

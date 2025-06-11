@@ -19,7 +19,7 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
       roomId: params.roomId,
     })
 
-    if (!room.hasPlayer(params.playerId)) {
+    if (!room.hasUser(params.playerId)) {
       throw new CustomInternalError({
         message: 'Player not in room',
         data: {
@@ -39,7 +39,7 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
       })
     }
 
-    if (room.joinedPlayers === 1) {
+    if (room.joinedUsers === 1) {
       await deleteRoomDocument({
         database: database,
         roomId: params.roomId,
