@@ -4,7 +4,6 @@ import {Room} from '../../models/room'
 
 export const getRoomRoomDocument = async (params: {
   database: Database,
-  playerId: string,
   roomId: string,
 }) => {
   const docRef = params.database

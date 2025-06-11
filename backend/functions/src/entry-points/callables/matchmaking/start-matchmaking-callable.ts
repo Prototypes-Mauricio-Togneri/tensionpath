@@ -8,7 +8,7 @@ import {RoomVisibility} from '../../../types/room-visibility'
 
 interface StartMatchmakingCallableParams {
   userId: string,
-  playerName: string,
+  name: string,
   version: number,
   matchType: string,
   numberOfPlayers: number,
@@ -31,13 +31,13 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
         database: database,
         room: room,
         userId: params.userId,
-        name: params.playerName,
+        name: params.name,
       })
     } else {
       return createNewRoom({
         database: database,
         userId: params.userId,
-        name: params.playerName,
+        name: params.name,
         version: params.version,
         matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,

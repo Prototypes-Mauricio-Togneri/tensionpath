@@ -7,7 +7,7 @@ import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
 
 interface StopMatchmakingCallableParams {
-  playerId: string
+  userId: string
   roomId: string
 }
 
@@ -15,15 +15,14 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
   return Database.runTransaction(async (database) => {
     const room = await getRoomRoomDocument({
       database: database,
-      playerId: params.playerId,
       roomId: params.roomId,
     })
 
-    if (!room.hasUser(params.playerId)) {
+    if (!room.hasUser(params.userId)) {
       throw new CustomInternalError({
-        message: 'Player not in room',
+        message: 'User not in room',
         data: {
-          playerId: params.playerId,
+          userId: params.userId,
           roomId: params.roomId,
         },
       })
@@ -33,7 +32,7 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
       throw new CustomInternalError({
         message: 'Room is not open',
         data: {
-          playerId: params.playerId,
+          userId: params.userId,
           roomId: params.roomId,
         },
       })
@@ -45,7 +44,7 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
         roomId: params.roomId,
       })
     } else {
-      const newRoom = room.leave(params.playerId)
+      const newRoom = room.leave(params.userId)
 
       await updateRoomDocument({
         database: database,
