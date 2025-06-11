@@ -20,6 +20,7 @@
 - Resources per turn = popcap - population (the more units deployed, the less resources)
 - AI
 - Animations
+- Raeal Time Database
 
 # Rules
 
