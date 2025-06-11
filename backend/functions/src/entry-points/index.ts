@@ -72,7 +72,7 @@ export class Context {
   ) {
   }
 
-  public get playerId(): string {
+  public get userId(): string {
     if (!this.auth) {
       throw new CustomInternalError({
         message: 'Trying to access missing auth property in context',
@@ -85,13 +85,15 @@ export class Context {
   public withData(data: any) {
     return {
       ...data,
-      playerId: this.playerId,
+      playerId: this.userId,
     }
   }
 }
 
 export const app = express()
-app.use(cors({origin: true}))
+app.use(cors({
+  origin: true,
+}))
 
 export * from './callables/index'
 export * from './http-requests/index'
