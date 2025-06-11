@@ -4,20 +4,20 @@ import {Query} from 'firebase-admin/firestore'
 import {Room} from '../../models/room'
 
 export const getAvailableRoomDocument = async (params: {
-  database: Database
-  userId: string
-  version: number
-  matchType: string
-  numberOfPlayers: number
+  database: Database,
+  userId: string,
+  version: number,
+  matchType: string,
+  numberOfPlayers: number,
 }) => {
   const queryJoinedRoom = params.database
-    .collection(COLLECTIONS.ROOMS)
-    .where('status', '==', 'open')
-    .where('version', '==', params.version)
-    .where('matchType', '==', params.matchType)
-    .where('playerIds', 'array-contains', params.userId)
-    .where('numberOfPlayers', '==', params.numberOfPlayers)
-    .limit(1)
+      .collection(COLLECTIONS.ROOMS)
+      .where('status', '==', 'open')
+      .where('version', '==', params.version)
+      .where('matchType', '==', params.matchType)
+      .where('playerIds', 'array-contains', params.userId)
+      .where('numberOfPlayers', '==', params.numberOfPlayers)
+      .limit(1)
 
   const resultJoinedRoom = await executeQuery({
     database: params.database,
@@ -28,12 +28,12 @@ export const getAvailableRoomDocument = async (params: {
     return resultJoinedRoom
   } else {
     const queryNewRoom = params.database
-      .collection(COLLECTIONS.ROOMS)
-      .where('status', '==', 'open')
-      .where('version', '==', params.version)
-      .where('matchType', '==', params.matchType)
-      .where('numberOfPlayers', '==', params.numberOfPlayers)
-      .limit(1)
+        .collection(COLLECTIONS.ROOMS)
+        .where('status', '==', 'open')
+        .where('version', '==', params.version)
+        .where('matchType', '==', params.matchType)
+        .where('numberOfPlayers', '==', params.numberOfPlayers)
+        .limit(1)
 
     const resultNewRoom = await executeQuery({
       database: params.database,
