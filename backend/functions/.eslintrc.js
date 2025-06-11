@@ -27,6 +27,13 @@ module.exports = {
   rules: {
     'brace-style': ['error'],
     semi: ['error', 'never'],
+    'comma-dangle': ['error', {
+      arrays: 'only-multiline',
+      objects: 'always',
+      imports: 'never',
+      functions: 'never',
+      exports: 'always',
+    }],
     'object-curly-spacing': ['error', 'never'],
     'object-curly-newline': [
       'error',
