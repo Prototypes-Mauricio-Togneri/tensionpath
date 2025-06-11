@@ -38,7 +38,7 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
       })
     }
 
-    if (room.joinedUsers === 1) {
+    if (room.userIds.length === 1) {
       await deleteRoomDocument({
         database: database,
         roomId: params.roomId,

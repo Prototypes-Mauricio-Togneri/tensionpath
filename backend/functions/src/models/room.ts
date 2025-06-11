@@ -41,10 +41,6 @@ export class Room implements IRoom {
     this.matchId = data.matchId
   }
 
-  public get joinedUsers(): number {
-    return this.userIds.length
-  }
-
   public with(data: Partial<IRoom>): Room {
     return new Room(merge(this, data))
   }
@@ -79,13 +75,8 @@ export class Room implements IRoom {
 
   public leave(userId: string): Room {
     const newUserIds = this.userIds.filter((p) => p !== userId)
-    const newUsers: Record<string, string> = {}
-
-    for (const mapUserId of Object.keys(this.users)) {
-      if (mapUserId !== userId) {
-        newUsers[mapUserId] = this.users[mapUserId]
-      }
-    }
+    const newUsers = {...this.users,}
+    delete newUsers[userId]
 
     return this.with({
       userIds: newUserIds,
