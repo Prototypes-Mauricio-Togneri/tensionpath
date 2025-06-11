@@ -1,7 +1,7 @@
-import { COLLECTIONS, Database } from '../../database/database'
-import { FirebaseDocument } from '../../database/firebase-document'
-import { Query } from 'firebase-admin/firestore'
-import { Room } from '../../models/room'
+import {COLLECTIONS, Database} from '../../database/database'
+import {FirebaseDocument} from '../../database/firebase-document'
+import {Query} from 'firebase-admin/firestore'
+import {Room} from '../../models/room'
 
 export const getAvailableRoomDocument = async (params: {
   database: Database
