@@ -1,14 +1,9 @@
 # TODO
 
-- Real time db
-- AI
-- Animations
-
-- Resources per turn = popcap - population (the more units deployed, the less resources)
 - Display history
 
-- Toxic tiles that kill units
 - Choose map
+- Toxic tiles that kill units
 - Can only build factories on the first line
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
@@ -22,6 +17,9 @@
     - Center tile and adjacents (more expensive or less damage in each node)
     - Vertical (affects 2 tiles in a column)
     - Mine
+- Resources per turn = popcap - population (the more units deployed, the less resources)
+- AI
+- Animations
 
 # Rules
 
