@@ -28,6 +28,7 @@ module.exports = {
   rules: {
     'brace-style': ['error'],
     semi: ['error', 'never'],
+    'object-curly-spacing': ['error', 'never'],
     'object-curly-newline': [
       'error',
       {

@@ -29,7 +29,5 @@
       "mode": "auto"
     }
   ],
-  "prettier.semi": false,
-  "prettier.singleQuote": true,
   "cSpell.words": [],
 }
