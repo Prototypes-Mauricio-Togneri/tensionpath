@@ -9,12 +9,12 @@ import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {RoomVisibility} from '../../../types/room-visibility'
 
 interface StartMatchmakingCallableParams {
-  userId: string
-  playerName: string
-  version: number
-  matchType: string
-  numberOfPlayers: number
-  visibility: RoomVisibility
+  userId: string,
+  playerName: string,
+  version: number,
+  matchType: string,
+  numberOfPlayers: number,
+  visibility: RoomVisibility,
 }
 
 export const startMatchmakingCallable = registerCallable(async (params: StartMatchmakingCallableParams) => {
@@ -25,6 +25,7 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
       version: params.version,
       matchType: params.matchType,
       numberOfPlayers: params.numberOfPlayers,
+      visibility: params.visibility,
     })
 
     if (room) {

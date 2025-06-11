@@ -2,6 +2,7 @@ import {COLLECTIONS, Database} from '../../database/database'
 import {FirebaseDocument} from '../../database/firebase-document'
 import {Query} from 'firebase-admin/firestore'
 import {Room} from '../../models/room'
+import {RoomVisibility} from '../../types/room-visibility'
 
 export const getAvailableRoomDocument = async (params: {
   database: Database,
@@ -9,13 +10,15 @@ export const getAvailableRoomDocument = async (params: {
   version: number,
   matchType: string,
   numberOfPlayers: number,
+  visibility: RoomVisibility,
 }) => {
   const queryJoinedRoom = params.database
       .collection(COLLECTIONS.ROOMS)
       .where('status', '==', 'open')
       .where('version', '==', params.version)
       .where('matchType', '==', params.matchType)
-      .where('playerIds', 'array-contains', params.userId)
+      .where('visibility', '==', params.visibility)
+      .where('userIds', 'array-contains', params.userId)
       .where('numberOfPlayers', '==', params.numberOfPlayers)
       .limit(1)
 
@@ -32,6 +35,7 @@ export const getAvailableRoomDocument = async (params: {
         .where('status', '==', 'open')
         .where('version', '==', params.version)
         .where('matchType', '==', params.matchType)
+        .where('visibility', '==', params.visibility)
         .where('numberOfPlayers', '==', params.numberOfPlayers)
         .limit(1)
 
