@@ -30,7 +30,7 @@ export const getAvailableRoomDocument = async (params: {
   if (resultJoinedRoom) {
     return resultJoinedRoom
   } else {
-    const queryNewRoom = params.database
+    const queryAvailableRoom = params.database
         .collection(COLLECTIONS.ROOMS)
         .where('status', '==', 'open')
         .where('version', '==', params.version)
@@ -39,12 +39,12 @@ export const getAvailableRoomDocument = async (params: {
         .where('numberOfPlayers', '==', params.numberOfPlayers)
         .limit(1)
 
-    const resultNewRoom = await executeQuery({
+    const resultAvailableRoom = await executeQuery({
       database: params.database,
-      query: queryNewRoom,
+      query: queryAvailableRoom,
     })
 
-    return resultNewRoom
+    return resultAvailableRoom
   }
 }
 

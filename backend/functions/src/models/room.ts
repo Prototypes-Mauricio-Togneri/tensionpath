@@ -68,6 +68,8 @@ export class Room implements IRoom {
     const roomFull = this.numberOfPlayers === newUserIds.length
     const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
 
+    // TODO(momo): create match if full
+
     return this.with({
       status: newStatus,
       userIds: newUserIds,
@@ -101,8 +103,8 @@ export class Room implements IRoom {
   }): Room {
     return new Room({
       id: '',
-      createdAt: new Date(),
       version: params.version,
+      createdAt: new Date(),
       numberOfPlayers: params.numberOfPlayers,
       visibility: params.visibility,
       status: RoomStatus.open,

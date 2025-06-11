@@ -36,8 +36,8 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
     } else {
       return createNewRoom({
         database: database,
-        playerId: params.userId,
-        playerName: params.playerName,
+        userId: params.userId,
+        name: params.playerName,
         version: params.version,
         matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,
@@ -72,16 +72,16 @@ const joinExistingRoom = async (params: {
 
 const createNewRoom = async (params: {
   database: Database,
-  playerId: string,
-  playerName: string,
+  userId: string,
+  name: string,
   version: number,
   matchType: string,
   numberOfPlayers: number,
   visibility: RoomVisibility,
 }): Promise<Room> => {
   const newRoom = Room.create({
-    userId: params.playerId,
-    name: params.playerName,
+    userId: params.userId,
+    name: params.name,
     version: params.version,
     matchType: params.matchType,
     numberOfPlayers: params.numberOfPlayers,
