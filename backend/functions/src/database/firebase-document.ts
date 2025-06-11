@@ -3,10 +3,10 @@ import {mapFromFirebaseDocument} from '../utils/firebase-mapper'
 
 export class FirebaseDocument {
   private readonly documentData: DocumentData
-  readonly id: string
-  readonly createdDateTime?: Date
-  readonly updatedDateTime?: Date
-  readonly exists: boolean
+  public readonly id: string
+  public readonly createdDateTime?: Date
+  public readonly updatedDateTime?: Date
+  public readonly exists: boolean
 
   private constructor(params: {
     documentData: DocumentData,

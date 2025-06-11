@@ -133,7 +133,6 @@ export const WriteOptionMerge: SetOptions = {
 }
 
 export const COLLECTIONS = {
-  PLAYERS: 'players',
   ROOMS: 'rooms',
   MATCHES: 'matches',
 }
