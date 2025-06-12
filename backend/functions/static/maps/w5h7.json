@@ -17,6 +17,7 @@
   },
   "players": {
     "1": {
+      "id": "1",
       "name": "",
       "baseHealth": 100,
       "resources": 10,
@@ -25,6 +26,7 @@
       "actions": []
     },
     "2": {
+      "id": "2",
       "name": "",
       "baseHealth": 100,
       "resources": 10,
@@ -38,10 +40,6 @@
     "size": {
       "width": 5,
       "height": 7
-    },
-    "gridRatio": {
-      "width": 0.354,
-      "height": 0.5
     },
     "missile": {
       "charge": 0,
