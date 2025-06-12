@@ -5,19 +5,16 @@ export const createRoomDocument = async (params: {
   database: Database,
   room: Room,
 }) => {
-  const newId = params.database
+  const room = params.room
+  room.id = params.database
       .collection(COLLECTIONS.ROOMS)
       .doc().id
 
-  const newRoom = params.room.with({
-    id: newId,
-  })
-
   const docRef = params.database
       .collection(COLLECTIONS.ROOMS)
-      .doc(newRoom.id)
+      .doc(room.id)
 
-  await params.database.setDocument(docRef, newRoom, WriteOptionMerge)
+  await params.database.setDocument(docRef, room, WriteOptionMerge)
 
-  return newRoom
+  return room
 }

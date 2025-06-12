@@ -1,6 +1,5 @@
 import {FirebaseDocument} from '../database/firebase-document'
 import {PlayerStatus} from '../types/player-status'
-import {merge} from '../utils/merge'
 import {Action} from './action'
 
 export interface IPlayer {
@@ -14,13 +13,13 @@ export interface IPlayer {
 }
 
 export class Player implements IPlayer {
-  readonly id: string
-  readonly name: string
-  readonly baseHealth: number
-  readonly resources: number
-  readonly status: PlayerStatus
-  readonly turnEndedAt?: Date
-  readonly actions: Action[]
+  id: string
+  name: string
+  baseHealth: number
+  resources: number
+  status: PlayerStatus
+  turnEndedAt?: Date
+  actions: Action[]
 
   constructor(data: IPlayer) {
     this.id = data.id
@@ -30,10 +29,6 @@ export class Player implements IPlayer {
     this.status = data.status
     this.turnEndedAt = data.turnEndedAt
     this.actions = data.actions
-  }
-
-  public with(data: Partial<IPlayer>): Player {
-    return new Player(merge(this, data))
   }
 
   public static parse(document: FirebaseDocument): Player {

@@ -1,5 +1,4 @@
 import {FirebaseDocument} from '../database/firebase-document'
-import {merge} from '../utils/merge'
 
 export interface IMissile {
   charge: number,
@@ -11,12 +10,12 @@ export interface IMissile {
 }
 
 export class Missile implements IMissile {
-  readonly charge: number
-  readonly maxCharge: number
-  readonly bufferCharge: number
-  readonly numberOfPlatforms: number
-  readonly platforms: Record<string, string | null>
-  readonly owner?: string
+  charge: number
+  maxCharge: number
+  bufferCharge: number
+  numberOfPlatforms: number
+  platforms: Record<string, string | null>
+  owner?: string
 
   constructor(data: IMissile) {
     this.charge = data.charge
@@ -25,10 +24,6 @@ export class Missile implements IMissile {
     this.numberOfPlatforms = data.numberOfPlatforms
     this.platforms = data.platforms
     this.owner = data.owner
-  }
-
-  public with(data: Partial<IMissile>): Missile {
-    return new Missile(merge(this, data))
   }
 
   public static parse(document: FirebaseDocument): Missile {

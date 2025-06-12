@@ -1,10 +1,11 @@
+import * as fs from 'fs'
 import {FirebaseDocument} from '../database/firebase-document'
 import {MatchStatus} from '../types/match-status'
-import {merge} from '../utils/merge'
 import {Battlefield} from './battlefield'
 import {Config} from './config'
 import {Player} from './player'
 import {Turn} from './turn'
+import {Room} from './room'
 
 export interface IMatch {
   id: string,
@@ -18,14 +19,14 @@ export interface IMatch {
 }
 
 export class Match implements IMatch {
-  readonly id: string
-  readonly version: number
-  readonly createdAt: Date
-  readonly status: MatchStatus
-  readonly players: Record<string, Player>
-  readonly battlefield: Battlefield
-  readonly config: Config
-  readonly turn: Turn
+  id: string
+  version: number
+  createdAt: Date
+  status: MatchStatus
+  players: Record<string, Player>
+  battlefield: Battlefield
+  config: Config
+  turn: Turn
 
   constructor(data: IMatch) {
     this.id = data.id
@@ -38,11 +39,20 @@ export class Match implements IMatch {
     this.turn = data.turn
   }
 
-  public with(data: Partial<IMatch>): Match {
-    return new Match(merge(this, data))
-  }
-
   public static parse(document: FirebaseDocument): Match {
     return new Match(document.data())
+  }
+
+  public static create(params: {
+    mapId: string,
+    room: Room,
+  }): Match {
+    const data = fs.readFileSync(`static/maps/${params.mapId}.json`, 'utf8')
+    const json = JSON.parse(data)
+    const match = new Match(json)
+    match.createdAt = new Date()
+    match.turn.startedAt = new Date()
+
+    return match
   }
 }

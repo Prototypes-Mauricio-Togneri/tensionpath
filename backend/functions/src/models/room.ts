@@ -1,7 +1,7 @@
 import {FirebaseDocument} from '../database/firebase-document'
 import {RoomStatus} from '../types/room-status'
 import {RoomVisibility} from '../types/room-visibility'
-import {merge} from '../utils/merge'
+import {Match} from './match'
 
 export interface IRoom {
   id: string,
@@ -17,16 +17,16 @@ export interface IRoom {
 }
 
 export class Room implements IRoom {
-  readonly id: string
-  readonly version: number
-  readonly createdAt: Date
-  readonly numberOfPlayers: number
-  readonly visibility: RoomVisibility
-  readonly status: RoomStatus
-  readonly matchType: string
-  readonly userIds: string[]
-  readonly users: Record<string, string>
-  readonly matchId?: string
+  id: string
+  version: number
+  createdAt: Date
+  numberOfPlayers: number
+  visibility: RoomVisibility
+  status: RoomStatus
+  matchType: string
+  userIds: string[]
+  users: Record<string, string>
+  matchId?: string
 
   constructor(data: IRoom) {
     this.id = data.id
@@ -41,10 +41,6 @@ export class Room implements IRoom {
     this.matchId = data.matchId
   }
 
-  public with(data: Partial<IRoom>): Room {
-    return new Room(merge(this, data))
-  }
-
   public hasUser(userId: string): boolean {
     return this.userIds.includes(userId)
   }
@@ -53,35 +49,35 @@ export class Room implements IRoom {
     userId: string,
     name: string
   }): Room {
-    const newUserIds = [
+    this.userIds = [
       ...this.userIds,
       params.userId,
     ]
-    const newUsers = {
+    this.users = {
       ...this.users,
       [params.userId]: params.name,
     }
-    const roomFull = this.numberOfPlayers === newUserIds.length
-    const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
+    const roomFull = this.numberOfPlayers === this.userIds.length
+    this.status = roomFull ? RoomStatus.closed : RoomStatus.open
 
-    // TODO(momo): create match if full
+    if (roomFull) {
+      const match = Match.create({
+        mapId: 'w5h7',
+        room: this,
+      })
+      this.matchId = match.id
 
-    return this.with({
-      status: newStatus,
-      userIds: newUserIds,
-      users: newUsers,
-    })
+      return this
+    } else {
+      return this
+    }
   }
 
   public leave(userId: string): Room {
-    const newUserIds = this.userIds.filter((p) => p !== userId)
-    const newUsers = {...this.users,}
-    delete newUsers[userId]
+    this.userIds = this.userIds.filter((p) => p !== userId)
+    delete this.users[userId]
 
-    return this.with({
-      userIds: newUserIds,
-      users: newUsers,
-    })
+    return this
   }
 
   public static create(params: {

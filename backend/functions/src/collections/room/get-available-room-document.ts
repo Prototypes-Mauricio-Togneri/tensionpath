@@ -48,7 +48,7 @@ export const getAvailableRoomDocument = async (params: {
   }
 }
 
-const executeQuery = async (params: { database: Database; query: Query }) => {
+const executeQuery = async (params: { database: Database, query: Query }) => {
   const snapshot = await params.database.query(params.query)
 
   if (snapshot.size > 0) {
