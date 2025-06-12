@@ -8,15 +8,15 @@ import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/stream_listener.dart';
 
 class LobbyState extends BaseState {
-  final String roomId;
+  final Room room;
   final StreamListener _roomListener = StreamListener();
 
-  LobbyState(this.roomId);
+  LobbyState(this.room);
 
   @override
   void onLoad() {
     _roomListener.start(
-      RoomRepository.listen(roomId: roomId, onUpdated: _onUpdated),
+      RoomRepository.listen(roomId: room.id, onUpdated: _onUpdated),
     );
   }
 
@@ -28,7 +28,7 @@ class LobbyState extends BaseState {
   Future onCancel() async {
     await StopMatchmakingCallable()(
       userId: Authentication.userId,
-      roomId: roomId,
+      roomId: room.id,
     );
     Navigation.pop();
   }

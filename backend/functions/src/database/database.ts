@@ -7,6 +7,9 @@ import {IMatch} from '../models/match'
 
 type FirestoreWriteable = IRoom | IMatch
 
+const fs = admin.firestore()
+fs.settings({ignoreUndefinedProperties: true,})
+
 export class Database {
   private constructor(
     private readonly firestore: Firestore,

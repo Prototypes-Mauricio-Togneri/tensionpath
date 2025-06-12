@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
 import 'package:tensionpath/widgets/game_container.dart';
 
@@ -8,8 +9,8 @@ class LobbyScreen extends StatelessWidget {
 
   const LobbyScreen._(this.state);
 
-  factory LobbyScreen.instance(String roomId) =>
-      LobbyScreen._(LobbyState(roomId));
+  factory LobbyScreen.instance(Room room) =>
+      LobbyScreen._(LobbyState(room));
 
   @override
   Widget build(BuildContext context) {

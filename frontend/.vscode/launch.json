@@ -19,6 +19,11 @@
             "type": "dart",
             "program": "lib/main/main_remote.dart",
             "flutterMode": "debug",
+            "args": [
+                "-d",
+                "chrome",
+                "--wasm",
+            ]
             /*"args": [
                 "-d",
                 "chrome",

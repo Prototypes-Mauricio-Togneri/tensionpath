@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/persistence/backend/end_turn.dart';
-import 'package:tensionpath/persistence/backend/start_matchmaking.dart';
 import 'package:tensionpath/persistence/backend/stop_matchmaking.dart';
 import 'package:tensionpath/persistence/backend/surrender.dart';
 
@@ -37,11 +36,6 @@ class Backend {
   }*/
 
   // =============================== END POINTS ================================
-
-  static Future<String> startMatchmaking({
-    required String userId,
-    required String playerName,
-  }) => StartMatchmaking()(userId: userId, playerName: playerName);
 
   static Future stopMatchmaking({
     required String userId,

@@ -1,140 +1,14 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
-import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
-import 'package:tensionpath/persistence/repository/match_repository.dart';
-import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
 class RoomRepository {
   static DocumentReference _ref([String? roomId]) =>
       FirebaseFirestore.instance.collection('rooms').doc(roomId);
-
-  static Future<String> startMatchmaking({
-    required String userId,
-    required String playerName,
-  }) async {
-    final JsonRoom? jsonRoom = await _getAvailableRoom(
-      userId: userId,
-      playerName: playerName,
-    );
-
-    if (jsonRoom == null) {
-      return _createRoom(userId: userId, playerName: playerName);
-    } else {
-      if (jsonRoom.users.containsKey(userId)) {
-        return jsonRoom.id;
-      } else {
-        return _joinRoom(
-          userId: userId,
-          playerName: playerName,
-          jsonRoom: jsonRoom,
-        );
-      }
-    }
-  }
-
-  static Future<JsonRoom?> _getAvailableRoom({
-    required String userId,
-    required String playerName,
-  }) async {
-    final CollectionReference ref = FirebaseFirestore.instance.collection(
-      'rooms',
-    );
-
-    final Query queryJoinedRoom = ref
-        .where('status', isEqualTo: RoomStatus.open.name)
-        .where('version', isEqualTo: 1)
-        .where('matchType', isEqualTo: '1v1')
-        .where('userIds', arrayContains: userId)
-        .where('numberOfPlayers', isEqualTo: 2)
-        .where('visibility', isEqualTo: RoomVisibility.public.name)
-        .limit(1);
-
-    final QuerySnapshot snapshotJoinedRoom = await queryJoinedRoom.get();
-
-    if (snapshotJoinedRoom.docs.isNotEmpty) {
-      return JsonRoom.fromJson(snapshotJoinedRoom.docs.first.json);
-    } else {
-      final Query queryOpenRoom = ref
-          .where('status', isEqualTo: RoomStatus.open.name)
-          .where('version', isEqualTo: 1)
-          .where('matchType', isEqualTo: '1v1')
-          .where('numberOfPlayers', isEqualTo: 2)
-          .where('visibility', isEqualTo: RoomVisibility.public.name)
-          .limit(1);
-
-      final QuerySnapshot snapshotOpenRoom = await queryOpenRoom.get();
-
-      if (snapshotOpenRoom.docs.isNotEmpty) {
-        return JsonRoom.fromJson(snapshotOpenRoom.docs.first.json);
-      } else {
-        return null;
-      }
-    }
-  }
-
-  static Future<String> _createRoom({
-    required String userId,
-    required String playerName,
-  }) async {
-    final DocumentReference ref = _ref();
-    final JsonRoom jsonRoom = JsonRoom(
-      id: ref.id,
-      version: 1,
-      createdAt: DateTime.now(),
-      numberOfPlayers: 2,
-      visibility: RoomVisibility.public,
-      status: RoomStatus.open,
-      matchType: '1v1',
-      userIds: [userId],
-      users: {userId: playerName},
-      matchId: null,
-    );
-    await ref.set(jsonRoom.toJson());
-
-    return jsonRoom.id;
-  }
-
-  static Future<String> _joinRoom({
-    required String userId,
-    required String playerName,
-    required JsonRoom jsonRoom,
-  }) async {
-    jsonRoom.userIds = [...jsonRoom.userIds, userId];
-    jsonRoom.users = {...jsonRoom.users, userId: playerName};
-
-    final String matchId = await _createMatch(jsonRoom);
-
-    jsonRoom.matchId = matchId;
-    jsonRoom.status = jsonRoom.users.length == jsonRoom.numberOfPlayers
-        ? RoomStatus.closed
-        : RoomStatus.open;
-
-    await RoomRepository._update(jsonRoom);
-
-    return jsonRoom.id;
-  }
-
-  static Future<String> _createMatch(JsonRoom jsonRoom) async {
-    final JsonMatch jsonMatch = await JsonMatch.fromTemplate(
-      'assets/${Assets.TEMPLATES_W5H7}',
-    );
-    jsonMatch.createdAt = DateTime.now();
-    jsonMatch.turn.startedAt = DateTime.now();
-
-    for (final MapEntry<String, JsonPlayer> entry
-        in jsonMatch.players.entries) {
-      entry.value.name = jsonRoom.playersMap[entry.key]!;
-    }
-
-    return MatchRepository.create(jsonMatch);
-  }
 
   static Future stopMatchmaking({
     required String userId,

@@ -111,16 +111,21 @@ const createMatch = async (params: {
   database: Database,
   room: Room,
 }): Promise<Room> => {
-  const room = params.room
+  const newRoom = params.room
   let match = Match.create({
     mapId: 'w5h7',
-    room: room,
+    room: newRoom,
   })
   match = await createMatchDocument({
     database: params.database,
     match: match,
   })
-  room.matchId = match.id
+  newRoom.matchId = match.id
 
-  return room
+  await updateRoomDocument({
+    database: params.database,
+    room: newRoom,
+  })
+
+  return newRoom
 }
