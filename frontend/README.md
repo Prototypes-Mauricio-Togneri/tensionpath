@@ -8,6 +8,7 @@
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
   - Jump over obstacles
+  - Wall
   - Radar
     - Reveal map
     - Increase units visibility
