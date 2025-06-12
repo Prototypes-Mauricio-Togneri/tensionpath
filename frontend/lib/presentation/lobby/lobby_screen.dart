@@ -29,8 +29,8 @@ class LobbyScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: state.onCancel,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Red background
-                foregroundColor: Colors.white, // White text
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
               ),
               child: const Text('CANCEL'),
             ),

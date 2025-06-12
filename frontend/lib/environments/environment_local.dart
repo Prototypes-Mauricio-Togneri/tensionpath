@@ -9,13 +9,6 @@ class LocalEnvironment extends Environment {
   @override
   Future configure() async {
     await FirebaseAuth.instance.useAuthEmulator(Environment.get.host, 9099);
-
-    /*FirebaseFirestore.instance.settings = Settings(
-      host: '${Environment.get.host}:8080',
-      sslEnabled: false,
-      persistenceEnabled: false,
-    );*/
-
     FirebaseFirestore.instance.useFirestoreEmulator(Environment.get.host, 8080);
   }
 }

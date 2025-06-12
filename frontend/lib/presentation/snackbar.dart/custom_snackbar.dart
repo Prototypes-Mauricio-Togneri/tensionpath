@@ -42,14 +42,6 @@ class CustomSnackbar {
     });
   }
 
-  /*static void _closeSnackbar(BuildContext context) {
-    try {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    } catch (e) {
-      // ignore
-    }
-  }*/
-
   static void insufficientResources() =>
       show(text: 'Insufficient resources', duration: DURATION_SHORT);
 
