@@ -13,9 +13,6 @@ mkdir ${OUTPUT}
 #mkdir -p build/web/assets/images
 #cp -r build/web/assets/assets/images/** build/web/assets/images
 
-mkdir -p build/web/assets/templates
-cp -r build/web/assets/assets/templates/** build/web/assets/templates
-
 cp -r build/web/** ${OUTPUT}
 
 cd ../backend
