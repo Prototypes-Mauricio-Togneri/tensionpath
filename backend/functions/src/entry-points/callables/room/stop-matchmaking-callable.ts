@@ -44,11 +44,9 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
         roomId: params.roomId,
       })
     } else {
-      const newRoom = room.leave(params.userId)
-
       await updateRoomDocument({
         database: database,
-        room: newRoom,
+        room: room.leave(params.userId),
       })
     }
   })

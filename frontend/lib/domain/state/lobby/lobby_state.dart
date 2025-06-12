@@ -3,7 +3,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/persistence/callables/room/stop_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
-import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/stream_listener.dart';
 
@@ -26,10 +25,7 @@ class LobbyState extends BaseState {
   }
 
   Future onCancel() async {
-    await StopMatchmakingCallable()(
-      userId: Authentication.userId,
-      roomId: room.id,
-    );
+    await const StopMatchmakingCallable()(roomId: room.id);
     Navigation.pop();
   }
 

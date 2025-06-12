@@ -1,6 +1,11 @@
-import 'package:tensionpath/persistence/backend/backend.dart';
+import 'package:tensionpath/persistence/callables/callable.dart';
 
-class StopMatchmakingCallable {
-  Future call({required String userId, required String roomId}) =>
-      Backend.stopMatchmaking(userId: userId, roomId: roomId);
+class StopMatchmakingCallable extends Callable {
+  const StopMatchmakingCallable() : super('stopMatchmakingCallable');
+
+  Future call<T>({required String roomId}) {
+    final Map<String, Object?> parameters = {'roomId': roomId};
+
+    return super.invoke(parameters);
+  }
 }
