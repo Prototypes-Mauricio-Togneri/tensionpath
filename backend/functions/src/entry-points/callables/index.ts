@@ -1,2 +1,2 @@
-export * from './matchmaking/start-matchmaking-callable'
-export * from './matchmaking/stop-matchmaking-callable'
+export * from './room/start-matchmaking-callable'
+export * from './room/stop-matchmaking-callable'
