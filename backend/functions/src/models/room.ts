@@ -1,7 +1,6 @@
 import {FirebaseDocument} from '../database/firebase-document'
 import {RoomStatus} from '../types/room-status'
 import {RoomVisibility} from '../types/room-visibility'
-import {Match} from './match'
 
 export interface IRoom {
   id: string,
@@ -41,6 +40,10 @@ export class Room implements IRoom {
     this.matchId = data.matchId
   }
 
+  public get isFull(): boolean {
+    return this.userIds.length >= this.numberOfPlayers
+  }
+
   public hasUser(userId: string): boolean {
     return this.userIds.includes(userId)
   }
@@ -57,20 +60,9 @@ export class Room implements IRoom {
       ...this.users,
       [params.userId]: params.name,
     }
-    const roomFull = this.numberOfPlayers === this.userIds.length
-    this.status = roomFull ? RoomStatus.closed : RoomStatus.open
+    this.status = this.isFull ? RoomStatus.closed : RoomStatus.open
 
-    if (roomFull) {
-      const match = Match.create({
-        mapId: 'w5h7',
-        room: this,
-      })
-      this.matchId = match.id
-
-      return this
-    } else {
-      return this
-    }
+    return this
   }
 
   public leave(userId: string): Room {

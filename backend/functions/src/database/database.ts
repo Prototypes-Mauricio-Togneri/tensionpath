@@ -3,8 +3,9 @@ import {CollectionGroup, CollectionReference, DocumentData, DocumentReference, D
 import {Logger} from '../utils/logger'
 import {mapToFirebaseDocument} from '../utils/firebase-mapper'
 import {IRoom} from '../models/room'
+import {IMatch} from '../models/match'
 
-type FirestoreWriteable = IRoom
+type FirestoreWriteable = IRoom | IMatch
 
 export class Database {
   private constructor(

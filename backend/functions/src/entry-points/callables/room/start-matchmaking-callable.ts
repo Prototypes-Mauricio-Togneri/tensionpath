@@ -5,6 +5,8 @@ import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
 import {RoomVisibility} from '../../../types/room-visibility'
+import {Match} from '../../../models/match'
+import {createMatchDocument} from '../../../collections/match/create-match-document'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -27,12 +29,21 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
     })
 
     if (room) {
-      return joinExistingRoom({
+      const joinedRoom = await joinExistingRoom({
         database: database,
         room: room,
         userId: params.userId,
         name: params.name,
       })
+
+      if (joinedRoom.isFull) {
+        return createMatch({
+          database: database,
+          room: joinedRoom,
+        })
+      } else {
+        return joinedRoom
+      }
     } else {
       return createNewRoom({
         database: database,
@@ -94,4 +105,22 @@ const createNewRoom = async (params: {
   })
 
   return result
+}
+
+const createMatch = async (params: {
+  database: Database,
+  room: Room,
+}): Promise<Room> => {
+  const room = params.room
+  let match = Match.create({
+    mapId: 'w5h7',
+    room: room,
+  })
+  match = await createMatchDocument({
+    database: params.database,
+    match: match,
+  })
+  room.matchId = match.id
+
+  return room
 }
