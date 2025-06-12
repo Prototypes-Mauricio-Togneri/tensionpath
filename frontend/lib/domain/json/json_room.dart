@@ -64,19 +64,6 @@ class JsonRoom {
     matchId: matchId,
   );
 
-  Map<String, String> get playersMap {
-    final Map<String, String> result = {};
-
-    for (int i = 0; i < userIds.length; i++) {
-      final String playerId = (i + 1).toString();
-      final String playerName = users[userIds[i]]!;
-
-      result[playerId] = playerName;
-    }
-
-    return result;
-  }
-
   factory JsonRoom.fromJson(Map<String, dynamic> json) =>
       _$JsonRoomFromJson(json);
 

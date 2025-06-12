@@ -26,59 +26,80 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return StateProvider<HomeState>(
       state: state,
-      builder: (context, state) => Center(
-        child: SizedBox(
-          width: 300,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: state.nameController,
-                maxLength: 15,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.white),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  counterText: '',
+      builder: (context, state) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Spacer(),
+          Form(state),
+          const Spacer(),
+          Text(state.version, style: const TextStyle(color: Colors.white54)),
+          const VBox(20),
+        ],
+      ),
+    );
+  }
+}
+
+class Form extends StatelessWidget {
+  final HomeState state;
+
+  const Form(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return StateProvider<HomeState>(
+      state: state,
+      builder: (context, state) => SizedBox(
+        width: 300,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: state.nameController,
+              maxLength: 15,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(
+                labelText: 'Name',
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
                 ),
-                style: const TextStyle(color: Colors.white),
-                onChanged: (text) => state.notify(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                counterText: '',
               ),
-              const VBox(20),
-              ElevatedButton(
-                onPressed: state.canPlay ? state.onPlay : null,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
-                    states,
-                  ) {
-                    if (states.contains(WidgetState.disabled)) {
-                      return Colors.grey;
-                    } else {
-                      return Colors.white;
-                    }
-                  }),
-                ),
-                child: const Text('PLAY'),
+              style: const TextStyle(color: Colors.white),
+              onChanged: (text) => state.notify(),
+            ),
+            const VBox(20),
+            ElevatedButton(
+              onPressed: state.canPlay ? state.onPlay : null,
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                  states,
+                ) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return Colors.grey;
+                  } else {
+                    return Colors.white;
+                  }
+                }),
               ),
-              if (Platform.isMobile)
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: ElevatedButton(
-                    onPressed: state.onFullscreen,
-                    child: const Text('FULL SCREEN'),
-                  ),
+              child: const Text('PLAY'),
+            ),
+            if (Platform.isMobile)
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: ElevatedButton(
+                  onPressed: state.onFullscreen,
+                  child: const Text('FULL SCREEN'),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );
