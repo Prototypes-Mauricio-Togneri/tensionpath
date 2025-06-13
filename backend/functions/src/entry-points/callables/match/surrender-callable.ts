@@ -2,8 +2,6 @@ import {addMatchHistoryDocument} from '../../../collections/history/add-match-hi
 import {getMatchDocument} from '../../../collections/match/get-match-document'
 import {updateMatchDocument} from '../../../collections/match/update-match-document'
 import {Database} from '../../../database/database'
-import {Match} from '../../../models/match'
-import {Player} from '../../../models/player'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
@@ -25,12 +23,13 @@ export const surrenderCallable = registerCallable(async (params: SurrenderCallab
       throw new CustomInternalError({
         message: 'Match is already finished',
         data: {
+          userId: params.userId,
           matchId: params.matchId,
         },
       })
     }
 
-    const player = getPlayerByUserId(match, params.userId)
+    const player = match.playerByUserId(params.userId)
 
     if (!player) {
       throw new CustomInternalError({
@@ -61,13 +60,3 @@ export const surrenderCallable = registerCallable(async (params: SurrenderCallab
     })
   })
 })
-
-const getPlayerByUserId = (match: Match, userId: string): Player | undefined => {
-  for (const player of Object.values(match.players)) {
-    if (player.userId === userId) {
-      return player
-    }
-  }
-
-  return undefined
-}

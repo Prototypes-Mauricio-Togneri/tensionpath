@@ -43,6 +43,16 @@ export class Match implements IMatch {
     return new Match(document.data())
   }
 
+  public playerByUserId(userId: string): Player | undefined {
+    for (const player of Object.values(this.players)) {
+      if (player.userId === userId) {
+        return player
+      }
+    }
+
+    return undefined
+  }
+
   public static create(params: {
     mapId: string,
     room: Room,
