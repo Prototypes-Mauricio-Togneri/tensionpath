@@ -139,4 +139,5 @@ export const WriteOptionMerge: SetOptions = {
 export const COLLECTIONS = {
   ROOMS: 'rooms',
   MATCHES: 'matches',
+  HISTORY: 'history',
 }

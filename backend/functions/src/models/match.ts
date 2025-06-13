@@ -53,8 +53,14 @@ export class Match implements IMatch {
     match.createdAt = new Date()
     match.turn.startedAt = new Date()
 
-    for (const [playerId, player] of Object.entries(match.players)) {
-      player.name = params.room.playersMap[playerId]!
+    for (let i = 0; i < params.room.userIds.length; i++) {
+      const playerId = (i + 1).toString()
+      const userId = params.room.userIds[i]
+      const name = params.room.users[userId]
+
+      const player = match.players[playerId]
+      player.name = name
+      player.userId = userId
     }
 
     return match

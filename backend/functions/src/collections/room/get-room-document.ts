@@ -2,7 +2,7 @@ import {COLLECTIONS, Database} from '../../database/database'
 import {FirebaseDocument} from '../../database/firebase-document'
 import {Room} from '../../models/room'
 
-export const getRoomRoomDocument = async (params: {
+export const getRoomDocument = async (params: {
   database: Database,
   roomId: string,
 }) => {

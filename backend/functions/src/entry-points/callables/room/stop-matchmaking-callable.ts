@@ -1,5 +1,5 @@
 import {deleteRoomDocument} from '../../../collections/room/delete-room-document'
-import {getRoomRoomDocument} from '../../../collections/room/get-room-document'
+import {getRoomDocument} from '../../../collections/room/get-room-document'
 import {updateRoomDocument} from '../../../collections/room/update-room-document'
 import {Database} from '../../../database/database'
 import {RoomStatus} from '../../../types/room-status'
@@ -13,7 +13,7 @@ interface StopMatchmakingCallableParams {
 
 export const stopMatchmakingCallable = registerCallable(async (params: StopMatchmakingCallableParams) => {
   return Database.runTransaction(async (database) => {
-    const room = await getRoomRoomDocument({
+    const room = await getRoomDocument({
       database: database,
       roomId: params.roomId,
     })

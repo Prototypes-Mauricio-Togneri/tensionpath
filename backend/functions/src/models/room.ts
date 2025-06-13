@@ -44,19 +44,6 @@ export class Room implements IRoom {
     return this.userIds.length >= this.numberOfPlayers
   }
 
-  public get playersMap(): Record<string, string> {
-    const result: Record<string, string> = {}
-
-    for (let i = 0; i < this.userIds.length; i++) {
-      const playerId = (i + 1).toString()
-      const playerName = this.users[this.userIds[i]]!
-
-      result[playerId] = playerName
-    }
-
-    return result
-  }
-
   public hasUser(userId: string): boolean {
     return this.userIds.includes(userId)
   }
