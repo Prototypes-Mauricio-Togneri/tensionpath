@@ -14,6 +14,7 @@ import {Unit} from '../../../models/unit'
 import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
+import {Constants} from '../../../utils/constants'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
 
@@ -80,7 +81,7 @@ export const endTurnCallable = registerCallable(async (params: EndTurnCallablePa
       match: match,
     })
 
-    if (match.turn.turn != turnBefore) {
+    if (match.turn.turn !== turnBefore) {
       await addMatchHistoryDocument({
         database: database,
         match: match,
@@ -149,7 +150,7 @@ const updateMatch = (match: Match) => {
       jsonNodes: jsonNodes,
       jsonPlayers: jsonMatch.players,
       jsonActions: jsonActions
-          .where((a) => a.type == ActionType.move)
+          .where((a) => a.type === ActionType.move)
           .toList(),
       jsonConfig: jsonMatch.config,
     );*/
@@ -160,10 +161,10 @@ const updateMatch = (match: Match) => {
       jsonConfig: jsonMatch.config,
     );*/
 
-    /* _updateMissile(
-      jsonMissile: jsonMatch.battlefield.missile,
-      jsonNodes: jsonMatch.battlefield.nodes,
-    );*/
+    updateMissile({
+      missile: match.battlefield.missile,
+      nodes: match.battlefield.nodes,
+    })
   }
 
   resetPlayers(match.players)
@@ -254,12 +255,103 @@ const resetPlayers = (players: Players) => {
   }
 }
 
+const updateMissile = (params: {
+  missile: Missile,
+  nodes: Node[],
+}) => {
+  const platforms = params.missile.platforms
+  let player1 = 0
+  let player2 = 0
+  let none = 0
+
+  for (const platformId of Object.keys(platforms)) {
+    const platformOwner = getPlatformOwner({
+      platformId: platformId,
+      nodes: params.nodes,
+    })
+    platforms[platformId] = platformOwner
+
+    if (platformOwner === Constants.PLAYER_1) {
+      player1++
+    } else if (platformOwner === Constants.PLAYER_2) {
+      player2++
+    } else if (platformOwner === undefined) {
+      none++
+    }
+  }
+
+  if (none === params.missile.numberOfPlatforms) {
+    params.missile.owner = undefined
+  } else if (player1 > player2) {
+    params.missile.owner = Constants.PLAYER_1
+  } else if (player2 > player1) {
+    params.missile.owner = Constants.PLAYER_2
+  } else if (player1 === player2) {
+    params.missile.owner = ''
+  }
+
+  if (isMissileFull(params.missile)) {
+    params.missile.charge = 0
+  } else {
+    params.missile.charge = nextMissileCharge(params.missile)
+  }
+}
+
+const getPlatformOwner = (params: {
+  platformId: string,
+  nodes: Node[],
+}): string | undefined => {
+  const platformNodes = getPlatformNodes({
+    platformId: params.platformId,
+    nodes: params.nodes,
+  })
+
+  let player1 = 0
+  let player2 = 0
+
+  for (const nodeNode of platformNodes) {
+    if (nodeNode.unit?.playerId === Constants.PLAYER_1) {
+      player1++
+    } else if (nodeNode.unit?.playerId === Constants.PLAYER_2) {
+      player2++
+    }
+  }
+
+  if ((player1 > 0) && (player2 === 0)) {
+    return Constants.PLAYER_1
+  } else if ((player2 > 0) && (player1 === 0)) {
+    return Constants.PLAYER_2
+  } else if ((player1 > 0) && (player2 > 0)) {
+    return ''
+  } else {
+    return undefined
+  }
+}
+
+const getPlatformNodes = (params: {
+  platformId: string,
+  nodes: Node[],
+}): Node[] => {
+  return params.nodes.filter((node) => node.structure?.platformId === params.platformId)
+}
+
 const isMissileFull = (missile: Missile) => {
   return (missile.charge === missile.maxCharge) && isMissileCharging(missile)
 }
 
 const isMissileCharging = (missile: Missile) => {
   return (missile.owner !== '') && (missile.owner !== undefined)
+}
+
+const nextMissileCharge = (missile: Missile): number => {
+  if (isMissileCharging(missile)) {
+    return missile.charge + 1
+  } else if ((missile.owner === '') &&
+      (missile.charge > missile.bufferCharge)) {
+    return missile.charge - 1
+  } else {
+    return missile.charge
+  }
 }
 
 const updateTurn = (turn: Turn) => {

@@ -3,7 +3,7 @@ export interface IMissile {
   maxCharge: number,
   bufferCharge: number,
   numberOfPlatforms: number,
-  platforms: Record<string, string | null>,
+  platforms: Record<string, string | undefined>,
   owner?: string,
 }
 
@@ -12,7 +12,7 @@ export class Missile implements IMissile {
   maxCharge: number
   bufferCharge: number
   numberOfPlatforms: number
-  platforms: Record<string, string | null>
+  platforms: Record<string, string | undefined>
   owner?: string
 
   constructor(data: IMissile) {
