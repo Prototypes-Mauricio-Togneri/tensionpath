@@ -9,6 +9,7 @@ import {Match} from '../../../models/match'
 import {Missile} from '../../../models/missile'
 import {Node, Nodes} from '../../../models/node'
 import {Players} from '../../../models/player'
+import {Turn} from '../../../models/turn'
 import {Unit} from '../../../models/unit'
 import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
@@ -165,9 +166,9 @@ const updateMatch = (match: Match) => {
     );*/
   }
 
-  // _resetPlayers(jsonMatch.players);
+  resetPlayers(match.players)
 
-  // _updateTurn(jsonMatch.turn);
+  updateTurn(match.turn)
 }
 
 const checkMissile = (params: {
@@ -245,12 +246,25 @@ const getActions = (players: Players): Action[] => {
   return result
 }
 
+const resetPlayers = (players: Players) => {
+  for (const player of Object.values(players)) {
+    player.status = PlayerStatus.playing
+    player.turnEndedAt = undefined
+    player.actions = []
+  }
+}
+
 const isMissileFull = (missile: Missile) => {
   return (missile.charge === missile.maxCharge) && isMissileCharging(missile)
 }
 
 const isMissileCharging = (missile: Missile) => {
   return (missile.owner !== '') && (missile.owner !== undefined)
+}
+
+const updateTurn = (turn: Turn) => {
+  turn.turn += 1
+  turn.startedAt = new Date()
 }
 
 const locationId =(x: number, y: number): string => `${x},${y}`
