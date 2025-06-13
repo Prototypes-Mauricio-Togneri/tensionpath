@@ -14,6 +14,7 @@ import {Unit} from '../../../models/unit'
 import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
+import {StructureType} from '../../../types/structure-type'
 import {Constants} from '../../../utils/constants'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
@@ -155,11 +156,11 @@ const updateMatch = (match: Match) => {
       jsonConfig: jsonMatch.config,
     );*/
 
-    /* _updatePlayerResources(
-      jsonPlayers: jsonMatch.players,
-      jsonNodes: jsonMatch.battlefield.nodes,
-      jsonConfig: jsonMatch.config,
-    );*/
+    updatePlayerResources({
+      players: match.players,
+      nodes: match.battlefield.nodes,
+      config: match.config,
+    })
 
     updateMissile({
       missile: match.battlefield.missile,
@@ -245,6 +246,37 @@ const getActions = (players: Players): Action[] => {
   }
 
   return result
+}
+
+const updatePlayerResources = (params: {
+  players: Players,
+  nodes: Node[],
+  config: Config,
+}) => {
+  const player1 = params.players[Constants.PLAYER_1]!
+  const player2 = params.players[Constants.PLAYER_2]!
+
+  player1.resources += params.config.resourcesPerTurn
+  player2.resources += params.config.resourcesPerTurn
+
+  const player1TurnEndedAt = player1.turnEndedAt!
+  const player2TurnEndedAt = player2.turnEndedAt!
+
+  if (player1TurnEndedAt > player2TurnEndedAt) {
+    const diffSeconds = Math.abs((player1TurnEndedAt.getTime() - player2TurnEndedAt.getTime()) / 1000)
+    player2.resources += Math.floor(diffSeconds * params.config.resourcesPerSecond)
+  } else if (player2TurnEndedAt > player1TurnEndedAt) {
+    const diffSeconds = Math.abs((player2TurnEndedAt.getTime() - player1TurnEndedAt.getTime()) / 1000)
+    player1.resources += Math.floor(diffSeconds * params.config.resourcesPerSecond)
+  }
+
+  for (const node of params.nodes) {
+    if (node.structure && (node.structure!.type === StructureType.resources) && node.unit) {
+      const player = params.players[node.unit!.playerId]!
+      const newResources = Math.min(node.unit!.level, params.config.resourcesPerPatch)
+      player.resources += newResources
+    }
+  }
 }
 
 const resetPlayers = (players: Players) => {
