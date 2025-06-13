@@ -26,8 +26,8 @@ class MatchState extends BaseState {
 
   void onClose() => ConfirmationDialog.quitMatch(_onSurrender);
 
-  void _onSurrender() {
-    SurrenderCallable()(matchId: matchId, selfId: selfId);
+  Future _onSurrender() async {
+    await const SurrenderCallable()(matchId: matchId);
     Navigation.pop();
   }
 

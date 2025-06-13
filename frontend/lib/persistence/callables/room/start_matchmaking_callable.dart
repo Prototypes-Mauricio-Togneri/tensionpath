@@ -8,7 +8,7 @@ import 'package:tensionpath/utils/json.dart';
 class StartMatchmakingCallable extends Callable {
   const StartMatchmakingCallable() : super('startMatchmakingCallable');
 
-  Future<Room> call<T>({
+  Future<Room> call({
     required String playerName,
     required int version,
     required String matchType,

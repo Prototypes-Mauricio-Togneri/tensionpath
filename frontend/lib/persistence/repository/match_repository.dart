@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
-import 'package:tensionpath/persistence/repository/history_repository.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 
 class MatchRepository {
@@ -56,13 +55,4 @@ class MatchRepository {
     required Transaction transaction,
     required JsonMatch jsonMatch,
   }) => transaction.update(_ref(jsonMatch.id), jsonMatch.toJson());
-
-  static Future<String> create(JsonMatch jsonMatch) async {
-    final DocumentReference ref = _ref();
-    jsonMatch.id = ref.id;
-    await ref.set(jsonMatch.toJson());
-    await HistoryRepository.addSnapshot(jsonMatch);
-
-    return ref.id;
-  }
 }

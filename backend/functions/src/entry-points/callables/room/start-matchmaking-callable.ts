@@ -7,6 +7,7 @@ import {registerCallable} from '../../index'
 import {RoomVisibility} from '../../../types/room-visibility'
 import {Match} from '../../../models/match'
 import {createMatchDocument} from '../../../collections/match/create-match-document'
+import {addMatchHistoryDocument} from '../../../collections/history/add-match-history-document'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -117,6 +118,10 @@ const createMatch = async (params: {
     room: newRoom,
   })
   match = await createMatchDocument({
+    database: params.database,
+    match: match,
+  })
+  await addMatchHistoryDocument({
     database: params.database,
     match: match,
   })
