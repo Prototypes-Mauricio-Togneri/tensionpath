@@ -120,34 +120,34 @@ const actionsCost = (actions: Action[]): number => {
 // * Update turn
 //    * Increase turn counter
 //    * Set turn started at
-const updateMatch = (macth: Match) => {
+const updateMatch = (match: Match) => {
   checkMissile({
-    missile: macth.battlefield.missile,
-    players: macth.players,
-    config: macth.config,
+    missile: match.battlefield.missile,
+    players: match.players,
+    config: match.config,
   })
 
-  /* if (_checkPlayersAlive(
-    jsonMatch: jsonMatch,
-    jsonPlayers: jsonMatch.players,
-  )) {
-    final Map<String, JsonNode> jsonNodes = Map.fromEntries(
+  if (checkPlayersAlive({
+    match: match,
+    players: match.players,
+  })) {
+    /* final Map<String, JsonNode> jsonNodes = Map.fromEntries(
       jsonMatch.battlefield.nodes.map(
         (node) => MapEntry(_locationId(node.x, node.y), node),
       ),
-    );
-    final List<JsonAction> jsonActions = jsonMatch.players.values
+    );*/
+    /* final List<JsonAction> jsonActions = jsonMatch.players.values
         .expand((p) => p.actions)
-        .toList();
+        .toList();*/
 
-    _executeUnitDeployments(
+    /* _executeUnitDeployments(
       jsonNodes: jsonNodes,
       jsonActions: jsonActions
           .where((a) => a.type == ActionType.deploy)
           .toList(),
-    );
+    );*/
 
-    _executeUnitMovements(
+    /* _executeUnitMovements(
       jsonMatch: jsonMatch,
       jsonNodes: jsonNodes,
       jsonPlayers: jsonMatch.players,
@@ -155,19 +155,19 @@ const updateMatch = (macth: Match) => {
           .where((a) => a.type == ActionType.move)
           .toList(),
       jsonConfig: jsonMatch.config,
-    );
+    );*/
 
-    _updatePlayerResources(
+    /* _updatePlayerResources(
       jsonPlayers: jsonMatch.players,
       jsonNodes: jsonMatch.battlefield.nodes,
       jsonConfig: jsonMatch.config,
-    );
+    );*/
 
-    _updateMissile(
+    /* _updateMissile(
       jsonMissile: jsonMatch.battlefield.missile,
       jsonNodes: jsonMatch.battlefield.nodes,
-    );
-  }*/
+    );*/
+  }
 
   // _resetPlayers(jsonMatch.players);
 
@@ -190,6 +190,25 @@ const checkMissile = (params: {
       }
     }
   }
+}
+
+const checkPlayersAlive = (params: {
+  match: Match,
+  players: Players,
+}) => {
+  let result = true
+
+  for (const jsonPlayer of Object.values(params.players)) {
+    if (jsonPlayer.baseHealth <= 0) {
+      result = false
+    }
+  }
+
+  if (!result) {
+    params.match.status = MatchStatus.finished
+  }
+
+  return result
 }
 
 const isMissileFull = (missile: Missile) => {
