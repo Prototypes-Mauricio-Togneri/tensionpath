@@ -13,7 +13,6 @@
     "files.autoSave": "afterDelay",
     "files.encoding": "utf8",
     "dart.previewFlutterUiGuides": true,
-    "dcm.dartSdkPath": "/opt/Flutter/bin/cache/dart-sdk/",
     "cSpell.words": [
         "appinvite",
         "Capturable",
