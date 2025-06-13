@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/widgets/game_container.dart';
+import 'package:tensionpath/presentation/common/container/game_container.dart';
 
 class MatchScreen extends StatelessWidget {
   final MatchState state;

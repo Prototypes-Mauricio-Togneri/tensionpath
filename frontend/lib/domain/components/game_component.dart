@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
+import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';

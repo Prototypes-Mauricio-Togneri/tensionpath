@@ -17,7 +17,7 @@ import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
-import 'package:tensionpath/presentation/snackbar.dart/custom_snackbar.dart';
+import 'package:tensionpath/presentation/common/snackbar/custom_snackbar.dart';
 import 'package:tensionpath/utils/audio.dart';
 
 class Match {

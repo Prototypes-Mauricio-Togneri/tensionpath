@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
-import 'package:tensionpath/widgets/game_container.dart';
+import 'package:tensionpath/presentation/common/container/game_container.dart';
 
 class LobbyScreen extends StatelessWidget {
   final LobbyState state;

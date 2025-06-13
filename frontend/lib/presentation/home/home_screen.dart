@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/home/home_state.dart';
+import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/platform.dart';
-import 'package:tensionpath/widgets/game_container.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;
