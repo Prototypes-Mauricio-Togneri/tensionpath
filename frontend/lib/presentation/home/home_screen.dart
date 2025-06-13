@@ -49,57 +49,59 @@ class Form extends StatelessWidget {
   Widget build(BuildContext context) {
     return StateProvider<HomeState>(
       state: state,
-      builder: (context, state) => SizedBox(
-        width: 300,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: state.nameController,
-              maxLength: 15,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                labelStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+      builder: (context, state) => Center(
+        child: SizedBox(
+          width: 300,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: state.nameController,
+                maxLength: 15,
+                textCapitalization: TextCapitalization.words,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  labelStyle: TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  counterText: '',
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                counterText: '',
+                style: const TextStyle(color: Colors.white),
+                onChanged: (text) => state.notify(),
               ),
-              style: const TextStyle(color: Colors.white),
-              onChanged: (text) => state.notify(),
-            ),
-            const VBox(20),
-            ElevatedButton(
-              onPressed: state.canPlay ? state.onPlay : null,
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.resolveWith<Color>((
-                  states,
-                ) {
-                  if (states.contains(WidgetState.disabled)) {
-                    return Colors.grey;
-                  } else {
-                    return Colors.white;
-                  }
-                }),
-              ),
-              child: const Text('PLAY'),
-            ),
-            if (Platform.isMobile)
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: ElevatedButton(
-                  onPressed: state.onFullscreen,
-                  child: const Text('FULL SCREEN'),
+              const VBox(20),
+              ElevatedButton(
+                onPressed: state.canPlay ? state.onPlay : null,
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                    states,
+                  ) {
+                    if (states.contains(WidgetState.disabled)) {
+                      return Colors.grey;
+                    } else {
+                      return Colors.white;
+                    }
+                  }),
                 ),
+                child: const Text('PLAY'),
               ),
-          ],
+              if (Platform.isMobile)
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: ElevatedButton(
+                    onPressed: state.onFullscreen,
+                    child: const Text('FULL SCREEN'),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
