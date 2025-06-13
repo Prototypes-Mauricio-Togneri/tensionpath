@@ -3,7 +3,7 @@ import {FirebaseDocument} from '../database/firebase-document'
 import {MatchStatus} from '../types/match-status'
 import {Battlefield} from './battlefield'
 import {Config} from './config'
-import {Player} from './player'
+import {Player, Players} from './player'
 import {Turn} from './turn'
 import {Room} from './room'
 
@@ -12,7 +12,7 @@ export interface IMatch {
   version: number,
   createdAt: Date,
   status: MatchStatus,
-  players: Record<string, Player>,
+  players: Players,
   battlefield: Battlefield,
   config: Config,
   turn: Turn,
@@ -23,7 +23,7 @@ export class Match implements IMatch {
   version: number
   createdAt: Date
   status: MatchStatus
-  players: Record<string, Player>
+  players: Players
   battlefield: Battlefield
   config: Config
   turn: Turn

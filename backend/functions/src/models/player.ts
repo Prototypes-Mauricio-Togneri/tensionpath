@@ -33,3 +33,5 @@ export class Player implements IPlayer {
     this.actions = data.actions
   }
 }
+
+export type Players = Record<string, Player>

@@ -3,7 +3,11 @@ import {getMatchDocument} from '../../../collections/match/get-match-document'
 import {updateMatchDocument} from '../../../collections/match/update-match-document'
 import {Database} from '../../../database/database'
 import {Action} from '../../../models/action'
+import {Config} from '../../../models/config'
 import {Location} from '../../../models/location'
+import {Match} from '../../../models/match'
+import {Missile} from '../../../models/missile'
+import {Players} from '../../../models/player'
 import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
@@ -62,7 +66,11 @@ export const endTurnCallable = registerCallable(async (params: EndTurnCallablePa
 
     const turnBefore = match.turn.turn
 
-    // TODO(momo): check if needs to pass turn
+    const allPlayersWaiting = Object.values(match.players).every((p) => p.status === PlayerStatus.waiting)
+
+    if (allPlayersWaiting) {
+      updateMatch(match)
+    }
 
     await updateMatchDocument({
       database: database,
@@ -92,4 +100,102 @@ const actionsCost = (actions: Action[]): number => {
   }
 
   return result
+}
+
+// Update steps:
+// * Check if the missile is full and launch it + update base health
+// * If both players are alive, continue. If not, skip.
+// * Execute unit deployments
+// * Execute unit movements
+//    * Update player base health in case of attack
+// * Update players resources
+// * Update missile
+//    * Update charge
+//    * Update platform owners
+//    * Update missile owner
+// * Reset players
+//    * Set status to playing
+//    * Clear turnEndedAt
+//    * Clear actions
+// * Update turn
+//    * Increase turn counter
+//    * Set turn started at
+const updateMatch = (macth: Match) => {
+  checkMissile({
+    missile: macth.battlefield.missile,
+    players: macth.players,
+    config: macth.config,
+  })
+
+  /* if (_checkPlayersAlive(
+    jsonMatch: jsonMatch,
+    jsonPlayers: jsonMatch.players,
+  )) {
+    final Map<String, JsonNode> jsonNodes = Map.fromEntries(
+      jsonMatch.battlefield.nodes.map(
+        (node) => MapEntry(_locationId(node.x, node.y), node),
+      ),
+    );
+    final List<JsonAction> jsonActions = jsonMatch.players.values
+        .expand((p) => p.actions)
+        .toList();
+
+    _executeUnitDeployments(
+      jsonNodes: jsonNodes,
+      jsonActions: jsonActions
+          .where((a) => a.type == ActionType.deploy)
+          .toList(),
+    );
+
+    _executeUnitMovements(
+      jsonMatch: jsonMatch,
+      jsonNodes: jsonNodes,
+      jsonPlayers: jsonMatch.players,
+      jsonActions: jsonActions
+          .where((a) => a.type == ActionType.move)
+          .toList(),
+      jsonConfig: jsonMatch.config,
+    );
+
+    _updatePlayerResources(
+      jsonPlayers: jsonMatch.players,
+      jsonNodes: jsonMatch.battlefield.nodes,
+      jsonConfig: jsonMatch.config,
+    );
+
+    _updateMissile(
+      jsonMissile: jsonMatch.battlefield.missile,
+      jsonNodes: jsonMatch.battlefield.nodes,
+    );
+  }*/
+
+  // _resetPlayers(jsonMatch.players);
+
+  // _updateTurn(jsonMatch.turn);
+}
+
+const checkMissile = (params: {
+  missile: Missile,
+  players: Players,
+  config: Config,
+}) => {
+  if (isMissileFull(params.missile)) {
+    for (const [playerId, player] of Object.entries(params.players)) {
+      if (params.missile.owner !== playerId) {
+        player.baseHealth -= Math.floor(params.config.baseMaxHealth / 2)
+
+        if (player.baseHealth < 0) {
+          player.baseHealth = 0
+        }
+      }
+    }
+  }
+}
+
+const isMissileFull = (missile: Missile) => {
+  return (missile.charge === missile.maxCharge) && isMissileCharging(missile)
+}
+
+const isMissileCharging = (missile: Missile) => {
+  return (missile.owner !== '') && (missile.owner !== undefined)
 }
