@@ -1,13 +1,13 @@
 export interface IUnit {
   playerId: string,
   level: number,
-  hasMoved?: boolean,
+  hasMoved: boolean,
 }
 
 export class Unit implements IUnit {
   playerId: string
   level: number
-  hasMoved?: boolean
+  hasMoved: boolean
 
   constructor(data: IUnit) {
     this.playerId = data.playerId

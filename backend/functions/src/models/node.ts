@@ -28,3 +28,5 @@ export class Node implements INode {
     this.temporaryUnits = data.temporaryUnits
   }
 }
+
+export type Nodes = Record<string, Node>

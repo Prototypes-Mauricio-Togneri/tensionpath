@@ -7,7 +7,9 @@ import {Config} from '../../../models/config'
 import {Location} from '../../../models/location'
 import {Match} from '../../../models/match'
 import {Missile} from '../../../models/missile'
+import {Node, Nodes} from '../../../models/node'
 import {Players} from '../../../models/player'
+import {Unit} from '../../../models/unit'
 import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
@@ -127,25 +129,19 @@ const updateMatch = (match: Match) => {
     config: match.config,
   })
 
+  // TODO(momo): search == and !=
+
   if (checkPlayersAlive({
     match: match,
     players: match.players,
   })) {
-    /* final Map<String, JsonNode> jsonNodes = Map.fromEntries(
-      jsonMatch.battlefield.nodes.map(
-        (node) => MapEntry(_locationId(node.x, node.y), node),
-      ),
-    );*/
-    /* final List<JsonAction> jsonActions = jsonMatch.players.values
-        .expand((p) => p.actions)
-        .toList();*/
+    const nodes = getNodesMap(match.battlefield.nodes)
+    const actions = getActions(match.players)
 
-    /* _executeUnitDeployments(
-      jsonNodes: jsonNodes,
-      jsonActions: jsonActions
-          .where((a) => a.type == ActionType.deploy)
-          .toList(),
-    );*/
+    executeUnitDeployments({
+      nodes: nodes,
+      actions: actions.filter((a) => a.type === ActionType.deploy),
+    })
 
     /* _executeUnitMovements(
       jsonMatch: jsonMatch,
@@ -198,14 +194,52 @@ const checkPlayersAlive = (params: {
 }) => {
   let result = true
 
-  for (const jsonPlayer of Object.values(params.players)) {
-    if (jsonPlayer.baseHealth <= 0) {
+  for (const player of Object.values(params.players)) {
+    if (player.baseHealth <= 0) {
       result = false
     }
   }
 
   if (!result) {
     params.match.status = MatchStatus.finished
+  }
+
+  return result
+}
+
+const executeUnitDeployments = (params: {
+  nodes: Nodes,
+  actions: Action[],
+}) => {
+  for (const action of params.actions) {
+    const nodeId = locationId(
+        action.targetX,
+        action.targetY,
+    )
+    const node = params.nodes[nodeId]!
+    node.unit = new Unit({
+      playerId: action.playerId,
+      level: action.level!,
+      hasMoved: false,
+    })
+  }
+}
+
+const getNodesMap = (nodes: Node[]): Nodes => {
+  const result: Nodes = {}
+
+  for (const node of Object.values(nodes)) {
+    result[locationId(node.x, node.y)] = node
+  }
+
+  return result
+}
+
+const getActions = (players: Players): Action[] => {
+  const result: Action[] = []
+
+  for (const player of Object.values(players)) {
+    result.push(...player.actions)
   }
 
   return result
@@ -218,3 +252,5 @@ const isMissileFull = (missile: Missile) => {
 const isMissileCharging = (missile: Missile) => {
   return (missile.owner !== '') && (missile.owner !== undefined)
 }
+
+const locationId =(x: number, y: number): string => `${x},${y}`
