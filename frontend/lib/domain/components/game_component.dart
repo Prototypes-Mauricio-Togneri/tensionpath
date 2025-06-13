@@ -51,9 +51,13 @@ class GameComponent extends FlameGame with KeyboardEvents {
     return super.onLoad();
   }
 
+  void stopMatchListener() {
+    _matchListener.stop();
+  }
+
   @override
   void onRemove() {
-    _matchListener.stop();
+    stopMatchListener();
 
     super.onRemove();
   }
