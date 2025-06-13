@@ -1,5 +1,3 @@
-import {FirebaseDocument} from '../database/firebase-document'
-
 export interface IConfig {
   popcap: number,
   baseMaxHealth: number,
@@ -24,9 +22,5 @@ export class Config implements IConfig {
     this.resourcesPerTurn = data.resourcesPerTurn
     this.resourcesPerSecond = data.resourcesPerSecond
     this.defenseFactor = data.defenseFactor
-  }
-
-  public static parse(document: FirebaseDocument): Config {
-    return new Config(document.data())
   }
 }

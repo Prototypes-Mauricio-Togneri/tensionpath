@@ -1,4 +1,3 @@
-import {FirebaseDocument} from '../database/firebase-document'
 import {Missile} from './missile'
 import {Node} from './node'
 import {Size} from './size'
@@ -21,9 +20,5 @@ export class Battlefield implements IBattlefield {
     this.size = data.size
     this.missile = data.missile
     this.nodes = data.nodes
-  }
-
-  public static parse(document: FirebaseDocument): Battlefield {
-    return new Battlefield(document.data())
   }
 }

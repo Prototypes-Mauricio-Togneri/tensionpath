@@ -1,4 +1,3 @@
-import {FirebaseDocument} from '../database/firebase-document'
 import {NodeType} from '../types/node-type'
 import {Structure} from './structure'
 import {Unit} from './unit'
@@ -27,9 +26,5 @@ export class Node implements INode {
     this.unit = data.unit
     this.structure = data.structure
     this.temporaryUnits = data.temporaryUnits
-  }
-
-  public static parse(document: FirebaseDocument): Node {
-    return new Node(document.data())
   }
 }

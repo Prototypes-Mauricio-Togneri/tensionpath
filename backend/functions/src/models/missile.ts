@@ -1,5 +1,3 @@
-import {FirebaseDocument} from '../database/firebase-document'
-
 export interface IMissile {
   charge: number,
   maxCharge: number,
@@ -24,9 +22,5 @@ export class Missile implements IMissile {
     this.numberOfPlatforms = data.numberOfPlatforms
     this.platforms = data.platforms
     this.owner = data.owner
-  }
-
-  public static parse(document: FirebaseDocument): Missile {
-    return new Missile(document.data())
   }
 }

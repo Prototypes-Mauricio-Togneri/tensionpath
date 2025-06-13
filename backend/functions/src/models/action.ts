@@ -1,4 +1,3 @@
-import {FirebaseDocument} from '../database/firebase-document'
 import {ActionType} from '../types/action-type'
 
 export interface IAction {
@@ -28,9 +27,5 @@ export class Action implements IAction {
     this.targetX = data.targetX
     this.targetY = data.targetY
     this.level = data.level
-  }
-
-  public static parse(document: FirebaseDocument): Action {
-    return new Action(document.data())
   }
 }

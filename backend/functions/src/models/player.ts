@@ -1,4 +1,3 @@
-import {FirebaseDocument} from '../database/firebase-document'
 import {PlayerStatus} from '../types/player-status'
 import {Action} from './action'
 
@@ -32,9 +31,5 @@ export class Player implements IPlayer {
     this.status = data.status
     this.turnEndedAt = data.turnEndedAt
     this.actions = data.actions
-  }
-
-  public static parse(document: FirebaseDocument): Player {
-    return new Player(document.data())
   }
 }
