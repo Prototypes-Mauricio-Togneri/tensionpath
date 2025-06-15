@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/splash/splash_state.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;
@@ -29,9 +30,9 @@ class Content extends StatelessWidget {
         child: state.newVersionAvailable
             ? Text(
                 'New version available'.toUpperCase(),
-                style: const TextStyle(color: Colors.red),
+                style: const TextStyle(color: Palette.SEMANTIC_ERROR),
               )
-            : const CircularProgressIndicator(color: Colors.white),
+            : const CircularProgressIndicator(color: Palette.PRIMARY),
       ),
     );
   }

@@ -67,13 +67,13 @@ class Form extends StatelessWidget {
                   labelText: 'Name',
                   labelStyle: TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.primary),
+                    borderSide: BorderSide(color: Palette.PRIMARY),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.primary),
+                    borderSide: BorderSide(color: Palette.PRIMARY),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.primary),
+                    borderSide: BorderSide(color: Palette.PRIMARY),
                   ),
                   counterText: '',
                 ),
@@ -90,7 +90,7 @@ class Form extends StatelessWidget {
                     if (states.contains(WidgetState.disabled)) {
                       return Palette.BUTTON_DISABLED;
                     } else {
-                      return Palette.primary;
+                      return Palette.PRIMARY;
                     }
                   }),
                 ),
