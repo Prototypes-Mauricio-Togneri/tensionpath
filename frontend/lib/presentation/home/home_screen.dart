@@ -35,11 +35,6 @@ class Content extends StatelessWidget {
           const Spacer(),
           Form(state),
           const Spacer(),
-          Text(
-            state.version,
-            style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
-          ),
-          const VBox(10),
         ],
       ),
     );

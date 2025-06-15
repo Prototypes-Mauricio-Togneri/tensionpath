@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/settings/settings_state.dart';
 import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -34,6 +35,16 @@ class Content extends StatelessWidget {
           const Spacer(),
           Form(state),
           const Spacer(),
+          Text(
+            state.version,
+            style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+          ),
+          const VBox(15),
+          SelectableText(
+            Authentication.userId,
+            style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+          ),
+          const VBox(10),
         ],
       ),
     );
