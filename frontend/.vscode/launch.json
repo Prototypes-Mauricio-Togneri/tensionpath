@@ -6,12 +6,7 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_local.dart",
-            "flutterMode": "debug",
-            "args": [
-                "-d",
-                "chrome",
-                "--wasm",
-            ]
+            "flutterMode": "debug"
         },
         {
             "name": "Run (REMOTE)",

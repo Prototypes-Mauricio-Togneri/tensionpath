@@ -54,9 +54,9 @@ export const endTurnCallable = registerCallable(async (params: EndTurnCallablePa
       })
     }
 
-    if (player.status !== PlayerStatus.waiting) {
+    if (player.status !== PlayerStatus.playing) {
       throw new CustomInternalError({
-        message: 'Player already ended turn',
+        message: 'Player cannot end turn',
         data: {
           userId: params.userId,
           matchId: params.matchId,

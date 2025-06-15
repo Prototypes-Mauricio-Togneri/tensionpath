@@ -10,7 +10,7 @@ class EndTurnCallable extends Callable {
   }) async {
     final Map<String, Object?> parameters = {
       'matchId': matchId,
-      'actions': actions,
+      'actions': actions.map((action) => action.toJson()).toList(),
     };
 
     return super.invoke(parameters);
