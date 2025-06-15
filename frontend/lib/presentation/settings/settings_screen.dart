@@ -59,9 +59,7 @@ class TopButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        TopButton(icon: Icons.keyboard_arrow_left, onPressed: state.onClose),
-      ],
+      children: [TopButton(icon: Icons.arrow_back, onPressed: state.onClose)],
     );
   }
 }
