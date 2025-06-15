@@ -133,12 +133,13 @@ const updateMatch = (match: Match) => {
   })
 
   // TODO(momo): search == and !=
+  // TODO(momo): remove properties temporaryUnits and hasMoved before writing to the database
 
   if (checkPlayersAlive({
     match: match,
     players: match.players,
   })) {
-    const nodes = getNodesMap(match.battlefield.nodes)
+    const nodes = getNodes(match.battlefield.nodes)
     const actions = getActions(match.players)
 
     executeUnitDeployments({
@@ -146,15 +147,13 @@ const updateMatch = (match: Match) => {
       actions: actions.filter((a) => a.type === ActionType.deploy),
     })
 
-    /* _executeUnitMovements(
-      jsonMatch: jsonMatch,
-      jsonNodes: jsonNodes,
-      jsonPlayers: jsonMatch.players,
-      jsonActions: jsonActions
-          .where((a) => a.type === ActionType.move)
-          .toList(),
-      jsonConfig: jsonMatch.config,
-    );*/
+    executeUnitMovements({
+      match: match,
+      nodes: nodes,
+      players: match.players,
+      actions: actions.filter((a) => a.type === ActionType.move),
+      config: match.config,
+    })
 
     updatePlayerResources({
       players: match.players,
@@ -210,6 +209,26 @@ const checkPlayersAlive = (params: {
   return result
 }
 
+const getNodes = (nodes: Node[]): Nodes => {
+  const result: Nodes = {}
+
+  for (const node of Object.values(nodes)) {
+    result[locationId(node.x, node.y)] = node
+  }
+
+  return result
+}
+
+const getActions = (players: Players): Action[] => {
+  const result: Action[] = []
+
+  for (const player of Object.values(players)) {
+    result.push(...player.actions)
+  }
+
+  return result
+}
+
 const executeUnitDeployments = (params: {
   nodes: Nodes,
   actions: Action[],
@@ -228,24 +247,162 @@ const executeUnitDeployments = (params: {
   }
 }
 
-const getNodesMap = (nodes: Node[]): Nodes => {
-  const result: Nodes = {}
-
-  for (const node of Object.values(nodes)) {
-    result[locationId(node.x, node.y)] = node
-  }
-
-  return result
+const executeUnitMovements = (params: {
+  match: Match,
+  nodes: Nodes,
+  players: Players,
+  actions: Action[],
+  config: Config,
+}) => {
+  resetTemporaryUnits(params.nodes)
+  fillTemporaryUnits({
+    nodes: params.nodes,
+    actions: params.actions,
+  })
+  resolveBattles({
+    nodes: params.nodes,
+    players: params.players,
+    config: params.config,
+  })
+  checkBaseAttacks({
+    match: params.match,
+    nodes: params.nodes,
+    players: params.players,
+  })
 }
 
-const getActions = (players: Players): Action[] => {
-  const result: Action[] = []
+const resetTemporaryUnits = (nodes: Nodes) => {
+  for (const node of Object.values(nodes)) {
+    node.temporaryUnits = []
+  }
+}
 
-  for (const player of Object.values(players)) {
-    result.push(...player.actions)
+const fillTemporaryUnits = (params: {
+  nodes: Nodes,
+  actions: Action[],
+}) => {
+  for (const action of params.actions) {
+    const originLocationId = locationId(
+      action.originX!,
+      action.originY!,
+    )
+    const originNode = params.nodes[originLocationId]!
+
+    const targetLocationId = locationId(
+        action.targetX,
+        action.targetY,
+    )
+    const targetNode = params.nodes[targetLocationId]!
+
+    const unit = originNode.unit!
+    unit.hasMoved = true
+
+    targetNode.temporaryUnits.push(unit)
+    originNode.unit = undefined
   }
 
-  return result
+  for (const node of Object.values(params.nodes)) {
+    if (node.unit) {
+      const unit = node.unit!
+      unit.hasMoved = false
+      node.temporaryUnits.push(unit)
+      node.unit = undefined
+    }
+  }
+}
+
+const resolveBattles = (params: {
+  nodes: Nodes,
+  players: Players,
+  config: Config,
+}) => {
+  for (const node of Object.values(params.nodes)) {
+    if (node.temporaryUnits.length == 1) {
+      // Only one unit in the node, no battle
+      const unit = node.temporaryUnits[0]
+      unit.hasMoved = false
+
+      node.unit = unit
+    } else if (node.temporaryUnits.length > 1) {
+      // More than one unit in the node, resolve battle
+      resolveBattle({
+        node: node,
+        config: params.config,
+      })
+    }
+
+    node.temporaryUnits = []
+  }
+}
+
+const resolveBattle = (params: {
+  node: Node,
+  config: Config,
+}) => {
+  let player1Units = 0
+  let player2Units = 0
+  let player1Moved = false
+  let player2Moved = false
+
+  for (const unit of params.node.temporaryUnits) {
+    if (unit.playerId == Constants.PLAYER_1) {
+      player1Units += unit.level
+      player1Moved = player1Moved || unit.hasMoved
+    } else if (unit.playerId == Constants.PLAYER_2) {
+      player2Units += unit.level
+      player2Moved = player2Moved || unit.hasMoved
+    }
+  }
+
+  const player1EffectiveUnits = player1Moved ?
+      player1Units :
+      Math.ceil(player1Units * 1.1)
+  const player2EffectiveUnits = player2Moved ?
+      player2Units :
+      Math.ceil(player2Units * 1.1)
+
+  if (player1EffectiveUnits > player2EffectiveUnits) {
+    const remainingUnits = player1EffectiveUnits - player2EffectiveUnits
+
+    // Player 1 wins
+    params.node.unit = new Unit({
+      playerId: Constants.PLAYER_1,
+      level: Math.min(remainingUnits, player1Units),
+      hasMoved: false,
+    })
+  } else if (player2EffectiveUnits > player1EffectiveUnits) {
+    const remainingUnits = player2EffectiveUnits - player1EffectiveUnits
+
+    // Player 2 wins
+    params.node.unit = new Unit({
+      playerId: Constants.PLAYER_2,
+      level: Math.min(remainingUnits, player2Units),
+      hasMoved: false,
+    })
+  } else {
+    // Both players lose all units
+    params.node.unit = undefined
+  }
+}
+
+const checkBaseAttacks = (params: {
+  match: Match,
+  nodes: Nodes,
+  players: Players,
+}) => {
+  for (const node of Object.values(params.nodes)) {
+    if (node.structure && node.unit && (node.structure!.type == StructureType.launcher) && (node.unit!.playerId != node.structure!.playerId)) {
+      const player = params.players[node.structure!.playerId!]
+      player.baseHealth -= node.unit!.level
+
+      if (player.baseHealth < 0) {
+        player.baseHealth = 0
+        params.match.status = MatchStatus.finished
+      }
+
+      node.unit = undefined
+    }
+  }
 }
 
 const updatePlayerResources = (params: {

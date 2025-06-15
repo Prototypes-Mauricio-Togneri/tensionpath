@@ -8,7 +8,7 @@ export interface INode {
   type: NodeType,
   unit?: Unit,
   structure?: Structure,
-  temporaryUnits?: Unit[],
+  temporaryUnits: Unit[],
 }
 
 export class Node implements INode {
@@ -17,7 +17,7 @@ export class Node implements INode {
   type: NodeType
   unit?: Unit
   structure?: Structure
-  temporaryUnits?: Unit[]
+  temporaryUnits: Unit[]
 
   constructor(data: INode) {
     this.x = data.x
