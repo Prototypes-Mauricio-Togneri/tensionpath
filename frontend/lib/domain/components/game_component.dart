@@ -40,7 +40,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
         textRenderer: TextPaint(
           style: TextStyle(
             fontSize: camera.viewport.size.y * 0.015,
-            color: Palette.DEBUG_TEXT,
+            color: Palette.TEXT_DEBUG,
           ),
         ),
       ),

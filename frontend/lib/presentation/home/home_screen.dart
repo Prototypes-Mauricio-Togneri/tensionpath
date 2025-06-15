@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/home/home_state.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/platform.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +33,10 @@ class Content extends StatelessWidget {
           const Spacer(),
           Form(state),
           const Spacer(),
-          Text(state.version, style: const TextStyle(color: Colors.white54)),
+          Text(
+            state.version,
+            style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+          ),
           const VBox(20),
         ],
       ),
@@ -61,19 +65,19 @@ class Form extends StatelessWidget {
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Palette.primary),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Palette.primary),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Palette.primary),
                   ),
                   counterText: '',
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
                 onChanged: (text) => state.notify(),
               ),
               const VBox(20),
@@ -84,13 +88,16 @@ class Form extends StatelessWidget {
                     states,
                   ) {
                     if (states.contains(WidgetState.disabled)) {
-                      return Colors.grey;
+                      return Palette.BUTTON_DISABLED;
                     } else {
-                      return Colors.white;
+                      return Palette.primary;
                     }
                   }),
                 ),
-                child: const Text('PLAY'),
+                child: const Text(
+                  'PLAY',
+                  style: TextStyle(color: Palette.TEXT_COLOR_SECONDARY),
+                ),
               ),
               if (Platform.isMobile)
                 Padding(

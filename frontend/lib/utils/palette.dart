@@ -4,11 +4,19 @@ class Palette {
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
 
+  static const Color SCREEN_BACKGROUND = Colors.white;
   static const Color GAME_BACKGROUND = Colors.black;
 
-  static const Color SNACK_BACKGROUND = Colors.red;
+  static const Color SEMANTIC_SUCCESS = Colors.green;
+  static const Color SEMANTIC_ERROR = Colors.red;
 
-  static const Color DEBUG_TEXT = Colors.white;
+  static const Color TEXT_COLOR_PRIMARY = Color(0xff444444);
+  static const Color TEXT_COLOR_SECONDARY = Color(0xffffffff);
+  static const Color TEXT_DEBUG = Colors.white;
+
+  static const Color BUTTON_DISABLED = Colors.black26;
+
+  static const Color SNACK_BACKGROUND = Colors.red;
 
   static const Color PLAYER_1 = Color(0xff2479ae);
   static const Color PLAYER_2 = Color(0xffd54336);

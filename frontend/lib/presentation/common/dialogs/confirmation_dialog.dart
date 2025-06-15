@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String text;
@@ -48,7 +49,10 @@ class ConfirmationDialog extends StatelessWidget {
               Navigation.pop();
               onAccept.call();
             },
-            child: const Text('OK', style: TextStyle(color: Colors.red)),
+            child: const Text(
+              'OK',
+              style: TextStyle(color: Palette.SEMANTIC_ERROR),
+            ),
           ),
         ],
       ),
