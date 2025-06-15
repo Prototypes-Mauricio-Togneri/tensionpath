@@ -1,7 +1,6 @@
 export interface IUnit {
   playerId: string,
   level: number,
-  hasMoved: boolean,
 }
 
 export class Unit implements IUnit {
@@ -12,6 +11,6 @@ export class Unit implements IUnit {
   constructor(data: IUnit) {
     this.playerId = data.playerId
     this.level = data.level
-    this.hasMoved = data.hasMoved
+    this.hasMoved = false
   }
 }

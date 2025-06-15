@@ -238,7 +238,6 @@ const executeUnitDeployments = (params: {
     node.unit = new Unit({
       playerId: action.playerId,
       level: action.level!,
-      hasMoved: false,
     })
   }
 }
@@ -354,7 +353,6 @@ const resolveBattle = (params: {
     params.node.unit = new Unit({
       playerId: Constants.PLAYER_1,
       level: Math.min(remainingUnits, player1Units),
-      hasMoved: false,
     })
   } else if (player2EffectiveUnits > player1EffectiveUnits) {
     const remainingUnits = player2EffectiveUnits - player1EffectiveUnits
@@ -363,7 +361,6 @@ const resolveBattle = (params: {
     params.node.unit = new Unit({
       playerId: Constants.PLAYER_2,
       level: Math.min(remainingUnits, player2Units),
-      hasMoved: false,
     })
   } else {
     // Both players lose all units
