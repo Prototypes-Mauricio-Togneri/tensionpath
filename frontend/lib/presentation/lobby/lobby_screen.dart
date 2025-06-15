@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class LobbyScreen extends StatelessWidget {
   final LobbyState state;
@@ -21,16 +22,16 @@ class LobbyScreen extends StatelessWidget {
           children: [
             const Text(
               'Waiting for players…',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
             ),
             const VBox(20),
-            const CircularProgressIndicator(color: Colors.white),
+            const CircularProgressIndicator(color: Palette.PRIMARY),
             const VBox(40),
             ElevatedButton(
               onPressed: state.onCancel,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
+                backgroundColor: Palette.SEMANTIC_ERROR,
+                foregroundColor: Palette.TEXT_COLOR_SECONDARY,
               ),
               child: const Text('CANCEL'),
             ),
