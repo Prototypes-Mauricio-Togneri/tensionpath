@@ -7,7 +7,7 @@ import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class HomeState extends BaseState {
-  void onHistory() {}
+  void onHistory() => Navigation.historyScreen();
 
   void onSettings() => Navigation.settingsScreen();
 

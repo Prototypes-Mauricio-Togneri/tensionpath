@@ -66,23 +66,16 @@ class AudioSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 50),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Label(
-            text: 'Audio',
-            color: Palette.TEXT_COLOR_PRIMARY,
-            size: 14,
-          ),
-          const HBox(30),
-          Switch(
-            value: Audio.get.enabled,
-            onChanged: (v) => state.onAudioToggle(),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Label(text: 'Audio', color: Palette.TEXT_COLOR_PRIMARY, size: 14),
+        const HBox(30),
+        Switch(
+          value: Audio.get.enabled,
+          onChanged: (v) => state.onAudioToggle(),
+        ),
+      ],
     );
   }
 }
@@ -123,7 +116,7 @@ class Form extends StatelessWidget {
                 style: const TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
                 onChanged: (text) => state.notify(),
               ),
-              const VBox(20),
+              const VBox(30),
               ElevatedButton(
                 onPressed: state.canSave ? state.onSave : null,
                 style: ButtonStyle(

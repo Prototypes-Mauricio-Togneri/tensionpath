@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/presentation/history/history_screen.dart';
 import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
@@ -22,6 +23,9 @@ class Navigation {
 
   static void homeScreen() =>
       get.routes.pushAlone(BasicRoute(HomeScreen.instance(), name: 'home'));
+
+  static void historyScreen() =>
+      get.routes.push(BasicRoute(HistoryScreen.instance(), name: 'history'));
 
   static void settingsScreen() =>
       get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
