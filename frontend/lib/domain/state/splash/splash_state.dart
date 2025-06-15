@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionpath/domain/json/json_version.dart';
 import 'package:tensionpath/environments/environment.dart';
+import 'package:tensionpath/persistence/storage/name_storage.dart';
 import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
@@ -58,8 +59,16 @@ class SplashState extends BaseState {
 
   Future _onError() async {
     final User user = await Authentication.signInAnonymously();
-    _processUser(user);
+    await _processUser(user);
   }
 
-  void _processUser(User user) => Navigation.homeScreen();
+  Future _processUser(User user) async {
+    final String name = await NameStorage.load();
+
+    if (name.isEmpty) {
+      Navigation.setupScreen();
+    } else {
+      Navigation.homeScreen();
+    }
+  }
 }
