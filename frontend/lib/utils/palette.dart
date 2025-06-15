@@ -16,6 +16,8 @@ class Palette {
 
   static const Color BUTTON_DISABLED = Colors.black26;
 
+  static const Color ICON_ENABLED = Colors.black38;
+
   static const Color SNACK_BACKGROUND = Colors.red;
 
   static const Color PLAYER_1 = Color(0xff2479ae);

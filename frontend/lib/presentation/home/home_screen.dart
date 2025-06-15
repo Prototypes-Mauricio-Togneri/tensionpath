@@ -30,6 +30,7 @@ class Content extends StatelessWidget {
       builder: (context, state) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          TopButtons(state),
           const Spacer(),
           Form(state),
           const Spacer(),
@@ -37,9 +38,38 @@ class Content extends StatelessWidget {
             state.version,
             style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
           ),
-          const VBox(20),
+          const VBox(10),
         ],
       ),
+    );
+  }
+}
+
+class TopButtons extends StatelessWidget {
+  final HomeState state;
+
+  const TopButtons(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: IconButton(
+            onPressed: state.onHistory,
+            icon: const Icon(Icons.history, color: Palette.ICON_ENABLED),
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: IconButton(
+            onPressed: state.onSettings,
+            icon: const Icon(Icons.settings, color: Palette.ICON_ENABLED),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -59,30 +89,8 @@ class Form extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                controller: state.nameController,
-                maxLength: 15,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                  labelStyle: TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.PRIMARY),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.PRIMARY),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Palette.PRIMARY),
-                  ),
-                  counterText: '',
-                ),
-                style: const TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
-                onChanged: (text) => state.notify(),
-              ),
-              const VBox(20),
               ElevatedButton(
-                onPressed: state.canPlay ? state.onPlay : null,
+                onPressed: state.onPlay,
                 style: ButtonStyle(
                   foregroundColor: WidgetStateProperty.resolveWith<Color>(
                     (states) => Palette.TEXT_COLOR_SECONDARY,

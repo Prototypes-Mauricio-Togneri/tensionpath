@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/widgets.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
@@ -9,26 +8,21 @@ import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class HomeState extends BaseState {
-  final TextEditingController nameController = TextEditingController();
   String version = '';
 
   @override
   Future onLoad() async {
-    final String name = await NameStorage.load();
-    nameController.text = name;
-    notify();
-
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     version = 'v${packageInfo.version} (${packageInfo.buildNumber})';
     notify();
   }
 
-  bool get canPlay => nameController.text.trim().isNotEmpty;
+  void onHistory() {}
 
-  void onFullscreen() => SetFullscreen.set();
+  void onSettings() {}
 
   Future onPlay() async {
-    final String name = await _playerName;
+    final String name = await NameStorage.load();
     final Room room = await const StartMatchmakingCallable()(
       playerName: name,
       version: 1,
@@ -39,10 +33,5 @@ class HomeState extends BaseState {
     Navigation.lobbyScreen(room);
   }
 
-  Future<String> get _playerName async {
-    final String name = nameController.text.trim();
-    await NameStorage.save(name);
-
-    return name;
-  }
+  void onFullscreen() => SetFullscreen.set();
 }
