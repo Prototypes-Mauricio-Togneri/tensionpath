@@ -1,7 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tensionpath/persistence/storage/name_storage.dart';
+import 'package:tensionpath/persistence/storage/settings_storage.dart';
+import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SettingsState extends BaseState {
@@ -12,7 +13,7 @@ class SettingsState extends BaseState {
 
   @override
   Future onLoad() async {
-    nameController.text = await NameStorage.load();
+    nameController.text = await SettingsStorage.loadName();
     notify();
 
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -22,9 +23,14 @@ class SettingsState extends BaseState {
 
   void onClose() => Navigation.pop();
 
+  void onAudioToggle() {
+    Audio.get.toggle();
+    notify();
+  }
+
   Future onSave() async {
     final String name = nameController.text.trim();
-    await NameStorage.save(name);
+    await SettingsStorage.saveName(name);
     Navigation.pop();
   }
 }

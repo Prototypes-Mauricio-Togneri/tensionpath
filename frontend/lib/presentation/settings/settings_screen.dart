@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/settings/settings_state.dart';
 import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/presentation/common/text/label.dart';
+import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -33,18 +35,11 @@ class Content extends StatelessWidget {
         children: [
           TopButtons(state),
           const Spacer(),
+          AudioSection(state),
+          const VBox(20),
           Form(state),
           const Spacer(),
-          Text(
-            state.version,
-            style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
-          ),
-          const VBox(15),
-          SelectableText(
-            Authentication.userId,
-            style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
-          ),
-          const VBox(10),
+          Footer(state),
         ],
       ),
     );
@@ -60,6 +55,34 @@ class TopButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [TopButton(icon: Icons.arrow_back, onPressed: state.onClose)],
+    );
+  }
+}
+
+class AudioSection extends StatelessWidget {
+  final SettingsState state;
+
+  const AudioSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 50),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Label(
+            text: 'Audio',
+            color: Palette.TEXT_COLOR_PRIMARY,
+            size: 14,
+          ),
+          const HBox(30),
+          Switch(
+            value: Audio.get.enabled,
+            onChanged: (v) => state.onAudioToggle(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -123,6 +146,31 @@ class Form extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  final SettingsState state;
+
+  const Footer(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          state.version,
+          style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+        ),
+        const VBox(15),
+        SelectableText(
+          Authentication.userId,
+          style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+        ),
+        const VBox(10),
+      ],
     );
   }
 }

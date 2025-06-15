@@ -1,27 +1,27 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:tensionpath/environments/environment.dart';
+import 'package:tensionpath/persistence/storage/settings_storage.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/locator.dart';
 
 class Audio {
   final Map<String, AudioPlayer> _soundPlayers = {};
   //final Map<String, AudioPlayer> _musicPlayers = {};
-  final bool _enabled = true;
+  bool _enabled = true;
   //AudioPlayer? _playerToResume;
 
   static const String NEW_TURN = Assets.AUDIO_SOUND_NEWTURN;
 
   static Audio get get => locator<Audio>();
 
-  bool get _isEnabled => _enabled && Environment.get.isRelease;
+  bool get enabled => _enabled;
 
-  /*void toggle() {
+  void toggle() {
     _enabled = !_enabled;
     SettingsStorage.saveAudio(_enabled);
-  }*/
+  }
 
   Future playSound(String sound) async {
-    if (_isEnabled) {
+    if (enabled) {
       await stopSound(sound);
       await _soundPlayers[sound]?.play();
     }
@@ -77,8 +77,7 @@ class Audio {
   }
 
   Future load() async {
-    //_enabled = await SettingsStorage.loadAudio();
-
+    _enabled = await SettingsStorage.loadAudio();
     _soundPlayers[NEW_TURN] = await _getPlayer(path: NEW_TURN);
   }
 

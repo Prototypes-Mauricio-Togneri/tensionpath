@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/persistence/storage/name_storage.dart';
+import 'package:tensionpath/persistence/storage/settings_storage.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SetupState extends BaseState {
@@ -20,7 +20,7 @@ class SetupState extends BaseState {
 
   Future onSave() async {
     final String name = nameController.text.trim();
-    await NameStorage.save(name);
+    await SettingsStorage.saveName(name);
     Navigation.homeScreen();
   }
 }
