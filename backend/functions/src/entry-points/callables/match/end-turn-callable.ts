@@ -132,7 +132,6 @@ const updateMatch = (match: Match) => {
     config: match.config,
   })
 
-  // TODO(momo): search == and !=
   // TODO(momo): remove properties temporaryUnits and hasMoved before writing to the database
 
   if (checkPlayersAlive({
@@ -317,7 +316,7 @@ const resolveBattles = (params: {
   config: Config,
 }) => {
   for (const node of Object.values(params.nodes)) {
-    if (node.temporaryUnits.length == 1) {
+    if (node.temporaryUnits.length === 1) {
       // Only one unit in the node, no battle
       const unit = node.temporaryUnits[0]
       unit.hasMoved = false
@@ -345,10 +344,10 @@ const resolveBattle = (params: {
   let player2Moved = false
 
   for (const unit of params.node.temporaryUnits) {
-    if (unit.playerId == Constants.PLAYER_1) {
+    if (unit.playerId === Constants.PLAYER_1) {
       player1Units += unit.level
       player1Moved = player1Moved || unit.hasMoved
-    } else if (unit.playerId == Constants.PLAYER_2) {
+    } else if (unit.playerId === Constants.PLAYER_2) {
       player2Units += unit.level
       player2Moved = player2Moved || unit.hasMoved
     }
@@ -391,7 +390,7 @@ const checkBaseAttacks = (params: {
   players: Players,
 }) => {
   for (const node of Object.values(params.nodes)) {
-    if (node.structure && node.unit && (node.structure!.type == StructureType.launcher) && (node.unit!.playerId != node.structure!.playerId)) {
+    if (node.structure && node.unit && (node.structure!.type === StructureType.launcher) && (node.unit!.playerId !== node.structure!.playerId)) {
       const player = params.players[node.structure!.playerId!]
       player.baseHealth -= node.unit!.level
 
