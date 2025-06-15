@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/home/home_state.dart';
+import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -73,34 +74,20 @@ class Form extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
+              PrimaryButton(
+                label: 'Play',
+                enabled: true,
+                foregroundColor: Palette.PRIMARY,
                 onPressed: state.onPlay,
-                style: ButtonStyle(
-                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (states) => Palette.TEXT_COLOR_SECONDARY,
-                  ),
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
-                    states,
-                  ) {
-                    if (states.contains(WidgetState.disabled)) {
-                      return Palette.BUTTON_DISABLED;
-                    } else {
-                      return Palette.PRIMARY;
-                    }
-                  }),
-                ),
-                child: const Text('PLAY'),
               ),
-              if (Platform.isMobile)
+              if (!Platform.isMobile)
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: ElevatedButton(
+                  child: PrimaryButton(
+                    label: 'Full screen',
+                    enabled: true,
+                    foregroundColor: Palette.PRIMARY,
                     onPressed: state.onFullscreen,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Palette.PRIMARY,
-                      foregroundColor: Palette.TEXT_COLOR_SECONDARY,
-                    ),
-                    child: const Text('FULL SCREEN'),
                   ),
                 ),
             ],
