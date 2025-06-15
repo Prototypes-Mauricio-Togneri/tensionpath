@@ -16,7 +16,6 @@ export class Node implements INode {
   type: NodeType
   unit?: Unit
   structure?: Structure
-  temporaryUnits: Unit[]
 
   constructor(data: INode) {
     this.x = data.x
@@ -24,7 +23,6 @@ export class Node implements INode {
     this.type = data.type
     this.unit = data.unit
     this.structure = data.structure
-    this.temporaryUnits = []
   }
 }
 

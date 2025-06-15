@@ -6,11 +6,16 @@ export interface IUnit {
 export class Unit implements IUnit {
   playerId: string
   level: number
-  hasMoved: boolean
 
   constructor(data: IUnit) {
     this.playerId = data.playerId
     this.level = data.level
-    this.hasMoved = false
   }
 }
+
+export type BattleUnit = {
+  unit: Unit,
+  hasMoved: boolean,
+}
+
+export type BattleUnits = Record<string, BattleUnit[]>

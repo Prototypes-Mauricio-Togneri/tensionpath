@@ -10,7 +10,7 @@ import {Missile} from '../../../models/missile'
 import {Node, Nodes} from '../../../models/node'
 import {Players} from '../../../models/player'
 import {Turn} from '../../../models/turn'
-import {Unit} from '../../../models/unit'
+import {BattleUnit, BattleUnits, Unit} from '../../../models/unit'
 import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
@@ -132,8 +132,6 @@ const updateMatch = (match: Match) => {
     config: match.config,
   })
 
-  // TODO(momo): remove properties temporaryUnits and hasMoved before writing to the database
-
   if (checkPlayersAlive({
     match: match,
     players: match.players,
@@ -234,7 +232,7 @@ const executeUnitDeployments = (params: {
 }) => {
   for (const action of params.actions) {
     const nodeId = locationId(action.targetX, action.targetY)
-    const node = params.nodes[nodeId]!
+    const node = params.nodes[nodeId]
     node.unit = new Unit({
       playerId: action.playerId,
       level: action.level!,
@@ -249,8 +247,7 @@ const executeUnitMovements = (params: {
   actions: Action[],
   config: Config,
 }) => {
-  resetTemporaryUnits(params.nodes)
-  fillTemporaryUnits({
+  const battleUnits = getBattleUnits({
     nodes: params.nodes,
     actions: params.actions,
   })
@@ -258,6 +255,7 @@ const executeUnitMovements = (params: {
     nodes: params.nodes,
     players: params.players,
     config: params.config,
+    battleUnits: battleUnits,
   })
   checkBaseAttacks({
     match: params.match,
@@ -266,85 +264,93 @@ const executeUnitMovements = (params: {
   })
 }
 
-const resetTemporaryUnits = (nodes: Nodes) => {
-  for (const node of Object.values(nodes)) {
-    node.temporaryUnits = []
-  }
-}
-
-const fillTemporaryUnits = (params: {
+const getBattleUnits = (params: {
   nodes: Nodes,
   actions: Action[],
-}) => {
+}): BattleUnits => {
+  const result: BattleUnits = {}
+
   for (const action of params.actions) {
     const originLocationId = locationId(action.originX!, action.originY!)
-    const originNode = params.nodes[originLocationId]!
-
+    const originNode = params.nodes[originLocationId]
     const targetLocationId = locationId(action.targetX, action.targetY)
-    const targetNode = params.nodes[targetLocationId]!
 
-    const unit = originNode.unit!
-    unit.hasMoved = true
+    result[targetLocationId] = result[targetLocationId] || []
+    result[targetLocationId].push({
+      unit: originNode.unit!,
+      hasMoved: true,
+    })
 
-    targetNode.temporaryUnits.push(unit)
     originNode.unit = undefined
   }
 
   for (const node of Object.values(params.nodes)) {
     if (node.unit) {
-      const unit = node.unit!
-      unit.hasMoved = false
-      node.temporaryUnits.push(unit)
+      const nodeLocationId = locationId(node.x, node.y)
+
+      result[nodeLocationId] = result[nodeLocationId] || []
+      result[nodeLocationId].push({
+        unit: node.unit!,
+        hasMoved: false,
+      })
+
       node.unit = undefined
     }
   }
+
+  return result
 }
 
 const resolveBattles = (params: {
   nodes: Nodes,
   players: Players,
   config: Config,
+  battleUnits: BattleUnits,
 }) => {
   for (const node of Object.values(params.nodes)) {
-    if (node.temporaryUnits.length === 1) {
-      // Only one unit in the node, no battle
-      const unit = node.temporaryUnits[0]
-      unit.hasMoved = false
+    const nodeLocationId = locationId(node.x, node.y)
+    const nodeUnits = params.battleUnits[nodeLocationId] || []
 
-      node.unit = unit
-    } else if (node.temporaryUnits.length > 1) {
+    if (nodeUnits.length === 1) {
+      // Only one unit in the node, no battle
+      const unit = nodeUnits[0]
+      node.unit = unit.unit
+    } else if (nodeUnits.length > 1) {
       // More than one unit in the node, resolve battle
       resolveBattle({
         node: node,
         config: params.config,
+        battleUnits: nodeUnits,
       })
     }
-
-    node.temporaryUnits = []
   }
 }
 
 const resolveBattle = (params: {
   node: Node,
   config: Config,
+  battleUnits: BattleUnit[],
 }) => {
   let player1Units = 0
   let player2Units = 0
   let player1Moved = false
   let player2Moved = false
 
-  for (const unit of params.node.temporaryUnits) {
+  for (const battleUnit of params.battleUnits) {
+    const unit = battleUnit.unit
+    const hasMoved = battleUnit.hasMoved
+
     if (unit.playerId === Constants.PLAYER_1) {
       player1Units += unit.level
-      player1Moved = player1Moved || unit.hasMoved
+      player1Moved = player1Moved || hasMoved
     } else if (unit.playerId === Constants.PLAYER_2) {
       player2Units += unit.level
-      player2Moved = player2Moved || unit.hasMoved
+      player2Moved = player2Moved || hasMoved
     }
   }
 
-  const player1EffectiveUnits = player1Moved ? player1Units : Math.ceil(player1Units * 1.1)
-  const player2EffectiveUnits = player2Moved ? player2Units : Math.ceil(player2Units * 1.1)
+  const player1EffectiveUnits = player1Moved ? player1Units : Math.ceil(player1Units * params.config.defenseFactor)
+  const player2EffectiveUnits = player2Moved ? player2Units : Math.ceil(player2Units * params.config.defenseFactor)
 
   if (player1EffectiveUnits > player2EffectiveUnits) {
     const remainingUnits = player1EffectiveUnits - player2EffectiveUnits
@@ -393,8 +399,8 @@ const updatePlayerResources = (params: {
   nodes: Node[],
   config: Config,
 }) => {
-  const player1 = params.players[Constants.PLAYER_1]!
-  const player2 = params.players[Constants.PLAYER_2]!
+  const player1 = params.players[Constants.PLAYER_1]
+  const player2 = params.players[Constants.PLAYER_2]
 
   player1.resources += params.config.resourcesPerTurn
   player2.resources += params.config.resourcesPerTurn
@@ -412,7 +418,7 @@ const updatePlayerResources = (params: {
 
   for (const node of params.nodes) {
     if (node.structure && (node.structure!.type === StructureType.resources) && node.unit) {
-      const player = params.players[node.unit!.playerId]!
+      const player = params.players[node.unit!.playerId]
       const newResources = Math.min(node.unit!.level, params.config.resourcesPerPatch)
       player.resources += newResources
     }
