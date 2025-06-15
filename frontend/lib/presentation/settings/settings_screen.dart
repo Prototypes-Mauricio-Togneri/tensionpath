@@ -142,9 +142,10 @@ class Footer extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          state.version,
-          style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+        Label(
+          text: state.version,
+          size: 14,
+          color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128),
         ),
         const VBox(15),
         SelectableText(

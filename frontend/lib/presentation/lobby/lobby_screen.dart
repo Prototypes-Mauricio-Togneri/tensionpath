@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
 import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/presentation/common/text/label.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class LobbyScreen extends StatelessWidget {
@@ -21,9 +22,10 @@ class LobbyScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Waiting for players…',
-              style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY),
+            const Label(
+              text: 'Waiting for players…',
+              size: 14,
+              color: Palette.TEXT_COLOR_PRIMARY,
             ),
             const VBox(20),
             const CircularProgressIndicator(color: Palette.PRIMARY),
