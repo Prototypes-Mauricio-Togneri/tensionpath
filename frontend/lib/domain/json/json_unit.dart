@@ -13,9 +13,6 @@ class JsonUnit {
   @JsonKey(name: 'level')
   int level;
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  bool hasMoved = false;
-
   JsonUnit({required this.playerId, required this.level});
 
   Unit object({required Location location, required List<Player> players}) =>

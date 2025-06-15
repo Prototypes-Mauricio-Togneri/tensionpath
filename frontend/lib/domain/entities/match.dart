@@ -198,9 +198,8 @@ class Match {
   Future onEndTurn() async {
     if (isSelfPlaying) {
       self.setWaiting();
-      return EndTurnCallable()(
+      return const EndTurnCallable()(
         matchId: id,
-        selfId: self.id,
         actions: _actionsToJson(self.actions),
       );
     }
