@@ -26,23 +26,6 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return StateProvider<SetupState>(
       state: state,
-      builder: (context, state) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [const Spacer(), Form(state), const Spacer()],
-      ),
-    );
-  }
-}
-
-class Form extends StatelessWidget {
-  final SetupState state;
-
-  const Form(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return StateProvider<SetupState>(
-      state: state,
       builder: (context, state) => Center(
         child: SizedBox(
           width: 300,
