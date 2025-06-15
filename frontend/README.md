@@ -1,9 +1,9 @@
 # TODO
 
 - Display history
-
 - Choose map
-- Toxic tiles that kill units
+
+- Toxic tiles that damage units
 - Can only build factories on the first line
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
