@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/setup/setup_state.dart';
+import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -54,23 +55,11 @@ class Content extends StatelessWidget {
                 onChanged: (text) => state.notify(),
               ),
               const VBox(20),
-              ElevatedButton(
-                onPressed: state.canSave ? state.onSave : null,
-                style: ButtonStyle(
-                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                    (states) => Palette.TEXT_COLOR_SECONDARY,
-                  ),
-                  backgroundColor: WidgetStateProperty.resolveWith<Color>((
-                    states,
-                  ) {
-                    if (states.contains(WidgetState.disabled)) {
-                      return Palette.BUTTON_DISABLED;
-                    } else {
-                      return Palette.PRIMARY;
-                    }
-                  }),
-                ),
-                child: const Text('SAVE'),
+              PrimaryButton(
+                label: 'Save',
+                enabled: state.canSave,
+                foregroundColor: Palette.PRIMARY,
+                onPressed: state.onSave,
               ),
             ],
           ),

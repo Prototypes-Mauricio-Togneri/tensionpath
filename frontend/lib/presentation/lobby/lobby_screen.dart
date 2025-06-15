@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
+import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -27,13 +28,11 @@ class LobbyScreen extends StatelessWidget {
             const VBox(20),
             const CircularProgressIndicator(color: Palette.PRIMARY),
             const VBox(40),
-            ElevatedButton(
+            PrimaryButton(
+              label: 'Cancel',
+              enabled: true,
+              foregroundColor: Palette.SEMANTIC_ERROR,
               onPressed: state.onCancel,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Palette.SEMANTIC_ERROR,
-                foregroundColor: Palette.TEXT_COLOR_SECONDARY,
-              ),
-              child: const Text('CANCEL'),
             ),
           ],
         ),
