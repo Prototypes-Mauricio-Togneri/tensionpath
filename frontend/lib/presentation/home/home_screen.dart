@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/home/home_state.dart';
+import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/platform.dart';
@@ -54,21 +55,9 @@ class TopButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: IconButton(
-            onPressed: state.onHistory,
-            icon: const Icon(Icons.history, color: Palette.ICON_ENABLED),
-          ),
-        ),
+        TopButton(icon: Icons.history, onPressed: state.onHistory),
         const Spacer(),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: IconButton(
-            onPressed: state.onSettings,
-            icon: const Icon(Icons.settings, color: Palette.ICON_ENABLED),
-          ),
-        ),
+        TopButton(icon: Icons.settings, onPressed: state.onSettings),
       ],
     );
   }

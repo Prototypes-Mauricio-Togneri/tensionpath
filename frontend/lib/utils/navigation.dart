@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
+import 'package:tensionpath/presentation/settings/settings_screen.dart';
 import 'package:tensionpath/presentation/setup/setup_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
@@ -21,6 +22,9 @@ class Navigation {
 
   static void homeScreen() =>
       get.routes.pushAlone(BasicRoute(HomeScreen.instance(), name: 'home'));
+
+  static void settingsScreen() =>
+      get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
 
   static void lobbyScreen(Room room) =>
       get.routes.push(BasicRoute(LobbyScreen.instance(room), name: 'lobby'));

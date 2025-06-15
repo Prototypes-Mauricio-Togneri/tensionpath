@@ -19,7 +19,7 @@ class HomeState extends BaseState {
 
   void onHistory() {}
 
-  void onSettings() {}
+  void onSettings() => Navigation.settingsScreen();
 
   Future onPlay() async {
     final String name = await NameStorage.load();
