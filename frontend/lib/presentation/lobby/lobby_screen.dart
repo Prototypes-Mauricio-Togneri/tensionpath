@@ -23,7 +23,7 @@ class LobbyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Label(
-              text: 'Waiting for players…',
+              text: 'Waiting for opponent…',
               size: 14,
               color: Palette.TEXT_COLOR_PRIMARY,
             ),
