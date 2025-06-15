@@ -192,7 +192,7 @@ const checkMissile = (params: {
 const checkPlayersAlive = (params: {
   match: Match,
   players: Players,
-}) => {
+}): boolean => {
   let result = true
 
   for (const player of Object.values(params.players)) {
@@ -233,10 +233,7 @@ const executeUnitDeployments = (params: {
   actions: Action[],
 }) => {
   for (const action of params.actions) {
-    const nodeId = locationId(
-        action.targetX,
-        action.targetY,
-    )
+    const nodeId = locationId(action.targetX, action.targetY)
     const node = params.nodes[nodeId]!
     node.unit = new Unit({
       playerId: action.playerId,
@@ -281,16 +278,10 @@ const fillTemporaryUnits = (params: {
   actions: Action[],
 }) => {
   for (const action of params.actions) {
-    const originLocationId = locationId(
-      action.originX!,
-      action.originY!,
-    )
+    const originLocationId = locationId(action.originX!, action.originY!)
     const originNode = params.nodes[originLocationId]!
 
-    const targetLocationId = locationId(
-        action.targetX,
-        action.targetY,
-    )
+    const targetLocationId = locationId(action.targetX, action.targetY)
     const targetNode = params.nodes[targetLocationId]!
 
     const unit = originNode.unit!
@@ -353,12 +344,8 @@ const resolveBattle = (params: {
     }
   }
 
-  const player1EffectiveUnits = player1Moved ?
-      player1Units :
-      Math.ceil(player1Units * 1.1)
-  const player2EffectiveUnits = player2Moved ?
-      player2Units :
-      Math.ceil(player2Units * 1.1)
+  const player1EffectiveUnits = player1Moved ? player1Units : Math.ceil(player1Units * 1.1)
+  const player2EffectiveUnits = player2Moved ? player2Units : Math.ceil(player2Units * 1.1)
 
   if (player1EffectiveUnits > player2EffectiveUnits) {
     const remainingUnits = player1EffectiveUnits - player2EffectiveUnits
@@ -523,13 +510,9 @@ const getPlatformNodes = (params: {
   return params.nodes.filter((node) => node.structure?.platformId === params.platformId)
 }
 
-const isMissileFull = (missile: Missile) => {
-  return (missile.charge === missile.maxCharge) && isMissileCharging(missile)
-}
+const isMissileFull = (missile: Missile): boolean => (missile.charge === missile.maxCharge) && isMissileCharging(missile)
 
-const isMissileCharging = (missile: Missile) => {
-  return (missile.owner !== '') && (missile.owner !== undefined)
-}
+const isMissileCharging = (missile: Missile): boolean => (missile.owner !== '') && (missile.owner !== undefined)
 
 const nextMissileCharge = (missile: Missile): number => {
   if (isMissileCharging(missile)) {
@@ -547,4 +530,4 @@ const updateTurn = (turn: Turn) => {
   turn.startedAt = new Date()
 }
 
-const locationId =(x: number, y: number): string => `${x},${y}`
+const locationId = (x: number, y: number): string => `${x},${y}`
