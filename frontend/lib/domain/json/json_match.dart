@@ -13,28 +13,28 @@ part 'json_match.g.dart';
 @JsonSerializable()
 class JsonMatch {
   @JsonKey(name: 'id')
-  String id;
+  final String id;
 
   @JsonKey(name: 'version')
-  int version;
+  final int version;
 
   @JsonKey(name: 'status')
-  MatchStatus status;
+  final MatchStatus status;
 
   @JsonKey(name: 'createdAt', toJson: dateToJson)
-  DateTime createdAt;
+  final DateTime createdAt;
 
   @JsonKey(name: 'players')
-  Map<String, JsonPlayer> players;
+  final Map<String, JsonPlayer> players;
 
   @JsonKey(name: 'battlefield')
-  JsonBattlefield battlefield;
+  final JsonBattlefield battlefield;
 
   @JsonKey(name: 'config')
-  JsonConfig config;
+  final JsonConfig config;
 
   @JsonKey(name: 'turn')
-  JsonTurn turn;
+  final JsonTurn turn;
 
   JsonMatch({
     required this.id,

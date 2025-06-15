@@ -2,8 +2,7 @@ import 'dart:math';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/utils/palette.dart';
-
-import '../../../utils/platform.dart';
+import 'package:tensionpath/utils/platform.dart';
 
 class GameContainer extends StatelessWidget {
   final Widget child;

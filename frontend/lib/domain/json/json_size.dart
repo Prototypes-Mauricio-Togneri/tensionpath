@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_size.g.dart';

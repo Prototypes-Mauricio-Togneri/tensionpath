@@ -10,16 +10,16 @@ part 'json_battlefield.g.dart';
 @JsonSerializable()
 class JsonBattlefield {
   @JsonKey(name: 'id')
-  String id;
+  final String id;
 
   @JsonKey(name: 'size')
-  JsonSize size;
+  final JsonSize size;
 
   @JsonKey(name: 'missile')
-  JsonMissile missile;
+  final JsonMissile missile;
 
   @JsonKey(name: 'nodes')
-  List<JsonNode> nodes;
+  final List<JsonNode> nodes;
 
   JsonBattlefield({
     required this.id,

@@ -11,19 +11,19 @@ part 'json_node.g.dart';
 @JsonSerializable()
 class JsonNode {
   @JsonKey(name: 'x')
-  int x;
+  final int x;
 
   @JsonKey(name: 'y')
-  int y;
+  final int y;
 
   @JsonKey(name: 'type')
-  NodeType type;
+  final NodeType type;
 
   @JsonKey(name: 'unit')
-  JsonUnit? unit;
+  final JsonUnit? unit;
 
   @JsonKey(name: 'structure')
-  JsonStructure? structure;
+  final JsonStructure? structure;
 
   JsonNode({
     required this.x,

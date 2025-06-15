@@ -9,34 +9,34 @@ part 'json_room.g.dart';
 @JsonSerializable()
 class JsonRoom {
   @JsonKey(name: 'id')
-  String id;
+  final String id;
 
   @JsonKey(name: 'version')
-  int version;
+  final int version;
 
   @JsonKey(name: 'createdAt', toJson: dateToJson)
-  DateTime createdAt;
+  final DateTime createdAt;
 
   @JsonKey(name: 'numberOfPlayers')
-  int numberOfPlayers;
+  final int numberOfPlayers;
 
   @JsonKey(name: 'visibility')
-  RoomVisibility visibility;
+  final RoomVisibility visibility;
 
   @JsonKey(name: 'status')
-  RoomStatus status;
+  final RoomStatus status;
 
   @JsonKey(name: 'userIds')
-  List<String> userIds;
+  final List<String> userIds;
 
   @JsonKey(name: 'users')
-  Map<String, String> users;
+  final Map<String, String> users;
 
   @JsonKey(name: 'matchType')
-  String matchType;
+  final String matchType;
 
   @JsonKey(name: 'matchId')
-  String? matchId;
+  final String? matchId;
 
   JsonRoom({
     required this.id,

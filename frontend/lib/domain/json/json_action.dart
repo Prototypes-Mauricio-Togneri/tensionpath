@@ -10,25 +10,25 @@ part 'json_action.g.dart';
 @JsonSerializable()
 class JsonAction {
   @JsonKey(name: 'type')
-  ActionType type;
+  final ActionType type;
 
   @JsonKey(name: 'playerId')
-  String playerId;
+  final String playerId;
 
   @JsonKey(name: 'originX')
-  int? originX;
+  final int? originX;
 
   @JsonKey(name: 'originY')
-  int? originY;
+  final int? originY;
 
   @JsonKey(name: 'targetX')
-  int targetX;
+  final int targetX;
 
   @JsonKey(name: 'targetY')
-  int targetY;
+  final int targetY;
 
   @JsonKey(name: 'level')
-  int? level;
+  final int? level;
 
   JsonAction({
     required this.type,

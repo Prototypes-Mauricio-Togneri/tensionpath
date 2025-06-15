@@ -8,10 +8,10 @@ part 'json_unit.g.dart';
 @JsonSerializable()
 class JsonUnit {
   @JsonKey(name: 'playerId')
-  String playerId;
+  final String playerId;
 
   @JsonKey(name: 'level')
-  int level;
+  final int level;
 
   JsonUnit({required this.playerId, required this.level});
 

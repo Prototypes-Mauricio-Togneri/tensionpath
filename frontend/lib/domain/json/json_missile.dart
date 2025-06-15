@@ -6,22 +6,22 @@ part 'json_missile.g.dart';
 @JsonSerializable()
 class JsonMissile {
   @JsonKey(name: 'charge')
-  int charge;
+  final int charge;
 
   @JsonKey(name: 'maxCharge')
-  int maxCharge;
+  final int maxCharge;
 
   @JsonKey(name: 'bufferCharge')
-  int bufferCharge;
+  final int bufferCharge;
 
   @JsonKey(name: 'numberOfPlatforms')
-  int numberOfPlatforms;
+  final int numberOfPlatforms;
 
   @JsonKey(name: 'platforms')
-  Map<String, String?> platforms;
+  final Map<String, String?> platforms;
 
   @JsonKey(name: 'owner')
-  String? owner;
+  final String? owner;
 
   JsonMissile({
     required this.charge,

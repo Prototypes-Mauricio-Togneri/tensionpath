@@ -5,16 +5,16 @@ part 'json_version.g.dart';
 @JsonSerializable()
 class JsonVersion {
   @JsonKey(name: 'app_name')
-  String appName;
+  final String appName;
 
   @JsonKey(name: 'version')
-  String version;
+  final String version;
 
   @JsonKey(name: 'build_number')
-  String buildNumber;
+  final String buildNumber;
 
   @JsonKey(name: 'package_name')
-  String packageName;
+  final String packageName;
 
   JsonVersion({
     required this.appName,

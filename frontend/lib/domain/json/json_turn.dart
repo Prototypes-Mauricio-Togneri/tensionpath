@@ -7,10 +7,10 @@ part 'json_turn.g.dart';
 @JsonSerializable()
 class JsonTurn {
   @JsonKey(name: 'turn')
-  int turn;
+  final int turn;
 
   @JsonKey(name: 'startedAt', toJson: dateToJson)
-  DateTime startedAt;
+  final DateTime startedAt;
 
   JsonTurn({required this.turn, required this.startedAt});
 

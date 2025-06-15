@@ -1,6 +1,5 @@
 # TODO
 
-- Make JSON fields final
 - Display history
 
 - Choose map

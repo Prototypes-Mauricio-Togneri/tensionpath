@@ -9,13 +9,13 @@ part 'json_structure.g.dart';
 @JsonSerializable()
 class JsonStructure {
   @JsonKey(name: 'type')
-  StructureType type;
+  final StructureType type;
 
   @JsonKey(name: 'playerId')
-  String? playerId;
+  final String? playerId;
 
   @JsonKey(name: 'platformId')
-  String? platformId;
+  final String? platformId;
 
   JsonStructure({
     required this.type,
