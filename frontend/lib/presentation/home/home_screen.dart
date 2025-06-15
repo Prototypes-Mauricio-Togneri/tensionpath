@@ -84,6 +84,9 @@ class Form extends StatelessWidget {
               ElevatedButton(
                 onPressed: state.canPlay ? state.onPlay : null,
                 style: ButtonStyle(
+                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
+                    (states) => Palette.TEXT_COLOR_SECONDARY,
+                  ),
                   backgroundColor: WidgetStateProperty.resolveWith<Color>((
                     states,
                   ) {
@@ -94,16 +97,17 @@ class Form extends StatelessWidget {
                     }
                   }),
                 ),
-                child: const Text(
-                  'PLAY',
-                  style: TextStyle(color: Palette.TEXT_COLOR_SECONDARY),
-                ),
+                child: const Text('PLAY'),
               ),
               if (Platform.isMobile)
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
                   child: ElevatedButton(
                     onPressed: state.onFullscreen,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Palette.PRIMARY,
+                      foregroundColor: Palette.TEXT_COLOR_SECONDARY,
+                    ),
                     child: const Text('FULL SCREEN'),
                   ),
                 ),
