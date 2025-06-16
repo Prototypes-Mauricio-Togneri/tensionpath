@@ -8,7 +8,7 @@ export interface IPlayer {
   baseHealth: number,
   resources: number,
   status: PlayerStatus,
-  turnEndedAt?: Date,
+  turnEndedAt: Date | null,
   actions: Action[],
 }
 
@@ -19,7 +19,7 @@ export class Player implements IPlayer {
   baseHealth: number
   resources: number
   status: PlayerStatus
-  turnEndedAt?: Date
+  turnEndedAt: Date | null
   actions: Action[]
 
   constructor(data: IPlayer) {

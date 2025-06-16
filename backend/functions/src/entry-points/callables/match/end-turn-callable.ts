@@ -428,7 +428,7 @@ const updatePlayerResources = (params: {
 const resetPlayers = (players: Players) => {
   for (const player of Object.values(players)) {
     player.status = PlayerStatus.playing
-    player.turnEndedAt = undefined
+    player.turnEndedAt = null
     player.actions = []
   }
 }
@@ -515,7 +515,7 @@ const getPlatformNodes = (params: {
 
 const isMissileFull = (missile: Missile): boolean => (missile.charge === missile.maxCharge) && isMissileCharging(missile)
 
-const isMissileCharging = (missile: Missile): boolean => (missile.owner !== '') && (missile.owner !== undefined)
+const isMissileCharging = (missile: Missile): boolean => (missile.owner !== '') && (missile.owner !== null)
 
 const nextMissileCharge = (missile: Missile): number => {
   if (isMissileCharging(missile)) {
