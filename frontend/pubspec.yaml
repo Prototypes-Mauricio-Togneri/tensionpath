@@ -1,7 +1,7 @@
 name: tensionpath
 description: Frontend app for Tension Path
 publish_to: none
-version: 0.0.8+8
+version: 0.0.9+9
 
 environment:
   sdk: ">=3.8.1 <4.0.0"
@@ -16,7 +16,6 @@ dependencies:
   dafluta: ^5.5.1
   just_audio: ^0.10.4
   json_annotation: ^4.9.0
-  package_info_plus: ^8.3.0
   shared_preferences: ^2.5.3
 
   firebase_core: ^3.14.0

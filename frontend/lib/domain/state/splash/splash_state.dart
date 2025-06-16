@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionpath/domain/json/json_version.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/storage/settings_storage.dart';
 import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/version.dart';
 
 class SplashState extends BaseState {
   bool newVersionAvailable = false;
@@ -36,10 +36,9 @@ class SplashState extends BaseState {
     );
     if (response.statusCode == 200) {
       final JsonVersion data = JsonVersion.fromJson(jsonDecode(response.body));
-      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-      if ((data.buildNumber != packageInfo.buildNumber) ||
-          (data.version != packageInfo.version)) {
+      if ((data.buildNumber != Version.build) ||
+          (data.version != Version.version)) {
         newVersionAvailable = true;
         notify();
       } else {

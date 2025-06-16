@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionpath/persistence/storage/settings_storage.dart';
 import 'package:tensionpath/utils/audio.dart';
 import 'package:tensionpath/utils/navigation.dart';
+import 'package:tensionpath/utils/version.dart';
 
 class SettingsState extends BaseState {
   final TextEditingController nameController = TextEditingController();
@@ -16,8 +16,7 @@ class SettingsState extends BaseState {
     nameController.text = await SettingsStorage.loadName();
     notify();
 
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    version = 'v${packageInfo.version} (${packageInfo.buildNumber})';
+    version = 'v${Version.version} (${Version.build})';
     notify();
   }
 

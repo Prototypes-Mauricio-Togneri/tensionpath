@@ -2,6 +2,9 @@
 
 set -e
 
+BASE_DIR=`dirname $0`
+${BASE_DIR}/version.sh
+
 flutter clean
 flutter build web --wasm -t lib/main/main_remote.dart --release
 
