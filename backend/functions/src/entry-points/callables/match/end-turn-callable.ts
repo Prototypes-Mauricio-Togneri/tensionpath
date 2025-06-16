@@ -453,13 +453,13 @@ const updateMissile = (params: {
       player1++
     } else if (platformOwner === Constants.PLAYER_2) {
       player2++
-    } else if (platformOwner === undefined) {
+    } else if (platformOwner === null) {
       none++
     }
   }
 
   if (none === params.missile.numberOfPlatforms) {
-    params.missile.owner = undefined
+    params.missile.owner = null
   } else if (player1 > player2) {
     params.missile.owner = Constants.PLAYER_1
   } else if (player2 > player1) {

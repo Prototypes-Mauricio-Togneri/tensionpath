@@ -4,7 +4,7 @@ export interface IMissile {
   bufferCharge: number,
   numberOfPlatforms: number,
   platforms: Record<string, string | null>,
-  owner?: string,
+  owner: string | null,
 }
 
 export class Missile implements IMissile {
@@ -13,7 +13,7 @@ export class Missile implements IMissile {
   bufferCharge: number
   numberOfPlatforms: number
   platforms: Record<string, string | null>
-  owner?: string
+  owner: string | null
 
   constructor(data: IMissile) {
     this.charge = data.charge
