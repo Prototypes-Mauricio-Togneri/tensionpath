@@ -478,7 +478,7 @@ const updateMissile = (params: {
 const getPlatformOwner = (params: {
   platformId: string,
   nodes: Node[],
-}): string | undefined => {
+}): string | null => {
   const platformNodes = getPlatformNodes({
     platformId: params.platformId,
     nodes: params.nodes,
@@ -502,7 +502,7 @@ const getPlatformOwner = (params: {
   } else if ((player1 > 0) && (player2 > 0)) {
     return ''
   } else {
-    return undefined
+    return null
   }
 }
 
