@@ -6,6 +6,7 @@
 
 - Toxic tiles that damage units
 - Can only build factories on the first line
+- After level 100, bases take damage every turn
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
   - Jump over obstacles
