@@ -135,41 +135,55 @@ class PastMatch extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Label(
-                text: 'Date: ${Formatter.fullDateTime(match.createdAt)}',
-                color: Palette.TEXT_COLOR_PRIMARY,
-                size: 14,
+              PastTimeRow(
+                label: 'Date:',
+                value: Formatter.fullDateTime(match.createdAt),
               ),
               const VBox(5),
-              Label(
-                text: 'Play time: ${Formatter.duration(match.playTime)}',
-                color: Palette.TEXT_COLOR_PRIMARY,
-                size: 14,
+              PastTimeRow(
+                label: 'Play time:',
+                value:
+                    '${Formatter.duration(match.playTime)} (${match.turn.turn} turns)',
               ),
               const VBox(5),
-              Label(
-                text: 'Turns: ${match.turn.turn}',
-                color: Palette.TEXT_COLOR_PRIMARY,
-                size: 14,
+              PastTimeRow(
+                label: 'Player 1:',
+                value:
+                    '${match.player1.name} (${match.player1.baseHealth > 0 ? 'winner' : 'loser'})',
               ),
               const VBox(5),
-              Label(
-                text:
-                    'Player 1: ${match.player1.name} (${match.player1.baseHealth > 0 ? 'winner' : 'loser'})',
-                color: Palette.PLAYER_1,
-                size: 14,
-              ),
-              const VBox(5),
-              Label(
-                text:
-                    'Player 2: ${match.player2.name} (${match.player2.baseHealth > 0 ? 'winner' : 'loser'})',
-                color: Palette.PLAYER_2,
-                size: 14,
+              PastTimeRow(
+                label: 'Player 2:',
+                value:
+                    '${match.player2.name} (${match.player2.baseHealth > 0 ? 'winner' : 'loser'})',
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class PastTimeRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const PastTimeRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Label(
+          text: label,
+          color: Palette.TEXT_COLOR_PRIMARY,
+          size: 14,
+          weight: FontWeight.bold,
+        ),
+        const HBox(10),
+        Label(text: value, color: Palette.TEXT_COLOR_PRIMARY, size: 14),
+      ],
     );
   }
 }
