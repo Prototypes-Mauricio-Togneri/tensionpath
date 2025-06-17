@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/domain/json/json_turn.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/utils/json.dart';
@@ -36,6 +37,9 @@ class JsonMatch {
   @JsonKey(name: 'turn')
   final JsonTurn turn;
 
+  @JsonKey(name: 'room')
+  final JsonRoom room;
+
   JsonMatch({
     required this.id,
     required this.version,
@@ -45,6 +49,7 @@ class JsonMatch {
     required this.battlefield,
     required this.config,
     required this.turn,
+    required this.room,
   });
 
   Match object(String selfId) {
@@ -56,11 +61,12 @@ class JsonMatch {
       version: version,
       status: status,
       createdAt: createdAt,
-      turn: turn.object,
       self: self,
       opponent: opponent,
       battlefield: battlefield.object([self, opponent]),
       config: config.object,
+      turn: turn.object,
+      room: room.object,
     );
   }
 

@@ -38,6 +38,10 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) =>
           'turn',
           (v) => JsonTurn.fromJson(v as Map<String, dynamic>),
         ),
+        room: $checkedConvert(
+          'room',
+          (v) => JsonRoom.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -51,6 +55,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
   'battlefield': instance.battlefield.toJson(),
   'config': instance.config.toJson(),
   'turn': instance.turn.toJson(),
+  'room': instance.room.toJson(),
 };
 
 const _$MatchStatusEnumMap = {

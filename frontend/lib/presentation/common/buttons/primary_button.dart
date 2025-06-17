@@ -20,7 +20,7 @@ class PrimaryButton extends StatelessWidget {
       onPressed: enabled ? onPressed : null,
       style: ButtonStyle(
         foregroundColor: WidgetStateProperty.resolveWith<Color>(
-          (states) => Palette.TEXT_COLOR_SECONDARY,
+          (states) => Palette.TEXT_COLOR_TERTIARY,
         ),
         backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.disabled)) {

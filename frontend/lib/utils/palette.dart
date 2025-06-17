@@ -11,7 +11,8 @@ class Palette {
   static const Color SEMANTIC_ERROR = Colors.red;
 
   static const Color TEXT_COLOR_PRIMARY = Color(0xff444444);
-  static const Color TEXT_COLOR_SECONDARY = Color(0xffffffff);
+  static const Color TEXT_COLOR_SECONDARY = Color(0xffaaaaaa);
+  static const Color TEXT_COLOR_TERTIARY = Color(0xffffffff);
   static const Color TEXT_DEBUG = Colors.white;
 
   static const Color BUTTON_DISABLED = Colors.black26;

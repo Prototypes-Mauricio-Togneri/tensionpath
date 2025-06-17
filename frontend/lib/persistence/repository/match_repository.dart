@@ -34,4 +34,19 @@ class MatchRepository {
       onLoaded(match);
     }
   }
+
+  static Future<List<Match>> pastMatches(String userId) async {
+    final Query query = FirebaseFirestore.instance
+        .collection('matches')
+        .where('room.userIds', arrayContains: userId)
+        .where('status', isEqualTo: 'finished')
+        .orderBy('createdAt', descending: true);
+
+    final QuerySnapshot snapshot = await query.get();
+
+    return snapshot.docs.map((doc) {
+      final JsonMatch jsonMatch = JsonMatch.fromJson(doc.json);
+      return jsonMatch.object(userId);
+    }).toList();
+  }
 }

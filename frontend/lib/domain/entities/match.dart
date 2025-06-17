@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
@@ -29,6 +30,7 @@ class Match {
   final Battlefield battlefield;
   final Config config;
   final Turn turn;
+  final Room room;
   MatchStatus status;
 
   Match({
@@ -41,9 +43,12 @@ class Match {
     required this.battlefield,
     required this.config,
     required this.turn,
+    required this.room,
   });
 
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
+
+  int get playTime => turn.startedAt.difference(createdAt).inSeconds;
 
   bool get isSelfPlaying => self.status == PlayerStatus.playing;
 
