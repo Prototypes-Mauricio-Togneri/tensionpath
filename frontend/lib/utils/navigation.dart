@@ -33,10 +33,10 @@ class Navigation {
   static void lobbyScreen(Room room) =>
       get.routes.push(BasicRoute(LobbyScreen.instance(room), name: 'lobby'));
 
-  static void matchScreen({required String matchId, required String selfId}) =>
+  static void matchScreen({required String matchId, required String userId}) =>
       get.routes.pushReplacement(
         BasicRoute(
-          MatchScreen.instance(matchId: matchId, selfId: selfId),
+          MatchScreen.instance(matchId: matchId, userId: userId),
           name: 'match',
         ),
       );

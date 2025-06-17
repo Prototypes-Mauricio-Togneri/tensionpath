@@ -11,8 +11,8 @@ class MatchScreen extends StatelessWidget {
 
   factory MatchScreen.instance({
     required String matchId,
-    required String selfId,
-  }) => MatchScreen._(MatchState(matchId: matchId, selfId: selfId));
+    required String userId,
+  }) => MatchScreen._(MatchState(matchId: matchId, userId: userId));
 
   @override
   Widget build(BuildContext context) {

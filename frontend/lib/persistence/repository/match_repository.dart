@@ -11,26 +11,26 @@ class MatchRepository {
 
   static StreamSubscription listen({
     required String matchId,
-    required String selfId,
+    required String userId,
     required Function(Match) onUpdated,
   }) => _ref(matchId).snapshots().listen((snapshot) {
     if (snapshot.exists) {
       final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
-      final Match match = jsonMatch.object(selfId);
+      final Match match = jsonMatch.object(userId);
       onUpdated(match);
     }
   }, onError: ErrorHandler.process);
 
   static Future load({
     required String matchId,
-    required String selfId,
+    required String userId,
     required Function(Match) onLoaded,
   }) async {
     final DocumentSnapshot snapshot = await _ref(matchId).get();
 
     if (snapshot.exists) {
       final JsonMatch jsonMatch = JsonMatch.fromJson(snapshot.json);
-      final Match match = jsonMatch.object(selfId);
+      final Match match = jsonMatch.object(userId);
       onLoaded(match);
     }
   }

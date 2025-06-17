@@ -9,8 +9,14 @@ part 'json_player.g.dart';
 
 @JsonSerializable()
 class JsonPlayer {
+  @JsonKey(name: 'id')
+  final String id;
+
   @JsonKey(name: 'name')
   final String name;
+
+  @JsonKey(name: 'userId')
+  final String userId;
 
   @JsonKey(name: 'baseHealth')
   final int baseHealth;
@@ -28,7 +34,9 @@ class JsonPlayer {
   final List<JsonAction> actions;
 
   JsonPlayer({
+    required this.id,
     required this.name,
+    required this.userId,
     required this.baseHealth,
     required this.resources,
     required this.status,
@@ -36,10 +44,10 @@ class JsonPlayer {
     required this.actions,
   });
 
-  Player object({required String id, required bool isSelf}) => Player(
+  Player object(String userId) => Player(
     id: id,
     name: name,
-    isSelf: isSelf,
+    isSelf: userId == this.userId,
     actions: Actions(actions.map((a) => a.object).toList()),
     baseHealth: baseHealth,
     resources: resources,

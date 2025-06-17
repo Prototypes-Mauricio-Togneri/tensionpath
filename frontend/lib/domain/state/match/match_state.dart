@@ -8,10 +8,10 @@ import 'package:tensionpath/utils/navigation.dart';
 
 class MatchState extends BaseState {
   final String matchId;
-  final String selfId;
+  final String userId;
   GameComponent? gameComponent;
 
-  MatchState({required this.matchId, required this.selfId});
+  MatchState({required this.matchId, required this.userId});
 
   bool get isInitialized => gameComponent != null;
 
@@ -19,7 +19,7 @@ class MatchState extends BaseState {
   void onLoad() {
     MatchRepository.load(
       matchId: matchId,
-      selfId: selfId,
+      userId: userId,
       onLoaded: _onMatchLoaded,
     );
   }

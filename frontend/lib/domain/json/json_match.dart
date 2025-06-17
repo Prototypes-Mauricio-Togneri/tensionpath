@@ -52,9 +52,9 @@ class JsonMatch {
     required this.room,
   });
 
-  Match object(String selfId) {
-    final Player self = _getSelf(selfId);
-    final Player opponent = _getOpponent(selfId);
+  Match object(String userId) {
+    final Player self = _getSelf(userId);
+    final Player opponent = _getOpponent(userId);
 
     return Match(
       id: id,
@@ -70,24 +70,24 @@ class JsonMatch {
     );
   }
 
-  Player _getSelf(String selfId) {
-    for (final MapEntry<String, JsonPlayer> entry in players.entries) {
-      if (entry.key == selfId) {
-        return entry.value.object(id: entry.key, isSelf: true);
+  Player _getSelf(String userId) {
+    for (final JsonPlayer json in players.values) {
+      if (json.userId == userId) {
+        return json.object(userId);
       }
     }
 
-    throw Exception('Player with id $selfId not found');
+    throw Exception('Player with user ID $userId not found');
   }
 
-  Player _getOpponent(String selfId) {
-    for (final MapEntry<String, JsonPlayer> entry in players.entries) {
-      if (entry.key != selfId) {
-        return entry.value.object(id: entry.key, isSelf: false);
+  Player _getOpponent(String userId) {
+    for (final JsonPlayer json in players.values) {
+      if (json.userId != userId) {
+        return json.object(userId);
       }
     }
 
-    throw Exception('Player with id $selfId not found');
+    throw Exception('Player with user ID $userId not found');
   }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>

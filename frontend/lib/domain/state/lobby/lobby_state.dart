@@ -3,6 +3,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/persistence/callables/room/stop_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
+import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/stream_listener.dart';
 
@@ -31,7 +32,10 @@ class LobbyState extends BaseState {
 
   Future _onUpdated(Room room) async {
     if (room.isReady) {
-      Navigation.matchScreen(matchId: room.matchId!, selfId: room.playerId);
+      Navigation.matchScreen(
+        matchId: room.matchId!,
+        userId: Authentication.userId,
+      );
     }
   }
 }

@@ -20,6 +20,7 @@ import 'package:tensionpath/persistence/callables/match/end_turn_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/presentation/common/snackbar/custom_snackbar.dart';
 import 'package:tensionpath/utils/audio.dart';
+import 'package:tensionpath/utils/authentication.dart';
 
 class Match {
   final String id;
@@ -80,7 +81,7 @@ class Match {
 
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
-    selfId: self.id,
+    userId: Authentication.userId,
     onUpdated: _onMatchUpated,
   );
 

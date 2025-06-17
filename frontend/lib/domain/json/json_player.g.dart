@@ -9,7 +9,9 @@ part of 'json_player.dart';
 JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonPlayer', json, ($checkedConvert) {
       final val = JsonPlayer(
+        id: $checkedConvert('id', (v) => v as String),
         name: $checkedConvert('name', (v) => v as String),
+        userId: $checkedConvert('userId', (v) => v as String),
         baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
         resources: $checkedConvert('resources', (v) => (v as num).toInt()),
         status: $checkedConvert(
@@ -33,7 +35,9 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonPlayerToJson(
   JsonPlayer instance,
 ) => <String, dynamic>{
+  'id': instance.id,
   'name': instance.name,
+  'userId': instance.userId,
   'baseHealth': instance.baseHealth,
   'resources': instance.resources,
   'status': _$PlayerStatusEnumMap[instance.status]!,

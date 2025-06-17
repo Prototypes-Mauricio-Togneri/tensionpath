@@ -108,9 +108,14 @@ class PastMatches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: state.pastMatches.length,
-      itemBuilder: (context, index) => PastMatch(state.pastMatches[index]),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Expanded(
+        child: ListView.builder(
+          itemCount: state.pastMatches.length,
+          itemBuilder: (context, index) => PastMatch(state.pastMatches[index]),
+        ),
+      ),
     );
   }
 }
