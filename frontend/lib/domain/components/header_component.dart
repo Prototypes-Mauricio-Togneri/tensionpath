@@ -128,7 +128,7 @@ class CenterIndicatorComponent extends PositionComponent {
     );
 
     canvas.drawText(
-      text: Formatter.hoursMinutes(match.match.timeElapsed),
+      text: Formatter.duration(match.match.timeElapsed),
       position: Vector2(size.x / 2, size.y * 0.7),
       size: size.y / 4,
       color: Palette.HEADER_PLAYER_NAME,

@@ -33,7 +33,7 @@ class Content extends StatelessWidget {
       builder: (context, state) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.max,
-        children: [TopButtons(state), const VBox(10), Body(state)],
+        children: [TopButtons(state), Body(state)],
       ),
     );
   }
@@ -124,41 +124,52 @@ class PastMatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Label(
-          text: 'Date: ${match.createdAt.toString()}',
-          color: Palette.TEXT_COLOR_PRIMARY,
-          size: 14,
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        elevation: 0,
+        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Label(
+                text: 'Date: ${Formatter.fullDateTime(match.createdAt)}',
+                color: Palette.TEXT_COLOR_PRIMARY,
+                size: 14,
+              ),
+              const VBox(5),
+              Label(
+                text: 'Play time: ${Formatter.duration(match.playTime)}',
+                color: Palette.TEXT_COLOR_PRIMARY,
+                size: 14,
+              ),
+              const VBox(5),
+              Label(
+                text: 'Turns: ${match.turn.turn}',
+                color: Palette.TEXT_COLOR_PRIMARY,
+                size: 14,
+              ),
+              const VBox(5),
+              Label(
+                text:
+                    'Player 1: ${match.player1.name} (${match.player1.baseHealth > 0 ? 'winner' : 'loser'})',
+                color: Palette.PLAYER_1,
+                size: 14,
+              ),
+              const VBox(5),
+              Label(
+                text:
+                    'Player 2: ${match.player2.name} (${match.player2.baseHealth > 0 ? 'winner' : 'loser'})',
+                color: Palette.PLAYER_2,
+                size: 14,
+              ),
+            ],
+          ),
         ),
-        Label(
-          text: 'Type: ${match.room.matchType}',
-          color: Palette.TEXT_COLOR_PRIMARY,
-          size: 14,
-        ),
-        Label(
-          text: 'Play time: ${Formatter.hoursMinutes(match.playTime)}',
-          color: Palette.TEXT_COLOR_PRIMARY,
-          size: 14,
-        ),
-        Label(
-          text: 'Turns: ${match.turn.turn}',
-          color: Palette.TEXT_COLOR_PRIMARY,
-          size: 14,
-        ),
-        Label(
-          text:
-              'Player 1: ${match.player1.name} (${match.player1.baseHealth > 0 ? 'winner' : 'loser'})',
-          color: Palette.PLAYER_1,
-          size: 14,
-        ),
-        Label(
-          text:
-              'Player 2: ${match.player2.name} (${match.player2.baseHealth > 0 ? 'winner' : 'loser'})',
-          color: Palette.PLAYER_2,
-          size: 14,
-        ),
-      ],
+      ),
     );
   }
 }
