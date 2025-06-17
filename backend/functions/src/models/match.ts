@@ -16,6 +16,7 @@ export interface IMatch {
   battlefield: Battlefield,
   config: Config,
   turn: Turn,
+  room: Room,
 }
 
 export class Match implements IMatch {
@@ -27,6 +28,7 @@ export class Match implements IMatch {
   battlefield: Battlefield
   config: Config
   turn: Turn
+  room: Room
 
   constructor(data: IMatch) {
     this.id = data.id
@@ -37,6 +39,7 @@ export class Match implements IMatch {
     this.battlefield = data.battlefield
     this.config = data.config
     this.turn = data.turn
+    this.room = data.room
   }
 
   public static parse(document: FirebaseDocument): Match {
@@ -62,6 +65,7 @@ export class Match implements IMatch {
     const match = new Match(json)
     match.createdAt = new Date()
     match.turn.startedAt = new Date()
+    match.room = params.room
 
     for (let i = 0; i < params.room.userIds.length; i++) {
       const playerId = (i + 1).toString()
