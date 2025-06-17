@@ -128,7 +128,7 @@ class PastMatch extends StatelessWidget {
       width: double.infinity,
       child: Card(
         elevation: 0,
-        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+        margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -146,16 +146,17 @@ class PastMatch extends StatelessWidget {
                     '${Formatter.duration(match.playTime)} (${match.turn.turn} turns)',
               ),
               const VBox(5),
-              PastTimeRow(
-                label: 'Player 1:',
-                value:
-                    '${match.player1.name} (${match.player1.baseHealth > 0 ? 'winner' : 'loser'})',
-              ),
+              PastTimeRow(label: 'Player 1:', value: match.player1.name),
+              const VBox(5),
+              PastTimeRow(label: 'Player 2:', value: match.player2.name),
               const VBox(5),
               PastTimeRow(
-                label: 'Player 2:',
-                value:
-                    '${match.player2.name} (${match.player2.baseHealth > 0 ? 'winner' : 'loser'})',
+                label: 'Result:',
+                value: match.selfWon
+                    ? 'Victory'
+                    : match.opponentWon
+                    ? 'Defeat'
+                    : 'Draw',
               ),
             ],
           ),
