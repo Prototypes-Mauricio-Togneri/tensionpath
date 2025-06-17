@@ -1,4 +1,6 @@
 class Constants {
+  static const double CONTAINER_RATIO = 1.9;
+
   static const double UI_HEIGHT = 1000;
   static const double UI_HEADER_HEIGHT = 50;
   static const double UI_CONTROLS_HEIGHT = 50;

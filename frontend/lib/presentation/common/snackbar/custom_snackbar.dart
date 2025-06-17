@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -8,25 +9,30 @@ class CustomSnackbar {
 
   static const Duration DURATION_SHORT = Duration(seconds: 1);
 
-  static const Duration DURATION_MEDIUM = Duration(seconds: 3);
-
-  static const Duration DURATION_LONG = Duration(seconds: 5);
-
   static void show({required String text, required Duration duration}) {
     final BuildContext context = Navigation.context();
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final Size size = mediaQuery.size;
-    final double canvasWidth = size.height / 1.9;
-    final double paddingWidth = ((size.width - canvasWidth) / 2) + 1;
+    final double width = size.height / Constants.CONTAINER_RATIO;
+    final double height =
+        size.height * (Constants.UI_CONTROLS_HEIGHT / Constants.UI_HEIGHT);
+    final double margin = (size.width - width) / 2;
 
     final SnackBar snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
-      padding: const EdgeInsets.all(14),
-      margin: EdgeInsets.only(left: paddingWidth, right: paddingWidth),
-      content: Center(
-        child: Text(
-          text.toUpperCase(),
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      padding: EdgeInsets.zero,
+      margin: EdgeInsets.only(left: margin, right: margin),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero, // No round corners
+      ),
+      content: SizedBox(
+        width: width,
+        height: height,
+        child: Center(
+          child: Text(
+            text.toUpperCase(),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       backgroundColor: Palette.SNACK_BACKGROUND,

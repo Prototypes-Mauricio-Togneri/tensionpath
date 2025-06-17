@@ -3,6 +3,7 @@
 - Remove cache from browsers
 - Display history
 - Choose map
+- Allow to create 3 different units
 
 - Toxic tiles that damage units
 - Can only build factories on the first line
