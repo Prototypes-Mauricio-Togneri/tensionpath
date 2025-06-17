@@ -1,5 +1,6 @@
 # TODO
 
+- Remove cache from browsers
 - Display history
 - Choose map
 
