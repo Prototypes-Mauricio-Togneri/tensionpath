@@ -31,8 +31,9 @@ class Content extends StatelessWidget {
     return StateProvider<HistoryState>(
       state: state,
       builder: (context, state) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [TopButtons(state), Body(state)],
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
+        children: [TopButtons(state), const VBox(10), Body(state)],
       ),
     );
   }
@@ -108,13 +109,9 @@ class PastMatches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Expanded(
-        child: ListView.builder(
-          itemCount: state.pastMatches.length,
-          itemBuilder: (context, index) => PastMatch(state.pastMatches[index]),
-        ),
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(children: state.pastMatches.map(PastMatch.new).toList()),
       ),
     );
   }
