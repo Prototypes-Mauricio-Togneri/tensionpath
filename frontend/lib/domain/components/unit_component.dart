@@ -98,6 +98,7 @@ class UnitComponent extends PositionComponent
     if (_canMove) {
       super.onDragStart(event);
 
+      match.match.undoMoveUnit(node);
       targetPosition.setFrom(Vector2.copy(event.localPosition));
     }
   }

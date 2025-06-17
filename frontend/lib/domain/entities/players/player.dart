@@ -70,7 +70,7 @@ class Player {
     }
   }
 
-  int addAction(Action action) => actions.add(action);
+  void addAction(Action action) => actions.add(action);
 
   void removeDeploymentAction(Location location) {
     final ActionDeployUnit? removedAction = actions.removeDeployAction(
