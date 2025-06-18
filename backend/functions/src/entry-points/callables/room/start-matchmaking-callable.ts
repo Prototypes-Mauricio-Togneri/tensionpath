@@ -96,6 +96,7 @@ const createNewRoom = async (params: {
     name: params.name,
     version: params.version,
     matchType: params.matchType,
+    mapId: 'tutorial',
     numberOfPlayers: params.numberOfPlayers,
     visibility: params.visibility,
   })
@@ -114,7 +115,7 @@ const createMatch = async (params: {
 }): Promise<Room> => {
   const newRoom = params.room
   let match = Match.create({
-    mapId: 'w5h7',
+    mapId: params.room.mapId,
     room: newRoom,
   })
   match = await createMatchDocument({

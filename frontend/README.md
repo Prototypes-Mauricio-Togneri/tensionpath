@@ -1,9 +1,8 @@
 # TODO
 
 - Highlight nodes where can move
-- Test crossing units
-- Display history
 - Choose map
+- Display history
 - Allow to create 3 different units
 
 - Toxic tiles that damage units
