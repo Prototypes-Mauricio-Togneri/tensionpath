@@ -7,11 +7,16 @@ import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class HomeState extends BaseState {
+  bool canPlay = true;
+
   void onHistory() => Navigation.historyScreen();
 
   void onSettings() => Navigation.settingsScreen();
 
   Future onPlay() async {
+    canPlay = false;
+    notify();
+
     final String name = await SettingsStorage.loadName();
     final Room room = await const StartMatchmakingCallable()(
       playerName: name,
@@ -21,6 +26,9 @@ class HomeState extends BaseState {
       visibility: RoomVisibility.public,
     );
     Navigation.lobbyScreen(room);
+
+    canPlay = true;
+    notify();
   }
 
   void onFullscreen() => SetFullscreen.set();
