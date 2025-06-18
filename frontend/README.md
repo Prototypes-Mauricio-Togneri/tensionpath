@@ -1,5 +1,6 @@
 # TODO
 
+- Test timer stops when match finishes
 - Choose map
 - Display history
 - Allow to create 3 different units
