@@ -1,6 +1,5 @@
 # TODO
 
-- Highlight nodes where can move
 - Choose map
 - Display history
 - Allow to create 3 different units
