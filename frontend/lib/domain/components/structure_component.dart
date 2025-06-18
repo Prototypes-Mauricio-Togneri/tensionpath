@@ -131,9 +131,9 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
     }
 
     if (match.match.shouldHighlightMovement(node)) {
-      canvas.drawHexagon(
-        center: size / 2,
-        size: size * sizeFactor,
+      canvas.drawHighlightHexagon(
+        position: position,
+        size: size,
         paint: highlightPaint,
       );
     }

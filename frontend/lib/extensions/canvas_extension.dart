@@ -122,6 +122,15 @@ extension CanvasExtension on Canvas {
     drawHexagon(center: position, size: size * 0.9, paint: innerPaint);
   }
 
+  void drawHighlightHexagon({
+    required Vector2 position,
+    required Vector2 size,
+    required Paint paint,
+  }) {
+    paint.strokeWidth = size.x * 0.05;
+    drawHexagon(center: position, size: size * 0.9, paint: paint);
+  }
+
   void drawHexagon({
     required Vector2 center,
     required Vector2 size,
