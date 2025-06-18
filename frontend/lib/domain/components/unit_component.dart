@@ -98,6 +98,7 @@ class UnitComponent extends PositionComponent
     if (_canMove) {
       super.onDragStart(event);
 
+      match.match.onHighlightMovementFromNodeStart(node);
       match.match.undoMoveUnit(node);
       targetPosition.setFrom(Vector2.copy(event.localPosition));
     }
@@ -127,6 +128,8 @@ class UnitComponent extends PositionComponent
   void onDragEnd(DragEndEvent event) {
     if (_canMove) {
       super.onDragEnd(event);
+
+      match.match.onHighlightMovementFromNodeEnd();
 
       final NodeComponent? nodeComponent = _getTargetNode();
 

@@ -125,7 +125,7 @@ extension CanvasExtension on Canvas {
   void drawHexagon({
     required Vector2 center,
     required Vector2 size,
-    required paint,
+    required Paint paint,
   }) {
     final Path hexagonPath = _createHexagonPath(center: center, size: size);
     drawPath(hexagonPath, paint);

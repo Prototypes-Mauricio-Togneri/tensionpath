@@ -36,6 +36,7 @@ class Palette {
 
   static const Color BATTLEFIELD_BACKGROUND = Color(0xff222222);
 
+  static const Color NODE_HIGHLIGHT_BORDER = Color(0xffffffff);
   static const Color NODE_EMPTY_BACKGROUND = Color(0xFFFFC13C);
   static const Color NODE_LAUNCHER_1_BORDER = Color(0xff135179);
   static const Color NODE_LAUNCHER_1_BACKGROUND = Color(0xff2882B4);

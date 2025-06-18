@@ -28,6 +28,10 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
     style: PaintingStyle.fill,
     color: Palette.NODE_FOG,
   );
+  final Paint highlightPaint = Palette.paint(
+    color: Palette.NODE_HIGHLIGHT_BORDER,
+    style: PaintingStyle.stroke,
+  );
 
   StructureComponent({
     required this.node,
@@ -40,6 +44,8 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
     if (match.match.self.isPlayer2) {
       angle = pi;
     }
+
+    highlightPaint.strokeWidth = size.x * 0.03;
 
     reconfigure();
 
@@ -121,6 +127,14 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
         center: size / 2,
         size: size * sizeFactor,
         paint: fogPaint,
+      );
+    }
+
+    if (match.match.shouldHighlightMovement(node)) {
+      canvas.drawHexagon(
+        center: size / 2,
+        size: size * sizeFactor,
+        paint: highlightPaint,
       );
     }
 

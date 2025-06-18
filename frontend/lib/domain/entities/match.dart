@@ -33,6 +33,7 @@ class Match {
   final Turn turn;
   final Room room;
   MatchStatus status;
+  Node? highlightMovementFromNode;
 
   Match({
     required this.id,
@@ -205,6 +206,18 @@ class Match {
     self.removeMovementAction(nodeOrigin.location);
     MatchComponentRef.instance.reconfigure();
   }
+
+  void onHighlightMovementFromNodeStart(Node node) {
+    highlightMovementFromNode = node;
+  }
+
+  void onHighlightMovementFromNodeEnd() {
+    highlightMovementFromNode = null;
+  }
+
+  bool shouldHighlightMovement(Node node) =>
+      highlightMovementFromNode != null &&
+      validTarget(nodeOrigin: highlightMovementFromNode!, nodeTarget: node);
 
   Future onEndTurn() async {
     if (isSelfPlaying) {
