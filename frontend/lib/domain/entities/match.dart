@@ -48,7 +48,13 @@ class Match {
     required this.room,
   });
 
-  int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
+  int get timeElapsed {
+    if (status == MatchStatus.active) {
+      return DateTime.now().difference(createdAt).inSeconds;
+    } else {
+      return turn.startedAt.difference(createdAt).inSeconds;
+    }
+  }
 
   int get playTime => turn.startedAt.difference(createdAt).inSeconds;
 
