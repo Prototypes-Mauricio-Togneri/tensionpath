@@ -17,7 +17,7 @@ class MatchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnClose(
-      onClose: state.onClose,
+      onClose: state.onMenu,
       child: GameContainer(
         child: StateProvider<MatchState>(
           state: state,

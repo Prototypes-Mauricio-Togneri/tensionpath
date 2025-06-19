@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
@@ -9,7 +10,7 @@ import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/formatter.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class HeaderComponent extends PositionComponent {
+class HeaderComponent extends PositionComponent with TapCallbacks {
   final Player player1;
   final Player player2;
   final Config config;
@@ -21,6 +22,9 @@ class HeaderComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft, priority: Priority.header.value);
+
+  @override
+  void onTapUp(TapUpEvent event) => game.onMenu();
 
   @override
   FutureOr onLoad() {

@@ -7,7 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
+import 'package:tensionpath/persistence/callables/match/surrender_callable.dart';
+import 'package:tensionpath/platform/operations/set_fullscreen.dart';
+import 'package:tensionpath/presentation/common/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
+import 'package:tensionpath/presentation/common/dialogs/match_menu_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -60,6 +64,17 @@ class GameComponent extends FlameGame with KeyboardEvents {
     stopMatchListener();
 
     super.onRemove();
+  }
+
+  void onMenu() => MatchMenuDialog.show(
+    onSurrender: () => ConfirmationDialog.quitMatch(_onSurrender),
+    onFullscreen: SetFullscreen.set,
+  );
+
+  void _onSurrender() {
+    stopMatchListener();
+    const SurrenderCallable()(matchId: match.id);
+    Navigation.pop();
   }
 
   void onMatchFinished(bool? won) {

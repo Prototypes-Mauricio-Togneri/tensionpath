@@ -6,31 +6,36 @@ class PrimaryButton extends StatelessWidget {
   final Color foregroundColor;
   final bool enabled;
   final VoidCallback onPressed;
+  final bool fullWidth;
 
   const PrimaryButton({
     required this.label,
     required this.enabled,
     required this.foregroundColor,
     required this.onPressed,
+    this.fullWidth = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: enabled ? onPressed : null,
-      style: ButtonStyle(
-        foregroundColor: WidgetStateProperty.resolveWith<Color>(
-          (states) => Palette.TEXT_COLOR_TERTIARY,
+    return SizedBox(
+      width: fullWidth ? double.infinity : null,
+      child: ElevatedButton(
+        onPressed: enabled ? onPressed : null,
+        style: ButtonStyle(
+          foregroundColor: WidgetStateProperty.resolveWith<Color>(
+            (states) => Palette.TEXT_COLOR_TERTIARY,
+          ),
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return Palette.BUTTON_DISABLED;
+            } else {
+              return foregroundColor;
+            }
+          }),
         ),
-        backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
-          if (states.contains(WidgetState.disabled)) {
-            return Palette.BUTTON_DISABLED;
-          } else {
-            return foregroundColor;
-          }
-        }),
+        child: Text(label.toUpperCase()),
       ),
-      child: Text(label.toUpperCase()),
     );
   }
 }
