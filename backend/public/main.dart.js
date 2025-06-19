@@ -90656,7 +90656,7 @@ s=2
 return A.u(A.Eb("settings.name",""),$async$b8)
 case 2:p.scG(b)
 q.kQ()
-q.c="v0.0.11 (11)"
+q.c="v0.0.12 (12)"
 q.kQ()
 return A.p(null,r)}})
 return A.q($async$b8,r)},
@@ -90699,7 +90699,7 @@ while(true)switch(s){case 0:s=2
 return A.u(A.b1G(A.eA("https://europe-west6-tension-path.cloudfunctions.net/api/version")),$async$xk)
 case 2:o=b
 if(o.b===200){p=A.aXE(B.cp.Vh(A.b1l(A.aZz(o.e)).fS(o.w),null))
-if(p.c!=="11"||p.b!=="0.0.11"){q.b=!0
+if(p.c!=="12"||p.b!=="0.0.12"){q.b=!0
 q.kQ()}else A.aQs(q.gaeI(),q.gaf9())}return A.p(null,r)}})
 return A.q($async$xk,r)},
 afa(a){this.u3(a)},
@@ -90899,7 +90899,7 @@ this.a.d.$0()},
 $S:0}
 A.vb.prototype={
 J(a){var s=null,r=A.b([],t.p)
-if(!$.aAu())r.push(new A.cR(B.FB,new A.js("Fullscreen",B.bf,!0,new A.ac2(this),!0,s),s))
+if($.aAu())r.push(new A.cR(B.FB,new A.js("Fullscreen",B.bf,!0,new A.ac2(this),!0,s),s))
 r.push(new A.js("Surrender",B.eF,!0,new A.ac3(this),!0,s))
 r.push(B.zX)
 r.push(B.N5)

@@ -1,5 +1,6 @@
 # TODO
 
+- Launchers have visibility 1
 - Choose map
 - Display history
 - Allow to create havester
