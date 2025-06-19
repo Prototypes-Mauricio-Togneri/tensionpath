@@ -2,6 +2,7 @@
 
 - Choose map
 - Display history
+- Allow to create havester
 - Allow to create 3 different units
 
 - Toxic tiles that damage units

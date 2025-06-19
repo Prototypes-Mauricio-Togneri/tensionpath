@@ -40,7 +40,7 @@ class MatchMenuDialog extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (!Platform.isMobile)
+            if (Platform.isMobile)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: PrimaryButton(
