@@ -1,5 +1,7 @@
 # TODO
 
+- Bases 200
+- Track population in backend
 - Launchers have visibility 1
 - Choose map
 - Display history
