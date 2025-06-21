@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 extension CanvasExtension on Canvas {
@@ -80,15 +81,24 @@ extension CanvasExtension on Canvas {
     required Paint outterPaint,
     required Paint innerPaint,
     required int level,
+    required UnitType type,
     required double angle,
   }) {
-    drawCircle(position.toOffset(), size.x / 4.5, outterPaint);
-    drawCircle(position.toOffset(), size.x / 5.25, innerPaint);
+    drawCircle(position.toOffset(), size.x / 3.5, outterPaint);
+    drawCircle(position.toOffset(), size.x / 4, innerPaint);
 
     drawText(
-      text: level.toString(),
+      text: type.emoji,
       color: Palette.UNIT_LEVEL_INDICATOR,
-      position: position,
+      position: Vector2(position.x, position.y - (size.y / 8)),
+      size: size.x / 6,
+      angle: angle,
+    );
+
+    drawText(
+      text: '$level',
+      color: Palette.UNIT_LEVEL_INDICATOR,
+      position: Vector2(position.x, position.y + (size.y / 8)),
       size: size.x / 6,
       angle: angle,
     );

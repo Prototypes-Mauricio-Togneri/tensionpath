@@ -1,6 +1,6 @@
 enum UnitType {
-  fire('🔥'),
   water('💧'),
+  fire('🔥'),
   plant('🌱');
 
   final String emoji;

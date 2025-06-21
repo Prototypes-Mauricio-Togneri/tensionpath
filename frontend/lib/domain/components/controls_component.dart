@@ -99,7 +99,7 @@ class UnitTypesComponent extends PositionComponent {
   FutureOr onLoad() {
     add(
       UnitTypeComponent(
-        type: UnitType.fire,
+        type: UnitType.water,
         position: Vector2(size.x / 2 - (size.y * 1.3), size.y / 2),
         size: Vector2(size.y, size.y),
       ),
@@ -107,7 +107,7 @@ class UnitTypesComponent extends PositionComponent {
 
     add(
       UnitTypeComponent(
-        type: UnitType.water,
+        type: UnitType.fire,
         position: size / 2,
         size: Vector2(size.y, size.y),
       ),

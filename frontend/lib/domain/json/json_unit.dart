@@ -23,6 +23,7 @@ class JsonUnit {
       Unit(
         player: Player.playerById(id: playerId, players: players)!,
         level: level,
+        type: type,
         location: location,
       );
 

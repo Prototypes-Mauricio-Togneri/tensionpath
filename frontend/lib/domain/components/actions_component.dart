@@ -71,6 +71,7 @@ class ActionsComponent extends PositionComponent {
       outterPaint: outterPaint,
       innerPaint: innerPaint,
       level: action.level,
+      type: action.unitType,
       angle: (match.match.self.isPlayer2) ? pi : 0,
     );
   }
