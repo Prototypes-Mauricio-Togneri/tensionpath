@@ -1,4 +1,5 @@
 import {ActionType} from '../types/action-type'
+import {UnitType} from '../types/unit-type'
 
 export interface IAction {
   type: ActionType,
@@ -8,6 +9,7 @@ export interface IAction {
   targetX: number,
   targetY: number,
   level?: number,
+  unitType?: UnitType,
 }
 
 export class Action implements IAction {
@@ -18,6 +20,7 @@ export class Action implements IAction {
   targetX: number
   targetY: number
   level?: number
+  unitType?: UnitType
 
   constructor(data: IAction) {
     this.type = data.type
@@ -27,5 +30,6 @@ export class Action implements IAction {
     this.targetX = data.targetX
     this.targetY = data.targetY
     this.level = data.level
+    this.unitType = data.unitType
   }
 }

@@ -237,7 +237,7 @@ const executeUnitDeployments = (params: {
     node.unit = new Unit({
       playerId: action.playerId,
       level: action.level!,
-      type: UnitType.fire, // TODO(momo): use correct type
+      type: action.unitType!,
     })
   }
 }
