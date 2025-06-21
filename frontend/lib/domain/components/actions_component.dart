@@ -66,6 +66,7 @@ class ActionsComponent extends PositionComponent {
         center;
 
     canvas.drawUnitCircle(
+      player: player,
       position: position,
       size: nodeSize,
       outterPaint: outterPaint,

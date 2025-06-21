@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -76,6 +77,7 @@ extension CanvasExtension on Canvas {
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
 
   void drawUnitCircle({
+    required Player player,
     required Vector2 position,
     required Vector2 size,
     required Paint outterPaint,
@@ -87,10 +89,15 @@ extension CanvasExtension on Canvas {
     drawCircle(position.toOffset(), size.x / 3.5, outterPaint);
     drawCircle(position.toOffset(), size.x / 4, innerPaint);
 
+    final double offset = size.y / 8;
+
     drawText(
       text: type.emoji,
       color: Palette.UNIT_LEVEL_INDICATOR,
-      position: Vector2(position.x, position.y - (size.y / 8)),
+      position: Vector2(
+        position.x,
+        position.y + (player.isPlayer1 ? -offset : offset),
+      ),
       size: size.x / 6,
       angle: angle,
     );
@@ -98,7 +105,10 @@ extension CanvasExtension on Canvas {
     drawText(
       text: level.toString(),
       color: Palette.UNIT_LEVEL_INDICATOR,
-      position: Vector2(position.x, position.y + (size.y / 8)),
+      position: Vector2(
+        position.x,
+        position.y + (player.isPlayer1 ? offset : -offset),
+      ),
       size: size.x / 6,
       angle: angle,
     );
