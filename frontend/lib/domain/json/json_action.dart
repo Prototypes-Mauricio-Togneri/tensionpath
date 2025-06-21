@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
 import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/action_type.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_action.g.dart';
 
@@ -30,6 +31,9 @@ class JsonAction {
   @JsonKey(name: 'level')
   final int? level;
 
+  @JsonKey(name: 'unitType')
+  final UnitType? unitType;
+
   JsonAction({
     required this.type,
     required this.playerId,
@@ -38,6 +42,7 @@ class JsonAction {
     required this.targetX,
     required this.targetY,
     required this.level,
+    required this.unitType,
   });
 
   Action get object {
@@ -46,6 +51,7 @@ class JsonAction {
         playerId: playerId,
         target: Location(x: targetX, y: targetY),
         level: level!,
+        unitType: unitType!,
       );
     } else if (type == ActionType.move) {
       return ActionMoveUnit(

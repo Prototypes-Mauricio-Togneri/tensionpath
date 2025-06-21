@@ -18,23 +18,35 @@ JsonAction _$JsonActionFromJson(Map<String, dynamic> json) => $checkedCreate(
       targetX: $checkedConvert('targetX', (v) => (v as num).toInt()),
       targetY: $checkedConvert('targetY', (v) => (v as num).toInt()),
       level: $checkedConvert('level', (v) => (v as num?)?.toInt()),
+      unitType: $checkedConvert(
+        'unitType',
+        (v) => $enumDecodeNullable(_$UnitTypeEnumMap, v),
+      ),
     );
     return val;
   },
 );
 
-Map<String, dynamic> _$JsonActionToJson(JsonAction instance) =>
-    <String, dynamic>{
-      'type': _$ActionTypeEnumMap[instance.type]!,
-      'playerId': instance.playerId,
-      if (instance.originX case final value?) 'originX': value,
-      if (instance.originY case final value?) 'originY': value,
-      'targetX': instance.targetX,
-      'targetY': instance.targetY,
-      if (instance.level case final value?) 'level': value,
-    };
+Map<String, dynamic> _$JsonActionToJson(
+  JsonAction instance,
+) => <String, dynamic>{
+  'type': _$ActionTypeEnumMap[instance.type]!,
+  'playerId': instance.playerId,
+  if (instance.originX case final value?) 'originX': value,
+  if (instance.originY case final value?) 'originY': value,
+  'targetX': instance.targetX,
+  'targetY': instance.targetY,
+  if (instance.level case final value?) 'level': value,
+  if (_$UnitTypeEnumMap[instance.unitType] case final value?) 'unitType': value,
+};
 
 const _$ActionTypeEnumMap = {
   ActionType.deploy: 'deploy',
   ActionType.move: 'move',
+};
+
+const _$UnitTypeEnumMap = {
+  UnitType.fire: 'fire',
+  UnitType.water: 'water',
+  UnitType.plant: 'plant',
 };

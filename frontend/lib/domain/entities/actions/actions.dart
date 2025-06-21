@@ -21,6 +21,7 @@ class Actions extends Iterable<Action> {
           playerId: action.playerId,
           target: action.target,
           level: removedActionLevel + action.level,
+          unitType: action.unitType,
         ),
       );
     } else {

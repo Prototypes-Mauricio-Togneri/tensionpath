@@ -177,6 +177,7 @@ class Match {
           playerId: self.id,
           target: nodeTarget.location,
           level: level,
+          unitType: selectedUnitType!,
         ),
       );
       self.spendResources(level);
@@ -264,6 +265,7 @@ class Match {
             targetX: action.target.x,
             targetY: action.target.y,
             level: action.level,
+            unitType: action.unitType,
           ),
         );
       } else if (action is ActionMoveUnit) {
@@ -276,6 +278,7 @@ class Match {
             targetX: action.target.x,
             targetY: action.target.y,
             level: null,
+            unitType: null,
           ),
         );
       } else {
