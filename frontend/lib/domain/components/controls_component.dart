@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -30,6 +31,13 @@ class ControlsComponent extends PositionComponent {
         player: player,
         position: Dimensions.controlsResourcesPosition(size),
         size: Dimensions.controlsResourcesSize(size),
+      ),
+    );
+
+    add(
+      UnitTypesComponent(
+        position: Dimensions.controlsUnitTypesPosition(size),
+        size: Dimensions.controlsUnitTypesSize(size),
       ),
     );
 
@@ -80,6 +88,101 @@ class ResourceCounterComponent extends PositionComponent {
       color: Palette.CONTROLS_COST_FOREGROUND,
       anchor: Anchor.centerLeft,
     );
+  }
+}
+
+class UnitTypesComponent extends PositionComponent implements Reconfigurable {
+  UnitType? selectedType;
+
+  UnitTypesComponent({required super.position, required super.size})
+    : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() {
+    add(
+      UnitTypeComponent(
+        type: UnitType.fire,
+        position: Vector2(size.x / 2 - (size.y * 1.3), size.y / 2),
+        size: Vector2(size.y, size.y),
+        parentComponent: this,
+      ),
+    );
+
+    add(
+      UnitTypeComponent(
+        type: UnitType.water,
+        position: size / 2,
+        size: Vector2(size.y, size.y),
+        parentComponent: this,
+      ),
+    );
+    add(
+      UnitTypeComponent(
+        type: UnitType.plant,
+        position: Vector2(size.x / 2 + (size.y * 1.3), size.y / 2),
+        size: Vector2(size.y, size.y),
+        parentComponent: this,
+      ),
+    );
+
+    return super.onLoad();
+  }
+
+  @override
+  void reconfigure() {
+    if (!match.match.isSelfPlaying) {
+      selectedType = null;
+    }
+  }
+
+  void onSelectType(UnitType type) {
+    if (selectedType == type) {
+      selectedType = null;
+    } else {
+      selectedType = type;
+    }
+  }
+}
+
+class UnitTypeComponent extends PositionComponent with TapCallbacks {
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    color: Palette.MISSILE_INDICATOR_BACKGROUND,
+  );
+  UnitTypesComponent parentComponent;
+  UnitType type;
+
+  UnitTypeComponent({
+    required this.type,
+    required super.position,
+    required super.size,
+    required this.parentComponent,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() {
+    borderPaint.strokeWidth = size.x / 20;
+
+    return super.onLoad();
+  }
+
+  @override
+  void onTapUp(TapUpEvent event) => parentComponent.onSelectType(type);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawText(
+      text: type.emoji,
+      position: size / 2,
+      size: size.x / 2,
+      color: Palette.MISSILE_INDICATOR_BACKGROUND,
+    );
+
+    if (parentComponent.selectedType == type) {
+      canvas.drawHexagon(center: size / 2, size: size, paint: borderPaint);
+    }
   }
 }
 
@@ -182,7 +285,7 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
       canvas.drawText(
         text: 'END TURN',
         position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 8,
+        size: size.x / 7,
         color: Palette.CONTROLS_COST_FOREGROUND,
       );
     } else {
@@ -190,7 +293,7 @@ class EndTurnComponent extends PositionComponent with TapCallbacks {
       canvas.drawText(
         text: 'WAITING',
         position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 8,
+        size: size.x / 7,
         color: Palette.CONTROLS_COST_FOREGROUND,
       );
     }

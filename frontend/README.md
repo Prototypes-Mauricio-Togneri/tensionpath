@@ -1,11 +1,13 @@
 # TODO
 
 - Allow to create 3 different units
-    - type: fire, water, plant
+
+  - type: fire, water, plant
 
 - Bases 200
 - Add more maps
 - Re-attach to an active match
+- Move units one node at a time
 - Display history
 
 - Toxic tiles that damage units

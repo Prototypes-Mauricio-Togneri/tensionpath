@@ -27,10 +27,16 @@ class Dimensions {
       Vector2(resolution.width, Constants.UI_CONTROLS_HEIGHT);
 
   static Vector2 controlsResourcesPosition(Vector2 size) =>
-      Vector2(0, size.y / 2);
+      Vector2(size.x * 0.02, size.y / 2);
 
   static Vector2 controlsResourcesSize(Vector2 size) =>
       Vector2(size.x * 0.3, size.y);
+
+  static Vector2 controlsUnitTypesPosition(Vector2 size) =>
+      Vector2(size.x * 0.45, size.y * 0.34);
+
+  static Vector2 controlsUnitTypesSize(Vector2 size) =>
+      Vector2(size.x * 0.3, size.y * 0.45);
 
   static Vector2 controlsPopcapPosition(Vector2 size) =>
       Vector2(size.x * 0.45, size.y * 0.8);
