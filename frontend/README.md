@@ -1,19 +1,5 @@
 # TODO
 
-- Store actions in nodes
-node:
-    - x
-    - y
-    - type
-    - unit
-    - structure
-    - action
-        - type
-        - playerId
-        - targetX?
-        - targetY?
-        - level?
-
 - Re-attach to an active match
 - Bases 200
 - Track population in backend
