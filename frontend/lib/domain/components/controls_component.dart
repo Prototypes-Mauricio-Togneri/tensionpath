@@ -91,9 +91,7 @@ class ResourceCounterComponent extends PositionComponent {
   }
 }
 
-class UnitTypesComponent extends PositionComponent implements Reconfigurable {
-  UnitType? selectedType;
-
+class UnitTypesComponent extends PositionComponent {
   UnitTypesComponent({required super.position, required super.size})
     : super(anchor: Anchor.center);
 
@@ -104,7 +102,6 @@ class UnitTypesComponent extends PositionComponent implements Reconfigurable {
         type: UnitType.fire,
         position: Vector2(size.x / 2 - (size.y * 1.3), size.y / 2),
         size: Vector2(size.y, size.y),
-        parentComponent: this,
       ),
     );
 
@@ -113,7 +110,6 @@ class UnitTypesComponent extends PositionComponent implements Reconfigurable {
         type: UnitType.water,
         position: size / 2,
         size: Vector2(size.y, size.y),
-        parentComponent: this,
       ),
     );
     add(
@@ -121,26 +117,10 @@ class UnitTypesComponent extends PositionComponent implements Reconfigurable {
         type: UnitType.plant,
         position: Vector2(size.x / 2 + (size.y * 1.3), size.y / 2),
         size: Vector2(size.y, size.y),
-        parentComponent: this,
       ),
     );
 
     return super.onLoad();
-  }
-
-  @override
-  void reconfigure() {
-    if (!match.match.isSelfPlaying) {
-      selectedType = null;
-    }
-  }
-
-  void onSelectType(UnitType type) {
-    if (selectedType == type) {
-      selectedType = null;
-    } else {
-      selectedType = type;
-    }
   }
 }
 
@@ -149,14 +129,12 @@ class UnitTypeComponent extends PositionComponent with TapCallbacks {
     style: PaintingStyle.stroke,
     color: Palette.MISSILE_INDICATOR_BACKGROUND,
   );
-  UnitTypesComponent parentComponent;
   UnitType type;
 
   UnitTypeComponent({
     required this.type,
     required super.position,
     required super.size,
-    required this.parentComponent,
   }) : super(anchor: Anchor.center);
 
   @override
@@ -167,7 +145,11 @@ class UnitTypeComponent extends PositionComponent with TapCallbacks {
   }
 
   @override
-  void onTapUp(TapUpEvent event) => parentComponent.onSelectType(type);
+  void onTapUp(TapUpEvent event) {
+    if (match.match.isSelfPlaying) {
+      match.match.onSelectUnitType(type);
+    }
+  }
 
   @override
   void render(Canvas canvas) {
@@ -180,7 +162,7 @@ class UnitTypeComponent extends PositionComponent with TapCallbacks {
       color: Palette.MISSILE_INDICATOR_BACKGROUND,
     );
 
-    if (parentComponent.selectedType == type) {
+    if (match.match.selectedUnitType == type) {
       canvas.drawHexagon(center: size / 2, size: size, paint: borderPaint);
     }
   }

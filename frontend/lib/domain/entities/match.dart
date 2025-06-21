@@ -16,6 +16,7 @@ import 'package:tensionpath/domain/entities/turn.dart';
 import 'package:tensionpath/domain/json/json_action.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/player_status.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/match/end_turn_callable.dart';
 import 'package:tensionpath/persistence/repository/match_repository.dart';
 import 'package:tensionpath/presentation/common/snackbar/custom_snackbar.dart';
@@ -33,6 +34,7 @@ class Match {
   final Turn turn;
   final Room room;
   MatchStatus status;
+  UnitType? selectedUnitType;
   Node? highlightMovementFromNode;
 
   Match({
@@ -86,6 +88,14 @@ class Match {
     return result;
   }
 
+  void onSelectUnitType(UnitType type) {
+    if (selectedUnitType == type) {
+      selectedUnitType = null;
+    } else {
+      selectedUnitType = type;
+    }
+  }
+
   StreamSubscription listen() => MatchRepository.listen(
     matchId: id,
     userId: Authentication.userId,
@@ -105,11 +115,16 @@ class Match {
     opponent.replaceWith(newPlayer: newMatch.opponent, isNewTurn: isNewTurn);
     battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
 
+    if (!isSelfPlaying) {
+      selectedUnitType = null;
+    }
+
     MatchComponentRef.instance.onMatchUpdated(this);
   }
 
   bool _canDeployUnit({required Node node, required int level}) =>
       (self.resources >= level) &&
+      (selectedUnitType != null) &&
       isSelfPlaying &&
       !node.hasUnit &&
       node.hasStructure &&
