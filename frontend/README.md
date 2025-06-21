@@ -1,12 +1,24 @@
 # TODO
 
+- Store actions in nodes
+node:
+    - x
+    - y
+    - type
+    - unit
+    - structure
+    - action
+        - type
+        - playerId
+        - targetX?
+        - targetY?
+        - level?
+
 - Re-attach to an active match
 - Bases 200
 - Track population in backend
-- Launchers have visibility 1
-- Choose map
+- Add more maps
 - Display history
-- Allow to create havester
 - Allow to create 3 different units
 
 - Toxic tiles that damage units
