@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_unit.g.dart';
 
@@ -13,7 +14,10 @@ class JsonUnit {
   @JsonKey(name: 'level')
   final int level;
 
-  JsonUnit({required this.playerId, required this.level});
+  @JsonKey(name: 'type')
+  final UnitType type;
+
+  JsonUnit({required this.playerId, required this.level, required this.type});
 
   Unit object({required Location location, required List<Player> players}) =>
       Unit(
