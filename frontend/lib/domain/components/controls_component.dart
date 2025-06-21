@@ -127,7 +127,7 @@ class UnitTypesComponent extends PositionComponent {
 class UnitTypeComponent extends PositionComponent with TapCallbacks {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    color: Palette.MISSILE_INDICATOR_BACKGROUND,
+    color: Palette.CONTROLS_UNIT_TYPE_SELECTED,
   );
   UnitType type;
 

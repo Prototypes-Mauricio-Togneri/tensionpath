@@ -31,6 +31,7 @@ class Palette {
   static const Color CONTROLS_COST_FOREGROUND = Colors.white;
   static const Color CONTROLS_END_TURN_BACKGROUND_ENABLED = Colors.green;
   static const Color CONTROLS_END_TURN_BACKGROUND_DISABLED = Colors.grey;
+  static const Color CONTROLS_UNIT_TYPE_SELECTED = Colors.white;
 
   static const Color NODE_FOG = Color(0xaa000000);
 
