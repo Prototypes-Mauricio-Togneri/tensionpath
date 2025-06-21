@@ -1,11 +1,12 @@
 # TODO
 
-- Re-attach to an active match
-- Bases 200
-- Track population in backend
-- Add more maps
-- Display history
 - Allow to create 3 different units
+    - type: fire, water, plant
+
+- Bases 200
+- Add more maps
+- Re-attach to an active match
+- Display history
 
 - Toxic tiles that damage units
 - Can only build factories on the first line
