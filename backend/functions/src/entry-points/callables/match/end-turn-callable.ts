@@ -15,6 +15,7 @@ import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
 import {StructureType} from '../../../types/structure-type'
+import {UnitType} from '../../../types/unit-type'
 import {Constants} from '../../../utils/constants'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
@@ -236,6 +237,7 @@ const executeUnitDeployments = (params: {
     node.unit = new Unit({
       playerId: action.playerId,
       level: action.level!,
+      type: UnitType.fire, // TODO(momo): use correct type
     })
   }
 }
@@ -359,6 +361,7 @@ const resolveBattle = (params: {
     params.node.unit = new Unit({
       playerId: Constants.PLAYER_1,
       level: Math.min(remainingUnits, player1Units),
+      type: UnitType.fire, // TODO(momo): use correct type
     })
   } else if (player2EffectiveUnits > player1EffectiveUnits) {
     const remainingUnits = player2EffectiveUnits - player1EffectiveUnits
@@ -367,6 +370,7 @@ const resolveBattle = (params: {
     params.node.unit = new Unit({
       playerId: Constants.PLAYER_2,
       level: Math.min(remainingUnits, player2Units),
+      type: UnitType.fire, // TODO(momo): use correct type
     })
   } else {
     // Both players lose all units

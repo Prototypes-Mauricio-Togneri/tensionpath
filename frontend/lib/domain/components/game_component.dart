@@ -14,7 +14,6 @@ import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/presentation/common/dialogs/match_menu_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/stream_listener.dart';
 
 class GameComponent extends FlameGame with KeyboardEvents {
@@ -38,7 +37,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
       height: resolution.height,
     );
 
-    add(
+    /*add(
       FpsTextComponent(
         position: Dimensions.fpsPosition(camera.viewport),
         textRenderer: TextPaint(
@@ -48,7 +47,7 @@ class GameComponent extends FlameGame with KeyboardEvents {
           ),
         ),
       ),
-    );
+    );*/
 
     _matchListener.start(match.listen());
 

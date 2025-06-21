@@ -76,7 +76,7 @@ class ResourceCounterComponent extends PositionComponent {
     canvas.drawText(
       text: '\$ ${player.resources.floor().toString()}',
       position: Vector2(size.x * 0.07, size.y / 2),
-      size: size.x / 7,
+      size: size.x / 5,
       color: Palette.CONTROLS_COST_FOREGROUND,
       anchor: Anchor.centerLeft,
     );

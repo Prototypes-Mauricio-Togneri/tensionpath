@@ -1,13 +1,26 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/callables/room/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/storage/settings_storage.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
+import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class HomeState extends BaseState {
   bool canPlay = true;
+  final String testMatchId = 'C3GO99nWr4yvs7TKeclD';
+
+  @override
+  void onLoad() {
+    if (Environment.get.isDebug && testMatchId.isNotEmpty) {
+      Navigation.matchScreen(
+        matchId: testMatchId,
+        userId: Authentication.userId,
+      );
+    }
+  }
 
   void onHistory() => Navigation.historyScreen();
 

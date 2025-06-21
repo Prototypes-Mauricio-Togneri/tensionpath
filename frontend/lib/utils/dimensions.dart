@@ -33,18 +33,30 @@ class Dimensions {
       Vector2(size.x * 0.3, size.y);
 
   static Vector2 controlsPopcapPosition(Vector2 size) =>
-      Vector2(size.x / 2, size.y / 2);
+      Vector2(size.x * 0.45, size.y * 0.8);
 
   static Vector2 controlsPopcapSize(Vector2 size) =>
-      Vector2(size.x * 0.3, size.y / 2.5);
+      Vector2(size.x * 0.3, size.y * 0.2);
 
   static Vector2 controlsEndTurnPosition(Vector2 size) =>
-      Vector2(size.x * 0.86, size.y / 2);
+      Vector2(size.x * 0.86, size.y * 0.5);
 
   static Vector2 controlsEndTurnSize(Vector2 size) =>
-      Vector2(size.x / 4, size.y * 0.8);
+      Vector2(size.x * 0.25, size.y * 0.8);
 
-  static Vector2 battlefieldPosition(Size resolution) => Vector2(0, 0);
+  static Vector2 battlefieldPosition(Size resolution) {
+    final double maxOffset = max(
+      headerSize(resolution).y,
+      controlsSize(resolution).y,
+    );
+    final double minOffset = min(
+      headerSize(resolution).y,
+      controlsSize(resolution).y,
+    );
+    final double offset = (minOffset - maxOffset) / 2;
+
+    return Vector2(0, offset);
+  }
 
   static Vector2 battlefieldSize(Size resolution) => Vector2(
     resolution.width,
@@ -56,7 +68,7 @@ class Dimensions {
   static Vector2 battlefildGridSize(Vector2 size) => size * 0.95;
 
   static Vector2 fpsPosition(Viewport viewport) =>
-      Vector2(viewport.size.x * 0.89, viewport.size.y * 0.922);
+      Vector2(viewport.size.x * 0.89, viewport.size.y * 0.875);
 
   static Vector2 nodePosition({
     required Vector2 nodeSize,
