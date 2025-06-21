@@ -33,10 +33,10 @@ class Dimensions {
       Vector2(size.x * 0.3, size.y);
 
   static Vector2 controlsUnitTypesPosition(Vector2 size) =>
-      Vector2(size.x * 0.45, size.y * 0.34);
+      Vector2(size.x * 0.45, size.y * 0.35);
 
   static Vector2 controlsUnitTypesSize(Vector2 size) =>
-      Vector2(size.x * 0.3, size.y * 0.45);
+      Vector2(size.x * 0.3, size.y * 0.6);
 
   static Vector2 controlsPopcapPosition(Vector2 size) =>
       Vector2(size.x * 0.45, size.y * 0.8);

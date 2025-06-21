@@ -100,7 +100,7 @@ class UnitTypesComponent extends PositionComponent {
     add(
       UnitTypeComponent(
         type: UnitType.water,
-        position: Vector2(size.x / 2 - (size.y * 1.3), size.y / 2),
+        position: Vector2(size.x / 2 - size.y, size.y / 2),
         size: Vector2(size.y, size.y),
       ),
     );
@@ -115,7 +115,7 @@ class UnitTypesComponent extends PositionComponent {
     add(
       UnitTypeComponent(
         type: UnitType.plant,
-        position: Vector2(size.x / 2 + (size.y * 1.3), size.y / 2),
+        position: Vector2(size.x / 2 + size.y, size.y / 2),
         size: Vector2(size.y, size.y),
       ),
     );
@@ -158,12 +158,12 @@ class UnitTypeComponent extends PositionComponent with TapCallbacks {
     canvas.drawText(
       text: type.emoji,
       position: size / 2,
-      size: size.x / 2,
+      size: size.x / 2.5,
       color: Palette.MISSILE_INDICATOR_BACKGROUND,
     );
 
     if (match.match.selectedUnitType == type) {
-      canvas.drawHexagon(center: size / 2, size: size, paint: borderPaint);
+      canvas.drawCircle((size / 2).toOffset(), size.x / 2.5, borderPaint);
     }
   }
 }
