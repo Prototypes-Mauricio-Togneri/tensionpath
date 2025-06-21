@@ -161,6 +161,7 @@ class UnitComponent extends PositionComponent
         outterPaint: outterPaint,
         innerPaint: innerPaint,
         level: unit.level,
+        type: unit.type,
       );
 
       if (!targetPosition.isZero()) {

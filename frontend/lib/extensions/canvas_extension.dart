@@ -96,7 +96,7 @@ extension CanvasExtension on Canvas {
     );
 
     drawText(
-      text: '$level',
+      text: level.toString(),
       color: Palette.UNIT_LEVEL_INDICATOR,
       position: Vector2(position.x, position.y + (size.y / 8)),
       size: size.x / 6,
@@ -110,14 +110,22 @@ extension CanvasExtension on Canvas {
     required Paint outterPaint,
     required Paint innerPaint,
     required int level,
+    required UnitType type,
   }) {
-    drawHexagon(center: position, size: size / 2, paint: outterPaint);
-    drawHexagon(center: position, size: size / 2.35, paint: innerPaint);
+    drawHexagon(center: position, size: size / 1.5, paint: outterPaint);
+    drawHexagon(center: position, size: size / 1.72, paint: innerPaint);
+
+    drawText(
+      text: type.emoji,
+      color: Palette.UNIT_LEVEL_INDICATOR,
+      position: Vector2(position.x, position.y - (size.y / 8)),
+      size: size.x / 6,
+    );
 
     drawText(
       text: level.toString(),
       color: Palette.UNIT_LEVEL_INDICATOR,
-      position: position,
+      position: Vector2(position.x, position.y + (size.y / 8)),
       size: size.x / 6,
     );
   }
