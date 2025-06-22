@@ -23,7 +23,7 @@ Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
 };
 
 const _$UnitTypeEnumMap = {
-  UnitType.fire: 'fire',
   UnitType.water: 'water',
+  UnitType.fire: 'fire',
   UnitType.plant: 'plant',
 };

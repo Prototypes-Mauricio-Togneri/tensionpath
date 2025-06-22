@@ -47,6 +47,7 @@ class Palette {
   static const Color NODE_MISSILE_BACKGROUND = Color(0xFF7E35C4);
   static const Color NODE_RESOURCES_BORDER = Color(0xFF14742F);
   static const Color NODE_RESOURCES_BACKGROUND = Color(0xFF1E9941);
+  static const Color NODE_OBSTACLE_BACKGROUND = Color(0xff222222);
 
   static const Color NODE_PAD_NEUTRAL_BORDER = Color(0xff686A68);
   static const Color NODE_PAD_CONTESTED_BORDER = Color(0xffECAA0D);

@@ -96,7 +96,7 @@ const createNewRoom = async (params: {
     name: params.name,
     version: params.version,
     matchType: params.matchType,
-    mapId: 'tutorial',
+    mapId: 'map1',
     numberOfPlayers: params.numberOfPlayers,
     visibility: params.visibility,
   })

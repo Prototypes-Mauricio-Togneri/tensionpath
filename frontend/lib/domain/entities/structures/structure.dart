@@ -2,6 +2,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
+import 'package:tensionpath/domain/entities/structures/structure_obstacle.dart';
 import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
@@ -27,6 +28,8 @@ abstract class Structure {
     required String? platformId,
   }) {
     switch (structureType) {
+      case StructureType.obstacle:
+        return StructureObstacle(location: location);
       case StructureType.launcher:
         return StructureLauncher(location: location, player: player!);
       case StructureType.resources:

@@ -1,4 +1,5 @@
 enum StructureType {
+  obstacle(visibilityRange: 0, isObstacle: true),
   resources(visibilityRange: 0, isObstacle: false),
   launcher(visibilityRange: 2, isObstacle: false),
   missile(visibilityRange: 0, isObstacle: true),

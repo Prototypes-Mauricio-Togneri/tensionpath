@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
+import 'package:tensionpath/domain/entities/structures/structure_obstacle.dart';
 import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
 import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -97,6 +98,9 @@ class StructureComponent extends PositionComponent implements Reconfigurable {
       } else if (structure is StructureResources) {
         innerPaint.color = Palette.NODE_RESOURCES_BACKGROUND;
         outterPaint.color = Palette.NODE_RESOURCES_BORDER;
+      } else if (structure is StructureObstacle) {
+        innerPaint.color = Palette.NODE_OBSTACLE_BACKGROUND;
+        outterPaint.color = Palette.NODE_OBSTACLE_BACKGROUND;
       }
     }
   }

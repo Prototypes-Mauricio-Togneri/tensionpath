@@ -46,7 +46,7 @@ const _$ActionTypeEnumMap = {
 };
 
 const _$UnitTypeEnumMap = {
-  UnitType.fire: 'fire',
   UnitType.water: 'water',
+  UnitType.fire: 'fire',
   UnitType.plant: 'plant',
 };

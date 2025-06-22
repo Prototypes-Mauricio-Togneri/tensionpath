@@ -3,7 +3,7 @@
 - Add more maps
 - Re-attach to an active match
 - Move units one node at a time
-- Display history
+- Show match replay
 
 - Toxic tiles that damage units
 - Can only build factories on the first line

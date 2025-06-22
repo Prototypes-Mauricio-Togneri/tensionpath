@@ -1,5 +1,5 @@
 {
-  "id": "{{ID}}",
+  "id": "",
   "version": 1,
   "createdAt": "1970-01-01T00:00:00.000Z",
   "status": "active",
@@ -39,7 +39,7 @@
     }
   },
   "battlefield": {
-    "id": "w5h7",
+    "id": "tutorial",
     "size": {
       "width": 5,
       "height": 7
