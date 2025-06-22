@@ -16,6 +16,8 @@ abstract class Structure {
 
   bool belongsTo(Player otherPlayer) => false;
 
+  bool get isObstacle => type.isObstacle;
+
   void replaceWith(Structure newStructure) {}
 
   factory Structure.create({

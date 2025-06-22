@@ -82,6 +82,7 @@ class ActionMoveUnit extends Action {
     );
 
     return _canPassThroughNodes(
+          player: self,
           battlefield: battlefield,
           locations: locations,
         ) &&
@@ -138,6 +139,7 @@ class ActionMoveUnit extends Action {
   }
 
   static bool _canPassThroughNodes({
+    required Player player,
     required Battlefield battlefield,
     required List<Location> locations,
   }) {
@@ -145,13 +147,13 @@ class ActionMoveUnit extends Action {
       final Location location = locations[i];
       final Node node = battlefield.nodeById(location.id);
       final bool lastNode = i == locations.length - 1;
-
-      final bool invalidStructure =
-          node.structure != null && !node.structure!.type.canMoveUnit;
-      final bool nodeHasUnit = !lastNode && node.hasUnit;
+      final bool isObstacle = node.structure?.isObstacle ?? false;
       final bool isNotRevealed = !lastNode && !node.isRevealed;
+      final bool hasOwnUnit = node.hasUnit && node.unit!.belongsTo(player);
+      final bool hasOpponentUnit =
+          !lastNode && node.hasUnit && !node.unit!.belongsTo(player);
 
-      if (invalidStructure || nodeHasUnit || isNotRevealed) {
+      if (isObstacle || isNotRevealed || hasOwnUnit || hasOpponentUnit) {
         return false;
       }
     }

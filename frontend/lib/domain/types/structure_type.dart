@@ -1,14 +1,14 @@
 enum StructureType {
-  resources(visibilityRange: 0, canMoveUnit: true),
-  launcher(visibilityRange: 2, canMoveUnit: true),
-  missile(visibilityRange: 0, canMoveUnit: false),
-  pad(visibilityRange: 0, canMoveUnit: true);
+  resources(visibilityRange: 0, isObstacle: false),
+  launcher(visibilityRange: 2, isObstacle: false),
+  missile(visibilityRange: 0, isObstacle: true),
+  pad(visibilityRange: 0, isObstacle: false);
 
   final int visibilityRange;
-  final bool canMoveUnit;
+  final bool isObstacle;
 
   const StructureType({
     required this.visibilityRange,
-    required this.canMoveUnit,
+    required this.isObstacle,
   });
 }
