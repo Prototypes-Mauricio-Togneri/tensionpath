@@ -1,7 +1,5 @@
 # TODO
 
-- Move error message to header
-- Bases 200
 - Add more maps
 - Re-attach to an active match
 - Move units one node at a time

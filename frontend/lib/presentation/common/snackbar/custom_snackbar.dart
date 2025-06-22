@@ -11,20 +11,21 @@ class CustomSnackbar {
 
   static void show({required String text, required Duration duration}) {
     final BuildContext context = Navigation.context();
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    final Size size = mediaQuery.size;
+    final Size size = MediaQuery.of(context).size;
     final double width = size.height / Constants.CONTAINER_RATIO;
     final double height =
-        size.height * (Constants.UI_CONTROLS_HEIGHT / Constants.UI_HEIGHT);
+        size.height * (Constants.UI_HEADER_HEIGHT / Constants.UI_HEIGHT);
     final double margin = (size.width - width) / 2;
 
     final SnackBar snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
       padding: EdgeInsets.zero,
-      margin: EdgeInsets.only(left: margin, right: margin),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero, // No round corners
+      margin: EdgeInsets.only(
+        left: margin,
+        right: margin,
+        bottom: size.height - height,
       ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       content: SizedBox(
         width: width,
         height: height,
