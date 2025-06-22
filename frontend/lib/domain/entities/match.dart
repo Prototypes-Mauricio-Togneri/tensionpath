@@ -7,7 +7,6 @@ import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
 import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/room.dart';
@@ -133,43 +132,13 @@ class Match {
       ((populationOf(self) < config.popcap) ||
           self.actions.hasDeployableActionsOn(node.location));
 
-  bool validMovement({
-    required Node nodeOrigin,
-    required Node nodeTarget,
-    required Actions actions,
-  }) {
-    if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
-      final List<Location> locations = nodeOrigin.location.pathNodes(
-        player: self,
-        target: nodeTarget,
+  bool validMovement({required Node nodeOrigin, required Node nodeTarget}) =>
+      ActionMoveUnit.isValid(
+        self: self,
+        battlefield: battlefield,
+        nodeOrigin: nodeOrigin,
+        nodeTarget: nodeTarget,
       );
-
-      for (int i = 0; i < locations.length; i++) {
-        final Location location = locations[i];
-        final Node node = battlefield.nodeById(location.id);
-
-        if (_cannotPassThroughNode(
-          node: node,
-          lastNode: i == locations.length - 1,
-        )) {
-          return false;
-        }
-      }
-
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  bool _cannotPassThroughNode({required Node node, required bool lastNode}) {
-    final bool invalidStructure =
-        node.structure != null && !node.structure!.type.canMoveUnit;
-    final bool nodeHasUnit = !lastNode && node.hasUnit;
-    final bool isNotRevealed = !lastNode && !node.isRevealed;
-
-    return invalidStructure || nodeHasUnit || isNotRevealed;
-  }
 
   bool _canMoveUnit(Node node) =>
       isSelfPlaying && node.hasUnit && node.unit!.belongsTo(self);
@@ -204,11 +173,7 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (validMovement(
-      nodeOrigin: nodeOrigin,
-      nodeTarget: nodeTarget,
-      actions: self.actions,
-    )) {
+    if (validMovement(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
       final int cost = distance * Constants.COST_MOVE_UNIT;
 
@@ -247,11 +212,7 @@ class Match {
 
   bool shouldHighlightMovement(Node node) =>
       highlightMovementFromNode != null &&
-      validMovement(
-        nodeOrigin: highlightMovementFromNode!,
-        nodeTarget: node,
-        actions: self.actions,
-      );
+      validMovement(nodeOrigin: highlightMovementFromNode!, nodeTarget: node);
 
   Future onEndTurn() async {
     if (isSelfPlaying) {
