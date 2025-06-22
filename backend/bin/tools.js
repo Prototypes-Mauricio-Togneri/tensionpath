@@ -48,13 +48,23 @@ function generateMap(sourcePath, config) {
     template.battlefield.missile.platforms[(i + 1).toString()] = null;
   }
 
-  template.battlefield.nodes = getNodes(json.svg);
+  template.battlefield.nodes = json.svg.g.path.map(getNode);
 
   const result = JSON.stringify(template, null, 2);
   fs.writeFileSync(`functions/static/maps/${name}.json`, result, "utf8");
 }
 
-function getNodes(data) {
-  console.log(data);
-  return [];
+function getNode(data) {
+  const label = data["inkscape:label"].split("-")[0];
+  const coordinates = data.d;
+
+  console.log(label, coordinates);
+
+  return {
+    x: 0,
+    y: 0,
+    type: label,
+    unit: undefined,
+    structure: undefined,
+  };
 }
