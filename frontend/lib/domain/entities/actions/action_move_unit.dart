@@ -1,5 +1,6 @@
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/actions/action.dart';
+import 'package:tensionpath/domain/entities/actions/actions.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -80,7 +81,15 @@ class ActionMoveUnit extends Action {
       target: nodeTarget.location,
     );
 
-    return _canPassThroughNodes(battlefield: battlefield, locations: locations);
+    return _canPassThroughNodes(
+          battlefield: battlefield,
+          locations: locations,
+        ) &&
+        _doesNotCollideWithOtherActions(
+          self: self,
+          locations: locations,
+          actions: self.actions,
+        );
   }
 
   static List<Location> _pathNodes({
@@ -136,7 +145,7 @@ class ActionMoveUnit extends Action {
       final Location location = locations[i];
       final Node node = battlefield.nodeById(location.id);
       final bool lastNode = i == locations.length - 1;
-      
+
       final bool invalidStructure =
           node.structure != null && !node.structure!.type.canMoveUnit;
       final bool nodeHasUnit = !lastNode && node.hasUnit;
@@ -148,5 +157,43 @@ class ActionMoveUnit extends Action {
     }
 
     return true;
+  }
+
+  static bool _doesNotCollideWithOtherActions({
+    required Player self,
+    required List<Location> locations,
+    required Actions actions,
+  }) {
+    final List<ActionMoveUnit> moveActions = actions.moveActions;
+
+    for (final Location location in locations) {
+      final bool containLocation = moveActions.any(
+        (action) => _actionContainLocation(
+          self: self,
+          location: location,
+          action: action,
+        ),
+      );
+
+      if (containLocation) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  static bool _actionContainLocation({
+    required Player self,
+    required Location location,
+    required ActionMoveUnit action,
+  }) {
+    final List<Location> locations = _pathNodes(
+      player: self,
+      origin: action.origin,
+      target: action.target,
+    );
+
+    return locations.any((loc) => loc == location);
   }
 }

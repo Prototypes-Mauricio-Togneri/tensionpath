@@ -29,6 +29,9 @@ class Actions extends Iterable<Action> {
     }
   }
 
+  List<ActionMoveUnit> get moveActions =>
+      _actions.whereType<ActionMoveUnit>().toList();
+
   ActionMoveUnit? removeMoveAction(Location location) {
     ActionMoveUnit? removed;
 
