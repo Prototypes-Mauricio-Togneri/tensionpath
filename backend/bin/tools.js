@@ -48,6 +48,13 @@ function generateMap(sourcePath, config) {
     template.battlefield.missile.platforms[(i + 1).toString()] = null;
   }
 
+  template.battlefield.nodes = getNodes(json.svg);
+
   const result = JSON.stringify(template, null, 2);
   fs.writeFileSync(`functions/static/maps/${name}.json`, result, "utf8");
+}
+
+function getNodes(data) {
+  console.log(data);
+  return [];
 }
