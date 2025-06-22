@@ -70,7 +70,9 @@ function getNode(data) {
 }
 
 function getLocation(coordinates) {
-  console.log(coordinates);
+  const points = getPoints(coordinates);
+  const center = getHexagonCenter(points);
+  console.log(center);
   const parts = coordinates.split(" ");
   const x = parseInt(parts[1]);
   const y = parseInt(parts[2]);
@@ -78,6 +80,81 @@ function getLocation(coordinates) {
   return {
     x: x,
     y: y,
+  };
+}
+
+function getPoints(pathString) {
+  const commands = pathString.match(/[a-zA-Z][^a-zA-Z]*/g);
+  const coords = [];
+  let startX = 0;
+  let startY = 0;
+  let currentX = 0;
+  let currentY = 0;
+
+  for (const command of commands) {
+    const type = command[0];
+    const args = command
+      .slice(1)
+      .trim()
+      .split(/[\s,]+/)
+      .map(Number);
+
+    switch (type) {
+      case "M":
+      case "L":
+        for (let i = 0; i < args.length; i += 2) {
+          const x = args[i];
+          const y = args[i + 1];
+          coords.push({ x, y });
+          currentX = x;
+          currentY = y;
+          if (type === "M") {
+            startX = x;
+            startY = y;
+          }
+        }
+        break;
+
+      case "H":
+        for (const x of args) {
+          currentX = x;
+          coords.push({ x: currentX, y: currentY });
+        }
+        break;
+
+      case "Z":
+      case "z":
+        //coords.push({ x: startX, y: startY });
+        currentX = startX;
+        currentY = startY;
+        break;
+
+      default:
+        throw new Error(`Unsupported command: ${type}`);
+    }
+  }
+  console.log(coords);
+
+  return coords;
+}
+
+function getHexagonCenter(points) {
+  if (points.length !== 6) {
+    throw new Error(`Expected an array of exactly 6 points. ${points}`);
+  }
+
+  const sum = points.reduce(
+    (acc, point) => {
+      acc.x += point.x;
+      acc.y += point.y;
+      return acc;
+    },
+    { x: 0, y: 0 }
+  );
+
+  return {
+    x: parseInt(sum.x / 6),
+    y: parseInt(sum.y / 6),
   };
 }
 
