@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 var parser = require("xml2json");
 
 generateMap("maps/map1.svg", {
@@ -11,16 +12,17 @@ generateMap("maps/map1.svg", {
   typeFactor: 1.33,
   baseHealth: 100,
   resources: 10,
-  id: "map1",
   width: 7,
   height: 11,
+  numberOfPlatforms: 3,
 });
 
 function generateMap(sourcePath, config) {
-  const json = JSON.parse(parser.toJson(fs.readFileSync(sourcePath, "utf8")));
-  const template = JSON.parse(
-    parser.toJson(fs.readFileSync("bin/template.json", "utf8"))
-  );
+  const name = path.parse(sourcePath).name;
+  const content = fs.readFileSync(sourcePath, "utf8");
+  const xml = parser.toJson(content);
+  const json = JSON.parse(xml);
+  const template = JSON.parse(fs.readFileSync("bin/template.json", "utf8"));
 
   template.config.popcap = config.popcap;
   template.config.baseMaxHealth = config.baseMaxHealth;
@@ -36,15 +38,16 @@ function generateMap(sourcePath, config) {
   template.players["2"].baseHealth = config.baseMaxHealth;
   template.players["2"].resources = config.resources;
 
-  template.battlefield.id = config.id;
-  template.battlefield.size.width = json.svg.$.width;
-  template.battlefield.size.height = json.svg.$.height;
+  template.battlefield.id = name;
+  template.battlefield.size.width = config.width;
+  template.battlefield.size.height = config.height;
   template.battlefield.missile.numberOfPlatforms = config.numberOfPlatforms;
   template.battlefield.missile.platforms = {};
 
   for (let i = 0; i < config.numberOfPlatforms; i++) {
-    template.battlefield.missile.platforms[(i + 1).toString] = null;
+    template.battlefield.missile.platforms[(i + 1).toString()] = null;
   }
 
-  console.log(template);
+  const result = JSON.stringify(template, null, 2);
+  fs.writeFileSync(`functions/static/maps/${name}.json`, result, "utf8");
 }
