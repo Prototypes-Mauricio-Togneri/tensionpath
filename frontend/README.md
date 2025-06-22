@@ -1,13 +1,12 @@
 # TODO
 
-- Add more maps
-- Re-attach to an active match
 - Move units one node at a time
-- Show match replay
+- Conquer structures
 
 - Toxic tiles that damage units
-- Can only build factories on the first line
-- After level 100, bases take damage every turn
+- Re-attach to an active match
+- After turn 100, bases take damage every turn
+- Show match replay
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
   - Jump over obstacles
