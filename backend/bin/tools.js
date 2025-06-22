@@ -57,14 +57,25 @@ function generateMap(sourcePath, config) {
 function getNode(data) {
   const label = data["inkscape:label"].split("-")[0];
   const coordinates = data.d;
-
-  console.log(label, coordinates);
+  const location = getLocation(coordinates);
 
   return {
-    x: 0,
-    y: 0,
+    x: location.x,
+    y: location.y,
     type: label,
     unit: undefined,
     structure: undefined,
+  };
+}
+
+function getLocation(coordinates) {
+  console.log(coordinates);
+  const parts = coordinates.split(" ");
+  const x = parseFloat(parts[1]);
+  const y = parseFloat(parts[2]);
+
+  return {
+    x: x,
+    y: y,
   };
 }
