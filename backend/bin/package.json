@@ -1,0 +1,8 @@
+{
+  "name": "tools",
+  "main": "tools.js",
+  "dependencies": {
+    "xml2json": "^0.12.0"
+  },
+  "private": true
+}
