@@ -133,7 +133,7 @@ class Match {
       ((populationOf(self) < config.popcap) ||
           self.actions.hasDeployableActionsOn(node.location));
 
-  bool validTarget({required Node nodeOrigin, required Node nodeTarget}) {
+  bool validMovement({required Node nodeOrigin, required Node nodeTarget}) {
     if (nodeOrigin.location.isValidTarget(player: self, target: nodeTarget)) {
       final List<Location> locations = nodeOrigin.location.pathNodes(
         player: self,
@@ -200,7 +200,7 @@ class Match {
   }
 
   void onMoveUnit({required Node nodeOrigin, required Node nodeTarget}) {
-    if (validTarget(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
+    if (validMovement(nodeOrigin: nodeOrigin, nodeTarget: nodeTarget)) {
       final int distance = nodeTarget.distance(nodeOrigin);
       final int cost = distance * Constants.COST_MOVE_UNIT;
 
@@ -239,7 +239,7 @@ class Match {
 
   bool shouldHighlightMovement(Node node) =>
       highlightMovementFromNode != null &&
-      validTarget(nodeOrigin: highlightMovementFromNode!, nodeTarget: node);
+      validMovement(nodeOrigin: highlightMovementFromNode!, nodeTarget: node);
 
   Future onEndTurn() async {
     if (isSelfPlaying) {

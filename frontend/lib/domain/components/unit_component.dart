@@ -24,7 +24,7 @@ class UnitComponent extends PositionComponent
   final Paint innerPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint movementPaint = Palette.paint(style: PaintingStyle.stroke);
   final Vector2 targetPosition = Vector2.zero();
-  bool validTarget = false;
+  bool validMovement = false;
 
   UnitComponent({
     required this.self,
@@ -112,14 +112,14 @@ class UnitComponent extends PositionComponent
       final NodeComponent? nodeComponent = _getTargetNode();
 
       if (nodeComponent != null) {
-        validTarget =
-            match.match.validTarget(
+        validMovement =
+            match.match.validMovement(
               nodeOrigin: node,
               nodeTarget: nodeComponent.node,
             ) &&
             (nodeComponent.node != node);
       } else {
-        validTarget = false;
+        validMovement = false;
       }
     }
   }
@@ -165,7 +165,7 @@ class UnitComponent extends PositionComponent
       );
 
       if (!targetPosition.isZero()) {
-        movementPaint.color = validTarget
+        movementPaint.color = validMovement
             ? Palette.UNIT_MOVEMENT_INDICATOR_VALID
             : Palette.UNIT_MOVEMENT_INDICATOR_INVALID;
       }
