@@ -1,0 +1,57 @@
+{
+  "id": "",
+  "version": 1,
+  "createdAt": "1970-01-01T00:00:00.000Z",
+  "status": "active",
+  "config": {
+    "popcap": "POPCAP",
+    "baseMaxHealth": "BASE_MAX_HEALTH",
+    "resourcesPerPatch": "RESOURCES_PER_PATCH",
+    "resourcesPerTurn": "RESOURCES_PER_TURN",
+    "resourcesPerSecond": "RESOURCES_PER_SECOND",
+    "defenseFactor": "DEFENSE_FACTOR",
+    "typeFactor": "TYPE_FACTOR"
+  },
+  "turn": {
+    "turn": 1,
+    "startedAt": "1970-01-01T00:00:00.000Z"
+  },
+  "players": {
+    "1": {
+      "id": "1",
+      "name": "",
+      "userId": "",
+      "baseHealth": "BASE_HEALTH",
+      "resources": "RESOURCES",
+      "status": "playing",
+      "turnEndedAt": null,
+      "actions": []
+    },
+    "2": {
+      "id": "2",
+      "name": "",
+      "userId": "",
+      "baseHealth": "BASE_HEALTH",
+      "resources": "RESOURCES",
+      "status": "playing",
+      "turnEndedAt": null,
+      "actions": []
+    }
+  },
+  "battlefield": {
+    "id": "MAP_ID",
+    "size": {
+      "width": "SIZE_WIDTH",
+      "height": "SIZE_HEIGHT"
+    },
+    "missile": {
+      "charge": 0,
+      "maxCharge": 10,
+      "bufferCharge": 8,
+      "numberOfPlatforms": "NUMBER_OF_PLATFORMS",
+      "owner": null,
+      "platforms": {}
+    },
+    "nodes": []
+  }
+}
