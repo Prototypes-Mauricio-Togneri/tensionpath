@@ -15,7 +15,7 @@ import {ActionType} from '../../../types/action-type'
 import {MatchStatus} from '../../../types/match-status'
 import {PlayerStatus} from '../../../types/player-status'
 import {StructureType} from '../../../types/structure-type'
-import {UnitType} from '../../../types/unit-type'
+import {unitTypeBeats} from '../../../types/unit-type'
 import {Constants} from '../../../utils/constants'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
@@ -333,48 +333,89 @@ const resolveBattle = (params: {
   config: Config,
   battleUnits: BattleUnit[],
 }) => {
-  let player1Units = 0
-  let player2Units = 0
-  let player1Moved = false
-  let player2Moved = false
+  let player1Unit: BattleUnit | undefined
+  let player2Unit: BattleUnit | undefined
 
   for (const battleUnit of params.battleUnits) {
     const unit = battleUnit.unit
     const hasMoved = battleUnit.hasMoved
 
     if (unit.playerId === Constants.PLAYER_1) {
-      player1Units += unit.level
-      player1Moved = player1Moved || hasMoved
+      if (player1Unit) {
+        player1Unit.unit.level += unit.level
+        player1Unit.unit.type = unit.type
+        player1Unit.hasMoved = player1Unit.hasMoved || hasMoved
+      } else {
+        player1Unit = {
+          unit: new Unit({
+            playerId: unit.playerId,
+            level: unit.level,
+            type: unit.type,
+          }),
+          hasMoved: hasMoved,
+        }
+      }
     } else if (unit.playerId === Constants.PLAYER_2) {
-      player2Units += unit.level
-      player2Moved = player2Moved || hasMoved
+      if (player2Unit) {
+        player2Unit.unit.level += unit.level
+        player2Unit.unit.type = unit.type
+        player2Unit.hasMoved = player2Unit.hasMoved || hasMoved
+      } else {
+        player2Unit = {
+          unit: new Unit({
+            playerId: unit.playerId,
+            level: unit.level,
+            type: unit.type,
+          }),
+          hasMoved: hasMoved,
+        }
+      }
     }
   }
 
-  const player1EffectiveUnits = player1Moved ? player1Units : Math.ceil(player1Units * params.config.defenseFactor)
-  const player2EffectiveUnits = player2Moved ? player2Units : Math.ceil(player2Units * params.config.defenseFactor)
+  if (player1Unit && player2Unit) {
+    let player1UnitLevel = player1Unit.unit.level
+    let player2UnitLevel = player2Unit.unit.level
 
-  if (player1EffectiveUnits > player2EffectiveUnits) {
-    const remainingUnits = player1EffectiveUnits - player2EffectiveUnits
+    if (!player1Unit.hasMoved) {
+      player1UnitLevel *= params.config.defenseFactor
+    }
 
-    // Player 1 wins
-    params.node.unit = new Unit({
-      playerId: Constants.PLAYER_1,
-      level: Math.min(remainingUnits, player1Units),
-      type: UnitType.fire, // TODO(momo): use correct type
-    })
-  } else if (player2EffectiveUnits > player1EffectiveUnits) {
-    const remainingUnits = player2EffectiveUnits - player1EffectiveUnits
+    if (!player2Unit.hasMoved) {
+      player2UnitLevel *= params.config.defenseFactor
+    }
 
-    // Player 2 wins
-    params.node.unit = new Unit({
-      playerId: Constants.PLAYER_2,
-      level: Math.min(remainingUnits, player2Units),
-      type: UnitType.fire, // TODO(momo): use correct type
-    })
-  } else {
-    // Both players lose all units
-    params.node.unit = undefined
+    if (unitTypeBeats(player1Unit.unit.type, player2Unit.unit.type)) {
+      player1UnitLevel *= params.config.typeFactor
+    } else if (unitTypeBeats(player2Unit.unit.type, player1Unit.unit.type)) {
+      player2UnitLevel *= params.config.typeFactor
+    }
+
+    player1UnitLevel = Math.ceil(player1UnitLevel)
+    player2UnitLevel = Math.ceil(player2UnitLevel)
+
+    if (player1UnitLevel > player2UnitLevel) {
+      const remainingUnits = player1UnitLevel - player2UnitLevel
+
+      // Player 1 wins
+      params.node.unit = new Unit({
+        playerId: Constants.PLAYER_1,
+        level: Math.min(remainingUnits, player1Unit.unit.level),
+        type: player1Unit.unit.type,
+      })
+    } else if (player2UnitLevel > player1UnitLevel) {
+      const remainingUnits = player2UnitLevel - player1UnitLevel
+
+      // Player 2 wins
+      params.node.unit = new Unit({
+        playerId: Constants.PLAYER_2,
+        level: Math.min(remainingUnits, player2Unit.unit.level),
+        type: player2Unit.unit.type,
+      })
+    } else {
+      // Both players lose all units
+      params.node.unit = undefined
+    }
   }
 }
 

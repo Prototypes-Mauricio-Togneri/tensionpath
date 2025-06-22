@@ -9,7 +9,8 @@
     "resourcesPerPatch": 5,
     "resourcesPerTurn": 5,
     "resourcesPerSecond": 1,
-    "defenseFactor": 1.1
+    "defenseFactor": 1.1,
+    "typeFactor": 1.33
   },
   "turn": {
     "turn": 1,

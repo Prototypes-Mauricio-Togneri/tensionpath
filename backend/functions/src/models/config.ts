@@ -5,6 +5,7 @@ export interface IConfig {
   resourcesPerTurn: number,
   resourcesPerSecond: number,
   defenseFactor: number,
+  typeFactor: number,
 }
 
 export class Config implements IConfig {
@@ -14,6 +15,7 @@ export class Config implements IConfig {
   resourcesPerTurn: number
   resourcesPerSecond: number
   defenseFactor: number
+  typeFactor: number
 
   constructor(data: IConfig) {
     this.popcap = data.popcap
@@ -22,5 +24,6 @@ export class Config implements IConfig {
     this.resourcesPerTurn = data.resourcesPerTurn
     this.resourcesPerSecond = data.resourcesPerSecond
     this.defenseFactor = data.defenseFactor
+    this.typeFactor = data.typeFactor
   }
 }

@@ -1,9 +1,5 @@
 # TODO
 
-- Allow to create 3 different units
-
-  - type: fire, water, plant
-
 - Move error message to header
 - Bases 200
 - Add more maps
