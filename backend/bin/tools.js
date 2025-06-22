@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { get } = require("http");
 const path = require("path");
 var parser = require("xml2json");
 
@@ -55,27 +56,57 @@ function generateMap(sourcePath, config) {
 }
 
 function getNode(data) {
-  const label = data["inkscape:label"].split("-")[0];
+  const label = data["inkscape:label"].split("-");
   const coordinates = data.d;
   const location = getLocation(coordinates);
 
   return {
     x: location.x,
     y: location.y,
-    type: label,
+    type: "land",
     unit: undefined,
-    structure: undefined,
+    structure: getStructure(label),
   };
 }
 
 function getLocation(coordinates) {
   console.log(coordinates);
   const parts = coordinates.split(" ");
-  const x = parseFloat(parts[1]);
-  const y = parseFloat(parts[2]);
+  const x = parseInt(parts[1]);
+  const y = parseInt(parts[2]);
 
   return {
     x: x,
     y: y,
   };
+}
+
+function getStructure(label) {
+  const type = label[0];
+
+  if (type === "launcher") {
+    return {
+      type: "launcher",
+      playerId: label[1],
+    };
+  } else if (type === "pad") {
+    return {
+      type: "pad",
+      platformId: label[1],
+    };
+  } else if (type === "resource") {
+    return {
+      type: "resource",
+    };
+  } else if (type === "missile") {
+    return {
+      type: "missile",
+    };
+  } else if (type === "obstacle") {
+    return {
+      type: "obstacle",
+    };
+  } else {
+    return undefined;
+  }
 }
