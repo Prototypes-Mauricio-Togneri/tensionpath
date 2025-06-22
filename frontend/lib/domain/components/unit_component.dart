@@ -116,6 +116,7 @@ class UnitComponent extends PositionComponent
             match.match.validMovement(
               nodeOrigin: node,
               nodeTarget: nodeComponent.node,
+              actions: self.actions,
             ) &&
             (nodeComponent.node != node);
       } else {
