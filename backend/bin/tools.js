@@ -1,60 +1,46 @@
 const fs = require("fs");
-const { get } = require("http");
 const path = require("path");
-var parser = require("xml2json");
+const parser = require("xml2json");
 
-generateMap("maps/map1.svg", {
-  popcap: 7,
-  baseMaxHealth: 100,
-  resourcesPerPatch: 2,
-  resourcesPerTurn: 5,
-  resourcesPerSecond: 1,
-  defenseFactor: 1,
-  typeFactor: 2,
-  baseHealth: 100,
-  resources: 10,
-  width: 7,
-  height: 11,
-  numberOfPlatforms: 3,
-  nodeSize: {
-    x: 100,
-    y: 86.6,
-  },
-});
+const maps = JSON.parse(fs.readFileSync("maps/maps.json", "utf8"));
 
-function generateMap(sourcePath, config) {
-  const name = path.parse(sourcePath).name;
-  const content = fs.readFileSync(sourcePath, "utf8");
+for (const map of maps) {
+  generateMap(map);
+}
+
+function generateMap(map) {
+  const name = path.parse(map.path).name;
+  const content = fs.readFileSync(map.path, "utf8");
   const xml = parser.toJson(content);
   const json = JSON.parse(xml);
-  const template = JSON.parse(fs.readFileSync("bin/template.json", "utf8"));
+  const template = JSON.parse(fs.readFileSync("maps/template.json", "utf8"));
 
-  template.config.popcap = config.popcap;
-  template.config.baseMaxHealth = config.baseMaxHealth;
-  template.config.resourcesPerPatch = config.resourcesPerPatch;
-  template.config.resourcesPerTurn = config.resourcesPerTurn;
-  template.config.resourcesPerSecond = config.resourcesPerSecond;
-  template.config.defenseFactor = config.defenseFactor;
-  template.config.typeFactor = config.typeFactor;
+  template.config.popcap = map.popcap;
+  template.config.baseMaxHealth = map.baseMaxHealth;
+  template.config.resourcesPerPatch = map.resourcesPerPatch;
+  template.config.resourcesPerTurn = map.resourcesPerTurn;
+  template.config.resourcesPerSecond = map.resourcesPerSecond;
+  template.config.defenseFactor = map.defenseFactor;
+  template.config.typeFactor = map.typeFactor;
 
-  template.players["1"].baseHealth = config.baseMaxHealth;
-  template.players["1"].resources = config.resources;
+  template.players["1"].baseHealth = map.baseMaxHealth;
+  template.players["1"].resources = map.resources;
 
-  template.players["2"].baseHealth = config.baseMaxHealth;
-  template.players["2"].resources = config.resources;
+  template.players["2"].baseHealth = map.baseMaxHealth;
+  template.players["2"].resources = map.resources;
 
   template.battlefield.id = name;
-  template.battlefield.size.width = config.width;
-  template.battlefield.size.height = config.height;
-  template.battlefield.missile.numberOfPlatforms = config.numberOfPlatforms;
+  template.battlefield.size.width = map.width;
+  template.battlefield.size.height = map.height;
+  template.battlefield.missile.numberOfPlatforms = map.numberOfPlatforms;
   template.battlefield.missile.platforms = {};
 
-  for (let i = 0; i < config.numberOfPlatforms; i++) {
+  for (let i = 0; i < map.numberOfPlatforms; i++) {
     template.battlefield.missile.platforms[(i + 1).toString()] = null;
   }
 
   template.battlefield.nodes = json.svg.g.path.map((data) =>
-    getNode(data, config.nodeSize)
+    getNode(data, map.nodeSize)
   );
 
   const result = JSON.stringify(template, null, 2);
@@ -129,7 +115,6 @@ function getPoints(pathString) {
 
       case "Z":
       case "z":
-        //coords.push({ x: startX, y: startY });
         currentX = startX;
         currentY = startY;
         break;
@@ -159,22 +144,6 @@ function getHexagonCenter(points) {
   return {
     x: parseInt(sum.x / 6),
     y: parseInt(sum.y / 6),
-  };
-}
-
-function getHexagonSize(points) {
-  if (points.length !== 6) {
-    throw new Error(`Expected an array of exactly 6 points. ${points}`);
-  }
-
-  const minX = Math.min(...points.map((p) => p.x));
-  const minY = Math.min(...points.map((p) => p.y));
-  const maxX = Math.max(...points.map((p) => p.x));
-  const maxY = Math.max(...points.map((p) => p.y));
-
-  return {
-    width: parseInt(maxX - minX),
-    height: parseInt(maxY - minY),
   };
 }
 
