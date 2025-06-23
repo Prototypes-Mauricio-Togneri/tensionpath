@@ -116,17 +116,26 @@
       {
         "x": 3,
         "y": 0,
-        "type": "land"
+        "type": "land",
+        "structure": {
+          "type": "resources"
+        }
       },
       {
         "x": -2,
         "y": 1,
-        "type": "land"
+        "type": "land",
+        "structure": {
+          "type": "resources"
+        }
       },
       {
         "x": 3,
         "y": -3,
-        "type": "land"
+        "type": "land",
+        "structure": {
+          "type": "resources"
+        }
       },
       {
         "x": -1,

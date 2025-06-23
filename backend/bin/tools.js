@@ -191,9 +191,9 @@ function getStructure(label) {
       type: "pad",
       platformId: label[1],
     };
-  } else if (type === "resource") {
+  } else if (type === "resources") {
     return {
-      type: "resource",
+      type: "resources",
     };
   } else if (type === "missile") {
     return {
