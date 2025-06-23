@@ -58,79 +58,79 @@
     },
     "nodes": [
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": 0,
         "type": "land",
         "structure": {
           "type": "missile"
         }
       },
       {
-        "x": -125,
-        "y": null,
+        "x": -2,
+        "y": -1,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 1,
+        "y": -1,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 2,
+        "y": 0,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": -125,
-        "y": null,
+        "x": -2,
+        "y": 3,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": -2,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": 1,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 2,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -125,
-        "y": null,
+        "x": -2,
+        "y": 1,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 2,
+        "y": -2,
         "type": "land"
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": -2,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -138,8 +138,8 @@
         }
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": 0,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -147,8 +147,8 @@
         }
       },
       {
-        "x": -124,
-        "y": null,
+        "x": -1,
+        "y": -1,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -156,8 +156,8 @@
         }
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": 0,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -165,8 +165,8 @@
         }
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 2,
+        "y": -1,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -174,8 +174,8 @@
         }
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": 0,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -183,8 +183,8 @@
         }
       },
       {
-        "x": -125,
-        "y": null,
+        "x": -2,
+        "y": 2,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -192,8 +192,8 @@
         }
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": 2,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -201,8 +201,8 @@
         }
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": 1,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -210,8 +210,8 @@
         }
       },
       {
-        "x": -124,
-        "y": null,
+        "x": -1,
+        "y": 5,
         "type": "land",
         "structure": {
           "type": "launcher",
@@ -219,8 +219,8 @@
         }
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": 4,
         "type": "land",
         "structure": {
           "type": "launcher",
@@ -228,8 +228,8 @@
         }
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 2,
+        "y": 3,
         "type": "land",
         "structure": {
           "type": "launcher",
@@ -237,8 +237,8 @@
         }
       },
       {
-        "x": -124,
-        "y": null,
+        "x": -1,
+        "y": -4,
         "type": "land",
         "structure": {
           "type": "launcher",
@@ -246,8 +246,8 @@
         }
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": -4,
         "type": "land",
         "structure": {
           "type": "launcher",
@@ -255,8 +255,8 @@
         }
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 2,
+        "y": -5,
         "type": "land",
         "structure": {
           "type": "launcher",
@@ -264,243 +264,243 @@
         }
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": -2,
         "type": "land"
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 0,
+        "y": -4,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": -5,
         "type": "land"
       },
       {
-        "x": -124,
-        "y": null,
+        "x": -1,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 1,
+        "y": -4,
         "type": "land"
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": -1,
         "type": "land"
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 0,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": -4,
         "type": "land"
       },
       {
-        "x": 24,
-        "y": null,
+        "x": 0,
+        "y": -2,
         "type": "land"
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 1,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": -1,
         "type": "land"
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 1,
+        "y": -2,
         "type": "land"
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": -1,
         "type": "land"
       },
       {
-        "x": -199,
-        "y": null,
+        "x": -2,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -124,
-        "y": null,
+        "x": -1,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 2,
+        "y": -1,
         "type": "land"
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -199,
-        "y": null,
+        "x": -2,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": 1,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": -1,
         "type": "land"
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -125,
-        "y": null,
+        "x": -2,
+        "y": 1,
         "type": "land"
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -199,
-        "y": null,
+        "x": -2,
+        "y": 2,
         "type": "land"
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": 1,
         "type": "land"
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 2,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": 3,
         "type": "land"
       },
       {
-        "x": 25,
-        "y": null,
+        "x": 0,
+        "y": 2,
         "type": "land"
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 2,
+        "y": 1,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": 0,
         "type": "land"
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": 4,
         "type": "land"
       },
       {
-        "x": -124,
-        "y": null,
+        "x": -1,
+        "y": 4,
         "type": "land"
       },
       {
-        "x": -49,
-        "y": null,
+        "x": 0,
+        "y": 3,
         "type": "land"
       },
       {
-        "x": 24,
-        "y": null,
+        "x": 0,
+        "y": 3,
         "type": "land"
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 1,
+        "y": 2,
         "type": "land"
       },
       {
-        "x": 175,
-        "y": null,
+        "x": 1,
+        "y": 3,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": 1,
         "type": "land"
       },
       {
-        "x": -200,
-        "y": null,
+        "x": -3,
+        "y": 5,
         "type": "land"
       },
       {
-        "x": -50,
-        "y": null,
+        "x": 0,
+        "y": 4,
         "type": "land"
       },
       {
-        "x": 100,
-        "y": null,
+        "x": 0,
+        "y": 3,
         "type": "land"
       },
       {
-        "x": 250,
-        "y": null,
+        "x": 3,
+        "y": 2,
         "type": "land"
       }
     ]

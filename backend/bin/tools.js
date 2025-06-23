@@ -72,14 +72,14 @@ function getNode(data) {
 function getLocation(coordinates) {
   const points = getPoints(coordinates);
   const center = getHexagonCenter(points);
-  console.log(center);
-  const parts = coordinates.split(" ");
-  const x = parseInt(parts[1]);
-  const y = parseInt(parts[2]);
+  const size = getHexagonSize(points);
+
+  const locationX = (4 * center.x) / (3 * size.width);
+  const locationY = center.y / size.height - (2 * center.x) / (3 * size.width);
 
   return {
-    x: x,
-    y: y,
+    x: parseInt(locationX),
+    y: parseInt(locationY),
   };
 }
 
@@ -133,7 +133,6 @@ function getPoints(pathString) {
         throw new Error(`Unsupported command: ${type}`);
     }
   }
-  console.log(coords);
 
   return coords;
 }
@@ -155,6 +154,22 @@ function getHexagonCenter(points) {
   return {
     x: parseInt(sum.x / 6),
     y: parseInt(sum.y / 6),
+  };
+}
+
+function getHexagonSize(points) {
+  if (points.length !== 6) {
+    throw new Error(`Expected an array of exactly 6 points. ${points}`);
+  }
+
+  const minX = Math.min(...points.map((p) => p.x));
+  const minY = Math.min(...points.map((p) => p.y));
+  const maxX = Math.max(...points.map((p) => p.x));
+  const maxY = Math.max(...points.map((p) => p.y));
+
+  return {
+    width: maxX - minX,
+    height: maxY - minY,
   };
 }
 
