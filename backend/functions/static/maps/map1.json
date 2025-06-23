@@ -6,7 +6,7 @@
   "config": {
     "popcap": 7,
     "baseMaxHealth": 100,
-    "resourcesPerPatch": 5,
+    "resourcesPerPatch": 2,
     "resourcesPerTurn": 5,
     "resourcesPerSecond": 1,
     "defenseFactor": 1,

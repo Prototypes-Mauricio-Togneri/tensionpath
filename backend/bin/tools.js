@@ -6,7 +6,7 @@ var parser = require("xml2json");
 generateMap("maps/map1.svg", {
   popcap: 7,
   baseMaxHealth: 100,
-  resourcesPerPatch: 5,
+  resourcesPerPatch: 2,
   resourcesPerTurn: 5,
   resourcesPerSecond: 1,
   defenseFactor: 1,
