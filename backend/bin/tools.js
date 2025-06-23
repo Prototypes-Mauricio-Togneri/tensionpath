@@ -16,6 +16,10 @@ generateMap("maps/map1.svg", {
   width: 7,
   height: 11,
   numberOfPlatforms: 3,
+  nodeSize: {
+    x: 100,
+    y: 86.6,
+  },
 });
 
 function generateMap(sourcePath, config) {
@@ -49,16 +53,18 @@ function generateMap(sourcePath, config) {
     template.battlefield.missile.platforms[(i + 1).toString()] = null;
   }
 
-  template.battlefield.nodes = json.svg.g.path.map(getNode);
+  template.battlefield.nodes = json.svg.g.path.map((data) =>
+    getNode(data, config.nodeSize)
+  );
 
   const result = JSON.stringify(template, null, 2);
   fs.writeFileSync(`functions/static/maps/${name}.json`, result, "utf8");
 }
 
-function getNode(data) {
+function getNode(data, nodeSize) {
   const label = data["inkscape:label"].split("-");
   const coordinates = data.d;
-  const location = getLocation(coordinates);
+  const location = getLocation(coordinates, nodeSize);
 
   return {
     x: location.x,
@@ -69,17 +75,16 @@ function getNode(data) {
   };
 }
 
-function getLocation(coordinates) {
+function getLocation(coordinates, nodeSize) {
   const points = getPoints(coordinates);
   const center = getHexagonCenter(points);
-  const size = getHexagonSize(points);
 
-  const locationX = (4 * center.x) / (3 * size.width);
-  const locationY = center.y / size.height - (2 * center.x) / (3 * size.width);
+  const locationX = (4 * center.x) / (3 * nodeSize.x);
+  const locationY = center.y / nodeSize.y - (2 * center.x) / (3 * nodeSize.x);
 
   return {
-    x: parseInt(locationX),
-    y: parseInt(locationY),
+    x: Math.round(locationX),
+    y: Math.round(locationY),
   };
 }
 
@@ -168,8 +173,8 @@ function getHexagonSize(points) {
   const maxY = Math.max(...points.map((p) => p.y));
 
   return {
-    width: maxX - minX,
-    height: maxY - minY,
+    width: parseInt(maxX - minX),
+    height: parseInt(maxY - minY),
   };
 }
 

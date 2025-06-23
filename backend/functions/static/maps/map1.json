@@ -67,15 +67,15 @@
       },
       {
         "x": -2,
-        "y": -1,
+        "y": -2,
         "type": "land",
         "structure": {
           "type": "obstacle"
         }
       },
       {
-        "x": 1,
-        "y": -1,
+        "x": 2,
+        "y": -2,
         "type": "land",
         "structure": {
           "type": "obstacle"
@@ -87,6 +87,99 @@
         "type": "land",
         "structure": {
           "type": "obstacle"
+        }
+      },
+      {
+        "x": -2,
+        "y": 4,
+        "type": "land",
+        "structure": {
+          "type": "obstacle"
+        }
+      },
+      {
+        "x": 1,
+        "y": -3,
+        "type": "land",
+        "structure": {
+          "type": "obstacle"
+        }
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "type": "land",
+        "structure": {
+          "type": "obstacle"
+        }
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "type": "land"
+      },
+      {
+        "x": -2,
+        "y": 1,
+        "type": "land"
+      },
+      {
+        "x": 3,
+        "y": -3,
+        "type": "land"
+      },
+      {
+        "x": -1,
+        "y": -2,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "1"
+        }
+      },
+      {
+        "x": -1,
+        "y": -1,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "1"
+        }
+      },
+      {
+        "x": -2,
+        "y": -1,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "1"
+        }
+      },
+      {
+        "x": 1,
+        "y": -1,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "2"
+        }
+      },
+      {
+        "x": 2,
+        "y": -1,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "2"
+        }
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "2"
         }
       },
       {
@@ -94,115 +187,13 @@
         "y": 3,
         "type": "land",
         "structure": {
-          "type": "obstacle"
-        }
-      },
-      {
-        "x": 1,
-        "y": -2,
-        "type": "land",
-        "structure": {
-          "type": "obstacle"
-        }
-      },
-      {
-        "x": 1,
-        "y": 1,
-        "type": "land",
-        "structure": {
-          "type": "obstacle"
-        }
-      },
-      {
-        "x": 2,
-        "y": 0,
-        "type": "land"
-      },
-      {
-        "x": -2,
-        "y": 1,
-        "type": "land"
-      },
-      {
-        "x": 2,
-        "y": -2,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": -2,
-        "type": "land",
-        "structure": {
           "type": "pad",
-          "platformId": "1"
-        }
-      },
-      {
-        "x": 0,
-        "y": 0,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "1"
+          "platformId": "3"
         }
       },
       {
         "x": -1,
-        "y": -1,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "1"
-        }
-      },
-      {
-        "x": 1,
-        "y": 0,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "2"
-        }
-      },
-      {
-        "x": 2,
-        "y": -1,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "2"
-        }
-      },
-      {
-        "x": 1,
-        "y": 0,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "2"
-        }
-      },
-      {
-        "x": -2,
-        "y": 2,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "3"
-        }
-      },
-      {
-        "x": 0,
-        "y": 2,
-        "type": "land",
-        "structure": {
-          "type": "pad",
-          "platformId": "3"
-        }
-      },
-      {
-        "x": 0,
-        "y": 1,
+        "y": 3,
         "type": "land",
         "structure": {
           "type": "pad",
@@ -211,6 +202,24 @@
       },
       {
         "x": -1,
+        "y": 2,
+        "type": "land",
+        "structure": {
+          "type": "pad",
+          "platformId": "3"
+        }
+      },
+      {
+        "x": -2,
+        "y": 6,
+        "type": "land",
+        "structure": {
+          "type": "launcher",
+          "playerId": "1"
+        }
+      },
+      {
+        "x": 0,
         "y": 5,
         "type": "land",
         "structure": {
@@ -219,7 +228,7 @@
         }
       },
       {
-        "x": 0,
+        "x": 2,
         "y": 4,
         "type": "land",
         "structure": {
@@ -228,16 +237,7 @@
         }
       },
       {
-        "x": 2,
-        "y": 3,
-        "type": "land",
-        "structure": {
-          "type": "launcher",
-          "playerId": "1"
-        }
-      },
-      {
-        "x": -1,
+        "x": -2,
         "y": -4,
         "type": "land",
         "structure": {
@@ -247,15 +247,6 @@
       },
       {
         "x": 0,
-        "y": -4,
-        "type": "land",
-        "structure": {
-          "type": "launcher",
-          "playerId": "2"
-        }
-      },
-      {
-        "x": 2,
         "y": -5,
         "type": "land",
         "structure": {
@@ -264,17 +255,61 @@
         }
       },
       {
+        "x": 2,
+        "y": -6,
+        "type": "land",
+        "structure": {
+          "type": "launcher",
+          "playerId": "2"
+        }
+      },
+      {
         "x": -3,
-        "y": -2,
+        "y": -3,
         "type": "land"
       },
       {
-        "x": 0,
+        "x": -1,
+        "y": -4,
+        "type": "land"
+      },
+      {
+        "x": 1,
+        "y": -5,
+        "type": "land"
+      },
+      {
+        "x": 3,
+        "y": -6,
+        "type": "land"
+      },
+      {
+        "x": -2,
         "y": -3,
         "type": "land"
       },
       {
         "x": 0,
+        "y": -4,
+        "type": "land"
+      },
+      {
+        "x": 2,
+        "y": -5,
+        "type": "land"
+      },
+      {
+        "x": -3,
+        "y": -2,
+        "type": "land"
+      },
+      {
+        "x": -1,
+        "y": -3,
+        "type": "land"
+      },
+      {
+        "x": 1,
         "y": -4,
         "type": "land"
       },
@@ -284,102 +319,62 @@
         "type": "land"
       },
       {
-        "x": -1,
-        "y": -3,
-        "type": "land"
-      },
-      {
         "x": 0,
         "y": -3,
-        "type": "land"
-      },
-      {
-        "x": 1,
-        "y": -4,
-        "type": "land"
-      },
-      {
-        "x": -3,
-        "y": -1,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": -3,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": -3,
-        "type": "land"
-      },
-      {
-        "x": 3,
-        "y": -4,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": -2,
-        "type": "land"
-      },
-      {
-        "x": 1,
-        "y": -3,
-        "type": "land"
-      },
-      {
-        "x": 3,
-        "y": -3,
-        "type": "land"
-      },
-      {
-        "x": -3,
-        "y": 0,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": -1,
-        "type": "land"
-      },
-      {
-        "x": 1,
-        "y": -2,
-        "type": "land"
-      },
-      {
-        "x": 1,
-        "y": -1,
-        "type": "land"
-      },
-      {
-        "x": -2,
-        "y": 0,
-        "type": "land"
-      },
-      {
-        "x": -1,
-        "y": 0,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": 0,
         "type": "land"
       },
       {
         "x": 2,
+        "y": -4,
+        "type": "land"
+      },
+      {
+        "x": 3,
+        "y": -4,
+        "type": "land"
+      },
+      {
+        "x": -3,
         "y": -1,
         "type": "land"
       },
       {
         "x": 0,
+        "y": -2,
+        "type": "land"
+      },
+      {
+        "x": 2,
+        "y": -3,
+        "type": "land"
+      },
+      {
+        "x": 1,
+        "y": -2,
+        "type": "land"
+      },
+      {
+        "x": -3,
         "y": 0,
         "type": "land"
       },
       {
         "x": -2,
+        "y": 0,
+        "type": "land"
+      },
+      {
+        "x": 0,
+        "y": -1,
+        "type": "land"
+      },
+      {
+        "x": 3,
+        "y": -2,
+        "type": "land"
+      },
+      {
+        "x": -1,
         "y": 0,
         "type": "land"
       },
@@ -389,23 +384,18 @@
         "type": "land"
       },
       {
+        "x": -3,
+        "y": 2,
+        "type": "land"
+      },
+      {
         "x": 3,
         "y": -1,
         "type": "land"
       },
       {
-        "x": 0,
-        "y": 0,
-        "type": "land"
-      },
-      {
-        "x": -2,
+        "x": -1,
         "y": 1,
-        "type": "land"
-      },
-      {
-        "x": 0,
-        "y": 0,
         "type": "land"
       },
       {
@@ -414,23 +404,18 @@
         "type": "land"
       },
       {
-        "x": 1,
-        "y": 0,
-        "type": "land"
-      },
-      {
         "x": 0,
         "y": 1,
         "type": "land"
       },
       {
-        "x": 2,
-        "y": 0,
+        "x": -3,
+        "y": 3,
         "type": "land"
       },
       {
-        "x": -3,
-        "y": 3,
+        "x": 1,
+        "y": 1,
         "type": "land"
       },
       {
@@ -444,17 +429,7 @@
         "type": "land"
       },
       {
-        "x": 3,
-        "y": 0,
-        "type": "land"
-      },
-      {
         "x": -3,
-        "y": 4,
-        "type": "land"
-      },
-      {
-        "x": -1,
         "y": 4,
         "type": "land"
       },
@@ -464,18 +439,8 @@
         "type": "land"
       },
       {
-        "x": 0,
-        "y": 3,
-        "type": "land"
-      },
-      {
-        "x": 1,
+        "x": 2,
         "y": 2,
-        "type": "land"
-      },
-      {
-        "x": 1,
-        "y": 3,
         "type": "land"
       },
       {
@@ -489,18 +454,53 @@
         "type": "land"
       },
       {
-        "x": 0,
+        "x": -2,
+        "y": 5,
+        "type": "land"
+      },
+      {
+        "x": -1,
         "y": 4,
         "type": "land"
       },
       {
         "x": 0,
+        "y": 4,
+        "type": "land"
+      },
+      {
+        "x": 1,
+        "y": 3,
+        "type": "land"
+      },
+      {
+        "x": 2,
         "y": 3,
         "type": "land"
       },
       {
         "x": 3,
         "y": 2,
+        "type": "land"
+      },
+      {
+        "x": -3,
+        "y": 6,
+        "type": "land"
+      },
+      {
+        "x": -1,
+        "y": 5,
+        "type": "land"
+      },
+      {
+        "x": 1,
+        "y": 4,
+        "type": "land"
+      },
+      {
+        "x": 3,
+        "y": 3,
         "type": "land"
       }
     ]
