@@ -1,5 +1,7 @@
 import 'dart:io';
 
+bool running = true;
+
 Future main() async {
   final int port = int.parse(Platform.environment['PORT'] ?? '8080');
   final HttpServer server = await HttpServer.bind(
@@ -16,9 +18,26 @@ Future main() async {
       webSocket.listen(
         (data) {
           print('Received: $data');
-          webSocket.add('Echo: $data');
+
+          if (data == 'start') {
+            if (!running) {
+              running = true;
+              gameLoop();
+              webSocket.add('Game started');
+            } else {
+              webSocket.add('Game already running');
+            }
+          } else if (data == 'stop') {
+            if (running) {
+              running = false;
+              webSocket.add('Game stopped');
+            } else {
+              webSocket.add('Game already stopped');
+            }
+          }
         },
         onDone: () {
+          running = false;
           print('Client disconnected');
         },
       );
@@ -27,5 +46,12 @@ Future main() async {
       request.response.write('WebSocket connections only');
       await request.response.close();
     }
+  }
+}
+
+Future gameLoop() async {
+  while (running) {
+    await Future.delayed(const Duration(seconds: 1));
+    print('Game tick');
   }
 }
