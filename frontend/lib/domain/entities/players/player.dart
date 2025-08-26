@@ -1,37 +1,25 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/actions/action.dart';
-import 'package:tensionpath/domain/entities/actions/action_deploy_unit.dart';
-import 'package:tensionpath/domain/entities/actions/action_move_unit.dart';
-import 'package:tensionpath/domain/entities/actions/actions.dart';
-import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/types/player_status.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
   final String id;
   final String name;
   final bool isSelf;
-  final Actions actions;
   late int _baseHealth;
+  final int baseMaxHealth;
   late int _resources;
-  late PlayerStatus _status;
-  late DateTime? _turnEndedAt;
 
   Player({
     required this.id,
     required this.name,
     required this.isSelf,
-    required this.actions,
     required int baseHealth,
+    required this.baseMaxHealth,
     required int resources,
-    required PlayerStatus status,
-    required DateTime? turnEndedAt,
   }) {
     _baseHealth = baseHealth;
     _resources = resources;
-    _status = status;
-    _turnEndedAt = turnEndedAt;
   }
 
   int get baseHealth => _baseHealth;
@@ -42,52 +30,15 @@ class Player {
 
   bool get isPlayer2 => id == Constants.PLAYER_2;
 
+  bool get isOpponent => !isSelf;
+
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
-
-  PlayerStatus get status => _status;
-
-  DateTime? get turnEndedAt => _turnEndedAt;
 
   bool hasResources(int value) => resources >= value;
 
-  void setWaiting() {
-    _status = PlayerStatus.waiting;
-  }
-
-  void spendResources(int value) {
-    if (hasResources(value)) {
-      _resources -= value;
-    }
-  }
-
-  void replaceWith({required Player newPlayer, required bool isNewTurn}) {
-    if (isNewTurn) {
-      _status = newPlayer.status;
-      _turnEndedAt = newPlayer.turnEndedAt;
-      _baseHealth = newPlayer.baseHealth;
-      _resources = newPlayer.resources;
-      actions.reset();
-    }
-  }
-
-  void addAction(Action action) => actions.add(action);
-
-  void removeDeploymentAction(Location location) {
-    final ActionDeployUnit? removedAction = actions.removeDeployAction(
-      location,
-    );
-
-    if (removedAction != null) {
-      _resources += removedAction.cost;
-    }
-  }
-
-  void removeMovementAction(Location location) {
-    final ActionMoveUnit? removedAction = actions.removeMoveAction(location);
-
-    if (removedAction != null) {
-      _resources += removedAction.cost;
-    }
+  void replaceWith(Player newPlayer) {
+    _baseHealth = newPlayer.baseHealth;
+    _resources = newPlayer.resources;
   }
 
   static Player? playerById({

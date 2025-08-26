@@ -1,0 +1,16 @@
+name: tensionpath
+description: Battle server for Tension Path
+publish_to: none
+version: 0.0.1+1
+
+environment:
+  sdk: ">=3.9.0 <4.0.0"
+
+dependencies:
+  http: ^1.5.0
+
+dev_dependencies:
+  lints: ^6.0.0
+  daunused: ^1.7.4
+  dapublock: ^1.1.0
+  build_runner: ^2.7.0

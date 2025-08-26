@@ -1,34 +1,30 @@
 name: tensionpath
 description: Frontend app for Tension Path
 publish_to: none
-version: 0.0.15+15
+version: 0.0.1+1
 
 environment:
-  sdk: ">=3.8.1 <4.0.0"
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   web: ^1.1.1
   uuid: ^4.5.1
-  http: ^1.4.0
-  flame: ^1.29.0
-  logger: ^2.6.0
-  get_it: ^8.0.3
+  flame: ^1.31.0
+  logger: ^2.6.1
+  get_it: ^8.2.0
   dafluta: ^5.5.1
-  just_audio: ^0.10.4
+  url_strategy: ^0.3.0
   json_annotation: ^4.9.0
   shared_preferences: ^2.5.3
 
-  firebase_core: ^3.14.0
-  firebase_auth: ^5.6.0
-  firebase_analytics: ^11.5.0
-  firebase_crashlytics: ^4.3.7
-  cloud_functions: ^5.5.2
-  cloud_firestore: ^5.6.9
+  firebase_core: ^4.0.0
+  firebase_auth: ^6.0.1
+  firebase_analytics: ^12.0.0
+  firebase_crashlytics: ^5.0.0
+  cloud_functions: ^6.0.0
+  cloud_firestore: ^6.0.0
 
   flutter:
-    sdk: flutter
-
-  flutter_web_plugins:
     sdk: flutter
 
   flutter_localizations:
@@ -39,13 +35,15 @@ dev_dependencies:
   daassets: ^1.5.0
   daunused: ^1.7.4
   dapublock: ^1.1.0
-  build_runner: ^2.5.4
+  build_runner: ^2.7.0
   flutter_lints: ^6.0.0
-  json_serializable: ^6.9.5
+  json_serializable: ^6.10.0
 
 flutter:
   uses-material-design: true
 
   assets:
-    - assets/audio/
-    #- assets/images/nodes/
+    - assets/images/battlefields/
+    - assets/images/structures/
+    - assets/images/units/
+    - assets/templates/

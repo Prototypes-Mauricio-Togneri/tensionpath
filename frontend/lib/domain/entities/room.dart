@@ -1,6 +1,5 @@
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
-import 'package:tensionpath/utils/authentication.dart';
 
 class Room {
   final String id;
@@ -9,8 +8,8 @@ class Room {
   final int numberOfPlayers;
   final RoomVisibility visibility;
   final RoomStatus status;
-  final List<String> userIds;
-  final Map<String, String> users;
+  final List<String> playerIds;
+  final Map<String, String> players;
   final String matchType;
   final String? matchId;
 
@@ -21,21 +20,13 @@ class Room {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.userIds,
-    required this.users,
+    required this.playerIds,
+    required this.players,
     required this.matchType,
     required this.matchId,
   });
 
-  String get playerId {
-    for (int i = 0; i < userIds.length; i++) {
-      if (userIds[i] == Authentication.userId) {
-        return (i + 1).toString();
-      }
-    }
+  bool get isFull => playerIds.length >= numberOfPlayers;
 
-    throw Exception('User not found in room');
-  }
-
-  bool get isReady => (users.length >= numberOfPlayers) && (matchId != null);
+  bool get hasMatchId => matchId != null;
 }

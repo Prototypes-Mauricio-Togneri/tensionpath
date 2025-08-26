@@ -11,15 +11,15 @@ class JsonStructure {
   @JsonKey(name: 'type')
   final StructureType type;
 
-  @JsonKey(name: 'playerId')
-  final String? playerId;
+  @JsonKey(name: 'player')
+  final String? player;
 
   @JsonKey(name: 'platformId')
   final String? platformId;
 
-  JsonStructure({
+  const JsonStructure({
     required this.type,
-    required this.playerId,
+    required this.player,
     required this.platformId,
   });
 
@@ -29,7 +29,7 @@ class JsonStructure {
   }) => Structure.create(
     structureType: type,
     location: location,
-    player: Player.playerById(id: playerId, players: players),
+    player: Player.playerById(id: player, players: players),
     platformId: platformId,
   );
 

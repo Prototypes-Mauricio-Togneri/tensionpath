@@ -9,6 +9,7 @@ export const callableResponseFromObject = (o: any): any => {
     } else {
       return {
         ...Object.keys(o).reduce(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (acc: any, key) => {
               acc[key] = callableResponseFromObject(o[key])
               return acc

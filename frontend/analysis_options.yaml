@@ -1,5 +1,8 @@
 # include: package:flutter_lints/flutter.yaml
 
+formatter:
+  trailing_commas: preserve
+
 analyzer:
   language:
     strict-raw-types: false
@@ -113,7 +116,3 @@ linter:
     - use_rethrow_when_possible
     - valid_regexps
     - void_checks
-
-dart_code_metrics:
-  extends:
-    - recommended

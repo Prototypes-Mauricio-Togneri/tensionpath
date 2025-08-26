@@ -1,1 +1,0 @@
-enum MatchStatus { active, finished }

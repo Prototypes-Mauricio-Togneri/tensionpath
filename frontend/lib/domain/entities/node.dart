@@ -4,23 +4,15 @@ import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/unit.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Node implements Localizable {
-  final NodeType type;
   final Location location;
-  late Unit? _unit;
   Structure? _structure;
   bool _isRevealed = false;
 
-  Node({
-    required this.type,
-    required this.location,
-    required Unit? unit,
-    required Structure? structure,
-  }) {
-    _unit = unit;
+  Node({required this.location, required Structure? structure}) {
     _structure = structure;
   }
 
@@ -31,13 +23,11 @@ class Node implements Localizable {
 
   String get id => location.id;
 
-  Unit? get unit => _unit;
-
   Structure? get structure => _structure;
 
-  bool get hasUnit => _unit != null;
-
   bool get hasStructure => _structure != null;
+
+  bool get hasLauncher => _structure?.type == StructureType.launcher;
 
   bool get isRevealed => _isRevealed;
 
@@ -48,26 +38,49 @@ class Node implements Localizable {
     _isRevealed = value;
   }
 
-  void replaceWith(Node newNode) {
-    if ((newNode.unit != null) && (_unit != null)) {
-      _unit!.replaceWith(newNode.unit!);
-    } else {
-      _unit = newNode.unit;
-    }
+  bool isDeploymentTarget(Player self) {
+    final bool isLauncher = hasLauncher;
+    final bool isPlayer = belongsTo(self);
 
-    if ((newNode.structure != null) && (_structure != null)) {
-      _structure!.replaceWith(newNode.structure!);
-    } else {
-      _structure = newNode.structure;
-    }
+    return isLauncher && isPlayer;
   }
 
-  bool belongsTo(Player player) =>
-      (_unit?.belongsTo(player) ?? false) ||
-      (_structure?.belongsTo(player) ?? false);
+  bool isMovementTarget(Unit unit) {
+    final bool isAllowedTarget =
+        (_structure == null) || _structure!.type.canMoveUnit;
+    final bool hasMoves = unit.remainingMoves > 0;
+    final bool inDistance = distance(unit) <= unit.movementRange;
 
-  int distance(Localizable localizable) =>
-      location.distance(localizable.getLocation);
+    return isAllowedTarget && hasMoves && inDistance;
+  }
+
+  bool isAttackUnitTarget(Unit unit) {
+    /*final bool hasAttacks = unit.remainingAttacks > 0;
+    final bool canAttack = hasUnit && unit.damageTo(_unit!) > 0;
+    final bool inDistance =
+        distance(unit) >= unit.minAttackRange &&
+        distance(unit) <= unit.maxAttackRange;*/
+
+    return false;
+  }
+
+  bool isAttackBaseTarget(Unit unit) {
+    final bool hasOpponentBase =
+        hasStructure &&
+        (_structure!.type == StructureType.launcher) &&
+        (_structure!.getPlayerId != unit.player.id);
+    final bool hasAttacks = unit.remainingAttacks > 0;
+    final bool canAttack = unit.type.damageStructure > 0;
+    final bool inDistance =
+        distance(unit) >= unit.minAttackRange &&
+        distance(unit) <= unit.maxAttackRange;
+
+    return hasOpponentBase && hasAttacks && canAttack && inDistance;
+  }
+
+  bool belongsTo(Player player) => _structure?.belongsTo(player) ?? false;
+
+  int distance(Localizable localizable) => location.distance(localizable);
 
   Set<String> visibleNodes({
     required int visibilityRange,

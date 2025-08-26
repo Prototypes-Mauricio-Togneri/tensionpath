@@ -1,30 +1,17 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/persistence/callables/match/surrender_callable.dart';
-import 'package:tensionpath/platform/operations/set_fullscreen.dart';
-import 'package:tensionpath/presentation/common/dialogs/confirmation_dialog.dart';
-import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
-import 'package:tensionpath/presentation/common/dialogs/match_menu_dialog.dart';
+import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/palette.dart';
-import 'package:tensionpath/utils/stream_listener.dart';
 
-class GameComponent extends FlameGame with KeyboardEvents {
-  final MatchState state;
+class GameComponent extends FlameGame {
   final Match match;
-  final StreamListener _matchListener = StreamListener();
-  bool controlPressed = false;
 
-  GameComponent({required this.state, required this.match}) : super() {
+  GameComponent(this.match) {
     GameComponentRef.instance = this;
   }
 
@@ -39,83 +26,33 @@ class GameComponent extends FlameGame with KeyboardEvents {
       height: resolution.height,
     );
 
-    if (Environment.get.isDebug) {
-      add(
-        FpsTextComponent(
-          position: Dimensions.fpsPosition(camera.viewport),
-          textRenderer: TextPaint(
-            style: TextStyle(
-              fontSize: camera.viewport.size.y * 0.015,
-              color: Palette.TEXT_DEBUG,
-            ),
+    add(
+      FpsTextComponent(
+        position: Dimensions.fpsPosition(
+          player1: match.player1,
+          viewport: camera.viewport,
+        ),
+        textRenderer: TextPaint(
+          style: TextStyle(
+            fontSize: camera.viewport.size.y * 0.03,
+            color: Colors.white,
           ),
         ),
-      );
-    }
-
-    _matchListener.start(match.listen());
+      ),
+    );
 
     return super.onLoad();
   }
 
-  void stopMatchListener() {
-    _matchListener.stop();
-  }
-
-  @override
-  void onRemove() {
-    stopMatchListener();
-
-    super.onRemove();
-  }
-
-  void onMenu() => MatchMenuDialog.show(
-    onSurrender: () => ConfirmationDialog.quitMatch(_onSurrender),
-    onFullscreen: SetFullscreen.set,
-  );
-
-  void _onSurrender() {
-    stopMatchListener();
-    const SurrenderCallable()(matchId: match.id);
-    Navigation.pop();
-  }
-
-  void onMatchFinished(bool? won) {
-    if (won == true) {
+  void onMatchFinished(bool won) {
+    if (won) {
       InfoDialog.won(_onMatchQuit);
-    } else if (won == false) {
-      InfoDialog.lost(_onMatchQuit);
     } else {
-      InfoDialog.draw(_onMatchQuit);
+      InfoDialog.lost(_onMatchQuit);
     }
   }
 
   void _onMatchQuit() => Navigation.pop();
-
-  @override
-  KeyEventResult onKeyEvent(
-    KeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
-    if (event is KeyDownEvent) {
-      if (event.logicalKey == LogicalKeyboardKey.space) {
-        match.onEndTurn();
-        return KeyEventResult.handled;
-      }
-    }
-
-    if (event.logicalKey == LogicalKeyboardKey.controlLeft ||
-        event.logicalKey == LogicalKeyboardKey.controlRight) {
-      if (event is KeyDownEvent) {
-        controlPressed = true;
-      } else if (event is KeyUpEvent) {
-        controlPressed = false;
-      }
-      return KeyEventResult.handled;
-    }
-
-    return KeyEventResult.ignored;
-  }
 }
 
 mixin GameComponentRef {

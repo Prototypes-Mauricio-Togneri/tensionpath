@@ -6,19 +6,17 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_local.dart",
-            "flutterMode": "debug"
+            "flutterMode": "debug",
+            "args": [
+                "--no-web-experimental-hot-reload"
+            ]
         },
         {
             "name": "Run (REMOTE)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_remote.dart",
-            "flutterMode": "debug",
-            "args": [
-                "-d",
-                "chrome",
-                "--wasm",
-            ]
+            "flutterMode": "debug"
         }
     ]
 }

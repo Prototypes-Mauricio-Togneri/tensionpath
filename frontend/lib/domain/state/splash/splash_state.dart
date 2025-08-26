@@ -1,73 +1,56 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart';
-import 'package:tensionpath/domain/json/json_version.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/environments/environment.dart';
-import 'package:tensionpath/persistence/storage/settings_storage.dart';
-import 'package:tensionpath/utils/audio.dart';
-import 'package:tensionpath/utils/authentication.dart';
+import 'package:tensionpath/persistence/callables/room/create_room_callable.dart';
+import 'package:tensionpath/persistence/callables/room/join_room_callable.dart';
+import 'package:tensionpath/persistence/storage/name_storage.dart';
+import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
-import 'package:tensionpath/utils/version.dart';
 
 class SplashState extends BaseState {
-  bool newVersionAvailable = false;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController roomController = TextEditingController();
+
+  bool get canCreate => nameController.text.trim().isNotEmpty;
+
+  bool get canJoin =>
+      nameController.text.trim().isNotEmpty &&
+      roomController.text.trim().isNotEmpty;
 
   @override
   Future onLoad() async {
-    await Audio.get.load();
-    await _fetchLatestVersion();
-  }
+    final String name = await NameStorage.load();
+    nameController.text = name;
+    notify();
 
-  Future _fetchLatestVersion() async {
-    if (Environment.get.isRelease) {
-      await _checkVersion();
-    } else {
-      _authenticate();
+    if (Environment.get.isDebug) {
+      Delayed.post(
+        () => Navigation.matchScreen(matchId: '', selfId: Constants.PLAYER_1),
+      );
     }
   }
 
-  Future _checkVersion() async {
-    final Response response = await get(
-      Uri.parse(
-        'https://europe-west6-tension-path.cloudfunctions.net/api/version',
-      ),
+  void onFullscreen() => SetFullscreen.set();
+
+  Future onCreateRoom() async {
+    final Room room = await CreateRoomCallable()(playerName: await _playerName);
+    Navigation.lobbyScreen(room: room, playerId: room.playerIds.first);
+  }
+
+  Future onJoinRoom() async {
+    final Room room = await JoinRoomCallable()(
+      roomId: roomController.text.trim(),
+      playerName: await _playerName,
     );
-    if (response.statusCode == 200) {
-      final JsonVersion data = JsonVersion.fromJson(jsonDecode(response.body));
-
-      if ((data.buildNumber != Version.build) ||
-          (data.version != Version.version)) {
-        newVersionAvailable = true;
-        notify();
-      } else {
-        _authenticate();
-      }
-    }
+    Navigation.lobbyScreen(room: room, playerId: room.playerIds[1]);
   }
 
-  void _authenticate() => Authentication.checkIfAuthenticated(
-    onSuccess: _onSuccess,
-    onError: _onError,
-  );
+  Future<String> get _playerName async {
+    final String name = nameController.text.trim();
+    await NameStorage.save(name);
 
-  void _onSuccess(User user) {
-    _processUser(user);
-  }
-
-  Future _onError() async {
-    final User user = await Authentication.signInAnonymously();
-    await _processUser(user);
-  }
-
-  Future _processUser(User user) async {
-    final String name = await SettingsStorage.loadName();
-
-    if (name.isEmpty) {
-      Navigation.setupScreen();
-    } else {
-      Navigation.homeScreen();
-    }
+    return name;
   }
 }
