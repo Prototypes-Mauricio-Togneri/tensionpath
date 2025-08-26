@@ -1,6 +1,6 @@
 # Server
 
-heroku buildpacks:set https://github.com/IreinaMaid150700/heroku-buildpack-dart.git --app tension-path
+heroku buildpacks:set https://github.com/igrigorik/heroku-buildpack-dart --app tension-path
 
 heroku config:set PUBSPEC_PATH=frontend/pubspec.yaml --app tension-path
 
