@@ -1,35 +1,28 @@
 import 'package:flutter/services.dart';
-import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
-import 'package:tensionpath/domain/entities/structures/structure.dart';
-import 'package:tensionpath/domain/entities/unit.dart';
 
 class Battlefield {
   final String id;
   final List<Node> nodes;
   final Size size;
-  final Missile missile;
+  final Size gridRatio;
 
   Battlefield({
     required this.id,
     required this.nodes,
     required this.size,
-    required this.missile,
+    required this.gridRatio,
   });
-
-  String? platformOwner(String id) => missile.platformOwner(id);
 
   void replaceWith({
     required Player self,
     required Battlefield newBattlefield,
   }) {
-    final Set<String> visibleNodes = {};
+    /*final Set<String> visibleNodes = {};
 
     for (final Node newNode in newBattlefield.nodes) {
       final Node oldNode = nodeById(newNode.id);
-      oldNode.replaceWith(newNode);
 
       if (oldNode.hasUnit) {
         final Unit unit = oldNode.unit!;
@@ -37,7 +30,7 @@ class Battlefield {
         if (unit.belongsTo(self)) {
           visibleNodes.addAll(
             oldNode.visibleNodes(
-              visibilityRange: Constants.UNIT_VISIBILITY_RANGE,
+              visibilityRange: unit.visibilityRange,
               nodes: nodes,
             ),
           );
@@ -60,9 +53,7 @@ class Battlefield {
 
     for (final Node node in nodes) {
       node.setRevealed(visibleNodes.contains(node.id));
-    }
-
-    missile.replaceWith(newBattlefield.missile);
+    }*/
   }
 
   Node nodeById(String id) {

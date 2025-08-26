@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
-import 'package:tensionpath/utils/json.dart';
+import 'package:tensionpath/persistence/callables/json_utils.dart';
 
 part 'json_room.g.dart';
 
@@ -26,11 +26,11 @@ class JsonRoom {
   @JsonKey(name: 'status')
   final RoomStatus status;
 
-  @JsonKey(name: 'userIds')
-  final List<String> userIds;
+  @JsonKey(name: 'playerIds')
+  final List<String> playerIds;
 
-  @JsonKey(name: 'users')
-  final Map<String, String> users;
+  @JsonKey(name: 'players')
+  final Map<String, String> players;
 
   @JsonKey(name: 'matchType')
   final String matchType;
@@ -38,18 +38,37 @@ class JsonRoom {
   @JsonKey(name: 'matchId')
   final String? matchId;
 
-  JsonRoom({
+  const JsonRoom({
     required this.id,
     required this.version,
     required this.createdAt,
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.userIds,
-    required this.users,
+    required this.playerIds,
+    required this.players,
     required this.matchType,
     required this.matchId,
   });
+
+  JsonRoom clone({
+    String? id,
+    DateTime? createdAt,
+    int? numberOfPlayers,
+    List<String>? playerIds,
+    Map<String, String>? players,
+  }) => JsonRoom(
+    id: id ?? this.id,
+    version: version,
+    createdAt: createdAt ?? this.createdAt,
+    numberOfPlayers: numberOfPlayers ?? this.numberOfPlayers,
+    visibility: visibility,
+    status: status,
+    playerIds: playerIds ?? this.playerIds,
+    players: players ?? this.players,
+    matchType: matchType,
+    matchId: matchId,
+  );
 
   Room get object => Room(
     id: id,
@@ -58,8 +77,8 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
-    userIds: userIds,
-    users: users,
+    playerIds: playerIds,
+    players: players,
     matchType: matchType,
     matchId: matchId,
   );

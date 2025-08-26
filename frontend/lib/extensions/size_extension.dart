@@ -1,0 +1,10 @@
+import 'dart:ui';
+import 'package:tensionpath/domain/json/json_ratio.dart';
+import 'package:tensionpath/domain/json/json_size.dart';
+
+extension SizeExtension on Size {
+  JsonSize toJsonSize() =>
+      JsonSize(width: width.toInt(), height: height.toInt());
+
+  JsonRatio toJsonRatio() => JsonRatio(width: width, height: height);
+}

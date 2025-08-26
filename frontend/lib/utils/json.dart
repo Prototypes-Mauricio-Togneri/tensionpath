@@ -38,5 +38,3 @@ class Json {
     }
   }
 }
-
-DateTime? dateToJson(DateTime? dateTime) => dateTime?.toUtc();

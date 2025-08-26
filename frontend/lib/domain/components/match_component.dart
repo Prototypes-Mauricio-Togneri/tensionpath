@@ -7,9 +7,8 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/types/match_status.dart';
+import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -17,7 +16,10 @@ class MatchComponent extends World {
   final Match match;
   final List<NodeComponent> nodeComponents = [];
 
-  MatchComponent({required this.resolution, required this.match}) {
+  MatchComponent({
+    required this.resolution,
+    required this.match,
+  }) {
     MatchComponentRef.instance = this;
   }
 
@@ -25,8 +27,11 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     add(
       BattlefieldComponent(
-        match: match,
-        position: Dimensions.battlefieldPosition(resolution),
+        battlefield: match.battlefield,
+        position: Dimensions.battlefieldPosition(
+          resolution: resolution,
+          isPlayer1: match.self.isPlayer1,
+        ),
         size: Dimensions.battlefieldSize(resolution),
         nodeComponents: nodeComponents,
       ),
@@ -36,8 +41,10 @@ class MatchComponent extends World {
       HeaderComponent(
         player1: match.player1,
         player2: match.player2,
-        config: match.config,
-        position: Dimensions.headerPosition(resolution),
+        position: Dimensions.headerPosition(
+          resolution: resolution,
+          isPlayer1: match.self.isPlayer1,
+        ),
         size: Dimensions.headerSize(resolution),
       ),
     );
@@ -45,7 +52,10 @@ class MatchComponent extends World {
     add(
       ControlsComponent(
         player: match.self,
-        position: Dimensions.controlsPosition(resolution),
+        position: Dimensions.controlsPosition(
+          resolution: resolution,
+          isPlayer1: match.self.isPlayer1,
+        ),
         size: Dimensions.controlsSize(resolution),
       ),
     );
@@ -54,20 +64,14 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(Match match) {
-    if (match.status == MatchStatus.finished) {
-      if (match.selfWon) {
-        GameComponentRef.instance.onMatchFinished(true);
-      } else if (match.opponentWon) {
-        GameComponentRef.instance.onMatchFinished(false);
-      } else {
-        GameComponentRef.instance.onMatchFinished(null);
-      }
+    if (match.selfWon) {
+      GameComponentRef.instance.onMatchFinished(true);
+    } else if (match.opponentWon) {
+      GameComponentRef.instance.onMatchFinished(false);
     } else {
-      reconfigure();
+      _iterateChildrenRecursively(this);
     }
   }
-
-  void reconfigure() => _iterateChildrenRecursively(this);
 
   void _iterateChildrenRecursively(Component component) {
     final dynamic dynamicComponent = component;
@@ -81,9 +85,20 @@ class MatchComponent extends World {
     }
   }
 
-  NodeComponent? getNodeAtPosition(Vector2 position) {
+  void highlightNode(NodeComponent? node) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position)) {
+      nodeComponent.onHighlighted(false);
+    }
+
+    if (node != null) {
+      node.onHighlighted(true);
+    }
+  }
+
+  NodeComponent? getLauncherAt(Vector2 position) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      if (nodeComponent.containsPoint(position) &&
+          nodeComponent.node.isDeploymentTarget(match.self)) {
         return nodeComponent;
       }
     }
@@ -91,9 +106,15 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getNodeAtLocation(Location location) {
+  NodeComponent? getActionTargetAt({
+    required Vector2 position,
+    required Unit unit,
+  }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.node.location == location) {
+      if (nodeComponent.containsPoint(position) &&
+          (nodeComponent.node.isMovementTarget(unit) ||
+              nodeComponent.node.isAttackUnitTarget(unit) ||
+              nodeComponent.node.isAttackBaseTarget(unit))) {
         return nodeComponent;
       }
     }

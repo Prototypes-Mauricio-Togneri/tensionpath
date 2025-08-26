@@ -2,12 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/domain/json/json_config.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/json/json_room.dart';
-import 'package:tensionpath/domain/json/json_turn.dart';
-import 'package:tensionpath/domain/types/match_status.dart';
-import 'package:tensionpath/utils/json.dart';
+import 'package:tensionpath/persistence/callables/json_utils.dart';
 
 part 'json_match.g.dart';
 
@@ -16,78 +12,64 @@ class JsonMatch {
   @JsonKey(name: 'id')
   final String id;
 
-  @JsonKey(name: 'version')
-  final int version;
-
-  @JsonKey(name: 'status')
-  final MatchStatus status;
-
   @JsonKey(name: 'createdAt', toJson: dateToJson)
   final DateTime createdAt;
 
   @JsonKey(name: 'players')
-  final Map<String, JsonPlayer> players;
+  final List<JsonPlayer> players;
 
   @JsonKey(name: 'battlefield')
   final JsonBattlefield battlefield;
 
-  @JsonKey(name: 'config')
-  final JsonConfig config;
-
-  @JsonKey(name: 'turn')
-  final JsonTurn turn;
-
-  @JsonKey(name: 'room')
-  final JsonRoom room;
-
-  JsonMatch({
+  const JsonMatch({
     required this.id,
-    required this.version,
-    required this.status,
     required this.createdAt,
     required this.players,
     required this.battlefield,
-    required this.config,
-    required this.turn,
-    required this.room,
   });
 
-  Match object(String userId) {
-    final Player self = _getSelf(userId);
-    final Player opponent = _getOpponent(userId);
+  JsonMatch clone({
+    String? id,
+    DateTime? createdAt,
+    List<JsonPlayer>? players,
+  }) => JsonMatch(
+    id: id ?? this.id,
+    createdAt: createdAt ?? this.createdAt,
+    players: players ?? this.players,
+    battlefield: battlefield,
+  );
+
+  Match object(String selfId) {
+    final Player self = _getSelf(selfId);
+    final Player opponent = _getOpponent(selfId);
 
     return Match(
       id: id,
-      version: version,
-      status: status,
       createdAt: createdAt,
       self: self,
       opponent: opponent,
       battlefield: battlefield.object([self, opponent]),
-      config: config.object,
-      turn: turn.object,
-      room: room.object,
     );
   }
 
-  Player _getSelf(String userId) {
-    for (final JsonPlayer json in players.values) {
-      if (json.userId == userId) {
-        return json.object(userId);
+  Player _getSelf(String id) {
+    for (final JsonPlayer player in players) {
+      if (player.id == id) {
+        return player.object(true);
       }
     }
 
-    throw Exception('Player with user ID $userId not found');
+    throw Exception('Player with id $id not found');
   }
 
-  Player _getOpponent(String userId) {
-    for (final JsonPlayer json in players.values) {
-      if (json.userId != userId) {
-        return json.object(userId);
+  Player _getOpponent(String id) {
+    for (final JsonPlayer player in players) {
+      if (player.id != id) {
+        return player.object(false);
       }
     }
 
-    throw Exception('Player with user ID $userId not found');
+    throw Exception('Player with id $id not found');
   }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>

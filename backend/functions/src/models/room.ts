@@ -1,101 +1,113 @@
 import {FirebaseDocument} from '../database/firebase-document'
 import {RoomStatus} from '../types/room-status'
 import {RoomVisibility} from '../types/room-visibility'
+import {merge} from '../utils/merge'
 
 export interface IRoom {
-  id: string,
-  version: number,
-  createdAt: Date,
-  numberOfPlayers: number,
-  visibility: RoomVisibility,
-  status: RoomStatus,
-  matchType: string,
-  mapId: string,
-  userIds: string[],
-  users: Record<string, string>,
-  matchId?: string,
-}
-
-export class Room implements IRoom {
   id: string
-  version: number
   createdAt: Date
+  version: number
   numberOfPlayers: number
   visibility: RoomVisibility
   status: RoomStatus
   matchType: string
-  mapId: string
-  userIds: string[]
-  users: Record<string, string>
-  matchId?: string
+  playerIds: string[]
+  players: Record<string, string>
+}
+
+export class Room implements IRoom {
+  readonly id: string
+  readonly createdAt: Date
+  readonly version: number
+  readonly numberOfPlayers: number
+  readonly visibility: RoomVisibility
+  readonly status: RoomStatus
+  readonly matchType: string
+  readonly playerIds: string[]
+  readonly players: Record<string, string>
 
   constructor(data: IRoom) {
     this.id = data.id
-    this.version = data.version
     this.createdAt = data.createdAt
+    this.version = data.version
     this.numberOfPlayers = data.numberOfPlayers
     this.visibility = data.visibility
     this.status = data.status
     this.matchType = data.matchType
-    this.mapId = data.mapId
-    this.userIds = data.userIds
-    this.users = data.users
-    this.matchId = data.matchId
+    this.playerIds = data.playerIds
+    this.players = data.players
   }
 
-  public get isFull(): boolean {
-    return this.userIds.length >= this.numberOfPlayers
+  public get joinedPlayers(): number {
+    return this.playerIds.length
   }
 
-  public hasUser(userId: string): boolean {
-    return this.userIds.includes(userId)
+  public with(data: Partial<IRoom>): Room {
+    return new Room(merge(this, data))
+  }
+
+  public hasPlayer(playerId: string): boolean {
+    return this.playerIds.includes(playerId)
   }
 
   public join(params: {
-    userId: string,
-    name: string
+    playerId: string,
+    playerName: string
   }): Room {
-    this.userIds = [
-      ...this.userIds,
-      params.userId,
-    ]
-    this.users = {
-      ...this.users,
-      [params.userId]: params.name,
-    }
-    this.status = this.isFull ? RoomStatus.closed : RoomStatus.open
+    const playerInRoom = this.hasPlayer(params.playerId)
+    const roomFull = !playerInRoom && (this.numberOfPlayers === (this.joinedPlayers + 1))
 
-    return this
+    const newStatus = roomFull ? RoomStatus.closed : RoomStatus.open
+    const newPlayerIds = this.playerIds
+    const newPlayers = this.players
+
+    if (!playerInRoom) {
+      newPlayerIds.push(params.playerId)
+      newPlayers[params.playerId] = params.playerName
+    }
+
+    return this.with({
+      status: newStatus,
+      playerIds: newPlayerIds,
+      players: newPlayers,
+    })
   }
 
-  public leave(userId: string): Room {
-    this.userIds = this.userIds.filter((p) => p !== userId)
-    delete this.users[userId]
+  public leave(playerId: string): Room {
+    const newPlayerIds = this.playerIds.filter((p) => p !== playerId)
+    const newPlayers: Record<string, string> = {}
 
-    return this
+    for (const mapPlayerId of Object.keys(this.players)) {
+      if (mapPlayerId !== playerId) {
+        newPlayers[mapPlayerId] = this.players[mapPlayerId]
+      }
+    }
+
+    return this.with({
+      playerIds: newPlayerIds,
+      players: newPlayers,
+    })
   }
 
   public static create(params: {
-    userId: string,
-    name: string,
+    playerId: string,
+    playerName: string,
     version: number,
     matchType: string,
-    mapId: string,
     numberOfPlayers: number,
     visibility: RoomVisibility,
   }): Room {
     return new Room({
       id: '',
-      version: params.version,
       createdAt: new Date(),
+      version: params.version,
       numberOfPlayers: params.numberOfPlayers,
       visibility: params.visibility,
       status: RoomStatus.open,
       matchType: params.matchType,
-      mapId: params.mapId,
-      userIds: [params.userId],
-      users: {
-        [params.userId]: params.name,
+      playerIds: [params.playerId],
+      players: {
+        [params.playerId]: params.playerName,
       },
     })
   }

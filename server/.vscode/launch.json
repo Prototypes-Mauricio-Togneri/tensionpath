@@ -1,11 +1,15 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "command": "npm run build && npm run start foo 3000",
-      "name": "Server",
-      "request": "launch",
-      "type": "node-terminal",
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main/main_local.dart",
+            "args": [
+                "foo",
+                "3000",
+            ]
+        }
+    ]
 }

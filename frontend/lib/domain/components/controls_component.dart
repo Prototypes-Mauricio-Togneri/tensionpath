@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -26,34 +29,49 @@ class ControlsComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    add(
-      ResourceCounterComponent(
-        player: player,
-        position: Dimensions.controlsResourcesPosition(size),
-        size: Dimensions.controlsResourcesSize(size),
-      ),
+    final int numberOfUnits = UnitType.values.length;
+    final int numberOfCards = numberOfUnits + 2;
+    final Vector2 cardSize = Dimensions.controlsCardSize(
+      size: size,
+      numberOfCards: numberOfCards,
     );
 
-    add(
-      UnitTypesComponent(
-        position: Dimensions.controlsUnitTypesPosition(size),
-        size: Dimensions.controlsUnitTypesSize(size),
-      ),
-    );
+    for (int i = 0; i < numberOfUnits; i++) {
+      add(
+        UnitSelectorComponent(
+          player: player,
+          unitType: UnitType.values[i],
+          position: Dimensions.controlsUnitCardPosition(
+            size: size,
+            cardSize: cardSize,
+            i: i,
+          ),
+          size: cardSize,
+        ),
+      );
+    }
 
     add(
-      PopcapCounterComponent(
+      PopcapComponent(
         player: player,
-        position: Dimensions.controlsPopcapPosition(size),
+        position: Dimensions.controlsPopcapPosition(
+          size: size,
+          cardSize: cardSize,
+          numberOfCards: numberOfCards,
+        ),
         size: Dimensions.controlsPopcapSize(size),
       ),
     );
 
     add(
-      EndTurnComponent(
+      ResourceComponent(
         player: player,
-        position: Dimensions.controlsEndTurnPosition(size),
-        size: Dimensions.controlsEndTurnSize(size),
+        position: Dimensions.controlsResourcesCardPosition(
+          size: size,
+          cardSize: cardSize,
+          numberOfCards: numberOfCards,
+        ),
+        size: cardSize,
       ),
     );
 
@@ -68,87 +86,143 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class ResourceCounterComponent extends PositionComponent {
+class UnitSelectorComponent extends PositionComponent {
   final Player player;
-
-  ResourceCounterComponent({
-    required this.player,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.centerLeft);
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawText(
-      text: '\$ ${player.resources.floor().toString()}',
-      position: Vector2(size.x * 0.07, size.y / 2),
-      size: size.x / 5,
-      color: Palette.CONTROLS_COST_FOREGROUND,
-      anchor: Anchor.centerLeft,
-    );
-  }
-}
-
-class UnitTypesComponent extends PositionComponent {
-  UnitTypesComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center);
-
-  @override
-  FutureOr onLoad() {
-    add(
-      UnitTypeComponent(
-        type: UnitType.water,
-        position: Vector2(size.x / 2 - size.y, size.y / 2),
-        size: Vector2(size.y, size.y),
-      ),
-    );
-
-    add(
-      UnitTypeComponent(
-        type: UnitType.fire,
-        position: size / 2,
-        size: Vector2(size.y, size.y),
-      ),
-    );
-    add(
-      UnitTypeComponent(
-        type: UnitType.plant,
-        position: Vector2(size.x / 2 + size.y, size.y / 2),
-        size: Vector2(size.y, size.y),
-      ),
-    );
-
-    return super.onLoad();
-  }
-}
-
-class UnitTypeComponent extends PositionComponent with TapCallbacks {
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.CONTROLS_UNIT_TYPE_SELECTED,
+  final UnitType unitType;
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.fill,
   );
-  UnitType type;
 
-  UnitTypeComponent({
-    required this.type,
+  UnitSelectorComponent({
+    required this.player,
+    required this.unitType,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() {
-    borderPaint.strokeWidth = size.x / 20;
+    backgroundPaint.color = player.color.darken(0.3);
+
+    add(
+      UnitImageComponent(
+        player: player,
+        unitType: unitType,
+        position: Vector2(size.x / 2, size.y / 2),
+        size: size * 0.7,
+      ),
+    );
+
+    add(
+      UnitCostComponent(
+        player: player,
+        unitType: unitType,
+        position: Vector2(size.x * 0.85, size.y * 0.83),
+        size: Vector2(size.x * 0.3, size.y * 0.34),
+      ),
+    );
 
     return super.onLoad();
   }
 
   @override
-  void onTapUp(TapUpEvent event) {
-    if (match.match.isSelfPlaying) {
-      match.match.onSelectUnitType(type);
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(size.toRect(), backgroundPaint);
+  }
+}
+
+class UnitImageComponent extends SpriteComponent
+    with DragCallbacks
+    implements Reconfigurable {
+  final Player player;
+  final UnitType unitType;
+  bool isEnabled = false;
+  Vector2 initialPosition = Vector2(0, 0);
+  bool dragging = false;
+
+  UnitImageComponent({
+    required this.player,
+    required this.unitType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void reconfigure() {
+    isEnabled = match.match.canDeployUnit(unitType);
+  }
+
+  @override
+  FutureOr onLoad() async {
+    reconfigure();
+
+    sprite = await Sprite.load(unitType.thumbnail);
+    decorator.addLast(PaintDecorator.tint(player.color));
+
+    return super.onLoad();
+  }
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+
+    if (isEnabled) {
+      initialPosition.setFrom(position);
+      dragging = true;
     }
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    if (isEnabled) {
+      position += event.localDelta;
+      match.highlightNode(match.getLauncherAt(absolutePosition));
+    }
+  }
+
+  @override
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
+
+    if (isEnabled) {
+      final NodeComponent? nodeComponent = match.getLauncherAt(
+        absolutePosition,
+      );
+
+      if (nodeComponent != null) {
+        match.match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
+      }
+
+      position = initialPosition;
+      dragging = false;
+    }
+  }
+}
+
+class UnitCostComponent extends PositionComponent implements Reconfigurable {
+  final Player player;
+  final UnitType unitType;
+  bool isEnabled = false;
+
+  UnitCostComponent({
+    required this.player,
+    required this.unitType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void reconfigure() {
+    isEnabled = match.match.canDeployUnit(unitType);
+  }
+
+  @override
+  FutureOr onLoad() {
+    reconfigure();
+
+    return super.onLoad();
   }
 
   @override
@@ -156,43 +230,38 @@ class UnitTypeComponent extends PositionComponent with TapCallbacks {
     super.render(canvas);
 
     canvas.drawText(
-      text: type.emoji,
-      position: size / 2,
+      text: '${unitType.deploymentCost.toString()}🛢️',
+      position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 2.5,
-      color: Palette.MISSILE_INDICATOR_BACKGROUND,
+      color: Palette.CONTROLS_COST_FOREGROUND,
+      anchor: Anchor.centerRight,
     );
-
-    if (match.match.selectedUnitType == type) {
-      canvas.drawCircle((size / 2).toOffset(), size.x / 2.5, borderPaint);
-    }
   }
 }
 
-class PopcapCounterComponent extends PositionComponent
-    implements Reconfigurable {
+class PopcapComponent extends PositionComponent implements Reconfigurable {
   final Player player;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.MISSILE_INDICATOR_BACKGROUND,
+    color: Palette.CONTROLS_POPCAP_BACKGROUND,
   );
   final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint placeholderPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
   );
-  int popcap = 0;
-  int counter = 0;
+  int population = 0;
 
-  PopcapCounterComponent({
+  PopcapComponent({
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.topLeft) {
+    foregroundPaint.color = player.color;
+  }
 
   @override
   FutureOr onLoad() async {
-    popcap = match.match.config.popcap;
-    foregroundPaint.color = player.color;
     reconfigure();
 
     return super.onLoad();
@@ -200,19 +269,26 @@ class PopcapCounterComponent extends PositionComponent
 
   @override
   void reconfigure() {
-    counter = match.match.populationOf(player);
+    population = 0;
+
+    /*for (final Node node in match.match.battlefield.nodes) {
+      if (node.hasUnit && node.unit!.belongsTo(player)) {
+        population++;
+      }
+    }*/
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+    canvas.drawRect(size.toRect(), backgroundPaint);
 
     final double gap = size.x / 80;
+    const int popcap = Constants.POPCAP_LIMIT;
     final double blockSize = (width - gap * (popcap + 1)) / popcap;
 
-    for (int i = 0; i < counter; i++) {
+    for (int i = 0; i < population; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,
@@ -224,7 +300,7 @@ class PopcapCounterComponent extends PositionComponent
       );
     }
 
-    for (int i = counter; i < popcap; i++) {
+    for (int i = population; i < popcap; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,
@@ -238,46 +314,24 @@ class PopcapCounterComponent extends PositionComponent
   }
 }
 
-class EndTurnComponent extends PositionComponent with TapCallbacks {
+class ResourceComponent extends PositionComponent {
   final Player player;
-  final Paint backgroundPaintEnabled = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_END_TURN_BACKGROUND_ENABLED.darken(0.3),
-  );
-  final Paint backgroundPaintDisabled = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_END_TURN_BACKGROUND_DISABLED.darken(0.3),
-  );
 
-  EndTurnComponent({
+  ResourceComponent({
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center);
-
-  @override
-  void onTapUp(TapUpEvent event) => match.match.onEndTurn();
+  }) : super(anchor: Anchor.topLeft);
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (match.match.isSelfPlaying) {
-      canvas.drawRect(size.toRect(), backgroundPaintEnabled);
-      canvas.drawText(
-        text: 'END TURN',
-        position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 7,
-        color: Palette.CONTROLS_COST_FOREGROUND,
-      );
-    } else {
-      canvas.drawRect(size.toRect(), backgroundPaintDisabled);
-      canvas.drawText(
-        text: 'WAITING',
-        position: Vector2(size.x / 2, size.y / 2),
-        size: size.x / 7,
-        color: Palette.CONTROLS_COST_FOREGROUND,
-      );
-    }
+    canvas.drawText(
+      text: '${player.resources.floor().toString()}🛢️',
+      position: Vector2(size.x * 0.5, size.y * 0.2),
+      size: size.x / 5,
+      color: Palette.CONTROLS_COST_FOREGROUND,
+    );
   }
 }

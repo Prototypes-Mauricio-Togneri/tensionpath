@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/players/player.dart';
 
 class Dimensions {
   static Size cameraSize(Vector2 canvasSize) => Size(
@@ -12,114 +13,228 @@ class Dimensions {
     Constants.UI_HEIGHT,
   );
 
-  static Vector2 headerPosition(Size resolution) =>
-      Vector2(-resolution.width / 2, -resolution.height / 2);
-
-  static Vector2 headerSize(Size resolution) =>
-      Vector2(resolution.width, Constants.UI_HEADER_HEIGHT);
-
-  static Vector2 controlsPosition(Size resolution) => Vector2(
-    -resolution.width / 2,
-    (resolution.height / 2) - Constants.UI_CONTROLS_HEIGHT,
-  );
+  static Vector2 controlsPosition({
+    required Size resolution,
+    required bool isPlayer1,
+  }) {
+    if (isPlayer1) {
+      return Vector2(-resolution.width / 2, -resolution.height / 2);
+    } else {
+      return Vector2(
+        (resolution.width / 2) - controlsSize(resolution).x,
+        -resolution.height / 2,
+      );
+    }
+  }
 
   static Vector2 controlsSize(Size resolution) =>
-      Vector2(resolution.width, Constants.UI_CONTROLS_HEIGHT);
+      Vector2(resolution.height * 0.2, resolution.height);
 
-  static Vector2 controlsResourcesPosition(Vector2 size) =>
-      Vector2(size.x * 0.02, size.y / 2);
+  static Vector2 headerPosition({
+    required Size resolution,
+    required bool isPlayer1,
+  }) {
+    if (isPlayer1) {
+      return Vector2(
+        (-resolution.width / 2) + controlsSize(resolution).x,
+        -resolution.height / 2,
+      );
+    } else {
+      return Vector2(-resolution.width / 2, -resolution.height / 2);
+    }
+  }
 
-  static Vector2 controlsResourcesSize(Vector2 size) =>
-      Vector2(size.x * 0.3, size.y);
+  static Vector2 headerSize(Size resolution) => Vector2(
+    resolution.width - controlsSize(resolution).x,
+    resolution.height * 0.05,
+  );
 
-  static Vector2 controlsUnitTypesPosition(Vector2 size) =>
-      Vector2(size.x * 0.45, size.y * 0.35);
-
-  static Vector2 controlsUnitTypesSize(Vector2 size) =>
-      Vector2(size.x * 0.3, size.y * 0.6);
-
-  static Vector2 controlsPopcapPosition(Vector2 size) =>
-      Vector2(size.x * 0.45, size.y * 0.8);
-
-  static Vector2 controlsPopcapSize(Vector2 size) =>
-      Vector2(size.x * 0.3, size.y * 0.2);
-
-  static Vector2 controlsEndTurnPosition(Vector2 size) =>
-      Vector2(size.x * 0.86, size.y * 0.5);
-
-  static Vector2 controlsEndTurnSize(Vector2 size) =>
-      Vector2(size.x * 0.25, size.y * 0.8);
-
-  static Vector2 battlefieldPosition(Size resolution) {
-    final double maxOffset = max(
-      headerSize(resolution).y,
-      controlsSize(resolution).y,
-    );
-    final double minOffset = min(
-      headerSize(resolution).y,
-      controlsSize(resolution).y,
-    );
-    final double offset = (minOffset - maxOffset) / 2;
-
-    return Vector2(0, offset);
+  static Vector2 battlefieldPosition({
+    required Size resolution,
+    required bool isPlayer1,
+  }) {
+    if (isPlayer1) {
+      return Vector2(
+        (-resolution.width / 2) + controlsSize(resolution).x,
+        (-resolution.height / 2) + headerSize(resolution).y,
+      );
+    } else {
+      return Vector2(
+        -resolution.width / 2,
+        (-resolution.height / 2) + headerSize(resolution).y,
+      );
+    }
   }
 
   static Vector2 battlefieldSize(Size resolution) => Vector2(
-    resolution.width,
-    resolution.height - headerSize(resolution).y - controlsSize(resolution).y,
+    resolution.width - controlsSize(resolution).x,
+    resolution.height - headerSize(resolution).y,
   );
 
-  static Vector2 battlefildGridPosition(Vector2 size) => size / 2;
+  static Size maxNodeSizeWidth({
+    required Vector2 canvasSize,
+    required Battlefield battlefield,
+  }) {
+    final double maxWidth = canvasSize.x / battlefield.size.width;
 
-  static Vector2 battlefildGridSize(Vector2 size) => size * 0.95;
+    return Size(maxWidth, maxWidth / (sqrt(3) / 2));
+  }
 
-  static Vector2 fpsPosition(Viewport viewport) =>
-      Vector2(viewport.size.x * 0.89, viewport.size.y * 0.875);
+  static Size maxNodeSizeHeight({
+    required Vector2 canvasSize,
+    required Battlefield battlefield,
+  }) {
+    final double maxHeight =
+        canvasSize.y / ((battlefield.size.height * 3 / 4) + 0.25);
+
+    return Size(maxHeight * (sqrt(3) / 2), maxHeight);
+  }
+
+  static Size nodeSize({
+    required Vector2 canvasSize,
+    required Battlefield battlefield,
+  }) {
+    final Size maxSizeWidth = maxNodeSizeWidth(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
+    );
+    final Size maxHeightWidth = maxNodeSizeHeight(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
+    );
+
+    return (maxSizeWidth.width > maxHeightWidth.width)
+        ? maxHeightWidth
+        : maxSizeWidth;
+  }
 
   static Vector2 nodePosition({
-    required Vector2 nodeSize,
+    required Size nodeSize,
     required Location location,
-  }) {
-    final double x = location.x * (3 / 4);
-    final double y = (location.x / 2) + location.y;
+  }) => Vector2(
+    nodeSize.width * ((location.y / 2) + location.x),
+    nodeSize.height * 3 / 4 * location.y,
+  );
 
-    return Vector2(x * nodeSize.x, y * nodeSize.y);
+  static Vector2 battlefildGridSize(Vector2 containerSize) {
+    final double padding = containerSize.y * 0.05;
+
+    return Vector2(containerSize.x - padding, containerSize.y - padding);
   }
 
-  static Vector2 nodeSize({
-    required Vector2 size,
+  static Vector2 battlefieldBackgroundSize({
+    required Vector2 canvasSize,
+    required Vector2 imageSize,
+    required Vector2 gridSize,
     required Battlefield battlefield,
   }) {
-    final Vector2 maxSizeWidth = _maxNodeSizeWidth(
-      size: size,
+    final double ratio = imageSize.x / imageSize.y;
+
+    final Size maxSizeWidth = maxNodeSizeWidth(
+      canvasSize: canvasSize,
       battlefield: battlefield,
     );
-    final Vector2 maxSizeHeight = _maxNodeSizeHeight(
-      size: size,
+    final Size maxHeightWidth = maxNodeSizeHeight(
+      canvasSize: canvasSize,
       battlefield: battlefield,
     );
 
-    return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
+    if (maxSizeWidth.width > maxHeightWidth.width) {
+      final double backgroundHeightAdjusted =
+          gridSize.y / battlefield.gridRatio.height;
+      final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
+
+      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
+    } else {
+      final double backgroundWidthAdjusted =
+          gridSize.x / battlefield.gridRatio.width;
+      final double backgroundHeightAdjusted = backgroundWidthAdjusted / ratio;
+
+      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
+    }
   }
 
-  static double get hexagonWidthHeightRatio => sqrt(3) / 2;
+  static double controlsGapSize(Vector2 size) => size.x * 0.07;
 
-  static Vector2 _maxNodeSizeWidth({
-    required Vector2 size,
-    required Battlefield battlefield,
-  }) {
-    final double maxWidth = size.x / (3 / 4 * (battlefield.size.width - 1) + 1);
+  static Vector2 controlsPopcapSize(Vector2 size) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+    final double width = size.x - (gapSize * 2);
 
-    return Vector2(maxWidth, maxWidth * hexagonWidthHeightRatio);
+    return Vector2(width, width / 10);
   }
 
-  static Vector2 _maxNodeSizeHeight({
+  static Vector2 controlsPopcapPosition({
     required Vector2 size,
-    required Battlefield battlefield,
+    required Vector2 cardSize,
+    required int numberOfCards,
   }) {
-    final double maxHeight = size.y / battlefield.size.height;
+    final double gapSize = Dimensions.controlsGapSize(size);
 
-    return Vector2(maxHeight / hexagonWidthHeightRatio, maxHeight);
+    return Vector2(
+      gapSize,
+      ((numberOfCards - 2) * cardSize.y) + (gapSize * (numberOfCards - 1)),
+    );
+  }
+
+  static Vector2 controlsCardSize({
+    required Vector2 size,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+    final double cardWidth = size.x - (gapSize * 2);
+    final double cardHeight =
+        (size.y -
+            controlsPopcapSize(size).y -
+            gapSize -
+            (gapSize * (numberOfCards + 1))) /
+        numberOfCards;
+
+    return Vector2(cardWidth, cardHeight);
+  }
+
+  static Vector2 controlsUnitCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int i,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize + (cardSize.x / 2),
+      ((i + 0.5) * cardSize.y) + ((i + 1) * gapSize),
+    );
+  }
+
+  static Vector2 controlsResourcesCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize,
+      ((numberOfCards - 2) * cardSize.y) +
+          (gapSize * (numberOfCards - 1)) +
+          controlsPopcapSize(size).y +
+          gapSize,
+    );
+  }
+
+  static Vector2 controlsEndTurnCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int numberOfCards,
+  }) {
+    final double gapSize = Dimensions.controlsGapSize(size);
+
+    return Vector2(
+      gapSize,
+      ((numberOfCards - 1) * cardSize.y) +
+          (gapSize * numberOfCards) +
+          controlsPopcapSize(size).y +
+          gapSize,
+    );
   }
 
   static bool pointInHexagon({required Vector2 point, required Vector2 size}) {
@@ -127,4 +242,12 @@ class Dimensions {
 
     return fromCenter.length < size.x * 0.42;
   }
+
+  static Vector2 fpsPosition({
+    required Player player1,
+    required Viewport viewport,
+  }) => Vector2(
+    player1.isSelf ? (viewport.size.x - (viewport.size.x * 0.06)) : 20,
+    viewport.size.y - (viewport.size.y * 0.05),
+  );
 }
