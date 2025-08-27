@@ -44,10 +44,8 @@ class MissileIndicatorComponent extends PositionComponent {
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_BACKGROUND,
   );
-  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
-  final Paint placeholderPaint = Palette.paint(
+  final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
   );
 
   MissileIndicatorComponent({
@@ -80,33 +78,5 @@ class MissileIndicatorComponent extends PositionComponent {
 
     final double filled = (width * jsonMissile.charge) / jsonMissile.maxCharge;
     canvas.drawRect(Rect.fromLTWH(0, 0, filled, height), foregroundPaint);
-
-    /*final double gap = size.x / 80;
-    final double blockSize =
-        (width - gap * (jsonMissile.maxCharge + 1)) / jsonMissile.maxCharge;
-
-    for (int i = 0; i < jsonMissile.charge; i++) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          gap + (blockSize + gap) * i,
-          gap,
-          blockSize,
-          height - (gap * 2),
-        ),
-        foregroundPaint,
-      );
-    }
-
-    for (int i = jsonMissile.charge; i < jsonMissile.maxCharge; i++) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          gap + (blockSize + gap) * i,
-          gap,
-          blockSize,
-          height - (gap * 2),
-        ),
-        placeholderPaint,
-      );
-    }*/
   }
 }
