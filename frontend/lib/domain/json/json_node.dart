@@ -2,25 +2,23 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_structure.dart';
 
 part 'json_node.g.dart';
 
 @JsonSerializable()
 class JsonNode {
-  @JsonKey(name: 'x')
-  final int x;
-
-  @JsonKey(name: 'y')
-  final int y;
+  @JsonKey(name: 'position')
+  final JsonPosition position;
 
   @JsonKey(name: 'structure')
   final JsonStructure? structure;
 
-  const JsonNode({required this.x, required this.y, required this.structure});
+  const JsonNode({required this.position, required this.structure});
 
   Node object(List<Player> players) {
-    final Location location = Location(x: x, y: y);
+    final Location location = Location(x: position.x, y: position.y);
 
     return Node(
       location: location,

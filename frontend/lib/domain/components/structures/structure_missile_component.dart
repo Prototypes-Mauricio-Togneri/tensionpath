@@ -3,36 +3,43 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
-import 'package:tensionpath/domain/entities/structures/structure_missile.dart';
+import 'package:tensionpath/domain/json/json_missile.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class StructureMissileComponent extends StructureComponent<StructureMissile> {
+class StructureMissileComponent extends SpriteComponent {
+  late final MissileIndicatorComponent missileIndicator;
+
   StructureMissileComponent({
-    required super.structure,
     required super.position,
     required super.size,
-  });
+    required JsonMissile jsonMissile,
+  }) : super(
+         anchor: Anchor.center,
+         priority: Priority.structure.value,
+       ) {
+    missileIndicator = MissileIndicatorComponent(
+      position: size / 2,
+      size: Vector2(size.x * 0.7, size.y * 0.08),
+      jsonMissile: jsonMissile,
+    );
+  }
+
+  void reconfigure(JsonMissile json) => missileIndicator.reconfigure(json);
 
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
 
-    add(
-      MissileIndicatorComponent(
-        position: size / 2,
-        size: Vector2(size.x * 0.7, size.y * 0.08),
-      ),
-    );
+    add(missileIndicator);
 
     return super.onLoad();
   }
 }
 
-class MissileIndicatorComponent extends PositionComponent
-    implements Reconfigurable {
+class MissileIndicatorComponent extends PositionComponent {
+  JsonMissile jsonMissile;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_BACKGROUND,
@@ -43,19 +50,16 @@ class MissileIndicatorComponent extends PositionComponent
     color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
   );
 
-  MissileIndicatorComponent({required super.position, required super.size})
-    : super(anchor: Anchor.center);
+  MissileIndicatorComponent({
+    required super.position,
+    required super.size,
+    required this.jsonMissile,
+  }) : super(anchor: Anchor.center);
 
-  @override
-  FutureOr onLoad() async {
-    reconfigure();
+  void reconfigure(JsonMissile json) {
+    jsonMissile = json;
 
-    return super.onLoad();
-  }
-
-  @override
-  void reconfigure() {
-    const String? owner = null;
+    final String? owner = json.owner;
 
     if (owner == null) {
       foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
@@ -74,11 +78,14 @@ class MissileIndicatorComponent extends PositionComponent
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
+    final double filled = (width * jsonMissile.charge) / jsonMissile.maxCharge;
+    canvas.drawRect(Rect.fromLTWH(0, 0, filled, height), foregroundPaint);
+
     /*final double gap = size.x / 80;
     final double blockSize =
-        (width - gap * (missile.maxCharge + 1)) / missile.maxCharge;
+        (width - gap * (jsonMissile.maxCharge + 1)) / jsonMissile.maxCharge;
 
-    for (int i = 0; i < missile.charge; i++) {
+    for (int i = 0; i < jsonMissile.charge; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,
@@ -90,7 +97,7 @@ class MissileIndicatorComponent extends PositionComponent
       );
     }
 
-    for (int i = missile.charge; i < missile.maxCharge; i++) {
+    for (int i = jsonMissile.charge; i < jsonMissile.maxCharge; i++) {
       canvas.drawRect(
         Rect.fromLTWH(
           gap + (blockSize + gap) * i,

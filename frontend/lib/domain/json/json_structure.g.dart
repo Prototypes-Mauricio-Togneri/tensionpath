@@ -29,6 +29,5 @@ Map<String, dynamic> _$JsonStructureToJson(JsonStructure instance) =>
 const _$StructureTypeEnumMap = {
   StructureType.resources: 'resources',
   StructureType.launcher: 'launcher',
-  StructureType.missile: 'missile',
   StructureType.pad: 'pad',
 };

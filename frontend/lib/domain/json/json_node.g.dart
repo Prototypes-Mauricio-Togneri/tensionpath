@@ -9,8 +9,10 @@ part of 'json_node.dart';
 JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonNode', json, ($checkedConvert) {
       final val = JsonNode(
-        x: $checkedConvert('x', (v) => (v as num).toInt()),
-        y: $checkedConvert('y', (v) => (v as num).toInt()),
+        position: $checkedConvert(
+          'position',
+          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+        ),
         structure: $checkedConvert(
           'structure',
           (v) => v == null
@@ -22,7 +24,6 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) =>
     });
 
 Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
-  'x': instance.x,
-  'y': instance.y,
+  'position': instance.position.toJson(),
   'structure': ?instance.structure?.toJson(),
 };
