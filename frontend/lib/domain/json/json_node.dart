@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_launcher.dart';
+import 'package:tensionpath/domain/json/json_missile.dart';
+import 'package:tensionpath/domain/json/json_pad.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
-import 'package:tensionpath/domain/json/json_structure.dart';
+import 'package:tensionpath/domain/json/json_resources.dart';
 
 part 'json_node.g.dart';
 
@@ -12,19 +12,25 @@ class JsonNode {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  @JsonKey(name: 'structure')
-  final JsonStructure? structure;
+  @JsonKey(name: 'resources')
+  final JsonResources? resources;
 
-  const JsonNode({required this.position, required this.structure});
+  @JsonKey(name: 'missile')
+  final JsonMissile? missile;
 
-  Node object(List<Player> players) {
-    final Location location = Location(x: position.x, y: position.y);
+  @JsonKey(name: 'pad')
+  final JsonPad? pad;
 
-    return Node(
-      location: location,
-      structure: structure?.object(location: location, players: players),
-    );
-  }
+  @JsonKey(name: 'launcher')
+  final JsonLauncher? launcher;
+
+  const JsonNode({
+    required this.position,
+    required this.resources,
+    required this.missile,
+    required this.pad,
+    required this.launcher,
+  });
 
   factory JsonNode.fromJson(Map<String, dynamic> json) =>
       _$JsonNodeFromJson(json);

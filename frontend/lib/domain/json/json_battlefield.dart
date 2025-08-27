@@ -30,7 +30,7 @@ class JsonBattlefield {
 
   Battlefield object(List<Player> players) => Battlefield(
     id: id,
-    nodes: nodes.map((node) => node.object(players)).toList(),
+    nodes: [],
     size: size.object,
     gridRatio: gridRatio.object,
   );

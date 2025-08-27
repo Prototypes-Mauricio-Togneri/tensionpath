@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
-import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
-class StructureResourcesComponent
-    extends StructureComponent<StructureResources> {
+class StructureResourcesComponent extends SpriteComponent {
   StructureResourcesComponent({
-    required super.structure,
     required super.position,
     required super.size,
-  });
+  }) : super(anchor: Anchor.center, priority: Priority.structure.value);
 
   @override
   FutureOr onLoad() async {

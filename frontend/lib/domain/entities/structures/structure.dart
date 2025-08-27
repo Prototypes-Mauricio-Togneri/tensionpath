@@ -4,7 +4,6 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
-import 'package:tensionpath/domain/entities/structures/structure_resources.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 abstract class Structure {
@@ -37,8 +36,6 @@ abstract class Structure {
     switch (structureType) {
       case StructureType.launcher:
         return StructureLauncher(location: location, player: player!);
-      case StructureType.resources:
-        return StructureResources(location: location);
       case StructureType.pad:
         return StructurePad(location: location, platformId: platformId!);
     }
