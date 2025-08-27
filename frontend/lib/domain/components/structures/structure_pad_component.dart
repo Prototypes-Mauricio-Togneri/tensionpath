@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
+import 'package:tensionpath/utils/assets.dart';
 
 class StructurePadComponent extends StructureComponent<StructurePad>
     implements Reconfigurable {
@@ -19,9 +21,9 @@ class StructurePadComponent extends StructureComponent<StructurePad>
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_2);
     } else if (platform.owner == '') {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_CONTESTED);
-    } else if (platform.owner == null) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_NEUTRAL);
-    }*/
+    } else if (platform.owner == null) {*/
+    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_NEUTRAL);
+    //}
   }
 
   @override

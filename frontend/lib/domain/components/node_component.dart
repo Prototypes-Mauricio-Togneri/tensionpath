@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
+import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -15,9 +17,8 @@ class NodeComponent<N extends Node> extends PositionComponent
     implements Reconfigurable {
   final N node;
   NodeHighlitedComponent? _nodeHighlitedComponent;
-  //UnitComponent? _unitComponent;
-  //StructureComponent? _structureComponent;
-  //FogComponent? _fogComponent;
+  StructureComponent? _structureComponent;
+  FogComponent? _fogComponent;
 
   NodeComponent({
     required this.node,
@@ -77,7 +78,7 @@ class NodeComponent<N extends Node> extends PositionComponent
 
   @override
   void reconfigure() {
-    /*if (node.hasStructure && (_structureComponent == null)) {
+    if (node.hasStructure && (_structureComponent == null)) {
       _structureComponent = node.structure!.component(
         position: size / 2,
         size: size,
@@ -93,24 +94,7 @@ class NodeComponent<N extends Node> extends PositionComponent
         match.remove(_fogComponent!);
         _fogComponent = null;
       }
-
-      if (node.hasUnit && (_unitComponent == null)) {
-        _unitComponent = node.unit!.component(
-          node: node,
-          position: absolutePosition,
-          size: size / 1.5,
-        );
-        match.add(_unitComponent!);
-      } else if (!node.hasUnit && (_unitComponent != null)) {
-        match.remove(_unitComponent!);
-        _unitComponent = null;
-      }
     } else {
-      if (_unitComponent != null) {
-        match.remove(_unitComponent!);
-        _unitComponent = null;
-      }
-
       if (_fogComponent == null) {
         _fogComponent = _fogComponent = FogComponent(
           position: absolutePosition,
@@ -118,7 +102,7 @@ class NodeComponent<N extends Node> extends PositionComponent
         );
         match.add(_fogComponent!);
       }
-    }*/
+    }
   }
 
   /*@override
@@ -156,29 +140,5 @@ class NodeHighlitedComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
     canvas.drawHexagon(size: size, borderPaint: highlightedPaint);
-  }
-}
-
-class NodeSelectedComponent extends PositionComponent {
-  final Paint selectedPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.NODE_BORDER,
-    strokeCap: StrokeCap.round,
-    strokeJoin: StrokeJoin.round,
-  );
-
-  NodeSelectedComponent({
-    required super.position,
-    required super.size,
-    required Color color,
-  }) : super(anchor: Anchor.center) {
-    selectedPaint.strokeWidth = size.x / 20;
-    selectedPaint.color = color;
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-    canvas.drawHexagon(size: size, borderPaint: selectedPaint);
   }
 }
