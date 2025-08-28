@@ -1,16 +1,12 @@
 # TODO
 
-- When passing turn, block button immediately
+- Snapshot update
+- Dart compile
+- Try new fog clip
 - Add changelog to home screen
-- Allow to move but show error if not enough resources
-- Allow move up to 3 nodes
-- Tooltip unit info
 - Choose map
-- Play sound when turn ends
-
-- Buy unit and assign it to slot
 - Implement unit ability deployment
-- Max 2 haversters
-- Harverster kill reward
-- New harverster free
+- Max 2 harvesters
+- Harvester kill reward
+- New harvester free
 - Commanders abilities
