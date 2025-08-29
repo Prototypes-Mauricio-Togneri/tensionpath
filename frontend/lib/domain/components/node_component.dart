@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -18,7 +17,6 @@ class NodeComponent<N extends Node> extends PositionComponent
   final N node;
   NodeHighlitedComponent? _nodeHighlitedComponent;
   StructureComponent? _structureComponent;
-  FogComponent? _fogComponent;
 
   NodeComponent({
     required this.node,
@@ -87,21 +85,6 @@ class NodeComponent<N extends Node> extends PositionComponent
     } else if (!node.hasStructure && (_structureComponent != null)) {
       remove(_structureComponent!);
       _structureComponent = null;
-    }
-
-    if (node.isRevealed) {
-      if (_fogComponent != null) {
-        match.remove(_fogComponent!);
-        _fogComponent = null;
-      }
-    } else {
-      if (_fogComponent == null) {
-        _fogComponent = _fogComponent = FogComponent(
-          position: absolutePosition,
-          size: size,
-        );
-        match.add(_fogComponent!);
-      }
     }
   }
 

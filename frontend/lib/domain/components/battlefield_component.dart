@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -48,6 +47,13 @@ class BattlefieldComponent extends PositionComponent {
       ),
     );
 
+    add(
+      FogComponent(
+        position: size / 2,
+        size: size,
+      ),
+    );
+
     return super.onLoad();
   }
 }
@@ -65,7 +71,7 @@ class BattlefieldGridComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final Size nodeSize = Dimensions.nodeSize(
+    /*final Size nodeSize = Dimensions.nodeSize(
       canvasSize: size,
       battlefield: battlefield,
     );
@@ -90,7 +96,7 @@ class BattlefieldGridComponent extends PositionComponent {
 
         existingNodes.add(node.id);
       }
-    }
+    }*/
 
     return super.onLoad();
   }

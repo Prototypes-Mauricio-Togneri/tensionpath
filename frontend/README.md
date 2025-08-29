@@ -2,7 +2,6 @@
 
 - Snapshot update
 - Dart compile
-- Try new fog clip
 - Add changelog to home screen
 - Choose map
 - Implement unit ability deployment

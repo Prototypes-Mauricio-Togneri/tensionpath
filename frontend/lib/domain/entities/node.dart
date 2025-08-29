@@ -10,7 +10,6 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 class Node implements Localizable {
   final Location location;
   Structure? _structure;
-  bool _isRevealed = false;
 
   Node({required this.location, required Structure? structure}) {
     _structure = structure;
@@ -29,14 +28,8 @@ class Node implements Localizable {
 
   bool get hasLauncher => _structure?.type == StructureType.launcher;
 
-  bool get isRevealed => _isRevealed;
-
   @override
   Location get getLocation => location;
-
-  void setRevealed(bool value) {
-    _isRevealed = value;
-  }
 
   bool isDeploymentTarget(Player self) {
     final bool isLauncher = hasLauncher;

@@ -38,6 +38,7 @@ class Palette {
     double? strokeWidth,
     StrokeCap? strokeCap,
     StrokeJoin? strokeJoin,
+    BlendMode? blendMode,
   }) {
     final Paint paint = Paint();
 
@@ -59,6 +60,10 @@ class Palette {
 
     if (strokeJoin != null) {
       paint.strokeJoin = strokeJoin;
+    }
+
+    if (blendMode != null) {
+      paint.blendMode = blendMode;
     }
 
     return paint;
