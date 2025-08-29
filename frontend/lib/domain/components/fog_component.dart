@@ -21,7 +21,7 @@ class FogComponent extends PositionComponent {
          priority: Priority.fog.value,
        );
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -44,5 +44,5 @@ class FogComponent extends PositionComponent {
     }
 
     canvas.restore();
-  }
+  }*/
 }
