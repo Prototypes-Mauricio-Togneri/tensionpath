@@ -37,12 +37,7 @@ class BattlefieldComponent extends PositionComponent {
       BattlefieldBackgroundComponent(
         sprite: sprite,
         position: mapCenter,
-        size: Dimensions.battlefieldBackgroundSize(
-          canvasSize: size,
-          imageSize: sprite.originalSize,
-          gridSize: Dimensions.battlefieldGridSize(size),
-          battlefield: battlefield,
-        ),
+        size: sprite.originalSize,
       ),
     );
 
