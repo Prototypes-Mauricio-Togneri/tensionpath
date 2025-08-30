@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_platform.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_resource.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -68,28 +69,25 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     final MissileComponent missileComponent = MissileComponent(
-      jsonMissile: battlefield.missile,
       position: Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
         position: battlefield.missile.position,
       ),
       size: nodeSize,
+      missile: battlefield.missile,
     );
     add(missileComponent);
 
-    for (final MapEntry<String, List<JsonPosition>> platform
-        in battlefield.missile.platforms.entries) {
-      final String platformId = platform.key;
-
-      for (final JsonPosition position in platform.value) {
+    for (final JsonPlatform platform in battlefield.missile.platforms) {
+      for (final JsonPosition position in platform.pads) {
         final Vector2 nodePosition = Dimensions.nodePosition(
           center: mapCenter,
           nodeSize: nodeSize,
           position: position,
         );
         final PadComponent padComponent = PadComponent(
-          platformId: platformId,
+          platformId: platform.id,
           position: nodePosition,
           size: nodeSize,
         );

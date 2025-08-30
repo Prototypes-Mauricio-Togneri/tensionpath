@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/json_platform.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 
 part 'json_missile.g.dart';
@@ -7,6 +8,9 @@ part 'json_missile.g.dart';
 class JsonMissile {
   @JsonKey(name: 'position')
   final JsonPosition position;
+
+  @JsonKey(name: 'owner')
+  final String? owner;
 
   @JsonKey(name: 'chargeCurrent')
   final double chargeCurrent;
@@ -18,10 +22,11 @@ class JsonMissile {
   final double chargeBuffer;
 
   @JsonKey(name: 'platforms')
-  final Map<String, List<JsonPosition>> platforms;
+  final List<JsonPlatform> platforms;
 
   const JsonMissile({
     required this.position,
+    required this.owner,
     required this.chargeCurrent,
     required this.chargeMax,
     required this.chargeBuffer,

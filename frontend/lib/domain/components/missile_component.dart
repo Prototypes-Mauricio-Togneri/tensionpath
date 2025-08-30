@@ -11,9 +11,9 @@ class MissileComponent extends SpriteComponent {
   late final MissileIndicatorComponent missileIndicator;
 
   MissileComponent({
-    required JsonMissile jsonMissile,
     required super.position,
     required super.size,
+    required JsonMissile missile,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
@@ -21,14 +21,18 @@ class MissileComponent extends SpriteComponent {
     missileIndicator = MissileIndicatorComponent(
       position: size / 2,
       size: Vector2(size.x * 0.7, size.y * 0.08),
-      jsonMissile: jsonMissile,
+      chargeCurrent: missile.chargeCurrent,
+      chargeMax: missile.chargeMax,
+      chargeBuffer: missile.chargeBuffer,
+      owner: missile.owner,
     );
   }
+
+  void refresh(JsonMissile missile) => missileIndicator.refresh(missile);
 
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
-
     add(missileIndicator);
 
     return super.onLoad();
@@ -36,7 +40,6 @@ class MissileComponent extends SpriteComponent {
 }
 
 class MissileIndicatorComponent extends PositionComponent {
-  JsonMissile jsonMissile;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_BACKGROUND,
@@ -44,17 +47,25 @@ class MissileIndicatorComponent extends PositionComponent {
   final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
+  double chargeCurrent;
+  double chargeMax;
+  double chargeBuffer;
+  String? owner;
 
   MissileIndicatorComponent({
     required super.position,
     required super.size,
-    required this.jsonMissile,
+    required this.chargeCurrent,
+    required this.chargeMax,
+    required this.chargeBuffer,
+    required this.owner,
   }) : super(anchor: Anchor.center);
 
-  void reconfigure(JsonMissile json) {
-    jsonMissile = json;
-
-    const String? owner = '';
+  void refresh(JsonMissile missile) {
+    chargeCurrent = missile.chargeCurrent;
+    chargeMax = missile.chargeMax;
+    chargeBuffer = missile.chargeBuffer;
+    owner = missile.owner;
 
     if (owner == '') {
       foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
@@ -66,13 +77,23 @@ class MissileIndicatorComponent extends PositionComponent {
   }
 
   @override
+  void update(double dt) {
+    if (owner == '') {
+      if (chargeCurrent > chargeBuffer) {
+        chargeCurrent -= dt;
+      }
+    } else if (owner != null) {
+      chargeCurrent += dt;
+    }
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
-    final double filled =
-        (width * jsonMissile.chargeCurrent) / jsonMissile.chargeMax;
+    final double filled = (width * chargeCurrent) / chargeMax;
     canvas.drawRect(Rect.fromLTWH(0, 0, filled, height), foregroundPaint);
   }
 }
