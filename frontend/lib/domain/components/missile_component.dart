@@ -44,6 +44,11 @@ class MissileIndicatorComponent extends PositionComponent {
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_BACKGROUND,
   );
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    strokeWidth: 3,
+    color: Palette.MISSILE_INDICATOR_BORDERR,
+  );
   final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
@@ -95,5 +100,7 @@ class MissileIndicatorComponent extends PositionComponent {
 
     final double filled = (width * chargeCurrent) / chargeMax;
     canvas.drawRect(Rect.fromLTWH(0, 0, filled, height), foregroundPaint);
+
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderPaint);
   }
 }

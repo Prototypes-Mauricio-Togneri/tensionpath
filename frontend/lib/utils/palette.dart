@@ -28,7 +28,7 @@ class Palette {
   static const Color MISSILE_OWNER_NONE = Colors.grey;
   static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);
   static const Color MISSILE_INDICATOR_BACKGROUND = Colors.white;
-  static const Color MISSILE_INDICATOR_PLACEHOLDER = Color(0xffdddddd);
+  static const Color MISSILE_INDICATOR_BORDERR = Color(0xffdddddd);
 
   static Paint paint({
     PaintingStyle? style,
