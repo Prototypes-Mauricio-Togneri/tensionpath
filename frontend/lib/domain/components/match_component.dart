@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
@@ -9,7 +8,7 @@ import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
-  final Size resolution;
+  final Vector2 resolution;
   final JsonMatch match;
 
   MatchComponent({

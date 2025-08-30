@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
@@ -7,112 +6,110 @@ import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 
 class Dimensions {
-  static Size cameraSize(Vector2 canvasSize) => Size(
+  static Vector2 cameraSize(Vector2 canvasSize) => Vector2(
     (canvasSize.x * Constants.UI_HEIGHT / canvasSize.y).round().toDouble(),
     Constants.UI_HEIGHT,
   );
 
   static Vector2 controlsPosition({
-    required Size resolution,
+    required Vector2 resolution,
     required bool isPlayer1,
   }) {
     if (isPlayer1) {
-      return Vector2(-resolution.width / 2, -resolution.height / 2);
+      return Vector2(-resolution.x / 2, -resolution.y / 2);
     } else {
       return Vector2(
-        (resolution.width / 2) - controlsSize(resolution).x,
-        -resolution.height / 2,
+        (resolution.x / 2) - controlsSize(resolution).x,
+        -resolution.y / 2,
       );
     }
   }
 
-  static Vector2 controlsSize(Size resolution) =>
-      Vector2(resolution.height * 0.2, resolution.height);
+  static Vector2 controlsSize(Vector2 resolution) =>
+      Vector2(resolution.y * 0.2, resolution.y);
 
   static Vector2 headerPosition({
-    required Size resolution,
+    required Vector2 resolution,
     required bool isPlayer1,
   }) {
     if (isPlayer1) {
       return Vector2(
-        (-resolution.width / 2) + controlsSize(resolution).x,
-        -resolution.height / 2,
+        (-resolution.x / 2) + controlsSize(resolution).x,
+        -resolution.y / 2,
       );
     } else {
-      return Vector2(-resolution.width / 2, -resolution.height / 2);
+      return Vector2(-resolution.x / 2, -resolution.y / 2);
     }
   }
 
-  static Vector2 headerSize(Size resolution) => Vector2(
-    resolution.width - controlsSize(resolution).x,
-    resolution.height * 0.05,
+  static Vector2 headerSize(Vector2 resolution) => Vector2(
+    resolution.x - controlsSize(resolution).x,
+    resolution.y * 0.05,
   );
 
   static Vector2 battlefieldPosition({
-    required Size resolution,
+    required Vector2 resolution,
     required bool isPlayer1,
   }) {
     if (isPlayer1) {
       return Vector2(
-        (-resolution.width / 2) + controlsSize(resolution).x,
-        (-resolution.height / 2) + headerSize(resolution).y,
+        (-resolution.x / 2) + controlsSize(resolution).x,
+        (-resolution.y / 2) + headerSize(resolution).y,
       );
     } else {
       return Vector2(
-        -resolution.width / 2,
-        (-resolution.height / 2) + headerSize(resolution).y,
+        -resolution.x / 2,
+        (-resolution.y / 2) + headerSize(resolution).y,
       );
     }
   }
 
-  static Vector2 battlefieldSize(Size resolution) => Vector2(
-    resolution.width - controlsSize(resolution).x,
-    resolution.height - headerSize(resolution).y,
+  static Vector2 battlefieldSize(Vector2 resolution) => Vector2(
+    resolution.x - controlsSize(resolution).x,
+    resolution.y - headerSize(resolution).y,
   );
 
-  static Size maxNodeSizeWidth({
+  static Vector2 maxNodeSizeWidth({
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
     final double maxWidth = canvasSize.x / battlefield.size.width;
 
-    return Size(maxWidth, maxWidth / (sqrt(3) / 2));
+    return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
   }
 
-  static Size maxNodeSizeHeight({
+  static Vector2 maxNodeSizeHeight({
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
     final double maxHeight =
         canvasSize.y / ((battlefield.size.height * 3 / 4) + 0.25);
 
-    return Size(maxHeight * (sqrt(3) / 2), maxHeight);
+    return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
   }
 
-  static Size nodeSize({
+  static Vector2 nodeSize({
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
-    final Size maxSizeWidth = maxNodeSizeWidth(
+    final Vector2 maxSizeWidth = maxNodeSizeWidth(
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
-    final Size maxSizeHeight = maxNodeSizeHeight(
+    final Vector2 maxSizeHeight = maxNodeSizeHeight(
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
 
-    return (maxSizeWidth.width > maxSizeHeight.width)
-        ? maxSizeHeight
-        : maxSizeWidth;
+    return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
   }
 
   static Vector2 nodePosition({
-    required Size nodeSize,
+    required Vector2 nodeSize,
     required JsonPosition position,
   }) => Vector2(
-    nodeSize.width * ((position.y / 2) + position.x),
-    nodeSize.height * 3 / 4 * position.y,
+    nodeSize.x * ((position.y / 2) + position.x),
+    nodeSize.y * 3 / 4 * position.y,
   );
 
   static Vector2 battlefildGridSize(Vector2 containerSize) =>
@@ -126,16 +123,16 @@ class Dimensions {
   }) {
     final double ratio = imageSize.x / imageSize.y;
 
-    final Size maxSizeWidth = maxNodeSizeWidth(
+    final Vector2 maxSizeWidth = maxNodeSizeWidth(
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
-    final Size maxHeightWidth = maxNodeSizeHeight(
+    final Vector2 maxHeightWidth = maxNodeSizeHeight(
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
 
-    if (maxSizeWidth.width > maxHeightWidth.width) {
+    if (maxSizeWidth.x > maxHeightWidth.x) {
       final double backgroundHeightAdjusted =
           gridSize.y / battlefield.gridRatio.height;
       final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;

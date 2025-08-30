@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flame/components.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_ratio.g.dart';
@@ -14,7 +13,7 @@ class JsonRatio {
 
   const JsonRatio({required this.width, required this.height});
 
-  Size get object => Size(width, height);
+  Vector2 get object => Vector2(width, height);
 
   factory JsonRatio.fromJson(Map<String, dynamic> json) =>
       _$JsonRatioFromJson(json);

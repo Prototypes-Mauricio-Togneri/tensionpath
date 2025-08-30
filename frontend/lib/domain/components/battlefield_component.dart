@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -25,7 +24,7 @@ class BattlefieldComponent extends PositionComponent {
     final Sprite sprite = await Sprite.load(
       Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
     );
-    final Size nodeSize = Dimensions.nodeSize(
+    final Vector2 nodeSize = Dimensions.nodeSize(
       canvasSize: size,
       battlefield: battlefield,
     );
@@ -52,7 +51,7 @@ class BattlefieldComponent extends PositionComponent {
 
       final ResourceComponent resourceComponent = ResourceComponent(
         position: Vector2(mapCenter.x + position.x, mapCenter.y + position.y),
-        size: Vector2(nodeSize.height, nodeSize.height),
+        size: Vector2(nodeSize.y, nodeSize.y),
       );
       add(resourceComponent);
     }

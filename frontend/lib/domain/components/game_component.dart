@@ -17,7 +17,7 @@ class GameComponent extends FlameGame {
 
   @override
   FutureOr onLoad() {
-    final Size resolution = Dimensions.cameraSize(canvasSize);
+    final Vector2 resolution = Dimensions.cameraSize(canvasSize);
 
     world = MatchComponent(
       resolution: resolution,
@@ -25,8 +25,8 @@ class GameComponent extends FlameGame {
     );
 
     camera = CameraComponent.withFixedResolution(
-      width: resolution.width,
-      height: resolution.height,
+      width: resolution.x,
+      height: resolution.y,
     );
 
     add(
