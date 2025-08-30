@@ -64,6 +64,7 @@ class BattlefieldComponent extends PositionComponent {
       final ResourceComponent resourceComponent = ResourceComponent(
         position: position,
         size: nodeSize,
+        resource: resource,
       );
       add(resourceComponent);
     }
