@@ -14,16 +14,12 @@ class Palette {
   static const Color HEADER_INDICATOR_BACKGROUND = Color(0xff555555);
 
   static const Color CONTROLS_COST_FOREGROUND = Colors.white;
-  static const Color CONTROLS_COST_BACKGROUND = Color(0x77000000);
-  static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
 
   static const Color NODE_BORDER = Color(0x30aaaaaa);
   static const Color NODE_FOG = Color(0x88000000);
 
   static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
   static const Color UNIT_HEALTH_BORDER = Colors.white;
-  static const Color UNIT_INDICATOR_BACKGROUND = Colors.black;
-  static const Color UNIT_INDICATOR_FOREGROUND = Colors.white;
 
   static const Color MISSILE_OWNER_NONE = Colors.grey;
   static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);
