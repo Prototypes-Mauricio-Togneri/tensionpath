@@ -82,8 +82,7 @@ class Dimensions {
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
-    final double maxHeight =
-        canvasSize.y / ((battlefield.size.height * 3 / 4) + 0.25);
+    final double maxHeight = canvasSize.y / (battlefield.size.height * 0.85);
 
     return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
   }
@@ -128,12 +127,12 @@ class Dimensions {
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
-    final Vector2 maxHeightWidth = maxNodeSizeHeight(
+    final Vector2 maxSizeHeight = maxNodeSizeHeight(
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
 
-    if (maxSizeWidth.x > maxHeightWidth.x) {
+    if (maxSizeWidth.x > maxSizeHeight.x) {
       final double backgroundHeightAdjusted =
           gridSize.y / battlefield.gridRatio.height;
       final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
