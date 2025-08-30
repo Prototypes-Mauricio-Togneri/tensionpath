@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -8,13 +9,19 @@ class PadComponent extends SpriteComponent {
   String? owner;
 
   PadComponent({
-    required this.platformId,
     required super.position,
     required super.size,
+    required this.platformId,
+    required this.owner,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
        );
+
+  @override
+  FutureOr onLoad() async {
+    await refresh();
+  }
 
   Future refresh() async {
     if (owner == Constants.PLAYER_1) {

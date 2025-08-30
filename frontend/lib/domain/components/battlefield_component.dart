@@ -87,9 +87,10 @@ class BattlefieldComponent extends PositionComponent {
           position: position,
         );
         final PadComponent padComponent = PadComponent(
-          platformId: platform.id,
           position: nodePosition,
           size: nodeSize,
+          platformId: platform.id,
+          owner: platform.owner,
         );
         add(padComponent);
       }
