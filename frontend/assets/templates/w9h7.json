@@ -68,6 +68,66 @@
                 ]
             }
         },
+        "resources": [
+            {
+                "position": {
+                    "x": 4,
+                    "y": -3
+                },
+                "amount": 100
+            },
+            {
+                "position": {
+                    "x": 3,
+                    "y": 2
+                },
+                "amount": 100
+            },
+            {
+                "position": {
+                    "x": -3,
+                    "y": -2
+                },
+                "amount": 100
+            },
+            {
+                "position": {
+                    "x": -4,
+                    "y": 3
+                },
+                "amount": 100
+            }
+        ],
+        "launchers": {
+            "1": [
+                {
+                    "x": -4,
+                    "y": 0
+                },
+                {
+                    "x": -4,
+                    "y": 1
+                },
+                {
+                    "x": -5,
+                    "y": 2
+                }
+            ],
+            "2": [
+                {
+                    "x": 5,
+                    "y": -2
+                },
+                {
+                    "x": 4,
+                    "y": -1
+                },
+                {
+                    "x": 4,
+                    "y": 0
+                }
+            ]
+        },
         "nodes": [
             {
                 "position": {
@@ -235,8 +295,7 @@
                 "position": {
                     "x": 1,
                     "y": 2
-                },
-                "type": "water"
+                }
             },
             {
                 "position": {
@@ -290,16 +349,12 @@
                 "position": {
                     "x": -1,
                     "y": -2
-                },
-                "type": "water"
+                }
             },
             {
                 "position": {
                     "x": 4,
                     "y": -3
-                },
-                "structure": {
-                    "type": "resources"
                 }
             },
             {
@@ -318,30 +373,18 @@
                 "position": {
                     "x": 5,
                     "y": -2
-                },
-                "structure": {
-                    "type": "launcher",
-                    "player": "2"
                 }
             },
             {
                 "position": {
                     "x": 4,
                     "y": -1
-                },
-                "structure": {
-                    "type": "launcher",
-                    "player": "2"
                 }
             },
             {
                 "position": {
                     "x": 4,
                     "y": 0
-                },
-                "structure": {
-                    "type": "launcher",
-                    "player": "2"
                 }
             },
             {
@@ -360,9 +403,6 @@
                 "position": {
                     "x": 3,
                     "y": 2
-                },
-                "structure": {
-                    "type": "resources"
                 }
             },
             {
@@ -399,9 +439,6 @@
                 "position": {
                     "x": -3,
                     "y": -2
-                },
-                "structure": {
-                    "type": "resources"
                 }
             },
             {
@@ -414,20 +451,12 @@
                 "position": {
                     "x": -4,
                     "y": 0
-                },
-                "structure": {
-                    "type": "launcher",
-                    "player": "1"
                 }
             },
             {
                 "position": {
                     "x": -4,
                     "y": 1
-                },
-                "structure": {
-                    "type": "launcher",
-                    "player": "1"
                 }
             },
             {
@@ -440,19 +469,12 @@
                 "position": {
                     "x": -5,
                     "y": 2
-                },
-                "structure": {
-                    "type": "launcher",
-                    "player": "1"
                 }
             },
             {
                 "position": {
                     "x": -4,
                     "y": 3
-                },
-                "structure": {
-                    "type": "resources"
                 }
             },
             {
