@@ -29,24 +29,56 @@
             "width": 0.354,
             "height": 0.5
         },
+        "missile": {
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "currentCharge": 0,
+            "maxCharge": 40,
+            "bufferCharge": 35,
+            "platforms": {
+                "1": [
+                    {
+                        "x": 0,
+                        "y": -1
+                    },
+                    {
+                        "x": 1,
+                        "y": -2
+                    },
+                    {
+                        "x": 0,
+                        "y": -2
+                    }
+                ],
+                "2": [
+                    {
+                        "x": 0,
+                        "y": 1
+                    },
+                    {
+                        "x": 0,
+                        "y": 2
+                    },
+                    {
+                        "x": -1,
+                        "y": 2
+                    }
+                ]
+            }
+        },
         "nodes": [
             {
                 "position": {
                     "x": 0,
                     "y": 0
-                },
-                "structure": {
-                    "type": "missile"
                 }
             },
             {
                 "position": {
                     "x": 0,
                     "y": -1
-                },
-                "structure": {
-                    "type": "pad",
-                    "platformId": "1"
                 }
             },
             {
@@ -65,10 +97,6 @@
                 "position": {
                     "x": 0,
                     "y": 1
-                },
-                "structure": {
-                    "type": "pad",
-                    "platformId": "2"
                 }
             },
             {
@@ -87,10 +115,6 @@
                 "position": {
                     "x": 1,
                     "y": -2
-                },
-                "structure": {
-                    "type": "pad",
-                    "platformId": "1"
                 }
             },
             {
@@ -121,20 +145,12 @@
                 "position": {
                     "x": 0,
                     "y": 2
-                },
-                "structure": {
-                    "type": "pad",
-                    "platformId": "2"
                 }
             },
             {
                 "position": {
                     "x": -1,
                     "y": 2
-                },
-                "structure": {
-                    "type": "pad",
-                    "platformId": "2"
                 }
             },
             {
@@ -165,10 +181,6 @@
                 "position": {
                     "x": 0,
                     "y": -2
-                },
-                "structure": {
-                    "type": "pad",
-                    "platformId": "1"
                 }
             },
             {
