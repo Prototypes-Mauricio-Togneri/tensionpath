@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/structures/structure_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
 import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 abstract class Structure {
@@ -18,7 +18,7 @@ abstract class Structure {
 
   String? get getPlatformId => null;
 
-  bool belongsTo(Player otherPlayer) => false;
+  bool belongsTo(JsonPlayer otherPlayer) => false;
 
   void replaceWith(Structure newStructure) {}
 
@@ -30,7 +30,7 @@ abstract class Structure {
   factory Structure.create({
     required StructureType structureType,
     required Location location,
-    required Player? player,
+    required JsonPlayer? player,
     required String? platformId,
   }) {
     switch (structureType) {

@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 
 part 'json_match.g.dart';
@@ -28,48 +28,36 @@ class JsonMatch {
     required this.battlefield,
   });
 
-  JsonMatch clone({
-    String? id,
-    DateTime? createdAt,
-    List<JsonPlayer>? players,
-  }) => JsonMatch(
-    id: id ?? this.id,
-    createdAt: createdAt ?? this.createdAt,
-    players: players ?? this.players,
-    battlefield: battlefield,
-  );
+  int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
-  Match object(String selfId) {
-    final Player self = _getSelf(selfId);
-    final Player opponent = _getOpponent(selfId);
+  JsonPlayer get self => players.firstWhere((player) => player.isSelf);
 
-    return Match(
-      id: id,
-      createdAt: createdAt,
-      self: self,
-      opponent: opponent,
-      battlefield: battlefield.object([self, opponent]),
-    );
-  }
+  JsonPlayer get opponent => players.firstWhere((player) => !player.isSelf);
 
-  Player _getSelf(String id) {
-    for (final JsonPlayer player in players) {
-      if (player.id == id) {
-        return player.object(true);
-      }
-    }
+  bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 
-    throw Exception('Player with id $id not found');
-  }
+  bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
 
-  Player _getOpponent(String id) {
-    for (final JsonPlayer player in players) {
-      if (player.id != id) {
-        return player.object(false);
-      }
-    }
+  bool canDeployUnit(UnitType unitType) =>
+      self.resources >= unitType.deploymentCost;
 
-    throw Exception('Player with id $id not found');
+  /*void _onMatchUpated(Match newMatch) {
+    self.replaceWith(newMatch.self);
+    opponent.replaceWith(newMatch.opponent);
+    battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
+
+    MatchComponentRef.instance.onMatchUpdated(this);
+  }*/
+
+  Future onDeployUnit({required Node node, required UnitType unitType}) async {
+    /*final Unit unit = Unit.create(
+      unitType: unitType,
+      location: node.location,
+      player: self,
+      health: unitType.maxHealth,
+      remainingMoves: 0,
+      remainingAttacks: unitType.numberOfAttacks,
+    );*/
   }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>

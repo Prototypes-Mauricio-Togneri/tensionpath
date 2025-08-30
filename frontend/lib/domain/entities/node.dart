@@ -2,9 +2,9 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
 class Node implements Localizable {
@@ -31,7 +31,7 @@ class Node implements Localizable {
   @override
   Location get getLocation => location;
 
-  bool isDeploymentTarget(Player self) {
+  bool isDeploymentTarget(JsonPlayer self) {
     final bool isLauncher = hasLauncher;
     final bool isPlayer = belongsTo(self);
 
@@ -71,7 +71,7 @@ class Node implements Localizable {
     return hasOpponentBase && hasAttacks && canAttack && inDistance;
   }
 
-  bool belongsTo(Player player) => _structure?.belongsTo(player) ?? false;
+  bool belongsTo(JsonPlayer player) => _structure?.belongsTo(player) ?? false;
 
   int distance(Localizable localizable) => location.distance(localizable);
 

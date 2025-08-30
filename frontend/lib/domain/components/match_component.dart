@@ -7,13 +7,13 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Size resolution;
-  final Match match;
+  final JsonMatch match;
   final List<NodeComponent> nodeComponents = [];
 
   MatchComponent({
@@ -39,8 +39,8 @@ class MatchComponent extends World {
 
     add(
       HeaderComponent(
-        player1: match.player1,
-        player2: match.player2,
+        player1: match.self,
+        player2: match.opponent,
         position: Dimensions.headerPosition(
           resolution: resolution,
           isPlayer1: match.self.isPlayer1,
@@ -63,7 +63,7 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void onMatchUpdated(Match match) {
+  void onMatchUpdated(JsonMatch match) {
     if (match.selfWon) {
       GameComponentRef.instance.onMatchFinished(true);
     } else if (match.opponentWon) {

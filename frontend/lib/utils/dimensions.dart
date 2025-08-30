@@ -3,9 +3,8 @@ import 'dart:ui';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_battlefield.dart';
 
 class Dimensions {
   static Size cameraSize(Vector2 canvasSize) => Size(
@@ -73,7 +72,7 @@ class Dimensions {
 
   static Size maxNodeSizeWidth({
     required Vector2 canvasSize,
-    required Battlefield battlefield,
+    required JsonBattlefield battlefield,
   }) {
     final double maxWidth = canvasSize.x / battlefield.size.width;
 
@@ -82,7 +81,7 @@ class Dimensions {
 
   static Size maxNodeSizeHeight({
     required Vector2 canvasSize,
-    required Battlefield battlefield,
+    required JsonBattlefield battlefield,
   }) {
     final double maxHeight =
         canvasSize.y / ((battlefield.size.height * 3 / 4) + 0.25);
@@ -92,7 +91,7 @@ class Dimensions {
 
   static Size nodeSize({
     required Vector2 canvasSize,
-    required Battlefield battlefield,
+    required JsonBattlefield battlefield,
   }) {
     final Size maxSizeWidth = maxNodeSizeWidth(
       canvasSize: canvasSize,
@@ -126,7 +125,7 @@ class Dimensions {
     required Vector2 canvasSize,
     required Vector2 imageSize,
     required Vector2 gridSize,
-    required Battlefield battlefield,
+    required JsonBattlefield battlefield,
   }) {
     final double ratio = imageSize.x / imageSize.y;
 
@@ -156,26 +155,6 @@ class Dimensions {
 
   static double controlsGapSize(Vector2 size) => size.x * 0.07;
 
-  static Vector2 controlsPopcapSize(Vector2 size) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-    final double width = size.x - (gapSize * 2);
-
-    return Vector2(width, width / 10);
-  }
-
-  static Vector2 controlsPopcapPosition({
-    required Vector2 size,
-    required Vector2 cardSize,
-    required int numberOfCards,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-
-    return Vector2(
-      gapSize,
-      ((numberOfCards - 2) * cardSize.y) + (gapSize * (numberOfCards - 1)),
-    );
-  }
-
   static Vector2 controlsCardSize({
     required Vector2 size,
     required int numberOfCards,
@@ -183,11 +162,7 @@ class Dimensions {
     final double gapSize = Dimensions.controlsGapSize(size);
     final double cardWidth = size.x - (gapSize * 2);
     final double cardHeight =
-        (size.y -
-            controlsPopcapSize(size).y -
-            gapSize -
-            (gapSize * (numberOfCards + 1))) /
-        numberOfCards;
+        (size.y - gapSize - (gapSize * (numberOfCards + 1))) / numberOfCards;
 
     return Vector2(cardWidth, cardHeight);
   }
@@ -216,7 +191,6 @@ class Dimensions {
       gapSize,
       ((numberOfCards - 2) * cardSize.y) +
           (gapSize * (numberOfCards - 1)) +
-          controlsPopcapSize(size).y +
           gapSize,
     );
   }
@@ -230,10 +204,7 @@ class Dimensions {
 
     return Vector2(
       gapSize,
-      ((numberOfCards - 1) * cardSize.y) +
-          (gapSize * numberOfCards) +
-          controlsPopcapSize(size).y +
-          gapSize,
+      ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards) + gapSize,
     );
   }
 
@@ -243,11 +214,8 @@ class Dimensions {
     return fromCenter.length < size.x * 0.42;
   }
 
-  static Vector2 fpsPosition({
-    required Player player1,
-    required Viewport viewport,
-  }) => Vector2(
-    player1.isSelf ? (viewport.size.x - (viewport.size.x * 0.06)) : 20,
+  static Vector2 fpsPosition(Viewport viewport) => Vector2(
+    viewport.size.x - (viewport.size.x * 0.06),
     viewport.size.y - (viewport.size.y * 0.05),
   );
 }

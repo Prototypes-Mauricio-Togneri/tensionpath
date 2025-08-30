@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 
 class Battlefield {
   final String id;
@@ -16,7 +16,7 @@ class Battlefield {
   });
 
   void replaceWith({
-    required Player self,
+    required JsonPlayer self,
     required Battlefield newBattlefield,
   }) {
     /*final Set<String> visibleNodes = {};

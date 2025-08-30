@@ -4,6 +4,7 @@
     "players": [
         {
             "id": "1",
+            "isSelf": true,
             "name": "Bob",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
@@ -11,6 +12,7 @@
         },
         {
             "id": "2",
+            "isSelf": false,
             "name": "Max",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,

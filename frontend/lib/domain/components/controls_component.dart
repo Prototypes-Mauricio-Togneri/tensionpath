@@ -4,10 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/components/reconfigurable.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -16,7 +13,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
-  final Player player;
+  final JsonPlayer player;
   final Paint backgroundPaint = Palette.paint(style: PaintingStyle.fill);
 
   ControlsComponent({
@@ -52,18 +49,6 @@ class ControlsComponent extends PositionComponent {
     }
 
     add(
-      PopcapComponent(
-        player: player,
-        position: Dimensions.controlsPopcapPosition(
-          size: size,
-          cardSize: cardSize,
-          numberOfCards: numberOfCards,
-        ),
-        size: Dimensions.controlsPopcapSize(size),
-      ),
-    );
-
-    add(
       ResourceComponent(
         player: player,
         position: Dimensions.controlsResourcesCardPosition(
@@ -87,7 +72,7 @@ class ControlsComponent extends PositionComponent {
 }
 
 class UnitSelectorComponent extends PositionComponent {
-  final Player player;
+  final JsonPlayer player;
   final UnitType unitType;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -133,10 +118,8 @@ class UnitSelectorComponent extends PositionComponent {
   }
 }
 
-class UnitImageComponent extends SpriteComponent
-    with DragCallbacks
-    implements Reconfigurable {
-  final Player player;
+class UnitImageComponent extends SpriteComponent with DragCallbacks {
+  final JsonPlayer player;
   final UnitType unitType;
   bool isEnabled = false;
   Vector2 initialPosition = Vector2(0, 0);
@@ -150,14 +133,7 @@ class UnitImageComponent extends SpriteComponent
   }) : super(anchor: Anchor.center);
 
   @override
-  void reconfigure() {
-    isEnabled = match.match.canDeployUnit(unitType);
-  }
-
-  @override
   FutureOr onLoad() async {
-    reconfigure();
-
     sprite = await Sprite.load(unitType.thumbnail);
     decorator.addLast(PaintDecorator.tint(player.color));
 
@@ -187,13 +163,13 @@ class UnitImageComponent extends SpriteComponent
     super.onDragEnd(event);
 
     if (isEnabled) {
-      final NodeComponent? nodeComponent = match.getLauncherAt(
+      /*final NodeComponent? nodeComponent = match.getLauncherAt(
         absolutePosition,
       );
 
       if (nodeComponent != null) {
         match.match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
-      }
+      }*/
 
       position = initialPosition;
       dragging = false;
@@ -201,8 +177,8 @@ class UnitImageComponent extends SpriteComponent
   }
 }
 
-class UnitCostComponent extends PositionComponent implements Reconfigurable {
-  final Player player;
+class UnitCostComponent extends PositionComponent {
+  final JsonPlayer player;
   final UnitType unitType;
   bool isEnabled = false;
 
@@ -214,14 +190,7 @@ class UnitCostComponent extends PositionComponent implements Reconfigurable {
   }) : super(anchor: Anchor.center);
 
   @override
-  void reconfigure() {
-    isEnabled = match.match.canDeployUnit(unitType);
-  }
-
-  @override
   FutureOr onLoad() {
-    reconfigure();
-
     return super.onLoad();
   }
 
@@ -239,83 +208,8 @@ class UnitCostComponent extends PositionComponent implements Reconfigurable {
   }
 }
 
-class PopcapComponent extends PositionComponent implements Reconfigurable {
-  final Player player;
-  final Paint backgroundPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.CONTROLS_POPCAP_BACKGROUND,
-  );
-  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
-  final Paint placeholderPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.MISSILE_INDICATOR_PLACEHOLDER,
-  );
-  int population = 0;
-
-  PopcapComponent({
-    required this.player,
-    required super.position,
-    required super.size,
-  }) : super(anchor: Anchor.topLeft) {
-    foregroundPaint.color = player.color;
-  }
-
-  @override
-  FutureOr onLoad() async {
-    reconfigure();
-
-    return super.onLoad();
-  }
-
-  @override
-  void reconfigure() {
-    population = 0;
-
-    /*for (final Node node in match.match.battlefield.nodes) {
-      if (node.hasUnit && node.unit!.belongsTo(player)) {
-        population++;
-      }
-    }*/
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawRect(size.toRect(), backgroundPaint);
-
-    final double gap = size.x / 80;
-    const int popcap = Constants.POPCAP_LIMIT;
-    final double blockSize = (width - gap * (popcap + 1)) / popcap;
-
-    for (int i = 0; i < population; i++) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          gap + (blockSize + gap) * i,
-          gap,
-          blockSize,
-          height - (gap * 2),
-        ),
-        foregroundPaint,
-      );
-    }
-
-    for (int i = population; i < popcap; i++) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          gap + (blockSize + gap) * i,
-          gap,
-          blockSize,
-          height - (gap * 2),
-        ),
-        placeholderPaint,
-      );
-    }
-  }
-}
-
 class ResourceComponent extends PositionComponent {
-  final Player player;
+  final JsonPlayer player;
 
   ResourceComponent({
     required this.player,

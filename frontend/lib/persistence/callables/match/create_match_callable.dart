@@ -1,12 +1,8 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
 
 class CreateMatchCallable {
   Future call({required Room room}) async {
-    final String content = await rootBundle.loadString(
+    /*final String content = await rootBundle.loadString(
       'assets/templates/w9h7.json',
     );
     JsonMatch jsonMatch = JsonMatch.fromJson(jsonDecode(content));
@@ -15,7 +11,7 @@ class CreateMatchCallable {
 
     for (final JsonPlayer jsonPlayer in jsonMatch.players) {
       namedPlayers.add(jsonPlayer.clone(name: room.players[jsonPlayer.id]));
-    }
+    }*/
 
     /*final String matchId = await MatchRepository.create(
       jsonMatch.clone(players: namedPlayers),

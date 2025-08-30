@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/utils/assets.dart';
 
@@ -18,8 +17,7 @@ class MatchState extends BaseState {
   @override
   Future onLoad() async {
     final String data = await rootBundle.loadString(Assets.TEMPLATES_W9H7);
-    final JsonMatch json = JsonMatch.fromJson(jsonDecode(data));
-    final Match match = json.object(selfId);
+    final JsonMatch match = JsonMatch.fromJson(jsonDecode(data));
     gameComponent = GameComponent(match);
     notify();
   }

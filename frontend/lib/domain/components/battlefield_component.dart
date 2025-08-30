@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class BattlefieldComponent extends PositionComponent {
-  final Battlefield battlefield;
+  final JsonBattlefield battlefield;
   final List<NodeComponent> nodeComponents;
 
   BattlefieldComponent({
@@ -59,7 +59,7 @@ class BattlefieldComponent extends PositionComponent {
 }
 
 class BattlefieldGridComponent extends PositionComponent {
-  final Battlefield battlefield;
+  final JsonBattlefield battlefield;
   final List<NodeComponent> nodeComponents;
 
   BattlefieldGridComponent({

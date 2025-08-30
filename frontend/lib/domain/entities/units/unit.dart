@@ -3,17 +3,17 @@ import 'package:tensionpath/domain/components/units/unit_component.dart';
 import 'package:tensionpath/domain/entities/localizable.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/players/player.dart';
 import 'package:tensionpath/domain/entities/units/unit_aircraft.dart';
 import 'package:tensionpath/domain/entities/units/unit_harvester.dart';
 import 'package:tensionpath/domain/entities/units/unit_infantry.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 abstract class Unit implements Localizable {
   final UnitType type;
-  final Player player;
+  final JsonPlayer player;
   late Location _location;
   late int _health;
   late int _remainingMoves;
@@ -58,7 +58,7 @@ abstract class Unit implements Localizable {
 
   int get maxAttackRange => type.maxAttackRange;
 
-  bool belongsTo(Player player) => this.player.id == player.id;
+  bool belongsTo(JsonPlayer player) => this.player.id == player.id;
 
   String get sprite => 'units/player_${player.id}/${type.spriteName}.png';
 
@@ -121,7 +121,7 @@ abstract class Unit implements Localizable {
   factory Unit.create({
     required UnitType unitType,
     required Location location,
-    required Player player,
+    required JsonPlayer player,
     required int health,
     required int remainingMoves,
     required int remainingAttacks,

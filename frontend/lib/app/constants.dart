@@ -7,5 +7,4 @@ class Constants {
   static const String PLAYER_2 = '2';
 
   static const double RESOURCES_PER_SECOND = 0.2;
-  static const int POPCAP_LIMIT = 7;
 }
