@@ -97,13 +97,13 @@ class Dimensions {
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
-    final Size maxHeightWidth = maxNodeSizeHeight(
+    final Size maxSizeHeight = maxNodeSizeHeight(
       canvasSize: canvasSize,
       battlefield: battlefield,
     );
 
-    return (maxSizeWidth.width > maxHeightWidth.width)
-        ? maxHeightWidth
+    return (maxSizeWidth.width > maxSizeHeight.width)
+        ? maxSizeHeight
         : maxSizeWidth;
   }
 
