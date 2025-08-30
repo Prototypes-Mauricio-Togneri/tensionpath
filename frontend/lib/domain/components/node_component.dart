@@ -93,7 +93,7 @@ class NodeComponent<N extends Node> extends PositionComponent
     super.render(canvas);
 
     canvas.drawText(
-      text: '${node.location}',
+      text: '${node.position}',
       position: Vector2(size.x / 2, size.y / 4),
       size: size.x / 8,
       color: Colors.white,

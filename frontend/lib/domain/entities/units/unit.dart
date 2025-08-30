@@ -1,20 +1,19 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/entities/localizable.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit_aircraft.dart';
 import 'package:tensionpath/domain/entities/units/unit_harvester.dart';
 import 'package:tensionpath/domain/entities/units/unit_infantry.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
-abstract class Unit implements Localizable {
+abstract class Unit {
   final UnitType type;
   final JsonPlayer player;
-  late Location _location;
+  late JsonPosition _position;
   late int _health;
   late int _remainingMoves;
   late int _remainingAttacks;
@@ -22,19 +21,16 @@ abstract class Unit implements Localizable {
   Unit({
     required this.type,
     required this.player,
-    required Location location,
+    required JsonPosition position,
     required int health,
     required int remainingMoves,
     required int remainingAttacks,
   }) {
-    _location = location;
+    _position = position;
     _health = health;
     _remainingMoves = remainingMoves;
     _remainingAttacks = remainingAttacks;
   }
-
-  @override
-  Location get getLocation => _location;
 
   int get health => _health;
 
@@ -62,10 +58,8 @@ abstract class Unit implements Localizable {
 
   String get sprite => 'units/player_${player.id}/${type.spriteName}.png';
 
-  int distance(Localizable localizable) => _location.distance(localizable);
-
   bool isInRange(Unit unit) {
-    final int unitDistance = distance(unit);
+    const int unitDistance = 0; //distance(unit);
 
     return unitDistance >= minAttackRange && unitDistance <= maxAttackRange;
   }
@@ -89,7 +83,7 @@ abstract class Unit implements Localizable {
 
   Unit withDamage(int damage) => Unit.create(
     unitType: type,
-    location: _location,
+    position: _position,
     player: player,
     health: (_health - damage).clamp(0, maxHealth),
     remainingMoves: _remainingMoves,
@@ -98,15 +92,18 @@ abstract class Unit implements Localizable {
 
   Unit withRemainingAttacks(int value) => Unit.create(
     unitType: type,
-    location: _location,
+    position: _position,
     player: player,
     health: _health,
     remainingMoves: _remainingMoves,
     remainingAttacks: value,
   );
 
-  void replaceWith({required Unit newUnit, required Location location}) {
-    _location = location;
+  void replaceWith({
+    required Unit newUnit,
+    required JsonPosition position,
+  }) {
+    _position = position;
     _health = newUnit._health;
     _remainingMoves = newUnit._remainingMoves;
     _remainingAttacks = newUnit._remainingAttacks;
@@ -120,7 +117,7 @@ abstract class Unit implements Localizable {
 
   factory Unit.create({
     required UnitType unitType,
-    required Location location,
+    required JsonPosition position,
     required JsonPlayer player,
     required int health,
     required int remainingMoves,
@@ -129,7 +126,7 @@ abstract class Unit implements Localizable {
     switch (unitType) {
       case UnitType.harvester:
         return UnitHarvester(
-          location: location,
+          position: position,
           player: player,
           health: health,
           remainingMoves: remainingMoves,
@@ -137,7 +134,7 @@ abstract class Unit implements Localizable {
         );
       case UnitType.infrantry:
         return UnitInfantry(
-          location: location,
+          position: position,
           player: player,
           health: health,
           remainingMoves: remainingMoves,
@@ -145,7 +142,7 @@ abstract class Unit implements Localizable {
         );
       case UnitType.vehicle:
         return UnitVehicle(
-          location: location,
+          position: position,
           player: player,
           health: health,
           remainingMoves: remainingMoves,
@@ -153,7 +150,7 @@ abstract class Unit implements Localizable {
         );
       case UnitType.aircraft:
         return UnitAircraft(
-          location: location,
+          position: position,
           player: player,
           health: health,
           remainingMoves: remainingMoves,

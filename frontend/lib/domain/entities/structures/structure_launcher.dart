@@ -8,7 +8,7 @@ import 'package:tensionpath/domain/types/structure_type.dart';
 class StructureLauncher extends Structure {
   final JsonPlayer player;
 
-  StructureLauncher({required super.location, required this.player})
+  StructureLauncher({required super.position, required this.player})
     : super(type: StructureType.launcher);
 
   @override

@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 
 class Dimensions {
   static Size cameraSize(Vector2 canvasSize) => Size(
@@ -109,10 +109,10 @@ class Dimensions {
 
   static Vector2 nodePosition({
     required Size nodeSize,
-    required Location location,
+    required JsonPosition position,
   }) => Vector2(
-    nodeSize.width * ((location.y / 2) + location.x),
-    nodeSize.height * 3 / 4 * location.y,
+    nodeSize.width * ((position.y / 2) + position.x),
+    nodeSize.height * 3 / 4 * position.y,
   );
 
   static Vector2 battlefildGridSize(Vector2 containerSize) {

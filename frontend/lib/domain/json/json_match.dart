@@ -52,7 +52,7 @@ class JsonMatch {
   Future onDeployUnit({required Node node, required UnitType unitType}) async {
     /*final Unit unit = Unit.create(
       unitType: unitType,
-      location: node.location,
+      position: node.position,
       player: self,
       health: unitType.maxHealth,
       remainingMoves: 0,

@@ -1,17 +1,16 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/entities/localizable.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/structures/structure.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/types/structure_type.dart';
 
-class Node implements Localizable {
-  final Location location;
+class Node {
+  final JsonPosition position;
   Structure? _structure;
 
-  Node({required this.location, required Structure? structure}) {
+  Node({required this.position, required Structure? structure}) {
     _structure = structure;
   }
 
@@ -20,16 +19,13 @@ class Node implements Localizable {
     required Vector2 size,
   }) => NodeComponent(node: this, position: position, size: size);
 
-  String get id => location.id;
+  String get id => position.id;
 
   Structure? get structure => _structure;
 
   bool get hasStructure => _structure != null;
 
   bool get hasLauncher => _structure?.type == StructureType.launcher;
-
-  @override
-  Location get getLocation => location;
 
   bool isDeploymentTarget(JsonPlayer self) {
     final bool isLauncher = hasLauncher;
@@ -42,7 +38,8 @@ class Node implements Localizable {
     final bool isAllowedTarget =
         (_structure == null) || _structure!.type.canMoveUnit;
     final bool hasMoves = unit.remainingMoves > 0;
-    final bool inDistance = distance(unit) <= unit.movementRange;
+    const bool inDistance = true;
+    //distance(unit) <= unit.movementRange;
 
     return isAllowedTarget && hasMoves && inDistance;
   }
@@ -64,31 +61,14 @@ class Node implements Localizable {
         (_structure!.getPlayerId != unit.player.id);
     final bool hasAttacks = unit.remainingAttacks > 0;
     final bool canAttack = unit.type.damageStructure > 0;
-    final bool inDistance =
-        distance(unit) >= unit.minAttackRange &&
-        distance(unit) <= unit.maxAttackRange;
+    const bool inDistance = true;
+    //distance(unit) >= unit.minAttackRange &&
+    //distance(unit) <= unit.maxAttackRange;
 
     return hasOpponentBase && hasAttacks && canAttack && inDistance;
   }
 
   bool belongsTo(JsonPlayer player) => _structure?.belongsTo(player) ?? false;
-
-  int distance(Localizable localizable) => location.distance(localizable);
-
-  Set<String> visibleNodes({
-    required int visibilityRange,
-    required List<Node> nodes,
-  }) {
-    final Set<String> result = {id};
-
-    for (final Node node in nodes) {
-      if ((node != this) && (distance(node) <= visibilityRange)) {
-        result.add(node.id);
-      }
-    }
-
-    return result;
-  }
 
   @override
   bool operator ==(Object other) {

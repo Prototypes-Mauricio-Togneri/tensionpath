@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitInfantry extends Unit {
   UnitInfantry({
-    required super.location,
+    required super.position,
     required super.player,
     required super.health,
     required super.remainingMoves,
