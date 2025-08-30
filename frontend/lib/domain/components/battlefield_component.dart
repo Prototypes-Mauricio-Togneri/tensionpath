@@ -129,7 +129,7 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
   }) : super(anchor: Anchor.center);
 }
 
-class BattlefieldGridComponent extends PositionComponent {
+class BattlefieldGridComponent extends SpriteComponent {
   final Vector2 nodeSize;
   final List<JsonPosition> nodes;
   final Paint borderPaint = Palette.paint(
@@ -144,8 +144,6 @@ class BattlefieldGridComponent extends PositionComponent {
     required this.nodeSize,
     required this.nodes,
   }) : super(anchor: Anchor.center);
-
-  late Sprite gridSprite;
 
   @override
   Future onLoad() async {
@@ -167,12 +165,6 @@ class BattlefieldGridComponent extends PositionComponent {
 
     final Picture picture = recorder.endRecording();
     final Image image = await picture.toImage(size.x.toInt(), size.y.toInt());
-    gridSprite = Sprite(image);
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-    gridSprite.render(canvas, size: size);
+    sprite = Sprite(image);
   }
 }
