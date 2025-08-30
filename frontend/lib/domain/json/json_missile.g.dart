@@ -9,17 +9,29 @@ part of 'json_missile.dart';
 JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonMissile', json, ($checkedConvert) {
       final val = JsonMissile(
-        charge: $checkedConvert('charge', (v) => (v as num).toDouble()),
-        maxCharge: $checkedConvert('maxCharge', (v) => (v as num).toDouble()),
-        bufferCharge: $checkedConvert(
-          'bufferCharge',
+        position: $checkedConvert(
+          'position',
+          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+        ),
+        chargeCurrent: $checkedConvert(
+          'chargeCurrent',
+          (v) => (v as num).toDouble(),
+        ),
+        chargeMax: $checkedConvert('chargeMax', (v) => (v as num).toDouble()),
+        chargeBuffer: $checkedConvert(
+          'chargeBuffer',
           (v) => (v as num).toDouble(),
         ),
         platforms: $checkedConvert(
           'platforms',
-          (v) => (v as List<dynamic>)
-              .map((e) => JsonPlatform.fromJson(e as Map<String, dynamic>))
-              .toList(),
+          (v) => (v as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+              k,
+              (e as List<dynamic>)
+                  .map((e) => JsonPosition.fromJson(e as Map<String, dynamic>))
+                  .toList(),
+            ),
+          ),
         ),
       );
       return val;
@@ -27,8 +39,11 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonMissileToJson(JsonMissile instance) =>
     <String, dynamic>{
-      'charge': instance.charge,
-      'maxCharge': instance.maxCharge,
-      'bufferCharge': instance.bufferCharge,
-      'platforms': instance.platforms.map((e) => e.toJson()).toList(),
+      'position': instance.position.toJson(),
+      'chargeCurrent': instance.chargeCurrent,
+      'chargeMax': instance.chargeMax,
+      'chargeBuffer': instance.chargeBuffer,
+      'platforms': instance.platforms.map(
+        (k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()),
+      ),
     };

@@ -34,9 +34,9 @@
                 "x": 0,
                 "y": 0
             },
-            "currentCharge": 0,
-            "maxCharge": 40,
-            "bufferCharge": 35,
+            "chargeCurrent": 0,
+            "chargeMax": 40,
+            "chargeBuffer": 35,
             "platforms": {
                 "1": [
                     {

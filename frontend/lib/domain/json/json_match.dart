@@ -49,7 +49,10 @@ class JsonMatch {
     MatchComponentRef.instance.onMatchUpdated(this);
   }*/
 
-  Future onDeployUnit({required JsonNode node, required UnitType unitType}) async {
+  Future onDeployUnit({
+    required JsonNode node,
+    required UnitType unitType,
+  }) async {
     /*final Unit unit = Unit.create(
       unitType: unitType,
       position: node.position,

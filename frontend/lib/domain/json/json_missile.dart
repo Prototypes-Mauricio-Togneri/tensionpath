@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 
 part 'json_missile.g.dart';
@@ -9,23 +8,23 @@ class JsonMissile {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  @JsonKey(name: 'currentCharge')
-  final double currentCharge;
+  @JsonKey(name: 'chargeCurrent')
+  final double chargeCurrent;
 
-  @JsonKey(name: 'maxCharge')
-  final double maxCharge;
+  @JsonKey(name: 'chargeMax')
+  final double chargeMax;
 
-  @JsonKey(name: 'bufferCharge')
-  final double bufferCharge;
+  @JsonKey(name: 'chargeBuffer')
+  final double chargeBuffer;
 
   @JsonKey(name: 'platforms')
   final Map<String, List<JsonPosition>> platforms;
 
   const JsonMissile({
     required this.position,
-    required this.currentCharge,
-    required this.maxCharge,
-    required this.bufferCharge,
+    required this.chargeCurrent,
+    required this.chargeMax,
+    required this.chargeBuffer,
     required this.platforms,
   });
 
