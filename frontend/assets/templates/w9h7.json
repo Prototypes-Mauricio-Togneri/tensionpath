@@ -88,7 +88,7 @@
                     "x": 3,
                     "y": 2
                 },
-                "amountCurrent": 75,
+                "amountCurrent": 100,
                 "amountMax": 100
             },
             {
@@ -96,7 +96,7 @@
                     "x": -3,
                     "y": -2
                 },
-                "amountCurrent": 50,
+                "amountCurrent": 100,
                 "amountMax": 100
             },
             {
@@ -104,7 +104,7 @@
                     "x": -4,
                     "y": 3
                 },
-                "amountCurrent": 25,
+                "amountCurrent": 100,
                 "amountMax": 100
             }
         ],

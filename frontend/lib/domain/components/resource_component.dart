@@ -29,6 +29,7 @@ class ResourceComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
+    scale = Vector2(ratio, ratio);
 
     return super.onLoad();
   }
