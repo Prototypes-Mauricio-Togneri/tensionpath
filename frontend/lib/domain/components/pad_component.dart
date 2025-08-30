@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
-import 'package:tensionpath/domain/entities/structures/structure_pad.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
-class StructurePadComponent extends StructureComponent<StructurePad> {
-  StructurePadComponent({
-    required super.structure,
+class PadComponent extends SpriteComponent {
+  PadComponent({
     required super.position,
     required super.size,
-  });
+  }) : super(anchor: Anchor.center, priority: Priority.structure.value);
 
   Future reconfigure() async {
     /*if (platform.owner == Constants.PLAYER_1) {

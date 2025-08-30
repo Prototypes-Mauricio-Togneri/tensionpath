@@ -1,17 +1,16 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class StructureMissileComponent extends SpriteComponent {
+class MissileComponent extends SpriteComponent {
   late final MissileIndicatorComponent missileIndicator;
 
-  StructureMissileComponent({
+  MissileComponent({
     required super.position,
     required super.size,
     required JsonMissile jsonMissile,
@@ -55,11 +54,9 @@ class MissileIndicatorComponent extends PositionComponent {
   void reconfigure(JsonMissile json) {
     jsonMissile = json;
 
-    final String? owner = json.owner;
+    const String? owner = '';
 
-    if (owner == null) {
-      foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
-    } else if (owner == '') {
+    if (owner == '') {
       foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
     } else if (owner == Constants.PLAYER_1) {
       foregroundPaint.color = Palette.PLAYER_1;
@@ -74,7 +71,8 @@ class MissileIndicatorComponent extends PositionComponent {
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
-    final double filled = (width * jsonMissile.charge) / jsonMissile.maxCharge;
+    final double filled =
+        (width * jsonMissile.chargeCurrent) / jsonMissile.chargeMax;
     canvas.drawRect(Rect.fromLTWH(0, 0, filled, height), foregroundPaint);
   }
 }

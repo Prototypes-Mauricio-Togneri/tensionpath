@@ -1,21 +1,22 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/structures/structure_component.dart';
-import 'package:tensionpath/domain/entities/structures/structure_launcher.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/utils/assets.dart';
 
-class StructureLauncherComponent extends StructureComponent<StructureLauncher> {
-  StructureLauncherComponent({
-    required super.structure,
+class LauncherComponent extends SpriteComponent {
+  final String playerId;
+
+  LauncherComponent({
+    required this.playerId,
     required super.position,
     required super.size,
   });
 
   @override
   FutureOr onLoad() async {
-    if (structure.player.isPlayer1) {
+    if (playerId == Constants.PLAYER_1) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_1);
-    } else if (structure.player.isPlayer2) {
+    } else if (playerId == Constants.PLAYER_2) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_2);
     }
 

@@ -3,8 +3,8 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
-class StructureResourcesComponent extends SpriteComponent {
-  StructureResourcesComponent({
+class ResourceComponent extends SpriteComponent {
+  ResourceComponent({
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.structure.value);

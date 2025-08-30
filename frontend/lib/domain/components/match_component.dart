@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -72,8 +71,8 @@ class MatchComponent extends World {
 
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) &&
-          nodeComponent.node.isDeploymentTarget(match.self)) {
+      if (nodeComponent.containsPoint(position) /*&&
+          nodeComponent.node.isDeploymentTarget(match.self)*/ ) {
         return nodeComponent;
       }
     }
@@ -81,21 +80,21 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getActionTargetAt({
+  /*NodeComponent? getActionTargetAt({
     required Vector2 position,
     required Unit unit,
   }) {
-    /*for (final NodeComponent nodeComponent in nodeComponents) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) &&
           (nodeComponent.node.isMovementTarget(unit) ||
               nodeComponent.node.isAttackUnitTarget(unit) ||
               nodeComponent.node.isAttackBaseTarget(unit))) {
         return nodeComponent;
       }
-    }*/
+    }
 
     return null;
-  }
+  }*/
 }
 
 mixin MatchComponentRef {

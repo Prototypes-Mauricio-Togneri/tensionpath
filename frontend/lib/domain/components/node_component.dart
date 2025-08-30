@@ -1,14 +1,11 @@
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class NodeComponent extends PositionComponent {
-  final JsonNode node;
   //StructureComponent? _structureComponent;
 
   NodeComponent({
-    required this.node,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.node.value);

@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_ratio.dart';
 import 'package:tensionpath/domain/json/json_resource.dart';

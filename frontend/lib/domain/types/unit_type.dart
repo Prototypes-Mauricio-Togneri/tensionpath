@@ -18,7 +18,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 0,
     damageStructure: 0,
-    spriteName: 'harvester',
+    sprite: Assets.IMAGES_UNITS_HARVESTER,
     spriteScale: 0.8,
     thumbnail: Assets.IMAGES_UNITS_HARVESTER,
   ),
@@ -37,7 +37,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 50,
     damageStructure: 50,
-    spriteName: 'infantry',
+    sprite: Assets.IMAGES_UNITS_INFANTRY,
     spriteScale: 0.5,
     thumbnail: Assets.IMAGES_UNITS_INFANTRY,
   ),
@@ -56,7 +56,7 @@ enum UnitType {
     damageAir: 150,
     damageHarvester: 100,
     damageStructure: 80,
-    spriteName: 'vehicle',
+    sprite: Assets.IMAGES_UNITS_VEHICLE,
     spriteScale: 0.6,
     thumbnail: Assets.IMAGES_UNITS_VEHICLE,
   ),
@@ -75,9 +75,9 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    spriteName: 'aircraft',
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
     spriteScale: 0.4,
-    thumbnail: Assets.IMAGES_UNITS_AICRAFT,
+    thumbnail: Assets.IMAGES_UNITS_AIRCRAFT,
   );
 
   final UnitClass unitClass;
@@ -94,7 +94,7 @@ enum UnitType {
   final int damageAir;
   final int damageHarvester;
   final int damageStructure;
-  final String spriteName;
+  final String sprite;
   final double spriteScale;
   final String thumbnail;
 
@@ -113,7 +113,7 @@ enum UnitType {
     required this.damageAir,
     required this.damageHarvester,
     required this.damageStructure,
-    required this.spriteName,
+    required this.sprite,
     required this.spriteScale,
     required this.thumbnail,
   });

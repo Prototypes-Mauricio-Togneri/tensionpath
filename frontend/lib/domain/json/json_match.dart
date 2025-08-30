@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
-import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
@@ -49,19 +48,19 @@ class JsonMatch {
     MatchComponentRef.instance.onMatchUpdated(this);
   }*/
 
-  Future onDeployUnit({
+  /*Future onDeployUnit({
     required JsonNode node,
     required UnitType unitType,
   }) async {
-    /*final Unit unit = Unit.create(
+    final Unit unit = Unit.create(
       unitType: unitType,
       position: node.position,
       player: self,
       health: unitType.maxHealth,
       remainingMoves: 0,
       remainingAttacks: unitType.numberOfAttacks,
-    );*/
-  }
+    );
+  }*/
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);
