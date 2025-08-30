@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/components/reconfigurable.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -68,20 +67,6 @@ class MatchComponent extends World {
       GameComponentRef.instance.onMatchFinished(true);
     } else if (match.opponentWon) {
       GameComponentRef.instance.onMatchFinished(false);
-    } else {
-      _iterateChildrenRecursively(this);
-    }
-  }
-
-  void _iterateChildrenRecursively(Component component) {
-    final dynamic dynamicComponent = component;
-
-    if (dynamicComponent is Reconfigurable) {
-      dynamicComponent.reconfigure();
-    }
-
-    for (final Component child in component.children) {
-      _iterateChildrenRecursively(child);
     }
   }
 

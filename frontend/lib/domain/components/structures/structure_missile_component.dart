@@ -26,8 +26,6 @@ class StructureMissileComponent extends SpriteComponent {
     );
   }
 
-  void reconfigure(JsonMissile json) => missileIndicator.reconfigure(json);
-
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
