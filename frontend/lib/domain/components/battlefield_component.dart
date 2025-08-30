@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
-import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
@@ -9,13 +8,11 @@ import 'package:tensionpath/utils/dimensions.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final JsonBattlefield battlefield;
-  final List<NodeComponent> nodeComponents;
 
   BattlefieldComponent({
     required this.battlefield,
     required super.position,
     required super.size,
-    required this.nodeComponents,
   }) : super(anchor: Anchor.topLeft, priority: Priority.battlefield.value);
 
   @override
@@ -43,7 +40,6 @@ class BattlefieldComponent extends PositionComponent {
         battlefield: battlefield,
         position: size / 2,
         size: gridSize,
-        nodeComponents: nodeComponents,
       ),
     );
 
@@ -60,13 +56,11 @@ class BattlefieldComponent extends PositionComponent {
 
 class BattlefieldGridComponent extends PositionComponent {
   final JsonBattlefield battlefield;
-  final List<NodeComponent> nodeComponents;
 
   BattlefieldGridComponent({
     required this.battlefield,
     required super.position,
     required super.size,
-    required this.nodeComponents,
   }) : super(anchor: Anchor.center);
 
   @override

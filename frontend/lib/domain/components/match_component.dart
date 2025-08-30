@@ -5,14 +5,12 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
-import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Size resolution;
   final JsonMatch match;
-  final List<NodeComponent> nodeComponents = [];
 
   MatchComponent({
     required this.resolution,
@@ -31,7 +29,6 @@ class MatchComponent extends World {
           isPlayer1: match.self.isPlayer1,
         ),
         size: Dimensions.battlefieldSize(resolution),
-        nodeComponents: nodeComponents,
       ),
     );
 
@@ -69,7 +66,7 @@ class MatchComponent extends World {
     }
   }
 
-  NodeComponent? getLauncherAt(Vector2 position) {
+  /*NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) /*&&
           nodeComponent.node.isDeploymentTarget(match.self)*/ ) {
@@ -78,7 +75,7 @@ class MatchComponent extends World {
     }
 
     return null;
-  }
+  }*/
 
   /*NodeComponent? getActionTargetAt({
     required Vector2 position,
