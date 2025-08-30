@@ -43,6 +43,12 @@ class BattlefieldComponent extends PositionComponent {
           gridSize: Dimensions.battlefieldGridSize(size),
           battlefield: battlefield,
         ),
+      ),
+    );
+
+    add(
+      BattlefieldGridComponent(
+        position: mapCenter,
         nodeSize: nodeSize,
         nodes: battlefield.nodes,
       ),
@@ -120,6 +126,14 @@ class BattlefieldComponent extends PositionComponent {
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
+  BattlefieldBackgroundComponent({
+    required super.sprite,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+}
+
+class BattlefieldGridComponent extends PositionComponent {
   final Vector2 nodeSize;
   final List<JsonPosition> nodes;
   final Paint borderPaint = Palette.paint(
@@ -128,10 +142,8 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
     color: Palette.NODE_BORDER,
   );
 
-  BattlefieldBackgroundComponent({
-    required super.sprite,
+  BattlefieldGridComponent({
     required super.position,
-    required super.size,
     required this.nodeSize,
     required this.nodes,
   }) : super(anchor: Anchor.center);
