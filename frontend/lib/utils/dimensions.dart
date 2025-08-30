@@ -195,19 +195,6 @@ class Dimensions {
     );
   }
 
-  static Vector2 controlsEndTurnCardPosition({
-    required Vector2 size,
-    required Vector2 cardSize,
-    required int numberOfCards,
-  }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
-
-    return Vector2(
-      gapSize,
-      ((numberOfCards - 1) * cardSize.y) + (gapSize * numberOfCards) + gapSize,
-    );
-  }
-
   static bool pointInHexagon({required Vector2 point, required Vector2 size}) {
     final Vector2 fromCenter = point - (size / 2);
 
