@@ -7,21 +7,21 @@ part 'json_missile.g.dart';
 @JsonSerializable()
 class JsonMissile {
   @JsonKey(name: 'position')
-  JsonPosition position;
+  final JsonPosition position;
 
   @JsonKey(name: 'currentCharge')
-  double currentCharge;
+  final double currentCharge;
 
   @JsonKey(name: 'maxCharge')
-  double maxCharge;
+  final double maxCharge;
 
   @JsonKey(name: 'bufferCharge')
-  double bufferCharge;
+  final double bufferCharge;
 
   @JsonKey(name: 'platforms')
-  Map<String, List<JsonPosition>> platforms;
+  final Map<String, List<JsonPosition>> platforms;
 
-  JsonMissile({
+  const JsonMissile({
     required this.position,
     required this.currentCharge,
     required this.maxCharge,
