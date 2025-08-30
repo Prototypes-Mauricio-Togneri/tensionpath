@@ -7,7 +7,10 @@ class ResourceComponent extends SpriteComponent {
   ResourceComponent({
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.structure.value);
+  }) : super(
+         anchor: Anchor.center,
+         priority: Priority.structure.value,
+       );
 
   @override
   FutureOr onLoad() async {

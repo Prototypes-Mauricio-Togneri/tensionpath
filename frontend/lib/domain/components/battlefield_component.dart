@@ -1,8 +1,13 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/missile_component.dart';
+import 'package:tensionpath/domain/components/pad_component.dart';
+import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
+import 'package:tensionpath/domain/json/json_resource.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
@@ -30,7 +35,6 @@ class BattlefieldComponent extends PositionComponent {
       canvasSize: size,
       battlefield: battlefield,
     );
-    //final Vector2 effectiveNodeSize = Vector2(nodeSize.y, nodeSize.y);
     final Vector2 mapCenter = size / 2;
 
     add(
@@ -50,7 +54,7 @@ class BattlefieldComponent extends PositionComponent {
       ),
     );
 
-    /*for (final JsonResource resource in battlefield.resources) {
+    for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
@@ -58,7 +62,7 @@ class BattlefieldComponent extends PositionComponent {
       );
       final ResourceComponent resourceComponent = ResourceComponent(
         position: position,
-        size: effectiveNodeSize,
+        size: nodeSize,
       );
       add(resourceComponent);
     }
@@ -70,7 +74,7 @@ class BattlefieldComponent extends PositionComponent {
         nodeSize: nodeSize,
         position: battlefield.missile.position,
       ),
-      size: effectiveNodeSize,
+      size: nodeSize,
     );
     add(missileComponent);
 
@@ -87,7 +91,7 @@ class BattlefieldComponent extends PositionComponent {
         final PadComponent padComponent = PadComponent(
           platformId: platformId,
           position: nodePosition,
-          size: effectiveNodeSize,
+          size: nodeSize,
         );
         add(padComponent);
       }
@@ -106,11 +110,11 @@ class BattlefieldComponent extends PositionComponent {
         final LauncherComponent launcherComponent = LauncherComponent(
           playerId: playerId,
           position: nodePosition,
-          size: effectiveNodeSize,
+          size: nodeSize,
         );
         add(launcherComponent);
       }
-    }*/
+    }
 
     /*add(
       FogComponent(
