@@ -8,12 +8,16 @@ class JsonResource {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  @JsonKey(name: 'amount')
-  final double amount;
+  @JsonKey(name: 'amountCurrent')
+  final double amountCurrent;
+
+  @JsonKey(name: 'amountMax')
+  final double amountMax;
 
   const JsonResource({
     required this.position,
-    required this.amount,
+    required this.amountCurrent,
+    required this.amountMax,
   });
 
   factory JsonResource.fromJson(Map<String, dynamic> json) =>

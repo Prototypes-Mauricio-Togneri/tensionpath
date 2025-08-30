@@ -13,7 +13,11 @@ JsonResource _$JsonResourceFromJson(Map<String, dynamic> json) =>
           'position',
           (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
         ),
-        amount: $checkedConvert('amount', (v) => (v as num).toDouble()),
+        amountCurrent: $checkedConvert(
+          'amountCurrent',
+          (v) => (v as num).toDouble(),
+        ),
+        amountMax: $checkedConvert('amountMax', (v) => (v as num).toDouble()),
       );
       return val;
     });
@@ -21,5 +25,6 @@ JsonResource _$JsonResourceFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonResourceToJson(JsonResource instance) =>
     <String, dynamic>{
       'position': instance.position.toJson(),
-      'amount': instance.amount,
+      'amountCurrent': instance.amountCurrent,
+      'amountMax': instance.amountMax,
     };

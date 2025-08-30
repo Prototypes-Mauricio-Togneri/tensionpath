@@ -74,28 +74,32 @@
                     "x": 4,
                     "y": -3
                 },
-                "amount": 100
+                "amountCurrent": 100,
+                "amountMax": 100
             },
             {
                 "position": {
                     "x": 3,
                     "y": 2
                 },
-                "amount": 100
+                "amountCurrent": 75,
+                "amountMax": 100
             },
             {
                 "position": {
                     "x": -3,
                     "y": -2
                 },
-                "amount": 100
+                "amountCurrent": 50,
+                "amountMax": 100
             },
             {
                 "position": {
                     "x": -4,
                     "y": 3
                 },
-                "amount": 100
+                "amountCurrent": 25,
+                "amountMax": 100
             }
         ],
         "launchers": {
