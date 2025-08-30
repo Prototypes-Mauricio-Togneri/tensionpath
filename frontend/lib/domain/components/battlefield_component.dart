@@ -124,8 +124,8 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
   final List<JsonPosition> nodes;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    strokeWidth: 2,
-    color: Colors.black,
+    strokeWidth: 3,
+    color: Palette.NODE_BORDER,
   );
 
   BattlefieldBackgroundComponent({

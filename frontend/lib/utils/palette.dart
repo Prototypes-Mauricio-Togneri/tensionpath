@@ -17,7 +17,7 @@ class Palette {
   static const Color CONTROLS_COST_BACKGROUND = Color(0x77000000);
   static const Color CONTROLS_RESOURCES_FOREGROUND = Colors.white;
 
-  static const Color NODE_BORDER = Colors.white;
+  static const Color NODE_BORDER = Color(0x30aaaaaa);
   static const Color NODE_FOG = Color(0x88000000);
 
   static const Color UNIT_HEALTH_BACKGROUND = Colors.grey;
