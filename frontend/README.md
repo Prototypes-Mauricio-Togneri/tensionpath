@@ -9,3 +9,30 @@
 - Commanders abilities
 - Choose map
 - Implement unit ability deployment
+
+# API
+
+## Client -> Server
+* Deploy unit
+    - ID
+    - Position
+    - Type
+* Move unit
+    - ID
+    - Target position
+* Attack unit
+    - ID
+    - Target unit
+
+## Server -> Client
+* Match update
+    - Player's base health
+    - Battlefield
+        - Missile charge
+        - Pads
+        - Resources
+        - Units
+            - ID
+            - Position
+            - Target position
+            - Target unit
