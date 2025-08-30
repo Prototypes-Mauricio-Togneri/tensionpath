@@ -6,13 +6,8 @@ enum UnitType {
   harvester(
     unitClass: UnitClass.vehicle,
     deploymentCost: 60,
-    movementCost: 1,
     maxHealth: 1000,
-    movementRange: 1,
     visibilityRange: 1,
-    minAttackRange: 0,
-    maxAttackRange: 0,
-    numberOfAttacks: 0,
     damageInfantry: 0,
     damageVehicle: 0,
     damageAir: 0,
@@ -25,13 +20,8 @@ enum UnitType {
   infrantry(
     unitClass: UnitClass.infantry,
     deploymentCost: 10,
-    movementCost: 1,
     maxHealth: 300,
-    movementRange: 1,
     visibilityRange: 3,
-    minAttackRange: 1,
-    maxAttackRange: 1,
-    numberOfAttacks: 1,
     damageInfantry: 80,
     damageVehicle: 60,
     damageAir: 0,
@@ -44,13 +34,8 @@ enum UnitType {
   vehicle(
     unitClass: UnitClass.vehicle,
     deploymentCost: 20,
-    movementCost: 1,
     maxHealth: 300,
-    movementRange: 1,
     visibilityRange: 2,
-    minAttackRange: 1,
-    maxAttackRange: 1,
-    numberOfAttacks: 1,
     damageInfantry: 40,
     damageVehicle: 150,
     damageAir: 150,
@@ -63,13 +48,8 @@ enum UnitType {
   aircraft(
     unitClass: UnitClass.aircraft,
     deploymentCost: 50,
-    movementCost: 1,
     maxHealth: 150,
-    movementRange: 1,
     visibilityRange: 3,
-    minAttackRange: 1,
-    maxAttackRange: 2,
-    numberOfAttacks: 1,
     damageInfantry: 100,
     damageVehicle: 40,
     damageAir: 0,
@@ -82,13 +62,8 @@ enum UnitType {
 
   final UnitClass unitClass;
   final int deploymentCost;
-  final int movementCost;
   final int maxHealth;
   final int visibilityRange;
-  final int movementRange;
-  final int minAttackRange;
-  final int maxAttackRange;
-  final int numberOfAttacks;
   final int damageInfantry;
   final int damageVehicle;
   final int damageAir;
@@ -101,13 +76,8 @@ enum UnitType {
   const UnitType({
     required this.unitClass,
     required this.deploymentCost,
-    required this.movementCost,
     required this.maxHealth,
-    required this.movementRange,
     required this.visibilityRange,
-    required this.minAttackRange,
-    required this.maxAttackRange,
-    required this.numberOfAttacks,
     required this.damageInfantry,
     required this.damageVehicle,
     required this.damageAir,
