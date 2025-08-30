@@ -73,7 +73,7 @@ class Dimensions {
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
-    final double maxWidth = canvasSize.x / battlefield.size.width;
+    final double maxWidth = canvasSize.x / (battlefield.size.width * 1.15);
 
     return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
   }
