@@ -4,7 +4,10 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class PadComponent extends SpriteComponent {
+  final String platformId;
+
   PadComponent({
+    required this.platformId,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center, priority: Priority.structure.value);

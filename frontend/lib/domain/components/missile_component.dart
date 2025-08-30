@@ -11,9 +11,9 @@ class MissileComponent extends SpriteComponent {
   late final MissileIndicatorComponent missileIndicator;
 
   MissileComponent({
+    required JsonMissile jsonMissile,
     required super.position,
     required super.size,
-    required JsonMissile jsonMissile,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
