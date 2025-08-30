@@ -37,7 +37,7 @@ class BattlefieldComponent extends PositionComponent {
         size: Dimensions.battlefieldBackgroundSize(
           canvasSize: size,
           imageSize: sprite.originalSize,
-          gridSize: Dimensions.battlefildGridSize(size),
+          gridSize: Dimensions.battlefieldGridSize(size),
           battlefield: battlefield,
         ),
       ),
@@ -45,12 +45,13 @@ class BattlefieldComponent extends PositionComponent {
 
     for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
+        center: mapCenter,
         nodeSize: nodeSize,
         position: resource.position,
       );
 
       final ResourceComponent resourceComponent = ResourceComponent(
-        position: Vector2(mapCenter.x + position.x, mapCenter.y + position.y),
+        position: position,
         size: Vector2(nodeSize.y, nodeSize.y),
       );
       add(resourceComponent);

@@ -105,14 +105,15 @@ class Dimensions {
   }
 
   static Vector2 nodePosition({
+    required Vector2 center,
     required Vector2 nodeSize,
     required JsonPosition position,
   }) => Vector2(
-    nodeSize.x * ((position.y / 2) + position.x),
-    nodeSize.y * 3 / 4 * position.y,
+    center.x + (nodeSize.x * ((position.y / 2) + position.x)),
+    center.y + (nodeSize.y * 3 / 4 * position.y),
   );
 
-  static Vector2 battlefildGridSize(Vector2 containerSize) =>
+  static Vector2 battlefieldGridSize(Vector2 containerSize) =>
       Vector2(containerSize.x, containerSize.y);
 
   static Vector2 battlefieldBackgroundSize({
