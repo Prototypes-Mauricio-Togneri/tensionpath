@@ -3,9 +3,8 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -14,7 +13,7 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent<U extends Unit> extends PositionComponent
     with DragCallbacks {
   final U unit;
-  final Node node;
+  final JsonNode node;
   final Vector2 initialPosition = Vector2(0, 0);
 
   UnitComponent({
@@ -68,9 +67,6 @@ class UnitComponent<U extends Unit> extends PositionComponent
   void onDragUpdate(DragUpdateEvent event) {
     if (unit.player.isSelf) {
       position += event.localDelta;
-      match.highlightNode(
-        match.getActionTargetAt(position: absolutePosition, unit: unit),
-      );
     }
   }
 
@@ -79,7 +75,7 @@ class UnitComponent<U extends Unit> extends PositionComponent
     if (unit.player.isSelf) {
       super.onDragEnd(event);
 
-      final NodeComponent? nodeComponent = match.getActionTargetAt(
+      /*final NodeComponent? nodeComponent = match.getActionTargetAt(
         position: absolutePosition,
         unit: unit,
       );
@@ -105,7 +101,7 @@ class UnitComponent<U extends Unit> extends PositionComponent
         }
       } else {
         position = initialPosition;
-      }
+      }*/
     }
   }
 

@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit_aircraft.dart';
 import 'package:tensionpath/domain/entities/units/unit_harvester.dart';
 import 'package:tensionpath/domain/entities/units/unit_infantry.dart';
 import 'package:tensionpath/domain/entities/units/unit_tank.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
@@ -110,7 +110,7 @@ abstract class Unit {
   }
 
   UnitComponent component({
-    required Node node,
+    required JsonNode node,
     required Vector2 position,
     required Vector2 size,
   });

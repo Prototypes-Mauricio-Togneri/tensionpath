@@ -85,16 +85,6 @@ class MatchComponent extends World {
     }
   }
 
-  void highlightNode(NodeComponent? node) {
-    for (final NodeComponent nodeComponent in nodeComponents) {
-      nodeComponent.onHighlighted(false);
-    }
-
-    if (node != null) {
-      node.onHighlighted(true);
-    }
-  }
-
   NodeComponent? getLauncherAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) &&
@@ -110,14 +100,14 @@ class MatchComponent extends World {
     required Vector2 position,
     required Unit unit,
   }) {
-    for (final NodeComponent nodeComponent in nodeComponents) {
+    /*for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) &&
           (nodeComponent.node.isMovementTarget(unit) ||
               nodeComponent.node.isAttackUnitTarget(unit) ||
               nodeComponent.node.isAttackBaseTarget(unit))) {
         return nodeComponent;
       }
-    }
+    }*/
 
     return null;
   }

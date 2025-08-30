@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/units/unit_aircraft.dart';
 import 'package:tensionpath/domain/components/units/unit_component.dart';
-import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/units/unit.dart';
+import 'package:tensionpath/domain/json/json_node.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class UnitAircraft extends Unit {
@@ -16,7 +16,7 @@ class UnitAircraft extends Unit {
 
   @override
   UnitComponent component({
-    required Node node,
+    required JsonNode node,
     required Vector2 position,
     required Vector2 size,
   }) => UnitAircraftComponent(

@@ -1,5 +1,8 @@
 # TODO
 
+Remove:
+reconfigurable
+
 - Snapshot update
 - Dart compile in Docker
 - Continuous popcap

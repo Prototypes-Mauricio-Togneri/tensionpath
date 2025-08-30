@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -154,7 +153,6 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     if (isEnabled) {
       position += event.localDelta;
-      match.highlightNode(match.getLauncherAt(absolutePosition));
     }
   }
 
