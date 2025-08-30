@@ -115,11 +115,8 @@ class Dimensions {
     nodeSize.height * 3 / 4 * position.y,
   );
 
-  static Vector2 battlefildGridSize(Vector2 containerSize) {
-    final double padding = containerSize.y * 0.05;
-
-    return Vector2(containerSize.x - padding, containerSize.y - padding);
-  }
+  static Vector2 battlefildGridSize(Vector2 containerSize) =>
+      Vector2(containerSize.x, containerSize.y);
 
   static Vector2 battlefieldBackgroundSize({
     required Vector2 canvasSize,

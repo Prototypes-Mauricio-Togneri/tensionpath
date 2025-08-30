@@ -48,7 +48,7 @@ class ControlsComponent extends PositionComponent {
     }
 
     add(
-      ResourceComponent(
+      ResourcesComponent(
         player: player,
         position: Dimensions.controlsResourcesCardPosition(
           size: size,
@@ -206,10 +206,10 @@ class UnitCostComponent extends PositionComponent {
   }
 }
 
-class ResourceComponent extends PositionComponent {
+class ResourcesComponent extends PositionComponent {
   final JsonPlayer player;
 
-  ResourceComponent({
+  ResourcesComponent({
     required this.player,
     required super.position,
     required super.size,
