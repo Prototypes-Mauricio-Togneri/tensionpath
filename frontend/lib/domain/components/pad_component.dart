@@ -10,7 +10,10 @@ class PadComponent extends SpriteComponent {
     required this.platformId,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.structure.value);
+  }) : super(
+         anchor: Anchor.center,
+         priority: Priority.structure.value,
+       );
 
   Future reconfigure() async {
     /*if (platform.owner == Constants.PLAYER_1) {

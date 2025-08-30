@@ -19,7 +19,10 @@ class ControlsComponent extends PositionComponent {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft, priority: Priority.controls.value) {
+  }) : super(
+         anchor: Anchor.topLeft,
+         priority: Priority.controls.value,
+       ) {
     backgroundPaint.color = player.color.darken(0.2);
   }
 

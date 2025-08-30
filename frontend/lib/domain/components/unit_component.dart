@@ -18,7 +18,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required this.player,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, priority: Priority.unit.value);
+  }) : super(
+         anchor: Anchor.center,
+         priority: Priority.unit.value,
+       );
 
   @override
   FutureOr onLoad() async {
