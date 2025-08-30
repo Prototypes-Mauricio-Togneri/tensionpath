@@ -1,8 +1,6 @@
 class Assets {
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
-      'battlefields/background.jpg';
-  static const String IMAGES_BATTLEFIELDS_BACKGROUND_CLEAN =
-      'battlefields/background_clean.png';
+      'battlefields/background.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =
       'structures/launcher_1.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_2 =

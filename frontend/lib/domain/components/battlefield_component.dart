@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/launcher_component.dart';
-import 'package:tensionpath/domain/components/missile_component.dart';
-import 'package:tensionpath/domain/components/pad_component.dart';
-import 'package:tensionpath/domain/components/resource_component.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
-import 'package:tensionpath/domain/json/json_resource.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final JsonBattlefield battlefield;
@@ -32,7 +29,7 @@ class BattlefieldComponent extends PositionComponent {
       canvasSize: size,
       battlefield: battlefield,
     );
-    final Vector2 effectiveNodeSize = Vector2(nodeSize.y, nodeSize.y);
+    //final Vector2 effectiveNodeSize = Vector2(nodeSize.y, nodeSize.y);
     final Vector2 mapCenter = size / 2;
 
     add(
@@ -45,10 +42,12 @@ class BattlefieldComponent extends PositionComponent {
           gridSize: Dimensions.battlefieldGridSize(size),
           battlefield: battlefield,
         ),
+        nodeSize: nodeSize,
+        nodes: battlefield.nodes,
       ),
     );
 
-    for (final JsonResource resource in battlefield.resources) {
+    /*for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
@@ -108,7 +107,7 @@ class BattlefieldComponent extends PositionComponent {
         );
         add(launcherComponent);
       }
-    }
+    }*/
 
     /*add(
       FogComponent(
@@ -120,9 +119,38 @@ class BattlefieldComponent extends PositionComponent {
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
+  final Vector2 nodeSize;
+  final List<JsonPosition> nodes;
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    strokeWidth: 2,
+    color: Colors.black,
+  );
+
   BattlefieldBackgroundComponent({
     required super.sprite,
     required super.position,
     required super.size,
+    required this.nodeSize,
+    required this.nodes,
   }) : super(anchor: Anchor.center);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    for (final JsonPosition node in nodes) {
+      final Vector2 position = Dimensions.nodePosition(
+        center: size / 2,
+        nodeSize: nodeSize,
+        position: node,
+      );
+
+      canvas.drawCircle(
+        position.toOffset(),
+        nodeSize.x / 2,
+        borderPaint,
+      );
+    }
+  }
 }
