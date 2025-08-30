@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
@@ -87,6 +88,25 @@ class BattlefieldComponent extends PositionComponent {
           size: effectiveNodeSize,
         );
         add(padComponent);
+      }
+    }
+
+    for (final MapEntry<String, List<JsonPosition>> platform
+        in battlefield.launchers.entries) {
+      final String playerId = platform.key;
+
+      for (final JsonPosition position in platform.value) {
+        final Vector2 nodePosition = Dimensions.nodePosition(
+          center: mapCenter,
+          nodeSize: nodeSize,
+          position: position,
+        );
+        final LauncherComponent launcherComponent = LauncherComponent(
+          playerId: playerId,
+          position: nodePosition,
+          size: effectiveNodeSize,
+        );
+        add(launcherComponent);
       }
     }
 

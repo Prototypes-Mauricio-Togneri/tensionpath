@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class LauncherComponent extends SpriteComponent {
@@ -10,7 +11,10 @@ class LauncherComponent extends SpriteComponent {
     required this.playerId,
     required super.position,
     required super.size,
-  });
+  }) : super(
+         anchor: Anchor.center,
+         priority: Priority.structure.value,
+       );
 
   @override
   FutureOr onLoad() async {
