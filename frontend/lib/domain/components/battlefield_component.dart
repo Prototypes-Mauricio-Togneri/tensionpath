@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -44,6 +44,7 @@ class BattlefieldComponent extends PositionComponent {
     add(
       BattlefieldGridComponent(
         position: mapCenter,
+        size: size,
         nodeSize: nodeSize,
         nodes: battlefield.nodes,
       ),
@@ -139,13 +140,17 @@ class BattlefieldGridComponent extends PositionComponent {
 
   BattlefieldGridComponent({
     required super.position,
+    required super.size,
     required this.nodeSize,
     required this.nodes,
   }) : super(anchor: Anchor.center);
 
+  late Sprite gridSprite;
+
   @override
-  void render(Canvas canvas) {
-    super.render(canvas);
+  Future onLoad() async {
+    final PictureRecorder recorder = PictureRecorder();
+    final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
     for (final JsonPosition node in nodes) {
       final Vector2 position = Dimensions.nodePosition(
@@ -153,12 +158,21 @@ class BattlefieldGridComponent extends PositionComponent {
         nodeSize: nodeSize,
         position: node,
       );
-
       canvas.drawHexagon(
         center: position,
         size: nodeSize,
         borderPaint: borderPaint,
       );
     }
+
+    final Picture picture = recorder.endRecording();
+    final Image image = await picture.toImage(size.x.toInt(), size.y.toInt());
+    gridSprite = Sprite(image);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    gridSprite.render(canvas, size: size);
   }
 }
