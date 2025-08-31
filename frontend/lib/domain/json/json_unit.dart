@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/json_coordinates.dart';
 import 'package:tensionpath/domain/json/json_location.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 
 part 'json_unit.g.dart';
 
@@ -9,15 +9,15 @@ class JsonUnit {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
-  @JsonKey(name: 'coordinates')
-  final JsonCoordinates coordinates;
+  @JsonKey(name: 'position')
+  final JsonPosition position;
 
   @JsonKey(name: 'health')
   final double health;
 
   const JsonUnit({
     required this.location,
-    required this.coordinates,
+    required this.position,
     required this.health,
   });
 

@@ -13,9 +13,9 @@ JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
-        coordinates: $checkedConvert(
-          'coordinates',
-          (v) => JsonCoordinates.fromJson(v as Map<String, dynamic>),
+        position: $checkedConvert(
+          'position',
+          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
         ),
         health: $checkedConvert('health', (v) => (v as num).toDouble()),
       );
@@ -24,6 +24,6 @@ JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
   'location': instance.location.toJson(),
-  'coordinates': instance.coordinates.toJson(),
+  'position': instance.position.toJson(),
   'health': instance.health,
 };
