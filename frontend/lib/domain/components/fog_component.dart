@@ -9,7 +9,9 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class FogComponent extends PositionComponent {
-  final Paint layerPaint = Palette.paint();
+  final Paint layerPaint = Palette.paint(
+    blurSigma: 10,
+  );
   final Paint fogPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.NODE_FOG,

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Palette {
@@ -34,6 +35,7 @@ class Palette {
     StrokeCap? strokeCap,
     StrokeJoin? strokeJoin,
     BlendMode? blendMode,
+    double? blurSigma,
   }) {
     final Paint paint = Paint();
 
@@ -59,6 +61,13 @@ class Palette {
 
     if (blendMode != null) {
       paint.blendMode = blendMode;
+    }
+
+    if (blurSigma != null && blurSigma > 0) {
+      paint.imageFilter = ImageFilter.blur(
+        sigmaX: blurSigma,
+        sigmaY: blurSigma,
+      );
     }
 
     return paint;
