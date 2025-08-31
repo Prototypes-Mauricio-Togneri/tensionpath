@@ -94,7 +94,7 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getActionTargetAt(Vector2 position) {
+  NodeComponent? getNodeAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position)) {
         return nodeComponent;
@@ -104,13 +104,17 @@ class MatchComponent extends World {
     return null;
   }
 
-  void highlighNode([NodeComponent? nodeComponent]) {
-    for (final NodeComponent nc in nodeComponents) {
-      nc.highlight(false);
+  void highlighNodeAt([Vector2? position]) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      nodeComponent.highlight(false);
     }
 
-    if (nodeComponent != null) {
-      nodeComponent.highlight(true);
+    if (position != null) {
+      final NodeComponent? nodeComponent = getNodeAt(position);
+
+      if (nodeComponent != null) {
+        nodeComponent.highlight(true);
+      }
     }
   }
 

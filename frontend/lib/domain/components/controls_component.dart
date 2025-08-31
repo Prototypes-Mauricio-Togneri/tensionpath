@@ -156,12 +156,16 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     if (isEnabled) {
       position += event.localDelta;
+
+      match.highlighNodeAt(absolutePosition);
     }
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
+
+    match.highlighNodeAt();
 
     if (isEnabled) {
       final LauncherComponent? launcherComponent = match.getLauncherAt(
