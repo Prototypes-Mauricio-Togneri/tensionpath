@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_ratio.dart';
 import 'package:tensionpath/domain/json/json_resource.dart';
 import 'package:tensionpath/domain/json/json_size.dart';
+import 'package:tensionpath/domain/json/json_unit.dart';
 
 part 'json_battlefield.g.dart';
 
@@ -30,6 +31,9 @@ class JsonBattlefield {
   @JsonKey(name: 'nodes')
   final List<JsonPosition> nodes;
 
+  @JsonKey(name: 'units')
+  final List<JsonUnit> units;
+
   const JsonBattlefield({
     required this.id,
     required this.size,
@@ -38,6 +42,7 @@ class JsonBattlefield {
     required this.resources,
     required this.launchers,
     required this.nodes,
+    required this.units,
   });
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>

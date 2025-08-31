@@ -6,25 +6,31 @@ import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends PositionComponent with DragCallbacks {
+  final String id;
   final UnitType type;
   final JsonPlayer player;
+  late HealthBarComponent healthBarComponent;
   Vector2 targetPosition = Vector2(0, 0);
 
   UnitComponent({
     required super.position,
     required super.size,
+    required this.id,
     required this.type,
     required this.player,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
        );
+
+  void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
 
   @override
   FutureOr onLoad() async {
@@ -37,14 +43,14 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       ),
     );
 
-    add(
-      HealthBarComponent(
-        position: size / 2,
-        size: size,
-        type: type,
-        player: player,
-      ),
+    healthBarComponent = HealthBarComponent(
+      position: size / 2,
+      size: size,
+      type: type,
+      player: player,
     );
+
+    add(healthBarComponent);
 
     return super.onLoad();
   }
@@ -160,6 +166,10 @@ class HealthBarComponent extends PositionComponent {
     borderHealthPaint.strokeWidth = size.y / 60;
     health = type.maxHealth.toDouble();
     maxHealth = type.maxHealth.toDouble();
+  }
+
+  void refresh(JsonUnit unit) {
+    health = unit.health;
   }
 
   @override

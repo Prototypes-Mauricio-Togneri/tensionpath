@@ -45,6 +45,12 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
               .map((e) => JsonPosition.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
+        units: $checkedConvert(
+          'units',
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonUnit.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
       );
       return val;
     });
@@ -60,4 +66,5 @@ Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
         (k, e) => MapEntry(k, e.map((e) => e.toJson()).toList()),
       ),
       'nodes': instance.nodes.map((e) => e.toJson()).toList(),
+      'units': instance.units.map((e) => e.toJson()).toList(),
     };

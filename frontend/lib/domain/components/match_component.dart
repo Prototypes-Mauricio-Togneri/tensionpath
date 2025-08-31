@@ -97,6 +97,7 @@ class MatchComponent extends World {
             canvasSize: Dimensions.battlefieldSize(resolution),
             battlefield: match.battlefield,
           ),
+          id: DateTime.now().toIso8601String(),
           type: unitType,
           player: match.self,
         );
