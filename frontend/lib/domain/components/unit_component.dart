@@ -62,7 +62,12 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     if (player.isSelf) {
       super.onDragStart(event);
 
-      targetPosition = Vector2(absolutePosition.x, absolutePosition.y);
+      final Vector2 offsetFromCenter = event.localPosition - (size / 2);
+
+      targetPosition = Vector2(
+        absolutePosition.x + offsetFromCenter.x,
+        absolutePosition.y + offsetFromCenter.y,
+      );
     }
   }
 
