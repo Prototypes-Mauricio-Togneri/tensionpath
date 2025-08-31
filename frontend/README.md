@@ -19,24 +19,50 @@
   - ID
   - Target unit
 
-# Messages
+## Messages
+
 1. Server
-  - Sends state
+
+- Sends state
+
 2. Client
-  - Sends message "deploy_unit"
-    - Type
-    - Location
+
+- Sends message "deploy_unit"
+  - Type
+  - Location
+
 3. Server
-  - Creates unit in the battlefield
-  - Sends state
+
+- Creates unit in the battlefield
+- Sends state
+
 4. Client
-  - Creates UnitComponent
+
+- Creates UnitComponent
+
 5. Client
-  - Sends message "move_unit"
-    - ID
-    - Location
+
+- Sends message "move_unit"
+  - ID
+  - Location
+
 6. Server
-  - Marks unit as moving
-  - Sends state
+
+- Marks unit as moving
+- Sends state
+
 7. Client
-  - Updates UnitComponent
+
+- Updates UnitComponent
+
+## Server loop
+
+- For each unit
+  - If moving
+    - If target node is free
+      - Update position
+      - If unit inside of target node -> assign node to unit
+    - If target node is not free
+      - Re-assign node
+      - Update position
+      - If unit inside of target node -> assign node to unit
