@@ -22,7 +22,12 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   final Player player;
   late HealthBarComponent healthBarComponent;
   Vector2? targetPosition;
+
+  JsonLocation? destinationLocation;
   Vector2? destinationPosition;
+
+  NodeType? currentNodeType;
+  JsonLocation? currentLocation;
 
   UnitComponent({
     required super.position,
@@ -30,6 +35,8 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required this.id,
     required this.type,
     required this.player,
+    required this.currentNodeType,
+    required this.currentLocation,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
@@ -41,6 +48,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required JsonLocation location,
     required Vector2 position,
   }) {
+    currentNodeType = null;
+    currentLocation = null;
+    destinationLocation = location;
     destinationPosition = position;
   }
 
@@ -90,7 +100,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       );
 
       match.highlightNodeAt(
-        nodeTypes: [NodeType.empty, NodeType.resources, NodeType.pad],
+        nodeTypes: NodeType.canMove,
         position: targetPosition!,
       );
     }
@@ -102,7 +112,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       super.onDragEnd(event);
 
       final NodeComponent? nodeComponent = match.getNodeAt(
-        nodeTypes: [NodeType.empty, NodeType.resources, NodeType.pad],
+        nodeTypes: NodeType.canMove,
         position: targetPosition!,
       );
 
@@ -153,6 +163,15 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
       if (distance < 1) {
         position = destinationPosition!;
+        currentLocation = destinationLocation;
+        currentNodeType = match
+            .getNodeAt(
+              nodeTypes: NodeType.canMove,
+              position: absolutePosition,
+            )!
+            .type;
+
+        destinationLocation = null;
         destinationPosition = null;
       } else {
         direction.normalize();

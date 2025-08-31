@@ -140,7 +140,7 @@ class BattlefieldComponent extends PositionComponent {
           position: nodePosition,
           size: nodeSize,
           playerId: playerId,
-          positionId: location.id,
+          location: location,
         );
         add(launcherComponent);
         launcherComponents.add(launcherComponent);

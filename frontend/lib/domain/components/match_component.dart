@@ -156,6 +156,8 @@ class MatchComponent extends World {
         id: DateTime.now().toIso8601String(),
         type: unitType,
         player: self,
+        currentNodeType: NodeType.launcher,
+        currentLocation: launcherComponent.location,
       );
 
       add(unitComponent);
