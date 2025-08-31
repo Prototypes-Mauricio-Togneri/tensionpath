@@ -143,7 +143,7 @@ class MatchComponent extends World {
     required UnitComponent unitComponent,
     required JsonPosition position,
   }) {
-
+    unitComponent.moveTo(position);
   }
 
   void showTarget({

@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends PositionComponent with DragCallbacks {
@@ -33,6 +35,15 @@ class UnitComponent extends PositionComponent with DragCallbacks {
        );
 
   void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
+
+  void moveTo(JsonPosition jsonPosition) {
+    final Vector2 newPosition = Dimensions.nodePosition(
+      center: absolutePosition,
+      nodeSize: size,
+      position: jsonPosition,
+    );
+    position = newPosition;
+  }
 
   @override
   FutureOr onLoad() async {
