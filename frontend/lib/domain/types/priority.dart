@@ -1,7 +1,7 @@
 enum Priority {
   battlefield(0),
-  node(1),
-  structure(2),
+  structure(1),
+  node(2),
   unit(3),
   fog(4),
   damage(5),

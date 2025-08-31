@@ -79,7 +79,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       );
 
       if (nodeComponent != null) {
-        nodeComponent.highlighted = true;
+        match.highlighNode(nodeComponent);
       }
     }
   }
@@ -91,6 +91,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
       targetPosition = null;
       match.hideTarget();
+      match.highlighNode();
 
       /*final NodeComponent? nodeComponent = match.getActionTargetAt(
         position: absolutePosition,

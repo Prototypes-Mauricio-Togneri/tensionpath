@@ -103,6 +103,16 @@ class MatchComponent extends World {
     return null;
   }
 
+  void highlighNode([NodeComponent? nodeComponent]) {
+    for (final NodeComponent nc in nodeComponents) {
+      nc.highlight(false);
+    }
+
+    if (nodeComponent != null) {
+      nodeComponent.highlight(true);
+    }
+  }
+
   void onDeployUnit({
     required LauncherComponent launcherComponent,
     required UnitType unitType,

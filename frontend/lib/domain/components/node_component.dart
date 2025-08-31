@@ -25,6 +25,10 @@ class NodeComponent extends PositionComponent {
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
+  void highlight(bool value) {
+    highlighted = value;
+  }
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
