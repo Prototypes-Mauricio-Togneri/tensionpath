@@ -140,11 +140,9 @@ class UnitImageComponent extends SpriteComponent {
 class HealthBarComponent extends PositionComponent {
   final UnitType type;
   final JsonPlayer player;
-  final Paint backgroundHealthPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.UNIT_HEALTH_BACKGROUND,
+  final Paint foregroundHealthPaint = Palette.paint(
+    style: PaintingStyle.stroke,
   );
-  final Paint foregroundHealthPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint borderHealthPaint = Palette.paint(
     style: PaintingStyle.stroke,
     color: Palette.UNIT_HEALTH_BORDER,
@@ -166,17 +164,6 @@ class HealthBarComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    /*canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundHealthPaint);
-
-    final double healthBar = width * (health / maxHealth);
-
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, healthBar, height),
-      foregroundHealthPaint,
-    );
-
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);*/
-
     final double radius = size.x / 2.5;
     final double thickness = size.y / 20;
     const double sweepDegrees = 360 * 0.75; //(health / maxHealth);
@@ -185,7 +172,15 @@ class HealthBarComponent extends PositionComponent {
       center: size / 2,
       radius: radius,
       thickness: thickness,
-      sweepDegrees: -sweepDegrees,
+      sweepDegrees: sweepDegrees,
+      paint: borderHealthPaint,
+    );
+
+    canvas.drawArc2(
+      center: size / 2,
+      radius: radius,
+      thickness: thickness * 0.5,
+      sweepDegrees: sweepDegrees,
       paint: foregroundHealthPaint,
     );
   }

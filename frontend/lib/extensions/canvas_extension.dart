@@ -95,15 +95,13 @@ extension CanvasExtension on Canvas {
     const double startAngle = -pi / 2;
     final double sweepAngle = sweepDegrees * pi / 180;
 
-    paint
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = thickness;
+    paint.strokeWidth = thickness;
 
     drawArc(
       rect,
       startAngle,
-      sweepAngle,
-      false, // false = not a pie, just an arc
+      -sweepAngle,
+      false,
       paint,
     );
   }
