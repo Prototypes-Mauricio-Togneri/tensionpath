@@ -19,7 +19,7 @@ class MatchComponent extends World {
   final List<NodeComponent> nodeComponents = [];
   final List<LauncherComponent> launcherComponents = [];
   final List<UnitComponent> unitComponents = [];
-  final Map<String, UnitComponent> occupiedNodes = {};
+  late final Vector2 nodeSize;
   late final TargetComponent targetComponent;
 
   MatchComponent({
@@ -35,6 +35,11 @@ class MatchComponent extends World {
       position: Vector2.zero(),
     );
     add(targetComponent);
+
+    nodeSize = Dimensions.nodeSize(
+      canvasSize: Dimensions.battlefieldSize(resolution),
+      battlefield: match.battlefield,
+    );
 
     add(
       BattlefieldComponent(
@@ -134,25 +139,19 @@ class MatchComponent extends World {
     required LauncherComponent launcherComponent,
     required UnitType unitType,
   }) {
-    if (!occupiedNodes.containsKey(launcherComponent.positionId)) {
-      if (match.self.resources >= unitType.deploymentCost) {
-        //match.self.resources -= unitType.deploymentCost;
+    if (match.self.resources >= unitType.deploymentCost) {
+      //match.self.resources -= unitType.deploymentCost;
 
-        final UnitComponent unitComponent = UnitComponent(
-          position: launcherComponent.absolutePosition,
-          size: Dimensions.nodeSize(
-            canvasSize: Dimensions.battlefieldSize(resolution),
-            battlefield: match.battlefield,
-          ),
-          id: DateTime.now().toIso8601String(),
-          type: unitType,
-          player: match.self,
-        );
+      final UnitComponent unitComponent = UnitComponent(
+        position: launcherComponent.absolutePosition,
+        size: nodeSize,
+        id: DateTime.now().toIso8601String(),
+        type: unitType,
+        player: match.self,
+      );
 
-        occupiedNodes[launcherComponent.positionId] = unitComponent;
-        add(unitComponent);
-        unitComponents.add(unitComponent);
-      }
+      add(unitComponent);
+      unitComponents.add(unitComponent);
     }
   }
 
@@ -160,7 +159,6 @@ class MatchComponent extends World {
     required UnitComponent unitComponent,
     required NodeComponent nodeComponent,
   }) {
-    //occupiedNodes[unitComponent.positionId] = unitComponent;
     unitComponent.moveTo(
       location: nodeComponent.jsonPosition,
       position: nodeComponent.absolutePosition,
