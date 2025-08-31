@@ -49,11 +49,10 @@ class FogComponent extends PositionComponent {
     final Set<Vector2> visibleNodes = {};
 
     for (final LauncherComponent launcherComponent in launcherComponents) {
-      visibleNodes.addAll(
-        launcherComponent.nodeComponent.visibleNodes(
-          visibilityRange: Constants.LAUNCHER_VISIBILITY,
-          nodes: nodeComponents,
-        ),
+      launcherComponent.nodeComponent.visibleNodes(
+        visibilityRange: Constants.LAUNCHER_VISIBILITY,
+        nodes: nodeComponents,
+        visibleNodes: visibleNodes,
       );
     }
 
@@ -61,11 +60,10 @@ class FogComponent extends PositionComponent {
       final NodeComponent? closestNode = unitComponent.closestNodeComponent;
 
       if (closestNode != null) {
-        visibleNodes.addAll(
-          closestNode.visibleNodes(
-            visibilityRange: unitComponent.type.visibilityRange,
-            nodes: nodeComponents,
-          ),
+        closestNode.visibleNodes(
+          visibilityRange: unitComponent.type.visibilityRange,
+          nodes: nodeComponents,
+          visibleNodes: visibleNodes,
         );
       }
     }

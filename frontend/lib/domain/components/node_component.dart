@@ -44,19 +44,18 @@ class NodeComponent extends PositionComponent {
     return distance.toInt();
   }
 
-  Set<Vector2> visibleNodes({
+  void visibleNodes({
     required int visibilityRange,
     required List<NodeComponent> nodes,
+    required Set<Vector2> visibleNodes,
   }) {
-    final Set<Vector2> result = {position};
+    visibleNodes.add(position);
 
     for (final NodeComponent node in nodes) {
       if ((node != this) && (distanceTo(node) <= visibilityRange)) {
-        result.add(node.position);
+        visibleNodes.add(node.position);
       }
     }
-
-    return result;
   }
 
   void highlight(bool value) {
