@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -247,6 +248,13 @@ class ResourcesComponent extends PositionComponent {
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.topLeft);
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    player.addResources(dt * Constants.RESOURCES_PER_SECOND);
+  }
 
   @override
   void render(Canvas canvas) {
