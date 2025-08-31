@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_location.dart';
 import 'package:tensionpath/domain/json/json_missile.dart';
@@ -20,15 +24,21 @@ import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final JsonBattlefield battlefield;
+  final Player self;
+  final Player opponent;
   final List<NodeComponent> nodeComponents;
   final List<LauncherComponent> launcherComponents;
+  final List<UnitComponent> unitComponents;
 
   BattlefieldComponent({
     required super.position,
     required super.size,
     required this.battlefield,
+    required this.self,
+    required this.opponent,
     required this.nodeComponents,
     required this.launcherComponents,
+    required this.unitComponents,
   }) : super(
          anchor: Anchor.topLeft,
          priority: Priority.battlefield.value,
@@ -139,7 +149,7 @@ class BattlefieldComponent extends PositionComponent {
         final LauncherComponent launcherComponent = LauncherComponent(
           position: nodePosition,
           size: nodeSize,
-          playerId: playerId,
+          player: self.id == playerId ? self : opponent,
           location: location,
         );
         add(launcherComponent);
@@ -147,12 +157,17 @@ class BattlefieldComponent extends PositionComponent {
       }
     }
 
-    /*add(
+    add(
       FogComponent(
         position: size / 2,
         size: size,
+        unitComponents: unitComponents,
+        launcherComponents: launcherComponents
+            .where((launcher) => launcher.player.isSelf)
+            .toList(),
+        nodeSize: max(nodeSize.x, nodeSize.y),
       ),
-    );*/
+    );
   }
 
   NodeType getNodeType({

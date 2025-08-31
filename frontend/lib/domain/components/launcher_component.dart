@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/json_location.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -8,13 +7,13 @@ import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class LauncherComponent extends SpriteComponent {
-  final String playerId;
+  final Player player;
   final JsonLocation location;
 
   LauncherComponent({
     required super.position,
     required super.size,
-    required this.playerId,
+    required this.player,
     required this.location,
   }) : super(
          anchor: Anchor.center,
@@ -25,13 +24,13 @@ class LauncherComponent extends SpriteComponent {
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
-  bool belongsTo(Player player) => player.id == playerId;
+  bool belongsTo(Player player) => player.id == this.player.id;
 
   @override
   FutureOr onLoad() async {
-    if (playerId == Constants.PLAYER_1) {
+    if (player.isPlayer1) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_1);
-    } else if (playerId == Constants.PLAYER_2) {
+    } else if (player.isPlayer2) {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_2);
     }
 

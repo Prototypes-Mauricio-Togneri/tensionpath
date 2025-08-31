@@ -54,8 +54,11 @@ class MatchComponent extends World {
         ),
         size: Dimensions.battlefieldSize(resolution),
         battlefield: match.battlefield,
+        self: self,
+        opponent: opponent,
         nodeComponents: nodeComponents,
         launcherComponents: launcherComponents,
+        unitComponents: unitComponents,
       ),
     );
 

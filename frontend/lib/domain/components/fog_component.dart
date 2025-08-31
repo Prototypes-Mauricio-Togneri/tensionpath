@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -12,10 +15,16 @@ class FogComponent extends PositionComponent {
   final Paint clearPaint = Palette.paint(
     blendMode: BlendMode.clear,
   );
+  final List<UnitComponent> unitComponents;
+  final List<LauncherComponent> launcherComponents;
+  final double nodeSize;
 
   FogComponent({
     required super.position,
     required super.size,
+    required this.unitComponents,
+    required this.launcherComponents,
+    required this.nodeSize,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.fog.value,
@@ -31,16 +40,25 @@ class FogComponent extends PositionComponent {
     // Draw the full-screen overlay
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fogPaint);
 
-    // Cut out the "hole"
-    final List<Offset> centers = [
-      Offset(width / 2, height / 2),
-      Offset(width / 4, height / 2),
-      Offset(width * 0.75, height / 2),
-      Offset(width * 0.6, height / 2),
-    ];
+    for (final LauncherComponent launcherComponent in launcherComponents) {
+      final Offset center = launcherComponent.position.toOffset();
+      canvas.drawCircle(
+        center,
+        Constants.LAUNCHER_VISIBILITY * nodeSize,
+        clearPaint,
+      );
+    }
 
-    for (final Offset center in centers) {
-      canvas.drawCircle(center, 100, clearPaint);
+    for (final UnitComponent unitComponent in unitComponents) {
+      if (unitComponent.player.isSelf) {
+        final Offset center = unitComponent.position.toOffset();
+
+        canvas.drawCircle(
+          center,
+          unitComponent.type.visibilityRange * nodeSize,
+          clearPaint,
+        );
+      }
     }
 
     canvas.restore();
