@@ -161,12 +161,26 @@ class HealthBarComponent extends PositionComponent {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (health > 0) {
+      health -= dt * 10;
+
+      if (health < 0) {
+        health = 0;
+      }
+    }
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
     final double radius = size.x / 2.5;
     final double thickness = size.y / 20;
-    const double sweepDegrees = 360 * 0.75; //(health / maxHealth);
+    final double sweepDegrees = 360 * (health / maxHealth);
+    final double borderThickness = thickness * 0.05;
 
     canvas.drawArc2(
       center: size / 2,
@@ -178,8 +192,8 @@ class HealthBarComponent extends PositionComponent {
 
     canvas.drawArc2(
       center: size / 2,
-      radius: radius,
-      thickness: thickness * 0.5,
+      radius: radius - borderThickness,
+      thickness: thickness - (borderThickness * 2),
       sweepDegrees: sweepDegrees,
       paint: foregroundHealthPaint,
     );
