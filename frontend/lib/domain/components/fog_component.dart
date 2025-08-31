@@ -18,6 +18,7 @@ class FogComponent extends PositionComponent {
   final List<UnitComponent> unitComponents;
   final List<LauncherComponent> launcherComponents;
   final double nodeSize;
+  final Vector2 offset;
 
   FogComponent({
     required super.position,
@@ -25,6 +26,7 @@ class FogComponent extends PositionComponent {
     required this.unitComponents,
     required this.launcherComponents,
     required this.nodeSize,
+    required this.offset,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.fog.value,
@@ -51,10 +53,9 @@ class FogComponent extends PositionComponent {
 
     for (final UnitComponent unitComponent in unitComponents) {
       if (unitComponent.player.isSelf) {
-        final Offset center = unitComponent.position.toOffset();
-
+        final Vector2 center = unitComponent.position - offset + (size / 2);
         canvas.drawCircle(
-          center,
+          center.toOffset(),
           unitComponent.type.visibilityRange * nodeSize,
           clearPaint,
         );
