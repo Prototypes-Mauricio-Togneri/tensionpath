@@ -28,8 +28,10 @@ class NodeComponent extends PositionComponent {
        );
 
   @override
-  bool containsLocalPoint(Vector2 point) =>
-      Dimensions.pointInHexagon(point: point, size: size);
+  bool containsLocalPoint(Vector2 point) => Dimensions.pointInHexagon(
+    point: point,
+    size: size,
+  );
 
   int distanceTo(NodeComponent node) {
     final double distance =

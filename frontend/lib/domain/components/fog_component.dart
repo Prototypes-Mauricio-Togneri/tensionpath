@@ -86,7 +86,23 @@ class FogComponent extends PositionComponent {
       }
     }
 
-    print('Visible Nodes: $visibleNodes');
+    for (final UnitComponent unitComponent in unitComponents) {
+      final NodeComponent? nodeComponent = match.getNodeAt(
+        nodeTypes: NodeType.values,
+        position: unitComponent.absolutePosition,
+      );
+
+      if (nodeComponent != null) {
+        visibleNodes.addAll(
+          nodeComponent.visibleNodes(
+            visibilityRange: unitComponent.type.visibilityRange,
+            nodes: nodeComponents,
+          ),
+        );
+      } else {
+        print('');
+      }
+    }
 
     /*for (final NodeComponent nodeComponent in nodeComponents) {
       final String nodeId = nodeComponent.location.id;
@@ -119,12 +135,6 @@ class FogComponent extends PositionComponent {
         size: nodeSize,
         fillPaint: clearPaint,
       );
-
-      /*canvas.drawCircle(
-        visibleNode.toOffset(),
-        nodeSize,
-        clearPaint,
-      );*/
     }
 
     canvas.restore();
