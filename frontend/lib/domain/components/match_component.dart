@@ -4,12 +4,17 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
+import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Vector2 resolution;
   final JsonMatch match;
+  final List<LauncherComponent> launcherComponents = [];
+  final List<UnitComponent> unitComponents = [];
 
   MatchComponent({
     required this.resolution,
@@ -22,12 +27,13 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     add(
       BattlefieldComponent(
-        battlefield: match.battlefield,
         position: Dimensions.battlefieldPosition(
           resolution: resolution,
           isPlayer1: match.self.isPlayer1,
         ),
         size: Dimensions.battlefieldSize(resolution),
+        battlefield: match.battlefield,
+        launcherComponents: launcherComponents,
       ),
     );
 
@@ -65,16 +71,38 @@ class MatchComponent extends World {
     }
   }
 
-  /*NodeComponent? getLauncherAt(Vector2 position) {
-    for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) /*&&
-          nodeComponent.node.isDeploymentTarget(match.self)*/ ) {
-        return nodeComponent;
+  LauncherComponent? getLauncherAt(Vector2 position) {
+    for (final LauncherComponent launcherComponent in launcherComponents) {
+      if (launcherComponent.containsPoint(position) &&
+          launcherComponent.belongsTo(match.self)) {
+        return launcherComponent;
       }
     }
 
     return null;
-  }*/
+  }
+
+  void onDeployUnit({
+    required LauncherComponent launcherComponent,
+    required UnitType unitType,
+  }) {
+    if (match.self.resources >= unitType.deploymentCost) {
+      //match.self.resources -= unitType.deploymentCost;
+
+      final UnitComponent unitComponent = UnitComponent(
+        position: launcherComponent.absolutePosition,
+        size: Dimensions.nodeSize(
+          canvasSize: Dimensions.battlefieldSize(resolution),
+          battlefield: match.battlefield,
+        ),
+        type: unitType,
+        player: match.self,
+      );
+
+      add(unitComponent);
+      unitComponents.add(unitComponent);
+    }
+  }
 
   /*NodeComponent? getActionTargetAt({
     required Vector2 position,

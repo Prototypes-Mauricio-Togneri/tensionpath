@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
@@ -50,19 +49,6 @@ class JsonRoom {
     required this.matchType,
     required this.matchId,
   });
-
-  Room get object => Room(
-    id: id,
-    version: version,
-    createdAt: createdAt,
-    numberOfPlayers: numberOfPlayers,
-    visibility: visibility,
-    status: status,
-    playerIds: playerIds,
-    players: players,
-    matchType: matchType,
-    matchId: matchId,
-  );
 
   factory JsonRoom.fromJson(Map<String, dynamic> json) =>
       _$JsonRoomFromJson(json);

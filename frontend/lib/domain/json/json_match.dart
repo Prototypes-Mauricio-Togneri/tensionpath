@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
-import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/json_utils.dart';
 
 part 'json_match.g.dart';
@@ -27,6 +26,7 @@ class JsonMatch {
     required this.battlefield,
   });
 
+  // TODO(momo): remove all these functions
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
   JsonPlayer get self => players.firstWhere((player) => player.isSelf);
@@ -36,31 +36,6 @@ class JsonMatch {
   bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 
   bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
-
-  bool canDeployUnit(UnitType unitType) =>
-      self.resources >= unitType.deploymentCost;
-
-  /*void _onMatchUpated(Match newMatch) {
-    self.replaceWith(newMatch.self);
-    opponent.replaceWith(newMatch.opponent);
-    battlefield.replaceWith(self: self, newBattlefield: newMatch.battlefield);
-
-    MatchComponentRef.instance.onMatchUpdated(this);
-  }*/
-
-  /*Future onDeployUnit({
-    required JsonNode node,
-    required UnitType unitType,
-  }) async {
-    final Unit unit = Unit.create(
-      unitType: unitType,
-      position: node.position,
-      player: self,
-      health: unitType.maxHealth,
-      remainingMoves: 0,
-      remainingAttacks: unitType.numberOfAttacks,
-    );
-  }*/
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);

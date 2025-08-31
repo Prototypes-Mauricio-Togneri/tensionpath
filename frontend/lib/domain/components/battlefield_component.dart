@@ -17,11 +17,13 @@ import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final JsonBattlefield battlefield;
+  List<LauncherComponent> launcherComponents;
 
   BattlefieldComponent({
-    required this.battlefield,
     required super.position,
     required super.size,
+    required this.battlefield,
+    required this.launcherComponents,
   }) : super(
          anchor: Anchor.topLeft,
          priority: Priority.battlefield.value,
@@ -113,6 +115,7 @@ class BattlefieldComponent extends PositionComponent {
           size: nodeSize,
         );
         add(launcherComponent);
+        launcherComponents.add(launcherComponent);
       }
     }
 

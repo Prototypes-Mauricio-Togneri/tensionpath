@@ -11,13 +11,13 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent extends PositionComponent with DragCallbacks {
   final UnitType type;
   final JsonPlayer player;
-  final Vector2 initialPosition = Vector2(0, 0);
+  Vector2 targetPosition = Vector2(0, 0);
 
   UnitComponent({
-    required this.type,
-    required this.player,
     required super.position,
     required super.size,
+    required this.type,
+    required this.player,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
@@ -50,14 +50,14 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     if (player.isSelf) {
       super.onDragStart(event);
 
-      initialPosition.setFrom(position);
+      targetPosition.setFrom(position);
     }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (player.isSelf) {
-      position += event.localDelta;
+      targetPosition += event.localDelta;
     }
   }
 

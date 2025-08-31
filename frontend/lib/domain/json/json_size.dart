@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_size.g.dart';
@@ -12,8 +11,6 @@ class JsonSize {
   final int height;
 
   const JsonSize({required this.width, required this.height});
-
-  Vector2 get object => Vector2(width.toDouble(), height.toDouble());
 
   factory JsonSize.fromJson(Map<String, dynamic> json) =>
       _$JsonSizeFromJson(json);

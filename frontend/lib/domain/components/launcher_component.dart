@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
@@ -15,6 +16,8 @@ class LauncherComponent extends SpriteComponent {
          anchor: Anchor.center,
          priority: Priority.structure.value,
        );
+
+  bool belongsTo(JsonPlayer player) => player.id == playerId;
 
   @override
   FutureOr onLoad() async {

@@ -4,10 +4,12 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -96,7 +98,7 @@ class UnitSelectorComponent extends PositionComponent {
         player: player,
         unitType: unitType,
         position: Vector2(size.x / 2, size.y / 2),
-        size: size * 0.7,
+        size: size * 0.6,
       ),
     );
 
@@ -104,7 +106,7 @@ class UnitSelectorComponent extends PositionComponent {
       UnitCostComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.85, size.y * 0.83),
+        position: Vector2(size.x * 0.81, size.y * 0.83),
         size: Vector2(size.x * 0.3, size.y * 0.34),
       ),
     );
@@ -123,9 +125,8 @@ class UnitSelectorComponent extends PositionComponent {
 class UnitImageComponent extends SpriteComponent with DragCallbacks {
   final JsonPlayer player;
   final UnitType unitType;
-  bool isEnabled = false;
+  bool isEnabled = true;
   Vector2 initialPosition = Vector2(0, 0);
-  bool dragging = false;
 
   UnitImageComponent({
     required this.player,
@@ -148,7 +149,6 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
     if (isEnabled) {
       initialPosition.setFrom(position);
-      dragging = true;
     }
   }
 
@@ -164,16 +164,18 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     super.onDragEnd(event);
 
     if (isEnabled) {
-      /*final NodeComponent? nodeComponent = match.getLauncherAt(
+      final LauncherComponent? launcherComponent = match.getLauncherAt(
         absolutePosition,
       );
 
-      if (nodeComponent != null) {
-        match.match.onDeployUnit(node: nodeComponent.node, unitType: unitType);
-      }*/
+      if (launcherComponent != null) {
+        match.onDeployUnit(
+          launcherComponent: launcherComponent,
+          unitType: unitType,
+        );
+      }
 
       position = initialPosition;
-      dragging = false;
     }
   }
 }
