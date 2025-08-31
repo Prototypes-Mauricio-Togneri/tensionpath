@@ -9,9 +9,9 @@ part of 'json_resource.dart';
 JsonResource _$JsonResourceFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonResource', json, ($checkedConvert) {
       final val = JsonResource(
-        position: $checkedConvert(
-          'position',
-          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+        location: $checkedConvert(
+          'location',
+          (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
         amountCurrent: $checkedConvert(
           'amountCurrent',
@@ -24,7 +24,7 @@ JsonResource _$JsonResourceFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonResourceToJson(JsonResource instance) =>
     <String, dynamic>{
-      'position': instance.position.toJson(),
+      'location': instance.location.toJson(),
       'amountCurrent': instance.amountCurrent,
       'amountMax': instance.amountMax,
     };

@@ -14,7 +14,7 @@ JsonPlatform _$JsonPlatformFromJson(Map<String, dynamic> json) =>
         pads: $checkedConvert(
           'pads',
           (v) => (v as List<dynamic>)
-              .map((e) => JsonPosition.fromJson(e as Map<String, dynamic>))
+              .map((e) => JsonLocation.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
       );

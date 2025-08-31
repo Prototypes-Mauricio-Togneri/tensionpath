@@ -9,9 +9,9 @@ part of 'json_unit.dart';
 JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonUnit', json, ($checkedConvert) {
       final val = JsonUnit(
-        position: $checkedConvert(
-          'position',
-          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+        location: $checkedConvert(
+          'location',
+          (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
         coordinates: $checkedConvert(
           'coordinates',
@@ -23,7 +23,7 @@ JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
     });
 
 Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
-  'position': instance.position.toJson(),
+  'location': instance.location.toJson(),
   'coordinates': instance.coordinates.toJson(),
   'health': instance.health,
 };

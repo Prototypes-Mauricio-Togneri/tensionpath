@@ -9,9 +9,9 @@ part of 'json_missile.dart';
 JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonMissile', json, ($checkedConvert) {
       final val = JsonMissile(
-        position: $checkedConvert(
-          'position',
-          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+        location: $checkedConvert(
+          'location',
+          (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
         owner: $checkedConvert('owner', (v) => v as String?),
         chargeCurrent: $checkedConvert(
@@ -35,7 +35,7 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonMissileToJson(JsonMissile instance) =>
     <String, dynamic>{
-      'position': instance.position.toJson(),
+      'location': instance.location.toJson(),
       'owner': ?instance.owner,
       'chargeCurrent': instance.chargeCurrent,
       'chargeMax': instance.chargeMax,

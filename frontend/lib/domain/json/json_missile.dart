@@ -1,13 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/json_location.dart';
 import 'package:tensionpath/domain/json/json_platform.dart';
-import 'package:tensionpath/domain/json/json_position.dart';
 
 part 'json_missile.g.dart';
 
 @JsonSerializable()
 class JsonMissile {
-  @JsonKey(name: 'position')
-  final JsonPosition position;
+  @JsonKey(name: 'location')
+  final JsonLocation location;
 
   @JsonKey(name: 'owner')
   final String? owner;
@@ -25,7 +25,7 @@ class JsonMissile {
   final List<JsonPlatform> platforms;
 
   const JsonMissile({
-    required this.position,
+    required this.location,
     required this.owner,
     required this.chargeCurrent,
     required this.chargeMax,

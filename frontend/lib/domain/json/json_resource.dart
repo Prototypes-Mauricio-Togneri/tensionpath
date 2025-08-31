@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/json_position.dart';
+import 'package:tensionpath/domain/json/json_location.dart';
 
 part 'json_resource.g.dart';
 
 @JsonSerializable()
 class JsonResource {
-  @JsonKey(name: 'position')
-  final JsonPosition position;
+  @JsonKey(name: 'location')
+  final JsonLocation location;
 
   @JsonKey(name: 'amountCurrent')
   final double amountCurrent;
@@ -15,7 +15,7 @@ class JsonResource {
   final double amountMax;
 
   const JsonResource({
-    required this.position,
+    required this.location,
     required this.amountCurrent,
     required this.amountMax,
   });

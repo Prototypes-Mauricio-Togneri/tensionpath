@@ -1,24 +1,24 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'json_position.g.dart';
+part 'json_location.g.dart';
 
 @JsonSerializable()
-class JsonPosition {
+class JsonLocation {
   @JsonKey(name: 'x')
   final int x;
 
   @JsonKey(name: 'y')
   final int y;
 
-  const JsonPosition({
+  const JsonLocation({
     required this.x,
     required this.y,
   });
 
   String get id => '$x,$y';
 
-  factory JsonPosition.fromJson(Map<String, dynamic> json) =>
-      _$JsonPositionFromJson(json);
+  factory JsonLocation.fromJson(Map<String, dynamic> json) =>
+      _$JsonLocationFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonPositionToJson(this);
+  Map<String, dynamic> toJson() => _$JsonLocationToJson(this);
 }

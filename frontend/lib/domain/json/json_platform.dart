@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/json_position.dart';
+import 'package:tensionpath/domain/json/json_location.dart';
 
 part 'json_platform.g.dart';
 
@@ -12,7 +12,7 @@ class JsonPlatform {
   final String? owner;
 
   @JsonKey(name: 'pads')
-  final List<JsonPosition> pads;
+  final List<JsonLocation> pads;
 
   const JsonPlatform({
     required this.id,

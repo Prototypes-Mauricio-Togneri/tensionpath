@@ -30,7 +30,7 @@
             "height": 0.5
         },
         "missile": {
-            "position": {
+            "location": {
                 "x": 0,
                 "y": 0
             },
@@ -76,7 +76,7 @@
         },
         "resources": [
             {
-                "position": {
+                "location": {
                     "x": 4,
                     "y": -3
                 },
@@ -84,7 +84,7 @@
                 "amountMax": 100
             },
             {
-                "position": {
+                "location": {
                     "x": 3,
                     "y": 2
                 },
@@ -92,7 +92,7 @@
                 "amountMax": 100
             },
             {
-                "position": {
+                "location": {
                     "x": -3,
                     "y": -2
                 },
@@ -100,7 +100,7 @@
                 "amountMax": 100
             },
             {
-                "position": {
+                "location": {
                     "x": -4,
                     "y": 3
                 },
