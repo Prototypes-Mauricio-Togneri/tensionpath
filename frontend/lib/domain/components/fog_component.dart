@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class FogComponent extends PositionComponent {
@@ -17,6 +19,7 @@ class FogComponent extends PositionComponent {
   );
   final List<UnitComponent> unitComponents;
   final List<LauncherComponent> launcherComponents;
+  final List<NodeComponent> nodeComponents;
   final double nodeSize;
   final Vector2 offset;
 
@@ -25,6 +28,7 @@ class FogComponent extends PositionComponent {
     required super.size,
     required this.unitComponents,
     required this.launcherComponents,
+    required this.nodeComponents,
     required this.nodeSize,
     required this.offset,
   }) : super(
@@ -42,7 +46,7 @@ class FogComponent extends PositionComponent {
     // Draw the full-screen overlay
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fogPaint);
 
-    for (final LauncherComponent launcherComponent in launcherComponents) {
+    /*for (final LauncherComponent launcherComponent in launcherComponents) {
       final Offset center = launcherComponent.position.toOffset();
       canvas.drawCircle(
         center,
@@ -60,6 +64,41 @@ class FogComponent extends PositionComponent {
           clearPaint,
         );
       }
+    }*/
+
+    final Set<Vector2> visibleNodes = {};
+
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      final String nodeId = nodeComponent.location.id;
+
+      for (final LauncherComponent launcherComponent in launcherComponents) {
+        final String launcherId = launcherComponent.location.id;
+
+        if (launcherId == nodeId) {
+          visibleNodes.add(launcherComponent.position);
+        }
+      }
+
+      for (final UnitComponent unitComponent in unitComponents) {
+        final NodeComponent? closestNode = match.getNodeAt(
+          nodeTypes: NodeType.canMove,
+          position: unitComponent.absolutePosition,
+        );
+
+        if (unitComponent.player.isSelf &&
+            (closestNode != null) &&
+            (closestNode.location.id == nodeId)) {
+          visibleNodes.add(closestNode.position);
+        }
+      }
+    }
+
+    for (final Vector2 visibleNode in visibleNodes) {
+      canvas.drawCircle(
+        visibleNode.toOffset(),
+        nodeSize,
+        clearPaint,
+      );
     }
 
     canvas.restore();
