@@ -29,6 +29,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   NodeType? currentNodeType;
   JsonLocation? currentLocation;
+  late NodeComponent closestNodeComponent;
 
   UnitComponent({
     required super.position,
@@ -41,7 +42,12 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
-       );
+       ) {
+    closestNodeComponent = match.getClosestNode(
+      nodeTypes: NodeType.values,
+      position: absolutePosition,
+    );
+  }
 
   void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
 
@@ -177,6 +183,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       } else {
         direction.normalize();
         position += direction * (speed * dt);
+        closestNodeComponent = match.getClosestNode(
+          nodeTypes: NodeType.values,
+          position: absolutePosition,
+        );
       }
     }
 

@@ -124,6 +124,30 @@ class MatchComponent extends World {
     return null;
   }
 
+  NodeComponent getClosestNode({
+    required List<NodeType> nodeTypes,
+    required Vector2 position,
+  }) {
+    NodeComponent? closestNode;
+    double closestDistance = double.infinity;
+
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      final double distance =
+          (nodeComponent.absolutePosition - position).length;
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestNode = nodeComponent;
+      }
+    }
+
+    if (closestNode == null) {
+      throw Exception('No closest node found');
+    }
+
+    return closestNode;
+  }
+
   NodeComponent getNodeById(String id) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.location.id == id) {
