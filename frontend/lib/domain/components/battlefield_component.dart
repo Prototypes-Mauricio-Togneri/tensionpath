@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
@@ -17,12 +18,14 @@ import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
   final JsonBattlefield battlefield;
-  List<LauncherComponent> launcherComponents;
+  final List<NodeComponent> nodeComponents;
+  final List<LauncherComponent> launcherComponents;
 
   BattlefieldComponent({
     required super.position,
     required super.size,
     required this.battlefield,
+    required this.nodeComponents,
     required this.launcherComponents,
   }) : super(
          anchor: Anchor.topLeft,
@@ -56,6 +59,21 @@ class BattlefieldComponent extends PositionComponent {
         nodes: battlefield.nodes,
       ),
     );
+
+    for (final JsonPosition node in battlefield.nodes) {
+      final Vector2 position = Dimensions.nodePosition(
+        center: size / 2,
+        nodeSize: nodeSize,
+        position: node,
+      );
+
+      final NodeComponent nodeComponent = NodeComponent(
+        position: position,
+        size: nodeSize,
+      );
+      add(nodeComponent);
+      nodeComponents.add(nodeComponent);
+    }
 
     for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(

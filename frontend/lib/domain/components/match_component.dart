@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -13,6 +14,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 class MatchComponent extends World {
   final Vector2 resolution;
   final JsonMatch match;
+  final List<NodeComponent> nodeComponents = [];
   final List<LauncherComponent> launcherComponents = [];
   final List<UnitComponent> unitComponents = [];
   final Map<String, UnitComponent> occupiedNodes = {};
@@ -34,6 +36,7 @@ class MatchComponent extends World {
         ),
         size: Dimensions.battlefieldSize(resolution),
         battlefield: match.battlefield,
+        nodeComponents: nodeComponents,
         launcherComponents: launcherComponents,
       ),
     );
