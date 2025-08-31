@@ -31,6 +31,32 @@ class NodeComponent extends PositionComponent {
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
+  int distanceTo(NodeComponent node) {
+    final double distance =
+        ((location.x - node.location.x).abs() +
+            (location.x + location.y - node.location.x - node.location.y)
+                .abs() +
+            (location.y - node.location.y).abs()) /
+        2;
+
+    return distance.toInt();
+  }
+
+  Set<Vector2> visibleNodes({
+    required int visibilityRange,
+    required List<NodeComponent> nodes,
+  }) {
+    final Set<Vector2> result = {position};
+
+    for (final NodeComponent node in nodes) {
+      if ((node != this) && (distanceTo(node) <= visibilityRange)) {
+        result.add(node.position);
+      }
+    }
+
+    return result;
+  }
+
   void highlight(bool value) {
     highlighted = value;
   }

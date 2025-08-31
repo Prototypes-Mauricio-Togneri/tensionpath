@@ -166,7 +166,7 @@ class BattlefieldComponent extends PositionComponent {
             .where((launcher) => launcher.player.isSelf)
             .toList(),
         nodeComponents: nodeComponents,
-        nodeSize: max(nodeSize.x, nodeSize.y),
+        nodeSize: nodeSize,
         offset: position + (size / 2),
       ),
     );

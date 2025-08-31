@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -20,7 +22,7 @@ class FogComponent extends PositionComponent {
   final List<UnitComponent> unitComponents;
   final List<LauncherComponent> launcherComponents;
   final List<NodeComponent> nodeComponents;
-  final double nodeSize;
+  final Vector2 nodeSize;
   final Vector2 offset;
 
   FogComponent({
@@ -68,7 +70,25 @@ class FogComponent extends PositionComponent {
 
     final Set<Vector2> visibleNodes = {};
 
-    for (final NodeComponent nodeComponent in nodeComponents) {
+    for (final LauncherComponent launcherComponent in launcherComponents) {
+      final NodeComponent? nodeComponent = match.getNodeAt(
+        nodeTypes: NodeType.values,
+        position: launcherComponent.absolutePosition,
+      );
+
+      if (nodeComponent != null) {
+        visibleNodes.addAll(
+          nodeComponent.visibleNodes(
+            visibilityRange: Constants.LAUNCHER_VISIBILITY,
+            nodes: nodeComponents,
+          ),
+        );
+      }
+    }
+
+    print('Visible Nodes: $visibleNodes');
+
+    /*for (final NodeComponent nodeComponent in nodeComponents) {
       final String nodeId = nodeComponent.location.id;
 
       for (final LauncherComponent launcherComponent in launcherComponents) {
@@ -91,14 +111,20 @@ class FogComponent extends PositionComponent {
           visibleNodes.add(closestNode.position);
         }
       }
-    }
+    }*/
 
     for (final Vector2 visibleNode in visibleNodes) {
-      canvas.drawCircle(
+      canvas.drawHexagon(
+        center: visibleNode,
+        size: nodeSize,
+        fillPaint: clearPaint,
+      );
+
+      /*canvas.drawCircle(
         visibleNode.toOffset(),
         nodeSize,
         clearPaint,
-      );
+      );*/
     }
 
     canvas.restore();
