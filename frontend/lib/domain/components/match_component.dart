@@ -124,6 +124,16 @@ class MatchComponent extends World {
     return null;
   }
 
+  NodeComponent getNodeById(String id) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      if (nodeComponent.location.id == id) {
+        return nodeComponent;
+      }
+    }
+
+    throw Exception('Node not found');
+  }
+
   void highlightNodeAt({
     required List<NodeType> nodeTypes,
     required Vector2 position,
@@ -160,7 +170,7 @@ class MatchComponent extends World {
         type: unitType,
         player: self,
         currentNodeType: NodeType.launcher,
-        currentLocation: launcherComponent.location,
+        currentLocation: launcherComponent.nodeComponent.location,
       );
 
       add(unitComponent);

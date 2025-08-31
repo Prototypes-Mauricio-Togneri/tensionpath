@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/json_location.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class LauncherComponent extends SpriteComponent {
   final Player player;
-  final JsonLocation location;
+  final NodeComponent nodeComponent;
 
   LauncherComponent({
     required super.position,
     required super.size,
     required this.player,
-    required this.location,
+    required this.nodeComponent,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,

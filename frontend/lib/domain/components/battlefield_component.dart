@@ -17,6 +17,7 @@ import 'package:tensionpath/domain/json/json_resource.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -149,7 +150,7 @@ class BattlefieldComponent extends PositionComponent {
           position: nodePosition,
           size: nodeSize,
           player: self.id == playerId ? self : opponent,
-          location: location,
+          nodeComponent: match.getNodeById(location.id),
         );
         add(launcherComponent);
         launcherComponents.add(launcherComponent);
