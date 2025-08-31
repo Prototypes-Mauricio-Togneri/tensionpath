@@ -1,8 +1,5 @@
 # TODO
 
-Remove:
-reconfigurable
-
 - Snapshot update
 - Dart compile in Docker
 - Continuous popcap
@@ -18,27 +15,28 @@ reconfigurable
 
 ## Client -> Server
 
-- Deploy unit
-  - ID
-  - Position
-  - Type
-- Move unit
-  - ID
-  - Target position
 - Attack unit
   - ID
   - Target unit
 
-## Server -> Client
-
-- Match update
-  - Player's base health
-  - Battlefield
-    - Missile charge
-    - Pads
-    - Resources
-    - Units
-      - ID
-      - Position
-      - Target position
-      - Target unit
+# Messages
+1. Server
+  - Sends state
+2. Client
+  - Sends message "deploy_unit"
+    - Type
+    - Location
+3. Server
+  - Creates unit in the battlefield
+  - Sends state
+4. Client
+  - Creates UnitComponent
+5. Client
+  - Sends message "move_unit"
+    - ID
+    - Location
+6. Server
+  - Marks unit as moving
+  - Sends state
+7. Client
+  - Updates UnitComponent
