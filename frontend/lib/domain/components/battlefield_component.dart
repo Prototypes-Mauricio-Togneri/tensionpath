@@ -7,9 +7,11 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/json/json_battlefield.dart';
+import 'package:tensionpath/domain/json/json_missile.dart';
 import 'package:tensionpath/domain/json/json_platform.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_resource.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
@@ -70,6 +72,12 @@ class BattlefieldComponent extends PositionComponent {
       final NodeComponent nodeComponent = NodeComponent(
         position: position,
         size: nodeSize,
+        type: getNodeType(
+          positionId: node.id,
+          missile: battlefield.missile,
+          resources: battlefield.resources,
+          launchers: battlefield.launchers.values.expand((e) => e).toList(),
+        ),
         jsonPosition: node,
       );
       add(nodeComponent);
@@ -145,6 +153,36 @@ class BattlefieldComponent extends PositionComponent {
         size: size,
       ),
     );*/
+  }
+
+  NodeType getNodeType({
+    required String positionId,
+    required JsonMissile missile,
+    required List<JsonResource> resources,
+    required List<JsonPosition> launchers,
+  }) {
+    if (missile.position.id == positionId) {
+      return NodeType.missile;
+    }
+
+    final List<JsonPosition> pads = missile.platforms
+        .map((p) => p.pads)
+        .expand((p) => p)
+        .toList();
+
+    if (pads.any((pad) => pad.id == positionId)) {
+      return NodeType.resources;
+    }
+
+    if (resources.any((resource) => resource.position.id == positionId)) {
+      return NodeType.resources;
+    }
+
+    if (launchers.any((launcher) => launcher.id == positionId)) {
+      return NodeType.launcher;
+    }
+
+    return NodeType.empty;
   }
 }
 

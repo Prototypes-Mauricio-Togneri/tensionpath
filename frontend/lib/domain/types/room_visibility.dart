@@ -1,1 +1,4 @@
-enum RoomVisibility { public, private }
+enum RoomVisibility {
+  public,
+  private,
+}

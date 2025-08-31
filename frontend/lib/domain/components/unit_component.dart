@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -90,7 +91,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
         targetPosition!.y + event.localDelta.y,
       );
 
-      match.highlighNodeAt(targetPosition!);
+      match.highlightNodeAt(
+        nodeTypes: [NodeType.empty, NodeType.resources, NodeType.pad],
+        position: targetPosition!,
+      );
     }
   }
 
@@ -100,12 +104,13 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       super.onDragEnd(event);
 
       final NodeComponent? nodeComponent = match.getNodeAt(
-        targetPosition!,
+        nodeTypes: [NodeType.empty, NodeType.resources, NodeType.pad],
+        position: targetPosition!,
       );
 
       targetPosition = null;
       match.hideTarget();
-      match.highlighNodeAt();
+      match.unhighlightNodes();
 
       if (nodeComponent != null) {
         match.onMoveUnit(

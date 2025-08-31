@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/json/json_position.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -94,9 +95,13 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getNodeAt(Vector2 position) {
+  NodeComponent? getNodeAt({
+    required List<NodeType> nodeTypes,
+    required Vector2 position,
+  }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position)) {
+      if (nodeComponent.containsPoint(position) &&
+          nodeTypes.contains(nodeComponent.type)) {
         return nodeComponent;
       }
     }
@@ -104,17 +109,25 @@ class MatchComponent extends World {
     return null;
   }
 
-  void highlighNodeAt([Vector2? position]) {
+  void highlightNodeAt({
+    required List<NodeType> nodeTypes,
+    required Vector2 position,
+  }) {
+    unhighlightNodes();
+
+    final NodeComponent? nodeComponent = getNodeAt(
+      nodeTypes: nodeTypes,
+      position: position,
+    );
+
+    if (nodeComponent != null) {
+      nodeComponent.highlight(true);
+    }
+  }
+
+  void unhighlightNodes() {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.highlight(false);
-    }
-
-    if (position != null) {
-      final NodeComponent? nodeComponent = getNodeAt(position);
-
-      if (nodeComponent != null) {
-        nodeComponent.highlight(true);
-      }
     }
   }
 
