@@ -45,7 +45,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     add(
       UnitImageComponent(
         position: size / 2,
-        size: size,
+        size: Vector2(size.x, size.x),
         type: type,
         player: player,
       ),
