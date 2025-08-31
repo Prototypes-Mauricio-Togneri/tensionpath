@@ -26,7 +26,6 @@ class JsonMatch {
     required this.battlefield,
   });
 
-  // TODO(momo): remove all these functions
   int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
 
   JsonPlayer get self => players.firstWhere((player) => player.isSelf);

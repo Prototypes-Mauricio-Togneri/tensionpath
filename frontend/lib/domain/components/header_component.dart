@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -9,8 +9,8 @@ import 'package:tensionpath/utils/formatter.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class HeaderComponent extends PositionComponent {
-  final JsonPlayer player1;
-  final JsonPlayer player2;
+  final Player player1;
+  final Player player2;
 
   HeaderComponent({
     required this.player1,
@@ -55,7 +55,7 @@ class HeaderComponent extends PositionComponent {
 }
 
 class PlayerIndicatorComponent extends PositionComponent {
-  final JsonPlayer player;
+  final Player player;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.HEADER_INDICATOR_BACKGROUND,

@@ -1,7 +1,4 @@
-import 'dart:ui';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/utils/palette.dart';
 
 part 'json_player.g.dart';
 
@@ -33,14 +30,6 @@ class JsonPlayer {
     required this.baseMaxHealth,
     required this.resources,
   });
-
-  bool get isOpponent => !isSelf;
-
-  bool get isPlayer1 => id == Constants.PLAYER_1;
-
-  bool get isPlayer2 => id == Constants.PLAYER_2;
-
-  Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
   factory JsonPlayer.fromJson(Map<String, dynamic> json) =>
       _$JsonPlayerFromJson(json);

@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -19,6 +20,8 @@ class MatchComponent extends World {
   final List<NodeComponent> nodeComponents = [];
   final List<LauncherComponent> launcherComponents = [];
   final List<UnitComponent> unitComponents = [];
+  late final Player self;
+  late final Player opponent;
   late final Vector2 nodeSize;
   late final TargetComponent targetComponent;
 
@@ -27,6 +30,8 @@ class MatchComponent extends World {
     required this.match,
   }) {
     MatchComponentRef.instance = this;
+    self = Player.fromJson(match.self);
+    opponent = Player.fromJson(match.opponent);
   }
 
   @override
@@ -45,7 +50,7 @@ class MatchComponent extends World {
       BattlefieldComponent(
         position: Dimensions.battlefieldPosition(
           resolution: resolution,
-          isPlayer1: match.self.isPlayer1,
+          isPlayer1: self.isPlayer1,
         ),
         size: Dimensions.battlefieldSize(resolution),
         battlefield: match.battlefield,
@@ -56,11 +61,11 @@ class MatchComponent extends World {
 
     add(
       HeaderComponent(
-        player1: match.self,
-        player2: match.opponent,
+        player1: self,
+        player2: opponent,
         position: Dimensions.headerPosition(
           resolution: resolution,
-          isPlayer1: match.self.isPlayer1,
+          isPlayer1: self.isPlayer1,
         ),
         size: Dimensions.headerSize(resolution),
       ),
@@ -68,10 +73,10 @@ class MatchComponent extends World {
 
     add(
       ControlsComponent(
-        player: match.self,
+        player: self,
         position: Dimensions.controlsPosition(
           resolution: resolution,
-          isPlayer1: match.self.isPlayer1,
+          isPlayer1: self.isPlayer1,
         ),
         size: Dimensions.controlsSize(resolution),
       ),
@@ -81,6 +86,9 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(JsonMatch match) {
+    self.update(match.self);
+    opponent.update(match.opponent);
+
     if (match.selfWon) {
       GameComponentRef.instance.onMatchFinished(true);
     } else if (match.opponentWon) {
@@ -91,7 +99,7 @@ class MatchComponent extends World {
   LauncherComponent? getLauncherAt(Vector2 position) {
     for (final LauncherComponent launcherComponent in launcherComponents) {
       if (launcherComponent.containsPoint(position) &&
-          launcherComponent.belongsTo(match.self)) {
+          launcherComponent.belongsTo(self)) {
         return launcherComponent;
       }
     }
@@ -139,7 +147,7 @@ class MatchComponent extends World {
     required LauncherComponent launcherComponent,
     required UnitType unitType,
   }) {
-    if (match.self.resources >= unitType.deploymentCost) {
+    if (self.resources >= unitType.deploymentCost) {
       //match.self.resources -= unitType.deploymentCost;
 
       final UnitComponent unitComponent = UnitComponent(
@@ -147,7 +155,7 @@ class MatchComponent extends World {
         size: nodeSize,
         id: DateTime.now().toIso8601String(),
         type: unitType,
-        player: match.self,
+        player: self,
       );
 
       add(unitComponent);

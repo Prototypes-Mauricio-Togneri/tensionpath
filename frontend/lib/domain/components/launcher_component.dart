@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -24,7 +24,7 @@ class LauncherComponent extends SpriteComponent {
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
-  bool belongsTo(JsonPlayer player) => player.id == playerId;
+  bool belongsTo(Player player) => player.id == playerId;
 
   @override
   FutureOr onLoad() async {

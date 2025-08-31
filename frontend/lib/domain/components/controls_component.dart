@@ -5,7 +5,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -15,7 +15,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
-  final JsonPlayer player;
+  final Player player;
   final Paint backgroundPaint = Palette.paint(style: PaintingStyle.fill);
 
   ControlsComponent({
@@ -77,7 +77,7 @@ class ControlsComponent extends PositionComponent {
 }
 
 class UnitSelectorComponent extends PositionComponent {
-  final JsonPlayer player;
+  final Player player;
   final UnitType unitType;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
@@ -124,7 +124,7 @@ class UnitSelectorComponent extends PositionComponent {
 }
 
 class UnitImageComponent extends SpriteComponent with DragCallbacks {
-  final JsonPlayer player;
+  final Player player;
   final UnitType unitType;
   bool isEnabled = true;
   Vector2 initialPosition = Vector2(0, 0);
@@ -189,7 +189,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 }
 
 class UnitCostComponent extends PositionComponent {
-  final JsonPlayer player;
+  final Player player;
   final UnitType unitType;
   bool isEnabled = false;
 
@@ -220,7 +220,7 @@ class UnitCostComponent extends PositionComponent {
 }
 
 class ResourcesComponent extends PositionComponent {
-  final JsonPlayer player;
+  final Player player;
 
   ResourcesComponent({
     required this.player,

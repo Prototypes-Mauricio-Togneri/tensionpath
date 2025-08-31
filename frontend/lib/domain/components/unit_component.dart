@@ -6,8 +6,8 @@ import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/json_location.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -19,7 +19,7 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent extends PositionComponent with DragCallbacks {
   final String id;
   final UnitType type;
-  final JsonPlayer player;
+  final Player player;
   late HealthBarComponent healthBarComponent;
   Vector2? targetPosition;
   Vector2? destinationPosition;
@@ -186,7 +186,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
 class UnitImageComponent extends SpriteComponent {
   final UnitType type;
-  final JsonPlayer player;
+  final Player player;
 
   UnitImageComponent({
     required super.position,
@@ -207,7 +207,7 @@ class UnitImageComponent extends SpriteComponent {
 
 class HealthBarComponent extends PositionComponent {
   final UnitType type;
-  final JsonPlayer player;
+  final Player player;
   final Paint foregroundHealthPaint = Palette.paint(
     style: PaintingStyle.stroke,
   );
