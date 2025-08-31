@@ -82,6 +82,7 @@ class UnitSelectorComponent extends PositionComponent {
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
+  bool enabled = false;
 
   UnitSelectorComponent({
     required this.player,
@@ -116,6 +117,22 @@ class UnitSelectorComponent extends PositionComponent {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    final bool before = enabled;
+    enabled = player.resources >= unitType.deploymentCost;
+
+    if (before != enabled) {
+      if (enabled) {
+        decorator.removeLast();
+      } else {
+        decorator.addLast(PaintDecorator.tint(const Color(0x50000000)));
+      }
+    }
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 
@@ -126,7 +143,6 @@ class UnitSelectorComponent extends PositionComponent {
 class UnitImageComponent extends SpriteComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  bool isEnabled = true;
   Vector2 initialPosition = Vector2(0, 0);
 
   UnitImageComponent({
@@ -144,18 +160,22 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     return super.onLoad();
   }
 
+  bool get enabled =>
+      parent is UnitSelectorComponent &&
+      (parent as UnitSelectorComponent).enabled;
+
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
 
-    if (isEnabled) {
+    if (enabled) {
       initialPosition.setFrom(position);
     }
   }
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    if (isEnabled) {
+    if (enabled) {
       position += event.localDelta;
 
       match.highlightNodeAt(
@@ -171,7 +191,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
     match.unhighlightNodes();
 
-    if (isEnabled) {
+    if (enabled) {
       final LauncherComponent? launcherComponent = match.getLauncherAt(
         absolutePosition,
       );
