@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/extensions.dart';
+import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
@@ -27,9 +29,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   FutureOr onLoad() async {
     add(
       UnitImageComponent(
-        type: type,
         position: size / 2,
         size: size,
+        type: type,
+        player: player,
       ),
     );
 
@@ -96,11 +99,11 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     }
   }
 
-  /*@override
+  @override
   void render(Canvas canvas) {
     canvas.save();
 
-    if (unit.player.isPlayer2) {
+    if (player.isPlayer2) {
       canvas.translate(size.x / 2, 0); // Move to the center of the sprite
       canvas.scale(-1, 1); // Flip horizontally
       canvas.translate(-size.x / 2, 0); // Move back to the original position
@@ -109,22 +112,25 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     super.render(canvas);
 
     canvas.restore();
-  }*/
+  }
 }
 
 class UnitImageComponent extends SpriteComponent {
   final UnitType type;
+  final JsonPlayer player;
 
   UnitImageComponent({
-    required this.type,
     required super.position,
     required super.size,
+    required this.type,
+    required this.player,
   }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(type.sprite);
     scale = Vector2(type.spriteScale, type.spriteScale);
+    decorator.addLast(PaintDecorator.tint(player.color.darken(0.3)));
 
     return super.onLoad();
   }
