@@ -38,10 +38,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
 
   void moveTo({
-    required JsonLocation newLocation,
-    required Vector2 newPosition,
+    required JsonLocation location,
+    required Vector2 position,
   }) {
-    destinationPosition = newPosition;
+    destinationPosition = position;
   }
 
   @override

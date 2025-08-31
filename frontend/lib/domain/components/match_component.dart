@@ -162,8 +162,8 @@ class MatchComponent extends World {
   }) {
     //occupiedNodes[unitComponent.positionId] = unitComponent;
     unitComponent.moveTo(
-      newLocation: nodeComponent.jsonPosition,
-      newPosition: nodeComponent.absolutePosition,
+      location: nodeComponent.jsonPosition,
+      position: nodeComponent.absolutePosition,
     );
   }
 

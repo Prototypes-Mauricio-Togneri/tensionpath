@@ -62,23 +62,23 @@ class BattlefieldComponent extends PositionComponent {
       ),
     );
 
-    for (final JsonLocation node in battlefield.nodes) {
+    for (final JsonLocation location in battlefield.nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: size / 2,
         nodeSize: nodeSize,
-        location: node,
+        location: location,
       );
 
       final NodeComponent nodeComponent = NodeComponent(
         position: position,
         size: nodeSize,
         type: getNodeType(
-          positionId: node.id,
+          positionId: location.id,
           missile: battlefield.missile,
           resources: battlefield.resources,
           launchers: battlefield.launchers.values.expand((e) => e).toList(),
         ),
-        jsonPosition: node,
+        jsonPosition: location,
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);
@@ -111,13 +111,13 @@ class BattlefieldComponent extends PositionComponent {
 
     for (final JsonPlatform platform in battlefield.missile.platforms) {
       for (final JsonLocation location in platform.pads) {
-        final Vector2 nodePosition = Dimensions.nodePosition(
+        final Vector2 position = Dimensions.nodePosition(
           center: mapCenter,
           nodeSize: nodeSize,
           location: location,
         );
         final PadComponent padComponent = PadComponent(
-          position: nodePosition,
+          position: position,
           size: nodeSize,
           platformId: platform.id,
           owner: platform.owner,
