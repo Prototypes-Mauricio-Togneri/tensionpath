@@ -94,16 +94,22 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     if (player.isSelf) {
       super.onDragEnd(event);
 
+      final NodeComponent? nodeComponent = match.getActionTargetAt(
+        targetPosition!,
+      );
+
       targetPosition = null;
       match.hideTarget();
       match.highlighNode();
 
-      /*final NodeComponent? nodeComponent = match.getActionTargetAt(
-        position: absolutePosition,
-        unit: unit,
-      );
-
       if (nodeComponent != null) {
+        match.onMoveUnit(
+          unitComponent: this,
+          position: nodeComponent.jsonPosition,
+        );
+      }
+
+      /*if (nodeComponent != null) {
         if (nodeComponent.node.isMovementTarget(unit)) {
           /*match.match.onMoveUnit(
             unit: unit,

@@ -70,6 +70,7 @@ class BattlefieldComponent extends PositionComponent {
       final NodeComponent nodeComponent = NodeComponent(
         position: position,
         size: nodeSize,
+        jsonPosition: node,
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);
