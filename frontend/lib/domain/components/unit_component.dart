@@ -21,6 +21,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   final JsonPlayer player;
   late HealthBarComponent healthBarComponent;
   Vector2? targetPosition;
+  Vector2? destinationPosition;
 
   UnitComponent({
     required super.position,
@@ -35,8 +36,8 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
 
-  void moveTo(Vector2 newPosition) {
-    position = newPosition;
+  void moveTo(Vector2 position) {
+    destinationPosition = position;
   }
 
   @override
@@ -134,6 +135,25 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       } else {
         position = initialPosition;
       }*/
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (destinationPosition != null) {
+      final Vector2 direction = destinationPosition! - absolutePosition;
+      final double distance = direction.length;
+      final double speed = size.x * type.speed;
+
+      if (distance < 1) {
+        position = destinationPosition!;
+        destinationPosition = null;
+      } else {
+        direction.normalize();
+        position += direction * (speed * dt);
+      }
     }
   }
 

@@ -7,6 +7,7 @@ enum UnitType {
     unitClass: UnitClass.vehicle,
     deploymentCost: 60,
     maxHealth: 1000,
+    speed: 0.3,
     visibilityRange: 1,
     damageInfantry: 0,
     damageVehicle: 0,
@@ -21,6 +22,7 @@ enum UnitType {
     unitClass: UnitClass.infantry,
     deploymentCost: 10,
     maxHealth: 300,
+    speed: 0.5,
     visibilityRange: 3,
     damageInfantry: 80,
     damageVehicle: 60,
@@ -35,6 +37,7 @@ enum UnitType {
     unitClass: UnitClass.vehicle,
     deploymentCost: 20,
     maxHealth: 300,
+    speed: 0.4,
     visibilityRange: 2,
     damageInfantry: 40,
     damageVehicle: 150,
@@ -49,6 +52,7 @@ enum UnitType {
     unitClass: UnitClass.aircraft,
     deploymentCost: 50,
     maxHealth: 150,
+    speed: 0.6,
     visibilityRange: 3,
     damageInfantry: 100,
     damageVehicle: 40,
@@ -63,6 +67,7 @@ enum UnitType {
   final UnitClass unitClass;
   final int deploymentCost;
   final int maxHealth;
+  final double speed;
   final int visibilityRange;
   final int damageInfantry;
   final int damageVehicle;
@@ -77,6 +82,7 @@ enum UnitType {
     required this.unitClass,
     required this.deploymentCost,
     required this.maxHealth,
+    required this.speed,
     required this.visibilityRange,
     required this.damageInfantry,
     required this.damageVehicle,
