@@ -86,6 +86,16 @@ class MatchComponent extends World {
     return null;
   }
 
+  NodeComponent? getActionTargetAt(Vector2 position) {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      if (nodeComponent.containsPoint(position)) {
+        return nodeComponent;
+      }
+    }
+
+    return null;
+  }
+
   void onDeployUnit({
     required LauncherComponent launcherComponent,
     required UnitType unitType,
@@ -109,16 +119,6 @@ class MatchComponent extends World {
         unitComponents.add(unitComponent);
       }
     }
-  }
-
-  NodeComponent? getActionTargetAt(Vector2 position) {
-    for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position)) {
-        return nodeComponent;
-      }
-    }
-
-    return null;
   }
 }
 

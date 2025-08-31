@@ -4,6 +4,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 
 class LauncherComponent extends SpriteComponent {
   final String playerId;
@@ -18,6 +19,10 @@ class LauncherComponent extends SpriteComponent {
          anchor: Anchor.center,
          priority: Priority.structure.value,
        );
+
+  @override
+  bool containsLocalPoint(Vector2 point) =>
+      Dimensions.pointInHexagon(point: point, size: size);
 
   bool belongsTo(JsonPlayer player) => player.id == playerId;
 
