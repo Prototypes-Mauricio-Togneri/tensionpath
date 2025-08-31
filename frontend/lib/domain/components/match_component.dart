@@ -111,21 +111,15 @@ class MatchComponent extends World {
     }
   }
 
-  /*NodeComponent? getActionTargetAt({
-    required Vector2 position,
-    required Unit unit,
-  }) {
+  NodeComponent? getActionTargetAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) &&
-          (nodeComponent.node.isMovementTarget(unit) ||
-              nodeComponent.node.isAttackUnitTarget(unit) ||
-              nodeComponent.node.isAttackBaseTarget(unit))) {
+      if (nodeComponent.containsPoint(position)) {
         return nodeComponent;
       }
     }
 
     return null;
-  }*/
+  }
 }
 
 mixin MatchComponentRef {

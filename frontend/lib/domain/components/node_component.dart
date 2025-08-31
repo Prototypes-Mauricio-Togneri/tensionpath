@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent extends PositionComponent {
@@ -19,6 +20,10 @@ class NodeComponent extends PositionComponent {
          anchor: Anchor.center,
          priority: Priority.node.value,
        );
+
+  @override
+  bool containsLocalPoint(Vector2 point) =>
+      Dimensions.pointInHexagon(point: point, size: size);
 
   @override
   void render(Canvas canvas) {
