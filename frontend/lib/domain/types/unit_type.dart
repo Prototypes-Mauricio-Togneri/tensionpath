@@ -14,7 +14,7 @@ enum UnitType {
     damageHarvester: 0,
     damageStructure: 0,
     sprite: Assets.IMAGES_UNITS_HARVESTER,
-    spriteScale: 0.6,
+    spriteScale: 0.5,
     thumbnail: Assets.IMAGES_UNITS_HARVESTER,
   ),
   infrantry(

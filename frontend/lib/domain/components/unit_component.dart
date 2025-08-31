@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends PositionComponent with DragCallbacks {
@@ -38,10 +39,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
     add(
       HealthBarComponent(
+        position: size / 2,
+        size: size,
         type: type,
         player: player,
-        position: Vector2(width / 2, height * 0.1),
-        size: Vector2(width * 0.7, size.y / 10),
       ),
     );
 
@@ -152,20 +153,20 @@ class HealthBarComponent extends PositionComponent {
   double maxHealth = 100;
 
   HealthBarComponent({
-    required this.type,
-    required this.player,
     required super.position,
     required super.size,
+    required this.type,
+    required this.player,
   }) : super(anchor: Anchor.center) {
     foregroundHealthPaint.color = player.color;
-    borderHealthPaint.strokeWidth = size.y / 20;
+    borderHealthPaint.strokeWidth = size.y / 60;
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundHealthPaint);
+    /*canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundHealthPaint);
 
     final double healthBar = width * (health / maxHealth);
 
@@ -174,6 +175,18 @@ class HealthBarComponent extends PositionComponent {
       foregroundHealthPaint,
     );
 
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);
+    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderHealthPaint);*/
+
+    final double radius = size.x / 2.5;
+    final double thickness = size.y / 20;
+    const double sweepDegrees = 360 * 0.75; //(health / maxHealth);
+
+    canvas.drawArc2(
+      center: size / 2,
+      radius: radius,
+      thickness: thickness,
+      sweepDegrees: -sweepDegrees,
+      paint: foregroundHealthPaint,
+    );
   }
 }
