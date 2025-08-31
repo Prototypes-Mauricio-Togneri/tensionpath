@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/json_position.dart';
 import 'package:tensionpath/domain/json/json_unit.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -36,8 +37,11 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
 
-  void moveTo(Vector2 position) {
-    destinationPosition = position;
+  void moveTo({
+    required JsonPosition newLocation,
+    required Vector2 newPosition,
+  }) {
+    destinationPosition = newPosition;
   }
 
   @override

@@ -149,6 +149,7 @@ class MatchComponent extends World {
           player: match.self,
         );
 
+        occupiedNodes[launcherComponent.positionId] = unitComponent;
         add(unitComponent);
         unitComponents.add(unitComponent);
       }
@@ -159,7 +160,11 @@ class MatchComponent extends World {
     required UnitComponent unitComponent,
     required NodeComponent nodeComponent,
   }) {
-    unitComponent.moveTo(nodeComponent.absolutePosition);
+    //occupiedNodes[unitComponent.positionId] = unitComponent;
+    unitComponent.moveTo(
+      newLocation: nodeComponent.jsonPosition,
+      newPosition: nodeComponent.absolutePosition,
+    );
   }
 
   void showTarget({
