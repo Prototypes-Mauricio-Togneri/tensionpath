@@ -148,7 +148,7 @@ class MatchComponent extends World {
     required UnitType unitType,
   }) {
     if (self.resources >= unitType.deploymentCost) {
-      //match.self.resources -= unitType.deploymentCost;
+      self.removeResources(unitType.deploymentCost);
 
       final UnitComponent unitComponent = UnitComponent(
         position: launcherComponent.absolutePosition,

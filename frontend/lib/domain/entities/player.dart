@@ -33,6 +33,14 @@ class Player {
     resources = player.resources;
   }
 
+  void addResources(double value) {
+    resources += value;
+  }
+
+  void removeResources(int value) {
+    resources -= value;
+  }
+
   factory Player.fromJson(JsonPlayer player) => Player(
     id: player.id,
     isSelf: player.isSelf,
