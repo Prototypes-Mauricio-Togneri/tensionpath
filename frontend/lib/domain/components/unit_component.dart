@@ -19,11 +19,6 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   final UnitType type;
   final JsonPlayer player;
   late HealthBarComponent healthBarComponent;
-  final Paint targetPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 2,
-    color: Palette.NODE_TARGET,
-  );
   Vector2? targetPosition;
 
   UnitComponent({
@@ -94,6 +89,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     if (player.isSelf) {
       super.onDragEnd(event);
 
+      targetPosition = null;
+      match.hideTarget();
+
       /*final NodeComponent? nodeComponent = match.getActionTargetAt(
         position: absolutePosition,
         unit: unit,
@@ -139,10 +137,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     canvas.restore();
 
     if (targetPosition != null) {
-      canvas.drawLine(
-        absolutePosition.toOffset(),
-        targetPosition!.toOffset(),
-        targetPaint,
+      match.showTarget(
+        start: absolutePosition,
+        end: targetPosition!,
       );
     }
   }

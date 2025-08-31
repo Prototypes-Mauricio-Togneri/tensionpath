@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/json/json_match.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -18,6 +19,7 @@ class MatchComponent extends World {
   final List<LauncherComponent> launcherComponents = [];
   final List<UnitComponent> unitComponents = [];
   final Map<String, UnitComponent> occupiedNodes = {};
+  late final TargetComponent targetComponent;
 
   MatchComponent({
     required this.resolution,
@@ -28,6 +30,11 @@ class MatchComponent extends World {
 
   @override
   FutureOr onLoad() {
+    targetComponent = TargetComponent(
+      position: Vector2.zero(),
+    );
+    add(targetComponent);
+
     add(
       BattlefieldComponent(
         position: Dimensions.battlefieldPosition(
@@ -120,6 +127,18 @@ class MatchComponent extends World {
       }
     }
   }
+
+  void showTarget({
+    required Vector2 start,
+    required Vector2 end,
+  }) {
+    targetComponent.setValues(
+      start: start,
+      end: end,
+    );
+  }
+
+  void hideTarget() => targetComponent.cleanValues();
 }
 
 mixin MatchComponentRef {
