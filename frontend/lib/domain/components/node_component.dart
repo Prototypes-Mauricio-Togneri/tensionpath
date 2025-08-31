@@ -9,7 +9,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent extends PositionComponent {
   final NodeType type;
-  final JsonLocation jsonPosition;
+  final JsonLocation location;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
@@ -21,7 +21,7 @@ class NodeComponent extends PositionComponent {
     required super.position,
     required super.size,
     required this.type,
-    required this.jsonPosition,
+    required this.location,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.node.value,

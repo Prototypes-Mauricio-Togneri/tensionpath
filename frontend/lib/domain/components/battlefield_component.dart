@@ -78,7 +78,7 @@ class BattlefieldComponent extends PositionComponent {
           resources: battlefield.resources,
           launchers: battlefield.launchers.values.expand((e) => e).toList(),
         ),
-        jsonPosition: location,
+        location: location,
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);

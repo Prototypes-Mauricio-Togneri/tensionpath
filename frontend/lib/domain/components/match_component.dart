@@ -160,7 +160,7 @@ class MatchComponent extends World {
     required NodeComponent nodeComponent,
   }) {
     unitComponent.moveTo(
-      location: nodeComponent.jsonPosition,
+      location: nodeComponent.location,
       position: nodeComponent.absolutePosition,
     );
   }
