@@ -15,6 +15,7 @@ class MatchComponent extends World {
   final JsonMatch match;
   final List<LauncherComponent> launcherComponents = [];
   final List<UnitComponent> unitComponents = [];
+  final Map<String, UnitComponent> occupiedNodes = {};
 
   MatchComponent({
     required this.resolution,
@@ -86,21 +87,23 @@ class MatchComponent extends World {
     required LauncherComponent launcherComponent,
     required UnitType unitType,
   }) {
-    if (match.self.resources >= unitType.deploymentCost) {
-      //match.self.resources -= unitType.deploymentCost;
+    if (!occupiedNodes.containsKey(launcherComponent.positionId)) {
+      if (match.self.resources >= unitType.deploymentCost) {
+        //match.self.resources -= unitType.deploymentCost;
 
-      final UnitComponent unitComponent = UnitComponent(
-        position: launcherComponent.absolutePosition,
-        size: Dimensions.nodeSize(
-          canvasSize: Dimensions.battlefieldSize(resolution),
-          battlefield: match.battlefield,
-        ),
-        type: unitType,
-        player: match.self,
-      );
+        final UnitComponent unitComponent = UnitComponent(
+          position: launcherComponent.absolutePosition,
+          size: Dimensions.nodeSize(
+            canvasSize: Dimensions.battlefieldSize(resolution),
+            battlefield: match.battlefield,
+          ),
+          type: unitType,
+          player: match.self,
+        );
 
-      add(unitComponent);
-      unitComponents.add(unitComponent);
+        add(unitComponent);
+        unitComponents.add(unitComponent);
+      }
     }
   }
 

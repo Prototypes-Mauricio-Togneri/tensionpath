@@ -7,11 +7,13 @@ import 'package:tensionpath/utils/assets.dart';
 
 class LauncherComponent extends SpriteComponent {
   final String playerId;
+  final String positionId;
 
   LauncherComponent({
-    required this.playerId,
     required super.position,
     required super.size,
+    required this.playerId,
+    required this.positionId,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,

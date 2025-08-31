@@ -147,8 +147,8 @@ class HealthBarComponent extends PositionComponent {
     style: PaintingStyle.stroke,
     color: Palette.UNIT_HEALTH_BORDER,
   );
-  double health = 100;
-  double maxHealth = 100;
+  late double health;
+  late double maxHealth;
 
   HealthBarComponent({
     required super.position,
@@ -158,19 +158,8 @@ class HealthBarComponent extends PositionComponent {
   }) : super(anchor: Anchor.center) {
     foregroundHealthPaint.color = player.color;
     borderHealthPaint.strokeWidth = size.y / 60;
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    if (health > 0) {
-      health -= dt * 10;
-
-      if (health < 0) {
-        health = 0;
-      }
-    }
+    health = type.maxHealth.toDouble();
+    maxHealth = type.maxHealth.toDouble();
   }
 
   @override
