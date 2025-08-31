@@ -57,21 +57,18 @@ class FogComponent extends PositionComponent {
     }
 
     for (final UnitComponent unitComponent in unitComponents) {
-      final NodeComponent? closestNode = unitComponent.closestNodeComponent;
-
-      if (closestNode != null) {
-        closestNode.visibleNodes(
-          visibilityRange: unitComponent.type.visibilityRange,
-          nodes: nodeComponents,
-          visibleNodes: visibleNodes,
-        );
-      }
+      final NodeComponent closestNode = unitComponent.closestNodeComponent;
+      closestNode.visibleNodes(
+        visibilityRange: unitComponent.type.visibilityRange,
+        nodes: nodeComponents,
+        visibleNodes: visibleNodes,
+      );
     }
 
     for (final Vector2 visibleNode in visibleNodes) {
       canvas.drawHexagon(
         center: visibleNode,
-        size: nodeSize,
+        size: nodeSize * 1.03,
         fillPaint: clearPaint,
       );
     }
