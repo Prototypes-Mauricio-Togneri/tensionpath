@@ -47,18 +47,25 @@ class NodeComponent extends PositionComponent {
       );
     }
 
-    canvas.drawText(
-      text: jsonPosition.id,
+    /*canvas.drawText(
+      text: type.name,
       position: Vector2(size.x / 2, size.y * 0.25),
       size: size.x / 8,
       color: Colors.white,
     );
 
     canvas.drawText(
-      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
+      text: jsonPosition.id,
       position: Vector2(size.x / 2, size.y * 0.5),
       size: size.x / 8,
       color: Colors.white,
     );
+
+    canvas.drawText(
+      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
+      position: Vector2(size.x / 2, size.y * 0.75),
+      size: size.x / 8,
+      color: Colors.white,
+    );*/
   }
 }

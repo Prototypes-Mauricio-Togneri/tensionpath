@@ -171,7 +171,7 @@ class BattlefieldComponent extends PositionComponent {
         .toList();
 
     if (pads.any((pad) => pad.id == positionId)) {
-      return NodeType.resources;
+      return NodeType.pad;
     }
 
     if (resources.any((resource) => resource.position.id == positionId)) {
