@@ -46,7 +46,15 @@ class FogComponent extends PositionComponent {
     canvas.saveLayer(null, layerPaint);
 
     // Draw the full-screen overlay
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height), fogPaint);
+    canvas.drawRect(
+      Rect.fromLTWH(
+        -100,
+        -100,
+        width + 200,
+        height + 200,
+      ),
+      fogPaint,
+    );
 
     final Set<Vector2> visibleNodes = {};
 
