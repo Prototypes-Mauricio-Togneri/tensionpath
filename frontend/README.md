@@ -1,5 +1,11 @@
 # TODO
 
+- Target line in each unit
+
+  - Dragging for movement
+  - Moving towards a cell
+  - Attacking a unit
+
 - Snapshot update
 - Dart compile in Docker
 - Continuous popcap
