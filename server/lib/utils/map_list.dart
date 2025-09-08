@@ -1,10 +1,10 @@
 class MapList<K, V> extends Iterable<V> {
   final Map<K, V> _map = {};
-  final List<V> list = [];
+  final List<V> _list = [];
 
   void add(K key, V value) {
     _map[key] = value;
-    list.add(value);
+    _list.add(value);
   }
 
   V get(K key) => _map[key]!;
@@ -13,9 +13,9 @@ class MapList<K, V> extends Iterable<V> {
 
   void remove(K key, V value) {
     _map.remove(key);
-    list.remove(value);
+    _list.remove(value);
   }
 
   @override
-  Iterator<V> get iterator => list.iterator;
+  Iterator<V> get iterator => _list.iterator;
 }

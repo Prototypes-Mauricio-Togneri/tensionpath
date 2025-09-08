@@ -7,7 +7,7 @@ import 'package:tensionpath/server/server.dart';
 class Launcher {
   final Environment environment;
 
-  Launcher(this.environment);
+  const Launcher(this.environment);
 
   Future start() async {
     final BattleManager battleManager = BattleManager();

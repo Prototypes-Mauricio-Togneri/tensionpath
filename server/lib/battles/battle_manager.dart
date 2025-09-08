@@ -76,7 +76,7 @@ class BattleManager {
   }
 
   void update(double dt) {
-    for (final Battle battle in battles.list) {
+    for (final Battle battle in battles) {
       battle.update(dt);
     }
   }
