@@ -40,10 +40,10 @@ class Server {
         final WebSocket socket = await WebSocketTransformer.upgrade(request);
         socket.listen(
           (message) => _onMessage(socket, message),
-          onDone: () => handler.onDisconnect(socket),
-          onError: (error) => handler.onError(socket, error),
+          onDone: () => _onDisconnect(socket),
+          onError: (error) => _onError(socket, error),
         );
-        handler.onConnect(socket);
+        _onConnect(socket);
       } else {
         Logger.info(
           'Invalid HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
@@ -63,6 +63,26 @@ class Server {
     } catch (e) {
       Logger.log(socket, 'Exception: $e');
     }
+  }
+
+  void _onConnect(WebSocket socket) {
+    try {
+      handler.onConnect(socket);
+    } catch (e) {
+      Logger.log(socket, 'Exception: $e');
+    }
+  }
+
+  void _onDisconnect(WebSocket socket) {
+    try {
+      handler.onDisconnect(socket);
+    } catch (e) {
+      Logger.log(socket, 'Exception: $e');
+    }
+  }
+
+  void _onError(WebSocket socket, dynamic error) {
+    Logger.log(socket, 'Error: $error');
   }
 
   Future _handleBattleCreation(HttpRequest request) async {

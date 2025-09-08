@@ -48,28 +48,12 @@ class Handler {
   }
 
   void onConnect(WebSocket socket) {
-    try {
-      Logger.log(socket, 'Connected');
-      socket.send(JsonMessage.welcome());
-    } catch (e) {
-      Logger.error(e);
-    }
+    Logger.log(socket, 'Connected');
+    socket.send(JsonMessage.welcome());
   }
 
   void onDisconnect(WebSocket socket) {
-    try {
-      Logger.log(socket, 'Disconnected');
-      battleManager.leave(socket);
-    } catch (e) {
-      Logger.error(e);
-    }
-  }
-
-  void onError(WebSocket socket, dynamic error) {
-    try {
-      Logger.log(socket, 'Error: $error');
-    } catch (e) {
-      Logger.error(e);
-    }
+    Logger.log(socket, 'Disconnected');
+    battleManager.leave(socket);
   }
 }
