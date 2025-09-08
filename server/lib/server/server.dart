@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:tensionpath/battles/battle_manager.dart';
 import 'package:tensionpath/domain/json/api/json_create_battle.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/battles/battle_manager.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/utils/logger.dart';

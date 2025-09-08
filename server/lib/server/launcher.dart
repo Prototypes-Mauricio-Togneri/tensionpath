@@ -12,13 +12,14 @@ class Launcher {
   Future start() async {
     final BattleManager battleManager = BattleManager();
     final Handler handler = Handler(battleManager);
-    final Looper looper = Looper(battleManager);
     final Server server = Server(
       battleManager: battleManager,
       handler: handler,
       environment: environment,
     );
     await server.start();
+
+    final Looper looper = Looper(battleManager);
     await looper.start();
   }
 }
