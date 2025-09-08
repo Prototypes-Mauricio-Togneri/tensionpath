@@ -1,0 +1,18 @@
+Environment environment = const Environment(
+  apiKey: '',
+  port: 0,
+);
+
+class Environment {
+  final String apiKey;
+  final int port;
+  final String? chain;
+  final String? key;
+
+  const Environment({
+    required this.apiKey,
+    required this.port,
+    this.chain,
+    this.key,
+  });
+}
