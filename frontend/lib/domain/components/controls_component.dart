@@ -212,7 +212,6 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 class UnitCostComponent extends PositionComponent {
   final Player player;
   final UnitType unitType;
-  bool isEnabled = false;
 
   UnitCostComponent({
     required this.player,

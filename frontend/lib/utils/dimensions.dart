@@ -112,41 +112,6 @@ class Dimensions {
     center.y + (nodeSize.y * 3 / 4 * location.y),
   );
 
-  static Vector2 battlefieldGridSize(Vector2 containerSize) =>
-      Vector2(containerSize.x, containerSize.y);
-
-  static Vector2 battlefieldBackgroundSize({
-    required Vector2 canvasSize,
-    required Vector2 imageSize,
-    required Vector2 gridSize,
-    required JsonBattlefield battlefield,
-  }) {
-    final double ratio = imageSize.x / imageSize.y;
-
-    final Vector2 maxSizeWidth = maxNodeSizeWidth(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-    final Vector2 maxSizeHeight = maxNodeSizeHeight(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-
-    if (maxSizeWidth.x > maxSizeHeight.x) {
-      final double backgroundHeightAdjusted =
-          gridSize.y / battlefield.gridRatio.height;
-      final double backgroundWidthAdjusted = backgroundHeightAdjusted * ratio;
-
-      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
-    } else {
-      final double backgroundWidthAdjusted =
-          gridSize.x / battlefield.gridRatio.width;
-      final double backgroundHeightAdjusted = backgroundWidthAdjusted / ratio;
-
-      return Vector2(backgroundWidthAdjusted, backgroundHeightAdjusted);
-    }
-  }
-
   static double controlsGapSize(Vector2 size) => size.x * 0.07;
 
   static Vector2 controlsCardSize({

@@ -4,7 +4,7 @@ publish_to: none
 version: 0.0.1+1
 
 environment:
-  sdk: ">=3.9.0 <4.0.0"
+  sdk: ">=3.9.2 <4.0.0"
 
 dependencies:
   web: ^1.1.1
@@ -17,12 +17,12 @@ dependencies:
   json_annotation: ^4.9.0
   shared_preferences: ^2.5.3
 
-  firebase_core: ^4.0.0
-  firebase_auth: ^6.0.1
-  firebase_analytics: ^12.0.0
-  firebase_crashlytics: ^5.0.0
-  cloud_functions: ^6.0.0
-  cloud_firestore: ^6.0.0
+  firebase_core: ^4.1.0
+  firebase_auth: ^6.0.2
+  firebase_analytics: ^12.0.1
+  firebase_crashlytics: ^5.0.1
+  cloud_functions: ^6.0.1
+  cloud_firestore: ^6.0.1
 
   flutter:
     sdk: flutter
@@ -35,9 +35,9 @@ dev_dependencies:
   daassets: ^1.5.0
   daunused: ^1.7.4
   dapublock: ^1.1.0
-  build_runner: ^2.7.0
+  build_runner: ^2.7.1
   flutter_lints: ^6.0.0
-  json_serializable: ^6.11.0
+  json_serializable: ^6.11.1
 
 flutter:
   uses-material-design: true
