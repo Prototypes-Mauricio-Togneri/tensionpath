@@ -13,10 +13,12 @@ class Launcher {
     final RoomsManager roomsManager = RoomsManager();
     final Handler handler = Handler(roomsManager);
     final Looper looper = Looper(roomsManager);
-
-    final Server server = Server(roomsManager, handler, environment);
+    final Server server = Server(
+      roomsManager: roomsManager,
+      handler: handler,
+      environment: environment,
+    );
     await server.start();
-
     await looper.start();
   }
 }

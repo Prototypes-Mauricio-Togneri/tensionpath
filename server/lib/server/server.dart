@@ -14,7 +14,11 @@ class Server {
   final RoomsManager roomsManager;
   final Environment environment;
 
-  const Server(this.roomsManager, this.handler, this.environment);
+  const Server({
+    required this.roomsManager,
+    required this.handler,
+    required this.environment,
+  });
 
   Future start() async {
     final HttpServer server = await HttpServer.bind(
