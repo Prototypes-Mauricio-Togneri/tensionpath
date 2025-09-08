@@ -43,6 +43,8 @@ class Handler {
     } on JsonMessage catch (e) {
       socket.send(e);
     } catch (e) {
+      Logger.error(socket, e);
+
       socket.send(JsonMessage.error('Unknown error $e'));
     }
   }

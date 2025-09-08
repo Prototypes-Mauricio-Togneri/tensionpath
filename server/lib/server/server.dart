@@ -53,7 +53,7 @@ class Server {
         await request.response.close();
       }
     } catch (e) {
-      Logger.error(e);
+      Logger.info('Error: $e');
     }
   }
 
@@ -61,7 +61,7 @@ class Server {
     try {
       handler.onMessage(socket, JsonMessage.fromString(message));
     } catch (e) {
-      Logger.log(socket, 'Exception: $e');
+      Logger.error(socket, e);
     }
   }
 
@@ -69,7 +69,7 @@ class Server {
     try {
       handler.onConnect(socket);
     } catch (e) {
-      Logger.log(socket, 'Exception: $e');
+      Logger.error(socket, e);
     }
   }
 
@@ -77,12 +77,12 @@ class Server {
     try {
       handler.onDisconnect(socket);
     } catch (e) {
-      Logger.log(socket, 'Exception: $e');
+      Logger.error(socket, e);
     }
   }
 
   void _onError(WebSocket socket, dynamic error) {
-    Logger.log(socket, 'Error: $error');
+    Logger.error(socket, error);
   }
 
   Future _handleBattleCreation(HttpRequest request) async {

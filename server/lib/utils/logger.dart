@@ -15,9 +15,9 @@ class Logger {
     }
   }
 
-  static void error(Object error) {
+  static void error(WebSocket socket, Object error) {
     if (Constants.LOGS_ENABLED) {
-      print('Error: $error');
+      print('[${socket.id} ${DateTime.now()}] Error: $error');
     }
   }
 }
