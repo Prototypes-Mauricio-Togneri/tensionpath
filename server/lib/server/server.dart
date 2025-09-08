@@ -10,8 +10,8 @@ import 'package:tensionpath/utils/logger.dart';
 const String X_API_KEY_HEADER = 'x-api-key';
 
 class Server {
-  final Handler handler;
   final BattleManager battleManager;
+  final Handler handler;
   final Environment environment;
 
   const Server({
