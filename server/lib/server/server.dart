@@ -45,7 +45,9 @@ class Server {
         );
         handler.onConnect(socket);
       } else {
-        Logger.info('Request cannot be upgraded');
+        Logger.info(
+          'Invalid HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
+        );
 
         request.response.statusCode = HttpStatus.forbidden;
         await request.response.close();
