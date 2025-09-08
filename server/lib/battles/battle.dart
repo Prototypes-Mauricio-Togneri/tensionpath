@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:tensionpath/domain/json/api/json_create_room.dart';
+import 'package:tensionpath/domain/json/api/json_create_battle.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/models/match.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
 
-class Room {
+class Battle {
   final String id;
   final DateTime createdAt;
   final int numberOfPlayers;
@@ -15,7 +15,7 @@ class Room {
   final Map<WebSocket, String> webSocketToPlayerId = {};
   Match? _match;
 
-  Room._({
+  Battle._({
     required this.id,
     required this.createdAt,
     required this.numberOfPlayers,
@@ -23,8 +23,8 @@ class Room {
     required this.players,
   });
 
-  factory Room.fromJson(JsonCreateRoom json) => Room._(
-    id: json.roomId,
+  factory Battle.fromJson(JsonCreateBattle json) => Battle._(
+    id: json.battleId,
     createdAt: json.createdAt,
     numberOfPlayers: json.numberOfPlayers,
     matchType: json.matchType,
@@ -52,7 +52,7 @@ class Room {
       playerIdToWebSocket[playerId] = socket;
       webSocketToPlayerId[socket] = playerId;
 
-      Logger.log(socket, 'Player $playerId joined room $id');
+      Logger.log(socket, 'Player $playerId joined battle $id');
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
         _match = Match.create(this);
@@ -65,7 +65,7 @@ class Room {
         }*/
       }
     } else {
-      throw JsonMessage.error('Player $playerId cannot join room $id');
+      throw JsonMessage.error('Player $playerId cannot join battle $id');
     }
   }
 
@@ -75,7 +75,7 @@ class Room {
       playerIdToWebSocket.remove(playerId);
       webSocketToPlayerId.remove(socket);
 
-      Logger.log(socket, 'Player $playerId left room $id');
+      Logger.log(socket, 'Player $playerId left battle $id');
     } else {
       throw JsonMessage.error('Cannot find player for socket ${socket.id}');
     }
@@ -102,7 +102,7 @@ class Room {
     if (playerId != null) {
       return playerId;
     } else {
-      throw JsonMessage.error('Player not in room');
+      throw JsonMessage.error('Player not in battle');
     }
   }*/
 

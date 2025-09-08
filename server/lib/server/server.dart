@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:tensionpath/domain/json/api/json_create_room.dart';
+import 'package:tensionpath/domain/json/api/json_create_battle.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/rooms/rooms_manager.dart';
+import 'package:tensionpath/battles/battle_manager.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -11,11 +11,11 @@ const String X_API_KEY_HEADER = 'x-api-key';
 
 class Server {
   final Handler handler;
-  final RoomsManager roomsManager;
+  final BattleManager battleManager;
   final Environment environment;
 
   const Server({
-    required this.roomsManager,
+    required this.battleManager,
     required this.handler,
     required this.environment,
   });
@@ -33,8 +33,9 @@ class Server {
     try {
       Logger.info('HTTP Request: ${request.method} ${request.requestedUri}');
 
-      if ((request.method == 'POST') && (request.uri.toString() == '/rooms')) {
-        await _handleRoomCreation(request);
+      if ((request.method == 'POST') &&
+          (request.uri.toString() == '/battles')) {
+        await _handleBattleCreation(request);
       } else if (WebSocketTransformer.isUpgradeRequest(request)) {
         final WebSocket socket = await WebSocketTransformer.upgrade(request);
         socket.listen(
@@ -62,14 +63,14 @@ class Server {
     }
   }
 
-  Future _handleRoomCreation(HttpRequest request) async {
+  Future _handleBattleCreation(HttpRequest request) async {
     final String? apiKey = request.headers[X_API_KEY_HEADER]?[0];
 
     if (apiKey == environment.apiKey) {
       final String content = await utf8.decodeStream(request);
-      final JsonCreateRoom json = JsonCreateRoom.fromString(content);
+      final JsonCreateBattle json = JsonCreateBattle.fromString(content);
 
-      roomsManager.create(json);
+      battleManager.create(json);
 
       request.response.statusCode = HttpStatus.created;
     } else {

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'json_create_room.g.dart';
+part 'json_create_battle.g.dart';
 
 @JsonSerializable()
-class JsonCreateRoom {
-  @JsonKey(name: 'roomId')
-  final String roomId;
+class JsonCreateBattle {
+  @JsonKey(name: 'battleId')
+  final String battleId;
 
   @JsonKey(name: 'createdAt')
   final DateTime createdAt;
@@ -20,19 +20,19 @@ class JsonCreateRoom {
   @JsonKey(name: 'players')
   final Map<String, String> players;
 
-  const JsonCreateRoom({
-    required this.roomId,
+  const JsonCreateBattle({
+    required this.battleId,
     required this.createdAt,
     required this.numberOfPlayers,
     required this.matchType,
     required this.players,
   });
 
-  factory JsonCreateRoom.fromString(String json) =>
-      JsonCreateRoom.fromJson(jsonDecode(json));
+  factory JsonCreateBattle.fromString(String json) =>
+      JsonCreateBattle.fromJson(jsonDecode(json));
 
-  factory JsonCreateRoom.fromJson(Map<String, dynamic> json) =>
-      _$JsonCreateRoomFromJson(json);
+  factory JsonCreateBattle.fromJson(Map<String, dynamic> json) =>
+      _$JsonCreateBattleFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonCreateRoomToJson(this);
+  Map<String, dynamic> toJson() => _$JsonCreateBattleToJson(this);
 }

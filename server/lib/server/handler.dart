@@ -1,17 +1,17 @@
 import 'dart:io';
+import 'package:tensionpath/battles/battle_manager.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_increase_attack.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_increase_mine.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_join_room.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
-import 'package:tensionpath/rooms/rooms_manager.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Handler {
-  final RoomsManager roomsManager;
+  final BattleManager battleManager;
 
-  const Handler(this.roomsManager);
+  const Handler(this.battleManager);
 
   void onMessage(WebSocket socket, JsonMessage json) {
     Logger.log(socket, '<<< $json');
@@ -19,23 +19,23 @@ class Handler {
     final dynamic message = json.message;
 
     try {
-      if (message is JsonJoinRoom) {
-        roomsManager.join(
+      if (message is JsonJoinBattle) {
+        battleManager.join(
           json: message,
           socket: socket,
         );
       } else if (message is JsonIncreaseMine) {
-        roomsManager.increaseMine(
+        battleManager.increaseMine(
           json: message,
           socket: socket,
         );
       } else if (message is JsonIncreaseAttack) {
-        roomsManager.increaseAttack(
+        battleManager.increaseAttack(
           json: message,
           socket: socket,
         );
       } else if (message is JsonLaunchUnits) {
-        roomsManager.launchUnits(
+        battleManager.launchUnits(
           json: message,
           socket: socket,
         );
@@ -59,7 +59,7 @@ class Handler {
   void onDisconnect(WebSocket socket) {
     try {
       Logger.log(socket, 'Disconnected');
-      roomsManager.leave(socket);
+      battleManager.leave(socket);
     } catch (e) {
       Logger.error(e);
     }

@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_create_room.dart';
+part of 'json_create_battle.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonCreateRoom _$JsonCreateRoomFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonCreateRoom', json, ($checkedConvert) {
-      final val = JsonCreateRoom(
-        roomId: $checkedConvert('roomId', (v) => v as String),
+JsonCreateBattle _$JsonCreateBattleFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonCreateBattle', json, ($checkedConvert) {
+      final val = JsonCreateBattle(
+        battleId: $checkedConvert('battleId', (v) => v as String),
         createdAt: $checkedConvert(
           'createdAt',
           (v) => DateTime.parse(v as String),
@@ -27,9 +27,9 @@ JsonCreateRoom _$JsonCreateRoomFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$JsonCreateRoomToJson(JsonCreateRoom instance) =>
+Map<String, dynamic> _$JsonCreateBattleToJson(JsonCreateBattle instance) =>
     <String, dynamic>{
-      'roomId': instance.roomId,
+      'battleId': instance.battleId,
       'createdAt': instance.createdAt.toIso8601String(),
       'numberOfPlayers': instance.numberOfPlayers,
       'matchType': instance.matchType,

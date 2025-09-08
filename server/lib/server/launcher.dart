@@ -1,4 +1,4 @@
-import 'package:tensionpath/rooms/rooms_manager.dart';
+import 'package:tensionpath/battles/battle_manager.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/server/looper.dart';
@@ -10,11 +10,11 @@ class Launcher {
   Launcher(this.environment);
 
   Future start() async {
-    final RoomsManager roomsManager = RoomsManager();
-    final Handler handler = Handler(roomsManager);
-    final Looper looper = Looper(roomsManager);
+    final BattleManager battleManager = BattleManager();
+    final Handler handler = Handler(battleManager);
+    final Looper looper = Looper(battleManager);
     final Server server = Server(
-      roomsManager: roomsManager,
+      battleManager: battleManager,
       handler: handler,
       environment: environment,
     );

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/game/json_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_increase_attack.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_increase_mine.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_join_room.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_lane_lost.dart';
@@ -42,8 +42,8 @@ class JsonMessage {
   @JsonKey(name: 'unitsLaunched')
   final JsonUnitsLaunched? unitsLaunched;
 
-  @JsonKey(name: 'joinRoom')
-  final JsonJoinRoom? joinRoom;
+  @JsonKey(name: 'joinBattle')
+  final JsonJoinBattle? joinBattle;
 
   @JsonKey(name: 'increaseMine')
   final JsonIncreaseMine? increaseMine;
@@ -63,7 +63,7 @@ class JsonMessage {
     this.laneWon,
     this.laneLost,
     this.unitsLaunched,
-    this.joinRoom,
+    this.joinBattle,
     this.increaseMine,
     this.increaseAttack,
     this.launchUnits,
@@ -86,8 +86,8 @@ class JsonMessage {
       return laneLost;
     } else if (unitsLaunched != null) {
       return unitsLaunched;
-    } else if (joinRoom != null) {
-      return joinRoom;
+    } else if (joinBattle != null) {
+      return joinBattle;
     } else if (increaseMine != null) {
       return increaseMine;
     } else if (increaseAttack != null) {
@@ -147,39 +147,39 @@ class JsonMessage {
     ),
   );
 
-  factory JsonMessage.joinRoom({
-    required String roomId,
+  factory JsonMessage.joinBattle({
+    required String battleId,
     required String playerId,
   }) => JsonMessage(
-    joinRoom: JsonJoinRoom(
-      roomId: roomId,
+    joinBattle: JsonJoinBattle(
+      battleId: battleId,
       playerId: playerId,
     ),
   );
 
   factory JsonMessage.increaseMine({
-    required String roomId,
+    required String battleId,
   }) => JsonMessage(
     increaseMine: JsonIncreaseMine(
-      roomId: roomId,
+      battleId: battleId,
     ),
   );
 
   factory JsonMessage.increaseAttack({
-    required String roomId,
+    required String battleId,
   }) => JsonMessage(
     increaseAttack: JsonIncreaseAttack(
-      roomId: roomId,
+      battleId: battleId,
     ),
   );
 
   factory JsonMessage.launchUnits({
-    required String roomId,
+    required String battleId,
     required int laneId,
     required int amount,
   }) => JsonMessage(
     launchUnits: JsonLaunchUnits(
-      roomId: roomId,
+      battleId: battleId,
       laneId: laneId,
       amount: amount,
     ),

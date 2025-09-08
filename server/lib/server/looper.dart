@@ -1,11 +1,11 @@
-import 'package:tensionpath/rooms/rooms_manager.dart';
+import 'package:tensionpath/battles/battle_manager.dart';
 
 class Looper {
-  final RoomsManager roomsManager;
+  final BattleManager battleManager;
   final DateTime initialTime = DateTime.now();
   double previous = 0;
 
-  Looper(this.roomsManager) {
+  Looper(this.battleManager) {
     previous = currentTime;
   }
 
@@ -18,7 +18,7 @@ class Looper {
       final double dt = current - previous;
       previous = current;
 
-      roomsManager.update(dt);
+      battleManager.update(dt);
 
       await Future.delayed(const Duration(milliseconds: 16));
     }

@@ -9,10 +9,10 @@ part of 'json_increase_mine.dart';
 JsonIncreaseMine _$JsonIncreaseMineFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonIncreaseMine', json, ($checkedConvert) {
       final val = JsonIncreaseMine(
-        roomId: $checkedConvert('roomId', (v) => v as String),
+        battleId: $checkedConvert('battleId', (v) => v as String),
       );
       return val;
     });
 
 Map<String, dynamic> _$JsonIncreaseMineToJson(JsonIncreaseMine instance) =>
-    <String, dynamic>{'roomId': instance.roomId};
+    <String, dynamic>{'battleId': instance.battleId};

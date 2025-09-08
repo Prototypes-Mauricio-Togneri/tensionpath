@@ -5,11 +5,11 @@ part 'json_increase_mine.g.dart';
 
 @JsonSerializable()
 class JsonIncreaseMine {
-  @JsonKey(name: 'roomId')
-  final String roomId;
+  @JsonKey(name: 'battleId')
+  final String battleId;
 
   const JsonIncreaseMine({
-    required this.roomId,
+    required this.battleId,
   });
 
   factory JsonIncreaseMine.fromString(String json) =>
