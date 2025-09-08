@@ -16,39 +16,12 @@ class Server {
   const Server(this.roomsManager, this.handler);
 
   Future start() async {
-    final HttpServer server = await _server(
-      port: environment.port,
-      chain: environment.chain,
-      key: environment.key,
+    final HttpServer server = await HttpServer.bind(
+      InternetAddress.anyIPv4,
+      environment.port,
     );
     server.listen(_handleRequest);
     Logger.info('Server running on ${server.port}');
-  }
-
-  Future<HttpServer> _server({
-    required int port,
-    required String? chain,
-    required String? key,
-  }) async {
-    if ((chain != null) && (key != null)) {
-      final SecurityContext context = SecurityContext()
-        ..useCertificateChain(chain)
-        ..usePrivateKey(
-          key,
-          password: '',
-        );
-
-      return HttpServer.bindSecure(
-        InternetAddress.anyIPv4,
-        port,
-        context,
-      );
-    } else {
-      return HttpServer.bind(
-        InternetAddress.anyIPv4,
-        port,
-      );
-    }
   }
 
   Future _handleRequest(HttpRequest request) async {
