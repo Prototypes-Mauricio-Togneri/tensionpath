@@ -20,7 +20,7 @@ class Looper {
 
       battleManager.update(dt);
 
-      await Future.delayed(const Duration(milliseconds: 16));
+      await Future.delayed(const Duration(microseconds: 16666));
     }
   }
 }

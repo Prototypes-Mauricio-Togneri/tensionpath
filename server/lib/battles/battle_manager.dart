@@ -21,10 +21,7 @@ class BattleManager {
     required JsonJoinBattle json,
     required WebSocket socket,
   }) {
-    final Battle battle = _getBattle(
-      battleId: json.battleId,
-      socket: socket,
-    );
+    final Battle battle = _getBattle(json.battleId);
     battle.join(
       playerId: json.playerId,
       socket: socket,
@@ -50,10 +47,7 @@ class BattleManager {
     required JsonIncreaseMine json,
     required WebSocket socket,
   }) {
-    final Battle battle = _getBattle(
-      battleId: json.battleId,
-      socket: socket,
-    );
+    final Battle battle = _getBattle(json.battleId);
     battle.increaseMine(socket);
   }
 
@@ -61,10 +55,7 @@ class BattleManager {
     required JsonIncreaseAttack json,
     required WebSocket socket,
   }) {
-    final Battle battle = _getBattle(
-      battleId: json.battleId,
-      socket: socket,
-    );
+    final Battle battle = _getBattle(json.battleId);
     battle.increaseAttack(socket);
   }
 
@@ -72,17 +63,11 @@ class BattleManager {
     required JsonLaunchUnits json,
     required WebSocket socket,
   }) {
-    final Battle battle = _getBattle(
-      battleId: json.battleId,
-      socket: socket,
-    );
+    final Battle battle = _getBattle(json.battleId);
     battle.launchUnits(socket, json.laneId, json.amount);
   }
 
-  Battle _getBattle({
-    required String battleId,
-    required WebSocket socket,
-  }) {
+  Battle _getBattle(String battleId) {
     if (battles.has(battleId)) {
       return battles.get(battleId);
     } else {
