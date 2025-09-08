@@ -12,8 +12,9 @@ const String X_API_KEY_HEADER = 'x-api-key';
 class Server {
   final Handler handler;
   final RoomsManager roomsManager;
+  final Environment environment;
 
-  const Server(this.roomsManager, this.handler);
+  const Server(this.roomsManager, this.handler, this.environment);
 
   Future start() async {
     final HttpServer server = await HttpServer.bind(
