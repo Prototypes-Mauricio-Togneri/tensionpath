@@ -39,12 +39,13 @@ class Handler {
           json: message,
           socket: socket,
         );
+      } else {
+        throw JsonMessage.error('Unknown message type $message');
       }
     } on JsonMessage catch (e) {
       socket.send(e);
     } catch (e) {
       Logger.error(socket, e);
-
       socket.send(JsonMessage.error('Unknown error $e'));
     }
   }
