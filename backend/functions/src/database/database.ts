@@ -3,9 +3,8 @@ import {CollectionGroup, CollectionReference, DocumentData, DocumentReference, D
 import {Logger} from '../utils/logger'
 import {mapToFirebaseDocument} from '../utils/firebase-mapper'
 import {IRoom} from '../models/room'
-import {IMatch} from '../models/match'
 
-type FirestoreWriteable = IRoom | IMatch
+type FirestoreWriteable = IRoom
 
 const fs = admin.firestore()
 fs.settings({ignoreUndefinedProperties: true,})

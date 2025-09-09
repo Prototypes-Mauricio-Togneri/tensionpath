@@ -1,13 +1,11 @@
-import {createRoomDocument} from '../../../collections/room/create-room-document'
-import {getAvailableRoomDocument} from '../../../collections/room/get-available-room-document'
-import {updateRoomDocument} from '../../../collections/room/update-room-document'
 import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
 import {RoomVisibility} from '../../../types/room-visibility'
-import {Match} from '../../../models/match'
-import {createMatchDocument} from '../../../collections/match/create-match-document'
-import {addMatchHistoryDocument} from '../../../collections/history/add-match-history-document'
+import {getAvailableRoomDocument} from '../../../database/room/get-available-room-document'
+import {updateRoomDocument} from '../../../database/room/update-room-document'
+import {createRoomDocument} from '../../../database/room/create-room-document'
+import {v4 as uuidv4} from 'uuid'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -114,19 +112,7 @@ const createMatch = async (params: {
   room: Room,
 }): Promise<Room> => {
   const newRoom = params.room
-  let match = Match.create({
-    mapId: params.room.mapId,
-    room: newRoom,
-  })
-  match = await createMatchDocument({
-    database: params.database,
-    match: match,
-  })
-  await addMatchHistoryDocument({
-    database: params.database,
-    match: match,
-  })
-  newRoom.matchId = match.id
+  newRoom.matchId = uuidv4()
 
   await updateRoomDocument({
     database: params.database,
