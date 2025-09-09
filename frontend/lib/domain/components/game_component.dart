@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/game/json_match.dart';
 import 'package:tensionpath/presentation/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';

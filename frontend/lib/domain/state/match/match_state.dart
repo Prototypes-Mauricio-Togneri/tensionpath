@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
-import 'package:tensionpath/domain/json/json_match.dart';
+import 'package:tensionpath/domain/json/game/json_match.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class MatchState extends BaseState {

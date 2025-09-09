@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/json_location.dart';
-import 'package:tensionpath/domain/json/json_position.dart';
+import 'json_location.dart';
+import 'json_position.dart';
 
 part 'json_unit.g.dart';
 

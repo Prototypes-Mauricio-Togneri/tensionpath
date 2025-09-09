@@ -11,8 +11,15 @@ part 'json_message.g.dart';
 
 @JsonSerializable()
 class JsonMessage {
-  @JsonKey(name: 'error')
-  final JsonError? error;
+  // =========================== CLIENT -> SERVER =========================== \\
+
+  @JsonKey(name: 'join')
+  final JsonJoinBattle? join;
+
+  @JsonKey(name: 'launchUnits')
+  final JsonLaunchUnits? launchUnits;
+
+  // =========================== SERVER -> CLIENT =========================== \\
 
   @JsonKey(name: 'welcome')
   final JsonWelcome? welcome;
@@ -20,59 +27,41 @@ class JsonMessage {
   @JsonKey(name: 'update')
   final JsonUpdate? update;
 
-  @JsonKey(name: 'joinBattle')
-  final JsonJoinBattle? joinBattle;
-
-  @JsonKey(name: 'launchUnits')
-  final JsonLaunchUnits? launchUnits;
+  @JsonKey(name: 'error')
+  final JsonError? error;
 
   const JsonMessage({
-    this.error,
+    this.join,
+    this.launchUnits,
     this.welcome,
     this.update,
-    this.joinBattle,
-    this.launchUnits,
+    this.error,
   });
 
   dynamic get message {
-    if (error != null) {
-      return error;
+    if (join != null) {
+      return join;
+    } else if (launchUnits != null) {
+      return launchUnits;
     } else if (welcome != null) {
       return welcome;
     } else if (update != null) {
       return update;
-    } else if (joinBattle != null) {
-      return joinBattle;
-    } else if (launchUnits != null) {
-      return launchUnits;
+    } else if (error != null) {
+      return error;
     } else {
       throw JsonMessage.error('Unknown message');
     }
   }
 
-  factory JsonMessage.fromString(String json) =>
-      JsonMessage.fromJson(jsonDecode(json));
-
   factory JsonMessage.fromJson(Map<String, dynamic> json) =>
       _$JsonMessageFromJson(json);
 
-  factory JsonMessage.error(String message) => JsonMessage(
-    error: JsonError(message: message),
-  );
-
-  factory JsonMessage.welcome() => JsonMessage(
-    welcome: JsonWelcome(),
-  );
-
-  factory JsonMessage.update(JsonMatch match) => JsonMessage(
-    update: JsonUpdate(match: match),
-  );
-
-  factory JsonMessage.joinBattle({
+  factory JsonMessage.join({
     required String battleId,
     required String playerId,
   }) => JsonMessage(
-    joinBattle: JsonJoinBattle(
+    join: JsonJoinBattle(
       battleId: battleId,
       playerId: playerId,
     ),
@@ -88,6 +77,18 @@ class JsonMessage {
       laneId: laneId,
       amount: amount,
     ),
+  );
+
+  factory JsonMessage.welcome() => JsonMessage(
+    welcome: JsonWelcome(),
+  );
+
+  factory JsonMessage.update(JsonMatch match) => JsonMessage(
+    update: JsonUpdate(match: match),
+  );
+
+  factory JsonMessage.error(String message) => JsonMessage(
+    error: JsonError(message: message),
   );
 
   Map<String, dynamic> toJson() => _$JsonMessageToJson(this);

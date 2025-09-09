@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/json_player.dart';
+import 'package:tensionpath/domain/json/game/json_player.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {

@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/json_location.dart';
-import 'package:tensionpath/domain/json/json_missile.dart';
-import 'package:tensionpath/domain/json/json_ratio.dart';
-import 'package:tensionpath/domain/json/json_resource.dart';
-import 'package:tensionpath/domain/json/json_size.dart';
-import 'package:tensionpath/domain/json/json_unit.dart';
+import 'json_location.dart';
+import 'json_missile.dart';
+import 'json_ratio.dart';
+import 'json_resource.dart';
+import 'json_size.dart';
+import 'json_unit.dart';
 
 part 'json_battlefield.g.dart';
 
