@@ -8,15 +8,11 @@ class JsonPlatform {
   @JsonKey(name: 'id')
   final String id;
 
-  @JsonKey(name: 'owner')
-  final String? owner;
-
   @JsonKey(name: 'pads')
   final List<JsonLocation> pads;
 
   const JsonPlatform({
     required this.id,
-    required this.owner,
     required this.pads,
   });
 

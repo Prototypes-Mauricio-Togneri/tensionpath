@@ -34,7 +34,6 @@
                 "x": 0,
                 "y": 0
             },
-            "chargeCurrent": 0,
             "chargeMax": 40,
             "chargeBuffer": 35,
             "platforms": [
@@ -76,6 +75,7 @@
         },
         "resources": [
             {
+                "id": "1",
                 "location": {
                     "x": 4,
                     "y": -3
@@ -84,6 +84,7 @@
                 "amountMax": 100
             },
             {
+                "id": "2",
                 "location": {
                     "x": 3,
                     "y": 2
@@ -92,6 +93,7 @@
                 "amountMax": 100
             },
             {
+                "id": "3",
                 "location": {
                     "x": -3,
                     "y": -2
@@ -100,6 +102,7 @@
                 "amountMax": 100
             },
             {
+                "id": "4",
                 "location": {
                     "x": -4,
                     "y": 3

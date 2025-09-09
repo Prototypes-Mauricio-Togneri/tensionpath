@@ -6,6 +6,9 @@ part 'json_unit.g.dart';
 
 @JsonSerializable()
 class JsonUnit {
+  @JsonKey(name: 'id')
+  final String id;
+
   @JsonKey(name: 'location')
   final JsonLocation location;
 
@@ -16,6 +19,7 @@ class JsonUnit {
   final double health;
 
   const JsonUnit({
+    required this.id,
     required this.location,
     required this.position,
     required this.health,

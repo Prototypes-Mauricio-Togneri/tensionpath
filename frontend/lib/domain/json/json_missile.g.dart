@@ -13,11 +13,6 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
-        owner: $checkedConvert('owner', (v) => v as String?),
-        chargeCurrent: $checkedConvert(
-          'chargeCurrent',
-          (v) => (v as num).toDouble(),
-        ),
         chargeMax: $checkedConvert('chargeMax', (v) => (v as num).toDouble()),
         chargeBuffer: $checkedConvert(
           'chargeBuffer',
@@ -36,8 +31,6 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMissileToJson(JsonMissile instance) =>
     <String, dynamic>{
       'location': instance.location.toJson(),
-      'owner': ?instance.owner,
-      'chargeCurrent': instance.chargeCurrent,
       'chargeMax': instance.chargeMax,
       'chargeBuffer': instance.chargeBuffer,
       'platforms': instance.platforms.map((e) => e.toJson()).toList(),

@@ -9,12 +9,6 @@ class JsonMissile {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
-  @JsonKey(name: 'owner')
-  final String? owner;
-
-  @JsonKey(name: 'chargeCurrent')
-  final double chargeCurrent;
-
   @JsonKey(name: 'chargeMax')
   final double chargeMax;
 
@@ -26,8 +20,6 @@ class JsonMissile {
 
   const JsonMissile({
     required this.location,
-    required this.owner,
-    required this.chargeCurrent,
     required this.chargeMax,
     required this.chargeBuffer,
     required this.platforms,

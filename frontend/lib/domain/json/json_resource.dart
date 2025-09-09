@@ -5,6 +5,9 @@ part 'json_resource.g.dart';
 
 @JsonSerializable()
 class JsonResource {
+  @JsonKey(name: 'id')
+  final String id;
+
   @JsonKey(name: 'location')
   final JsonLocation location;
 
@@ -15,6 +18,7 @@ class JsonResource {
   final double amountMax;
 
   const JsonResource({
+    required this.id,
     required this.location,
     required this.amountCurrent,
     required this.amountMax,

@@ -21,10 +21,10 @@ class MissileComponent extends SpriteComponent {
     missileIndicator = MissileIndicatorComponent(
       position: size / 2,
       size: Vector2(size.x * 0.7, size.y * 0.08),
-      chargeCurrent: missile.chargeCurrent,
+      chargeCurrent: 0,
       chargeMax: missile.chargeMax,
       chargeBuffer: missile.chargeBuffer,
-      owner: missile.owner,
+      owner: null,
     );
   }
 
@@ -67,10 +67,10 @@ class MissileIndicatorComponent extends PositionComponent {
   }) : super(anchor: Anchor.center);
 
   void refresh(JsonMissile missile) {
-    chargeCurrent = missile.chargeCurrent;
+    chargeCurrent = 0; // Fill with correct value
     chargeMax = missile.chargeMax;
     chargeBuffer = missile.chargeBuffer;
-    owner = missile.owner;
+    owner = null; // Fill with correct value
 
     if (owner == '') {
       foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;

@@ -1,0 +1,27 @@
+{
+    "players": {
+        "1": {
+            "baseHealth": 1000,
+            "resources": 100
+        },
+        "2": {
+            "baseHealth": 1000,
+            "resources": 50
+        }
+    },
+    "battlefield": {
+        "missile": {
+            "charge": 0,
+            "platforms": {
+                "1": "player1",
+                "2": "",
+                "3": null
+            }
+        },
+        "resources": {
+            "1": 100,
+            "2": 50
+        },
+        "units": []
+    }
+}
