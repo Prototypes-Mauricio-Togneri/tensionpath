@@ -16,7 +16,10 @@ class LobbyState extends BaseState {
   @override
   void onLoad() {
     _roomListener.start(
-      RoomRepository.listen(roomId: room.id, onUpdated: _onUpdated),
+      RoomRepository.listen(
+        roomId: room.id,
+        onUpdated: _onUpdated,
+      ),
     );
   }
 

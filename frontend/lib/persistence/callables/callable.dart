@@ -1,6 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tensionpath/environments/environment.dart';
 
 abstract class Callable {
   final String name;
@@ -18,16 +17,10 @@ class CallableConfig {
   static FirebaseFunctions? _functions;
 
   static FirebaseFunctions get functions {
-    if (_functions == null) {
-      _functions = FirebaseFunctions.instanceFor(
-        app: Firebase.app(),
-        region: 'europe-west6',
-      );
-
-      if (Environment.get.isLocal) {
-        _functions!.useFunctionsEmulator(Environment.get.host, 5001);
-      }
-    }
+    _functions ??= FirebaseFunctions.instanceFor(
+      app: Firebase.app(),
+      region: 'europe-west6',
+    );
 
     return _functions!;
   }
