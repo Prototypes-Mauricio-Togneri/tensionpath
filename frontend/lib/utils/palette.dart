@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Palette {
-  static const MaterialColor primary = Colors.blue;
-  static const Color transparent = Colors.transparent;
+  static const MaterialColor PRIMARY = Colors.blue;
+  static const Color TRANSPARENT = Colors.transparent;
 
   static const Color GAME_BACKGROUND = Colors.black;
 
