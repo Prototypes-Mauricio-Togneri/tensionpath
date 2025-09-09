@@ -5,7 +5,6 @@ import {RoomVisibility} from '../../../types/room-visibility'
 import {getAvailableRoomDocument} from '../../../database/room/get-available-room-document'
 import {updateRoomDocument} from '../../../database/room/update-room-document'
 import {createRoomDocument} from '../../../database/room/create-room-document'
-import {v4 as uuidv4} from 'uuid'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -111,7 +110,7 @@ const createMatch = async (params: {
   room: Room,
 }): Promise<Room> => {
   const newRoom = params.room
-  newRoom.matchId = uuidv4()
+  newRoom.matchId = new Date().getTime().toString()
 
   await updateRoomDocument({
     database: params.database,

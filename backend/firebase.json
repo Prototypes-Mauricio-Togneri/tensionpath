@@ -64,7 +64,6 @@
   },
   "extensions": {
     "firestore-bigquery-history": "firebase/firestore-bigquery-export@0.2.5",
-    "firestore-bigquery-matches": "firebase/firestore-bigquery-export@0.2.5",
     "firestore-bigquery-rooms": "firebase/firestore-bigquery-export@0.2.5"
   }
 }
