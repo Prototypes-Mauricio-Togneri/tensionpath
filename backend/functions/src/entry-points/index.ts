@@ -1,4 +1,6 @@
-import * as functionsV2 from 'firebase-functions/v2'
+import * as functions from 'firebase-functions/v2'
+import * as express from 'express'
+import * as cors from 'cors'
 import {AuthData} from 'firebase-functions/lib/common/providers/tasks'
 import {Logger} from '../utils/logger'
 import {CallableOptions} from 'firebase-functions/v2/https'
@@ -13,7 +15,7 @@ export const registerCallable = (handler: CallableHandler, options: CallableOpti
     region: 'europe-west6',
   }
 
-  return functionsV2.https.onCall(newOptions, async (request) => {
+  return functions.https.onCall(newOptions, async (request) => {
     try {
       if (authenticated && !request.auth) {
         throw new CustomInternalError({
@@ -37,7 +39,7 @@ export const registerCallable = (handler: CallableHandler, options: CallableOpti
 }
 
 const handleCallableError = (error: unknown, data: any) => {
-  if (error instanceof functionsV2.https.HttpsError) {
+  if (error instanceof functions.https.HttpsError) {
     Logger.error({
       error: error,
     }, {
@@ -46,21 +48,21 @@ const handleCallableError = (error: unknown, data: any) => {
     throw error
   } else if (error instanceof CustomInternalError) {
     error.log()
-    throw new functionsV2.https.HttpsError(error.httpErrorCode, error.httpErrorMessage, error.httpErrorDetails)
+    throw new functions.https.HttpsError(error.httpErrorCode, error.httpErrorMessage, error.httpErrorDetails)
   } else if (error instanceof Error) {
     Logger.error({
       error: error,
     }, {
       data: data,
     })
-    throw new functionsV2.https.HttpsError('internal', error.message, error)
+    throw new functions.https.HttpsError('internal', error.message, error)
   } else {
     Logger.error({
       error: error,
     }, {
       data: data,
     })
-    throw new functionsV2.https.HttpsError('unknown', 'Could not process the request', error)
+    throw new functions.https.HttpsError('unknown', 'Could not process the request', error)
   }
 }
 
@@ -70,7 +72,7 @@ export class Context {
   ) {
   }
 
-  public get playerId(): string {
+  public get userId(): string {
     if (!this.auth) {
       throw new CustomInternalError({
         message: 'Trying to access missing auth property in context',
@@ -83,9 +85,17 @@ export class Context {
   public withData(data: any) {
     return {
       ...data,
-      playerId: this.playerId,
+      userId: this.userId,
     }
   }
 }
 
+export const app = express()
+app.use(cors({
+  origin: true,
+}))
+
 export * from './callables/index'
+export * from './http-requests/index'
+
+export const api = functions.https.onRequest(app)

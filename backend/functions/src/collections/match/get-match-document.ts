@@ -1,17 +1,16 @@
 import {COLLECTIONS, Database} from '../../database/database'
 import {FirebaseDocument} from '../../database/firebase-document'
-import {Room} from '../../models/room'
+import {Match} from '../../models/match'
 
-export const getRoomRoomDocument = async (params: {
+export const getMatchDocument = async (params: {
   database: Database,
-  playerId: string,
-  roomId: string,
+  matchId: string,
 }) => {
   const docRef = params.database
-      .collection(COLLECTIONS.ROOMS)
-      .doc(params.roomId)
+      .collection(COLLECTIONS.MATCHES)
+      .doc(params.matchId)
 
   const doc = await params.database.getDocument(docRef)
 
-  return Room.parse(FirebaseDocument.fromRef(doc))
+  return Match.parse(FirebaseDocument.fromRef(doc))
 }

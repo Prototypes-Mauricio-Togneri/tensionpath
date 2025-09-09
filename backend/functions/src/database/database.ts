@@ -3,8 +3,12 @@ import {CollectionGroup, CollectionReference, DocumentData, DocumentReference, D
 import {Logger} from '../utils/logger'
 import {mapToFirebaseDocument} from '../utils/firebase-mapper'
 import {IRoom} from '../models/room'
+import {IMatch} from '../models/match'
 
-type FirestoreWriteable = IRoom
+type FirestoreWriteable = IRoom | IMatch
+
+const fs = admin.firestore()
+fs.settings({ignoreUndefinedProperties: true,})
 
 export class Database {
   private constructor(
@@ -27,7 +31,7 @@ export class Database {
 
   public query<T>(query: Query<T>): Promise<QuerySnapshot<T>> {
     if (this.transaction) {
-      return this.transaction.get<T>(query)
+      return this.transaction.get(query)
     } else {
       return query.get()
     }
@@ -35,7 +39,7 @@ export class Database {
 
   public getDocument<T>(documentRef: DocumentReference<T>): Promise<DocumentSnapshot<T>> {
     if (this.transaction) {
-      return this.transaction.get<T>(documentRef)
+      return this.transaction.get(documentRef)
     } else {
       return documentRef.get()
     }
@@ -43,7 +47,7 @@ export class Database {
 
   public createDocument<T>(documentRef: DocumentReference<T>, data: FirestoreWriteable) {
     if (this.transaction) {
-      return this.transaction.create<T>(documentRef, mapToFirebaseDocument(data))
+      return this.transaction.create(documentRef, mapToFirebaseDocument(data))
     } else if (this.batch) {
       return this.batch.create(documentRef, mapToFirebaseDocument(data))
     } else {
@@ -53,7 +57,7 @@ export class Database {
 
   public setDocument<T>(documentRef: DocumentReference<T>, data: FirestoreWriteable, options: SetOptions = {}) {
     if (this.transaction) {
-      return this.transaction.set<T>(documentRef, mapToFirebaseDocument(data), options)
+      return this.transaction.set(documentRef, mapToFirebaseDocument(data), options)
     } else if (this.batch) {
       return this.batch.set(documentRef, mapToFirebaseDocument(data), options)
     } else {
@@ -63,7 +67,7 @@ export class Database {
 
   public updateDocument<T>(documentRef: DocumentReference<T>, data: UpdateData<T>) {
     if (this.transaction) {
-      return this.transaction.update<T>(documentRef, mapToFirebaseDocument(data))
+      return this.transaction.update(documentRef, mapToFirebaseDocument(data))
     } else if (this.batch) {
       return this.batch.update(documentRef, mapToFirebaseDocument(data))
     } else {
@@ -133,7 +137,7 @@ export const WriteOptionMerge: SetOptions = {
 }
 
 export const COLLECTIONS = {
-  PLAYERS: 'players',
   ROOMS: 'rooms',
   MATCHES: 'matches',
+  HISTORY: 'history',
 }

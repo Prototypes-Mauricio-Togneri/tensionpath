@@ -13,6 +13,25 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          },
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Expires",
+            "value": "0"
+          }
+        ]
+      }
     ]
   },
   "firestore": {
@@ -44,6 +63,8 @@
     "singleProjectMode": true
   },
   "extensions": {
-    "firestore-bigquery-export": "firebase/firestore-bigquery-export@0.2.3"
+    "firestore-bigquery-history": "firebase/firestore-bigquery-export@0.2.5",
+    "firestore-bigquery-matches": "firebase/firestore-bigquery-export@0.2.5",
+    "firestore-bigquery-rooms": "firebase/firestore-bigquery-export@0.2.5"
   }
 }

@@ -1,29 +1,28 @@
-import {deleteRoomDocument} from '../../../collections/rooms/delete-room-document'
-import {getRoomRoomDocument} from '../../../collections/rooms/get-room-document'
-import {updateRoomDocument} from '../../../collections/rooms/update-room-document'
+import {deleteRoomDocument} from '../../../collections/room/delete-room-document'
+import {getRoomDocument} from '../../../collections/room/get-room-document'
+import {updateRoomDocument} from '../../../collections/room/update-room-document'
 import {Database} from '../../../database/database'
 import {RoomStatus} from '../../../types/room-status'
 import {CustomInternalError} from '../../../utils/custom-internal-error'
 import {registerCallable} from '../../index'
 
 interface StopMatchmakingCallableParams {
-  playerId: string
-  roomId: string
+  userId: string,
+  roomId: string,
 }
 
 export const stopMatchmakingCallable = registerCallable(async (params: StopMatchmakingCallableParams) => {
   return Database.runTransaction(async (database) => {
-    const room = await getRoomRoomDocument({
+    const room = await getRoomDocument({
       database: database,
-      playerId: params.playerId,
       roomId: params.roomId,
     })
 
-    if (!room.hasPlayer(params.playerId)) {
+    if (!room.hasUser(params.userId)) {
       throw new CustomInternalError({
-        message: 'Player not in room',
+        message: 'User not in room',
         data: {
-          playerId: params.playerId,
+          userId: params.userId,
           roomId: params.roomId,
         },
       })
@@ -33,23 +32,21 @@ export const stopMatchmakingCallable = registerCallable(async (params: StopMatch
       throw new CustomInternalError({
         message: 'Room is not open',
         data: {
-          playerId: params.playerId,
+          userId: params.userId,
           roomId: params.roomId,
         },
       })
     }
 
-    if (room.joinedPlayers === 1) {
+    if (room.userIds.length === 1) {
       await deleteRoomDocument({
         database: database,
         roomId: params.roomId,
       })
     } else {
-      const newRoom = room.leave(params.playerId)
-
       await updateRoomDocument({
         database: database,
-        room: newRoom,
+        room: room.leave(params.userId),
       })
     }
   })

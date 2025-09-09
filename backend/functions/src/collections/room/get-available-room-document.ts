@@ -2,20 +2,23 @@ import {COLLECTIONS, Database} from '../../database/database'
 import {FirebaseDocument} from '../../database/firebase-document'
 import {Query} from 'firebase-admin/firestore'
 import {Room} from '../../models/room'
+import {RoomVisibility} from '../../types/room-visibility'
 
 export const getAvailableRoomDocument = async (params: {
   database: Database,
-  playerId: string,
+  userId: string,
   version: number,
   matchType: string,
   numberOfPlayers: number,
+  visibility: RoomVisibility,
 }) => {
   const queryJoinedRoom = params.database
       .collection(COLLECTIONS.ROOMS)
       .where('status', '==', 'open')
       .where('version', '==', params.version)
       .where('matchType', '==', params.matchType)
-      .where('playerIds', 'array-contains', params.playerId)
+      .where('visibility', '==', params.visibility)
+      .where('userIds', 'array-contains', params.userId)
       .where('numberOfPlayers', '==', params.numberOfPlayers)
       .limit(1)
 
@@ -27,27 +30,25 @@ export const getAvailableRoomDocument = async (params: {
   if (resultJoinedRoom) {
     return resultJoinedRoom
   } else {
-    const queryNewRoom = params.database
+    const queryAvailableRoom = params.database
         .collection(COLLECTIONS.ROOMS)
         .where('status', '==', 'open')
         .where('version', '==', params.version)
         .where('matchType', '==', params.matchType)
+        .where('visibility', '==', params.visibility)
         .where('numberOfPlayers', '==', params.numberOfPlayers)
         .limit(1)
 
-    const resultNewRoom = await executeQuery({
+    const resultAvailableRoom = await executeQuery({
       database: params.database,
-      query: queryNewRoom,
+      query: queryAvailableRoom,
     })
 
-    return resultNewRoom
+    return resultAvailableRoom
   }
 }
 
-const executeQuery = async (params: {
-  database: Database,
-  query: Query,
-}) => {
+const executeQuery = async (params: { database: Database, query: Query }) => {
   const snapshot = await params.database.query(params.query)
 
   if (snapshot.size > 0) {
