@@ -22,33 +22,6 @@ JsonMessage _$JsonMessageFromJson(
       'update',
       (v) => v == null ? null : JsonUpdate.fromJson(v as Map<String, dynamic>),
     ),
-    laneRewardWon: $checkedConvert(
-      'laneRewardWon',
-      (v) => v == null
-          ? null
-          : JsonLaneRewardWon.fromJson(v as Map<String, dynamic>),
-    ),
-    laneRewardLost: $checkedConvert(
-      'laneRewardLost',
-      (v) => v == null
-          ? null
-          : JsonLaneRewardLost.fromJson(v as Map<String, dynamic>),
-    ),
-    laneWon: $checkedConvert(
-      'laneWon',
-      (v) => v == null ? null : JsonLaneWon.fromJson(v as Map<String, dynamic>),
-    ),
-    laneLost: $checkedConvert(
-      'laneLost',
-      (v) =>
-          v == null ? null : JsonLaneLost.fromJson(v as Map<String, dynamic>),
-    ),
-    unitsLaunched: $checkedConvert(
-      'unitsLaunched',
-      (v) => v == null
-          ? null
-          : JsonUnitsLaunched.fromJson(v as Map<String, dynamic>),
-    ),
     joinBattle: $checkedConvert(
       'joinBattle',
       (v) =>
@@ -81,11 +54,6 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
       'error': ?instance.error?.toJson(),
       'welcome': ?instance.welcome?.toJson(),
       'update': ?instance.update?.toJson(),
-      'laneRewardWon': ?instance.laneRewardWon?.toJson(),
-      'laneRewardLost': ?instance.laneRewardLost?.toJson(),
-      'laneWon': ?instance.laneWon?.toJson(),
-      'laneLost': ?instance.laneLost?.toJson(),
-      'unitsLaunched': ?instance.unitsLaunched?.toJson(),
       'joinBattle': ?instance.joinBattle?.toJson(),
       'increaseMine': ?instance.increaseMine?.toJson(),
       'increaseAttack': ?instance.increaseAttack?.toJson(),

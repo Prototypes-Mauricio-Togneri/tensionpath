@@ -5,7 +5,7 @@ part 'json_welcome.g.dart';
 
 @JsonSerializable()
 class JsonWelcome {
-  const JsonWelcome();
+  JsonWelcome();
 
   factory JsonWelcome.fromString(String json) =>
       JsonWelcome.fromJson(jsonDecode(json));

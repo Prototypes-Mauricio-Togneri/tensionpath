@@ -6,11 +6,6 @@ import 'package:tensionpath/domain/json/messages/client_server/json_increase_min
 import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_lane_lost.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_lane_reward_lost.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_lane_reward_won.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_lane_won.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_units_launched.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 
@@ -26,21 +21,6 @@ class JsonMessage {
 
   @JsonKey(name: 'update')
   final JsonUpdate? update;
-
-  @JsonKey(name: 'laneRewardWon')
-  final JsonLaneRewardWon? laneRewardWon;
-
-  @JsonKey(name: 'laneRewardLost')
-  final JsonLaneRewardLost? laneRewardLost;
-
-  @JsonKey(name: 'laneWon')
-  final JsonLaneWon? laneWon;
-
-  @JsonKey(name: 'laneLost')
-  final JsonLaneLost? laneLost;
-
-  @JsonKey(name: 'unitsLaunched')
-  final JsonUnitsLaunched? unitsLaunched;
 
   @JsonKey(name: 'joinBattle')
   final JsonJoinBattle? joinBattle;
@@ -58,11 +38,6 @@ class JsonMessage {
     this.error,
     this.welcome,
     this.update,
-    this.laneRewardWon,
-    this.laneRewardLost,
-    this.laneWon,
-    this.laneLost,
-    this.unitsLaunched,
     this.joinBattle,
     this.increaseMine,
     this.increaseAttack,
@@ -76,16 +51,6 @@ class JsonMessage {
       return welcome;
     } else if (update != null) {
       return update;
-    } else if (laneRewardWon != null) {
-      return laneRewardWon;
-    } else if (laneRewardLost != null) {
-      return laneRewardLost;
-    } else if (laneWon != null) {
-      return laneWon;
-    } else if (laneLost != null) {
-      return laneLost;
-    } else if (unitsLaunched != null) {
-      return unitsLaunched;
     } else if (joinBattle != null) {
       return joinBattle;
     } else if (increaseMine != null) {
@@ -109,42 +74,12 @@ class JsonMessage {
     error: JsonError(message: message),
   );
 
-  factory JsonMessage.welcome() => const JsonMessage(
+  factory JsonMessage.welcome() => JsonMessage(
     welcome: JsonWelcome(),
   );
 
   factory JsonMessage.update(JsonMatch match) => JsonMessage(
     update: JsonUpdate(match: match),
-  );
-
-  factory JsonMessage.laneRewardWon() => const JsonMessage(
-    laneRewardWon: JsonLaneRewardWon(),
-  );
-
-  factory JsonMessage.laneRewardLost() => const JsonMessage(
-    laneRewardLost: JsonLaneRewardLost(),
-  );
-
-  factory JsonMessage.laneWon() => const JsonMessage(
-    laneWon: JsonLaneWon(),
-  );
-
-  factory JsonMessage.laneLost() => const JsonMessage(
-    laneLost: JsonLaneLost(),
-  );
-
-  factory JsonMessage.unitsLaunched({
-    required int laneId,
-    required int amount,
-    required int direction,
-    required int attackLevel,
-  }) => JsonMessage(
-    unitsLaunched: JsonUnitsLaunched(
-      laneId: laneId,
-      amount: amount,
-      direction: direction,
-      attackLevel: attackLevel,
-    ),
   );
 
   factory JsonMessage.joinBattle({
