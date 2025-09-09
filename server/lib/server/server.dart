@@ -59,7 +59,8 @@ class Server {
 
   void _onMessage(WebSocket socket, String message) {
     try {
-      handler.onMessage(socket, JsonMessage.fromString(message));
+      final dynamic json = jsonDecode(message);
+      handler.onMessage(socket, JsonMessage.fromJson(json));
     } catch (e) {
       Logger.error(socket, e);
     }

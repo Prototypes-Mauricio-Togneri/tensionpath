@@ -22,7 +22,7 @@ JsonMessage _$JsonMessageFromJson(
       'update',
       (v) => v == null ? null : JsonUpdate.fromJson(v as Map<String, dynamic>),
     ),
-    joinBattle: $checkedConvert(
+    join: $checkedConvert(
       'joinBattle',
       (v) =>
           v == null ? null : JsonJoinBattle.fromJson(v as Map<String, dynamic>),
@@ -42,6 +42,6 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
       'error': ?instance.error?.toJson(),
       'welcome': ?instance.welcome?.toJson(),
       'update': ?instance.update?.toJson(),
-      'joinBattle': ?instance.joinBattle?.toJson(),
+      'joinBattle': ?instance.join?.toJson(),
       'launchUnits': ?instance.launchUnits?.toJson(),
     };
