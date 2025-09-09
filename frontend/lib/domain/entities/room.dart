@@ -8,7 +8,6 @@ class Room {
   final int numberOfPlayers;
   final RoomVisibility visibility;
   final RoomStatus status;
-  final String playerId;
   final Map<String, String> players;
   final String matchType;
   final String? matchId;
@@ -20,7 +19,6 @@ class Room {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.playerId,
     required this.players,
     required this.matchType,
     required this.matchId,
