@@ -57,18 +57,6 @@ class JsonMessage {
   factory JsonMessage.fromJson(Map<String, dynamic> json) =>
       _$JsonMessageFromJson(json);
 
-  factory JsonMessage.error(String message) => JsonMessage(
-    error: JsonError(message: message),
-  );
-
-  factory JsonMessage.welcome() => JsonMessage(
-    welcome: JsonWelcome(),
-  );
-
-  factory JsonMessage.update(JsonMatch match) => JsonMessage(
-    update: JsonUpdate(match: match),
-  );
-
   factory JsonMessage.join({
     required String battleId,
     required String playerId,
@@ -89,6 +77,18 @@ class JsonMessage {
       laneId: laneId,
       amount: amount,
     ),
+  );
+
+  factory JsonMessage.welcome() => JsonMessage(
+    welcome: JsonWelcome(),
+  );
+
+  factory JsonMessage.update(JsonMatch match) => JsonMessage(
+    update: JsonUpdate(match: match),
+  );
+
+  factory JsonMessage.error(String message) => JsonMessage(
+    error: JsonError(message: message),
   );
 
   Map<String, dynamic> toJson() => _$JsonMessageToJson(this);
