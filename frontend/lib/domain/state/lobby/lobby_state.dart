@@ -3,9 +3,8 @@ import 'package:tensionpath/domain/entities/room.dart';
 
 class LobbyState extends BaseState {
   final Room room;
-  final String playerId;
 
-  LobbyState({required this.room, required this.playerId});
+  LobbyState(this.room);
 
   @override
   void onLoad() {

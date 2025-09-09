@@ -1,7 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/domain/types/room_status.dart';
+import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/callables/room/create_room_callable.dart';
 import 'package:tensionpath/persistence/callables/room/join_room_callable.dart';
@@ -27,7 +28,23 @@ class SplashState extends BaseState {
 
     if (Environment.get.isDebug) {
       Delayed.post(
-        () => Navigation.matchScreen(matchId: '', selfId: Constants.PLAYER_1),
+        () => Navigation.lobbyScreen(
+          Room(
+            id: 'debug-room',
+            version: 1,
+            createdAt: DateTime.now(),
+            numberOfPlayers: 2,
+            visibility: RoomVisibility.public,
+            status: RoomStatus.open,
+            playerId: 'player1',
+            players: {
+              'player1': 'Bob',
+              'player2': 'Max',
+            },
+            matchType: 'pvp',
+            matchId: '123',
+          ),
+        ),
       );
     }
   }
@@ -36,7 +53,7 @@ class SplashState extends BaseState {
 
   Future onCreateRoom() async {
     final Room room = await CreateRoomCallable()(playerName: await _playerName);
-    Navigation.lobbyScreen(room: room, playerId: room.playerIds.first);
+    Navigation.lobbyScreen(room);
   }
 
   Future onJoinRoom() async {
@@ -44,7 +61,7 @@ class SplashState extends BaseState {
       roomId: roomController.text.trim(),
       playerName: await _playerName,
     );
-    Navigation.lobbyScreen(room: room, playerId: room.playerIds[1]);
+    Navigation.lobbyScreen(room);
   }
 
   Future<String> get _playerName async {

@@ -8,7 +8,7 @@ class Room {
   final int numberOfPlayers;
   final RoomVisibility visibility;
   final RoomStatus status;
-  final List<String> playerIds;
+  final String playerId;
   final Map<String, String> players;
   final String matchType;
   final String? matchId;
@@ -20,13 +20,13 @@ class Room {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.playerIds,
+    required this.playerId,
     required this.players,
     required this.matchType,
     required this.matchId,
   });
 
-  bool get isFull => playerIds.length >= numberOfPlayers;
+  bool get isFull => players.length >= numberOfPlayers;
 
   bool get hasMatchId => matchId != null;
 }

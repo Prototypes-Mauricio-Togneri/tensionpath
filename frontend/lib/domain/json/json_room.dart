@@ -24,8 +24,8 @@ class JsonRoom {
   @JsonKey(name: 'status')
   final RoomStatus status;
 
-  @JsonKey(name: 'playerIds')
-  final List<String> playerIds;
+  @JsonKey(name: 'playerId')
+  final String playerId;
 
   @JsonKey(name: 'players')
   final Map<String, String> players;
@@ -43,7 +43,7 @@ class JsonRoom {
     required this.numberOfPlayers,
     required this.visibility,
     required this.status,
-    required this.playerIds,
+    required this.playerId,
     required this.players,
     required this.matchType,
     required this.matchId,
