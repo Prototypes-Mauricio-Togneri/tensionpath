@@ -3,5 +3,13 @@
     "default": "tension-path",
     "local": "tension-path",
     "remote": "tension-path"
+  },
+  "targets": {},
+  "etags": {
+    "tension-path": {
+      "extensionInstances": {
+        "firestore-bigquery-rooms": "4a845b2cb35cce8742587f7d3aae16293c873d3574cbc4b9dafb45d8566b7640"
+      }
+    }
   }
 }
