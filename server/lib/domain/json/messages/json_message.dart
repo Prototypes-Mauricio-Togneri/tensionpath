@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/game/json_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_increase_attack.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_increase_mine.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
@@ -25,12 +23,6 @@ class JsonMessage {
   @JsonKey(name: 'joinBattle')
   final JsonJoinBattle? joinBattle;
 
-  @JsonKey(name: 'increaseMine')
-  final JsonIncreaseMine? increaseMine;
-
-  @JsonKey(name: 'increaseAttack')
-  final JsonIncreaseAttack? increaseAttack;
-
   @JsonKey(name: 'launchUnits')
   final JsonLaunchUnits? launchUnits;
 
@@ -39,8 +31,6 @@ class JsonMessage {
     this.welcome,
     this.update,
     this.joinBattle,
-    this.increaseMine,
-    this.increaseAttack,
     this.launchUnits,
   });
 
@@ -53,10 +43,6 @@ class JsonMessage {
       return update;
     } else if (joinBattle != null) {
       return joinBattle;
-    } else if (increaseMine != null) {
-      return increaseMine;
-    } else if (increaseAttack != null) {
-      return increaseAttack;
     } else if (launchUnits != null) {
       return launchUnits;
     } else {
@@ -89,22 +75,6 @@ class JsonMessage {
     joinBattle: JsonJoinBattle(
       battleId: battleId,
       playerId: playerId,
-    ),
-  );
-
-  factory JsonMessage.increaseMine({
-    required String battleId,
-  }) => JsonMessage(
-    increaseMine: JsonIncreaseMine(
-      battleId: battleId,
-    ),
-  );
-
-  factory JsonMessage.increaseAttack({
-    required String battleId,
-  }) => JsonMessage(
-    increaseAttack: JsonIncreaseAttack(
-      battleId: battleId,
     ),
   );
 

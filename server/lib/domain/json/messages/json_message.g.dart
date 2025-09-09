@@ -27,18 +27,6 @@ JsonMessage _$JsonMessageFromJson(
       (v) =>
           v == null ? null : JsonJoinBattle.fromJson(v as Map<String, dynamic>),
     ),
-    increaseMine: $checkedConvert(
-      'increaseMine',
-      (v) => v == null
-          ? null
-          : JsonIncreaseMine.fromJson(v as Map<String, dynamic>),
-    ),
-    increaseAttack: $checkedConvert(
-      'increaseAttack',
-      (v) => v == null
-          ? null
-          : JsonIncreaseAttack.fromJson(v as Map<String, dynamic>),
-    ),
     launchUnits: $checkedConvert(
       'launchUnits',
       (v) => v == null
@@ -55,7 +43,5 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
       'welcome': ?instance.welcome?.toJson(),
       'update': ?instance.update?.toJson(),
       'joinBattle': ?instance.joinBattle?.toJson(),
-      'increaseMine': ?instance.increaseMine?.toJson(),
-      'increaseAttack': ?instance.increaseAttack?.toJson(),
       'launchUnits': ?instance.launchUnits?.toJson(),
     };

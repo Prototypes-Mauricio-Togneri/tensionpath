@@ -1,14 +1,10 @@
-import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_welcome.g.dart';
 
 @JsonSerializable()
 class JsonWelcome {
-  const JsonWelcome();
-
-  factory JsonWelcome.fromString(String json) =>
-      JsonWelcome.fromJson(jsonDecode(json));
+  JsonWelcome();
 
   factory JsonWelcome.fromJson(Map<String, dynamic> json) =>
       _$JsonWelcomeFromJson(json);

@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:tensionpath/battles/battle.dart';
 import 'package:tensionpath/domain/json/api/json_create_battle.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_increase_attack.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_increase_mine.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
@@ -41,22 +39,6 @@ class BattleManager {
     } else {
       throw JsonMessage.error('Connection not linked with any battle');
     }
-  }
-
-  void increaseMine({
-    required JsonIncreaseMine json,
-    required WebSocket socket,
-  }) {
-    final Battle battle = _getBattle(json.battleId);
-    battle.increaseMine(socket);
-  }
-
-  void increaseAttack({
-    required JsonIncreaseAttack json,
-    required WebSocket socket,
-  }) {
-    final Battle battle = _getBattle(json.battleId);
-    battle.increaseAttack(socket);
   }
 
   void launchUnits({

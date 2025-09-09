@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:tensionpath/battles/battle_manager.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_increase_attack.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_increase_mine.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
@@ -21,16 +19,6 @@ class Handler {
     try {
       if (message is JsonJoinBattle) {
         battleManager.join(
-          json: message,
-          socket: socket,
-        );
-      } else if (message is JsonIncreaseMine) {
-        battleManager.increaseMine(
-          json: message,
-          socket: socket,
-        );
-      } else if (message is JsonIncreaseAttack) {
-        battleManager.increaseAttack(
           json: message,
           socket: socket,
         );
