@@ -16,6 +16,7 @@
 - Commanders abilities
 - Choose map
 - Unit ability deployment
+- Use varaiable tick rate (the more simultaneous matches, the slower the tick rate)
 
 # API
 
