@@ -90,9 +90,8 @@ class Server {
 
     if (apiKey == environment.apiKey) {
       final String content = await utf8.decodeStream(request);
-      final JsonCreateBattle json = JsonCreateBattle.fromString(content);
-
-      battleManager.create(json);
+      final dynamic json = jsonDecode(content);
+      battleManager.create(JsonCreateBattle.fromJson(json));
 
       request.response.statusCode = HttpStatus.created;
     } else {

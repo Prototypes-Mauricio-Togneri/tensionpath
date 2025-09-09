@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_create_battle.g.dart';
@@ -27,9 +26,6 @@ class JsonCreateBattle {
     required this.matchType,
     required this.players,
   });
-
-  factory JsonCreateBattle.fromString(String json) =>
-      JsonCreateBattle.fromJson(jsonDecode(json));
 
   factory JsonCreateBattle.fromJson(Map<String, dynamic> json) =>
       _$JsonCreateBattleFromJson(json);

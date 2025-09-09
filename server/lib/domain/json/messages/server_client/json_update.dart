@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/game/json_match.dart';
 
@@ -12,9 +11,6 @@ class JsonUpdate {
   const JsonUpdate({
     required this.match,
   });
-
-  factory JsonUpdate.fromString(String json) =>
-      JsonUpdate.fromJson(jsonDecode(json));
 
   factory JsonUpdate.fromJson(Map<String, dynamic> json) =>
       _$JsonUpdateFromJson(json);
