@@ -14,20 +14,26 @@ class Navigation {
 
   static void pop<T>([T? result]) => get.routes.pop(result);
 
-  static void lobbyScreen(Room room) => get.routes.push(
-    BasicRoute(
-      LobbyScreen.instance(room),
-      name: 'lobby',
-    ),
-  );
+  static void setupScreen() =>
+      get.routes.pushAlone(BasicRoute(SetupScreen.instance(), name: 'setup'));
 
-  static void matchScreen({
-    required String matchId,
-    required String selfId,
-  }) => get.routes.pushReplacement(
-    BasicRoute(
-      MatchScreen.instance(matchId: matchId, selfId: selfId),
-      name: 'match',
-    ),
-  );
+  static void homeScreen() =>
+      get.routes.pushAlone(BasicRoute(HomeScreen.instance(), name: 'home'));
+
+  static void historyScreen() =>
+      get.routes.push(BasicRoute(HistoryScreen.instance(), name: 'history'));
+
+  static void settingsScreen() =>
+      get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
+
+  static void lobbyScreen(Room room) =>
+      get.routes.push(BasicRoute(LobbyScreen.instance(room), name: 'lobby'));
+
+  static void matchScreen({required String matchId, required String userId}) =>
+      get.routes.pushReplacement(
+        BasicRoute(
+          MatchScreen.instance(matchId: matchId, userId: userId),
+          name: 'match',
+        ),
+      );
 }
