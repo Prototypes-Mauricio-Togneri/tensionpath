@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_create_battle.dart';
+part of 'json_create_match.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonCreateBattle _$JsonCreateBattleFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonCreateBattle', json, ($checkedConvert) {
-      final val = JsonCreateBattle(
-        battleId: $checkedConvert('battleId', (v) => v as String),
+JsonCreateMatch _$JsonCreateMatchFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonCreateMatch', json, ($checkedConvert) {
+      final val = JsonCreateMatch(
+        matchId: $checkedConvert('matchId', (v) => v as String),
         createdAt: $checkedConvert(
           'createdAt',
           (v) => DateTime.parse(v as String),
@@ -27,9 +27,9 @@ JsonCreateBattle _$JsonCreateBattleFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$JsonCreateBattleToJson(JsonCreateBattle instance) =>
+Map<String, dynamic> _$JsonCreateMatchToJson(JsonCreateMatch instance) =>
     <String, dynamic>{
-      'battleId': instance.battleId,
+      'matchId': instance.matchId,
       'createdAt': instance.createdAt.toIso8601String(),
       'numberOfPlayers': instance.numberOfPlayers,
       'matchType': instance.matchType,

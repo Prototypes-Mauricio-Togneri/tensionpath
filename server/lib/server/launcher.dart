@@ -1,4 +1,4 @@
-import 'package:tensionpath/battles/battle_manager.dart';
+import 'package:tensionpath/domain/matches/match_manager.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/server/looper.dart';
@@ -10,16 +10,16 @@ class Launcher {
   const Launcher(this.environment);
 
   Future start() async {
-    final BattleManager battleManager = BattleManager();
-    final Handler handler = Handler(battleManager);
+    final MatchManager matchManager = MatchManager();
+    final Handler handler = Handler(matchManager);
     final Server server = Server(
-      battleManager: battleManager,
+      matchManager: matchManager,
       handler: handler,
       environment: environment,
     );
     await server.start();
 
-    final Looper looper = Looper(battleManager);
+    final Looper looper = Looper(matchManager);
     await looper.start();
   }
 }

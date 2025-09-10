@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'json_create_battle.g.dart';
+part 'json_create_match.g.dart';
 
 @JsonSerializable()
-class JsonCreateBattle {
-  @JsonKey(name: 'battleId')
-  final String battleId;
+class JsonCreateMatch {
+  @JsonKey(name: 'matchId')
+  final String matchId;
 
   @JsonKey(name: 'createdAt')
   final DateTime createdAt;
@@ -19,16 +19,16 @@ class JsonCreateBattle {
   @JsonKey(name: 'players')
   final Map<String, String> players;
 
-  const JsonCreateBattle({
-    required this.battleId,
+  const JsonCreateMatch({
+    required this.matchId,
     required this.createdAt,
     required this.numberOfPlayers,
     required this.matchType,
     required this.players,
   });
 
-  factory JsonCreateBattle.fromJson(Map<String, dynamic> json) =>
-      _$JsonCreateBattleFromJson(json);
+  factory JsonCreateMatch.fromJson(Map<String, dynamic> json) =>
+      _$JsonCreateMatchFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonCreateBattleToJson(this);
+  Map<String, dynamic> toJson() => _$JsonCreateMatchToJson(this);
 }

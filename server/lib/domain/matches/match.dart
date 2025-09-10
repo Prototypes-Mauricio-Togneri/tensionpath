@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:tensionpath/domain/json/api/json_create_battle.dart';
+import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/models/match.dart';
+import 'package:tensionpath/domain/matches/match_engine.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
 
-class Battle {
+class Match {
   final String id;
   final DateTime createdAt;
   final int numberOfPlayers;
@@ -13,9 +13,9 @@ class Battle {
   final Map<String, String> players;
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
-  Match? _match;
+  MatchEngine? _match;
 
-  Battle._({
+  Match._({
     required this.id,
     required this.createdAt,
     required this.numberOfPlayers,
@@ -23,15 +23,15 @@ class Battle {
     required this.players,
   });
 
-  factory Battle.fromJson(JsonCreateBattle json) => Battle._(
-    id: json.battleId,
+  factory Match.fromJson(JsonCreateMatch json) => Match._(
+    id: json.matchId,
     createdAt: json.createdAt,
     numberOfPlayers: json.numberOfPlayers,
     matchType: json.matchType,
     players: json.players,
   );
 
-  Match get match {
+  MatchEngine get match {
     if (_match != null) {
       return _match!;
     } else {
@@ -52,10 +52,10 @@ class Battle {
       playerIdToWebSocket[playerId] = socket;
       webSocketToPlayerId[socket] = playerId;
 
-      Logger.log(socket, 'Player $playerId joined battle $id');
+      Logger.log(socket, 'Player $playerId joined match $id');
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
-        _match = Match.create(this);
+        _match = MatchEngine.create(this);
 
         /*for (final Player player in _match!.players) {
           direct(
@@ -65,7 +65,7 @@ class Battle {
         }*/
       }
     } else {
-      throw JsonMessage.error('Player $playerId cannot join battle $id');
+      throw JsonMessage.error('Player $playerId cannot join match $id');
     }
   }
 
@@ -75,7 +75,7 @@ class Battle {
       playerIdToWebSocket.remove(playerId);
       webSocketToPlayerId.remove(socket);
 
-      Logger.log(socket, 'Player $playerId left battle $id');
+      Logger.log(socket, 'Player $playerId left match $id');
     } else {
       throw JsonMessage.error('Cannot find player for socket ${socket.id}');
     }
@@ -102,7 +102,7 @@ class Battle {
     if (playerId != null) {
       return playerId;
     } else {
-      throw JsonMessage.error('Player not in battle');
+      throw JsonMessage.error('Player not in match');
     }
   }*/
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/game/json_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
@@ -14,7 +14,7 @@ class JsonMessage {
   // =========================== CLIENT -> SERVER =========================== \\
 
   @JsonKey(name: 'join')
-  final JsonJoinBattle? join;
+  final JsonJoinMatch? join;
 
   @JsonKey(name: 'launchUnits')
   final JsonLaunchUnits? launchUnits;
@@ -58,22 +58,22 @@ class JsonMessage {
       _$JsonMessageFromJson(json);
 
   factory JsonMessage.join({
-    required String battleId,
+    required String matchId,
     required String playerId,
   }) => JsonMessage(
-    join: JsonJoinBattle(
-      battleId: battleId,
+    join: JsonJoinMatch(
+      matchId: matchId,
       playerId: playerId,
     ),
   );
 
   factory JsonMessage.launchUnits({
-    required String battleId,
+    required String matchId,
     required int laneId,
     required int amount,
   }) => JsonMessage(
     launchUnits: JsonLaunchUnits(
-      battleId: battleId,
+      matchId: matchId,
       laneId: laneId,
       amount: amount,
     ),

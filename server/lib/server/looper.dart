@@ -1,11 +1,11 @@
-import 'package:tensionpath/battles/battle_manager.dart';
+import 'package:tensionpath/domain/matches/match_manager.dart';
 
 class Looper {
-  final BattleManager battleManager;
+  final MatchManager matchManager;
   final DateTime initialTime = DateTime.now();
   double previous = 0;
 
-  Looper(this.battleManager) {
+  Looper(this.matchManager) {
     previous = currentTime;
   }
 
@@ -18,7 +18,7 @@ class Looper {
       final double dt = current - previous;
       previous = current;
 
-      battleManager.update(dt);
+      matchManager.update(dt);
 
       await Future.delayed(const Duration(microseconds: 16666));
     }

@@ -13,7 +13,7 @@ JsonMessage _$JsonMessageFromJson(
     join: $checkedConvert(
       'join',
       (v) =>
-          v == null ? null : JsonJoinBattle.fromJson(v as Map<String, dynamic>),
+          v == null ? null : JsonJoinMatch.fromJson(v as Map<String, dynamic>),
     ),
     launchUnits: $checkedConvert(
       'launchUnits',

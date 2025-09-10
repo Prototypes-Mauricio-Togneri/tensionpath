@@ -1,15 +1,15 @@
 import 'dart:io';
-import 'package:tensionpath/battles/battle_manager.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_join_battle.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/matches/match_manager.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Handler {
-  final BattleManager battleManager;
+  final MatchManager matchManager;
 
-  const Handler(this.battleManager);
+  const Handler(this.matchManager);
 
   void onMessage(WebSocket socket, JsonMessage json) {
     Logger.log(socket, '<<< $json');
@@ -17,13 +17,13 @@ class Handler {
     final dynamic message = json.message;
 
     try {
-      if (message is JsonJoinBattle) {
-        battleManager.join(
+      if (message is JsonJoinMatch) {
+        matchManager.join(
           json: message,
           socket: socket,
         );
       } else if (message is JsonLaunchUnits) {
-        battleManager.launchUnits(
+        matchManager.launchUnits(
           json: message,
           socket: socket,
         );
@@ -45,6 +45,6 @@ class Handler {
 
   void onDisconnect(WebSocket socket) {
     Logger.log(socket, 'Disconnected');
-    battleManager.leave(socket);
+    matchManager.leave(socket);
   }
 }

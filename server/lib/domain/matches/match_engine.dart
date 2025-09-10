@@ -1,20 +1,20 @@
-import 'package:tensionpath/battles/battle.dart';
+import 'package:tensionpath/domain/matches/match.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 
-class Match {
-  final Battle battle;
+class MatchEngine {
+  final Match match;
 
   double totalTime = 0;
   MatchStatus status;
 
-  Match._({
-    required this.battle,
+  MatchEngine._({
+    required this.match,
     required this.status,
   });
 
-  factory Match.create(Battle battle) {
-    return Match._(
-      battle: battle,
+  factory MatchEngine.create(Match match) {
+    return MatchEngine._(
+      match: match,
       status: MatchStatus.playing,
     );
   }
@@ -26,7 +26,7 @@ class Match {
     final List<JsonLane> jsonLanes = lanes.map((e) => e.json()).toList();
 
     return JsonMatch(
-      id: battle.id,
+      id: match.id,
       remainingTime: Constants.MATCH_TIMEOUT - totalTime,
       players: jsonPlayers,
       lanes: jsonLanes,
@@ -68,7 +68,7 @@ class Match {
     if (amount > 0) {
       final Units units = player.createUnits(amount);
       lane.launchUnits(units);
-      battle.broadcast(
+      match.broadcast(
         JsonMessage.unitsLaunched(
           laneId: laneId,
           amount: amount,
@@ -197,7 +197,7 @@ class Match {
   void _sendToPlayer({
     required Player player,
     required JsonMessage json,
-  }) => battle.direct(
+  }) => match.direct(
     playerId: player.id,
     json: json,
   );*/

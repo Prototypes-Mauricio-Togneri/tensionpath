@@ -9,7 +9,7 @@ part of 'json_launch_units.dart';
 JsonLaunchUnits _$JsonLaunchUnitsFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonLaunchUnits', json, ($checkedConvert) {
       final val = JsonLaunchUnits(
-        battleId: $checkedConvert('battleId', (v) => v as String),
+        matchId: $checkedConvert('matchId', (v) => v as String),
         laneId: $checkedConvert('laneId', (v) => (v as num).toInt()),
         amount: $checkedConvert('amount', (v) => (v as num).toInt()),
       );
@@ -18,7 +18,7 @@ JsonLaunchUnits _$JsonLaunchUnitsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonLaunchUnitsToJson(JsonLaunchUnits instance) =>
     <String, dynamic>{
-      'battleId': instance.battleId,
+      'matchId': instance.matchId,
       'laneId': instance.laneId,
       'amount': instance.amount,
     };

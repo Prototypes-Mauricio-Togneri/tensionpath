@@ -4,8 +4,8 @@ part 'json_launch_units.g.dart';
 
 @JsonSerializable()
 class JsonLaunchUnits {
-  @JsonKey(name: 'battleId')
-  final String battleId;
+  @JsonKey(name: 'matchId')
+  final String matchId;
 
   @JsonKey(name: 'laneId')
   final int laneId;
@@ -14,7 +14,7 @@ class JsonLaunchUnits {
   final int amount;
 
   const JsonLaunchUnits({
-    required this.battleId,
+    required this.matchId,
     required this.laneId,
     required this.amount,
   });

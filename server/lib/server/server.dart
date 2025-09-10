@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:tensionpath/battles/battle_manager.dart';
-import 'package:tensionpath/domain/json/api/json_create_battle.dart';
+import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/matches/match_manager.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -10,12 +10,12 @@ import 'package:tensionpath/utils/logger.dart';
 const String X_API_KEY_HEADER = 'x-api-key';
 
 class Server {
-  final BattleManager battleManager;
+  final MatchManager matchManager;
   final Handler handler;
   final Environment environment;
 
   const Server({
-    required this.battleManager,
+    required this.matchManager,
     required this.handler,
     required this.environment,
   });
@@ -36,8 +36,8 @@ class Server {
       );
 
       if ((request.method == 'POST') &&
-          (request.uri.toString() == '/battles')) {
-        await _handleBattleCreation(request);
+          (request.uri.toString() == '/matches')) {
+        await _handleMatchCreation(request);
       } else if (WebSocketTransformer.isUpgradeRequest(request)) {
         final WebSocket socket = await WebSocketTransformer.upgrade(request);
         socket.listen(
@@ -86,19 +86,19 @@ class Server {
     Logger.error(socket, error);
   }
 
-  Future _handleBattleCreation(HttpRequest request) async {
+  Future _handleMatchCreation(HttpRequest request) async {
     final String? apiKey = request.headers[X_API_KEY_HEADER]?[0];
 
     if (apiKey == environment.apiKey) {
       final String content = await utf8.decodeStream(request);
       final dynamic json = jsonDecode(content);
-      final JsonCreateBattle jsonCreateBattle = JsonCreateBattle.fromJson(json);
+      final JsonCreateMatch jsonCreateMatch = JsonCreateMatch.fromJson(json);
 
-      if (battleManager.hasBattle(jsonCreateBattle.battleId)) {
+      if (matchManager.hasMatch(jsonCreateMatch.matchId)) {
         request.response.statusCode = HttpStatus.conflict;
       } else {
-        battleManager.create(jsonCreateBattle);
-        Logger.info('Battle created: ${jsonCreateBattle.toJson()}');
+        matchManager.create(jsonCreateMatch);
+        Logger.info('Match created: ${jsonCreateMatch.toJson()}');
 
         request.response.statusCode = HttpStatus.created;
       }
