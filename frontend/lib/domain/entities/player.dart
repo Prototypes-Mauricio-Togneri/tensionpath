@@ -5,6 +5,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class Player {
   final String id;
+  final String index;
   final bool isSelf;
   final String name;
   final int baseMaxHealth;
@@ -13,6 +14,7 @@ class Player {
 
   Player({
     required this.id,
+    required this.index,
     required this.isSelf,
     required this.name,
     required this.baseMaxHealth,
@@ -22,9 +24,9 @@ class Player {
 
   bool get isOpponent => !isSelf;
 
-  bool get isPlayer1 => id == Constants.PLAYER_1;
+  bool get isPlayer1 => index == Constants.PLAYER_1;
 
-  bool get isPlayer2 => id == Constants.PLAYER_2;
+  bool get isPlayer2 => index == Constants.PLAYER_2;
 
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
@@ -43,6 +45,7 @@ class Player {
 
   factory Player.fromJson(JsonPlayer player) => Player(
     id: player.id,
+    index: player.index,
     isSelf: player.isSelf,
     name: player.name,
     baseMaxHealth: player.baseMaxHealth,
