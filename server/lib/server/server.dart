@@ -92,9 +92,14 @@ class Server {
     if (apiKey == environment.apiKey) {
       final String content = await utf8.decodeStream(request);
       final dynamic json = jsonDecode(content);
-      battleManager.create(JsonCreateBattle.fromJson(json));
+      final JsonCreateBattle jsonCreateBattle = JsonCreateBattle.fromJson(json);
 
-      request.response.statusCode = HttpStatus.created;
+      if (battleManager.hasBattle(jsonCreateBattle.battleId)) {
+        request.response.statusCode = HttpStatus.conflict;
+      } else {
+        battleManager.create(jsonCreateBattle);
+        request.response.statusCode = HttpStatus.created;
+      }
     } else {
       request.response.statusCode = HttpStatus.unauthorized;
     }

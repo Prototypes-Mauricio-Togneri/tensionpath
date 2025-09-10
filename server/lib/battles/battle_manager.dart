@@ -10,6 +10,8 @@ class BattleManager {
   final MapList<String, Battle> battles = MapList();
   final Map<WebSocket, Battle> websocketToBattle = {};
 
+  bool hasBattle(String battleId) => battles.has(battleId);
+
   void create(JsonCreateBattle json) {
     final Battle battle = Battle.fromJson(json);
     battles.add(json.battleId, battle);
@@ -50,7 +52,7 @@ class BattleManager {
   }
 
   Battle _getBattle(String battleId) {
-    if (battles.has(battleId)) {
+    if (hasBattle(battleId)) {
       return battles.get(battleId);
     } else {
       throw JsonMessage.error('Battle with ID $battleId does not exist');
