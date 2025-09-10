@@ -72,3 +72,5 @@ functions/firebase-export-***
 # Custom
 !.vscode/
 !scripts/
+functions/.env.local
+functions/.env.remote

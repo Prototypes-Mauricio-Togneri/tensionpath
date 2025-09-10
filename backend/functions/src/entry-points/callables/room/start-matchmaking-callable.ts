@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {Database} from '../../../database/database'
 import {Room} from '../../../models/room'
 import {registerCallable} from '../../index'
@@ -109,6 +110,25 @@ const createMatch = async (params: {
   database: Database,
   room: Room,
 }): Promise<Room> => {
+  const createBattleParams = {
+    'battleId': '12345',
+    'createdAt': '2025-09-10T19:12:47Z',
+    'numberOfPlayers': 2,
+    'matchType': 'pvp',
+    'players': {
+      'id1': 'Bob',
+      'id2': 'Max',
+    },
+  }
+
+  const headers = {
+    'x-api-key': 'Bearer YOUR_TOKEN',
+    'Content-Type': 'application/json',
+  }
+
+  const response = await axios.post(url, data, {headers, })
+
+
   const newRoom = params.room
   newRoom.matchId = new Date().getTime().toString()
 

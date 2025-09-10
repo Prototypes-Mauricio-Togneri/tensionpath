@@ -13,5 +13,5 @@ setGlobalOptions({
 
 export * from './entry-points'
 
-const matchServerUrl = defineString('MATCH_SERVER_URL')
-console.log('Match server URL:', matchServerUrl.value())
+export const MATCH_SERVER = defineString('MATCH_SERVER').value()
+console.log('Match server:', MATCH_SERVER)
