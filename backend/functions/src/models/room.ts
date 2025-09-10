@@ -60,7 +60,7 @@ export class Room implements IRoom {
       ...this.users,
       [params.userId]: params.name,
     }
-    this.status = this.isFull ? RoomStatus.closed : RoomStatus.open
+    this.status = this.isFull ? RoomStatus.close : RoomStatus.open
 
     return this
   }

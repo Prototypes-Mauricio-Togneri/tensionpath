@@ -31,7 +31,9 @@ class Server {
 
   Future _handleRequest(HttpRequest request) async {
     try {
-      Logger.info('HTTP Request: ${request.method} ${request.requestedUri}');
+      Logger.info(
+        'HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
+      );
 
       if ((request.method == 'POST') &&
           (request.uri.toString() == '/battles')) {
@@ -45,9 +47,7 @@ class Server {
         );
         _onConnect(socket);
       } else {
-        Logger.info(
-          'Invalid HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
-        );
+        Logger.info('Invalid HTTP request');
 
         request.response.statusCode = HttpStatus.forbidden;
         await request.response.close();
@@ -98,6 +98,8 @@ class Server {
         request.response.statusCode = HttpStatus.conflict;
       } else {
         battleManager.create(jsonCreateBattle);
+        Logger.info('Battle created: ${jsonCreateBattle.toJson()}');
+
         request.response.statusCode = HttpStatus.created;
       }
     } else {

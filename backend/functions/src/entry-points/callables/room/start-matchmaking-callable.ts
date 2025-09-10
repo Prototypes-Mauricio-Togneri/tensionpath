@@ -134,7 +134,6 @@ const createMatch = async (params: {
   }
 
   const response = await axios.post(url, data, config)
-  console.log('Match created with response:', response.data)
 
   if (response.status === 201) {
     const newRoom = params.room
