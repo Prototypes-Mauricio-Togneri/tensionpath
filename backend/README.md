@@ -8,6 +8,7 @@ Create the files:
 - .env.remote
 
 ```
-MATCH_SERVER=localhost:3000
+MATCH_SERVER_HTTP=http://localhost:3000
+MATCH_SERVER_WS=ws://localhost:3000
 API_KEY=foo
 ```

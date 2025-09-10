@@ -13,5 +13,10 @@ setGlobalOptions({
 
 export * from './entry-points'
 
-export const MATCH_SERVER = defineString('MATCH_SERVER').value()
-console.log('Match server:', MATCH_SERVER)
+export const MATCH_SERVER_HTTP = defineString('MATCH_SERVER_HTTP').value()
+console.log('Match server HTTP:', MATCH_SERVER_HTTP)
+
+export const MATCH_SERVER_WS = defineString('MATCH_SERVER_WS').value()
+console.log('Match server WS:', MATCH_SERVER_WS)
+
+export const API_KEY = defineString('API_KEY').value()

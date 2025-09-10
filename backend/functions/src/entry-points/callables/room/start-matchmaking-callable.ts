@@ -6,6 +6,7 @@ import {RoomVisibility} from '../../../types/room-visibility'
 import {getAvailableRoomDocument} from '../../../database/room/get-available-room-document'
 import {updateRoomDocument} from '../../../database/room/update-room-document'
 import {createRoomDocument} from '../../../database/room/create-room-document'
+import {API_KEY, MATCH_SERVER_HTTP} from '../../..'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -110,9 +111,13 @@ const createMatch = async (params: {
   database: Database,
   room: Room,
 }): Promise<Room> => {
-  const createBattleParams = {
-    'battleId': '12345',
-    'createdAt': '2025-09-10T19:12:47Z',
+  const matchId = new Date().getTime().toString()
+
+  const url = `${MATCH_SERVER_HTTP}/battles`
+
+  const data = {
+    'battleId': matchId,
+    'createdAt': new Date().toISOString(),
     'numberOfPlayers': 2,
     'matchType': 'pvp',
     'players': {
@@ -121,21 +126,27 @@ const createMatch = async (params: {
     },
   }
 
-  const headers = {
-    'x-api-key': 'Bearer YOUR_TOKEN',
-    'Content-Type': 'application/json',
+  const config = {
+    headers: {
+      'x-api-key': API_KEY,
+      'Content-Type': 'application/json',
+    },
   }
 
-  const response = await axios.post(url, data, {headers, })
+  const response = await axios.post(url, data, config)
+  console.log('Match created with response:', response.data)
 
+  if (response.status === 201) {
+    const newRoom = params.room
+    newRoom.matchId = matchId
 
-  const newRoom = params.room
-  newRoom.matchId = new Date().getTime().toString()
+    await updateRoomDocument({
+      database: params.database,
+      room: newRoom,
+    })
 
-  await updateRoomDocument({
-    database: params.database,
-    room: newRoom,
-  })
-
-  return newRoom
+    return newRoom
+  } else {
+    throw new Error(`Failed to create match, status code: ${response.status}`)
+  }
 }
