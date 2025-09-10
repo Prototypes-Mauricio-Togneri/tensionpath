@@ -173,3 +173,82 @@
   1. Didn't move in that turn, then it's considered the defender
   2. It did move in that turn, then it's considered the attacker
 - Defender units have extra levels during battle
+
+Infantry:
+
+- Good against infantry:
+  - Riflemen/Militants
+  - MG
+  - Shocks/Flames/Chems
+  - Sniper
+  - Fanatic
+- Good against vehicles:
+  - Missiles/Laser
+  - Jumpjets
+  - Grens/Mutant
+  - Savenger
+- Good against aircraft:
+  - Missile/Laser
+  - Scavenger
+
+Vehicle:
+
+- Good against infantry:
+  - Dogs/Wheels
+  - Rhino/Buggy
+  - Shatterer/Chem Buggy
+  - APC
+- Good against vehicles:
+  - Pitbull/Bikes
+  - MLRS/Giga
+  - Predator/Scorpion
+  - Tick Tank
+  - Stealth Tank
+- Good against aircraft:
+  - Rhino/Buggy
+  - Pitbull/Bikes
+  - APC
+  - Slingshot
+  - Stealth Tank
+
+Aircraft:
+
+- Good against infantry:
+  - Drone Swarm
+  - Talon
+  - Razorback
+  - Venom
+  - Catalyst
+  - Inferno
+- Good against vehicles:
+  - Mohawk
+  - Orca/Shade
+  - Orca bomber
+  - Laser drones
+  - Banshee
+  - Inferno
+- Good against aircraft:
+  - Talon
+  - Hammerhead/Phantom
+  - Banshee
+
+Tech
+
+- Good against infantry:
+  - Wolverine/Widowmaker/Confesor
+  - Disruptor/Flame Tank
+  - Juggernaut/Artillery
+  - Mammoth/Avatar
+- Good against vehicles:
+  - Juggernaut/Artillery
+  - Zone Trooper/Cyborg
+  - Kodiak
+  - Sandstorm
+  - Titan/Centurion
+  - Basilisk
+  - Rockworm
+- Good against aircraft:
+  - Wolverine/Widowmaker/Confesor
+  - Zone Trooper/Cyborg
+  - Sandstorm
+  - Mammoth/Avatar
