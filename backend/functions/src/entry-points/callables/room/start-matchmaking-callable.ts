@@ -118,12 +118,9 @@ const createMatch = async (params: {
   const data = {
     'battleId': matchId,
     'createdAt': new Date().toISOString(),
-    'numberOfPlayers': 2,
+    'numberOfPlayers': params.room.userIds.length,
     'matchType': 'pvp',
-    'players': {
-      'id1': 'Bob',
-      'id2': 'Max',
-    },
+    'players': params.room.users,
   }
 
   const config = {
