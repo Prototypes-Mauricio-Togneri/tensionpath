@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/game/json_battlefield.dart';
+import 'package:tensionpath/domain/json/game/json_launchers.dart';
 import 'package:tensionpath/domain/json/game/json_location.dart';
 import 'package:tensionpath/domain/json/game/json_missile.dart';
 import 'package:tensionpath/domain/json/game/json_platform.dart';
@@ -86,7 +87,10 @@ class BattlefieldComponent extends PositionComponent {
           positionId: location.id,
           missile: battlefield.missile,
           resources: battlefield.resources,
-          launchers: battlefield.launchers.values.expand((e) => e).toList(),
+          launchers: battlefield.launchers
+              .map((launchers) => launchers.locations)
+              .expand((locations) => locations)
+              .toList(),
         ),
         location: location,
       );
@@ -136,11 +140,8 @@ class BattlefieldComponent extends PositionComponent {
       }
     }
 
-    for (final MapEntry<String, List<JsonLocation>> platform
-        in battlefield.launchers.entries) {
-      final String playerId = platform.key;
-
-      for (final JsonLocation location in platform.value) {
+    for (final JsonLaunchers launchers in battlefield.launchers) {
+      for (final JsonLocation location in launchers.locations) {
         final Vector2 nodePosition = Dimensions.nodePosition(
           center: mapCenter,
           nodeSize: nodeSize,
@@ -149,7 +150,7 @@ class BattlefieldComponent extends PositionComponent {
         final LauncherComponent launcherComponent = LauncherComponent(
           position: nodePosition,
           size: nodeSize,
-          player: self.id == playerId ? self : opponent,
+          player: self.id == launchers.playerId ? self : opponent,
           nodeComponent: match.getNodeById(location.id),
         );
         add(launcherComponent);

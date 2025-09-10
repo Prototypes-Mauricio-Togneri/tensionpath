@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'json_launchers.dart';
 import 'json_location.dart';
 import 'json_missile.dart';
 import 'json_ratio.dart';
@@ -26,7 +27,7 @@ class JsonBattlefield {
   final List<JsonResource> resources;
 
   @JsonKey(name: 'launchers')
-  final Map<String, List<JsonLocation>> launchers;
+  final List<JsonLaunchers> launchers;
 
   @JsonKey(name: 'nodes')
   final List<JsonLocation> nodes;

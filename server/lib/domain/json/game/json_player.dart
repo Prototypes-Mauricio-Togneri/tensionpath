@@ -7,6 +7,9 @@ class JsonPlayer {
   @JsonKey(name: 'id')
   final String id;
 
+  @JsonKey(name: 'index')
+  final String index;
+
   @JsonKey(name: 'isSelf')
   final bool isSelf;
 
@@ -24,6 +27,7 @@ class JsonPlayer {
 
   const JsonPlayer({
     required this.id,
+    required this.index,
     required this.isSelf,
     required this.name,
     required this.baseHealth,
