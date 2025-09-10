@@ -113,10 +113,10 @@ const createMatch = async (params: {
 }): Promise<Room> => {
   const matchId = new Date().getTime().toString()
 
-  const url = `${MATCH_SERVER_HTTP}/battles`
+  const url = `${MATCH_SERVER_HTTP}/matches`
 
   const data = {
-    'battleId': matchId,
+    'matchId': matchId,
     'createdAt': new Date().toISOString(),
     'numberOfPlayers': params.room.userIds.length,
     'matchType': 'pvp',
