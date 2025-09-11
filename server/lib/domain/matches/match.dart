@@ -55,9 +55,7 @@ class Match {
 
       Logger.log(socket, 'Player $playerId joined match $id');
 
-      // Only for local debug
-      //if (playerIdToWebSocket.length == numberOfPlayers) {
-      if (playerIdToWebSocket.length == 1) {
+      if (playerIdToWebSocket.length == numberOfPlayers) {
         Logger.info('Match $id started');
         _onMatchStart(MatchEngine.create(this));
       }
@@ -81,9 +79,35 @@ class Match {
   Future _onMatchStart(MatchEngine engine) async {
     _engine = engine;
 
+    final List<String> playerIds = players.keys.toList();
+
     final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
     jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
-    broadcast(JsonMessage.start(jsonMatch));
+
+    if (jsonMatch.players.length == playerIds.length) {
+      for (int i = 0; i < playerIds.length; i++) {
+        jsonMatch.players[i].id = playerIds[i];
+      }
+    } else {
+      throw JsonMessage.error(
+        'Match players length ${jsonMatch.players.length} does not match expected length ${playerIds.length}',
+      );
+    }
+
+    for (final MapEntry<String, String> entry in players.entries) {
+      final String playerId = entry.key;
+      final String playerName = entry.value;
+
+      direct(
+        playerId: playerId,
+        json: JsonMessage.start(
+          jsonMatch.forPlayer(
+            playerId: playerId,
+            playerName: playerName,
+          ),
+        ),
+      );
+    }
   }
 
   void launchUnits({
