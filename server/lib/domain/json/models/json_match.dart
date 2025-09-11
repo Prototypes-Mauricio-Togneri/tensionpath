@@ -30,6 +30,7 @@ class JsonMatch {
     for (final JsonPlayer player in players) {
       if (player.id == playerId) {
         player.name = playerName;
+        player.isSelf = true;
       }
     }
 

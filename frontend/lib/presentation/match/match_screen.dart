@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
+import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/widgets/game_container.dart';
 
 class MatchScreen extends StatelessWidget {
@@ -27,7 +28,20 @@ class MatchScreen extends StatelessWidget {
       child: StateProvider<MatchState>(
         state: state,
         builder: (context, state) =>
-            state.isLoading ? const Empty() : Content(state),
+            state.isLoading ? const Loading() : Content(state),
+      ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(
+        color: Palette.PRIMARY,
       ),
     );
   }
