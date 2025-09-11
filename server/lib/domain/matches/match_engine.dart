@@ -32,32 +32,6 @@ class MatchEngine {
       lanes: jsonLanes,
       status: status,
     );
-  }
-
-  Lane _lane(int id) {
-    if ((id >= 0) && (id < lanes.length)) {
-      final Lane lane = lanes[id];
-
-      if (lane.enabled) {
-        return lanes[id];
-      } else {
-        throw JsonMessage.error('Lane with id: $id not enabled');
-      }
-    } else {
-      throw JsonMessage.error('Invalid lane with id: $id');
-    }
-  }
-
-  void increaseMine(String playerId) {
-    final Player player = players.get(playerId);
-    player.increaseMine(Constants.MINE_COST);
-    _sendUpdate();
-  }
-
-  void increaseAttack(String playerId) {
-    final Player player = players.get(playerId);
-    player.increaseAttack(Constants.ATTACK_COST);
-    _sendUpdate();
   }*/
 
   void launchUnits({
@@ -124,72 +98,6 @@ class MatchEngine {
   }
 
   /*void _sendMatchUpdate() {
-    for (final Player player in players) {
-      _sendToPlayer(
-        player: player,
-        json: JsonMessage.update(json(player)),
-      );
-    }
-  }
-
-  bool _checkWinnerByPoints() {
-    Player? winner;
-
-    for (final Player player in players) {
-      if (player.hasWon) {
-        winner = player;
-      }
-    }
-
-    for (final Player player in players) {
-      if (player == winner) {
-        player.setStatus(PlayerStatus.won);
-      } else {
-        player.setStatus(PlayerStatus.lost);
-      }
-    }
-
-    if (winner != null) {
-      status = MatchStatus.finished;
-      _sendUpdate();
-    }
-
-    return (winner != null);
-  }
-
-  void _checkWinnerByTerritory() {
-    final Player player1 = players.list[0];
-    final Player player2 = players.list[1];
-
-    final int player1Percentage = _getPlayer1Percentage();
-    final int player2Percentage = 100 - player1Percentage;
-
-    if (player1Percentage > player2Percentage) {
-      player1.setStatus(PlayerStatus.won);
-      player2.setStatus(PlayerStatus.lost);
-    } else if (player2Percentage > player1Percentage) {
-      player1.setStatus(PlayerStatus.lost);
-      player2.setStatus(PlayerStatus.won);
-    } else {
-      player1.setStatus(PlayerStatus.tie);
-      player2.setStatus(PlayerStatus.tie);
-    }
-
-    status = MatchStatus.finished;
-    _sendUpdate();
-  }
-
-  int _getPlayer1Percentage() {
-    double sum = 0;
-
-    for (final Lane lane in lanes) {
-      sum += lane.wall;
-    }
-
-    return ((sum / Constants.LANES) * 100).round();
-  }
-
-  void _sendUpdate() {
     for (final Player player in players) {
       _sendToPlayer(
         player: player,
