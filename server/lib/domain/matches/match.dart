@@ -13,7 +13,7 @@ class Match {
   final Map<String, String> players;
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
-  MatchEngine? _match;
+  MatchEngine? _engine;
 
   Match._({
     required this.id,
@@ -32,15 +32,15 @@ class Match {
   );
 
   MatchEngine get match {
-    if (_match != null) {
-      return _match!;
+    if (_engine != null) {
+      return _engine!;
     } else {
       throw JsonMessage.error('Match not started');
     }
   }
 
   bool get isEmpty =>
-      (_match != null) &&
+      (_engine != null) &&
       playerIdToWebSocket.isEmpty &&
       webSocketToPlayerId.isEmpty;
 
@@ -48,21 +48,14 @@ class Match {
     required String playerId,
     required WebSocket socket,
   }) {
-    if ((_match == null) && players.containsKey(playerId)) {
+    if ((_engine == null) && players.containsKey(playerId)) {
       playerIdToWebSocket[playerId] = socket;
       webSocketToPlayerId[socket] = playerId;
 
       Logger.log(socket, 'Player $playerId joined match $id');
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
-        _match = MatchEngine.create(this);
-
-        /*for (final Player player in _match!.players) {
-          direct(
-            playerId: player.id,
-            json: JsonMessage.update(_match!.json(player)),
-          );
-        }*/
+        _onMatchStart(MatchEngine.create(this));
       }
     } else {
       throw JsonMessage.error('Player $playerId cannot join match $id');
@@ -79,6 +72,18 @@ class Match {
     } else {
       throw JsonMessage.error('Cannot find player for socket ${socket.id}');
     }
+  }
+
+  void _onMatchStart(MatchEngine match) {
+    Logger.info('Match started: $id');
+    _engine = match;
+
+    /*for (final Player player in _match!.players) {
+      direct(
+        playerId: player.id,
+        json: JsonMessage.update(_match!.json(player)),
+      );
+    }*/
   }
 
   void increaseMine(WebSocket socket) {
