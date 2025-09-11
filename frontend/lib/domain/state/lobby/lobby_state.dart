@@ -27,6 +27,7 @@ class LobbyState extends BaseState {
       numberOfPlayers: 2,
       visibility: RoomVisibility.public,
     );
+    notify();
 
     _roomListener.start(
       RoomRepository.listen(
