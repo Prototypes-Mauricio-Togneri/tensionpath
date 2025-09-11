@@ -13,8 +13,8 @@ class JsonRoom {
   @JsonKey(name: 'version')
   final int version;
 
-  @JsonKey(name: 'createdAt', toJson: dateToJson)
-  final DateTime createdAt;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
 
   @JsonKey(name: 'numberOfPlayers')
   final int numberOfPlayers;
@@ -53,7 +53,7 @@ class JsonRoom {
   Room get object => Room(
     id: id,
     version: version,
-    createdAt: createdAt,
+    createdAt: DateTime.parse(createdAt).toLocal(),
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
@@ -68,5 +68,3 @@ class JsonRoom {
 
   Map<String, dynamic> toJson() => _$JsonRoomToJson(this);
 }
-
-DateTime dateToJson(DateTime dateTime) => dateTime.toUtc();

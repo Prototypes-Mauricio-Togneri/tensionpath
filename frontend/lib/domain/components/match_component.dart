@@ -23,6 +23,7 @@ class MatchComponent extends World {
   late final Player self;
   late final Player opponent;
   late final Vector2 nodeSize;
+  late final DateTime startedAt;
   late final TargetComponent targetComponent;
 
   MatchComponent({
@@ -32,7 +33,10 @@ class MatchComponent extends World {
     MatchComponentRef.instance = this;
     self = Player.fromJson(match.self);
     opponent = Player.fromJson(match.opponent);
+    startedAt = DateTime.parse(match.createdAt).toLocal();
   }
+
+  int get timeElapsed => DateTime.now().difference(startedAt).inSeconds;
 
   @override
   FutureOr onLoad() {

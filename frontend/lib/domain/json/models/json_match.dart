@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:json_annotation/json_annotation.dart';
 import 'json_battlefield.dart';
 import 'json_player.dart';
@@ -9,8 +11,8 @@ class JsonMatch {
   @JsonKey(name: 'id')
   final String id;
 
-  @JsonKey(name: 'createdAt', toJson: dateToJson)
-  final DateTime createdAt;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
 
   @JsonKey(name: 'players')
   final List<JsonPlayer> players;
@@ -25,8 +27,6 @@ class JsonMatch {
     required this.battlefield,
   });
 
-  int get timeElapsed => DateTime.now().difference(createdAt).inSeconds;
-
   JsonPlayer get self => players.firstWhere((player) => player.isSelf);
 
   JsonPlayer get opponent => players.firstWhere((player) => !player.isSelf);
@@ -35,10 +35,16 @@ class JsonMatch {
 
   bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
 
+  static Future<JsonMatch> fromFile(String path) async {
+    final File file = File(path);
+    final String contents = await file.readAsString();
+    final dynamic json = jsonDecode(contents) as Map<String, dynamic>;
+
+    return JsonMatch.fromJson(json);
+  }
+
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
 }
-
-DateTime dateToJson(DateTime dateTime) => dateTime.toUtc();
