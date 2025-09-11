@@ -120,7 +120,11 @@ const createMatch = async (params: {
     'createdAt': new Date().toISOString(),
     'numberOfPlayers': params.room.userIds.length,
     'matchType': 'pvp',
-    'players': params.room.users,
+    'players': {} as Record<string, string>,
+  }
+
+  for (const userId of params.room.userIds) {
+    data.players[userId] = params.room.users[userId]
   }
 
   const config = {
