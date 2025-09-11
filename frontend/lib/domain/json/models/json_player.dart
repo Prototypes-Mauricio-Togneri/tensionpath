@@ -5,16 +5,16 @@ part 'json_player.g.dart';
 @JsonSerializable()
 class JsonPlayer {
   @JsonKey(name: 'id')
-  final String id;
+  String id;
+
+  @JsonKey(name: 'name')
+  String name;
+
+  @JsonKey(name: 'isSelf')
+  bool isSelf;
 
   @JsonKey(name: 'index')
   final String index;
-
-  @JsonKey(name: 'isSelf')
-  final bool isSelf;
-
-  @JsonKey(name: 'name')
-  final String name;
 
   @JsonKey(name: 'baseHealth')
   final int baseHealth;
@@ -25,11 +25,11 @@ class JsonPlayer {
   @JsonKey(name: 'resources')
   final double resources;
 
-  const JsonPlayer({
+  JsonPlayer({
     required this.id,
-    required this.index,
-    required this.isSelf,
     required this.name,
+    required this.isSelf,
+    required this.index,
     required this.baseHealth,
     required this.baseMaxHealth,
     required this.resources,

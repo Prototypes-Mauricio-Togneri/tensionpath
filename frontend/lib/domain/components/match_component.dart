@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
-import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
@@ -10,6 +9,7 @@ import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/json_match.dart';
+import 'package:tensionpath/domain/json/models/json_player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -31,8 +31,8 @@ class MatchComponent extends World {
     required this.match,
   }) {
     MatchComponentRef.instance = this;
-    self = Player.fromJson(match.self);
-    opponent = Player.fromJson(match.opponent);
+    self = Player.fromJson(matchSelf(match));
+    opponent = Player.fromJson(matchOpponent(match));
     startedAt = DateTime.parse(match.createdAt).toLocal();
   }
 
@@ -93,15 +93,15 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(JsonMatch match) {
-    self.update(match.self);
-    opponent.update(match.opponent);
-
-    if (match.selfWon) {
-      GameComponentRef.instance.onMatchFinished(true);
-    } else if (match.opponentWon) {
-      GameComponentRef.instance.onMatchFinished(false);
-    }
+    self.update(matchSelf(match));
+    opponent.update(matchOpponent(match));
   }
+
+  JsonPlayer matchSelf(JsonMatch match) =>
+      match.players.firstWhere((player) => player.isSelf);
+
+  JsonPlayer matchOpponent(JsonMatch match) =>
+      match.players.firstWhere((player) => !player.isSelf);
 
   LauncherComponent? getLauncherAt(Vector2 position) {
     for (final LauncherComponent launcherComponent in launcherComponents) {

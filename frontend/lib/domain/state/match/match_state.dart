@@ -51,6 +51,12 @@ class MatchState extends BaseState {
         Delayed.post(notify);
       }
     }
+
+    /*if (match.selfWon) {
+      GameComponentRef.instance.onMatchFinished(true);
+    } else if (match.opponentWon) {
+      GameComponentRef.instance.onMatchFinished(false);
+    }*/
   }
 
   void _onDisconnected() => InfoDialog.error(

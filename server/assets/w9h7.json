@@ -2,19 +2,19 @@
     "createdAt": "",
     "players": [
         {
-            "id": "user1",
+            "id": "",
+            "name": "",
+            "isSelf": false,
             "index": "1",
-            "isSelf": true,
-            "name": "Bob",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
             "resources": 100
         },
         {
-            "id": "user2",
-            "index": "2",
+            "id": "",
+            "name": "",
             "isSelf": false,
-            "name": "Max",
+            "index": "2",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
             "resources": 100
