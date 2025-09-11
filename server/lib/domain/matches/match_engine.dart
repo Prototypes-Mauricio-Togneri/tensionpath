@@ -12,12 +12,10 @@ class MatchEngine {
     required this.status,
   });
 
-  factory MatchEngine.create(Match match) {
-    return MatchEngine._(
-      match: match,
-      status: MatchStatus.playing,
-    );
-  }
+  factory MatchEngine.create(Match match) => MatchEngine._(
+    match: match,
+    status: MatchStatus.playing,
+  );
 
   /*JsonMatch json(Player self) {
     final List<JsonPlayer> jsonPlayers = players
