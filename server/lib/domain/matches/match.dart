@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/json_match.dart';
+import 'package:tensionpath/domain/json/models/json_player.dart';
 import 'package:tensionpath/domain/matches/match_engine.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -87,6 +88,7 @@ class Match {
     if (jsonMatch.players.length == playerIds.length) {
       for (int i = 0; i < playerIds.length; i++) {
         jsonMatch.players[i].id = playerIds[i];
+        jsonMatch.players[i].name = players[playerIds[i]]!;
       }
     } else {
       throw JsonMessage.error(
@@ -96,16 +98,14 @@ class Match {
 
     for (final MapEntry<String, String> entry in players.entries) {
       final String playerId = entry.key;
-      final String playerName = entry.value;
+
+      for (final JsonPlayer player in jsonMatch.players) {
+        player.isSelf = (player.id == playerId);
+      }
 
       direct(
         playerId: playerId,
-        json: JsonMessage.start(
-          jsonMatch.forPlayer(
-            playerId: playerId,
-            playerName: playerName,
-          ),
-        ),
+        json: JsonMessage.start(jsonMatch),
       );
     }
   }

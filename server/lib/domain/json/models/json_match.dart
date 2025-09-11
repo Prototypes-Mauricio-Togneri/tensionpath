@@ -23,20 +23,6 @@ class JsonMatch {
     required this.battlefield,
   });
 
-  JsonMatch forPlayer({
-    required String playerId,
-    required String playerName,
-  }) {
-    for (final JsonPlayer player in players) {
-      if (player.id == playerId) {
-        player.name = playerName;
-        player.isSelf = true;
-      }
-    }
-
-    return this;
-  }
-
   static Future<JsonMatch> fromFile(String path) async {
     final File file = File(path);
     final String contents = await file.readAsString();
