@@ -1,1 +1,4 @@
-enum MatchStatus { playing, finished }
+enum MatchStatus {
+  playing,
+  finished,
+}
