@@ -6,14 +6,14 @@ part 'json_launchers.g.dart';
 
 @JsonSerializable()
 class JsonLaunchers {
-  @JsonKey(name: 'playerId')
-  final String playerId;
+  @JsonKey(name: 'playerIndex')
+  final String playerIndex;
 
   @JsonKey(name: 'locations')
   final List<JsonLocation> locations;
 
   const JsonLaunchers({
-    required this.playerId,
+    required this.playerIndex,
     required this.locations,
   });
 

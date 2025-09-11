@@ -150,7 +150,7 @@ class BattlefieldComponent extends PositionComponent {
         final LauncherComponent launcherComponent = LauncherComponent(
           position: nodePosition,
           size: nodeSize,
-          player: self.id == launchers.playerId ? self : opponent,
+          player: self.index == launchers.playerIndex ? self : opponent,
           nodeComponent: match.getNodeById(location.id),
         );
         add(launcherComponent);

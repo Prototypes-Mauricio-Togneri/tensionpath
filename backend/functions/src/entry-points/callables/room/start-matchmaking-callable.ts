@@ -6,7 +6,7 @@ import {RoomVisibility} from '../../../types/room-visibility'
 import {getAvailableRoomDocument} from '../../../database/room/get-available-room-document'
 import {updateRoomDocument} from '../../../database/room/update-room-document'
 import {createRoomDocument} from '../../../database/room/create-room-document'
-import {API_KEY, MATCH_SERVER_HTTP, MATCH_SERVER_WS} from '../../..'
+import {API_KEY, IS_EMULATOR, MATCH_SERVER_HTTP, MATCH_SERVER_WS} from '../../..'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -111,7 +111,7 @@ const createMatch = async (params: {
   database: Database,
   room: Room,
 }): Promise<Room> => {
-  const matchId = new Date().getTime().toString()
+  const matchId = IS_EMULATOR ? 'test-match-id' : new Date().getTime().toString()
 
   const url = `${MATCH_SERVER_HTTP}/matches`
 

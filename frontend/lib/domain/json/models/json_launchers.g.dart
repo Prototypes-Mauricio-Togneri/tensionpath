@@ -9,7 +9,7 @@ part of 'json_launchers.dart';
 JsonLaunchers _$JsonLaunchersFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonLaunchers', json, ($checkedConvert) {
       final val = JsonLaunchers(
-        playerId: $checkedConvert('playerId', (v) => v as String),
+        playerIndex: $checkedConvert('playerIndex', (v) => v as String),
         locations: $checkedConvert(
           'locations',
           (v) => (v as List<dynamic>)
@@ -22,6 +22,6 @@ JsonLaunchers _$JsonLaunchersFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonLaunchersToJson(JsonLaunchers instance) =>
     <String, dynamic>{
-      'playerId': instance.playerId,
+      'playerIndex': instance.playerIndex,
       'locations': instance.locations.map((e) => e.toJson()).toList(),
     };

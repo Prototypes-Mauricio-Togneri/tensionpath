@@ -113,7 +113,7 @@
         ],
         "launchers": [
             {
-                "playerId": "1",
+                "playerIndex": "1",
                 "locations": [
                     {
                         "x": -4,
@@ -130,7 +130,7 @@
                 ]
             },
             {
-                "playerId": "2",
+                "playerIndex": "2",
                 "locations": [
                     {
                         "x": 5,
