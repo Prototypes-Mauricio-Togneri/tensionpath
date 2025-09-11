@@ -11,6 +11,7 @@ class Room {
   final Map<String, String> users;
   final String matchType;
   final String? matchId;
+  final String? matchHost;
 
   const Room({
     required this.id,
@@ -22,6 +23,7 @@ class Room {
     required this.users,
     required this.matchType,
     required this.matchId,
+    required this.matchHost,
   });
 
   bool get isReady => (users.length >= numberOfPlayers) && (matchId != null);

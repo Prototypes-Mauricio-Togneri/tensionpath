@@ -52,6 +52,7 @@ class LobbyState extends BaseState {
   void _onUpdated(Room room) {
     if (room.isReady) {
       Navigation.matchScreen(
+        host: room.matchHost!,
         matchId: room.matchId!,
         userId: Authentication.userId,
       );

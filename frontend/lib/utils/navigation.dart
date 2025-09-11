@@ -29,11 +29,13 @@ class Navigation {
       get.routes.push(BasicRoute(LobbyScreen.instance(), name: 'lobby'));
 
   static void matchScreen({
+    required String host,
     required String matchId,
     required String userId,
   }) => get.routes.pushReplacement(
     BasicRoute(
       MatchScreen.instance(
+        host: host,
         matchId: matchId,
         selfId: userId,
       ),

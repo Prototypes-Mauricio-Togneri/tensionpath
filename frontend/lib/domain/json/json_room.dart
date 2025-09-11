@@ -34,6 +34,9 @@ class JsonRoom {
   @JsonKey(name: 'matchId')
   final String? matchId;
 
+  @JsonKey(name: 'matchHost')
+  final String? matchHost;
+
   const JsonRoom({
     required this.id,
     required this.version,
@@ -44,6 +47,7 @@ class JsonRoom {
     required this.matchType,
     required this.users,
     required this.matchId,
+    required this.matchHost,
   });
 
   Room get object => Room(
@@ -56,6 +60,7 @@ class JsonRoom {
     users: users,
     matchType: matchType,
     matchId: matchId,
+    matchHost: matchHost,
   );
 
   factory JsonRoom.fromJson(Map<String, dynamic> json) =>
