@@ -82,6 +82,7 @@ class Match {
     _engine = engine;
 
     final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
+    jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
     broadcast(JsonMessage.start(jsonMatch));
   }
 

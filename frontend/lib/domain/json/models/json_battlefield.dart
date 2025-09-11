@@ -11,9 +11,6 @@ part 'json_battlefield.g.dart';
 
 @JsonSerializable()
 class JsonBattlefield {
-  @JsonKey(name: 'id')
-  final String id;
-
   @JsonKey(name: 'size')
   final JsonSize size;
 
@@ -36,7 +33,6 @@ class JsonBattlefield {
   final List<JsonUnit> units;
 
   const JsonBattlefield({
-    required this.id,
     required this.size,
     required this.gridRatio,
     required this.missile,

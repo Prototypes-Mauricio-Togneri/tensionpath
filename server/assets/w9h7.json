@@ -1,6 +1,5 @@
 {
-    "id": "{{ID}}",
-    "createdAt": "2025-08-30T10:21:21.000Z",
+    "createdAt": "",
     "players": [
         {
             "id": "user1",
@@ -22,7 +21,6 @@
         }
     ],
     "battlefield": {
-        "id": "w9h7",
         "size": {
             "width": 9,
             "height": 7

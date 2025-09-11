@@ -8,11 +8,8 @@ part 'json_match.g.dart';
 
 @JsonSerializable()
 class JsonMatch {
-  @JsonKey(name: 'id')
-  final String id;
-
   @JsonKey(name: 'createdAt')
-  final String createdAt;
+  String createdAt;
 
   @JsonKey(name: 'players')
   final List<JsonPlayer> players;
@@ -20,8 +17,7 @@ class JsonMatch {
   @JsonKey(name: 'battlefield')
   final JsonBattlefield battlefield;
 
-  const JsonMatch({
-    required this.id,
+  JsonMatch({
     required this.createdAt,
     required this.players,
     required this.battlefield,
