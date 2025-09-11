@@ -123,6 +123,8 @@ const createMatch = async (params: {
     'players': {} as Record<string, string>,
   }
 
+  params.room.userIds.sort()
+
   for (const userId of params.room.userIds) {
     data.players[userId] = params.room.users[userId]
   }
