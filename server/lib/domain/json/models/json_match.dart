@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'json_battlefield.dart';
 import 'json_player.dart';
@@ -34,6 +37,14 @@ class JsonMatch {
   bool get selfWon => (self.baseHealth > 0) && (opponent.baseHealth <= 0);
 
   bool get opponentWon => (opponent.baseHealth > 0) && (self.baseHealth <= 0);
+
+  static Future<JsonMatch> fromFile(String path) async {
+    final File file = File(path);
+    final String contents = await file.readAsString();
+    final dynamic json = jsonDecode(contents) as Map<String, dynamic>;
+
+    return JsonMatch.fromJson(json);
+  }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/json/models/json_match.dart';
 import 'package:tensionpath/domain/matches/match_engine.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -74,31 +75,17 @@ class Match {
     }
   }
 
-  void _onMatchStart(MatchEngine match) {
+  Future _onMatchStart(MatchEngine match) async {
     Logger.info('Match started: $id');
     _engine = match;
 
-    /*for (final Player player in _match!.players) {
-      direct(
-        playerId: player.id,
-        json: JsonMessage.update(_match!.json(player)),
-      );
-    }*/
-  }
-
-  void increaseMine(WebSocket socket) {
-    //final String playerId = _getPlayerId(socket);
-    //match.increaseMine(playerId);
-  }
-
-  void increaseAttack(WebSocket socket) {
-    //final String playerId = _getPlayerId(socket);
-    //match.increaseAttack(playerId);
+    final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
+    broadcast(JsonMessage.start(jsonMatch));
   }
 
   void launchUnits(WebSocket socket, int laneId, int amount) {
     //final String playerId = _getPlayerId(socket);
-    //match.launchUnits(playerId, laneId, amount);
+    //_engine.launchUnits(playerId, laneId, amount);
   }
 
   /*String _getPlayerId(WebSocket socket) {
@@ -126,6 +113,6 @@ class Match {
   }
 
   void update(double dt) {
-    //_match?.update(dt);
+    //_engine.update(dt);
   }
 }
