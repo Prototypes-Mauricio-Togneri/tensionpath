@@ -30,9 +30,10 @@ class MatchState extends BaseState {
   bool get isInitialized => gameComponent != null;
 
   @override
-  Future onLoad() async {
-    connection.connect();
-  }
+  Future onLoad() => connection.connect();
+
+  @override
+  void onDestroy() => connection.disconnect();
 
   void _onMessage(dynamic json) {
     if (!matchFinished) {

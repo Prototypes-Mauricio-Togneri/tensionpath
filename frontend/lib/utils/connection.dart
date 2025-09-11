@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -16,8 +17,9 @@ class Connection {
     required this.onError,
   });
 
-  void connect() {
+  Future connect() async {
     channel = WebSocketChannel.connect(Uri.parse(host));
+    await channel.ready;
     channel.stream.listen(
       _onMessageReceived,
       onDone: onDisconnected,
@@ -33,5 +35,9 @@ class Connection {
     final dynamic data = jsonDecode(message);
     final JsonMessage json = JsonMessage.fromJson(data);
     onMessage(json.message);
+  }
+
+  void disconnect() {
+    channel.sink.close(WebSocketStatus.goingAway);
   }
 }
