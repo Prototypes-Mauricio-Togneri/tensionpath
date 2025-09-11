@@ -46,7 +46,7 @@ class Content extends StatelessWidget {
           const VBox(40),
           PrimaryButton(
             label: 'Cancel',
-            enabled: !state.isLoading,
+            enabled: !state.isLoading && !state.canceling,
             foregroundColor: Palette.SEMANTIC_ERROR,
             onPressed: state.onCancel,
           ),
