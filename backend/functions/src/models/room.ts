@@ -13,6 +13,7 @@ export interface IRoom {
   userIds: string[],
   users: Record<string, string>,
   matchId?: string,
+  matchHost?: string,
 }
 
 export class Room implements IRoom {
@@ -26,6 +27,7 @@ export class Room implements IRoom {
   userIds: string[]
   users: Record<string, string>
   matchId?: string
+  matchHost?: string
 
   constructor(data: IRoom) {
     this.id = data.id
@@ -38,6 +40,7 @@ export class Room implements IRoom {
     this.userIds = data.userIds
     this.users = data.users
     this.matchId = data.matchId
+    this.matchHost = data.matchHost
   }
 
   public get isFull(): boolean {

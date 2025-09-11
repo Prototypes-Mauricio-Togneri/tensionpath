@@ -6,7 +6,7 @@ import {RoomVisibility} from '../../../types/room-visibility'
 import {getAvailableRoomDocument} from '../../../database/room/get-available-room-document'
 import {updateRoomDocument} from '../../../database/room/update-room-document'
 import {createRoomDocument} from '../../../database/room/create-room-document'
-import {API_KEY, MATCH_SERVER_HTTP} from '../../..'
+import {API_KEY, MATCH_SERVER_HTTP, MATCH_SERVER_WS} from '../../..'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -135,6 +135,7 @@ const createMatch = async (params: {
   if (response.status === 201) {
     const newRoom = params.room
     newRoom.matchId = matchId
+    newRoom.matchHost = MATCH_SERVER_WS
 
     await updateRoomDocument({
       database: params.database,
