@@ -55,7 +55,9 @@ class Match {
 
       Logger.log(socket, 'Player $playerId joined match $id');
 
-      if (playerIdToWebSocket.length == numberOfPlayers) {
+      // Only for local debug
+      //if (playerIdToWebSocket.length == numberOfPlayers) {
+      if (playerIdToWebSocket.length == 1) {
         Logger.info('Match $id started');
         _onMatchStart(MatchEngine.create(this));
       }
