@@ -80,25 +80,23 @@ class Match {
   Future _onMatchStart(MatchEngine engine) async {
     _engine = engine;
 
-    final List<String> playerIds = players.keys.toList();
-
     final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
     jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
 
-    if (jsonMatch.players.length == playerIds.length) {
-      for (int i = 0; i < playerIds.length; i++) {
-        jsonMatch.players[i].id = playerIds[i];
-        jsonMatch.players[i].name = players[playerIds[i]]!;
+    final List<MapEntry<String, String>> playersData = players.entries.toList();
+
+    if (jsonMatch.players.length == playersData.length) {
+      for (int i = 0; i < playersData.length; i++) {
+        jsonMatch.players[i].id = playersData[i].key;
+        jsonMatch.players[i].name = playersData[i].value;
       }
     } else {
       throw JsonMessage.error(
-        'Match players length ${jsonMatch.players.length} does not match expected length ${playerIds.length}',
+        'Match players length ${jsonMatch.players.length} does not match expected length ${playersData.length}',
       );
     }
 
-    for (final MapEntry<String, String> entry in players.entries) {
-      final String playerId = entry.key;
-
+    for (final String playerId in players.keys) {
       for (final JsonPlayer player in jsonMatch.players) {
         player.isSelf = (player.id == playerId);
       }
