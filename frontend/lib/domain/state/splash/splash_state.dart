@@ -6,8 +6,6 @@ import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
-  bool newVersionAvailable = false;
-
   @override
   void onLoad() {
     Authentication.checkIfAuthenticated(

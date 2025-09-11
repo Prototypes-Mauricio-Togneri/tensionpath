@@ -75,7 +75,7 @@ class Form extends StatelessWidget {
             children: [
               PrimaryButton(
                 label: 'Play',
-                enabled: state.canPlay,
+                enabled: true,
                 foregroundColor: Palette.PRIMARY,
                 onPressed: state.onPlay,
               ),

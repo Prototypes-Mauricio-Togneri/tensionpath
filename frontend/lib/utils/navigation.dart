@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
@@ -26,14 +25,19 @@ class Navigation {
   static void settingsScreen() =>
       get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
 
-  static void lobbyScreen(Room room) =>
-      get.routes.push(BasicRoute(LobbyScreen.instance(room), name: 'lobby'));
+  static void lobbyScreen() =>
+      get.routes.push(BasicRoute(LobbyScreen.instance(), name: 'lobby'));
 
-  static void matchScreen({required String matchId, required String userId}) =>
-      get.routes.pushReplacement(
-        BasicRoute(
-          MatchScreen.instance(matchId: matchId, selfId: userId),
-          name: 'match',
-        ),
-      );
+  static void matchScreen({
+    required String matchId,
+    required String userId,
+  }) => get.routes.pushReplacement(
+    BasicRoute(
+      MatchScreen.instance(
+        matchId: matchId,
+        selfId: userId,
+      ),
+      name: 'match',
+    ),
+  );
 }
