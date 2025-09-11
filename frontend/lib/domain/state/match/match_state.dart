@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/connection.dart';
@@ -44,15 +45,10 @@ class MatchState extends BaseState {
             playerId: selfId,
           ),
         );
+      } else if (json is JsonStart) {
+        gameComponent = GameComponent(json.match);
+        Delayed.post(notify);
       }
-
-      /*
-      final String data = await rootBundle.loadString(Assets.TEMPLATES_W9H7);
-      final JsonMatch match = JsonMatch.fromJson(jsonDecode(data));
-      gameComponent = GameComponent(match);
-      */
-
-      Delayed.post(notify);
     }
   }
 
