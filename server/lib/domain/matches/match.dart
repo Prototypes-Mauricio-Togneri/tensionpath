@@ -83,7 +83,11 @@ class Match {
     broadcast(JsonMessage.start(jsonMatch));
   }
 
-  void launchUnits(WebSocket socket, int laneId, int amount) {
+  void launchUnits({
+    required WebSocket socket,
+    required int laneId,
+    required int amount,
+  }) {
     final String playerId = _getPlayerId(socket);
     engine.launchUnits(
       playerId: playerId,

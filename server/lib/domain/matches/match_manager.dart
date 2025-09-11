@@ -48,7 +48,11 @@ class MatchManager {
     required WebSocket socket,
   }) {
     final Match match = _getMatch(json.matchId);
-    match.launchUnits(socket, json.laneId, json.amount);
+    match.launchUnits(
+      socket: socket,
+      laneId: json.laneId,
+      amount: json.amount,
+    );
   }
 
   Match _getMatch(String matchId) {
