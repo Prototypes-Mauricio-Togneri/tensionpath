@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/game/json_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
+import 'package:tensionpath/domain/json/models/json_match.dart';
 
 part 'json_message.g.dart';
 
@@ -24,6 +25,9 @@ class JsonMessage {
   @JsonKey(name: 'welcome')
   final JsonWelcome? welcome;
 
+  @JsonKey(name: 'start')
+  final JsonStart? start;
+
   @JsonKey(name: 'update')
   final JsonUpdate? update;
 
@@ -34,6 +38,7 @@ class JsonMessage {
     this.join,
     this.launchUnits,
     this.welcome,
+    this.start,
     this.update,
     this.error,
   });
@@ -45,6 +50,8 @@ class JsonMessage {
       return launchUnits;
     } else if (welcome != null) {
       return welcome;
+    } else if (start != null) {
+      return start;
     } else if (update != null) {
       return update;
     } else if (error != null) {
@@ -81,6 +88,10 @@ class JsonMessage {
 
   factory JsonMessage.welcome() => JsonMessage(
     welcome: JsonWelcome(),
+  );
+
+  factory JsonMessage.start(JsonMatch match) => JsonMessage(
+    start: JsonStart(match: match),
   );
 
   factory JsonMessage.update(JsonMatch match) => JsonMessage(

@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/game/json_battlefield.dart';
-import 'package:tensionpath/domain/json/game/json_location.dart';
+import 'package:tensionpath/domain/json/models/json_battlefield.dart';
+import 'package:tensionpath/domain/json/models/json_location.dart';
 
 class Dimensions {
   static Vector2 cameraSize(Vector2 canvasSize) => Vector2(

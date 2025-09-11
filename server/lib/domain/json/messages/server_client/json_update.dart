@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/game/json_match.dart';
+import '../../models/json_match.dart';
 
 part 'json_update.g.dart';
 
