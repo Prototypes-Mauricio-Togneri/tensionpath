@@ -31,10 +31,6 @@ class Server {
 
   Future _handleRequest(HttpRequest request) async {
     try {
-      Logger.info(
-        'HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
-      );
-
       if ((request.method == 'POST') &&
           (request.uri.toString() == '/matches')) {
         await _handleMatchCreation(request);
@@ -47,7 +43,9 @@ class Server {
         );
         _onConnect(socket);
       } else {
-        Logger.info('Invalid HTTP request');
+        Logger.info(
+          'Invalid HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
+        );
 
         request.response.statusCode = HttpStatus.forbidden;
         await request.response.close();
@@ -87,6 +85,10 @@ class Server {
   }
 
   Future _handleMatchCreation(HttpRequest request) async {
+    Logger.info(
+      'HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
+    );
+
     final String? apiKey = request.headers[X_API_KEY_HEADER]?[0];
 
     if (apiKey == environment.apiKey) {
