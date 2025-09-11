@@ -32,7 +32,7 @@ class Match {
     players: json.players,
   );
 
-  MatchEngine get match {
+  MatchEngine get engine {
     if (_engine != null) {
       return _engine!;
     } else {
@@ -56,6 +56,7 @@ class Match {
       Logger.log(socket, 'Player $playerId joined match $id');
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
+        Logger.info('Match $id started');
         _onMatchStart(MatchEngine.create(this));
       }
     } else {
@@ -75,20 +76,23 @@ class Match {
     }
   }
 
-  Future _onMatchStart(MatchEngine match) async {
-    Logger.info('Match started: $id');
-    _engine = match;
+  Future _onMatchStart(MatchEngine engine) async {
+    _engine = engine;
 
     final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
     broadcast(JsonMessage.start(jsonMatch));
   }
 
   void launchUnits(WebSocket socket, int laneId, int amount) {
-    //final String playerId = _getPlayerId(socket);
-    //_engine.launchUnits(playerId, laneId, amount);
+    final String playerId = _getPlayerId(socket);
+    engine.launchUnits(
+      playerId: playerId,
+      laneId: laneId,
+      amount: amount,
+    );
   }
 
-  /*String _getPlayerId(WebSocket socket) {
+  String _getPlayerId(WebSocket socket) {
     final String? playerId = webSocketToPlayerId[socket];
 
     if (playerId != null) {
@@ -96,7 +100,7 @@ class Match {
     } else {
       throw JsonMessage.error('Player not in match');
     }
-  }*/
+  }
 
   void direct({
     required String playerId,
@@ -113,6 +117,8 @@ class Match {
   }
 
   void update(double dt) {
-    //_engine.update(dt);
+    if (_engine != null) {
+      engine.update(dt);
+    }
   }
 }

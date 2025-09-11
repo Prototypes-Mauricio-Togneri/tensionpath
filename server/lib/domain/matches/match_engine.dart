@@ -58,10 +58,14 @@ class MatchEngine {
     final Player player = players.get(playerId);
     player.increaseAttack(Constants.ATTACK_COST);
     _sendUpdate();
-  }
+  }*/
 
-  void launchUnits(String playerId, int laneId, int amount) {
-    final Player player = players.get(playerId);
+  void launchUnits({
+    required String playerId,
+    required int laneId,
+    required int amount,
+  }) {
+    /*final Player player = players.get(playerId);
 
     final Lane lane = _lane(laneId);
 
@@ -78,14 +82,14 @@ class MatchEngine {
       );
     } else {
       throw JsonMessage.error('Invalid amount: $amount');
-    }
+    }*/
   }
 
   void update(double dt) {
     if (status == MatchStatus.playing) {
       totalTime += dt;
 
-      for (final Player player in players) {
+      /*for (final Player player in players) {
         player.update(dt);
       }
 
@@ -115,11 +119,11 @@ class MatchEngine {
         if (totalTime >= Constants.MATCH_TIMEOUT) {
           _checkWinnerByTerritory();
         }
-      }
+      }*/
     }
   }
 
-  void _sendMatchUpdate() {
+  /*void _sendMatchUpdate() {
     for (final Player player in players) {
       _sendToPlayer(
         player: player,
