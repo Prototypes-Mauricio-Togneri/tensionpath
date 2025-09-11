@@ -27,7 +27,7 @@ class MatchScreen extends StatelessWidget {
       child: StateProvider<MatchState>(
         state: state,
         builder: (context, state) =>
-            state.isInitialized ? Content(state) : const Empty(),
+            state.isLoading ? const Empty() : Content(state),
       ),
     );
   }

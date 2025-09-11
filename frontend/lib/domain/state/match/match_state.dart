@@ -27,7 +27,7 @@ class MatchState extends BaseState {
     );
   }
 
-  bool get isInitialized => gameComponent != null;
+  bool get isLoading => gameComponent == null;
 
   @override
   Future onLoad() => connection.connect();
