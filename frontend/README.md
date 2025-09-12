@@ -12,7 +12,6 @@
   - Target node (optional)
   - Locked node (optional)
 
-- Snapshot update
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen
@@ -20,7 +19,6 @@
 - Harvester kill reward
 - New harvester free
 - Choose map
-- Unit ability deployment
 - Use varaiable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
 - Toxic tiles that damage units
