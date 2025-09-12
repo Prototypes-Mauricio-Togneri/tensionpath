@@ -12,4 +12,4 @@ RUN dart pub get
 EXPOSE 8080
 
 # Run your server
-CMD ["dart", "run", "lib/main.dart"]
+CMD ["dart", "run", "lib/main/main.dart"]
