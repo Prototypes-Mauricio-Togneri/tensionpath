@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/json/models/json_location.dart';
-import 'package:tensionpath/domain/json/models/json_match.dart';
-import 'package:tensionpath/domain/json/models/json_player.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/matches/match_engine.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';

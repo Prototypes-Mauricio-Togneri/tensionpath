@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/json/models/json_resource.dart';
+import 'package:tensionpath/domain/json/models/start/json_resource.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 

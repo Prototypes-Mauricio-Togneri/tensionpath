@@ -7,8 +7,9 @@ import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
-import 'package:tensionpath/domain/json/models/json_location.dart';
-import 'package:tensionpath/domain/json/models/json_match.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_message.g.dart';
@@ -97,7 +98,7 @@ class JsonMessage {
     start: JsonStart(match: match),
   );
 
-  factory JsonMessage.update(JsonMatch match) => JsonMessage(
+  factory JsonMessage.update(JsonMatchUpdate match) => JsonMessage(
     update: JsonUpdate(match: match),
   );
 

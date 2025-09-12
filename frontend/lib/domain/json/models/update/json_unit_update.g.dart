@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_unit.dart';
+part of 'json_unit_update.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonUnit', json, ($checkedConvert) {
-      final val = JsonUnit(
+JsonUnitUpdate _$JsonUnitUpdateFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('JsonUnitUpdate', json, ($checkedConvert) {
+      final val = JsonUnitUpdate(
         id: $checkedConvert('id', (v) => v as String),
         location: $checkedConvert(
           'location',
@@ -23,9 +23,10 @@ JsonUnit _$JsonUnitFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$JsonUnitToJson(JsonUnit instance) => <String, dynamic>{
-  'id': instance.id,
-  'location': instance.location.toJson(),
-  'position': instance.position.toJson(),
-  'health': instance.health,
-};
+Map<String, dynamic> _$JsonUnitUpdateToJson(JsonUnitUpdate instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'location': instance.location.toJson(),
+      'position': instance.position.toJson(),
+      'health': instance.health,
+    };

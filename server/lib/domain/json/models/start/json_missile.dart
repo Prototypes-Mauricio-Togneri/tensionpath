@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'json_platform.dart';
 
 part 'json_missile.g.dart';

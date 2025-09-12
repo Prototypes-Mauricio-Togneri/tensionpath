@@ -42,7 +42,7 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
         units: $checkedConvert(
           'units',
           (v) => (v as List<dynamic>)
-              .map((e) => JsonUnit.fromJson(e as Map<String, dynamic>))
+              .map((e) => JsonUnitUpdate.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
       );

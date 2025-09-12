@@ -11,7 +11,7 @@ JsonUpdate _$JsonUpdateFromJson(Map<String, dynamic> json) =>
       final val = JsonUpdate(
         match: $checkedConvert(
           'match',
-          (v) => JsonMatch.fromJson(v as Map<String, dynamic>),
+          (v) => JsonMatchUpdate.fromJson(v as Map<String, dynamic>),
         ),
       );
       return val;

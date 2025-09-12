@@ -8,8 +8,8 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/json_location.dart';
-import 'package:tensionpath/domain/json/models/json_unit.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -49,7 +49,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     );
   }
 
-  void refresh(JsonUnit unit) => healthBarComponent.refresh(unit);
+  void refresh(JsonUnitUpdate unit) => healthBarComponent.refresh(unit);
 
   void moveTo({
     required JsonLocation location,
@@ -265,7 +265,7 @@ class HealthBarComponent extends PositionComponent {
     maxHealth = type.maxHealth.toDouble();
   }
 
-  void refresh(JsonUnit unit) {
+  void refresh(JsonUnitUpdate unit) {
     health = unit.health;
   }
 

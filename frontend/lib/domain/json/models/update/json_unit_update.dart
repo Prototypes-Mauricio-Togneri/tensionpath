@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'json_location.dart';
-import 'json_position.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_position.dart';
 
-part 'json_unit.g.dart';
+part 'json_unit_update.g.dart';
 
 @JsonSerializable()
-class JsonUnit {
+class JsonUnitUpdate {
   @JsonKey(name: 'id')
   final String id;
 
@@ -18,15 +18,15 @@ class JsonUnit {
   @JsonKey(name: 'health')
   final double health;
 
-  const JsonUnit({
+  const JsonUnitUpdate({
     required this.id,
     required this.location,
     required this.position,
     required this.health,
   });
 
-  factory JsonUnit.fromJson(Map<String, dynamic> json) =>
-      _$JsonUnitFromJson(json);
+  factory JsonUnitUpdate.fromJson(Map<String, dynamic> json) =>
+      _$JsonUnitUpdateFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonUnitToJson(this);
+  Map<String, dynamic> toJson() => _$JsonUnitUpdateToJson(this);
 }

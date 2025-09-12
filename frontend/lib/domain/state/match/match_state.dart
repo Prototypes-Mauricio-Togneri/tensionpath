@@ -3,7 +3,7 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
-import 'package:tensionpath/domain/json/models/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';

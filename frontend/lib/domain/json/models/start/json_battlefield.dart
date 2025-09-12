@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'json_launchers.dart';
-import 'json_location.dart';
 import 'json_missile.dart';
 import 'json_ratio.dart';
 import 'json_resource.dart';
 import 'json_size.dart';
-import 'json_unit.dart';
 
 part 'json_battlefield.g.dart';
 
@@ -30,7 +30,7 @@ class JsonBattlefield {
   final List<JsonLocation> nodes;
 
   @JsonKey(name: 'units')
-  final List<JsonUnit> units;
+  final List<JsonUnitUpdate> units;
 
   const JsonBattlefield({
     required this.size,

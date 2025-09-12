@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/models/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_deploy_unit.g.dart';

@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/models/json_match.dart';
+import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 
 part 'json_update.g.dart';
 
 @JsonSerializable()
 class JsonUpdate {
   @JsonKey(name: 'match')
-  final JsonMatch match;
+  final JsonMatchUpdate match;
 
   const JsonUpdate({
     required this.match,
