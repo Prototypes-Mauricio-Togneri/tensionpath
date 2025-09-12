@@ -1,6 +1,4 @@
 import * as functions from 'firebase-functions/v2'
-import * as express from 'express'
-import * as cors from 'cors'
 import {AuthData} from 'firebase-functions/lib/common/providers/tasks'
 import {Logger} from '../utils/logger'
 import {CallableOptions} from 'firebase-functions/v2/https'
@@ -89,13 +87,3 @@ export class Context {
     }
   }
 }
-
-export const app = express()
-app.use(cors({
-  origin: true,
-}))
-
-export * from './callables/index'
-export * from './http-requests/index'
-
-export const api = functions.https.onRequest(app)

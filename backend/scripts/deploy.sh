@@ -2,4 +2,6 @@
 
 set -e
 
+firebase use remote
 firebase deploy
+firebase use local
