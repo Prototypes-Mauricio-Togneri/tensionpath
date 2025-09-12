@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/json/models/json_location.dart';
 import 'package:tensionpath/domain/json/models/json_match.dart';
 import 'package:tensionpath/domain/json/models/json_player.dart';
 import 'package:tensionpath/domain/matches/match_engine.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
 
@@ -108,16 +110,16 @@ class Match {
     }
   }
 
-  void launchUnits({
+  void deployUnit({
     required WebSocket socket,
-    required int laneId,
-    required int amount,
+    required JsonLocation location,
+    required UnitType type,
   }) {
     final String playerId = _getPlayerId(socket);
-    engine.launchUnits(
+    engine.deployUnit(
       playerId: playerId,
-      laneId: laneId,
-      amount: amount,
+      location: location,
+      type: type,
     );
   }
 

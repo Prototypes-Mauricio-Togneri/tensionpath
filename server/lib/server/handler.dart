@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/matches/match_manager.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
@@ -22,8 +22,8 @@ class Handler {
           json: message,
           socket: socket,
         );
-      } else if (message is JsonLaunchUnits) {
-        matchManager.launchUnits(
+      } else if (message is JsonDeployUnit) {
+        matchManager.deployUnit(
           json: message,
           socket: socket,
         );

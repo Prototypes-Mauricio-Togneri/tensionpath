@@ -199,8 +199,8 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
       if (launcherComponent != null) {
         match.onDeployUnit(
-          launcherComponent: launcherComponent,
-          unitType: unitType,
+          location: launcherComponent.nodeComponent.location,
+          type: unitType,
         );
       }
 

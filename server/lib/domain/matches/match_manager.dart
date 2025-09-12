@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/matches/match.dart';
 import 'package:tensionpath/utils/map_list.dart';
@@ -43,15 +43,15 @@ class MatchManager {
     }
   }
 
-  void launchUnits({
-    required JsonLaunchUnits json,
+  void deployUnit({
+    required JsonDeployUnit json,
     required WebSocket socket,
   }) {
     final Match match = _getMatch(json.matchId);
-    match.launchUnits(
+    match.deployUnit(
       socket: socket,
-      laneId: json.laneId,
-      amount: json.amount,
+      location: json.location,
+      type: json.type,
     );
   }
 

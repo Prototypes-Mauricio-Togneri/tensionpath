@@ -1,5 +1,7 @@
+import 'package:tensionpath/domain/json/models/json_location.dart';
 import 'package:tensionpath/domain/matches/match.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchEngine {
   final Match match;
@@ -32,10 +34,10 @@ class MatchEngine {
     );
   }*/
 
-  void launchUnits({
+  void deployUnit({
     required String playerId,
-    required int laneId,
-    required int amount,
+    required JsonLocation location,
+    required UnitType type,
   }) {
     /*final Player player = players.get(playerId);
 
@@ -43,7 +45,6 @@ class MatchEngine {
 
     if (amount > 0) {
       final Units units = player.createUnits(amount);
-      lane.launchUnits(units);
       match.broadcast(
         JsonMessage.unitsLaunched(
           laneId: laneId,

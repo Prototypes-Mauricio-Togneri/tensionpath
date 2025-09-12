@@ -4,14 +4,19 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/json/models/json_match.dart';
+import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class GameComponent extends FlameGame {
   final JsonMatch match;
+  final MatchState matchState;
 
-  GameComponent(this.match) {
+  GameComponent({
+    required this.match,
+    required this.matchState,
+  }) {
     GameComponentRef.instance = this;
   }
 

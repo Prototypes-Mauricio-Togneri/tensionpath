@@ -8,10 +8,12 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/json/models/json_location.dart';
 import 'package:tensionpath/domain/json/models/json_match.dart';
 import 'package:tensionpath/domain/json/models/json_player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -185,10 +187,15 @@ class MatchComponent extends World {
   }
 
   void onDeployUnit({
-    required LauncherComponent launcherComponent,
-    required UnitType unitType,
+    required JsonLocation location,
+    required UnitType type,
   }) {
-    if (self.resources >= unitType.deploymentCost) {
+    game.matchState.onDeployUnit(
+      location: location,
+      type: type,
+    );
+
+    /*if (self.resources >= unitType.deploymentCost) {
       self.removeResources(unitType.deploymentCost);
 
       final UnitComponent unitComponent = UnitComponent(
@@ -203,7 +210,7 @@ class MatchComponent extends World {
 
       add(unitComponent);
       unitComponents.add(unitComponent);
-    }
+    }*/
   }
 
   void onMoveUnit({

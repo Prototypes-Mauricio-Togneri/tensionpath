@@ -1,12 +1,15 @@
 import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_launch_units.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
+import 'package:tensionpath/domain/json/models/json_location.dart';
 import 'package:tensionpath/domain/json/models/json_match.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_message.g.dart';
 
@@ -17,8 +20,8 @@ class JsonMessage {
   @JsonKey(name: 'join')
   final JsonJoinMatch? join;
 
-  @JsonKey(name: 'launchUnits')
-  final JsonLaunchUnits? launchUnits;
+  @JsonKey(name: 'deploy')
+  final JsonDeployUnit? deploy;
 
   // =========================== SERVER -> CLIENT =========================== \\
 
@@ -36,7 +39,7 @@ class JsonMessage {
 
   const JsonMessage({
     this.join,
-    this.launchUnits,
+    this.deploy,
     this.welcome,
     this.start,
     this.update,
@@ -46,8 +49,8 @@ class JsonMessage {
   dynamic get message {
     if (join != null) {
       return join;
-    } else if (launchUnits != null) {
-      return launchUnits;
+    } else if (deploy != null) {
+      return deploy;
     } else if (welcome != null) {
       return welcome;
     } else if (start != null) {
@@ -74,15 +77,15 @@ class JsonMessage {
     ),
   );
 
-  factory JsonMessage.launchUnits({
+  factory JsonMessage.deployUnit({
     required String matchId,
-    required int laneId,
-    required int amount,
+    required JsonLocation location,
+    required UnitType type,
   }) => JsonMessage(
-    launchUnits: JsonLaunchUnits(
+    deploy: JsonDeployUnit(
       matchId: matchId,
-      laneId: laneId,
-      amount: amount,
+      location: location,
+      type: type,
     ),
   );
 

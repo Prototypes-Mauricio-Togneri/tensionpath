@@ -60,19 +60,7 @@
 - Base income starts at 2 T/s and accelerates by +0.2 T/s every 30 seconds up to a max of 3 T/s
 - Income per harvester increases from 1.5 T/s at the start of the game to a max of 4 T/s at 150 seconds, an increase of 0.7 T/s every 30 seconds
 
-## Actions
-
-- Deploy unit
-- Move unit
-- Attack unit
-
 # API
-
-## Client -> Server
-
-- Attack unit
-  - ID
-  - Target unit
 
 ## Messages
 
