@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/engine/battlefield.dart';
+import 'package:tensionpath/domain/engine/location.dart';
 import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
@@ -51,7 +51,7 @@ class Match {
 
   void deployUnit({
     required String playerIndex,
-    required JsonLocation location,
+    required Location location,
     required UnitType type,
   }) {
     final Player player = players.get(playerIndex);
@@ -61,11 +61,11 @@ class Match {
       for (final Player player in players) player.index: player.toJsonUpdate(),
     };
 
-    final JsonMatchUpdate update = JsonMatchUpdate(
+    final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
       players: playersUpdate,
     );
 
-    connection.broadcast(JsonMessage.update(update));
+    connection.broadcast(JsonMessage.update(jsonMatchUpdate));
   }
 
   void update(double dt) {

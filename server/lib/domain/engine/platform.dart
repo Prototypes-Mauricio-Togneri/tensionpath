@@ -11,9 +11,9 @@ class Platform {
     required this.pads,
   });
 
-  factory Platform.fromJson(json) => Platform(
+  factory Platform.fromJson(JsonPlatform json) => Platform(
     id: json.id,
-    pads: json.pads.map((pad) => Location.fromJson(pad)).toList(),
+    pads: json.pads.map(Location.fromJson).toList(),
   );
 
   static MapList<String, Platform> list(List<JsonPlatform> json) {
