@@ -14,9 +14,9 @@ class Handler {
   void onMessage(WebSocket socket, JsonMessage json) {
     Logger.log(socket, '<<< $json');
 
-    final dynamic message = json.message;
-
     try {
+      final dynamic message = json.message;
+
       if (message is JsonJoinMatch) {
         matchManager.join(
           json: message,
