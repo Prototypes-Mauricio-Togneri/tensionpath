@@ -34,7 +34,8 @@ class Player {
     final MapList<String, Player> result = MapList();
 
     for (final JsonPlayer jsonPlayer in json) {
-      result.add(jsonPlayer.id, Player.fromJson(jsonPlayer));
+      final Player player = Player.fromJson(jsonPlayer);
+      result.add(jsonPlayer.id, player);
     }
 
     return result;

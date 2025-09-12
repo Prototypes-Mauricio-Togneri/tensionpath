@@ -20,8 +20,8 @@ class Launchers {
     final MapList<String, Launchers> result = MapList();
 
     for (final JsonLaunchers jsonLaunchers in json) {
-      final Launchers platform = Launchers.fromJson(jsonLaunchers);
-      result.add(platform.playerIndex, platform);
+      final Launchers launchers = Launchers.fromJson(jsonLaunchers);
+      result.add(launchers.playerIndex, launchers);
     }
 
     return result;

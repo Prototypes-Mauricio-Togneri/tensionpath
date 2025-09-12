@@ -26,8 +26,8 @@ class Resources {
     final MapList<String, Resources> result = MapList();
 
     for (final JsonResource jsonResources in json) {
-      final Resources platform = Resources.fromJson(jsonResources);
-      result.add(platform.id, platform);
+      final Resources resources = Resources.fromJson(jsonResources);
+      result.add(resources.id, resources);
     }
 
     return result;
