@@ -6,7 +6,12 @@
   - Moving towards a cell
   - Attacking a unit
 
-- Units always have a "hovering node" (the closest node to them)
+- Units have 3 types of nodes
+
+  - Hovering node (mandatory)
+  - Target node (optional)
+  - Locked node (optional)
+
 - Snapshot update
 - Dart compile in Docker
 - Continuous popcap
