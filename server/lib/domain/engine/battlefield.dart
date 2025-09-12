@@ -12,8 +12,8 @@ class Battlefield {
   final Missile missile;
   final MapList<String, Resources> resources;
   final MapList<String, Launchers> launchers;
-  final List<Location> nodes;
-  final List<Unit> units;
+  final MapList<String, Location> nodes;
+  final MapList<String, Unit> units;
 
   const Battlefield({
     required this.width,
@@ -30,8 +30,8 @@ class Battlefield {
     height: json.size.height,
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
-    launchers: MapList(),
-    nodes: [],
-    units: [],
+    launchers: Launchers.list(json.launchers),
+    nodes: MapList(),
+    units: MapList(),
   );
 }
