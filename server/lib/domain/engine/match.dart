@@ -70,6 +70,7 @@ class Match {
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
       players: playersUpdate,
       missile: battlefield.missile.toJsonUpdate(),
+      resources: battlefield.resourcesToJsonUpdate(),
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));

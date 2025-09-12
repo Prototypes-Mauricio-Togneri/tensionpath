@@ -2,6 +2,8 @@ class MapList<K, V> extends Iterable<V> {
   final Map<K, V> _map = {};
   final List<V> _list = [];
 
+  List<V> get list => _list;
+
   void add(K key, V value) {
     _map[key] = value;
     _list.add(value);

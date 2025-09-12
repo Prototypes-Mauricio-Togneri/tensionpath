@@ -34,4 +34,8 @@ class Battlefield {
     nodes: Location.list(json.nodes),
     units: MapList(),
   );
+
+  Map<String, double> resourcesToJsonUpdate() => Map.fromEntries(
+    resources.list.map((r) => MapEntry(r.id, r.amountCurrent)),
+  );
 }

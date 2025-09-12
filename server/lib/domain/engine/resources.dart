@@ -5,10 +5,10 @@ import 'package:tensionpath/utils/map_list.dart';
 class Resources {
   final String id;
   final Location location;
-  final double amountCurrent;
   final double amountMax;
+  double amountCurrent;
 
-  const Resources({
+  Resources({
     required this.id,
     required this.location,
     required this.amountCurrent,

@@ -12,9 +12,13 @@ class JsonMatchUpdate {
   @JsonKey(name: 'missile')
   final JsonMissileUpdate missile;
 
+  @JsonKey(name: 'resources')
+  final Map<String, double> resources;
+
   JsonMatchUpdate({
     required this.players,
     required this.missile,
+    required this.resources,
   });
 
   factory JsonMatchUpdate.fromJson(Map<String, dynamic> json) =>
