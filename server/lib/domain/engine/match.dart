@@ -28,15 +28,7 @@ class Match {
     final List<Player> players = [];
 
     for (final JsonPlayer jsonPlayer in jsonMatch.players) {
-      final Player player = Player(
-        id: jsonPlayer.id,
-        name: jsonPlayer.name,
-        index: jsonPlayer.index,
-        baseMaxHealth: jsonPlayer.baseMaxHealth,
-        baseHealth: jsonPlayer.baseHealth,
-        resources: jsonPlayer.resources,
-      );
-      players.add(player);
+      players.add(Player.fromJson(jsonPlayer));
     }
 
     return Match._(
@@ -66,13 +58,14 @@ class Match {
     required JsonLocation location,
     required UnitType type,
   }) {
+    
+
+    final Map<String, JsonPlayerUpdate> playersUpdate = {
+      for (final Player player in players) player.id: player.toJsonUpdate(),
+    };
+
     final JsonMatchUpdate update = JsonMatchUpdate(
-      players: {
-        playerId: JsonPlayerUpdate(
-          baseHealth: 100,
-          resources: 50,
-        ),
-      },
+      players: playersUpdate,
     );
 
     connection.broadcast(JsonMessage.update(update));

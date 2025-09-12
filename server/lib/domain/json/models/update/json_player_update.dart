@@ -8,7 +8,7 @@ class JsonPlayerUpdate {
   final int baseHealth;
 
   @JsonKey(name: 'resources')
-  final int resources;
+  final double resources;
 
   JsonPlayerUpdate({
     required this.baseHealth,

@@ -10,7 +10,7 @@ JsonPlayerUpdate _$JsonPlayerUpdateFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonPlayerUpdate', json, ($checkedConvert) {
       final val = JsonPlayerUpdate(
         baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
-        resources: $checkedConvert('resources', (v) => (v as num).toInt()),
+        resources: $checkedConvert('resources', (v) => (v as num).toDouble()),
       );
       return val;
     });
