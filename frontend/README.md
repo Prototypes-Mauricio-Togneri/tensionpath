@@ -194,7 +194,7 @@ Vehicle:
 - Good against infantry:
   - Dogs/Wheels
   - Rhino/Buggy
-  - Shatterer/Chem Buggy
+  - Shatterer/Chuggy
   - APC
 - Good against vehicles:
   - Pitbull/Bikes
