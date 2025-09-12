@@ -1,4 +1,7 @@
+import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
+import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/matches/match.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -39,23 +42,16 @@ class MatchEngine {
     required JsonLocation location,
     required UnitType type,
   }) {
-    /*final Player player = players.get(playerId);
-
-    final Lane lane = _lane(laneId);
-
-    if (amount > 0) {
-      final Units units = player.createUnits(amount);
-      match.broadcast(
-        JsonMessage.unitsLaunched(
-          laneId: laneId,
-          amount: amount,
-          direction: player.direction,
-          attackLevel: player.attackLevel,
+    final JsonMatchUpdate update = JsonMatchUpdate(
+      players: {
+        playerId: JsonPlayerUpdate(
+          baseHealth: 100,
+          resources: 50,
         ),
-      );
-    } else {
-      throw JsonMessage.error('Invalid amount: $amount');
-    }*/
+      },
+    );
+
+    match.broadcast(JsonMessage.update(update));
   }
 
   void update(double dt) {

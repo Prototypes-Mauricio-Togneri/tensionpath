@@ -1,14 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 
 part 'json_match_update.g.dart';
 
 @JsonSerializable()
 class JsonMatchUpdate {
-  @JsonKey(name: 'id')
-  final String id;
+  @JsonKey(name: 'players')
+  final Map<String, JsonPlayerUpdate> players;
 
   JsonMatchUpdate({
-    required this.id,
+    required this.players,
   });
 
   factory JsonMatchUpdate.fromJson(Map<String, dynamic> json) =>

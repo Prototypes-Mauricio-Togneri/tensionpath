@@ -9,10 +9,20 @@ part of 'json_match_update.dart';
 JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonMatchUpdate', json, ($checkedConvert) {
       final val = JsonMatchUpdate(
-        id: $checkedConvert('id', (v) => v as String),
+        players: $checkedConvert(
+          'players',
+          (v) => (v as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+              k,
+              JsonPlayerUpdate.fromJson(e as Map<String, dynamic>),
+            ),
+          ),
+        ),
       );
       return val;
     });
 
 Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
-    <String, dynamic>{'id': instance.id};
+    <String, dynamic>{
+      'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
+    };

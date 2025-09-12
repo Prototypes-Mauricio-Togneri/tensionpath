@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';

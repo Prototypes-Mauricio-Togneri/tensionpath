@@ -15,8 +15,6 @@ class JsonPosition {
     required this.y,
   });
 
-  String get id => '$x,$y';
-
   factory JsonPosition.fromJson(Map<String, dynamic> json) =>
       _$JsonPositionFromJson(json);
 
