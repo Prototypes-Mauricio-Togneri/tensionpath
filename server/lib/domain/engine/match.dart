@@ -11,7 +11,7 @@ import 'package:tensionpath/server/connection.dart';
 
 class Match {
   final Connection connection;
-  final List<Player> players;
+  final Map<String, Player> players;
   double totalTime = 0;
   MatchStatus status;
 
@@ -25,10 +25,10 @@ class Match {
     required Connection connection,
     required JsonMatch jsonMatch,
   }) {
-    final List<Player> players = [];
+    final Map<String, Player> players = {};
 
     for (final JsonPlayer jsonPlayer in jsonMatch.players) {
-      players.add(Player.fromJson(jsonPlayer));
+      players[jsonPlayer.id] = Player.fromJson(jsonPlayer);
     }
 
     return Match._(
@@ -58,10 +58,9 @@ class Match {
     required JsonLocation location,
     required UnitType type,
   }) {
-    
-
     final Map<String, JsonPlayerUpdate> playersUpdate = {
-      for (final Player player in players) player.id: player.toJsonUpdate(),
+      for (final Player player in players.values)
+        player.id: player.toJsonUpdate(),
     };
 
     final JsonMatchUpdate update = JsonMatchUpdate(
