@@ -103,18 +103,6 @@
 
 - Updates UnitComponent
 
-## Server loop
-
-- For each unit
-  - If moving
-    - If target node is free
-      - Update position
-      - If unit inside of target node -> assign node to unit
-    - If target node is not free
-      - Re-assign node
-      - Update position
-      - If unit inside of target node -> assign node to unit
-
 ## Goal
 
 - The goal of the game is to destroy the enemy's base

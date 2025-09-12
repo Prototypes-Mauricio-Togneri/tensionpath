@@ -41,49 +41,28 @@ class Match {
   }) {
     final Player player = players.get(playerIndex);
     player.removeResources(type.cost.toDouble());
-
-    connection.broadcast(_matchUpdateMessage);
+    _sendMatchUpdate();
   }
 
   void update(double dt) {
     if (status == MatchStatus.playing) {
       totalTime += dt;
 
-      /*for (final Player player in players) {
-        player.update(dt);
-      }
-
-      final List<LaneUpdate> laneUpdates = [];
-
-      for (final Lane lane in lanes) {
-        final List<LaneUpdate> updates = lane.update(
-          dt: dt,
-          player1: players.list[0],
-          player2: players.list[1],
-        );
-        laneUpdates.addAll(updates);
-      }
-
-      if (laneUpdates.isNotEmpty) {
-        _sendMatchUpdate();
-      }
-
-      for (final LaneUpdate update in laneUpdates) {
-        _sendToPlayer(
-          player: update.player,
-          json: update.message,
-        );
-      }
-
-      if (!_checkWinnerByPoints()) {
-        if (totalTime >= Constants.MATCH_TIMEOUT) {
-          _checkWinnerByTerritory();
-        }
-      }*/
+      /*
+      - For each unit:
+        - If moving
+          - If target node is free
+            - Update position
+            - If unit inside of target node -> assign node to unit
+          - If target node is not free
+            - Re-assign node
+            - Update position
+            - If unit inside of target node -> assign node to unit
+      */
     }
   }
 
-  JsonMessage get _matchUpdateMessage {
+  void _sendMatchUpdate() {
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players) player.index: player.toJsonUpdate(),
     };
@@ -92,23 +71,6 @@ class Match {
       players: playersUpdate,
     );
 
-    return JsonMessage.update(jsonMatchUpdate);
+    connection.broadcast(JsonMessage.update(jsonMatchUpdate));
   }
-
-  /*void _sendMatchUpdate() {
-    for (final Player player in players) {
-      _sendToPlayer(
-        player: player,
-        json: JsonMessage.update(json(player)),
-      );
-    }
-  }
-
-  void _sendToPlayer({
-    required Player player,
-    required JsonMessage json,
-  }) => match.direct(
-    playerId: player.id,
-    json: json,
-  );*/
 }
