@@ -16,6 +16,7 @@ class Connection {
   final String matchType;
   final Map<String, String> players;
   final Map<String, String> playerIdToIndex = {};
+  final Map<String, String> playerIndexToId = {};
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
   Match? _match;
@@ -92,6 +93,7 @@ class Connection {
         jsonPlayer.id = playersData[i].key;
         jsonPlayer.name = playersData[i].value;
         playerIdToIndex[jsonPlayer.id] = jsonPlayer.index;
+        playerIndexToId[jsonPlayer.index] = jsonPlayer.id;
       }
     } else {
       throw JsonMessage.error(
@@ -110,7 +112,7 @@ class Connection {
       }
 
       direct(
-        playerId: playerId,
+        playerIndex: playerIdToIndex[playerId]!,
         json: JsonMessage.start(jsonMatch),
       );
     }
@@ -139,9 +141,10 @@ class Connection {
   }
 
   void direct({
-    required String playerId,
+    required String playerIndex,
     required JsonMessage json,
   }) {
+    final String playerId = playerIndexToId[playerIndex]!;
     final WebSocket socket = playerIdToWebSocket[playerId]!;
     socket.send(json);
   }
