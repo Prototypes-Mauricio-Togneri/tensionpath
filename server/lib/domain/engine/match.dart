@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -8,7 +9,7 @@ import 'package:tensionpath/server/connection.dart';
 
 class Match {
   final Connection match;
-
+  final List<Player> players = [];
   double totalTime = 0;
   MatchStatus status;
 
@@ -21,6 +22,8 @@ class Match {
     match: match,
     status: MatchStatus.playing,
   );
+
+  void addPlayer(Player player) => players.add(player);
 
   /*JsonMatch json(Player self) {
     final List<JsonPlayer> jsonPlayers = players

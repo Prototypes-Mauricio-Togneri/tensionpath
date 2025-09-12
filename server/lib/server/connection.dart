@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:tensionpath/domain/engine/match.dart';
+import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
@@ -89,8 +90,22 @@ class Connection {
 
     if (jsonMatch.players.length == playersData.length) {
       for (int i = 0; i < playersData.length; i++) {
-        jsonMatch.players[i].id = playersData[i].key;
-        jsonMatch.players[i].name = playersData[i].value;
+        final String id = playersData[i].key;
+        final String name = playersData[i].value;
+        final JsonPlayer jsonPlayer = jsonMatch.players[i];
+
+        jsonPlayer.id = id;
+        jsonPlayer.name = name;
+
+        final Player player = Player(
+          id: id,
+          name: name,
+          index: jsonPlayer.index,
+          baseMaxHealth: jsonPlayer.baseMaxHealth,
+          baseHealth: jsonPlayer.baseHealth,
+          resources: jsonPlayer.resources,
+        );
+        match.addPlayer(player);
       }
     } else {
       throw JsonMessage.error(
