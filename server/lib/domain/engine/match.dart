@@ -71,6 +71,7 @@ class Match {
       players: playersUpdate,
       missile: battlefield.missile.toJsonUpdate(),
       resources: battlefield.resourcesToJsonUpdate(),
+      units: battlefield.unitsToJsonUpdate(),
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));

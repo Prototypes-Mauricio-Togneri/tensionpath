@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/engine/missile.dart';
 import 'package:tensionpath/domain/engine/resources.dart';
 import 'package:tensionpath/domain/engine/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/utils/map_list.dart';
 
 class Battlefield {
@@ -37,5 +38,9 @@ class Battlefield {
 
   Map<String, double> resourcesToJsonUpdate() => Map.fromEntries(
     resources.list.map((r) => MapEntry(r.id, r.amountCurrent)),
+  );
+
+  Map<String, JsonUnitUpdate> unitsToJsonUpdate() => Map.fromEntries(
+    units.list.map((u) => MapEntry(u.id, u.toJsonUpdate())),
   );
 }

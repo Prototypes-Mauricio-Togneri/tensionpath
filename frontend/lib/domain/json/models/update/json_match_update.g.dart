@@ -28,6 +28,13 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
             (k, e) => MapEntry(k, (e as num).toDouble()),
           ),
         ),
+        units: $checkedConvert(
+          'units',
+          (v) => (v as Map<String, dynamic>).map(
+            (k, e) =>
+                MapEntry(k, JsonUnitUpdate.fromJson(e as Map<String, dynamic>)),
+          ),
+        ),
       );
       return val;
     });
@@ -37,4 +44,5 @@ Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
       'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
       'missile': instance.missile.toJson(),
       'resources': instance.resources,
+      'units': instance.units.map((k, e) => MapEntry(k, e.toJson())),
     };
