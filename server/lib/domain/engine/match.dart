@@ -54,6 +54,9 @@ class Match {
     required JsonLocation location,
     required UnitType type,
   }) {
+    final Player player = players.get(playerId);
+    player.removeResources(type.cost.toDouble());
+
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players) player.id: player.toJsonUpdate(),
     };

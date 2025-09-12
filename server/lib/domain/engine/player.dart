@@ -19,6 +19,12 @@ class Player {
     required this.resources,
   });
 
+  void removeResources(double amount) {
+    if (resources >= amount) {
+      resources -= amount;
+    }
+  }
+
   factory Player.fromJson(JsonPlayer json) {
     return Player(
       id: json.id,
