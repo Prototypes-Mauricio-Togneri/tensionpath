@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:tensionpath/domain/engine/match.dart';
-import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
@@ -61,7 +60,7 @@ class Connection {
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
         Logger.info('Match $id started');
-        _onMatchStart(Match.create(this));
+        _onMatchStart();
       }
     } else {
       throw JsonMessage.error('Player $playerId cannot join match $id');
@@ -80,9 +79,7 @@ class Connection {
     }
   }
 
-  Future _onMatchStart(Match match) async {
-    _match = match;
-
+  Future _onMatchStart() async {
     final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
     jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
 
@@ -96,22 +93,17 @@ class Connection {
 
         jsonPlayer.id = id;
         jsonPlayer.name = name;
-
-        final Player player = Player(
-          id: id,
-          name: name,
-          index: jsonPlayer.index,
-          baseMaxHealth: jsonPlayer.baseMaxHealth,
-          baseHealth: jsonPlayer.baseHealth,
-          resources: jsonPlayer.resources,
-        );
-        match.addPlayer(player);
       }
     } else {
       throw JsonMessage.error(
         'Match players length ${jsonMatch.players.length} does not match expected length ${playersData.length}',
       );
     }
+
+    _match = Match.create(
+      connection: this,
+      jsonMatch: jsonMatch,
+    );
 
     for (final String playerId in players.keys) {
       for (final JsonPlayer player in jsonMatch.players) {
@@ -162,9 +154,5 @@ class Connection {
     }
   }
 
-  void update(double dt) {
-    if (_match != null) {
-      match.update(dt);
-    }
-  }
+  void update(double dt) => _match?.update(dt);
 }

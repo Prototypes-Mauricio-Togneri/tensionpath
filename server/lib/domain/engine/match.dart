@@ -1,6 +1,8 @@
 import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
@@ -8,22 +10,41 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
 
 class Match {
-  final Connection match;
-  final List<Player> players = [];
+  final Connection connection;
+  final List<Player> players;
   double totalTime = 0;
   MatchStatus status;
 
   Match._({
-    required this.match,
+    required this.connection,
     required this.status,
+    required this.players,
   });
 
-  factory Match.create(Connection match) => Match._(
-    match: match,
-    status: MatchStatus.playing,
-  );
+  factory Match.create({
+    required Connection connection,
+    required JsonMatch jsonMatch,
+  }) {
+    final List<Player> players = [];
 
-  void addPlayer(Player player) => players.add(player);
+    for (final JsonPlayer jsonPlayer in jsonMatch.players) {
+      final Player player = Player(
+        id: jsonPlayer.id,
+        name: jsonPlayer.name,
+        index: jsonPlayer.index,
+        baseMaxHealth: jsonPlayer.baseMaxHealth,
+        baseHealth: jsonPlayer.baseHealth,
+        resources: jsonPlayer.resources,
+      );
+      players.add(player);
+    }
+
+    return Match._(
+      connection: connection,
+      status: MatchStatus.playing,
+      players: players,
+    );
+  }
 
   /*JsonMatch json(Player self) {
     final List<JsonPlayer> jsonPlayers = players
@@ -54,7 +75,7 @@ class Match {
       },
     );
 
-    match.broadcast(JsonMessage.update(update));
+    connection.broadcast(JsonMessage.update(update));
   }
 
   void update(double dt) {

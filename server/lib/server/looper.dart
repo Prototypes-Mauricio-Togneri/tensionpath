@@ -20,7 +20,7 @@ class Looper {
 
       dispatcher.update(dt);
 
-      await Future.delayed(const Duration(microseconds: 16666));
+      await Future.delayed(const Duration(milliseconds: 50));
     }
   }
 }
