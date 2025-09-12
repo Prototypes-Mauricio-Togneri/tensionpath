@@ -34,21 +34,6 @@ class Match {
     players: Player.list(jsonMatch.players),
   );
 
-  /*JsonMatch json(Player self) {
-    final List<JsonPlayer> jsonPlayers = players
-        .map((e) => e.json(e == self))
-        .toList();
-    final List<JsonLane> jsonLanes = lanes.map((e) => e.json()).toList();
-
-    return JsonMatch(
-      id: match.id,
-      remainingTime: Constants.MATCH_TIMEOUT - totalTime,
-      players: jsonPlayers,
-      lanes: jsonLanes,
-      status: status,
-    );
-  }*/
-
   void deployUnit({
     required String playerIndex,
     required Location location,
@@ -57,15 +42,7 @@ class Match {
     final Player player = players.get(playerIndex);
     player.removeResources(type.cost.toDouble());
 
-    final Map<String, JsonPlayerUpdate> playersUpdate = {
-      for (final Player player in players) player.index: player.toJsonUpdate(),
-    };
-
-    final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
-      players: playersUpdate,
-    );
-
-    connection.broadcast(JsonMessage.update(jsonMatchUpdate));
+    connection.broadcast(_matchUpdateMessage);
   }
 
   void update(double dt) {
@@ -104,6 +81,18 @@ class Match {
         }
       }*/
     }
+  }
+
+  JsonMessage get _matchUpdateMessage {
+    final Map<String, JsonPlayerUpdate> playersUpdate = {
+      for (final Player player in players) player.index: player.toJsonUpdate(),
+    };
+
+    final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
+      players: playersUpdate,
+    );
+
+    return JsonMessage.update(jsonMatchUpdate);
   }
 
   /*void _sendMatchUpdate() {
