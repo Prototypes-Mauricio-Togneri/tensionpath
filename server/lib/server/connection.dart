@@ -10,7 +10,7 @@ import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Connection {
-  final String id;
+  final String matchId;
   final DateTime createdAt;
   final int numberOfPlayers;
   final String matchType;
@@ -21,7 +21,7 @@ class Connection {
   Match? _match;
 
   Connection._({
-    required this.id,
+    required this.matchId,
     required this.createdAt,
     required this.numberOfPlayers,
     required this.matchType,
@@ -29,7 +29,7 @@ class Connection {
   });
 
   factory Connection.fromJson(JsonCreateMatch json) => Connection._(
-    id: json.matchId,
+    matchId: json.matchId,
     createdAt: json.createdAt,
     numberOfPlayers: json.numberOfPlayers,
     matchType: json.matchType,
@@ -57,14 +57,14 @@ class Connection {
       playerIdToWebSocket[playerId] = socket;
       webSocketToPlayerId[socket] = playerId;
 
-      Logger.log(socket, 'Player $playerId joined match $id');
+      Logger.log(socket, 'Player $playerId joined match $matchId');
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
-        Logger.info('Match $id started');
+        Logger.info('Match $matchId started');
         _onMatchStart();
       }
     } else {
-      throw JsonMessage.error('Player $playerId cannot join match $id');
+      throw JsonMessage.error('Player $playerId cannot join match $matchId');
     }
   }
 
@@ -74,7 +74,7 @@ class Connection {
       playerIdToWebSocket.remove(playerId);
       webSocketToPlayerId.remove(socket);
 
-      Logger.log(socket, 'Player $playerId left match $id');
+      Logger.log(socket, 'Player $playerId left match $matchId');
     } else {
       throw JsonMessage.error('Cannot find player for socket ${socket.id}');
     }

@@ -36,7 +36,7 @@ class Dispatcher {
       websocketToConnection.remove(socket);
 
       if (connection.isEmpty) {
-        connections.remove(connection.id, connection);
+        connections.remove(connection.matchId, connection);
       }
     } else {
       throw JsonMessage.error('Connection not linked with any match');
