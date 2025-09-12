@@ -2,22 +2,22 @@ import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
-import 'package:tensionpath/domain/matches/match.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/server/connection.dart';
 
-class MatchEngine {
-  final Match match;
+class Match {
+  final Connection match;
 
   double totalTime = 0;
   MatchStatus status;
 
-  MatchEngine._({
+  Match._({
     required this.match,
     required this.status,
   });
 
-  factory MatchEngine.create(Match match) => MatchEngine._(
+  factory Match.create(Connection match) => Match._(
     match: match,
     status: MatchStatus.playing,
   );

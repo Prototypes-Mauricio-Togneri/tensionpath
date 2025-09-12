@@ -1,15 +1,15 @@
 import 'dart:io';
+import 'package:tensionpath/domain/engine/match.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/json/models/start/json_player.dart';
-import 'package:tensionpath/domain/matches/match_engine.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
 
-class Match {
+class Connection {
   final String id;
   final DateTime createdAt;
   final int numberOfPlayers;
@@ -17,9 +17,9 @@ class Match {
   final Map<String, String> players;
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
-  MatchEngine? _engine;
+  Match? _match;
 
-  Match._({
+  Connection._({
     required this.id,
     required this.createdAt,
     required this.numberOfPlayers,
@@ -27,7 +27,7 @@ class Match {
     required this.players,
   });
 
-  factory Match.fromJson(JsonCreateMatch json) => Match._(
+  factory Connection.fromJson(JsonCreateMatch json) => Connection._(
     id: json.matchId,
     createdAt: json.createdAt,
     numberOfPlayers: json.numberOfPlayers,
@@ -35,16 +35,16 @@ class Match {
     players: json.players,
   );
 
-  MatchEngine get engine {
-    if (_engine != null) {
-      return _engine!;
+  Match get match {
+    if (_match != null) {
+      return _match!;
     } else {
       throw JsonMessage.error('Match not started');
     }
   }
 
   bool get isEmpty =>
-      (_engine != null) &&
+      (_match != null) &&
       playerIdToWebSocket.isEmpty &&
       webSocketToPlayerId.isEmpty;
 
@@ -52,7 +52,7 @@ class Match {
     required String playerId,
     required WebSocket socket,
   }) {
-    if ((_engine == null) && players.containsKey(playerId)) {
+    if ((_match == null) && players.containsKey(playerId)) {
       playerIdToWebSocket[playerId] = socket;
       webSocketToPlayerId[socket] = playerId;
 
@@ -60,7 +60,7 @@ class Match {
 
       if (playerIdToWebSocket.length == numberOfPlayers) {
         Logger.info('Match $id started');
-        _onMatchStart(MatchEngine.create(this));
+        _onMatchStart(Match.create(this));
       }
     } else {
       throw JsonMessage.error('Player $playerId cannot join match $id');
@@ -79,8 +79,8 @@ class Match {
     }
   }
 
-  Future _onMatchStart(MatchEngine engine) async {
-    _engine = engine;
+  Future _onMatchStart(Match match) async {
+    _match = match;
 
     final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
     jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
@@ -116,7 +116,7 @@ class Match {
     required UnitType type,
   }) {
     final String playerId = _getPlayerId(socket);
-    engine.deployUnit(
+    match.deployUnit(
       playerId: playerId,
       location: location,
       type: type,
@@ -148,8 +148,8 @@ class Match {
   }
 
   void update(double dt) {
-    if (_engine != null) {
-      engine.update(dt);
+    if (_match != null) {
+      match.update(dt);
     }
   }
 }

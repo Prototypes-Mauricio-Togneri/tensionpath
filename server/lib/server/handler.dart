@@ -2,14 +2,14 @@ import 'dart:io';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/matches/match_manager.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
+import 'package:tensionpath/server/dispatcher.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Handler {
-  final MatchManager matchManager;
+  final Dispatcher dispatcher;
 
-  const Handler(this.matchManager);
+  const Handler(this.dispatcher);
 
   void onMessage(WebSocket socket, JsonMessage json) {
     Logger.log(socket, '<<< $json');
@@ -18,12 +18,12 @@ class Handler {
       final dynamic message = json.message;
 
       if (message is JsonJoinMatch) {
-        matchManager.join(
+        dispatcher.join(
           json: message,
           socket: socket,
         );
       } else if (message is JsonDeployUnit) {
-        matchManager.deployUnit(
+        dispatcher.deployUnit(
           json: message,
           socket: socket,
         );
@@ -45,6 +45,6 @@ class Handler {
 
   void onDisconnect(WebSocket socket) {
     Logger.log(socket, 'Disconnected');
-    matchManager.leave(socket);
+    dispatcher.leave(socket);
   }
 }

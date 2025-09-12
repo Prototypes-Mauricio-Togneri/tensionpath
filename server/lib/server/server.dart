@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/matches/match_manager.dart';
+import 'package:tensionpath/server/dispatcher.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -10,12 +10,12 @@ import 'package:tensionpath/utils/logger.dart';
 const String X_API_KEY_HEADER = 'x-api-key';
 
 class Server {
-  final MatchManager matchManager;
+  final Dispatcher dispatcher;
   final Handler handler;
   final Environment environment;
 
   const Server({
-    required this.matchManager,
+    required this.dispatcher,
     required this.handler,
     required this.environment,
   });
@@ -96,10 +96,10 @@ class Server {
       final dynamic json = jsonDecode(content);
       final JsonCreateMatch jsonCreateMatch = JsonCreateMatch.fromJson(json);
 
-      if (matchManager.hasMatch(jsonCreateMatch.matchId)) {
+      if (dispatcher.hasConnection(jsonCreateMatch.matchId)) {
         request.response.statusCode = HttpStatus.conflict;
       } else {
-        matchManager.create(jsonCreateMatch);
+        dispatcher.create(jsonCreateMatch);
         Logger.info('Match created: ${jsonCreateMatch.toJson()}');
 
         request.response.statusCode = HttpStatus.created;

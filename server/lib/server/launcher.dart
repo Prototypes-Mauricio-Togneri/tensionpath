@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/matches/match_manager.dart';
+import 'package:tensionpath/server/dispatcher.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
 import 'package:tensionpath/server/looper.dart';
@@ -15,16 +15,16 @@ class Launcher {
     Logger.info('Port: ${environment.port}');
     Logger.info('API Key: ${environment.apiKey}');
 
-    final MatchManager matchManager = MatchManager();
-    final Handler handler = Handler(matchManager);
+    final Dispatcher dispatcher = Dispatcher();
+    final Handler handler = Handler(dispatcher);
     final Server server = Server(
-      matchManager: matchManager,
+      dispatcher: dispatcher,
       handler: handler,
       environment: environment,
     );
     await server.start();
 
-    final Looper looper = Looper(matchManager);
+    final Looper looper = Looper(dispatcher);
     await looper.start();
   }
 }
