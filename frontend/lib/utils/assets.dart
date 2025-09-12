@@ -19,5 +19,4 @@ class Assets {
   static const String IMAGES_UNITS_HARVESTER = 'units/harvester.png';
   static const String IMAGES_UNITS_INFANTRY = 'units/infantry.png';
   static const String IMAGES_UNITS_VEHICLE = 'units/vehicle.png';
-  static const String TEMPLATES_W9H7 = 'templates/w9h7.json';
 }
