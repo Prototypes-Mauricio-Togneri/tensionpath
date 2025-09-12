@@ -113,7 +113,7 @@ const createMatch = async (params: {
 }): Promise<Room> => {
   const matchId = IS_EMULATOR ? 'test-match-id' : new Date().getTime().toString()
 
-  const url = `${MATCH_SERVER_HTTP}/matches`
+  const url = `${MATCH_SERVER_HTTP.value()}/matches`
 
   const data = {
     'matchId': matchId,
@@ -130,7 +130,7 @@ const createMatch = async (params: {
 
   const config = {
     headers: {
-      'x-api-key': API_KEY,
+      'x-api-key': API_KEY.value(),
       'Content-Type': 'application/json',
     },
   }
@@ -140,7 +140,7 @@ const createMatch = async (params: {
   if (response.status === 201) {
     const newRoom = params.room
     newRoom.matchId = matchId
-    newRoom.matchHost = MATCH_SERVER_WS
+    newRoom.matchHost = MATCH_SERVER_WS.value()
 
     await updateRoomDocument({
       database: params.database,
