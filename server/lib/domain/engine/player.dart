@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
+import 'package:tensionpath/utils/map_list.dart';
 
 class Player {
   final String id;
@@ -27,6 +28,16 @@ class Player {
       baseHealth: json.baseHealth,
       resources: json.resources,
     );
+  }
+
+  static MapList<String, Player> list(List<JsonPlayer> json) {
+    final MapList<String, Player> result = MapList();
+
+    for (final JsonPlayer jsonPlayer in json) {
+      result.add(jsonPlayer.id, Player.fromJson(jsonPlayer));
+    }
+
+    return result;
   }
 
   JsonPlayerUpdate toJsonUpdate() => JsonPlayerUpdate(

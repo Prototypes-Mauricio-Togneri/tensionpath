@@ -3,17 +3,17 @@ import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
-import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
+import 'package:tensionpath/utils/map_list.dart';
 
 class Match {
   final Connection connection;
   final Battlefield battlefield;
-  final Map<String, Player> players;
+  final MapList<String, Player> players;
   double totalTime = 0;
   MatchStatus status;
 
@@ -27,20 +27,12 @@ class Match {
   factory Match.fromJson({
     required Connection connection,
     required JsonMatch jsonMatch,
-  }) {
-    final Map<String, Player> players = {};
-
-    for (final JsonPlayer jsonPlayer in jsonMatch.players) {
-      players[jsonPlayer.id] = Player.fromJson(jsonPlayer);
-    }
-
-    return Match._(
-      connection: connection,
-      status: MatchStatus.playing,
-      battlefield: Battlefield.fromJson(jsonMatch.battlefield),
-      players: players,
-    );
-  }
+  }) => Match._(
+    connection: connection,
+    status: MatchStatus.playing,
+    battlefield: Battlefield.fromJson(jsonMatch.battlefield),
+    players: Player.list(jsonMatch.players),
+  );
 
   /*JsonMatch json(Player self) {
     final List<JsonPlayer> jsonPlayers = players
@@ -63,8 +55,7 @@ class Match {
     required UnitType type,
   }) {
     final Map<String, JsonPlayerUpdate> playersUpdate = {
-      for (final Player player in players.values)
-        player.id: player.toJsonUpdate(),
+      for (final Player player in players) player.id: player.toJsonUpdate(),
     };
 
     final JsonMatchUpdate update = JsonMatchUpdate(

@@ -29,7 +29,7 @@ class Battlefield {
     width: json.size.width,
     height: json.size.height,
     missile: Missile.fromJson(json.missile),
-    resources: MapList(),
+    resources: Resources.list(json.resources),
     launchers: MapList(),
     nodes: [],
     units: [],
