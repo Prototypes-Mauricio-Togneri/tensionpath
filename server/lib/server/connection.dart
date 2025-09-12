@@ -15,6 +15,7 @@ class Connection {
   final int numberOfPlayers;
   final String matchType;
   final Map<String, String> players;
+  final Map<String, String> playerIdToIndex = {};
   final Map<String, WebSocket> playerIdToWebSocket = {};
   final Map<WebSocket, String> webSocketToPlayerId = {};
   Match? _match;
@@ -87,12 +88,10 @@ class Connection {
 
     if (jsonMatch.players.length == playersData.length) {
       for (int i = 0; i < playersData.length; i++) {
-        final String id = playersData[i].key;
-        final String name = playersData[i].value;
         final JsonPlayer jsonPlayer = jsonMatch.players[i];
-
-        jsonPlayer.id = id;
-        jsonPlayer.name = name;
+        jsonPlayer.id = playersData[i].key;
+        jsonPlayer.name = playersData[i].value;
+        playerIdToIndex[jsonPlayer.id] = jsonPlayer.index;
       }
     } else {
       throw JsonMessage.error(
@@ -122,19 +121,18 @@ class Connection {
     required JsonLocation location,
     required UnitType type,
   }) {
-    final String playerId = _getPlayerId(socket);
     match.deployUnit(
-      playerIndex: playerId,
+      playerIndex: _getPlayerIndex(socket),
       location: location,
       type: type,
     );
   }
 
-  String _getPlayerId(WebSocket socket) {
+  String _getPlayerIndex(WebSocket socket) {
     final String? playerId = webSocketToPlayerId[socket];
 
     if (playerId != null) {
-      return playerId;
+      return playerIdToIndex[playerId]!;
     } else {
       throw JsonMessage.error('Player not in match');
     }
