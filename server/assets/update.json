@@ -1,10 +1,10 @@
 {
     "players": {
-        "user1": {
+        "1": {
             "baseHealth": 1000,
             "resources": 100
         },
-        "user2": {
+        "2": {
             "baseHealth": 1000,
             "resources": 50
         }
