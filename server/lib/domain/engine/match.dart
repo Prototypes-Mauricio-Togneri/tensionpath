@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/engine/battlefield.dart';
 import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
@@ -11,6 +12,7 @@ import 'package:tensionpath/server/connection.dart';
 
 class Match {
   final Connection connection;
+  final Battlefield battlefield;
   final Map<String, Player> players;
   double totalTime = 0;
   MatchStatus status;
@@ -18,10 +20,11 @@ class Match {
   Match._({
     required this.connection,
     required this.status,
+    required this.battlefield,
     required this.players,
   });
 
-  factory Match.create({
+  factory Match.fromJson({
     required Connection connection,
     required JsonMatch jsonMatch,
   }) {
@@ -34,6 +37,7 @@ class Match {
     return Match._(
       connection: connection,
       status: MatchStatus.playing,
+      battlefield: Battlefield.fromJson(jsonMatch.battlefield),
       players: players,
     );
   }

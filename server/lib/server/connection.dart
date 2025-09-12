@@ -100,7 +100,7 @@ class Connection {
       );
     }
 
-    _match = Match.create(
+    _match = Match.fromJson(
       connection: this,
       jsonMatch: jsonMatch,
     );
