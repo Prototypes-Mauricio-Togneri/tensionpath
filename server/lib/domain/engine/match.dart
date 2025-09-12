@@ -50,11 +50,11 @@ class Match {
   }*/
 
   void deployUnit({
-    required String playerId,
+    required String playerIndex,
     required JsonLocation location,
     required UnitType type,
   }) {
-    final Player player = players.get(playerId);
+    final Player player = players.get(playerIndex);
     player.removeResources(type.cost.toDouble());
 
     final Map<String, JsonPlayerUpdate> playersUpdate = {

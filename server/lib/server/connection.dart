@@ -124,7 +124,7 @@ class Connection {
   }) {
     final String playerId = _getPlayerId(socket);
     match.deployUnit(
-      playerId: playerId,
+      playerIndex: playerId,
       location: location,
       type: type,
     );
