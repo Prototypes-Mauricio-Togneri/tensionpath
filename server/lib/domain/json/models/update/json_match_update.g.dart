@@ -18,6 +18,10 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
             ),
           ),
         ),
+        missile: $checkedConvert(
+          'missile',
+          (v) => JsonMissileUpdate.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -25,4 +29,5 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
     <String, dynamic>{
       'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
+      'missile': instance.missile.toJson(),
     };
