@@ -2,8 +2,8 @@
     "createdAt": "2025-09-13T14:23:45.123Z",
     "players": [
         {
-            "id": "",
-            "name": "",
+            "id": "111",
+            "name": "BOB",
             "isSelf": true,
             "index": "1",
             "baseHealth": 1000,
@@ -11,8 +11,8 @@
             "resources": 100
         },
         {
-            "id": "",
-            "name": "",
+            "id": "222",
+            "name": "MAX",
             "isSelf": false,
             "index": "2",
             "baseHealth": 1000,

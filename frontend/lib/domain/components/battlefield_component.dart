@@ -39,10 +39,11 @@ class BattlefieldComponent extends PositionComponent {
     final Sprite sprite = await Sprite.load(
       Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
     );
-    final Vector2 nodeSize = Dimensions.nodeSize(
+    final Vector2 nodeSize = Vector2(100, 100);
+    /*Dimensions.nodeSize(
       canvasSize: size,
       battlefield: battlefield,
-    );
+    );*/
     final Vector2 mapCenter = size / 2;
 
     add(
@@ -226,15 +227,19 @@ class BattlefieldGridComponent extends SpriteComponent {
 
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
+    final Vector2 mapCenter = size / 2;
 
-    for (int x = 0; x < mapSize.x; x++) {
-      for (int y = 0; y < mapSize.y; y++) {
+    for (int x = -5; x <= 5; x++) {
+      for (int y = -2; y <= 2; y++) {
         final Vector2 position = Dimensions.nodePosition(
-          location: Vector2(x.toDouble(), y.toDouble()),
+          location: Vector2(
+            x.toDouble(),
+            y.toDouble(),
+          ),
           nodeSize: nodeSize,
         );
         canvas.drawNode(
-          center: position,
+          center: position + mapCenter,
           size: nodeSize,
           borderPaint: borderPaint,
         );
