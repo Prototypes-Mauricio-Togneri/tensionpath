@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:dafluta/dafluta.dart';
+import 'package:flutter/services.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/connection.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
@@ -34,7 +39,17 @@ class MatchState extends BaseState {
   bool get isLoading => gameComponent == null;
 
   @override
-  Future onLoad() => connection.connect();
+  Future onLoad() async {
+    //connection.connect();
+    final String content = await rootBundle.loadString(Assets.MAPS_W11H5);
+    final JsonMatch json = JsonMatch.fromJson(jsonDecode(content));
+
+    gameComponent = GameComponent(
+      match: json,
+      matchState: this,
+    );
+    notify();
+  }
 
   @override
   void onDestroy() => connection.disconnect();

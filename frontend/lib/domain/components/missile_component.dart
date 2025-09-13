@@ -4,7 +4,6 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class MissileComponent extends SpriteComponent {
@@ -32,7 +31,7 @@ class MissileComponent extends SpriteComponent {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
+    //sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
     add(missileIndicator);
 
     return super.onLoad();

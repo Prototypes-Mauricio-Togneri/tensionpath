@@ -5,7 +5,14 @@ import 'package:tensionpath/utils/navigation.dart';
 class HomeState extends BaseState {
   void onSettings() => Navigation.settingsScreen();
 
-  void onPlay() => Navigation.lobbyScreen();
+  void onPlay() {
+    Navigation.matchScreen(
+      host: '',
+      matchId: '',
+      userId: '',
+    );
+    //Navigation.lobbyScreen();
+  }
 
   void onFullscreen() => SetFullscreen.set();
 }
