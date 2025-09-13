@@ -1,14 +1,20 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
+import 'package:tensionpath/utils/palette.dart';
 
-class LauncherComponent extends SpriteComponent {
+class LauncherComponent extends PositionComponent {
   final Player player;
   final NodeComponent nodeComponent;
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint borderPaint = Palette.paint(style: PaintingStyle.fill);
+  late final double borderWidth;
 
   LauncherComponent({
     required super.position,
@@ -28,12 +34,24 @@ class LauncherComponent extends SpriteComponent {
 
   @override
   FutureOr onLoad() async {
-    if (player.isPlayer1) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_1);
-    } else if (player.isPlayer2) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_2);
-    }
+    borderWidth = size.x * 0.05;
+    foregroundPaint.color = player.color;
+    borderPaint.color = player.color.darken(0.3);
 
     return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawStructure(
+      center: position,
+      width: width,
+      height: height,
+      borderWidth: borderWidth,
+      foregroundPaint: foregroundPaint,
+      borderPaint: borderPaint,
+    );
   }
 }

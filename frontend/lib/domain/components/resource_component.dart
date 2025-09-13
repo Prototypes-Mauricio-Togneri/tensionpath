@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ResourceComponent extends PositionComponent {
@@ -28,7 +29,7 @@ class ResourceComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawRect(
+    /*canvas.drawRect(
       Rect.fromLTWH(0, 0, width, height),
       foregroundPaint,
     );
@@ -40,6 +41,15 @@ class ResourceComponent extends PositionComponent {
         height - borderWidth * 2,
       ),
       borderPaint,
+    );*/
+
+    canvas.drawStructure(
+      center: position,
+      width: width,
+      height: height,
+      borderWidth: borderWidth,
+      foregroundPaint: foregroundPaint,
+      borderPaint: borderPaint,
     );
   }
 }

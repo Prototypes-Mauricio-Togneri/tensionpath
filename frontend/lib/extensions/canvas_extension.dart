@@ -58,6 +58,29 @@ extension CanvasExtension on Canvas {
     }
   }
 
+  void drawStructure({
+    required Vector2 center,
+    required double width,
+    required double height,
+    required double borderWidth,
+    required Paint foregroundPaint,
+    required Paint borderPaint,
+  }) {
+    drawRect(
+      Rect.fromLTWH(0, 0, width, height),
+      borderPaint,
+    );
+    drawRect(
+      Rect.fromLTWH(
+        borderWidth,
+        borderWidth,
+        width - borderWidth * 2,
+        height - borderWidth * 2,
+      ),
+      foregroundPaint,
+    );
+  }
+
   void drawHexagon({
     required Vector2 center,
     required Vector2 size,
