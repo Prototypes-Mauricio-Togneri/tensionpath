@@ -3,11 +3,13 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/domain/json/models/start/json_platform.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource.dart';
 import 'package:tensionpath/domain/json/models/start/json_size.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -84,40 +86,9 @@ class BattlefieldComponent extends PositionComponent {
 
     _addLauncherComponents(nodeSize);
 
-    /*for (final JsonLaunchers launchers in battlefield.) {
-      for (final JsonLocation location in launchers.locations) {
-        final Vector2 nodePosition = Dimensions.nodePosition(
-          center: mapCenter,
-          nodeSize: nodeSize,
-          location: location,
-        );
-        final LauncherComponent launcherComponent = LauncherComponent(
-          position: nodePosition,
-          size: nodeSize,
-          player: self.index == launchers.playerIndex ? self : opponent,
-          nodeComponent: match.getNodeById(location.id),
-        );
-        add(launcherComponent);
-        launcherComponents.add(launcherComponent);
-      }
-    }*/
+    _addPlatformComponents(nodeSize);
 
-    /*for (final JsonPlatform platform in battlefield.missile.platforms) {
-      for (final JsonLocation location in platform.pads) {
-        final Vector2 position = Dimensions.nodePosition(
-          center: mapCenter,
-          nodeSize: nodeSize,
-          location: location,
-        );
-        final PadComponent padComponent = PadComponent(
-          position: position,
-          size: nodeSize,
-          platformId: platform.id,
-          owner: null,
-        );
-        add(padComponent);
-      }
-    }
+    /*
 
     add(
       FogComponent(
@@ -254,6 +225,23 @@ class BattlefieldComponent extends PositionComponent {
         add(launcherComponent);
         launcherComponents.add(launcherComponent);
       }
+    }
+  }
+
+  void _addPlatformComponents(Vector2 nodeSize) {
+    for (final JsonPlatform platform in battlefield.platforms) {
+      final Vector2 position = Dimensions.nodePosition(
+        location: platform.location.toVector2(),
+        nodeSize: nodeSize,
+        canvasSize: size,
+      );
+      final PadComponent padComponent = PadComponent(
+        position: position,
+        size: nodeSize,
+        platformId: platform.id,
+        owner: null,
+      );
+      add(padComponent);
     }
   }
 }
