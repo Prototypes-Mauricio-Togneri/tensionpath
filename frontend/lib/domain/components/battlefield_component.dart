@@ -229,8 +229,15 @@ class BattlefieldGridComponent extends SpriteComponent {
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
     final Vector2 mapCenter = size / 2;
 
-    for (int x = -5; x <= 5; x++) {
-      for (int y = -2; y <= 2; y++) {
+    final int halfX = mapSize.x ~/ 2;
+    final int halfY = mapSize.y ~/ 2;
+    final int minX = -halfX;
+    final int maxX = halfX;
+    final int minY = -halfY;
+    final int maxY = halfY;
+
+    for (int x = minX; x <= maxX; x++) {
+      for (int y = minY; y <= maxY; y++) {
         final Vector2 position = Dimensions.nodePosition(
           location: Vector2(
             x.toDouble(),
