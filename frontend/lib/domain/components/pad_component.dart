@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -23,21 +22,20 @@ class PadComponent extends PositionComponent {
          priority: Priority.structure.value,
        ) {
     borderWidth = size.x * 0.05;
+    foregroundPaint.color = Palette.PAD_BACKGROUND;
     refresh();
   }
 
   void refresh() {
     if (owner == Constants.PLAYER_1) {
-      foregroundPaint.color = Palette.PLAYER_1;
+      borderPaint.color = Palette.PLAYER_1;
     } else if (owner == Constants.PLAYER_2) {
-      foregroundPaint.color = Palette.PLAYER_2;
+      borderPaint.color = Palette.PLAYER_2;
     } else if (owner == '') {
-      foregroundPaint.color = Palette.PLAYER_1;
+      borderPaint.color = Palette.PAD_CONTESTED;
     } else if (owner == null) {
-      foregroundPaint.color = Palette.PLAYER_1;
+      borderPaint.color = Palette.PAD_NEUTRAL;
     }
-
-    borderPaint.color = foregroundPaint.color.darken(0.3);
   }
 
   @override

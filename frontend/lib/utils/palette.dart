@@ -24,8 +24,9 @@ class Palette {
 
   static const Color RESOURCES = Color(0xff149434);
 
-  static const Color PAD_NEUTRAL = Color(0xff149434);
-  static const Color PAD_CONTESTED = Color(0xff149434);
+  static const Color PAD_BACKGROUND = Color(0xff8B8B8B);
+  static const Color PAD_NEUTRAL = Color(0xff666767);
+  static const Color PAD_CONTESTED = Color(0xffEAA60F);
 
   static const Color UNIT_HEALTH_BORDER = Colors.white;
 
