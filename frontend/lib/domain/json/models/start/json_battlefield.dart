@@ -1,10 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
-import 'json_launchers.dart';
-import 'json_missile.dart';
-import 'json_resource.dart';
-import 'json_size.dart';
+import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/start/json_platform.dart';
+import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/json/models/start/json_size.dart';
 
 part 'json_battlefield.g.dart';
 
@@ -16,25 +14,17 @@ class JsonBattlefield {
   @JsonKey(name: 'missile')
   final JsonMissile missile;
 
+  @JsonKey(name: 'platforms')
+  final List<JsonPlatform> platforms;
+
   @JsonKey(name: 'resources')
   final List<JsonResource> resources;
-
-  @JsonKey(name: 'launchers')
-  final List<JsonLaunchers> launchers;
-
-  @JsonKey(name: 'nodes')
-  final List<JsonLocation> nodes;
-
-  @JsonKey(name: 'units')
-  final List<JsonUnitUpdate> units;
 
   const JsonBattlefield({
     required this.size,
     required this.missile,
+    required this.platforms,
     required this.resources,
-    required this.launchers,
-    required this.nodes,
-    required this.units,
   });
 
   factory JsonBattlefield.fromJson(Map<String, dynamic> json) =>

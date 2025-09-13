@@ -4,16 +4,16 @@ import 'package:tensionpath/utils/map_list.dart';
 
 class Platform {
   final String id;
-  final List<Location> pads;
+  final Location location;
 
   const Platform({
     required this.id,
-    required this.pads,
+    required this.location,
   });
 
   factory Platform.fromJson(JsonPlatform json) => Platform(
     id: json.id,
-    pads: json.pads.map(Location.fromJson).toList(),
+    location: Location.fromJson(json.location),
   );
 
   static MapList<String, Platform> list(List<JsonPlatform> json) {

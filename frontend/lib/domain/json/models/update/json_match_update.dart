@@ -13,16 +13,12 @@ class JsonMatchUpdate {
   @JsonKey(name: 'missile')
   final JsonMissileUpdate missile;
 
-  @JsonKey(name: 'resources')
-  final Map<String, double> resources;
-
   @JsonKey(name: 'units')
   final Map<String, JsonUnitUpdate> units;
 
   JsonMatchUpdate({
     required this.players,
     required this.missile,
-    required this.resources,
     required this.units,
   });
 

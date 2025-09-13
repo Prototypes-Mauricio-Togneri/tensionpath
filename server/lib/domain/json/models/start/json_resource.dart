@@ -11,17 +11,9 @@ class JsonResource {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
-  @JsonKey(name: 'amountCurrent')
-  final double amountCurrent;
-
-  @JsonKey(name: 'amountMax')
-  final double amountMax;
-
   const JsonResource({
     required this.id,
     required this.location,
-    required this.amountCurrent,
-    required this.amountMax,
   });
 
   factory JsonResource.fromJson(Map<String, dynamic> json) =>

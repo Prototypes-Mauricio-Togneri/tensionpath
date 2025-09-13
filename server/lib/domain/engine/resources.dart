@@ -5,21 +5,15 @@ import 'package:tensionpath/utils/map_list.dart';
 class Resources {
   final String id;
   final Location location;
-  final double amountMax;
-  double amountCurrent;
 
   Resources({
     required this.id,
     required this.location,
-    required this.amountCurrent,
-    required this.amountMax,
   });
 
   factory Resources.fromJson(JsonResource json) => Resources(
     id: json.id,
     location: Location.fromJson(json.location),
-    amountCurrent: json.amountCurrent,
-    amountMax: json.amountMax,
   );
 
   static MapList<String, Resources> list(List<JsonResource> json) {

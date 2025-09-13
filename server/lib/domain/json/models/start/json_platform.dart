@@ -8,12 +8,12 @@ class JsonPlatform {
   @JsonKey(name: 'id')
   final String id;
 
-  @JsonKey(name: 'pads')
-  final List<JsonLocation> pads;
+  @JsonKey(name: 'location')
+  final JsonLocation location;
 
   const JsonPlatform({
     required this.id,
-    required this.pads,
+    required this.location,
   });
 
   factory JsonPlatform.fromJson(Map<String, dynamic> json) =>
