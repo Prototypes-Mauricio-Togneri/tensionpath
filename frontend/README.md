@@ -26,6 +26,7 @@
 - After 5 minutes, bases take damage every turn
 - Show match replay
 - Commanders abilities
+
   - Paratroopers (only on revealed tiles)
   - Radar
     - Reveal map
@@ -36,6 +37,33 @@
     - Center tile and adjacents (more expensive or less damage in each node)
     - Vertical (affects 2 tiles in a column)
     - Mine
+
+## Combat
+
+- Face to face
+  - Pros: can hold a tile while fighting
+  - Cons: hard to implement (implies shooting?)
+- Same spot
+  - Pros: easy to implement
+  - Cons: can't hold a tile while fighting
+
+## Movement
+
+- Free movement
+  - Pros: more tactical
+  - Cons: harder to implement
+- Forward movement
+  - Pros: easy to implement
+  - Cons: less tactical
+
+## Map
+
+- Hex
+  - Pros: better diagonal movement, more tactical
+  - Cons: harder to implement
+- Square
+  - Pros: easier to implement
+  - Cons: less tactical
 
 ## Units
 
