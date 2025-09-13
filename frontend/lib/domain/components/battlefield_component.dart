@@ -82,33 +82,7 @@ class BattlefieldComponent extends PositionComponent {
 
     _addResourceComponents(nodeSize);
 
-    final int halfWidth = battlefield.size.width ~/ 2;
-    final int halfHeight = battlefield.size.height ~/ 2;
-    final int column1 = -halfWidth;
-    final int column2 = halfWidth;
-
-    for (final String playerIndex in ['1', '2']) {
-      for (int i = -halfHeight; i <= halfHeight; i++) {
-        final JsonLocation location = JsonLocation(
-          x: playerIndex == '1' ? column1 : column2,
-          y: i,
-        );
-
-        final Vector2 nodePosition = Dimensions.nodePosition(
-          location: location.toVector2(),
-          nodeSize: nodeSize,
-          canvasSize: size,
-        );
-        final LauncherComponent launcherComponent = LauncherComponent(
-          position: nodePosition,
-          size: nodeSize,
-          player: self.index == playerIndex ? self : opponent,
-          nodeComponent: match.getNodeById(location.id),
-        );
-        add(launcherComponent);
-        launcherComponents.add(launcherComponent);
-      }
-    }
+    _addLauncherComponents(nodeSize);
 
     /*for (final JsonLaunchers launchers in battlefield.) {
       for (final JsonLocation location in launchers.locations) {
@@ -250,6 +224,36 @@ class BattlefieldComponent extends PositionComponent {
         size: nodeSize,
       );
       add(resourceComponent);
+    }
+  }
+
+  void _addLauncherComponents(Vector2 nodeSize) {
+    final int halfWidth = battlefield.size.width ~/ 2;
+    final int halfHeight = battlefield.size.height ~/ 2;
+    final int column1 = -halfWidth;
+    final int column2 = halfWidth;
+
+    for (final String playerIndex in ['1', '2']) {
+      for (int i = -halfHeight; i <= halfHeight; i++) {
+        final JsonLocation location = JsonLocation(
+          x: playerIndex == '1' ? column1 : column2,
+          y: i,
+        );
+
+        final Vector2 nodePosition = Dimensions.nodePosition(
+          location: location.toVector2(),
+          nodeSize: nodeSize,
+          canvasSize: size,
+        );
+        final LauncherComponent launcherComponent = LauncherComponent(
+          position: nodePosition,
+          size: nodeSize,
+          player: self.index == playerIndex ? self : opponent,
+          nodeComponent: match.getNodeById(location.id),
+        );
+        add(launcherComponent);
+        launcherComponents.add(launcherComponent);
+      }
     }
   }
 }
