@@ -50,9 +50,9 @@ class BattlefieldComponent extends PositionComponent {
 
     add(
       BattlefieldBackgroundComponent(
-        sprite: sprite,
         position: mapCenter,
         size: sprite.originalSize,
+        sprite: sprite,
       ),
     );
 
@@ -201,9 +201,9 @@ class BattlefieldComponent extends PositionComponent {
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
   BattlefieldBackgroundComponent({
-    required super.sprite,
     required super.position,
     required super.size,
+    required super.sprite,
   }) : super(anchor: Anchor.center);
 }
 
@@ -224,8 +224,7 @@ class BattlefieldGridComponent extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    // TODO(momo): make dynamic based on map size
-    borderPaint.strokeWidth = 3;
+    borderPaint.strokeWidth = size.y / 300;
 
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
