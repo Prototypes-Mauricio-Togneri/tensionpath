@@ -12,7 +12,6 @@ class NodeComponent extends PositionComponent {
   final JsonLocation location;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    strokeWidth: 5,
     color: Palette.NODE_HIGHLIGHT,
   );
   bool highlighted = false;
@@ -25,7 +24,9 @@ class NodeComponent extends PositionComponent {
   }) : super(
          anchor: Anchor.center,
          priority: Priority.node.value,
-       );
+       ) {
+    borderPaint.strokeWidth = size.x * 0.05;
+  }
 
   @override
   bool containsLocalPoint(Vector2 point) => Dimensions.pointInHexagon(
@@ -67,9 +68,9 @@ class NodeComponent extends PositionComponent {
     super.render(canvas);
 
     if (highlighted) {
-      canvas.drawHexagon(
+      canvas.drawNode(
         center: size / 2,
-        size: size,
+        size: size * 0.96,
         borderPaint: borderPaint,
       );
     }

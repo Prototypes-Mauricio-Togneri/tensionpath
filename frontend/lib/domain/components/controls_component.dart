@@ -155,15 +155,7 @@ class UnitImageComponent extends PositionComponent with DragCallbacks {
   }) : super(anchor: Anchor.center) {
     borderPaint.color = player.color;
   }
-
-  /*@override
-  FutureOr onLoad() async {
-    sprite = await Sprite.load(unitType.thumbnail);
-    decorator.addLast(PaintDecorator.tint(player.color));
-
-    return super.onLoad();
-  }*/
-
+  
   @override
   void render(Canvas canvas) {
     super.render(canvas);
