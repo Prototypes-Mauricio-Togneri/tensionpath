@@ -6,8 +6,10 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/json/models/start/json_size.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/json_location_extension.dart';
@@ -50,6 +52,9 @@ class BattlefieldComponent extends PositionComponent {
       ),
     );
     final Vector2 mapCenter = size / 2;
+    final List<JsonLocation> nodePositions = _getNodeLocations(
+      battlefield.size,
+    );
 
     add(
       BattlefieldBackgroundComponent(
@@ -63,15 +68,26 @@ class BattlefieldComponent extends PositionComponent {
       BattlefieldGridComponent(
         position: mapCenter,
         size: size,
+        nodeLocations: nodePositions,
         nodeSize: nodeSize,
-        mapSize: Vector2(
-          battlefield.size.width.toDouble(),
-          battlefield.size.height.toDouble(),
-        ),
       ),
     );
 
-    /*for (final JsonLocation location in battlefield.nodes) {
+    /*for (final Vector2 position in nodePositions) {
+      add(
+        NodeComponent(
+          position: position,
+          size: nodeSize,
+          type: NodeType.empty,
+          location: JsonLocation(
+            x: ((position.x - (size.x / 2)) / nodeSize.x).round(),
+            y: ((position.y - (size.y / 2)) / nodeSize.y).round(),
+          ),
+        ),
+      );
+    }
+
+    for (final JsonLocation location in battlefield.nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: size / 2,
         nodeSize: nodeSize,
@@ -109,35 +125,34 @@ class BattlefieldComponent extends PositionComponent {
       add(resourceComponent);
     }
 
-    /*final MissileComponent missileComponent = MissileComponent(
-      position: Dimensions.nodePosition(
-        center: mapCenter,
-        nodeSize: nodeSize,
-        location: battlefield.missile.location,
-      ),
-      size: nodeSize,
-      missile: battlefield.missile,
-    );
-    add(missileComponent);
+    /*final int half = width ~/ 2;
+    final int column1 = -half;
+    final int column2 = half;
 
-    for (final JsonPlatform platform in battlefield.missile.platforms) {
-      for (final JsonLocation location in platform.pads) {
-        final Vector2 position = Dimensions.nodePosition(
-          center: mapCenter,
+    for (final String playerIndex in ['1', '2']) {
+      for (int i = 0; i < height; i++) {
+        final JsonLocation location = JsonLocation(
+          x: playerIndex == '1' ? column1 : column2,
+          y: i,
+        );
+
+        final Vector2 nodePosition = Dimensions.nodePosition(
+          location: location.toVector2(),
           nodeSize: nodeSize,
-          location: location,
+          canvasSize: size,
         );
-        final PadComponent padComponent = PadComponent(
-          position: position,
+        final LauncherComponent launcherComponent = LauncherComponent(
+          position: nodePosition,
           size: nodeSize,
-          platformId: platform.id,
-          owner: null,
+          player: self.index == playerIndex ? self : opponent,
+          nodeComponent: match.getNodeById(location.id),
         );
-        add(padComponent);
+        add(launcherComponent);
+        launcherComponents.add(launcherComponent);
       }
-    }
+    }*/
 
-    for (final JsonLaunchers launchers in battlefield.launchers) {
+    /*for (final JsonLaunchers launchers in battlefield.) {
       for (final JsonLocation location in launchers.locations) {
         final Vector2 nodePosition = Dimensions.nodePosition(
           center: mapCenter,
@@ -152,6 +167,23 @@ class BattlefieldComponent extends PositionComponent {
         );
         add(launcherComponent);
         launcherComponents.add(launcherComponent);
+      }
+    }*/
+
+    /*for (final JsonPlatform platform in battlefield.missile.platforms) {
+      for (final JsonLocation location in platform.pads) {
+        final Vector2 position = Dimensions.nodePosition(
+          center: mapCenter,
+          nodeSize: nodeSize,
+          location: location,
+        );
+        final PadComponent padComponent = PadComponent(
+          position: position,
+          size: nodeSize,
+          platformId: platform.id,
+          owner: null,
+        );
+        add(padComponent);
       }
     }
 
@@ -199,6 +231,24 @@ class BattlefieldComponent extends PositionComponent {
 
     return NodeType.empty;
   }*/
+
+  List<JsonLocation> _getNodeLocations(JsonSize size) {
+    final List<JsonLocation> result = [];
+    final int halfX = size.width ~/ 2;
+    final int halfY = size.height ~/ 2;
+    final int minX = -halfX;
+    final int maxX = halfX;
+    final int minY = -halfY;
+    final int maxY = halfY;
+
+    for (int x = minX; x <= maxX; x++) {
+      for (int y = minY; y <= maxY; y++) {
+        result.add(JsonLocation(x: x, y: y));
+      }
+    }
+
+    return result;
+  }
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
@@ -214,14 +264,14 @@ class BattlefieldGridComponent extends SpriteComponent {
     style: PaintingStyle.stroke,
     color: Palette.NODE_BORDER,
   );
+  final List<JsonLocation> nodeLocations;
   final Vector2 nodeSize;
-  final Vector2 mapSize;
 
   BattlefieldGridComponent({
     required super.position,
     required super.size,
+    required this.nodeLocations,
     required this.nodeSize,
-    required this.mapSize,
   }) : super(anchor: Anchor.center);
 
   @override
@@ -231,29 +281,18 @@ class BattlefieldGridComponent extends SpriteComponent {
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
-    final int halfX = mapSize.x ~/ 2;
-    final int halfY = mapSize.y ~/ 2;
-    final int minX = -halfX;
-    final int maxX = halfX;
-    final int minY = -halfY;
-    final int maxY = halfY;
+    for (final JsonLocation location in nodeLocations) {
+      final Vector2 position = Dimensions.nodePosition(
+        location: location.toVector2(),
+        nodeSize: nodeSize,
+        canvasSize: size,
+      );
 
-    for (int x = minX; x <= maxX; x++) {
-      for (int y = minY; y <= maxY; y++) {
-        final Vector2 position = Dimensions.nodePosition(
-          location: Vector2(
-            x.toDouble(),
-            y.toDouble(),
-          ),
-          nodeSize: nodeSize,
-          canvasSize: size,
-        );
-        canvas.drawNode(
-          center: position,
-          size: nodeSize,
-          borderPaint: borderPaint,
-        );
-      }
+      canvas.drawNode(
+        center: position,
+        size: nodeSize,
+        borderPaint: borderPaint,
+      );
     }
 
     final Picture picture = recorder.endRecording();

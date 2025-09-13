@@ -23,7 +23,7 @@ class Launcher {
       for (int i = 0; i < height; i++) {
         final Location location = Location(
           x: playerIndex == '1' ? column1 : column2,
-          y: height,
+          y: i,
         );
         final Launcher launcher = Launcher(
           playerIndex: playerIndex,
