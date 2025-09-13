@@ -3,11 +3,14 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/domain/json/models/start/json_resource.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/json_location_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -93,19 +96,18 @@ class BattlefieldComponent extends PositionComponent {
       nodeComponents.add(nodeComponent);
     }*/
 
-    /*for (final JsonResource resource in battlefield.resources) {
+    for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
-        center: mapCenter,
+        location: resource.location.toVector2(),
         nodeSize: nodeSize,
-        location: resource.location,
+        canvasSize: size,
       );
       final ResourceComponent resourceComponent = ResourceComponent(
         position: position,
         size: nodeSize,
-        resource: resource,
       );
       add(resourceComponent);
-    }*/
+    }
 
     /*final MissileComponent missileComponent = MissileComponent(
       position: Dimensions.nodePosition(
