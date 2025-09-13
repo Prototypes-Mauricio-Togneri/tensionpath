@@ -80,18 +80,7 @@ class BattlefieldComponent extends PositionComponent {
       nodeSize: nodeSize,
     );
 
-    for (final JsonResource resource in battlefield.resources) {
-      final Vector2 position = Dimensions.nodePosition(
-        location: resource.location.toVector2(),
-        nodeSize: nodeSize,
-        canvasSize: size,
-      );
-      final ResourceComponent resourceComponent = ResourceComponent(
-        position: position,
-        size: nodeSize,
-      );
-      add(resourceComponent);
-    }
+    _addResourceComponents(nodeSize);
 
     final int halfWidth = battlefield.size.width ~/ 2;
     final int halfHeight = battlefield.size.height ~/ 2;
@@ -246,6 +235,21 @@ class BattlefieldComponent extends PositionComponent {
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);
+    }
+  }
+
+  void _addResourceComponents(Vector2 nodeSize) {
+    for (final JsonResource resource in battlefield.resources) {
+      final Vector2 position = Dimensions.nodePosition(
+        location: resource.location.toVector2(),
+        nodeSize: nodeSize,
+        canvasSize: size,
+      );
+      final ResourceComponent resourceComponent = ResourceComponent(
+        position: position,
+        size: nodeSize,
+      );
+      add(resourceComponent);
     }
   }
 }
