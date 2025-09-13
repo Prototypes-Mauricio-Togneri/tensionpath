@@ -155,7 +155,7 @@ class MatchComponent extends World {
       }
     }
 
-    throw Exception('Node not found');
+    throw Exception('Node $id not found');
   }
 
   void highlightNodeAt({
