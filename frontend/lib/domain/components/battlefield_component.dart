@@ -39,11 +39,13 @@ class BattlefieldComponent extends PositionComponent {
     final Sprite sprite = await Sprite.load(
       Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
     );
-    final Vector2 nodeSize = Vector2(100, 100);
-    /*Dimensions.nodeSize(
-      canvasSize: size,
-      battlefield: battlefield,
-    );*/
+    final Vector2 nodeSize = Dimensions.nodeSize(
+      canvasSize: size * 0.9,
+      mapSize: Size(
+        battlefield.size.width.toDouble(),
+        battlefield.size.height.toDouble(),
+      ),
+    );
     final Vector2 mapCenter = size / 2;
 
     add(

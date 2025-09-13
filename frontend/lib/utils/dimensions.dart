@@ -1,8 +1,7 @@
-import 'dart:math';
+import 'dart:ui';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 
 class Dimensions {
   static Vector2 cameraSize(Vector2 canvasSize) => Vector2(
@@ -68,38 +67,16 @@ class Dimensions {
     resolution.y - headerSize(resolution).y,
   );
 
-  static Vector2 maxNodeSizeWidth({
-    required Vector2 canvasSize,
-    required JsonBattlefield battlefield,
-  }) {
-    final double maxWidth = canvasSize.x / (battlefield.size.width * 1.15);
-
-    return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
-  }
-
-  static Vector2 maxNodeSizeHeight({
-    required Vector2 canvasSize,
-    required JsonBattlefield battlefield,
-  }) {
-    final double maxHeight = canvasSize.y / (battlefield.size.height * 0.85);
-
-    return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
-  }
-
   static Vector2 nodeSize({
     required Vector2 canvasSize,
-    required JsonBattlefield battlefield,
+    required Size mapSize,
   }) {
-    final Vector2 maxSizeWidth = maxNodeSizeWidth(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
-    final Vector2 maxSizeHeight = maxNodeSizeHeight(
-      canvasSize: canvasSize,
-      battlefield: battlefield,
-    );
+    final double maxNodeWidth = canvasSize.x / mapSize.width;
+    final double maxNodeHeight = canvasSize.y / mapSize.height;
 
-    return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
+    return (maxNodeWidth > maxNodeHeight)
+        ? Vector2.all(maxNodeHeight)
+        : Vector2.all(maxNodeWidth);
   }
 
   static Vector2 nodePosition({
