@@ -122,7 +122,7 @@ class UnitSelectorComponent extends PositionComponent {
     super.update(dt);
 
     final bool before = enabled;
-    enabled = player.resources >= unitType.deploymentCost;
+    enabled = player.resources >= unitType.cost;
 
     if (before != enabled) {
       if (enabled) {
@@ -141,9 +141,10 @@ class UnitSelectorComponent extends PositionComponent {
   }
 }
 
-class UnitImageComponent extends SpriteComponent with DragCallbacks {
+class UnitImageComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
+  final Paint borderPaint = Palette.paint(style: PaintingStyle.stroke);
   Vector2 initialPosition = Vector2(0, 0);
 
   UnitImageComponent({
@@ -151,14 +152,27 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.center) {
+    borderPaint.color = player.color;
+  }
 
-  @override
+  /*@override
   FutureOr onLoad() async {
     sprite = await Sprite.load(unitType.thumbnail);
     decorator.addLast(PaintDecorator.tint(player.color));
 
     return super.onLoad();
+  }*/
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawCircle(
+      (size / 2).toOffset(),
+      size.x / 2,
+      borderPaint,
+    );
   }
 
   bool get enabled =>
@@ -230,7 +244,7 @@ class UnitCostComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${unitType.deploymentCost.toString()}🛢️',
+      text: '\$${unitType.cost.toString()}',
       position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 2.5,
       color: Palette.CONTROLS_COST_FOREGROUND,
@@ -260,7 +274,7 @@ class ResourcesComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${player.resources.floor().toString()}🛢️',
+      text: '\$${player.resources.floor().toString()}',
       position: Vector2(size.x * 0.5, size.y * 0.2),
       size: size.x / 5,
       color: Palette.CONTROLS_COST_FOREGROUND,

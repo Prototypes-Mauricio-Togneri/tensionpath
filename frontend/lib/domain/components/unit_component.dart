@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/app/constants.dart';
@@ -190,8 +189,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       }
     }
 
-    if ((type == UnitType.harvester) &&
-        (currentNodeType == NodeType.resources)) {
+    if ((type == UnitType.unit_10) && (currentNodeType == NodeType.resources)) {
       player.addResources(dt * Constants.RESOURCES_PER_SECOND);
     }
   }
@@ -219,7 +217,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   }
 }
 
-class UnitImageComponent extends SpriteComponent {
+class UnitImageComponent extends PositionComponent {
   final UnitType type;
   final Player player;
 
@@ -230,14 +228,14 @@ class UnitImageComponent extends SpriteComponent {
     required this.player,
   }) : super(anchor: Anchor.center);
 
-  @override
+  /*@override
   FutureOr onLoad() async {
     sprite = await Sprite.load(type.sprite);
     scale = Vector2(type.spriteScale, type.spriteScale);
     decorator.addLast(PaintDecorator.tint(player.color.darken(0.3)));
 
     return super.onLoad();
-  }
+  }*/
 }
 
 class HealthBarComponent extends PositionComponent {
@@ -261,8 +259,8 @@ class HealthBarComponent extends PositionComponent {
   }) : super(anchor: Anchor.center) {
     foregroundHealthPaint.color = player.color;
     borderHealthPaint.strokeWidth = size.y / 60;
-    health = type.maxHealth.toDouble();
-    maxHealth = type.maxHealth.toDouble();
+    health = type.power.toDouble();
+    maxHealth = type.power.toDouble();
   }
 
   void refresh(JsonUnitUpdate unit) {
