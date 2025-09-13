@@ -2,8 +2,7 @@ enum NodeType {
   empty,
   resources,
   launcher,
-  pad,
-  missile;
+  pad;
 
   static List<NodeType> get canMove => [
     empty,

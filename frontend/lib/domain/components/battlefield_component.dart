@@ -79,12 +79,13 @@ class BattlefieldComponent extends PositionComponent {
 
     _addNodeComponents(
       nodeLocations: nodeLocations,
+      launcherLocations: _getLauncherLocations(nodeSize),
       nodeSize: nodeSize,
     );
 
-    _addResourceComponents(nodeSize);
-
     _addLauncherComponents(nodeSize);
+
+    _addResourceComponents(nodeSize);
 
     _addPlatformComponents(nodeSize);
 
@@ -105,22 +106,13 @@ class BattlefieldComponent extends PositionComponent {
     );*/
   }
 
-  /*NodeType getNodeType({
+  NodeType _getNodeType({
     required String positionId,
-    required JsonMissile missile,
+    required List<JsonPlatform> platforms,
     required List<JsonResource> resources,
     required List<JsonLocation> launchers,
   }) {
-    if (missile.location.id == positionId) {
-      return NodeType.missile;
-    }
-
-    final List<JsonLocation> pads = missile.platforms
-        .map((p) => p.pads)
-        .expand((p) => p)
-        .toList();
-
-    if (pads.any((pad) => pad.id == positionId)) {
+    if (platforms.any((platform) => platform.location.id == positionId)) {
       return NodeType.pad;
     }
 
@@ -133,7 +125,7 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     return NodeType.empty;
-  }*/
+  }
 
   List<JsonLocation> _getNodeLocations(JsonSize size) {
     final List<JsonLocation> result = [];
@@ -155,6 +147,7 @@ class BattlefieldComponent extends PositionComponent {
 
   void _addNodeComponents({
     required List<JsonLocation> nodeLocations,
+    required List<JsonLocation> launcherLocations,
     required Vector2 nodeSize,
   }) {
     for (final JsonLocation location in nodeLocations) {
@@ -166,16 +159,12 @@ class BattlefieldComponent extends PositionComponent {
       final NodeComponent nodeComponent = NodeComponent(
         position: position,
         size: nodeSize,
-        type: NodeType.empty,
-        /*type: getNodeType(
+        type: _getNodeType(
           positionId: location.id,
-          missile: battlefield.missile,
+          platforms: battlefield.platforms,
           resources: battlefield.resources,
-          launchers: battlefield.launchers
-              .map((launchers) => launchers.locations)
-              .expand((locations) => locations)
-              .toList(),
-        ),*/
+          launchers: launcherLocations,
+        ),
         location: location,
       );
       add(nodeComponent);
@@ -226,6 +215,26 @@ class BattlefieldComponent extends PositionComponent {
         launcherComponents.add(launcherComponent);
       }
     }
+  }
+
+  List<JsonLocation> _getLauncherLocations(Vector2 nodeSize) {
+    final List<JsonLocation> result = [];
+    final int halfWidth = battlefield.size.width ~/ 2;
+    final int halfHeight = battlefield.size.height ~/ 2;
+    final int column1 = -halfWidth;
+    final int column2 = halfWidth;
+
+    for (final String playerIndex in ['1', '2']) {
+      for (int i = -halfHeight; i <= halfHeight; i++) {
+        final JsonLocation location = JsonLocation(
+          x: playerIndex == '1' ? column1 : column2,
+          y: i,
+        );
+        result.add(location);
+      }
+    }
+
+    return result;
   }
 
   void _addPlatformComponents(Vector2 nodeSize) {
