@@ -24,6 +24,9 @@ class Palette {
 
   static const Color RESOURCES = Color(0xff149434);
 
+  static const Color PAD_NEUTRAL = Color(0xff149434);
+  static const Color PAD_CONTESTED = Color(0xff149434);
+
   static const Color UNIT_HEALTH_BORDER = Colors.white;
 
   static const Color MISSILE_OWNER_NONE = Colors.grey;

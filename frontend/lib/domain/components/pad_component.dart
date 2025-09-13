@@ -1,10 +1,15 @@
-import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/utils/palette.dart';
 
-class PadComponent extends SpriteComponent {
+class PadComponent extends PositionComponent {
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint borderPaint = Palette.paint(style: PaintingStyle.fill);
+  late final double borderWidth;
   final String platformId;
   String? owner;
 
@@ -16,22 +21,36 @@ class PadComponent extends SpriteComponent {
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
-       );
-
-  @override
-  FutureOr onLoad() async {
-    await refresh();
+       ) {
+    borderWidth = size.x * 0.05;
+    refresh();
   }
 
-  Future refresh() async {
+  void refresh() {
     if (owner == Constants.PLAYER_1) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_1);
+      foregroundPaint.color = Palette.PLAYER_1;
     } else if (owner == Constants.PLAYER_2) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_PLAYER_2);
+      foregroundPaint.color = Palette.PLAYER_2;
     } else if (owner == '') {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_CONTESTED);
+      foregroundPaint.color = Palette.PLAYER_1;
     } else if (owner == null) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_PAD_NEUTRAL);
+      foregroundPaint.color = Palette.PLAYER_1;
     }
+
+    borderPaint.color = foregroundPaint.color.darken(0.3);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawStructure(
+      center: position,
+      width: width,
+      height: height,
+      borderWidth: borderWidth,
+      foregroundPaint: foregroundPaint,
+      borderPaint: borderPaint,
+    );
   }
 }
