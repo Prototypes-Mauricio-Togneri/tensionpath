@@ -91,9 +91,9 @@ class BattlefieldComponent extends PositionComponent {
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);
-    }
+    }*/
 
-    for (final JsonResource resource in battlefield.resources) {
+    /*for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
@@ -105,9 +105,9 @@ class BattlefieldComponent extends PositionComponent {
         resource: resource,
       );
       add(resourceComponent);
-    }
+    }*/
 
-    final MissileComponent missileComponent = MissileComponent(
+    /*final MissileComponent missileComponent = MissileComponent(
       position: Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
@@ -228,7 +228,6 @@ class BattlefieldGridComponent extends SpriteComponent {
 
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
-    final Vector2 mapCenter = size / 2;
 
     final int halfX = mapSize.x ~/ 2;
     final int halfY = mapSize.y ~/ 2;
@@ -245,9 +244,10 @@ class BattlefieldGridComponent extends SpriteComponent {
             y.toDouble(),
           ),
           nodeSize: nodeSize,
+          canvasSize: size,
         );
         canvas.drawNode(
-          center: position + mapCenter,
+          center: position,
           size: nodeSize,
           borderPaint: borderPaint,
         );

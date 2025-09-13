@@ -82,10 +82,13 @@ class Dimensions {
   static Vector2 nodePosition({
     required Vector2 location,
     required Vector2 nodeSize,
-  }) => Vector2(
-    location.x * nodeSize.x,
-    location.y * nodeSize.y,
-  );
+    required Vector2 canvasSize,
+  }) =>
+      Vector2(
+        location.x * nodeSize.x,
+        location.y * nodeSize.y,
+      ) +
+      (canvasSize / 2);
 
   static double controlsGapSize(Vector2 size) => size.x * 0.07;
 
