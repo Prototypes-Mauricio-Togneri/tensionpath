@@ -38,6 +38,13 @@
     - Vertical (affects 2 tiles in a column)
     - Mine
 
+- haverter
+- 10: 10
+- 20: 22
+- 30: 34
+- 40: 46
+- 50: 58
+
 ## Combat
 
 - Face to face
