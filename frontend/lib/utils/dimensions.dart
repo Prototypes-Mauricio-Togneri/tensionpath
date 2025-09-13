@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 
 class Dimensions {
@@ -104,12 +103,11 @@ class Dimensions {
   }
 
   static Vector2 nodePosition({
-    required Vector2 center,
+    required Vector2 location,
     required Vector2 nodeSize,
-    required JsonLocation location,
   }) => Vector2(
-    center.x + (nodeSize.x * ((location.y / 2) + location.x)),
-    center.y + (nodeSize.y * 3 / 4 * location.y),
+    location.x * nodeSize.x,
+    location.y * nodeSize.y,
   );
 
   static double controlsGapSize(Vector2 size) => size.x * 0.07;

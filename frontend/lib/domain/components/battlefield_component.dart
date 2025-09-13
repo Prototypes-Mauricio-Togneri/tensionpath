@@ -1,24 +1,13 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
-import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/components/pad_component.dart';
-import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
-import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
-import 'package:tensionpath/domain/json/models/start/json_missile.dart';
-import 'package:tensionpath/domain/json/models/start/json_platform.dart';
-import 'package:tensionpath/domain/json/models/start/json_resource.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
-import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -69,11 +58,14 @@ class BattlefieldComponent extends PositionComponent {
         position: mapCenter,
         size: size,
         nodeSize: nodeSize,
-        nodes: battlefield.nodes,
+        mapSize: Vector2(
+          battlefield.size.width.toDouble(),
+          battlefield.size.height.toDouble(),
+        ),
       ),
     );
 
-    for (final JsonLocation location in battlefield.nodes) {
+    /*for (final JsonLocation location in battlefield.nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: size / 2,
         nodeSize: nodeSize,
@@ -170,10 +162,10 @@ class BattlefieldComponent extends PositionComponent {
         nodeSize: nodeSize,
         offset: position + (size / 2),
       ),
-    );
+    );*/
   }
 
-  NodeType getNodeType({
+  /*NodeType getNodeType({
     required String positionId,
     required JsonMissile missile,
     required List<JsonResource> resources,
@@ -201,7 +193,7 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     return NodeType.empty;
-  }
+  }*/
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
@@ -213,37 +205,40 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
 }
 
 class BattlefieldGridComponent extends SpriteComponent {
-  final Vector2 nodeSize;
-  final List<JsonLocation> nodes;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    strokeWidth: 3,
     color: Palette.NODE_BORDER,
   );
+  final Vector2 nodeSize;
+  final Vector2 mapSize;
 
   BattlefieldGridComponent({
     required super.position,
     required super.size,
     required this.nodeSize,
-    required this.nodes,
+    required this.mapSize,
   }) : super(anchor: Anchor.center);
 
   @override
   Future onLoad() async {
+    // TODO(momo): make dynamic based on map size
+    borderPaint.strokeWidth = 3;
+
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
-    for (final JsonLocation node in nodes) {
-      final Vector2 position = Dimensions.nodePosition(
-        center: size / 2,
-        nodeSize: nodeSize,
-        location: node,
-      );
-      canvas.drawHexagon(
-        center: position,
-        size: nodeSize,
-        borderPaint: borderPaint,
-      );
+    for (int x = 0; x < mapSize.x; x++) {
+      for (int y = 0; y < mapSize.y; y++) {
+        final Vector2 position = Dimensions.nodePosition(
+          location: Vector2(x.toDouble(), y.toDouble()),
+          nodeSize: nodeSize,
+        );
+        canvas.drawNode(
+          center: position,
+          size: nodeSize,
+          borderPaint: borderPaint,
+        );
+      }
     }
 
     final Picture picture = recorder.endRecording();

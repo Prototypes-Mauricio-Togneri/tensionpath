@@ -37,6 +37,27 @@ extension CanvasExtension on Canvas {
     textPainter.paint(this, translatedPosition.toOffset());
   }
 
+  void drawNode({
+    required Vector2 center,
+    required Vector2 size,
+    Paint? fillPaint,
+    Paint? borderPaint,
+  }) {
+    final Rect rect = Rect.fromCenter(
+      center: center.toOffset(),
+      width: size.x,
+      height: size.y,
+    );
+
+    if (borderPaint != null) {
+      drawRect(rect, borderPaint);
+    }
+
+    if (fillPaint != null) {
+      drawRect(rect, fillPaint);
+    }
+  }
+
   void drawHexagon({
     required Vector2 center,
     required Vector2 size,

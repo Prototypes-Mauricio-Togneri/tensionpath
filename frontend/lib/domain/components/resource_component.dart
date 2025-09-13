@@ -1,36 +1,45 @@
-import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/json/models/start/json_resource.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/utils/palette.dart';
 
-class ResourceComponent extends SpriteComponent {
-  late double amountCurrent;
-  late double amountMax;
-  late double ratio;
+class ResourceComponent extends PositionComponent {
+  final Paint foregroundPaint = Palette.paint(
+    color: Palette.RESOURCES_FOREGROUND,
+    style: PaintingStyle.fill,
+  );
+  final Paint borderPaint = Palette.paint(
+    color: Palette.RESOURCES_BORDER,
+    style: PaintingStyle.fill,
+  );
+  late final double borderWidth;
 
   ResourceComponent({
     required super.position,
     required super.size,
-    required JsonResource resource,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
        ) {
-    refresh(resource);
-  }
-
-  void refresh(JsonResource resource) {
-    amountCurrent = resource.amountCurrent;
-    amountMax = resource.amountMax;
-    ratio = amountCurrent / amountMax;
+    borderWidth = size.x * 0.05;
   }
 
   @override
-  FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
-    scale = Vector2(ratio, ratio);
+  void render(Canvas canvas) {
+    super.render(canvas);
 
-    return super.onLoad();
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, width, height),
+      foregroundPaint,
+    );
+    canvas.drawRect(
+      Rect.fromLTWH(
+        borderWidth,
+        borderWidth,
+        width - borderWidth * 2,
+        height - borderWidth * 2,
+      ),
+      borderPaint,
+    );
   }
 }
