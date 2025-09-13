@@ -154,16 +154,24 @@ class UnitImageComponent extends PositionComponent with DragCallbacks {
     required super.size,
   }) : super(anchor: Anchor.center) {
     borderPaint.color = player.color;
+    borderPaint.strokeWidth = size.x * 0.05;
   }
-  
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
     canvas.drawCircle(
       (size / 2).toOffset(),
-      size.x / 2,
+      size.x * 0.4,
       borderPaint,
+    );
+    canvas.drawText(
+      text: unitType.power.toString(),
+      position: size / 2,
+      size: size.x * 0.35,
+      color: player.color,
+      fontWeight: FontWeight.bold,
     );
   }
 
