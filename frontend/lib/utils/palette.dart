@@ -22,8 +22,7 @@ class Palette {
   static const Color NODE_TARGET = Colors.white;
   static const Color NODE_FOG = Color(0x88000000);
 
-  static const Color RESOURCES_FOREGROUND = Color(0xFF1FCC4B);
-  static const Color RESOURCES_BORDER = Color(0xFF16A039);
+  static const Color RESOURCES = Color(0xff149434);
 
   static const Color UNIT_HEALTH_BORDER = Colors.white;
 

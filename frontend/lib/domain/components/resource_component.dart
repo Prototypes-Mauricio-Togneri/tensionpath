@@ -1,18 +1,13 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ResourceComponent extends PositionComponent {
-  final Paint foregroundPaint = Palette.paint(
-    color: Palette.RESOURCES_FOREGROUND,
-    style: PaintingStyle.fill,
-  );
-  final Paint borderPaint = Palette.paint(
-    color: Palette.RESOURCES_BORDER,
-    style: PaintingStyle.fill,
-  );
+  final Paint foregroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint borderPaint = Palette.paint(style: PaintingStyle.fill);
   late final double borderWidth;
 
   ResourceComponent({
@@ -23,25 +18,13 @@ class ResourceComponent extends PositionComponent {
          priority: Priority.structure.value,
        ) {
     borderWidth = size.x * 0.05;
+    foregroundPaint.color = Palette.RESOURCES;
+    borderPaint.color = Palette.RESOURCES.darken(0.3);
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-
-    /*canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      foregroundPaint,
-    );
-    canvas.drawRect(
-      Rect.fromLTWH(
-        borderWidth,
-        borderWidth,
-        width - borderWidth * 2,
-        height - borderWidth * 2,
-      ),
-      borderPaint,
-    );*/
 
     canvas.drawStructure(
       center: position,

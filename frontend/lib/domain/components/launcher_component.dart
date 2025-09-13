@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
@@ -24,22 +23,17 @@ class LauncherComponent extends PositionComponent {
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
-       );
+       ) {
+    borderWidth = size.x * 0.05;
+    foregroundPaint.color = player.color;
+    borderPaint.color = player.color.darken(0.3);
+  }
 
   @override
   bool containsLocalPoint(Vector2 point) =>
       Dimensions.pointInHexagon(point: point, size: size);
 
   bool belongsTo(Player player) => player.id == this.player.id;
-
-  @override
-  FutureOr onLoad() async {
-    borderWidth = size.x * 0.05;
-    foregroundPaint.color = player.color;
-    borderPaint.color = player.color.darken(0.3);
-
-    return super.onLoad();
-  }
 
   @override
   void render(Canvas canvas) {
