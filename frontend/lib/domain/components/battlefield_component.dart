@@ -75,55 +75,10 @@ class BattlefieldComponent extends PositionComponent {
       ),
     );
 
-    for (final JsonLocation location in nodeLocations) {
-      final Vector2 position = Dimensions.nodePosition(
-        location: location.toVector2(),
-        nodeSize: nodeSize,
-        canvasSize: size,
-      );
-      final NodeComponent nodeComponent = NodeComponent(
-        position: position,
-        size: nodeSize,
-        type: NodeType.empty,
-        /*type: getNodeType(
-          positionId: location.id,
-          missile: battlefield.missile,
-          resources: battlefield.resources,
-          launchers: battlefield.launchers
-              .map((launchers) => launchers.locations)
-              .expand((locations) => locations)
-              .toList(),
-        ),*/
-        location: location,
-      );
-      add(nodeComponent);
-      nodeComponents.add(nodeComponent);
-    }
-
-    /*for (final JsonLocation location in battlefield.nodes) {
-      final Vector2 position = Dimensions.nodePosition(
-        center: size / 2,
-        nodeSize: nodeSize,
-        location: location,
-      );
-
-      final NodeComponent nodeComponent = NodeComponent(
-        position: position,
-        size: nodeSize,
-        type: getNodeType(
-          positionId: location.id,
-          missile: battlefield.missile,
-          resources: battlefield.resources,
-          launchers: battlefield.launchers
-              .map((launchers) => launchers.locations)
-              .expand((locations) => locations)
-              .toList(),
-        ),
-        location: location,
-      );
-      add(nodeComponent);
-      nodeComponents.add(nodeComponent);
-    }*/
+    _addNodeComponents(
+      nodeLocations: nodeLocations,
+      nodeSize: nodeSize,
+    );
 
     for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
@@ -262,6 +217,36 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     return result;
+  }
+
+  void _addNodeComponents({
+    required List<JsonLocation> nodeLocations,
+    required Vector2 nodeSize,
+  }) {
+    for (final JsonLocation location in nodeLocations) {
+      final Vector2 position = Dimensions.nodePosition(
+        location: location.toVector2(),
+        nodeSize: nodeSize,
+        canvasSize: size,
+      );
+      final NodeComponent nodeComponent = NodeComponent(
+        position: position,
+        size: nodeSize,
+        type: NodeType.empty,
+        /*type: getNodeType(
+          positionId: location.id,
+          missile: battlefield.missile,
+          resources: battlefield.resources,
+          launchers: battlefield.launchers
+              .map((launchers) => launchers.locations)
+              .expand((locations) => locations)
+              .toList(),
+        ),*/
+        location: location,
+      );
+      add(nodeComponent);
+      nodeComponents.add(nodeComponent);
+    }
   }
 }
 
