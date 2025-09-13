@@ -13,10 +13,6 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
           'size',
           (v) => JsonSize.fromJson(v as Map<String, dynamic>),
         ),
-        gridRatio: $checkedConvert(
-          'gridRatio',
-          (v) => JsonRatio.fromJson(v as Map<String, dynamic>),
-        ),
         missile: $checkedConvert(
           'missile',
           (v) => JsonMissile.fromJson(v as Map<String, dynamic>),
@@ -52,7 +48,6 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
     <String, dynamic>{
       'size': instance.size.toJson(),
-      'gridRatio': instance.gridRatio.toJson(),
       'missile': instance.missile.toJson(),
       'resources': instance.resources.map((e) => e.toJson()).toList(),
       'launchers': instance.launchers.map((e) => e.toJson()).toList(),

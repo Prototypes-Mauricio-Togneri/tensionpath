@@ -3,7 +3,6 @@ import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'json_launchers.dart';
 import 'json_missile.dart';
-import 'json_ratio.dart';
 import 'json_resource.dart';
 import 'json_size.dart';
 
@@ -13,9 +12,6 @@ part 'json_battlefield.g.dart';
 class JsonBattlefield {
   @JsonKey(name: 'size')
   final JsonSize size;
-
-  @JsonKey(name: 'gridRatio')
-  final JsonRatio gridRatio;
 
   @JsonKey(name: 'missile')
   final JsonMissile missile;
@@ -34,7 +30,6 @@ class JsonBattlefield {
 
   const JsonBattlefield({
     required this.size,
-    required this.gridRatio,
     required this.missile,
     required this.resources,
     required this.launchers,
