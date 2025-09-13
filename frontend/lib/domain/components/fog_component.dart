@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class FogComponent extends PositionComponent {
@@ -76,10 +75,13 @@ class FogComponent extends PositionComponent {
     }
 
     for (final Vector2 visibleNode in visibleNodes) {
-      canvas.drawHexagon(
-        center: visibleNode,
-        size: nodeSize * 1.03,
-        fillPaint: clearPaint,
+      canvas.drawRect(
+        Rect.fromCenter(
+          center: visibleNode.toOffset(),
+          width: nodeSize.x,
+          height: nodeSize.y,
+        ),
+        clearPaint,
       );
     }
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
@@ -89,7 +90,7 @@ class BattlefieldComponent extends PositionComponent {
 
     _addPlatformComponents(nodeSize);
 
-    /*add(
+    add(
       FogComponent(
         position: size / 2,
         size: size,
@@ -101,7 +102,7 @@ class BattlefieldComponent extends PositionComponent {
         nodeSize: nodeSize,
         offset: position + (size / 2),
       ),
-    );*/
+    );
   }
 
   NodeType _getNodeType({
