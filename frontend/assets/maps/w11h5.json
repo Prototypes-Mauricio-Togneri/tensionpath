@@ -1,10 +1,10 @@
 {
-    "createdAt": "",
+    "createdAt": "2025-09-13T14:23:45.123Z",
     "players": [
         {
             "id": "",
             "name": "",
-            "isSelf": false,
+            "isSelf": true,
             "index": "1",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
