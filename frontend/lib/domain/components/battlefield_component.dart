@@ -89,9 +89,7 @@ class BattlefieldComponent extends PositionComponent {
 
     _addPlatformComponents(nodeSize);
 
-    /*
-
-    add(
+    /*add(
       FogComponent(
         position: size / 2,
         size: size,
