@@ -52,7 +52,7 @@
 - Free movement
   - Pros: more tactical
   - Cons: harder to implement
-- Forward movement
+- Straight movement
   - Pros: easy to implement
   - Cons: less tactical
 
