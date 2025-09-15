@@ -30,8 +30,10 @@ class BattlefieldComponent extends PositionComponent {
   final Player self;
   final Player opponent;
   final List<NodeComponent> nodeComponents;
+  final List<ResourceComponent> resourceComponents;
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
+  late final MissileComponent missileComponent;
 
   BattlefieldComponent({
     required super.position,
@@ -40,6 +42,7 @@ class BattlefieldComponent extends PositionComponent {
     required this.self,
     required this.opponent,
     required this.nodeComponents,
+    required this.resourceComponents,
     required this.launcherComponents,
     required this.unitComponents,
   }) : super(
@@ -162,6 +165,7 @@ class BattlefieldComponent extends PositionComponent {
         resource: resource,
       );
       add(resourceComponent);
+      resourceComponents.add(resourceComponent);
     }
   }
 
@@ -169,7 +173,7 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    final MissileComponent missileComponent = MissileComponent(
+    missileComponent = MissileComponent(
       position: Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,

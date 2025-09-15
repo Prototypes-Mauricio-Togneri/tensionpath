@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -21,6 +22,7 @@ class MatchComponent extends World {
   final Vector2 resolution;
   final JsonMatch match;
   final List<NodeComponent> nodeComponents = [];
+  final List<ResourceComponent> resourceComponents = [];
   final List<LauncherComponent> launcherComponents = [];
   final List<UnitComponent> unitComponents = [];
   late final Player self;
@@ -64,6 +66,7 @@ class MatchComponent extends World {
       self: self,
       opponent: opponent,
       nodeComponents: nodeComponents,
+      resourceComponents: resourceComponents,
       launcherComponents: launcherComponents,
       unitComponents: unitComponents,
     );
