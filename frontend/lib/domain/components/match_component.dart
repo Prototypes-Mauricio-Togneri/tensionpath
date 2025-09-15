@@ -28,6 +28,7 @@ class MatchComponent extends World {
   late final Vector2 nodeSize;
   late final DateTime startedAt;
   late final TargetComponent targetComponent;
+  late final BattlefieldComponent battlefieldComponent;
 
   MatchComponent({
     required this.resolution,
@@ -53,21 +54,21 @@ class MatchComponent extends World {
       battlefield: match.battlefield,
     );
 
-    add(
-      BattlefieldComponent(
-        position: Dimensions.battlefieldPosition(
-          resolution: resolution,
-          isPlayer1: self.isPlayer1,
-        ),
-        size: Dimensions.battlefieldSize(resolution),
-        battlefield: match.battlefield,
-        self: self,
-        opponent: opponent,
-        nodeComponents: nodeComponents,
-        launcherComponents: launcherComponents,
-        unitComponents: unitComponents,
+    battlefieldComponent = BattlefieldComponent(
+      position: Dimensions.battlefieldPosition(
+        resolution: resolution,
+        isPlayer1: self.isPlayer1,
       ),
+      size: Dimensions.battlefieldSize(resolution),
+      battlefield: match.battlefield,
+      self: self,
+      opponent: opponent,
+      nodeComponents: nodeComponents,
+      launcherComponents: launcherComponents,
+      unitComponents: unitComponents,
     );
+
+    add(battlefieldComponent);
 
     add(
       HeaderComponent(
@@ -98,6 +99,11 @@ class MatchComponent extends World {
   void onMatchUpdated(JsonMatchUpdate match) {
     self.update(match.players[self.index]!);
     opponent.update(match.players[opponent.index]!);
+    battlefieldComponent.onBattlefieldUpdated(
+      missile: match.missile,
+      resources: match.resources,
+      units: match.units,
+    );
   }
 
   JsonPlayer matchSelf(JsonMatch match) =>

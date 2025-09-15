@@ -15,6 +15,8 @@ import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
+import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -271,6 +273,14 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     return NodeType.empty;
+  }
+
+  void onBattlefieldUpdated({
+    required JsonMissileUpdate missile,
+    required Map<String, double> resources,
+    required Map<String, JsonUnitUpdate> units,
+  }) {
+    // TODO(momo): update resources, missile, pads, launchers
   }
 }
 
