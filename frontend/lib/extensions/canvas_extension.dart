@@ -9,6 +9,7 @@ extension CanvasExtension on Canvas {
     required Vector2 position,
     required double size,
     TextAlign textAlign = TextAlign.center,
+    FontWeight fontWeight = FontWeight.normal,
     Anchor anchor = Anchor.center,
     Color? color,
     Paint? foreground,
@@ -16,7 +17,7 @@ extension CanvasExtension on Canvas {
   }) {
     final TextStyle textStyle = TextStyle(
       fontSize: size,
-      fontWeight: FontWeight.normal,
+      fontWeight: fontWeight,
       color: color,
       foreground: foreground,
       background: background,
