@@ -73,9 +73,53 @@ class BattlefieldComponent extends PositionComponent {
       ),
     );
 
+    _addNodeComponents(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+
+    _addResourceComponents(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+
+    _addMissileComponent(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+
+    _addPadComponents(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+
+    _addLauncherComponents(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+
+    add(
+      FogComponent(
+        position: size / 2,
+        size: size,
+        unitComponents: unitComponents,
+        launcherComponents: launcherComponents
+            .where((launcher) => launcher.player.isSelf)
+            .toList(),
+        nodeComponents: nodeComponents,
+        nodeSize: nodeSize,
+        offset: position + (size / 2),
+      ),
+    );
+  }
+
+  void _addNodeComponents({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
     for (final JsonLocation location in battlefield.nodes) {
       final Vector2 position = Dimensions.nodePosition(
-        center: size / 2,
+        center: mapCenter,
         nodeSize: nodeSize,
         location: location,
       );
@@ -97,7 +141,12 @@ class BattlefieldComponent extends PositionComponent {
       add(nodeComponent);
       nodeComponents.add(nodeComponent);
     }
+  }
 
+  void _addResourceComponents({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
     for (final JsonResource resource in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
@@ -111,7 +160,12 @@ class BattlefieldComponent extends PositionComponent {
       );
       add(resourceComponent);
     }
+  }
 
+  void _addMissileComponent({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
     final MissileComponent missileComponent = MissileComponent(
       position: Dimensions.nodePosition(
         center: mapCenter,
@@ -122,7 +176,12 @@ class BattlefieldComponent extends PositionComponent {
       missile: battlefield.missile,
     );
     add(missileComponent);
+  }
 
+  void _addPadComponents({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
     for (final JsonPlatform platform in battlefield.missile.platforms) {
       for (final JsonLocation location in platform.pads) {
         final Vector2 position = Dimensions.nodePosition(
@@ -139,7 +198,12 @@ class BattlefieldComponent extends PositionComponent {
         add(padComponent);
       }
     }
+  }
 
+  void _addLauncherComponents({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
     for (final JsonLaunchers launchers in battlefield.launchers) {
       for (final JsonLocation location in launchers.locations) {
         final Vector2 nodePosition = Dimensions.nodePosition(
@@ -157,20 +221,6 @@ class BattlefieldComponent extends PositionComponent {
         launcherComponents.add(launcherComponent);
       }
     }
-
-    add(
-      FogComponent(
-        position: size / 2,
-        size: size,
-        unitComponents: unitComponents,
-        launcherComponents: launcherComponents
-            .where((launcher) => launcher.player.isSelf)
-            .toList(),
-        nodeComponents: nodeComponents,
-        nodeSize: nodeSize,
-        offset: position + (size / 2),
-      ),
-    );
   }
 
   NodeType getNodeType({
