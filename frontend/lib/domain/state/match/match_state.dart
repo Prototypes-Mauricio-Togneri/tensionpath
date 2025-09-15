@@ -62,9 +62,9 @@ class MatchState extends BaseState {
 
     // TODO(momo): for when the match ends
     /*if (match.selfWon) {
-      GameComponentRef.instance.onMatchFinished(true);
+      onMatchFinished(true);
     } else if (match.opponentWon) {
-      GameComponentRef.instance.onMatchFinished(false);
+      onMatchFinished(false);
     }*/
   }
 
@@ -80,13 +80,21 @@ class MatchState extends BaseState {
   void onDeployUnit({
     required JsonLocation location,
     required UnitType type,
-  }) {
-    connection.send(
-      JsonMessage.deployUnit(
-        matchId: matchId,
-        location: location,
-        type: type,
-      ),
-    );
+  }) => connection.send(
+    JsonMessage.deployUnit(
+      matchId: matchId,
+      location: location,
+      type: type,
+    ),
+  );
+
+  void onMatchFinished(bool won) {
+    if (won) {
+      InfoDialog.won(_onMatchQuit);
+    } else {
+      InfoDialog.lost(_onMatchQuit);
+    }
   }
+
+  void _onMatchQuit() => Navigation.pop();
 }

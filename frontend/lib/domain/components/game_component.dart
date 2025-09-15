@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
-import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/dimensions.dart';
-import 'package:tensionpath/utils/navigation.dart';
 
 class GameComponent extends FlameGame {
   final JsonMatch match;
@@ -48,16 +46,6 @@ class GameComponent extends FlameGame {
 
     return super.onLoad();
   }
-
-  void onMatchFinished(bool won) {
-    if (won) {
-      InfoDialog.won(_onMatchQuit);
-    } else {
-      InfoDialog.lost(_onMatchQuit);
-    }
-  }
-
-  void _onMatchQuit() => Navigation.pop();
 }
 
 mixin GameComponentRef {
