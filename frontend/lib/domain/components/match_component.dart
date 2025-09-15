@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/json/models/start/json_player.dart';
+import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -94,9 +95,9 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void onMatchUpdated(JsonMatch match) {
-    self.update(matchSelf(match));
-    opponent.update(matchOpponent(match));
+  void onMatchUpdated(JsonMatchUpdate match) {
+    self.update(match.players[self.index]!);
+    opponent.update(match.players[opponent.index]!);
   }
 
   JsonPlayer matchSelf(JsonMatch match) =>

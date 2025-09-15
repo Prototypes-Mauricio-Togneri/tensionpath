@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
+import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
@@ -56,7 +57,7 @@ class MatchState extends BaseState {
         );
         Delayed.post(notify);
       } else if (json is JsonUpdate) {
-        print(json);
+        MatchComponentRef.instance.onMatchUpdated(json.match);
       }
     }
 
