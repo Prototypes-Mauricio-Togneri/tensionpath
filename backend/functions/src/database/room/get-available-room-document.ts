@@ -18,8 +18,8 @@ export const getAvailableRoomDocument = async (params: {
       .where('version', '==', params.version)
       .where('matchType', '==', params.matchType)
       .where('visibility', '==', params.visibility)
-      .where('userIds', 'array-contains', params.userId)
       .where('numberOfPlayers', '==', params.numberOfPlayers)
+      .where('userIds', 'array-contains', params.userId)
       .limit(1)
 
   const resultJoinedRoom = await executeQuery({
@@ -48,7 +48,7 @@ export const getAvailableRoomDocument = async (params: {
   }
 }
 
-const executeQuery = async (params: { database: Database, query: Query }) => {
+const executeQuery = async (params: {database: Database, query: Query}) => {
   const snapshot = await params.database.query(params.query)
 
   if (snapshot.size > 0) {
