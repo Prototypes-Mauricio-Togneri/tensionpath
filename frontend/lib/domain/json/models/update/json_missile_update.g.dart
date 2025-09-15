@@ -10,6 +10,7 @@ JsonMissileUpdate _$JsonMissileUpdateFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonMissileUpdate', json, ($checkedConvert) {
       final val = JsonMissileUpdate(
         charge: $checkedConvert('charge', (v) => (v as num).toDouble()),
+        owner: $checkedConvert('owner', (v) => v as String?),
         platforms: $checkedConvert(
           'platforms',
           (v) => Map<String, String?>.from(v as Map),
@@ -21,5 +22,6 @@ JsonMissileUpdate _$JsonMissileUpdateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMissileUpdateToJson(JsonMissileUpdate instance) =>
     <String, dynamic>{
       'charge': instance.charge,
+      'owner': ?instance.owner,
       'platforms': instance.platforms,
     };

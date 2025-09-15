@@ -29,8 +29,7 @@ class MissileComponent extends SpriteComponent {
     );
   }
 
-  void refresh(JsonMissileUpdate missile) =>
-      missileIndicator.refresh(missile.charge);
+  void refresh(JsonMissileUpdate missile) => missileIndicator.refresh(missile);
 
   @override
   FutureOr onLoad() async {
@@ -68,9 +67,9 @@ class MissileIndicatorComponent extends PositionComponent {
     required this.owner,
   }) : super(anchor: Anchor.center);
 
-  void refresh(double charge) {
-    chargeCurrent = charge;
-    owner = null; // Fill with correct value
+  void refresh(JsonMissileUpdate missile) {
+    chargeCurrent = missile.charge;
+    owner = missile.owner;
 
     if (owner == '') {
       foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;

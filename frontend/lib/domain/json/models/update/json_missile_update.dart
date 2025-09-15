@@ -7,11 +7,15 @@ class JsonMissileUpdate {
   @JsonKey(name: 'charge')
   final double charge;
 
+  @JsonKey(name: 'owner')
+  final String? owner;
+
   @JsonKey(name: 'platforms')
   final Map<String, String?> platforms;
 
   JsonMissileUpdate({
     required this.charge,
+    required this.owner,
     required this.platforms,
   });
 

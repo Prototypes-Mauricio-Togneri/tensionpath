@@ -9,6 +9,7 @@ class Missile {
   final double chargeMax;
   final double chargeBuffer;
   final MapList<String, Platform> platforms;
+  String? owner;
   double charge = 0;
 
   Missile({
@@ -27,6 +28,7 @@ class Missile {
 
   JsonMissileUpdate toJsonUpdate() => JsonMissileUpdate(
     charge: charge,
+    owner: owner,
     platforms: {
       for (final Platform platform in platforms) platform.id: null,
     },
