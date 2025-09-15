@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -28,7 +29,8 @@ class MissileComponent extends SpriteComponent {
     );
   }
 
-  void refresh(JsonMissile missile) => missileIndicator.refresh(missile);
+  void refresh(JsonMissileUpdate missile) =>
+      missileIndicator.refresh(missile.charge);
 
   @override
   FutureOr onLoad() async {
@@ -52,9 +54,9 @@ class MissileIndicatorComponent extends PositionComponent {
   final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
+  final double chargeMax;
+  final double chargeBuffer;
   double chargeCurrent;
-  double chargeMax;
-  double chargeBuffer;
   String? owner;
 
   MissileIndicatorComponent({
@@ -66,10 +68,8 @@ class MissileIndicatorComponent extends PositionComponent {
     required this.owner,
   }) : super(anchor: Anchor.center);
 
-  void refresh(JsonMissile missile) {
-    chargeCurrent = 0; // Fill with correct value
-    chargeMax = missile.chargeMax;
-    chargeBuffer = missile.chargeBuffer;
+  void refresh(double charge) {
+    chargeCurrent = charge;
     owner = null; // Fill with correct value
 
     if (owner == '') {
@@ -78,6 +78,8 @@ class MissileIndicatorComponent extends PositionComponent {
       foregroundPaint.color = Palette.PLAYER_1;
     } else if (owner == Constants.PLAYER_2) {
       foregroundPaint.color = Palette.PLAYER_2;
+    } else {
+      foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
     }
   }
 

@@ -284,7 +284,7 @@ class BattlefieldComponent extends PositionComponent {
     required Map<String, double> resources,
     required Map<String, JsonUnitUpdate> units,
   }) {
-    // TODO(momo): update resources, missile, pads, launchers
+    missileComponent.refresh(missile);
   }
 }
 
