@@ -10,9 +10,11 @@ JsonPlatform _$JsonPlatformFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonPlatform', json, ($checkedConvert) {
       final val = JsonPlatform(
         id: $checkedConvert('id', (v) => v as String),
-        location: $checkedConvert(
-          'location',
-          (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
+        pads: $checkedConvert(
+          'pads',
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonLocation.fromJson(e as Map<String, dynamic>))
+              .toList(),
         ),
       );
       return val;
@@ -21,5 +23,5 @@ JsonPlatform _$JsonPlatformFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonPlatformToJson(JsonPlatform instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'location': instance.location.toJson(),
+      'pads': instance.pads.map((e) => e.toJson()).toList(),
     };

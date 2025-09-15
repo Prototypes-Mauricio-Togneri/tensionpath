@@ -1,4 +1,5 @@
-import 'package:tensionpath/domain/engine/launcher.dart';
+import 'package:tensionpath/domain/engine/launchers.dart';
+import 'package:tensionpath/domain/engine/location.dart';
 import 'package:tensionpath/domain/engine/missile.dart';
 import 'package:tensionpath/domain/engine/resources.dart';
 import 'package:tensionpath/domain/engine/unit.dart';
@@ -11,7 +12,8 @@ class Battlefield {
   final int height;
   final Missile missile;
   final MapList<String, Resources> resources;
-  final MapList<String, Launcher> launchers;
+  final MapList<String, Launchers> launchers;
+  final MapList<String, Location> nodes;
   final MapList<String, Unit> units;
 
   const Battlefield({
@@ -20,22 +22,22 @@ class Battlefield {
     required this.missile,
     required this.resources,
     required this.launchers,
+    required this.nodes,
     required this.units,
   });
 
   factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
     width: json.size.width,
     height: json.size.height,
-    missile: Missile.fromJson(
-      jsonMissile: json.missile,
-      jsonPlatforms: json.platforms,
-    ),
+    missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
-    launchers: Launcher.list(
-      width: json.size.width,
-      height: json.size.height,
-    ),
+    launchers: Launchers.list(json.launchers),
+    nodes: Location.list(json.nodes),
     units: MapList(),
+  );
+
+  Map<String, double> resourcesToJsonUpdate() => Map.fromEntries(
+    resources.list.map((r) => MapEntry(r.id, r.amountCurrent)),
   );
 
   Map<String, JsonUnitUpdate> unitsToJsonUpdate() => Map.fromEntries(

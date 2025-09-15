@@ -24,6 +24,7 @@ class MatchComponent extends World {
   final List<UnitComponent> unitComponents = [];
   late final Player self;
   late final Player opponent;
+  late final Vector2 nodeSize;
   late final DateTime startedAt;
   late final TargetComponent targetComponent;
 
@@ -45,6 +46,11 @@ class MatchComponent extends World {
       position: Vector2.zero(),
     );
     add(targetComponent);
+
+    nodeSize = Dimensions.nodeSize(
+      canvasSize: Dimensions.battlefieldSize(resolution),
+      battlefield: match.battlefield,
+    );
 
     add(
       BattlefieldComponent(
@@ -155,7 +161,7 @@ class MatchComponent extends World {
       }
     }
 
-    throw Exception('Node $id not found');
+    throw Exception('Node not found');
   }
 
   void highlightNodeAt({

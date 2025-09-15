@@ -1,7 +1,9 @@
-import 'dart:ui';
+import 'dart:math';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 
 class Dimensions {
   static Vector2 cameraSize(Vector2 canvasSize) => Vector2(
@@ -67,28 +69,48 @@ class Dimensions {
     resolution.y - headerSize(resolution).y,
   );
 
+  static Vector2 maxNodeSizeWidth({
+    required Vector2 canvasSize,
+    required JsonBattlefield battlefield,
+  }) {
+    final double maxWidth = canvasSize.x / (battlefield.size.width * 1.15);
+
+    return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
+  }
+
+  static Vector2 maxNodeSizeHeight({
+    required Vector2 canvasSize,
+    required JsonBattlefield battlefield,
+  }) {
+    final double maxHeight = canvasSize.y / (battlefield.size.height * 0.85);
+
+    return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
+  }
+
   static Vector2 nodeSize({
     required Vector2 canvasSize,
-    required Size mapSize,
+    required JsonBattlefield battlefield,
   }) {
-    final double maxNodeWidth = canvasSize.x / mapSize.width;
-    final double maxNodeHeight = canvasSize.y / mapSize.height;
+    final Vector2 maxSizeWidth = maxNodeSizeWidth(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
+    );
+    final Vector2 maxSizeHeight = maxNodeSizeHeight(
+      canvasSize: canvasSize,
+      battlefield: battlefield,
+    );
 
-    return (maxNodeWidth > maxNodeHeight)
-        ? Vector2.all(maxNodeHeight)
-        : Vector2.all(maxNodeWidth);
+    return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
   }
 
   static Vector2 nodePosition({
-    required Vector2 location,
+    required Vector2 center,
     required Vector2 nodeSize,
-    required Vector2 canvasSize,
-  }) =>
-      Vector2(
-        location.x * nodeSize.x,
-        location.y * nodeSize.y,
-      ) +
-      (canvasSize / 2);
+    required JsonLocation location,
+  }) => Vector2(
+    center.x + (nodeSize.x * ((location.y / 2) + location.x)),
+    center.y + (nodeSize.y * 3 / 4 * location.y),
+  );
 
   static double controlsGapSize(Vector2 size) => size.x * 0.07;
 

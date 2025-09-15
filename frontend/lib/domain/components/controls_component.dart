@@ -122,7 +122,7 @@ class UnitSelectorComponent extends PositionComponent {
     super.update(dt);
 
     final bool before = enabled;
-    enabled = player.resources >= unitType.cost;
+    enabled = player.resources >= unitType.deploymentCost;
 
     if (before != enabled) {
       if (enabled) {
@@ -141,10 +141,9 @@ class UnitSelectorComponent extends PositionComponent {
   }
 }
 
-class UnitImageComponent extends PositionComponent with DragCallbacks {
+class UnitImageComponent extends SpriteComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  final Paint borderPaint = Palette.paint(style: PaintingStyle.stroke);
   Vector2 initialPosition = Vector2(0, 0);
 
   UnitImageComponent({
@@ -152,27 +151,14 @@ class UnitImageComponent extends PositionComponent with DragCallbacks {
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center) {
-    borderPaint.color = player.color;
-    borderPaint.strokeWidth = size.x * 0.05;
-  }
+  }) : super(anchor: Anchor.center);
 
   @override
-  void render(Canvas canvas) {
-    super.render(canvas);
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(unitType.thumbnail);
+    decorator.addLast(PaintDecorator.tint(player.color));
 
-    canvas.drawCircle(
-      (size / 2).toOffset(),
-      size.x * 0.4,
-      borderPaint,
-    );
-    canvas.drawText(
-      text: unitType.power.toString(),
-      position: size / 2,
-      size: size.x * 0.35,
-      color: player.color,
-      fontWeight: FontWeight.bold,
-    );
+    return super.onLoad();
   }
 
   bool get enabled =>
@@ -244,7 +230,7 @@ class UnitCostComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '\$${unitType.cost.toString()}',
+      text: '${unitType.deploymentCost.toString()}🛢️',
       position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 2.5,
       color: Palette.CONTROLS_COST_FOREGROUND,
@@ -274,7 +260,7 @@ class ResourcesComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '\$${player.resources.floor().toString()}',
+      text: '${player.resources.floor().toString()}🛢️',
       position: Vector2(size.x * 0.5, size.y * 0.2),
       size: size.x / 5,
       color: Palette.CONTROLS_COST_FOREGROUND,

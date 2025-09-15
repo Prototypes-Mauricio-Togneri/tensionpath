@@ -9,7 +9,6 @@ extension CanvasExtension on Canvas {
     required Vector2 position,
     required double size,
     TextAlign textAlign = TextAlign.center,
-    FontWeight fontWeight = FontWeight.normal,
     Anchor anchor = Anchor.center,
     Color? color,
     Paint? foreground,
@@ -17,7 +16,7 @@ extension CanvasExtension on Canvas {
   }) {
     final TextStyle textStyle = TextStyle(
       fontSize: size,
-      fontWeight: fontWeight,
+      fontWeight: FontWeight.normal,
       color: color,
       foreground: foreground,
       background: background,
@@ -38,48 +37,48 @@ extension CanvasExtension on Canvas {
     textPainter.paint(this, translatedPosition.toOffset());
   }
 
-  void drawNode({
+  void drawHexagon({
     required Vector2 center,
     required Vector2 size,
     Paint? fillPaint,
     Paint? borderPaint,
   }) {
-    final Rect rect = Rect.fromCenter(
-      center: center.toOffset(),
-      width: size.x,
-      height: size.y,
+    final Path hexagonPath = _createHexagonPath(
+      center: center,
+      size: size,
     );
 
-    if (borderPaint != null) {
-      drawRect(rect, borderPaint);
+    if (fillPaint != null) {
+      drawPath(hexagonPath, fillPaint);
     }
 
-    if (fillPaint != null) {
-      drawRect(rect, fillPaint);
+    if (borderPaint != null) {
+      drawPath(hexagonPath, borderPaint);
     }
   }
 
-  void drawStructure({
+  Path _createHexagonPath({
     required Vector2 center,
-    required double width,
-    required double height,
-    required double borderWidth,
-    required Paint foregroundPaint,
-    required Paint borderPaint,
+    required Vector2 size,
   }) {
-    drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      borderPaint,
-    );
-    drawRect(
-      Rect.fromLTWH(
-        borderWidth,
-        borderWidth,
-        width - borderWidth * 2,
-        height - borderWidth * 2,
-      ),
-      foregroundPaint,
-    );
+    final Path path = Path();
+    final double radius = min(size.x, size.y) / 2;
+
+    for (int i = 0; i < 6; i++) {
+      final double angle = (pi / 6) + (pi / 3) * i;
+      final double x = center.x + radius * 1.15 * cos(angle);
+      final double y = center.y + radius * 1.15 * sin(angle);
+
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+
+    path.close();
+
+    return path;
   }
 
   void drawArc2({

@@ -3,15 +3,6 @@ import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class HomeState extends BaseState {
-  @override
-  void onLoad() {
-    Navigation.matchScreen(
-      host: '',
-      matchId: '',
-      userId: '',
-    );
-  }
-
   void onSettings() => Navigation.settingsScreen();
 
   void onPlay() => Navigation.lobbyScreen();
