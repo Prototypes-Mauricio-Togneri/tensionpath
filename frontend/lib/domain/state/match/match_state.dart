@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
@@ -54,9 +55,12 @@ class MatchState extends BaseState {
           matchState: this,
         );
         Delayed.post(notify);
+      } else if (json is JsonUpdate) {
+        print(json);
       }
     }
 
+    // TODO(momo): for when the match ends
     /*if (match.selfWon) {
       GameComponentRef.instance.onMatchFinished(true);
     } else if (match.opponentWon) {
