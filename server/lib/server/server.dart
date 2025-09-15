@@ -26,7 +26,7 @@ class Server {
       environment.port,
     );
     server.listen(_handleRequest);
-    Logger.info('Server running');
+    Logger.info('Server running on port ${environment.port}');
   }
 
   Future _handleRequest(HttpRequest request) async {
