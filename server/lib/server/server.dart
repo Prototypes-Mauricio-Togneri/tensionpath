@@ -29,27 +29,7 @@ class Server {
     Logger.info('Server running on port ${environment.port}');
 
     if (environment.isLocal) {
-      Logger.info('Running in local mode');
-
-      dispatcher.create(
-        JsonCreateMatch(
-          matchId: 'test-match-id',
-          createdAt: DateTime.now(),
-          numberOfPlayers: 2,
-          matchType: 'pvp',
-          players: {
-            'AAA': 'Max',
-            'ZZZ': 'Bob',
-          },
-        ),
-      );
-
-      final WebSocket webSocket = await WebSocket.connect(
-        'ws://localhost:${environment.port}',
-      );
-      webSocket.add(
-        '{"join": {"matchId":"test-match-id","playerId":"ZZZ"}}',
-      );
+      await _startTestMatch();
     }
   }
 
@@ -133,5 +113,29 @@ class Server {
     }
 
     await request.response.close();
+  }
+
+  Future _startTestMatch() async {
+    Logger.info('Running in local mode');
+
+    dispatcher.create(
+      JsonCreateMatch(
+        matchId: 'test-match-id',
+        createdAt: DateTime.now(),
+        numberOfPlayers: 2,
+        matchType: 'pvp',
+        players: {
+          'AAA': 'Max',
+          'ZZZ': 'Bob',
+        },
+      ),
+    );
+
+    final WebSocket webSocket = await WebSocket.connect(
+      'ws://localhost:${environment.port}',
+    );
+    webSocket.add(
+      '{"join": {"matchId":"test-match-id","playerId":"ZZZ"}}',
+    );
   }
 }
