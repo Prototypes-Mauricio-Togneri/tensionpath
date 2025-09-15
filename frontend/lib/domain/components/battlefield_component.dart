@@ -47,30 +47,15 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() async {
-    final Sprite sprite = await Sprite.load(
-      Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
-    );
     final Vector2 nodeSize = Dimensions.nodeSize(
       canvasSize: size,
       battlefield: battlefield,
     );
     final Vector2 mapCenter = size / 2;
 
-    add(
-      BattlefieldBackgroundComponent(
-        sprite: sprite,
-        position: mapCenter,
-        size: sprite.originalSize,
-      ),
-    );
-
-    add(
-      BattlefieldGridComponent(
-        position: mapCenter,
-        size: size,
-        nodeSize: nodeSize,
-        nodes: battlefield.nodes,
-      ),
+    await _addBattlefieldComponent(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
     );
 
     _addNodeComponents(
@@ -98,17 +83,33 @@ class BattlefieldComponent extends PositionComponent {
       mapCenter: mapCenter,
     );
 
+    _addFogComponent(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+  }
+
+  Future _addBattlefieldComponent({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) async {
+    final Sprite sprite = await Sprite.load(
+      Assets.IMAGES_BATTLEFIELDS_BACKGROUND,
+    );
     add(
-      FogComponent(
-        position: size / 2,
+      BattlefieldBackgroundComponent(
+        sprite: sprite,
+        position: mapCenter,
+        size: sprite.originalSize,
+      ),
+    );
+
+    add(
+      BattlefieldGridComponent(
+        position: mapCenter,
         size: size,
-        unitComponents: unitComponents,
-        launcherComponents: launcherComponents
-            .where((launcher) => launcher.player.isSelf)
-            .toList(),
-        nodeComponents: nodeComponents,
         nodeSize: nodeSize,
-        offset: position + (size / 2),
+        nodes: battlefield.nodes,
       ),
     );
   }
@@ -221,6 +222,25 @@ class BattlefieldComponent extends PositionComponent {
         launcherComponents.add(launcherComponent);
       }
     }
+  }
+
+  void _addFogComponent({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
+    add(
+      FogComponent(
+        position: mapCenter,
+        size: size,
+        unitComponents: unitComponents,
+        launcherComponents: launcherComponents
+            .where((launcher) => launcher.player.isSelf)
+            .toList(),
+        nodeComponents: nodeComponents,
+        nodeSize: nodeSize,
+        offset: position + mapCenter,
+      ),
+    );
   }
 
   NodeType getNodeType({
