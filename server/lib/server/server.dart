@@ -43,6 +43,13 @@ class Server {
           },
         ),
       );
+
+      final WebSocket webSocket = await WebSocket.connect(
+        'ws://localhost:${environment.port}',
+      );
+      webSocket.add(
+        '{"join": {"matchId":"test-match-id","playerId":"ZZZ"}}',
+      );
     }
   }
 
