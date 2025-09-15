@@ -27,6 +27,23 @@ class Server {
     );
     server.listen(_handleRequest);
     Logger.info('Server running on port ${environment.port}');
+
+    if (environment.isLocal) {
+      Logger.info('Running in local mode');
+
+      dispatcher.create(
+        JsonCreateMatch(
+          matchId: 'test-match-id',
+          createdAt: DateTime.now(),
+          numberOfPlayers: 2,
+          matchType: 'pvp',
+          players: {
+            'AAA': 'Max',
+            'ZZZ': 'Bob',
+          },
+        ),
+      );
+    }
   }
 
   Future _handleRequest(HttpRequest request) async {

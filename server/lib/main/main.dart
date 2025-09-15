@@ -6,6 +6,7 @@ void main(List<String> args) {
   final Environment environment = Environment(
     apiKey: Platform.environment['API_KEY'] ?? args[0],
     port: int.parse(Platform.environment['PORT'] ?? args[1]),
+    isLocal: (Platform.environment['IS_LOCAL'] ?? args[2]) == 'true',
   );
 
   final Launcher launcher = Launcher(environment);
