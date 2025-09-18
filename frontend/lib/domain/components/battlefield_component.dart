@@ -34,6 +34,7 @@ class BattlefieldComponent extends PositionComponent {
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
   late final MissileComponent missileComponent;
+  late final Vector2 nodeSize;
 
   BattlefieldComponent({
     required super.position,
@@ -52,7 +53,7 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() async {
-    final Vector2 nodeSize = Dimensions.nodeSize(
+    nodeSize = Dimensions.nodeSize(
       canvasSize: size,
       battlefield: battlefield,
     );
@@ -285,6 +286,47 @@ class BattlefieldComponent extends PositionComponent {
     required Map<String, JsonUnitUpdate> units,
   }) {
     missileComponent.refresh(missile);
+
+    final List<JsonUnitUpdate> newUnits = _newUnits(
+      units: units,
+      unitComponents: unitComponents,
+    );
+
+    for (final JsonUnitUpdate unit in newUnits) {
+      final UnitComponent unitComponent = UnitComponent(
+        position: Dimensions.nodePosition(
+          center: size / 2,
+          nodeSize: nodeSize,
+          location: unit.location,
+        ),
+        size: nodeSize,
+        id: unit.id,
+        type: unit.type,
+        player: unit.playerIndex == self.index ? self : opponent,
+        currentNodeType: null,
+        currentLocation: unit.location,
+      );
+      add(unitComponent);
+      unitComponents.add(unitComponent);
+    }
+  }
+
+  List<JsonUnitUpdate> _newUnits({
+    required Map<String, JsonUnitUpdate> units,
+    required List<UnitComponent> unitComponents,
+  }) {
+    final List<JsonUnitUpdate> result = [];
+    final Set<String> existingUnitIds = unitComponents
+        .map((unitComponent) => unitComponent.id)
+        .toSet();
+
+    for (final MapEntry<String, JsonUnitUpdate> entry in units.entries) {
+      if (!existingUnitIds.contains(entry.key)) {
+        result.add(entry.value);
+      }
+    }
+
+    return result;
   }
 }
 

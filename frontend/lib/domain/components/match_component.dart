@@ -204,23 +204,6 @@ class MatchComponent extends World {
       location: location,
       type: type,
     );
-
-    /*if (self.resources >= unitType.deploymentCost) {
-      self.removeResources(unitType.deploymentCost);
-
-      final UnitComponent unitComponent = UnitComponent(
-        position: launcherComponent.absolutePosition,
-        size: nodeSize,
-        id: DateTime.now().toIso8601String(),
-        type: unitType,
-        player: self,
-        currentNodeType: NodeType.launcher,
-        currentLocation: launcherComponent.nodeComponent.location,
-      );
-
-      add(unitComponent);
-      unitComponents.add(unitComponent);
-    }*/
   }
 
   void onMoveUnit({

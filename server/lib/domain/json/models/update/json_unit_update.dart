@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_unit_update.g.dart';
 
@@ -8,6 +9,12 @@ part 'json_unit_update.g.dart';
 class JsonUnitUpdate {
   @JsonKey(name: 'id')
   final String id;
+
+  @JsonKey(name: 'playerIndex')
+  final String playerIndex;
+
+  @JsonKey(name: 'type')
+  final UnitType type;
 
   @JsonKey(name: 'location')
   final JsonLocation location;
@@ -20,6 +27,8 @@ class JsonUnitUpdate {
 
   const JsonUnitUpdate({
     required this.id,
+    required this.playerIndex,
+    required this.type,
     required this.location,
     required this.position,
     required this.health,

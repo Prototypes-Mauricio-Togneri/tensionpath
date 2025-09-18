@@ -37,6 +37,7 @@ class Battlefield {
       id: DateTime.now().toIso8601String(),
       player: player,
       type: type,
+      location: location,
       health: type.maxHealth.toDouble(),
     );
     units.add(unit.id, unit);

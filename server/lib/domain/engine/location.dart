@@ -14,6 +14,8 @@ class Location {
     y: json.y,
   );
 
+  JsonLocation toJson() => JsonLocation(x: x, y: y);
+
   static MapList<String, Location> list(List<JsonLocation> json) {
     final MapList<String, Location> result = MapList();
 
