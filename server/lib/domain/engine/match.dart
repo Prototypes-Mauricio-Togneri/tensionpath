@@ -40,8 +40,16 @@ class Match {
     required UnitType type,
   }) {
     final Player player = players.get(playerIndex);
-    player.removeResources(type.cost.toDouble());
-    _sendMatchUpdate();
+
+    if (player.resources >= type.cost) {
+      player.removeResources(type.cost.toDouble());
+      battlefield.deployUnit(
+        player: player,
+        location: location,
+        type: type,
+      );
+      _sendMatchUpdate();
+    }
   }
 
   void update(double dt) {
