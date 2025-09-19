@@ -13,7 +13,6 @@ dependencies:
   logger: ^2.6.1
   get_it: ^8.2.0
   dafluta: ^5.5.1
-  url_strategy: ^0.3.0
   json_annotation: ^4.9.0
   web_socket_channel: ^3.0.3
   shared_preferences: ^2.5.3

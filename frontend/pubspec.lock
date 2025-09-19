@@ -229,10 +229,10 @@ packages:
     dependency: "direct main"
     description:
       name: dafluta
-      sha256: cc7760bdc327beab7b58cf5582476ee1d5d14ea61f2a3e57655eb2d89f7256bf
+      sha256: "8834a78fcf869d7147e273cb95e3ed1d5a41ff19e8d68708f94a817b832a20a2"
       url: "https://pub.dev"
     source: hosted
-    version: "5.5.1"
+    version: "5.6.0"
   dalocale:
     dependency: "direct dev"
     description:
@@ -657,10 +657,10 @@ packages:
     dependency: transitive
     description:
       name: pool
-      sha256: "20fe868b6314b322ea036ba325e6fc0711a22948856475e2c2b6306e8ab39c2a"
+      sha256: "978783255c543aa3586a1b3c21f6e9d720eb315376a915872c61ef8b5c20177d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.1"
+    version: "1.5.2"
   pub_semver:
     dependency: transitive
     description:
@@ -850,14 +850,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  url_strategy:
-    dependency: "direct main"
-    description:
-      name: url_strategy
-      sha256: "6eff69fa0900b731a23552b38b54389f399d247dbb0998f2cbdf25bef6790a7c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.0"
   uuid:
     dependency: "direct main"
     description:
