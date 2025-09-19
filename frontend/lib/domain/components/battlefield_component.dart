@@ -138,10 +138,7 @@ class BattlefieldComponent extends PositionComponent {
           positionId: location.id,
           missile: battlefield.missile,
           resources: battlefield.resources,
-          launchers: battlefield.launchers
-              .map((launchers) => launchers.locations)
-              .expand((locations) => locations)
-              .toList(),
+          launchers: battlefield.launchers,
         ),
         location: location,
       );
@@ -255,18 +252,18 @@ class BattlefieldComponent extends PositionComponent {
     required String positionId,
     required JsonMissile missile,
     required List<JsonResource> resources,
-    required List<JsonLocation> launchers,
+    required List<JsonLaunchers> launchers,
   }) {
     if (missile.location.id == positionId) {
       return NodeType.missile;
     }
 
-    final List<JsonLocation> pads = missile.platforms
+    final List<JsonLocation> padsPositions = missile.platforms
         .map((p) => p.pads)
         .expand((p) => p)
         .toList();
 
-    if (pads.any((pad) => pad.id == positionId)) {
+    if (padsPositions.any((pad) => pad.id == positionId)) {
       return NodeType.pad;
     }
 
@@ -274,7 +271,12 @@ class BattlefieldComponent extends PositionComponent {
       return NodeType.resources;
     }
 
-    if (launchers.any((launcher) => launcher.id == positionId)) {
+    final List<JsonLocation> launchersPositions = launchers
+        .map((launchers) => launchers.locations)
+        .expand((locations) => locations)
+        .toList();
+
+    if (launchersPositions.any((launcher) => launcher.id == positionId)) {
       return NodeType.launcher;
     }
 
