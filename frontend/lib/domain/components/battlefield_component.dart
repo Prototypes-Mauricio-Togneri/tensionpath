@@ -134,7 +134,7 @@ class BattlefieldComponent extends PositionComponent {
       final NodeComponent nodeComponent = NodeComponent(
         position: position,
         size: nodeSize,
-        type: getNodeType(
+        type: _getNodeType(
           positionId: location.id,
           missile: battlefield.missile,
           resources: battlefield.resources,
@@ -248,7 +248,7 @@ class BattlefieldComponent extends PositionComponent {
     );
   }
 
-  NodeType getNodeType({
+  NodeType _getNodeType({
     required String positionId,
     required JsonMissile missile,
     required List<JsonResource> resources,
