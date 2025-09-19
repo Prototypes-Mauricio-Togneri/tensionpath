@@ -50,12 +50,7 @@ class Battlefield {
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
     launchers: Launchers.list(json.launchers),
-    nodes: Node.list(
-      nodes: json.nodes,
-      missile: json.missile,
-      resources: json.resources,
-      launchers: json.launchers,
-    ),
+    nodes: Node.list(json.nodes),
     units: MapList(),
   );
 
