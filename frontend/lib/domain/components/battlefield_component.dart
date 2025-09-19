@@ -34,6 +34,7 @@ class BattlefieldComponent extends PositionComponent {
   final List<UnitComponent> unitComponents;
   late final MissileComponent missileComponent;
   late final Vector2 nodeSize;
+  late final num nodeSizeRatio;
 
   BattlefieldComponent({
     required super.position,
@@ -54,6 +55,10 @@ class BattlefieldComponent extends PositionComponent {
   FutureOr onLoad() async {
     nodeSize = Dimensions.nodeSize(
       canvasSize: size,
+      battlefield: battlefield,
+    );
+    nodeSizeRatio = Dimensions.nodeSizeRatio(
+      nodeSize: nodeSize,
       battlefield: battlefield,
     );
     final Vector2 mapCenter = size / 2;

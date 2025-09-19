@@ -103,6 +103,11 @@ class Dimensions {
     return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
   }
 
+  static num nodeSizeRatio({
+    required Vector2 nodeSize,
+    required JsonBattlefield battlefield,
+  }) => nodeSize.x / battlefield.nodeSize.width;
+
   static Vector2 nodePosition({
     required Vector2 center,
     required Vector2 nodeSize,
