@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/json/models/start/json_size.dart';
+import 'package:tensionpath/domain/json/models/common/json_size.dart';
 
 class Size {
   final num width;

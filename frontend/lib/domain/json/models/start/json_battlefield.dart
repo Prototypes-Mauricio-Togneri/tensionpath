@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/models/common/json_size.dart';
 import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
 import 'package:tensionpath/domain/json/models/start/json_node.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource.dart';
-import 'package:tensionpath/domain/json/models/start/json_size.dart';
 
 part 'json_battlefield.g.dart';
 
