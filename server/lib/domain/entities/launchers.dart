@@ -1,6 +1,6 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Launchers {
   final String playerIndex;
@@ -16,8 +16,8 @@ class Launchers {
     locations: json.locations.map(Location.fromJson).toList(),
   );
 
-  static MapList<String, Launchers> list(List<JsonLaunchers> json) {
-    final MapList<String, Launchers> result = MapList();
+  static IterableMap<String, Launchers> list(List<JsonLaunchers> json) {
+    final IterableMap<String, Launchers> result = IterableMap();
 
     for (final JsonLaunchers jsonLaunchers in json) {
       final Launchers launchers = Launchers.fromJson(jsonLaunchers);

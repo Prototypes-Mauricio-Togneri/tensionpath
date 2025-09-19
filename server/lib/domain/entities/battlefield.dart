@@ -10,15 +10,15 @@ import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/constants.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Battlefield {
   final Size mapSize;
   final Missile missile;
-  final MapList<String, Resources> resources;
-  final MapList<String, Launchers> launchers;
-  final MapList<String, Node> nodes;
-  final MapList<String, Unit> units;
+  final IterableMap<String, Resources> resources;
+  final IterableMap<String, Launchers> launchers;
+  final IterableMap<String, Node> nodes;
+  final IterableMap<String, Unit> units;
 
   const Battlefield({
     required this.mapSize,
@@ -60,7 +60,7 @@ class Battlefield {
     resources: Resources.list(json.resources),
     launchers: Launchers.list(json.launchers),
     nodes: Node.list(json.nodes),
-    units: MapList(),
+    units: IterableMap(),
   );
 
   Map<String, num> resourcesToJsonUpdate() => Map.fromEntries(

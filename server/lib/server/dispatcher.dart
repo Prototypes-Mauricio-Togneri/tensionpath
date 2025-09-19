@@ -4,10 +4,10 @@ import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/server/connection.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Dispatcher {
-  final MapList<String, Connection> connections = MapList();
+  final IterableMap<String, Connection> connections = IterableMap();
   final Map<WebSocket, Connection> websocketToConnection = {};
 
   bool hasConnection(String matchId) => connections.has(matchId);

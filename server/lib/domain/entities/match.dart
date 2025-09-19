@@ -8,13 +8,13 @@ import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Match {
   final Connection connection;
   final DateTime createdAt;
   final Battlefield battlefield;
-  final MapList<String, Player> players;
+  final IterableMap<String, Player> players;
   double totalTime = 0;
   MatchStatus status;
 

@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform.dart';
 import 'package:tensionpath/utils/constants.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Platform {
   final String id;
@@ -48,8 +48,8 @@ class Platform {
     pads: json.pads.map(Location.fromJson).toList(),
   );
 
-  static MapList<String, Platform> list(List<JsonPlatform> json) {
-    final MapList<String, Platform> result = MapList();
+  static IterableMap<String, Platform> list(List<JsonPlatform> json) {
+    final IterableMap<String, Platform> result = IterableMap();
 
     for (final JsonPlatform jsonPlatform in json) {
       final Platform platform = Platform.fromJson(jsonPlatform);

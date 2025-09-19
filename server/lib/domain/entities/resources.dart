@@ -1,6 +1,6 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Resources {
   final String id;
@@ -22,8 +22,8 @@ class Resources {
     amountMax: json.amountMax,
   );
 
-  static MapList<String, Resources> list(List<JsonResource> json) {
-    final MapList<String, Resources> result = MapList();
+  static IterableMap<String, Resources> list(List<JsonResource> json) {
+    final IterableMap<String, Resources> result = IterableMap();
 
     for (final JsonResource jsonResources in json) {
       final Resources resources = Resources.fromJson(jsonResources);

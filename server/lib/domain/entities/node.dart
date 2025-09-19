@@ -2,7 +2,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Node {
   final String id;
@@ -17,8 +17,8 @@ class Node {
     required this.position,
   });
 
-  static MapList<String, Node> list(List<JsonNode> nodes) {
-    final MapList<String, Node> result = MapList();
+  static IterableMap<String, Node> list(List<JsonNode> nodes) {
+    final IterableMap<String, Node> result = IterableMap();
 
     for (final JsonNode jsonNode in nodes) {
       final Node node = Node(

@@ -1,5 +1,5 @@
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Location {
   final int x;
@@ -16,8 +16,8 @@ class Location {
 
   JsonLocation toJson() => JsonLocation(x: x, y: y);
 
-  static MapList<String, Location> list(List<JsonLocation> json) {
-    final MapList<String, Location> result = MapList();
+  static IterableMap<String, Location> list(List<JsonLocation> json) {
+    final IterableMap<String, Location> result = IterableMap();
 
     for (final JsonLocation jsonLocation in json) {
       final Location location = Location.fromJson(jsonLocation);

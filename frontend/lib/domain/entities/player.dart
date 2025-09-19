@@ -6,19 +6,18 @@ import 'package:tensionpath/utils/palette.dart';
 
 class Player {
   final String id;
+  final String name;
   final String index;
   final bool isSelf;
-  final String name;
   final num baseMaxHealth;
   num baseHealth;
   num resources;
   num resourcesRate;
-
   Player({
     required this.id,
+    required this.name,
     required this.index,
     required this.isSelf,
-    required this.name,
     required this.baseMaxHealth,
     required this.baseHealth,
     required this.resources,

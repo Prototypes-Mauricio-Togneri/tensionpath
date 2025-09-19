@@ -1,6 +1,6 @@
 import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
-import 'package:tensionpath/utils/map_list.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Player {
   final String id;
@@ -42,8 +42,8 @@ class Player {
     );
   }
 
-  static MapList<String, Player> list(List<JsonPlayer> json) {
-    final MapList<String, Player> result = MapList();
+  static IterableMap<String, Player> list(List<JsonPlayer> json) {
+    final IterableMap<String, Player> result = IterableMap();
 
     for (final JsonPlayer jsonPlayer in json) {
       final Player player = Player.fromJson(jsonPlayer);
