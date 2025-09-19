@@ -9,32 +9,30 @@ import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class MissileComponent extends SpriteComponent {
-  late final MissileIndicatorComponent missileIndicator;
+  final Missile missile;
 
   MissileComponent({
     required super.position,
     required super.size,
-    required Missile missile,
+    required this.missile,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
-       ) {
-    missileIndicator = MissileIndicatorComponent(
-      position: size / 2,
-      size: Vector2(size.x * 0.7, size.y * 0.08),
-      chargeCurrent: 0,
-      chargeMax: missile.chargeMax,
-      chargeBuffer: missile.chargeBuffer,
-      owner: null,
-    );
-  }
+       );
 
-  void refresh(JsonMissileUpdate missile) => missileIndicator.refresh(missile);
+  void refresh(JsonMissileUpdate json) => missile.update(json);
 
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
-    add(missileIndicator);
+
+    add(
+      MissileIndicatorComponent(
+        position: size / 2,
+        size: Vector2(size.x * 0.7, size.y * 0.08),
+        missile: missile,
+      ),
+    );
 
     return super.onLoad();
   }
@@ -53,43 +51,24 @@ class MissileIndicatorComponent extends PositionComponent {
   final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
-  final num chargeMax;
-  final num chargeBuffer;
-  num chargeCurrent;
-  String? owner;
+  final Missile missile;
 
   MissileIndicatorComponent({
     required super.position,
     required super.size,
-    required this.chargeCurrent,
-    required this.chargeMax,
-    required this.chargeBuffer,
-    required this.owner,
+    required this.missile,
   }) : super(anchor: Anchor.center);
-
-  void refresh(JsonMissileUpdate missile) {
-    chargeCurrent = missile.charge;
-    owner = missile.owner;
-
-    if (owner == '') {
-      foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
-    } else if (owner == Constants.PLAYER_1) {
-      foregroundPaint.color = Palette.PLAYER_1;
-    } else if (owner == Constants.PLAYER_2) {
-      foregroundPaint.color = Palette.PLAYER_2;
-    } else {
-      foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
-    }
-  }
 
   @override
   void update(double dt) {
-    if (owner == '') {
-      if (chargeCurrent > chargeBuffer) {
-        chargeCurrent -= dt;
-      }
-    } else if (owner != null) {
-      chargeCurrent += dt;
+    if (missile.owner == '') {
+      foregroundPaint.color = Palette.MISSILE_OWNER_CONTESTED;
+    } else if (missile.owner == Constants.PLAYER_1) {
+      foregroundPaint.color = Palette.PLAYER_1;
+    } else if (missile.owner == Constants.PLAYER_2) {
+      foregroundPaint.color = Palette.PLAYER_2;
+    } else {
+      foregroundPaint.color = Palette.MISSILE_OWNER_NONE;
     }
   }
 
@@ -99,7 +78,7 @@ class MissileIndicatorComponent extends PositionComponent {
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
 
-    final double filled = (width * chargeCurrent) / chargeMax;
+    final double filled = (width * missile.chargeCurrent) / missile.chargeMax;
     canvas.drawRect(Rect.fromLTWH(0, 0, filled, height), foregroundPaint);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), borderPaint);

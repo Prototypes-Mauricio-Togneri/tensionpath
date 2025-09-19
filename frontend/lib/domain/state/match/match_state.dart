@@ -77,9 +77,8 @@ class MatchState extends BaseState {
     Delayed.post(notify);
   }
 
-  void _onUpdate(JsonMatchUpdate update) {
-    MatchComponentRef.instance.onMatchUpdated(update);
-  }
+  void _onUpdate(JsonMatchUpdate update) =>
+      MatchComponentRef.instance.onMatchUpdated(update);
 
   void _onDisconnected() => InfoDialog.error(
     text: 'Server disconnection',

@@ -12,6 +12,10 @@ class Platform {
     required this.pads,
   });
 
+  void update(String? newOwner) {
+    owner = newOwner;
+  }
+
   factory Platform.fromJson(JsonPlatform json) => Platform(
     id: json.id,
     pads: json.pads.map(Location.fromJson).toList(),

@@ -276,6 +276,14 @@ class BattlefieldComponent extends PositionComponent {
       add(unitComponent);
       unitComponents.add(unitComponent);
     }
+
+    for (final ResourceComponent resourceComponent in resourceComponents) {
+      final num? newAmount = resources[resourceComponent.resources.id];
+
+      if (newAmount != null) {
+        resourceComponent.refresh(newAmount);
+      }
+    }
   }
 
   List<JsonUnitUpdate> _newUnits({
