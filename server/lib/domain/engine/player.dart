@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
+import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/map_list.dart';
 
 class Player {
@@ -8,6 +9,7 @@ class Player {
   final int baseMaxHealth;
   int baseHealth;
   double resources;
+  double resourcesRate;
 
   Player({
     required this.name,
@@ -15,6 +17,7 @@ class Player {
     required this.baseMaxHealth,
     required this.baseHealth,
     required this.resources,
+    required this.resourcesRate,
   });
 
   void removeResources(double amount) {
@@ -30,6 +33,7 @@ class Player {
       baseMaxHealth: json.baseMaxHealth,
       baseHealth: json.baseHealth,
       resources: json.resources,
+      resourcesRate: Constants.BASE_RESOURCES_RATE,
     );
   }
 
