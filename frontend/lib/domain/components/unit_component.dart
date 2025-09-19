@@ -254,8 +254,8 @@ class HealthBarComponent extends PositionComponent {
     style: PaintingStyle.stroke,
     color: Palette.UNIT_HEALTH_BORDER,
   );
-  late double health;
-  late double maxHealth;
+  late num health;
+  late num maxHealth;
 
   HealthBarComponent({
     required super.position,

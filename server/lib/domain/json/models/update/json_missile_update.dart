@@ -5,7 +5,7 @@ part 'json_missile_update.g.dart';
 @JsonSerializable()
 class JsonMissileUpdate {
   @JsonKey(name: 'charge')
-  final double charge;
+  final num charge;
 
   @JsonKey(name: 'owner')
   final String? owner;

@@ -9,7 +9,7 @@ part of 'json_missile_update.dart';
 JsonMissileUpdate _$JsonMissileUpdateFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonMissileUpdate', json, ($checkedConvert) {
       final val = JsonMissileUpdate(
-        charge: $checkedConvert('charge', (v) => (v as num).toDouble()),
+        charge: $checkedConvert('charge', (v) => v as num),
         owner: $checkedConvert('owner', (v) => v as String?),
         platforms: $checkedConvert(
           'platforms',

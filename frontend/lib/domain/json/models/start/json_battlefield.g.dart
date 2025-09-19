@@ -9,8 +9,12 @@ part of 'json_battlefield.dart';
 JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonBattlefield', json, ($checkedConvert) {
       final val = JsonBattlefield(
-        size: $checkedConvert(
-          'size',
+        mapSize: $checkedConvert(
+          'mapSize',
+          (v) => JsonSize.fromJson(v as Map<String, dynamic>),
+        ),
+        nodeSize: $checkedConvert(
+          'nodeSize',
           (v) => JsonSize.fromJson(v as Map<String, dynamic>),
         ),
         missile: $checkedConvert(
@@ -41,7 +45,8 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
     <String, dynamic>{
-      'size': instance.size.toJson(),
+      'mapSize': instance.mapSize.toJson(),
+      'nodeSize': instance.nodeSize.toJson(),
       'missile': instance.missile.toJson(),
       'resources': instance.resources.map((e) => e.toJson()).toList(),
       'launchers': instance.launchers.map((e) => e.toJson()).toList(),

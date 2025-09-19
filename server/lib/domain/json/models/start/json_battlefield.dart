@@ -9,8 +9,11 @@ part 'json_battlefield.g.dart';
 
 @JsonSerializable()
 class JsonBattlefield {
-  @JsonKey(name: 'size')
-  final JsonSize size;
+  @JsonKey(name: 'mapSize')
+  final JsonSize mapSize;
+
+  @JsonKey(name: 'nodeSize')
+  final JsonSize nodeSize;
 
   @JsonKey(name: 'missile')
   final JsonMissile missile;
@@ -25,7 +28,8 @@ class JsonBattlefield {
   final List<JsonNode> nodes;
 
   const JsonBattlefield({
-    required this.size,
+    required this.mapSize,
+    required this.nodeSize,
     required this.missile,
     required this.resources,
     required this.launchers,

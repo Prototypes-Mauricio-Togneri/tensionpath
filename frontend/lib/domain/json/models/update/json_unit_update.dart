@@ -23,7 +23,7 @@ class JsonUnitUpdate {
   final JsonPosition position;
 
   @JsonKey(name: 'health')
-  final double health;
+  final num health;
 
   const JsonUnitUpdate({
     required this.id,

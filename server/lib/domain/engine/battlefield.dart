@@ -55,8 +55,8 @@ class Battlefield {
   }
 
   factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
-    width: json.size.width,
-    height: json.size.height,
+    width: json.mapSize.width.toInt(),
+    height: json.mapSize.height.toInt(),
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
     launchers: Launchers.list(json.launchers),
@@ -64,7 +64,7 @@ class Battlefield {
     units: MapList(),
   );
 
-  Map<String, double> resourcesToJsonUpdate() => Map.fromEntries(
+  Map<String, num> resourcesToJsonUpdate() => Map.fromEntries(
     resources.list.map((r) => MapEntry(r.id, r.amountCurrent)),
   );
 

@@ -12,10 +12,10 @@ class JsonResource {
   final JsonLocation location;
 
   @JsonKey(name: 'amountCurrent')
-  final double amountCurrent;
+  final num amountCurrent;
 
   @JsonKey(name: 'amountMax')
-  final double amountMax;
+  final num amountMax;
 
   const JsonResource({
     required this.id,

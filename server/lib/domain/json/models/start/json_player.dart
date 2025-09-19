@@ -17,16 +17,16 @@ class JsonPlayer {
   final String index;
 
   @JsonKey(name: 'baseHealth')
-  final int baseHealth;
+  final num baseHealth;
 
   @JsonKey(name: 'baseMaxHealth')
-  final int baseMaxHealth;
+  final num baseMaxHealth;
 
   @JsonKey(name: 'resources')
-  final double resources;
+  final num resources;
 
   @JsonKey(name: 'resourcesRateBase')
-  final double resourcesRateBase;
+  final num resourcesRateBase;
 
   JsonPlayer({
     required this.id,

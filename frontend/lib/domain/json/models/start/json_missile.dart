@@ -10,10 +10,10 @@ class JsonMissile {
   final JsonLocation location;
 
   @JsonKey(name: 'chargeMax')
-  final double chargeMax;
+  final num chargeMax;
 
   @JsonKey(name: 'chargeBuffer')
-  final double chargeBuffer;
+  final num chargeBuffer;
 
   @JsonKey(name: 'platforms')
   final List<JsonPlatform> platforms;

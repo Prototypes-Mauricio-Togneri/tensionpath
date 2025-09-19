@@ -73,7 +73,7 @@ class Dimensions {
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
-    final double maxWidth = canvasSize.x / (battlefield.size.width * 1.15);
+    final double maxWidth = canvasSize.x / (battlefield.mapSize.width * 1.15);
 
     return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
   }
@@ -82,7 +82,7 @@ class Dimensions {
     required Vector2 canvasSize,
     required JsonBattlefield battlefield,
   }) {
-    final double maxHeight = canvasSize.y / (battlefield.size.height * 0.85);
+    final double maxHeight = canvasSize.y / (battlefield.mapSize.height * 0.85);
 
     return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
   }

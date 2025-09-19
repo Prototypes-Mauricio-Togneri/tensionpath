@@ -5,11 +5,11 @@ import 'package:tensionpath/utils/map_list.dart';
 class Player {
   final String name;
   final String index;
-  final int baseMaxHealth;
-  final double resourcesRateBase;
-  int baseHealth;
-  double resources;
-  double resourcesRate;
+  final num baseMaxHealth;
+  final num resourcesRateBase;
+  num baseHealth;
+  num resources;
+  num resourcesRate;
 
   Player({
     required this.name,

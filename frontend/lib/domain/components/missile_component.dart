@@ -53,9 +53,9 @@ class MissileIndicatorComponent extends PositionComponent {
   final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
-  final double chargeMax;
-  final double chargeBuffer;
-  double chargeCurrent;
+  final num chargeMax;
+  final num chargeBuffer;
+  num chargeCurrent;
   String? owner;
 
   MissileIndicatorComponent({

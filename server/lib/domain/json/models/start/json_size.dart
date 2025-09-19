@@ -5,10 +5,10 @@ part 'json_size.g.dart';
 @JsonSerializable()
 class JsonSize {
   @JsonKey(name: 'width')
-  final int width;
+  final num width;
 
   @JsonKey(name: 'height')
-  final int height;
+  final num height;
 
   const JsonSize({required this.width, required this.height});
 

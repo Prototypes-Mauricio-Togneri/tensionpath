@@ -5,9 +5,9 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
 class ResourceComponent extends SpriteComponent {
-  late double amountCurrent;
-  late double amountMax;
-  late double ratio;
+  late num amountCurrent;
+  late num amountMax;
+  late num ratio;
 
   ResourceComponent({
     required super.position,
@@ -29,7 +29,7 @@ class ResourceComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
-    scale = Vector2(ratio, ratio);
+    scale = Vector2(ratio.toDouble(), ratio.toDouble());
 
     return super.onLoad();
   }

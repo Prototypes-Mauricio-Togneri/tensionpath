@@ -9,8 +9,8 @@ part of 'json_size.dart';
 JsonSize _$JsonSizeFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonSize', json, ($checkedConvert) {
       final val = JsonSize(
-        width: $checkedConvert('width', (v) => (v as num).toInt()),
-        height: $checkedConvert('height', (v) => (v as num).toInt()),
+        width: $checkedConvert('width', (v) => v as num),
+        height: $checkedConvert('height', (v) => v as num),
       );
       return val;
     });

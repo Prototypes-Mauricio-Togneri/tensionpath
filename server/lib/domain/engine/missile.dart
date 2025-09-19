@@ -7,11 +7,11 @@ import 'package:tensionpath/utils/map_list.dart';
 
 class Missile {
   final Location location;
-  final double chargeMax;
-  final double chargeBuffer;
+  final num chargeMax;
+  final num chargeBuffer;
   final MapList<String, Platform> platforms;
   String? owner;
-  double charge = 0;
+  num charge = 0;
 
   Missile({
     required this.location,

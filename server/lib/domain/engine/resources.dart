@@ -5,8 +5,8 @@ import 'package:tensionpath/utils/map_list.dart';
 class Resources {
   final String id;
   final Location location;
-  final double amountMax;
-  double amountCurrent;
+  final num amountMax;
+  num amountCurrent;
 
   Resources({
     required this.id,

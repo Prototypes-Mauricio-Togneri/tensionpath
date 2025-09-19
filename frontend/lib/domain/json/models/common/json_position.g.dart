@@ -9,8 +9,8 @@ part of 'json_position.dart';
 JsonPosition _$JsonPositionFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonPosition', json, ($checkedConvert) {
       final val = JsonPosition(
-        x: $checkedConvert('x', (v) => (v as num).toDouble()),
-        y: $checkedConvert('y', (v) => (v as num).toDouble()),
+        x: $checkedConvert('x', (v) => v as num),
+        y: $checkedConvert('y', (v) => v as num),
       );
       return val;
     });

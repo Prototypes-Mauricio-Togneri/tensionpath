@@ -9,10 +9,10 @@ class Player {
   final String index;
   final bool isSelf;
   final String name;
-  final int baseMaxHealth;
-  int baseHealth;
-  double resources;
-  double resourcesRate;
+  final num baseMaxHealth;
+  num baseHealth;
+  num resources;
+  num resourcesRate;
 
   Player({
     required this.id,

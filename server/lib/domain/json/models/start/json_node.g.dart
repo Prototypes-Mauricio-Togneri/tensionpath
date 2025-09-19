@@ -13,6 +13,12 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) =>
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
+        position: $checkedConvert(
+          'position',
+          (v) => v == null
+              ? const JsonPosition(x: 0, y: 0)
+              : JsonPosition.fromJson(v as Map<String, dynamic>),
+        ),
         type: $checkedConvert(
           'type',
           (v) => $enumDecodeNullable(_$NodeTypeEnumMap, v) ?? NodeType.empty,
@@ -23,6 +29,7 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
   'location': instance.location.toJson(),
+  'position': instance.position.toJson(),
   'type': _$NodeTypeEnumMap[instance.type]!,
 };
 

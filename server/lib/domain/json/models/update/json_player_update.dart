@@ -5,13 +5,13 @@ part 'json_player_update.g.dart';
 @JsonSerializable()
 class JsonPlayerUpdate {
   @JsonKey(name: 'baseHealth')
-  final int baseHealth;
+  final num baseHealth;
 
   @JsonKey(name: 'resources')
-  final double resources;
+  final num resources;
 
   @JsonKey(name: 'resourcesRate')
-  final double resourcesRate;
+  final num resourcesRate;
 
   JsonPlayerUpdate({
     required this.baseHealth,

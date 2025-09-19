@@ -13,11 +13,8 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
-        chargeMax: $checkedConvert('chargeMax', (v) => (v as num).toDouble()),
-        chargeBuffer: $checkedConvert(
-          'chargeBuffer',
-          (v) => (v as num).toDouble(),
-        ),
+        chargeMax: $checkedConvert('chargeMax', (v) => v as num),
+        chargeBuffer: $checkedConvert('chargeBuffer', (v) => v as num),
         platforms: $checkedConvert(
           'platforms',
           (v) => (v as List<dynamic>)

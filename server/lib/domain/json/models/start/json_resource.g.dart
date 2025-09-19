@@ -14,11 +14,8 @@ JsonResource _$JsonResourceFromJson(Map<String, dynamic> json) =>
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
-        amountCurrent: $checkedConvert(
-          'amountCurrent',
-          (v) => (v as num).toDouble(),
-        ),
-        amountMax: $checkedConvert('amountMax', (v) => (v as num).toDouble()),
+        amountCurrent: $checkedConvert('amountCurrent', (v) => v as num),
+        amountMax: $checkedConvert('amountMax', (v) => v as num),
       );
       return val;
     });

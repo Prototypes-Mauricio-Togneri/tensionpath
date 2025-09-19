@@ -20,7 +20,7 @@ JsonUnitUpdate _$JsonUnitUpdateFromJson(Map<String, dynamic> json) =>
           'position',
           (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
         ),
-        health: $checkedConvert('health', (v) => (v as num).toDouble()),
+        health: $checkedConvert('health', (v) => v as num),
       );
       return val;
     });
