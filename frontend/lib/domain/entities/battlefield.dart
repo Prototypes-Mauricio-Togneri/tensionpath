@@ -1,13 +1,17 @@
+import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
+import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Battlefield {
   final Size mapSize;
   final Missile missile;
-  final MapList<String, Resources> resources;
-  final MapList<String, Launchers> launchers;
-  final MapList<String, Node> nodes;
-  final MapList<String, Unit> units;
+  final IterableMap<String, Resources> resources;
+  final IterableMap<String, Launchers> launchers;
+  final IterableMap<String, Node> nodes;
 
   const Battlefield({
     required this.mapSize,
@@ -15,9 +19,13 @@ class Battlefield {
     required this.resources,
     required this.launchers,
     required this.nodes,
-    required this.units,
   });
 
-  factory Battlefield.fromJson(JsonBattlefield jsonBattlefield) =>
-      const Battlefield();
+  factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
+    mapSize: Size.fromJson(json.mapSize),
+    missile: Missile.fromJson(json.missile),
+    resources: Resources.list(json.resources),
+    launchers: Launchers.list(json.launchers),
+    nodes: Node.list(json.nodes),
+  );
 }

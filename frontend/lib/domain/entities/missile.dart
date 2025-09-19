@@ -1,13 +1,13 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/utils/iterable_map.dart';
 
 class Missile {
   final Location location;
   final num chargeMax;
   final num chargeBuffer;
-  final MapList<String, Platform> platforms;
+  final IterableMap<String, Platform> platforms;
   String? owner;
   num charge = 0;
 
