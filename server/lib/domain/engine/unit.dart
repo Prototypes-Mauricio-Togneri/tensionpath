@@ -31,6 +31,11 @@ class Unit {
           - If unit inside of target node -> assign node to unit
     */
 
+    /*if ((type == UnitType.harvester) &&
+        (currentNodeType == NodeType.resources)) {
+      player.addResources(dt * Constants.RESOURCES_PER_SECOND);
+    }*/
+
     return false;
   }
 
