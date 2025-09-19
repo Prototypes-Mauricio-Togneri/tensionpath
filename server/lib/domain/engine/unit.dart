@@ -10,6 +10,7 @@ class Unit {
   final UnitType type;
   final Location location;
   double health;
+  bool moving = false;
 
   Unit({
     required this.id,
