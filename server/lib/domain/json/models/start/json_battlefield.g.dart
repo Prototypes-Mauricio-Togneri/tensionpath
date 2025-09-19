@@ -13,10 +13,6 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
           'size',
           (v) => JsonSize.fromJson(v as Map<String, dynamic>),
         ),
-        gridRatio: $checkedConvert(
-          'gridRatio',
-          (v) => JsonRatio.fromJson(v as Map<String, dynamic>),
-        ),
         missile: $checkedConvert(
           'missile',
           (v) => JsonMissile.fromJson(v as Map<String, dynamic>),
@@ -39,12 +35,6 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
               .map((e) => JsonLocation.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
-        units: $checkedConvert(
-          'units',
-          (v) => (v as List<dynamic>)
-              .map((e) => JsonUnitUpdate.fromJson(e as Map<String, dynamic>))
-              .toList(),
-        ),
       );
       return val;
     });
@@ -52,10 +42,8 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonBattlefieldToJson(JsonBattlefield instance) =>
     <String, dynamic>{
       'size': instance.size.toJson(),
-      'gridRatio': instance.gridRatio.toJson(),
       'missile': instance.missile.toJson(),
       'resources': instance.resources.map((e) => e.toJson()).toList(),
       'launchers': instance.launchers.map((e) => e.toJson()).toList(),
       'nodes': instance.nodes.map((e) => e.toJson()).toList(),
-      'units': instance.units.map((e) => e.toJson()).toList(),
     };

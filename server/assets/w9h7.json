@@ -25,10 +25,6 @@
             "width": 9,
             "height": 7
         },
-        "gridRatio": {
-            "width": 0.354,
-            "height": 0.5
-        },
         "missile": {
             "location": {
                 "x": 0,
