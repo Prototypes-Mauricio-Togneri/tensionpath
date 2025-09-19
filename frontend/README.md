@@ -32,11 +32,16 @@
     - Reveal map
     - Increase units visibility
   - Bomb (only on revealed tiles)
-    - Toxic bomb (removes units on each turn)
-    - Single tile
-    - Center tile and adjacents (more expensive or less damage in each node)
+    - Fire bomb (leaves a fire trail)
+    - Single tile (jade missile)
+    - Center tile and adjacents (ion cannon)
     - Vertical (affects 2 tiles in a column)
     - Mine
+  - Boost
+    - Increases HP
+    - Increases range
+    - Increases attack
+    - Increases conquering rate
 
 ## Combat
 
