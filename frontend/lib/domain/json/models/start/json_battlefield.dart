@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../common/json_location.dart';
-import 'json_launchers.dart';
-import 'json_missile.dart';
-import 'json_resource.dart';
-import 'json_size.dart';
+import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
+import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/start/json_node.dart';
+import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/json/models/start/json_size.dart';
 
 part 'json_battlefield.g.dart';
 
@@ -22,7 +22,7 @@ class JsonBattlefield {
   final List<JsonLaunchers> launchers;
 
   @JsonKey(name: 'nodes')
-  final List<JsonLocation> nodes;
+  final List<JsonNode> nodes;
 
   const JsonBattlefield({
     required this.size,

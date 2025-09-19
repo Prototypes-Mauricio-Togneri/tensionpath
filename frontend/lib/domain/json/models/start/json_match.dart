@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:json_annotation/json_annotation.dart';
-import 'json_battlefield.dart';
-import 'json_player.dart';
+import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/domain/json/models/start/json_player.dart';
 
 part 'json_match.g.dart';
 
@@ -22,14 +20,6 @@ class JsonMatch {
     required this.players,
     required this.battlefield,
   });
-
-  static Future<JsonMatch> fromFile(String path) async {
-    final File file = File(path);
-    final String contents = await file.readAsString();
-    final dynamic json = jsonDecode(contents) as Map<String, dynamic>;
-
-    return JsonMatch.fromJson(json);
-  }
 
   factory JsonMatch.fromJson(Map<String, dynamic> json) =>
       _$JsonMatchFromJson(json);

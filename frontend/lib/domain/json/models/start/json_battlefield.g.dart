@@ -32,7 +32,7 @@ JsonBattlefield _$JsonBattlefieldFromJson(Map<String, dynamic> json) =>
         nodes: $checkedConvert(
           'nodes',
           (v) => (v as List<dynamic>)
-              .map((e) => JsonLocation.fromJson(e as Map<String, dynamic>))
+              .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
       );

@@ -1,11 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:tensionpath/domain/engine/location.dart';
 import 'package:tensionpath/domain/engine/match.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/start/json_node.dart';
 import 'package:tensionpath/domain/json/models/start/json_player.dart';
+import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -83,16 +89,10 @@ class Connection {
   }
 
   Future _onMatchStart() async {
-    final JsonMatch jsonMatch = await JsonMatch.fromFile('assets/w9h7.json');
-    jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
-
-    for (final Participant participant in participants.values) {
-      final JsonPlayer jsonPlayer = jsonMatch.players.firstWhere(
-        (p) => p.index == participant.playerIndex,
-      );
-      jsonPlayer.id = participant.playerId;
-      jsonPlayer.name = participant.playerName;
-    }
+    final JsonMatch jsonMatch = await _getMatchTemplate(
+      path: 'assets/w9h7.json',
+      participants: participants,
+    );
 
     _match = Match.fromJson(
       connection: this,
@@ -109,6 +109,72 @@ class Connection {
         json: JsonMessage.start(jsonMatch),
       );
     }
+  }
+
+  Future<JsonMatch> _getMatchTemplate({
+    required String path,
+    required Map<String, Participant> participants,
+  }) async {
+    final File file = File(path);
+    final String contents = await file.readAsString();
+    final dynamic json = jsonDecode(contents) as Map<String, dynamic>;
+
+    final JsonMatch jsonMatch = JsonMatch.fromJson(json);
+    jsonMatch.createdAt = DateTime.now().toUtc().toIso8601String();
+
+    for (final JsonNode jsonNode in jsonMatch.battlefield.nodes) {
+      jsonNode.type = _getNodeType(
+        positionId: jsonNode.location.id,
+        missile: jsonMatch.battlefield.missile,
+        resources: jsonMatch.battlefield.resources,
+        launchers: jsonMatch.battlefield.launchers,
+      );
+    }
+
+    for (final Participant participant in participants.values) {
+      final JsonPlayer jsonPlayer = jsonMatch.players.firstWhere(
+        (p) => p.index == participant.playerIndex,
+      );
+      jsonPlayer.id = participant.playerId;
+      jsonPlayer.name = participant.playerName;
+    }
+
+    return jsonMatch;
+  }
+
+  NodeType _getNodeType({
+    required String positionId,
+    required JsonMissile missile,
+    required List<JsonResource> resources,
+    required List<JsonLaunchers> launchers,
+  }) {
+    if (missile.location.id == positionId) {
+      return NodeType.missile;
+    }
+
+    final List<JsonLocation> padsPositions = missile.platforms
+        .map((p) => p.pads)
+        .expand((p) => p)
+        .toList();
+
+    if (padsPositions.any((pad) => pad.id == positionId)) {
+      return NodeType.pad;
+    }
+
+    if (resources.any((resource) => resource.location.id == positionId)) {
+      return NodeType.resources;
+    }
+
+    final List<JsonLocation> launchersPositions = launchers
+        .map((launchers) => launchers.locations)
+        .expand((locations) => locations)
+        .toList();
+
+    if (launchersPositions.any((launcher) => launcher.id == positionId)) {
+      return NodeType.launcher;
+    }
+
+    return NodeType.empty;
   }
 
   void deployUnit({

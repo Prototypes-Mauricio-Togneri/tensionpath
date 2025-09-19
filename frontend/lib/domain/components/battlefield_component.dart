@@ -12,12 +12,11 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
-import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/start/json_node.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -124,23 +123,18 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final JsonLocation location in battlefield.nodes) {
+    for (final JsonNode node in battlefield.nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
-        location: location,
+        location: node.location,
       );
 
       final NodeComponent nodeComponent = NodeComponent(
         position: position,
         size: nodeSize,
-        type: _getNodeType(
-          positionId: location.id,
-          missile: battlefield.missile,
-          resources: battlefield.resources,
-          launchers: battlefield.launchers,
-        ),
-        location: location,
+        type: node.type,
+        location: node.location,
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);
@@ -248,41 +242,6 @@ class BattlefieldComponent extends PositionComponent {
     );
   }
 
-  NodeType _getNodeType({
-    required String positionId,
-    required JsonMissile missile,
-    required List<JsonResource> resources,
-    required List<JsonLaunchers> launchers,
-  }) {
-    if (missile.location.id == positionId) {
-      return NodeType.missile;
-    }
-
-    final List<JsonLocation> padsPositions = missile.platforms
-        .map((p) => p.pads)
-        .expand((p) => p)
-        .toList();
-
-    if (padsPositions.any((pad) => pad.id == positionId)) {
-      return NodeType.pad;
-    }
-
-    if (resources.any((resource) => resource.location.id == positionId)) {
-      return NodeType.resources;
-    }
-
-    final List<JsonLocation> launchersPositions = launchers
-        .map((launchers) => launchers.locations)
-        .expand((locations) => locations)
-        .toList();
-
-    if (launchersPositions.any((launcher) => launcher.id == positionId)) {
-      return NodeType.launcher;
-    }
-
-    return NodeType.empty;
-  }
-
   void onBattlefieldUpdated({
     required JsonMissileUpdate missile,
     required Map<String, double> resources,
@@ -343,7 +302,7 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
 
 class BattlefieldGridComponent extends SpriteComponent {
   final Vector2 nodeSize;
-  final List<JsonLocation> nodes;
+  final List<JsonNode> nodes;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 3,
@@ -362,11 +321,11 @@ class BattlefieldGridComponent extends SpriteComponent {
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
-    for (final JsonLocation node in nodes) {
+    for (final JsonNode node in nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: size / 2,
         nodeSize: nodeSize,
-        location: node,
+        location: node.location,
       );
       canvas.drawHexagon(
         center: position,
