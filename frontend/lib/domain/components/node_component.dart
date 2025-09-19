@@ -82,7 +82,7 @@ class NodeComponent extends PositionComponent {
     );
 
     canvas.drawText(
-      text: jsonPosition.id,
+      text: location.id,
       position: Vector2(size.x / 2, size.y * 0.5),
       size: size.x / 8,
       color: Colors.white,

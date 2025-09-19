@@ -4,6 +4,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -19,6 +20,7 @@ class FogComponent extends PositionComponent {
   final Paint clearPaint = Palette.paint(
     blendMode: BlendMode.clear,
   );
+  final Player self;
   final List<UnitComponent> unitComponents;
   final List<LauncherComponent> launcherComponents;
   final List<NodeComponent> nodeComponents;
@@ -28,6 +30,7 @@ class FogComponent extends PositionComponent {
   FogComponent({
     required super.position,
     required super.size,
+    required this.self,
     required this.unitComponents,
     required this.launcherComponents,
     required this.nodeComponents,
@@ -67,12 +70,14 @@ class FogComponent extends PositionComponent {
     }
 
     for (final UnitComponent unitComponent in unitComponents) {
-      final NodeComponent closestNode = unitComponent.closestNodeComponent;
-      closestNode.visibleNodes(
-        visibilityRange: unitComponent.type.visibilityRange,
-        nodes: nodeComponents,
-        visibleNodes: visibleNodes,
-      );
+      if (unitComponent.belongsTo(self)) {
+        final NodeComponent closestNode = unitComponent.closestNodeComponent;
+        closestNode.visibleNodes(
+          visibilityRange: unitComponent.type.visibilityRange,
+          nodes: nodeComponents,
+          visibleNodes: visibleNodes,
+        );
+      }
     }
 
     for (final Vector2 visibleNode in visibleNodes) {

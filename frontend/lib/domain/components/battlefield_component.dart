@@ -239,6 +239,7 @@ class BattlefieldComponent extends PositionComponent {
       FogComponent(
         position: mapCenter,
         size: size,
+        self: self,
         unitComponents: unitComponents,
         launcherComponents: launcherComponents
             .where((launcher) => launcher.player.isSelf)

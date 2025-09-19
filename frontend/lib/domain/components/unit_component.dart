@@ -45,12 +45,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
-       ) {
-    closestNodeComponent = match.getClosestNode(
-      nodeTypes: NodeType.values,
-      position: absolutePosition,
-    );
-  }
+       );
+
+  bool belongsTo(Player other) => player.id == other.id;
 
   void refresh(JsonUnitUpdate unit) => healthBarComponent.refresh(unit);
 
@@ -66,6 +63,11 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() async {
+    closestNodeComponent = match.getClosestNode(
+      nodeTypes: NodeType.values,
+      position: absolutePosition,
+    );
+
     add(
       UnitImageComponent(
         position: size / 2,
