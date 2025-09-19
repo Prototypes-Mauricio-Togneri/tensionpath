@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:tensionpath/domain/engine/location.dart';
-import 'package:tensionpath/domain/engine/match.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';

@@ -1,5 +1,5 @@
-import 'package:tensionpath/domain/engine/location.dart';
-import 'package:tensionpath/domain/engine/platform.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/utils/constants.dart';

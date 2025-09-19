@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:tensionpath/domain/engine/location.dart';
-import 'package:tensionpath/domain/engine/size.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/start/json_launchers.dart';

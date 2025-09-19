@@ -1,6 +1,6 @@
-import 'package:tensionpath/domain/engine/battlefield.dart';
-import 'package:tensionpath/domain/engine/location.dart';
-import 'package:tensionpath/domain/engine/player.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';

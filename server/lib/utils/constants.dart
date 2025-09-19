@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:tensionpath/domain/engine/size.dart';
+import 'package:tensionpath/domain/entities/size.dart';
 
 class Constants {
   static const bool LOGS_ENABLED = true;

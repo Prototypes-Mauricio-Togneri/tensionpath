@@ -1,5 +1,5 @@
-import 'package:tensionpath/domain/engine/location.dart';
-import 'package:tensionpath/domain/engine/player.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
