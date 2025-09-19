@@ -5,7 +5,6 @@ import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -198,11 +197,6 @@ class UnitComponent extends PositionComponent with DragCallbacks {
           position: absolutePosition,
         );
       }
-    }
-
-    if ((type == UnitType.harvester) &&
-        (currentNodeType == NodeType.resources)) {
-      player.addResources(dt * Constants.RESOURCES_PER_SECOND);
     }
   }
 

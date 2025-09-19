@@ -3,6 +3,4 @@ class Constants {
 
   static const String PLAYER_1 = '1';
   static const String PLAYER_2 = '2';
-
-  static const double BASE_RESOURCES_RATE = 2;
 }

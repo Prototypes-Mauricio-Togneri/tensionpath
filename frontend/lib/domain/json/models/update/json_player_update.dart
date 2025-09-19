@@ -10,9 +10,13 @@ class JsonPlayerUpdate {
   @JsonKey(name: 'resources')
   final double resources;
 
+  @JsonKey(name: 'resourcesRate')
+  final double resourcesRate;
+
   JsonPlayerUpdate({
     required this.baseHealth,
     required this.resources,
+    required this.resourcesRate,
   });
 
   factory JsonPlayerUpdate.fromJson(Map<String, dynamic> json) =>

@@ -8,7 +8,8 @@
             "index": "1",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 100
+            "resources": 100,
+            "resourcesRateBase": 2
         },
         {
             "id": "",
@@ -17,7 +18,8 @@
             "index": "2",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
-            "resources": 100
+            "resources": 100,
+            "resourcesRateBase": 2
         }
     ],
     "battlefield": {

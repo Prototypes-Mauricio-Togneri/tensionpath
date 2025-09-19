@@ -12,6 +12,7 @@ class Player {
   final int baseMaxHealth;
   int baseHealth;
   double resources;
+  double resourcesRate;
 
   Player({
     required this.id,
@@ -21,6 +22,7 @@ class Player {
     required this.baseMaxHealth,
     required this.baseHealth,
     required this.resources,
+    required this.resourcesRate,
   });
 
   bool get isOpponent => !isSelf;
@@ -34,14 +36,11 @@ class Player {
   void update(JsonPlayerUpdate player) {
     baseHealth = player.baseHealth;
     resources = player.resources;
+    resourcesRate = player.resourcesRate;
   }
 
   void addResources(double value) {
     resources += value;
-  }
-
-  void removeResources(int value) {
-    resources -= value;
   }
 
   factory Player.fromJson(JsonPlayer player) => Player(
@@ -52,5 +51,6 @@ class Player {
     baseMaxHealth: player.baseMaxHealth,
     baseHealth: player.baseHealth,
     resources: player.resources,
+    resourcesRate: player.resourcesRateBase,
   );
 }

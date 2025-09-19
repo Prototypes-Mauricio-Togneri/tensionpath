@@ -19,6 +19,10 @@ JsonPlayer _$JsonPlayerFromJson(Map<String, dynamic> json) =>
           (v) => (v as num).toInt(),
         ),
         resources: $checkedConvert('resources', (v) => (v as num).toDouble()),
+        resourcesRateBase: $checkedConvert(
+          'resourcesRateBase',
+          (v) => (v as num).toDouble(),
+        ),
       );
       return val;
     });
@@ -32,4 +36,5 @@ Map<String, dynamic> _$JsonPlayerToJson(JsonPlayer instance) =>
       'baseHealth': instance.baseHealth,
       'baseMaxHealth': instance.baseMaxHealth,
       'resources': instance.resources,
+      'resourcesRateBase': instance.resourcesRateBase,
     };

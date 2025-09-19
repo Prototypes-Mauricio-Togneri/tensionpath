@@ -25,6 +25,9 @@ class JsonPlayer {
   @JsonKey(name: 'resources')
   final double resources;
 
+  @JsonKey(name: 'resourcesRateBase')
+  final double resourcesRateBase;
+
   JsonPlayer({
     required this.id,
     required this.name,
@@ -33,6 +36,7 @@ class JsonPlayer {
     required this.baseHealth,
     required this.baseMaxHealth,
     required this.resources,
+    required this.resourcesRateBase,
   });
 
   factory JsonPlayer.fromJson(Map<String, dynamic> json) =>

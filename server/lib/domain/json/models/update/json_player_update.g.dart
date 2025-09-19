@@ -11,6 +11,10 @@ JsonPlayerUpdate _$JsonPlayerUpdateFromJson(Map<String, dynamic> json) =>
       final val = JsonPlayerUpdate(
         baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
         resources: $checkedConvert('resources', (v) => (v as num).toDouble()),
+        resourcesRate: $checkedConvert(
+          'resourcesRate',
+          (v) => (v as num).toDouble(),
+        ),
       );
       return val;
     });
@@ -19,4 +23,5 @@ Map<String, dynamic> _$JsonPlayerUpdateToJson(JsonPlayerUpdate instance) =>
     <String, dynamic>{
       'baseHealth': instance.baseHealth,
       'resources': instance.resources,
+      'resourcesRate': instance.resourcesRate,
     };

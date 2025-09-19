@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
-import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/map_list.dart';
 
 class Match {
@@ -58,7 +57,7 @@ class Match {
       totalTime += dt;
 
       for (final Player player in players) {
-        player.resourcesRate = Constants.BASE_RESOURCES_RATE;
+        player.resourcesRate = player.resourcesRateBase;
       }
 
       final bool sendUpdate = battlefield.update(dt);
