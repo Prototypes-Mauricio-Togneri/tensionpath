@@ -30,19 +30,13 @@ class Battlefield {
   });
 
   bool update(double dt) {
-    /*
-    - For each unit:
-      - If moving
-        - If target node is free
-          - Update position
-          - If unit inside of target node -> assign node to unit
-        - If target node is not free
-          - Re-assign node
-          - Update position
-          - If unit inside of target node -> assign node to unit
-    */
+    bool result = false;
 
-    return false;
+    for (final Unit unit in units.list) {
+      result |= unit.update(dt);
+    }
+
+    return result;
   }
 
   void deployUnit({

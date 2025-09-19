@@ -19,6 +19,21 @@ class Unit {
     required this.health,
   });
 
+  bool update(double dt) {
+    /*
+      - If moving
+        - If target node is free
+          - Update position
+          - If unit inside of target node -> assign node to unit
+        - If target node is not free
+          - Re-assign node
+          - Update position
+          - If unit inside of target node -> assign node to unit
+    */
+
+    return false;
+  }
+
   JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(
     id: id,
     playerIndex: player.index,
