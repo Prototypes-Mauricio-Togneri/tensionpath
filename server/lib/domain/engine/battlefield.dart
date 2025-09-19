@@ -1,6 +1,7 @@
 import 'package:tensionpath/domain/engine/launchers.dart';
 import 'package:tensionpath/domain/engine/location.dart';
 import 'package:tensionpath/domain/engine/missile.dart';
+import 'package:tensionpath/domain/engine/node.dart';
 import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/engine/resources.dart';
 import 'package:tensionpath/domain/engine/unit.dart';
@@ -15,7 +16,7 @@ class Battlefield {
   final Missile missile;
   final MapList<String, Resources> resources;
   final MapList<String, Launchers> launchers;
-  final MapList<String, Location> nodes;
+  final MapList<String, Node> nodes;
   final MapList<String, Unit> units;
 
   const Battlefield({
@@ -49,7 +50,7 @@ class Battlefield {
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
     launchers: Launchers.list(json.launchers),
-    nodes: Location.list(json.nodes),
+    nodes: Node.list(json.nodes),
     units: MapList(),
   );
 
