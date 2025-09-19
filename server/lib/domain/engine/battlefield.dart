@@ -29,6 +29,22 @@ class Battlefield {
     required this.units,
   });
 
+  bool update(double dt) {
+    /*
+    - For each unit:
+      - If moving
+        - If target node is free
+          - Update position
+          - If unit inside of target node -> assign node to unit
+        - If target node is not free
+          - Re-assign node
+          - Update position
+          - If unit inside of target node -> assign node to unit
+    */
+
+    return false;
+  }
+
   void deployUnit({
     required Player player,
     required Location location,
