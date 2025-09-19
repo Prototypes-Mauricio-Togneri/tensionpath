@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
@@ -30,6 +31,8 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   NodeType? currentNodeType;
   JsonLocation? currentLocation;
   late NodeComponent closestNodeComponent;
+
+  late final TargetComponent targetComponent;
 
   UnitComponent({
     required super.position,
@@ -81,6 +84,11 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
     add(healthBarComponent);
 
+    targetComponent = TargetComponent(
+      position: Vector2.zero(),
+    );
+    match.add(targetComponent);
+
     return super.onLoad();
   }
 
@@ -124,7 +132,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       );
 
       targetPosition = null;
-      match.hideTarget();
+      targetComponent.hide();
       match.unhighlightNodes();
 
       if (nodeComponent != null) {
@@ -211,7 +219,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     canvas.restore();
 
     if (targetPosition != null) {
-      match.showTarget(
+      targetComponent.show(
         start: absolutePosition,
         end: targetPosition!,
       );

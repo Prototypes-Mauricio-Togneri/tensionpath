@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
-import 'package:tensionpath/domain/components/target_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
@@ -29,7 +28,6 @@ class MatchComponent extends World {
   late final Player opponent;
   late final Vector2 nodeSize;
   late final DateTime startedAt;
-  late final TargetComponent targetComponent;
   late final BattlefieldComponent battlefieldComponent;
 
   MatchComponent({
@@ -46,11 +44,6 @@ class MatchComponent extends World {
 
   @override
   FutureOr onLoad() {
-    targetComponent = TargetComponent(
-      position: Vector2.zero(),
-    );
-    add(targetComponent);
-
     nodeSize = Dimensions.nodeSize(
       canvasSize: Dimensions.battlefieldSize(resolution),
       battlefield: match.battlefield,
@@ -215,18 +208,6 @@ class MatchComponent extends World {
       position: nodeComponent.absolutePosition,
     );
   }
-
-  void showTarget({
-    required Vector2 start,
-    required Vector2 end,
-  }) {
-    targetComponent.setValues(
-      start: start,
-      end: end,
-    );
-  }
-
-  void hideTarget() => targetComponent.cleanValues();
 }
 
 mixin MatchComponentRef {

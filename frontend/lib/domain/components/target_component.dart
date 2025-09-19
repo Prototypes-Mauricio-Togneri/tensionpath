@@ -19,7 +19,7 @@ class TargetComponent extends PositionComponent {
          priority: Priority.node.value,
        );
 
-  void setValues({
+  void show({
     required Vector2 start,
     required Vector2 end,
   }) {
@@ -27,7 +27,7 @@ class TargetComponent extends PositionComponent {
     endPosition = end;
   }
 
-  void cleanValues() {
+  void hide() {
     startPosition = null;
     endPosition = null;
   }
