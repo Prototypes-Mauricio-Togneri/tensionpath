@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:tensionpath/domain/engine/location.dart';
 import 'package:tensionpath/domain/engine/match.dart';
+import 'package:tensionpath/domain/engine/size.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile.dart';
@@ -14,6 +16,7 @@ import 'package:tensionpath/domain/json/models/start/json_resource.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
+import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Connection {
@@ -129,6 +132,10 @@ class Connection {
         resources: jsonMatch.battlefield.resources,
         launchers: jsonMatch.battlefield.launchers,
       );
+      jsonNode.position = _position(
+        nodeSize: Constants.NODE_SIZE,
+        location: Location.fromJson(jsonNode.location),
+      );
     }
 
     for (final Participant participant in participants.values) {
@@ -176,6 +183,14 @@ class Connection {
 
     return NodeType.empty;
   }
+
+  static JsonPosition _position({
+    required Size nodeSize,
+    required Location location,
+  }) => JsonPosition(
+    x: nodeSize.width * ((location.y / 2) + location.x),
+    y: nodeSize.height * 3 / 4 * location.y,
+  );
 
   void deployUnit({
     required WebSocket socket,

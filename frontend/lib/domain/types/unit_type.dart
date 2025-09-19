@@ -67,7 +67,7 @@ enum UnitType {
   final UnitClass unitClass;
   final int deploymentCost;
   final int maxHealth;
-  final double speed;
+  final num speed;
   final int visibilityRange;
   final int damageInfantry;
   final int damageVehicle;

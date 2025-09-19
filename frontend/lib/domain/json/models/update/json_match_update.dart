@@ -14,7 +14,7 @@ class JsonMatchUpdate {
   final JsonMissileUpdate missile;
 
   @JsonKey(name: 'resources')
-  final Map<String, double> resources;
+  final Map<String, num> resources;
 
   @JsonKey(name: 'units')
   final Map<String, JsonUnitUpdate> units;

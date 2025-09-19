@@ -24,9 +24,7 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
         ),
         resources: $checkedConvert(
           'resources',
-          (v) => (v as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k, (e as num).toDouble()),
-          ),
+          (v) => Map<String, num>.from(v as Map),
         ),
         units: $checkedConvert(
           'units',

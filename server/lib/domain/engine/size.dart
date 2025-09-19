@@ -1,6 +1,6 @@
 class Size {
-  final double width;
-  final double height;
+  final num width;
+  final num height;
 
   const Size({
     required this.width,

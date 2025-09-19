@@ -22,7 +22,7 @@ enum UnitType {
 
   final int cost;
   final int maxHealth;
-  final double speed;
+  final num speed;
 
   const UnitType({
     required this.cost,
