@@ -8,13 +8,13 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
-import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
-import 'package:tensionpath/domain/json/models/start/json_node.dart';
-import 'package:tensionpath/domain/json/models/start/json_platform.dart';
-import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -25,7 +25,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class BattlefieldComponent extends PositionComponent {
-  final JsonBattlefield battlefield;
+  final Battlefield battlefield;
   final Player self;
   final Player opponent;
   final List<NodeComponent> nodeComponents;
@@ -55,11 +55,11 @@ class BattlefieldComponent extends PositionComponent {
   FutureOr onLoad() async {
     nodeSize = Dimensions.nodeSize(
       canvasSize: size,
-      battlefield: battlefield,
+      mapSize: battlefield.mapSize,
     );
     nodeSizeRatio = Dimensions.nodeSizeRatio(
-      nodeSize: nodeSize,
-      battlefield: battlefield,
+      localNodeSize: nodeSize,
+      removeNodeSize: battlefield.nodeSize,
     );
     final Vector2 mapCenter = size / 2;
 
@@ -119,7 +119,7 @@ class BattlefieldComponent extends PositionComponent {
         position: mapCenter,
         size: size,
         nodeSize: nodeSize,
-        nodes: battlefield.nodes,
+        nodes: battlefield.nodes.list,
       ),
     );
   }
@@ -128,7 +128,7 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final JsonNode node in battlefield.nodes) {
+    for (final Node node in battlefield.nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
@@ -150,16 +150,16 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final JsonResource resource in battlefield.resources) {
+    for (final Resources resources in battlefield.resources) {
       final Vector2 position = Dimensions.nodePosition(
         center: mapCenter,
         nodeSize: nodeSize,
-        location: resource.location,
+        location: resources.location,
       );
       final ResourceComponent resourceComponent = ResourceComponent(
         position: position,
         size: nodeSize,
-        resource: resource,
+        resources: resources,
       );
       add(resourceComponent);
       resourceComponents.add(resourceComponent);
@@ -186,8 +186,8 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final JsonPlatform platform in battlefield.missile.platforms) {
-      for (final JsonLocation location in platform.pads) {
+    for (final Platform platform in battlefield.missile.platforms) {
+      for (final Location location in platform.pads) {
         final Vector2 position = Dimensions.nodePosition(
           center: mapCenter,
           nodeSize: nodeSize,
@@ -208,8 +208,8 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final JsonLaunchers launchers in battlefield.launchers) {
-      for (final JsonLocation location in launchers.locations) {
+    for (final Launchers launchers in battlefield.launchers) {
+      for (final Location location in launchers.locations) {
         final Vector2 nodePosition = Dimensions.nodePosition(
           center: mapCenter,
           nodeSize: nodeSize,
@@ -264,14 +264,14 @@ class BattlefieldComponent extends PositionComponent {
         position: Dimensions.nodePosition(
           center: size / 2,
           nodeSize: nodeSize,
-          location: unit.location,
+          location: Location.fromJson(unit.location),
         ),
         size: nodeSize,
         id: unit.id,
         type: unit.type,
         player: unit.playerIndex == self.index ? self : opponent,
         currentNodeType: null,
-        currentLocation: unit.location,
+        currentLocation: Location.fromJson(unit.location),
       );
       add(unitComponent);
       unitComponents.add(unitComponent);
@@ -307,7 +307,7 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
 
 class BattlefieldGridComponent extends SpriteComponent {
   final Vector2 nodeSize;
-  final List<JsonNode> nodes;
+  final List<Node> nodes;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 3,
@@ -326,7 +326,7 @@ class BattlefieldGridComponent extends SpriteComponent {
     final PictureRecorder recorder = PictureRecorder();
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
-    for (final JsonNode node in nodes) {
+    for (final Node node in nodes) {
       final Vector2 position = Dimensions.nodePosition(
         center: size / 2,
         nodeSize: nodeSize,

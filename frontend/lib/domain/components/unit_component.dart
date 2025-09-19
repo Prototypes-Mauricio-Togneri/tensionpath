@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/target_component.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -24,11 +24,11 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   late HealthBarComponent healthBarComponent;
   Vector2? targetPosition;
 
-  JsonLocation? destinationLocation;
+  Location? destinationLocation;
   Vector2? destinationPosition;
 
   NodeType? currentNodeType;
-  JsonLocation? currentLocation;
+  Location? currentLocation;
   late NodeComponent closestNodeComponent;
 
   late final TargetComponent targetComponent;
@@ -51,7 +51,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   void refresh(JsonUnitUpdate unit) => healthBarComponent.refresh(unit);
 
   void moveTo({
-    required JsonLocation location,
+    required Location location,
     required Vector2 position,
   }) {
     currentNodeType = null;

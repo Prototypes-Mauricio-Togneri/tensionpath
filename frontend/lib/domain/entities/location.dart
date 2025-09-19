@@ -12,4 +12,6 @@ class Location {
     x: json.x,
     y: json.y,
   );
+
+  JsonLocation toJson() => JsonLocation(x: x, y: y);
 }

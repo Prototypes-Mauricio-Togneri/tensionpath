@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
@@ -12,17 +12,17 @@ class ResourceComponent extends SpriteComponent {
   ResourceComponent({
     required super.position,
     required super.size,
-    required JsonResource resource,
+    required Resources resources,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
        ) {
-    refresh(resource);
+    refresh(resources);
   }
 
-  void refresh(JsonResource resource) {
-    amountCurrent = resource.amountCurrent;
-    amountMax = resource.amountMax;
+  void refresh(Resources resources) {
+    amountCurrent = resources.amountCurrent;
+    amountMax = resources.amountMax;
     ratio = amountCurrent / amountMax;
   }
 

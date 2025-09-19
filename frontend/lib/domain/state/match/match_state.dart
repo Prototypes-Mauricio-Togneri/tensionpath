@@ -1,11 +1,12 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
@@ -52,7 +53,7 @@ class MatchState extends BaseState {
         );
       } else if (json is JsonStart) {
         gameComponent = GameComponent(
-          match: json.match,
+          match: Match.fromJson(json.match),
           matchState: this,
         );
         Delayed.post(notify);
@@ -79,12 +80,12 @@ class MatchState extends BaseState {
   }
 
   void onDeployUnit({
-    required JsonLocation location,
+    required Location location,
     required UnitType type,
   }) => connection.send(
     JsonMessage.deployUnit(
       matchId: matchId,
-      location: location,
+      location: location.toJson(),
       type: type,
     ),
   );

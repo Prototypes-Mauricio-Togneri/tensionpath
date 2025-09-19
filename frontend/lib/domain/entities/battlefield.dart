@@ -8,6 +8,7 @@ import 'package:tensionpath/utils/iterable_map.dart';
 
 class Battlefield {
   final Size mapSize;
+  final Size nodeSize;
   final Missile missile;
   final IterableMap<String, Resources> resources;
   final IterableMap<String, Launchers> launchers;
@@ -15,6 +16,7 @@ class Battlefield {
 
   const Battlefield({
     required this.mapSize,
+    required this.nodeSize,
     required this.missile,
     required this.resources,
     required this.launchers,
@@ -23,6 +25,7 @@ class Battlefield {
 
   factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
     mapSize: Size.fromJson(json.mapSize),
+    nodeSize: Size.fromJson(json.nodeSize),
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
     launchers: Launchers.list(json.launchers),

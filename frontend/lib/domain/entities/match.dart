@@ -13,6 +13,10 @@ class Match {
     required this.players,
   });
 
+  Player get self => players.firstWhere((player) => player.isSelf);
+
+  Player get opponent => players.firstWhere((player) => !player.isSelf);
+
   factory Match.fromJson(JsonMatch jsonMatch) => Match(
     createdAt: DateTime.parse(jsonMatch.createdAt),
     battlefield: Battlefield.fromJson(jsonMatch.battlefield),

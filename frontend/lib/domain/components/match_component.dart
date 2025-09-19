@@ -7,10 +7,9 @@ import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/start/json_match.dart';
-import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -19,7 +18,7 @@ import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
   final Vector2 resolution;
-  final JsonMatch match;
+  final Match match;
   final List<NodeComponent> nodeComponents = [];
   final List<ResourceComponent> resourceComponents = [];
   final List<LauncherComponent> launcherComponents = [];
@@ -35,9 +34,9 @@ class MatchComponent extends World {
     required this.match,
   }) {
     MatchComponentRef.instance = this;
-    self = Player.fromJson(matchSelf(match));
-    opponent = Player.fromJson(matchOpponent(match));
-    startedAt = DateTime.parse(match.createdAt).toLocal();
+    self = match.self;
+    opponent = match.opponent;
+    startedAt = match.createdAt.toLocal();
   }
 
   int get timeElapsed => DateTime.now().difference(startedAt).inSeconds;
@@ -46,7 +45,7 @@ class MatchComponent extends World {
   FutureOr onLoad() {
     nodeSize = Dimensions.nodeSize(
       canvasSize: Dimensions.battlefieldSize(resolution),
-      battlefield: match.battlefield,
+      mapSize: match.battlefield.mapSize,
     );
 
     battlefieldComponent = BattlefieldComponent(
@@ -101,12 +100,6 @@ class MatchComponent extends World {
       units: match.units,
     );
   }
-
-  JsonPlayer matchSelf(JsonMatch match) =>
-      match.players.firstWhere((player) => player.isSelf);
-
-  JsonPlayer matchOpponent(JsonMatch match) =>
-      match.players.firstWhere((player) => !player.isSelf);
 
   LauncherComponent? getLauncherAt(Vector2 position) {
     for (final LauncherComponent launcherComponent in launcherComponents) {
@@ -190,24 +183,20 @@ class MatchComponent extends World {
   }
 
   void onDeployUnit({
-    required JsonLocation location,
+    required Location location,
     required UnitType type,
-  }) {
-    game.matchState.onDeployUnit(
-      location: location,
-      type: type,
-    );
-  }
+  }) => game.matchState.onDeployUnit(
+    location: location,
+    type: type,
+  );
 
   void onMoveUnit({
     required UnitComponent unitComponent,
     required NodeComponent nodeComponent,
-  }) {
-    unitComponent.moveTo(
-      location: nodeComponent.location,
-      position: nodeComponent.absolutePosition,
-    );
-  }
+  }) => unitComponent.moveTo(
+    location: nodeComponent.location,
+    position: nodeComponent.absolutePosition,
+  );
 }
 
 mixin MatchComponentRef {

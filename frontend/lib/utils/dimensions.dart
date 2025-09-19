@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/size.dart';
 
 class Dimensions {
   static Vector2 cameraSize(Vector2 canvasSize) => Vector2(
@@ -71,47 +71,47 @@ class Dimensions {
 
   static Vector2 maxNodeSizeWidth({
     required Vector2 canvasSize,
-    required JsonBattlefield battlefield,
+    required Size mapSize,
   }) {
-    final double maxWidth = canvasSize.x / (battlefield.mapSize.width * 1.15);
+    final double maxWidth = canvasSize.x / (mapSize.width * 1.15);
 
     return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
   }
 
   static Vector2 maxNodeSizeHeight({
     required Vector2 canvasSize,
-    required JsonBattlefield battlefield,
+    required Size mapSize,
   }) {
-    final double maxHeight = canvasSize.y / (battlefield.mapSize.height * 0.85);
+    final double maxHeight = canvasSize.y / (mapSize.height * 0.85);
 
     return Vector2(maxHeight * (sqrt(3) / 2), maxHeight);
   }
 
   static Vector2 nodeSize({
     required Vector2 canvasSize,
-    required JsonBattlefield battlefield,
+    required Size mapSize,
   }) {
     final Vector2 maxSizeWidth = maxNodeSizeWidth(
       canvasSize: canvasSize,
-      battlefield: battlefield,
+      mapSize: mapSize,
     );
     final Vector2 maxSizeHeight = maxNodeSizeHeight(
       canvasSize: canvasSize,
-      battlefield: battlefield,
+      mapSize: mapSize,
     );
 
     return (maxSizeWidth.x > maxSizeHeight.x) ? maxSizeHeight : maxSizeWidth;
   }
 
   static num nodeSizeRatio({
-    required Vector2 nodeSize,
-    required JsonBattlefield battlefield,
-  }) => nodeSize.x / battlefield.nodeSize.width;
+    required Vector2 localNodeSize,
+    required Size removeNodeSize,
+  }) => localNodeSize.x / removeNodeSize.width;
 
   static Vector2 nodePosition({
     required Vector2 center,
     required Vector2 nodeSize,
-    required JsonLocation location,
+    required Location location,
   }) => Vector2(
     center.x + (nodeSize.x * ((location.y / 2) + location.x)),
     center.y + (nodeSize.y * 3 / 4 * location.y),

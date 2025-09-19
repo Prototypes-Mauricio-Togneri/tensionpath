@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -9,7 +9,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class NodeComponent extends PositionComponent {
   final NodeType type;
-  final JsonLocation location;
+  final Location location;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,

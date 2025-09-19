@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
@@ -14,7 +14,7 @@ class MissileComponent extends SpriteComponent {
   MissileComponent({
     required super.position,
     required super.size,
-    required JsonMissile missile,
+    required Missile missile,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.structure.value,
