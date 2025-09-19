@@ -24,7 +24,7 @@ class Missile {
     chargeCurrent = json.charge;
 
     for (final Platform platform in platforms) {
-      platform.update(json.platforms[platform.id]!);
+      platform.update(json.platforms[platform.id]);
     }
   }
 
