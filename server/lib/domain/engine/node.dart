@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/engine/location.dart';
 import 'package:tensionpath/domain/engine/position.dart';
+import 'package:tensionpath/domain/engine/size.dart';
 import 'package:tensionpath/domain/json/models/start/json_node.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/constants.dart';
@@ -38,10 +39,10 @@ class Node {
   }
 
   static Position _position({
-    required double nodeSize,
+    required Size nodeSize,
     required Location location,
   }) => Position(
-    x: nodeSize * ((location.y / 2) + location.x),
-    y: nodeSize * 3 / 4 * location.y,
+    x: nodeSize.width * ((location.y / 2) + location.x),
+    y: nodeSize.height * 3 / 4 * location.y,
   );
 }
