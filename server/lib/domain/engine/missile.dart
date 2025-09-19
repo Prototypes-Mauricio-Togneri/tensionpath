@@ -68,4 +68,11 @@ class Missile {
       for (final Platform platform in platforms) platform.id: null,
     },
   );
+
+  JsonMissile toJson() => JsonMissile(
+    location: location.toJson(),
+    chargeMax: chargeMax,
+    chargeBuffer: chargeBuffer,
+    platforms: platforms.map((p) => p.toJson()).toList(),
+  );
 }

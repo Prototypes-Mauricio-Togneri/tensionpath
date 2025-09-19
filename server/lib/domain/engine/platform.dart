@@ -58,4 +58,9 @@ class Platform {
 
     return result;
   }
+
+  JsonPlatform toJson() => JsonPlatform(
+    id: id,
+    pads: pads.map((p) => p.toJson()).toList(),
+  );
 }

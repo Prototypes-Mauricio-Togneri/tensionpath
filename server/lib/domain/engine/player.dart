@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/utils/map_list.dart';
 
 class Player {
+  final String id;
   final String name;
   final String index;
   final num baseMaxHealth;
@@ -12,6 +13,7 @@ class Player {
   num resourcesRate;
 
   Player({
+    required this.id,
     required this.name,
     required this.index,
     required this.baseMaxHealth,
@@ -29,6 +31,7 @@ class Player {
 
   factory Player.fromJson(JsonPlayer json) {
     return Player(
+      id: json.id,
       name: json.name,
       index: json.index,
       baseMaxHealth: json.baseMaxHealth,
@@ -54,5 +57,16 @@ class Player {
     baseHealth: baseHealth,
     resources: resources,
     resourcesRate: resourcesRate,
+  );
+
+  JsonPlayer toJson(bool isSelf) => JsonPlayer(
+    id: id,
+    name: name,
+    isSelf: isSelf,
+    index: index,
+    baseHealth: baseHealth,
+    baseMaxHealth: baseMaxHealth,
+    resources: resources,
+    resourcesRateBase: resourcesRateBase,
   );
 }

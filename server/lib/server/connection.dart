@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match.dart';
-import 'package:tensionpath/domain/json/models/start/json_player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -94,16 +93,7 @@ class Connection {
       jsonMatch: jsonMatch,
     );
 
-    for (final Participant participant in participants.values) {
-      for (final JsonPlayer jsonPlayer in jsonMatch.players) {
-        jsonPlayer.isSelf = (jsonPlayer.id == participant.playerId);
-      }
-
-      direct(
-        playerIndex: participant.playerIndex,
-        json: JsonMessage.start(jsonMatch),
-      );
-    }
+    _match?.start();
   }
 
   void deployUnit({

@@ -32,4 +32,11 @@ class Resources {
 
     return result;
   }
+
+  JsonResource toJson() => JsonResource(
+    id: id,
+    location: location.toJson(),
+    amountCurrent: amountCurrent,
+    amountMax: amountMax,
+  );
 }

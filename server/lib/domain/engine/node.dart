@@ -32,4 +32,10 @@ class Node {
 
     return result;
   }
+
+  JsonNode toJson() => JsonNode(
+    location: location.toJson(),
+    position: position.toJson(),
+    type: type,
+  );
 }

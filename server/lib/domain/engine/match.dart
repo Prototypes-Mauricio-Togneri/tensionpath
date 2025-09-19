@@ -12,6 +12,7 @@ import 'package:tensionpath/utils/map_list.dart';
 
 class Match {
   final Connection connection;
+  final DateTime createdAt;
   final Battlefield battlefield;
   final MapList<String, Player> players;
   double totalTime = 0;
@@ -19,6 +20,7 @@ class Match {
 
   Match._({
     required this.connection,
+    required this.createdAt,
     required this.status,
     required this.battlefield,
     required this.players,
@@ -29,10 +31,20 @@ class Match {
     required JsonMatch jsonMatch,
   }) => Match._(
     connection: connection,
+    createdAt: DateTime.parse(jsonMatch.createdAt),
     status: MatchStatus.playing,
     battlefield: Battlefield.fromJson(jsonMatch.battlefield),
     players: Player.list(jsonMatch.players),
   );
+
+  void start() {
+    for (final Player player in players) {
+      connection.direct(
+        playerIndex: player.index,
+        json: JsonMessage.start(toJson(player.id)),
+      );
+    }
+  }
 
   void deployUnit({
     required String playerIndex,
@@ -86,4 +98,12 @@ class Match {
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
   }
+
+  JsonMatch toJson(String selfId) => JsonMatch(
+    createdAt: createdAt.toIso8601String(),
+    players: players.list
+        .map((player) => player.toJson(selfId == player.id))
+        .toList(),
+    battlefield: battlefield.toJson(),
+  );
 }

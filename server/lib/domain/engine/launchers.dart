@@ -26,4 +26,9 @@ class Launchers {
 
     return result;
   }
+
+  JsonLaunchers toJson() => JsonLaunchers(
+    playerIndex: playerIndex,
+    locations: locations.map((location) => location.toJson()).toList(),
+  );
 }

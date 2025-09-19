@@ -4,15 +4,16 @@ import 'package:tensionpath/domain/engine/missile.dart';
 import 'package:tensionpath/domain/engine/node.dart';
 import 'package:tensionpath/domain/engine/player.dart';
 import 'package:tensionpath/domain/engine/resources.dart';
+import 'package:tensionpath/domain/engine/size.dart';
 import 'package:tensionpath/domain/engine/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/map_list.dart';
 
 class Battlefield {
-  final int width;
-  final int height;
+  final Size mapSize;
   final Missile missile;
   final MapList<String, Resources> resources;
   final MapList<String, Launchers> launchers;
@@ -20,8 +21,7 @@ class Battlefield {
   final MapList<String, Unit> units;
 
   const Battlefield({
-    required this.width,
-    required this.height,
+    required this.mapSize,
     required this.missile,
     required this.resources,
     required this.launchers,
@@ -55,8 +55,7 @@ class Battlefield {
   }
 
   factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
-    width: json.mapSize.width.toInt(),
-    height: json.mapSize.height.toInt(),
+    mapSize: Size.fromJson(json.mapSize),
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
     launchers: Launchers.list(json.launchers),
@@ -70,5 +69,14 @@ class Battlefield {
 
   Map<String, JsonUnitUpdate> unitsToJsonUpdate() => Map.fromEntries(
     units.list.map((u) => MapEntry(u.id, u.toJsonUpdate())),
+  );
+
+  JsonBattlefield toJson() => JsonBattlefield(
+    mapSize: mapSize.toJson(),
+    nodeSize: Constants.NODE_SIZE.toJson(),
+    missile: missile.toJson(),
+    resources: resources.list.map((r) => r.toJson()).toList(),
+    launchers: launchers.list.map((l) => l.toJson()).toList(),
+    nodes: nodes.list.map((n) => n.toJson()).toList(),
   );
 }
