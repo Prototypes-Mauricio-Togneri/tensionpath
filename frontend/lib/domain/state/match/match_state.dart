@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
+import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
@@ -45,20 +46,11 @@ class MatchState extends BaseState {
   void _onMessage(dynamic json) {
     if (matchStatus == MatchStatus.active) {
       if (json is JsonWelcome) {
-        connection.send(
-          JsonMessage.join(
-            matchId: matchId,
-            playerId: selfId,
-          ),
-        );
+        _onWelcome();
       } else if (json is JsonStart) {
-        gameComponent = GameComponent(
-          match: Match.fromJson(json.match),
-          matchState: this,
-        );
-        Delayed.post(notify);
+        _onStart(Match.fromJson(json.match));
       } else if (json is JsonUpdate) {
-        MatchComponentRef.instance.onMatchUpdated(json.match);
+        _onUpdate(json.match);
       }
     }
 
@@ -68,6 +60,25 @@ class MatchState extends BaseState {
     } else if (match.opponentWon) {
       onMatchFinished(false);
     }*/
+  }
+
+  void _onWelcome() => connection.send(
+    JsonMessage.join(
+      matchId: matchId,
+      playerId: selfId,
+    ),
+  );
+
+  void _onStart(Match match) {
+    gameComponent = GameComponent(
+      match: match,
+      matchState: this,
+    );
+    Delayed.post(notify);
+  }
+
+  void _onUpdate(JsonMatchUpdate update) {
+    MatchComponentRef.instance.onMatchUpdated(update);
   }
 
   void _onDisconnected() => InfoDialog.error(
