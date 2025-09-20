@@ -2,7 +2,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
@@ -59,7 +59,7 @@ class Missile {
   }
 
   factory Missile.fromJson({
-    required JsonMissile json,
+    required JsonMissileStart json,
     required Node node,
   }) => Missile(
     location: node.location,
@@ -77,10 +77,11 @@ class Missile {
     },
   );
 
-  JsonMissile toJson() => JsonMissile(
+  JsonMissileStart toJsonStart() => JsonMissileStart(
     location: location.toJson(),
+    position: position.toJson(),
     chargeMax: chargeMax,
     chargeBuffer: chargeBuffer,
-    platforms: platforms.map((p) => p.toJson()).toList(),
+    platforms: platforms.map((p) => p.toJsonStart()).toList(),
   );
 }

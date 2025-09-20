@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/json/models/start/json_missile.dart';
+import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
@@ -41,7 +41,7 @@ class Missile {
     }
   }
 
-  factory Missile.fromJson(JsonMissile json) => Missile(
+  factory Missile.fromJson(JsonMissileStart json) => Missile(
     location: Location.fromJson(json.location),
     position: Position.fromJson(json.position),
     chargeMax: json.chargeMax,

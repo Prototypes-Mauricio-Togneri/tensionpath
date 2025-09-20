@@ -1,26 +1,30 @@
 import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/json/models/start/json_launchers.dart';
+import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/json/models/start/json_launcher_start.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
-class Launchers {
+class Launcher {
   final String playerIndex;
-  final List<Location> locations;
+  final Location location;
+  final Position position;
 
-  const Launchers({
+  const Launcher({
     required this.playerIndex,
-    required this.locations,
+    required this.location,
+    required this.position,
   });
 
-  factory Launchers.fromJson(JsonLaunchers json) => Launchers(
+  factory Launcher.fromJson(JsonLauncherStart json) => Launcher(
     playerIndex: json.playerIndex,
-    locations: json.locations.map(Location.fromJson).toList(),
+    location: Location.fromJson(json.location),
+    position: Position.fromJson(json.position),
   );
 
-  static IterableMap<String, Launchers> list(List<JsonLaunchers> json) {
-    final IterableMap<String, Launchers> result = IterableMap();
+  static IterableMap<String, Launcher> list(List<JsonLauncherStart> json) {
+    final IterableMap<String, Launcher> result = IterableMap();
 
-    for (final JsonLaunchers jsonLaunchers in json) {
-      final Launchers launchers = Launchers.fromJson(jsonLaunchers);
+    for (final JsonLauncherStart jsonLaunchers in json) {
+      final Launcher launchers = Launcher.fromJson(jsonLaunchers);
       result.add(launchers.playerIndex, launchers);
     }
 

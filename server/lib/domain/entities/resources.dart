@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/json/models/start/json_resource.dart';
+import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Resources {
@@ -20,7 +20,7 @@ class Resources {
   });
 
   factory Resources.fromJson({
-    required JsonResource json,
+    required JsonResourceStart json,
     required Node node,
   }) => Resources(
     id: json.id,
@@ -31,12 +31,12 @@ class Resources {
   );
 
   static IterableMap<String, Resources> list({
-    required List<JsonResource> json,
+    required List<JsonResourceStart> json,
     required IterableMap<String, Node> nodes,
   }) {
     final IterableMap<String, Resources> result = IterableMap();
 
-    for (final JsonResource jsonResources in json) {
+    for (final JsonResourceStart jsonResources in json) {
       final Resources resources = Resources.fromJson(
         json: jsonResources,
         node: nodes.get(jsonResources.location.id),
@@ -47,7 +47,7 @@ class Resources {
     return result;
   }
 
-  JsonResource toJson() => JsonResource(
+  JsonResourceStart toJsonStart() => JsonResourceStart(
     id: id,
     location: location.toJson(),
     position: position.toJson(),

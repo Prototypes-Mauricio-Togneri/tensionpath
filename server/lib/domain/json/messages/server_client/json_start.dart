@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 
 part 'json_start.g.dart';
 
 @JsonSerializable()
 class JsonStart {
   @JsonKey(name: 'match')
-  final JsonMatch match;
+  final JsonMatchStart match;
 
   const JsonStart({
     required this.match,

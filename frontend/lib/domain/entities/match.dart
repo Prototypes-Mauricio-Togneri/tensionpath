@@ -1,6 +1,6 @@
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 
 class Match {
   final DateTime createdAt;
@@ -17,7 +17,7 @@ class Match {
 
   Player get opponent => players.firstWhere((player) => !player.isSelf);
 
-  factory Match.fromJson(JsonMatch jsonMatch) => Match(
+  factory Match.fromJson(JsonMatchStart jsonMatch) => Match(
     createdAt: DateTime.parse(jsonMatch.createdAt),
     battlefield: Battlefield.fromJson(jsonMatch.battlefield),
     players: jsonMatch.players.map(Player.fromJson).toList(),

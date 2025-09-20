@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -83,7 +83,7 @@ class Connection {
   }
 
   Future _onMatchStart() async {
-    final JsonMatch jsonMatch = await MatchLoader.load(
+    final JsonMatchStart jsonMatch = await MatchLoader.load(
       path: 'assets/w9h7.json',
       participants: participants,
     );

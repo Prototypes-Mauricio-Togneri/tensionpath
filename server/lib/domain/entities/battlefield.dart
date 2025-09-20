@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
-import 'package:tensionpath/domain/json/models/start/json_battlefield.dart';
+import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/constants.dart';
@@ -16,7 +16,7 @@ class Battlefield {
   final Size mapSize;
   final Missile missile;
   final IterableMap<String, Resources> resources;
-  final IterableMap<String, Launchers> launchers;
+  final IterableMap<String, Launcher> launchers;
   final IterableMap<String, Node> nodes;
   final IterableMap<String, Unit> units;
 
@@ -77,7 +77,7 @@ class Battlefield {
     return closestNode;
   }
 
-  factory Battlefield.fromJson(JsonBattlefield json) {
+  factory Battlefield.fromJson(JsonBattlefieldStart json) {
     final IterableMap<String, Node> nodes = Node.list(json.nodes);
 
     return Battlefield(
@@ -90,7 +90,7 @@ class Battlefield {
         json: json.resources,
         nodes: nodes,
       ),
-      launchers: Launchers.list(json.launchers),
+      launchers: Launcher.list(json.launchers),
       nodes: nodes,
       units: IterableMap(),
     );
@@ -104,12 +104,12 @@ class Battlefield {
     units.list.map((u) => MapEntry(u.id, u.toJsonUpdate())),
   );
 
-  JsonBattlefield toJson() => JsonBattlefield(
+  JsonBattlefieldStart toJsonStart() => JsonBattlefieldStart(
     mapSize: mapSize.toJson(),
     nodeSize: Constants.NODE_SIZE.toJson(),
-    missile: missile.toJson(),
-    resources: resources.list.map((r) => r.toJson()).toList(),
-    launchers: launchers.list.map((l) => l.toJson()).toList(),
-    nodes: nodes.list.map((n) => n.toJson()).toList(),
+    missile: missile.toJsonStart(),
+    resources: resources.list.map((r) => r.toJsonStart()).toList(),
+    launchers: launchers.list.map((l) => l.toJsonStart()).toList(),
+    nodes: nodes.list.map((n) => n.toJsonStart()).toList(),
   );
 }

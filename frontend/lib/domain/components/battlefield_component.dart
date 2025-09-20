@@ -12,6 +12,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
@@ -184,11 +185,10 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 mapCenter,
   }) {
     for (final Platform platform in battlefield.missile.platforms) {
-      for (final Location location in platform.pads) {
-        final Vector2 position = Dimensions.nodePosition(
-          center: mapCenter,
-          nodeSize: nodeSize,
-          location: location,
+      for (final Pad pad in platform.pads) {
+        final Vector2 position = pad.position.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
         );
         final PadComponent padComponent = PadComponent(
           position: position,
@@ -205,22 +205,19 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final Launchers launchers in battlefield.launchers) {
-      for (final Location location in launchers.locations) {
-        final Vector2 nodePosition = Dimensions.nodePosition(
-          center: mapCenter,
-          nodeSize: nodeSize,
-          location: location,
-        );
-        final LauncherComponent launcherComponent = LauncherComponent(
-          position: nodePosition,
-          size: nodeSize,
-          player: self.index == launchers.playerIndex ? self : opponent,
-          nodeComponent: match.getNodeById(location.id),
-        );
-        add(launcherComponent);
-        launcherComponents.add(launcherComponent);
-      }
+    for (final Launcher launcher in battlefield.launchers) {
+      final Vector2 nodePosition = launcher.position.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
+      );
+      final LauncherComponent launcherComponent = LauncherComponent(
+        position: nodePosition,
+        size: nodeSize,
+        player: self.index == launcher.playerIndex ? self : opponent,
+        nodeComponent: match.getNodeById(launcher.location.id),
+      );
+      add(launcherComponent);
+      launcherComponents.add(launcherComponent);
     }
   }
 

@@ -1,10 +1,6 @@
 {
-    "createdAt": "",
     "players": [
         {
-            "id": "",
-            "name": "",
-            "isSelf": false,
             "index": "1",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,
@@ -12,9 +8,6 @@
             "resourcesRateBase": 2
         },
         {
-            "id": "",
-            "name": "",
-            "isSelf": false,
             "index": "2",
             "baseHealth": 1000,
             "baseMaxHealth": 1000,

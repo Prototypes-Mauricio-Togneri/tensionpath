@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/json/models/start/json_player.dart';
+import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
@@ -29,7 +29,7 @@ class Player {
     }
   }
 
-  factory Player.fromJson(JsonPlayer json) {
+  factory Player.fromJson(JsonPlayerStart json) {
     return Player(
       id: json.id,
       name: json.name,
@@ -42,10 +42,10 @@ class Player {
     );
   }
 
-  static IterableMap<String, Player> list(List<JsonPlayer> json) {
+  static IterableMap<String, Player> list(List<JsonPlayerStart> json) {
     final IterableMap<String, Player> result = IterableMap();
 
-    for (final JsonPlayer jsonPlayer in json) {
+    for (final JsonPlayerStart jsonPlayer in json) {
       final Player player = Player.fromJson(jsonPlayer);
       result.add(player.index, player);
     }
@@ -59,7 +59,7 @@ class Player {
     resourcesRate: resourcesRate,
   );
 
-  JsonPlayer toJson(bool isSelf) => JsonPlayer(
+  JsonPlayerStart toJson(bool isSelf) => JsonPlayerStart(
     id: id,
     name: name,
     isSelf: isSelf,

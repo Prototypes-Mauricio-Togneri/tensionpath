@@ -2,7 +2,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/json/models/start/json_match.dart';
+import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
@@ -28,7 +28,7 @@ class Match {
 
   factory Match.fromJson({
     required Connection connection,
-    required JsonMatch jsonMatch,
+    required JsonMatchStart jsonMatch,
   }) => Match._(
     connection: connection,
     createdAt: DateTime.parse(jsonMatch.createdAt),
@@ -99,11 +99,11 @@ class Match {
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
   }
 
-  JsonMatch toJson(String selfId) => JsonMatch(
+  JsonMatchStart toJson(String selfId) => JsonMatchStart(
     createdAt: createdAt.toIso8601String(),
     players: players.list
         .map((player) => player.toJson(selfId == player.id))
         .toList(),
-    battlefield: battlefield.toJson(),
+    battlefield: battlefield.toJsonStart(),
   );
 }

@@ -11,7 +11,7 @@ JsonStart _$JsonStartFromJson(Map<String, dynamic> json) =>
       final val = JsonStart(
         match: $checkedConvert(
           'match',
-          (v) => JsonMatch.fromJson(v as Map<String, dynamic>),
+          (v) => JsonMatchStart.fromJson(v as Map<String, dynamic>),
         ),
       );
       return val;

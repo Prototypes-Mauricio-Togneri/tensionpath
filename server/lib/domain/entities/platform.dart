@@ -1,11 +1,11 @@
-import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/json/models/start/json_platform.dart';
+import 'package:tensionpath/domain/entities/pad.dart';
+import 'package:tensionpath/domain/json/models/start/json_platform_start.dart';
 import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Platform {
   final String id;
-  final List<Location> pads;
+  final List<Pad> pads;
   String? owner;
 
   Platform({
@@ -43,15 +43,15 @@ class Platform {
     }
   }
 
-  factory Platform.fromJson(JsonPlatform json) => Platform(
+  factory Platform.fromJson(JsonPlatformStart json) => Platform(
     id: json.id,
-    pads: json.pads.map(Location.fromJson).toList(),
+    pads: json.pads.map(Pad.fromJson).toList(),
   );
 
-  static IterableMap<String, Platform> list(List<JsonPlatform> json) {
+  static IterableMap<String, Platform> list(List<JsonPlatformStart> json) {
     final IterableMap<String, Platform> result = IterableMap();
 
-    for (final JsonPlatform jsonPlatform in json) {
+    for (final JsonPlatformStart jsonPlatform in json) {
       final Platform platform = Platform.fromJson(jsonPlatform);
       result.add(platform.id, platform);
     }
@@ -59,8 +59,8 @@ class Platform {
     return result;
   }
 
-  JsonPlatform toJson() => JsonPlatform(
+  JsonPlatformStart toJsonStart() => JsonPlatformStart(
     id: id,
-    pads: pads.map((p) => p.toJson()).toList(),
+    pads: pads.map((p) => p.toJsonStart()).toList(),
   );
 }
