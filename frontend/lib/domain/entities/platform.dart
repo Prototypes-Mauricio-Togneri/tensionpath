@@ -1,6 +1,5 @@
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform_start.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 
 class Platform {
   final String id;
@@ -21,12 +20,12 @@ class Platform {
     pads: json.pads.map(Pad.fromJson).toList(),
   );
 
-  static IterableMap<String, Platform> list(List<JsonPlatformStart> json) {
-    final IterableMap<String, Platform> result = IterableMap();
+  static List<Platform> list(List<JsonPlatformStart> json) {
+    final List<Platform> result = [];
 
     for (final JsonPlatformStart jsonPlatform in json) {
       final Platform platform = Platform.fromJson(jsonPlatform);
-      result.add(platform.id, platform);
+      result.add(platform);
     }
 
     return result;

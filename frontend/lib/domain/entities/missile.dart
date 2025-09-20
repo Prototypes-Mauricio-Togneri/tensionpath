@@ -3,14 +3,13 @@ import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 
 class Missile {
   final Location location;
   final Position position;
   final num chargeMax;
   final num chargeBuffer;
-  final IterableMap<String, Platform> platforms;
+  final List<Platform> platforms;
   String? owner;
   num chargeCurrent = 0;
 
