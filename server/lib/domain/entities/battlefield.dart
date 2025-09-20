@@ -82,7 +82,10 @@ class Battlefield {
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),
-      missile: Missile.fromJson(json.missile),
+      missile: Missile.fromJson(
+        json: json.missile,
+        node: nodes.get(json.missile.location.id),
+      ),
       resources: Resources.list(
         json: json.resources,
         nodes: nodes,

@@ -169,10 +169,9 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 mapCenter,
   }) {
     missileComponent = MissileComponent(
-      position: Dimensions.nodePosition(
-        center: mapCenter,
-        nodeSize: nodeSize,
-        location: battlefield.missile.location,
+      position: battlefield.missile.position.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
       ),
       size: nodeSize,
       missile: battlefield.missile,

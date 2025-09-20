@@ -24,7 +24,7 @@ class Resources {
     required Node node,
   }) => Resources(
     id: json.id,
-    location: Location.fromJson(json.location),
+    location: node.location,
     position: node.position,
     amountCurrent: json.amountCurrent,
     amountMax: json.amountMax,

@@ -21,6 +21,12 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
               .map((e) => JsonPlatform.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
+        position: $checkedConvert(
+          'position',
+          (v) => v == null
+              ? const JsonPosition(x: 0, y: 0)
+              : JsonPosition.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -28,6 +34,7 @@ JsonMissile _$JsonMissileFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMissileToJson(JsonMissile instance) =>
     <String, dynamic>{
       'location': instance.location.toJson(),
+      'position': instance.position.toJson(),
       'chargeMax': instance.chargeMax,
       'chargeBuffer': instance.chargeBuffer,
       'platforms': instance.platforms.map((e) => e.toJson()).toList(),

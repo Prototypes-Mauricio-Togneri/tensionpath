@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform.dart';
 
 part 'json_missile.g.dart';
@@ -8,6 +9,9 @@ part 'json_missile.g.dart';
 class JsonMissile {
   @JsonKey(name: 'location')
   final JsonLocation location;
+
+  @JsonKey(name: 'position')
+  final JsonPosition position;
 
   @JsonKey(name: 'chargeMax')
   final num chargeMax;
@@ -23,6 +27,7 @@ class JsonMissile {
     required this.chargeMax,
     required this.chargeBuffer,
     required this.platforms,
+    this.position = const JsonPosition(x: 0, y: 0),
   });
 
   factory JsonMissile.fromJson(Map<String, dynamic> json) =>
