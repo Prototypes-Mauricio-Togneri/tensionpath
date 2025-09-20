@@ -120,6 +120,7 @@ class BattlefieldComponent extends PositionComponent {
         position: mapCenter,
         size: size,
         nodeSize: nodeSize,
+        nodeSizeRatio: nodeSizeRatio,
         nodes: battlefield.nodes,
       ),
     );
@@ -309,6 +310,7 @@ class BattlefieldBackgroundComponent extends SpriteComponent {
 
 class BattlefieldGridComponent extends SpriteComponent {
   final Vector2 nodeSize;
+  final num nodeSizeRatio;
   final List<Node> nodes;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
@@ -320,6 +322,7 @@ class BattlefieldGridComponent extends SpriteComponent {
     required super.position,
     required super.size,
     required this.nodeSize,
+    required this.nodeSizeRatio,
     required this.nodes,
   }) : super(anchor: Anchor.center);
 
@@ -329,10 +332,9 @@ class BattlefieldGridComponent extends SpriteComponent {
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
     for (final Node node in nodes) {
-      final Vector2 position = Dimensions.nodePosition(
-        center: size / 2,
-        nodeSize: nodeSize,
-        location: node.location,
+      final Vector2 position = node.position.localPosition(
+        mapCenter: size / 2,
+        nodeSizeRatio: nodeSizeRatio,
       );
       canvas.drawHexagon(
         center: position,
