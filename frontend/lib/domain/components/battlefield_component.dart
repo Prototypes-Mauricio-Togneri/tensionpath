@@ -15,6 +15,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
@@ -255,11 +256,11 @@ class BattlefieldComponent extends PositionComponent {
     );
 
     for (final JsonUnitUpdate unit in newUnits) {
+      final Position position = Position.fromJson(unit.position);
       final UnitComponent unitComponent = UnitComponent(
-        position: Dimensions.nodePosition(
-          center: size / 2,
-          nodeSize: nodeSize,
-          location: Location.fromJson(unit.location),
+        position: position.localPosition(
+          mapCenter: size / 2,
+          nodeSizeRatio: nodeSizeRatio,
         ),
         size: nodeSize,
         id: unit.id,
