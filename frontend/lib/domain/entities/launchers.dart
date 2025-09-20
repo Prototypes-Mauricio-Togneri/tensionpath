@@ -24,8 +24,8 @@ class Launcher {
     final IterableMap<String, Launcher> result = IterableMap();
 
     for (final JsonLauncherStart jsonLaunchers in json) {
-      final Launcher launchers = Launcher.fromJson(jsonLaunchers);
-      result.add(launchers.playerIndex, launchers);
+      final Launcher launcher = Launcher.fromJson(jsonLaunchers);
+      result.add(launcher.location.id, launcher);
     }
 
     return result;
