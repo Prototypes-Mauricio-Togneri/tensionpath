@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 
 class Resources {
   final String id;
@@ -37,12 +36,12 @@ class Resources {
     ratio: json.amountCurrent / json.amountMax,
   );
 
-  static IterableMap<String, Resources> list(List<JsonResourceStart> json) {
-    final IterableMap<String, Resources> result = IterableMap();
+  static List<Resources> list(List<JsonResourceStart> json) {
+    final List<Resources> result = [];
 
     for (final JsonResourceStart jsonResources in json) {
       final Resources resources = Resources.fromJson(jsonResources);
-      result.add(resources.id, resources);
+      result.add(resources);
     }
 
     return result;

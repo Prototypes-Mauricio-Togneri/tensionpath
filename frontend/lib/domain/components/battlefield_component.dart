@@ -120,7 +120,7 @@ class BattlefieldComponent extends PositionComponent {
         position: mapCenter,
         size: size,
         nodeSize: nodeSize,
-        nodes: battlefield.nodes.list,
+        nodes: battlefield.nodes,
       ),
     );
   }

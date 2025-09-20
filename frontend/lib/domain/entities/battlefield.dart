@@ -4,15 +4,14 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 
 class Battlefield {
   final Size mapSize;
   final Size nodeSize;
   final Missile missile;
-  final IterableMap<String, Resources> resources;
-  final IterableMap<String, Launcher> launchers;
-  final IterableMap<String, Node> nodes;
+  final List<Resources> resources;
+  final List<Launcher> launchers;
+  final List<Node> nodes;
 
   const Battlefield({
     required this.mapSize,
