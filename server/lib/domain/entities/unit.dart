@@ -1,6 +1,6 @@
-import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/common/json_position.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
@@ -8,7 +8,8 @@ class Unit {
   final String id;
   final Player player;
   final UnitType type;
-  final Location location;
+  Node closestNode;
+  Position position;
   double health;
   bool moving = false;
 
@@ -16,7 +17,8 @@ class Unit {
     required this.id,
     required this.player,
     required this.type,
-    required this.location,
+    required this.closestNode,
+    required this.position,
     required this.health,
   });
 
@@ -44,8 +46,8 @@ class Unit {
     id: id,
     playerIndex: player.index,
     type: type,
-    location: location.toJson(),
-    position: const JsonPosition(x: 0, y: 0),
+    location: closestNode.location.toJson(),
+    position: position.toJson(),
     health: health,
   );
 }

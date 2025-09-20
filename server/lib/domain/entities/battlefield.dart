@@ -44,14 +44,37 @@ class Battlefield {
     required Location location,
     required UnitType type,
   }) {
+    final Node closestNode = getClosestNode(location);
+
     final Unit unit = Unit(
       id: DateTime.now().toIso8601String(),
       player: player,
       type: type,
-      location: location,
+      closestNode: closestNode,
+      position: closestNode.position,
       health: type.maxHealth.toDouble(),
     );
     units.add(unit.id, unit);
+  }
+
+  Node getClosestNode(Location location) {
+    Node? closestNode;
+    num closestDistance = double.infinity;
+
+    for (final Node node in nodes.list) {
+      final num distance = location.distanceTo(node.location);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestNode = node;
+      }
+    }
+
+    if (closestNode == null) {
+      throw Exception('No closest node to location ${location.id} found');
+    }
+
+    return closestNode;
   }
 
   factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
