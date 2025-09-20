@@ -77,14 +77,21 @@ class Battlefield {
     return closestNode;
   }
 
-  factory Battlefield.fromJson(JsonBattlefield json) => Battlefield(
-    mapSize: Size.fromJson(json.mapSize),
-    missile: Missile.fromJson(json.missile),
-    resources: Resources.list(json.resources),
-    launchers: Launchers.list(json.launchers),
-    nodes: Node.list(json.nodes),
-    units: IterableMap(),
-  );
+  factory Battlefield.fromJson(JsonBattlefield json) {
+    final IterableMap<String, Node> nodes = Node.list(json.nodes);
+
+    return Battlefield(
+      mapSize: Size.fromJson(json.mapSize),
+      missile: Missile.fromJson(json.missile),
+      resources: Resources.list(
+        json: json.resources,
+        nodes: nodes,
+      ),
+      launchers: Launchers.list(json.launchers),
+      nodes: nodes,
+      units: IterableMap(),
+    );
+  }
 
   Map<String, num> resourcesToJsonUpdate() => Map.fromEntries(
     resources.list.map((r) => MapEntry(r.id, r.amountCurrent)),

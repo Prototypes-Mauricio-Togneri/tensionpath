@@ -16,6 +16,12 @@ JsonResource _$JsonResourceFromJson(Map<String, dynamic> json) =>
         ),
         amountCurrent: $checkedConvert('amountCurrent', (v) => v as num),
         amountMax: $checkedConvert('amountMax', (v) => v as num),
+        position: $checkedConvert(
+          'position',
+          (v) => v == null
+              ? const JsonPosition(x: 0, y: 0)
+              : JsonPosition.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -24,6 +30,7 @@ Map<String, dynamic> _$JsonResourceToJson(JsonResource instance) =>
     <String, dynamic>{
       'id': instance.id,
       'location': instance.location.toJson(),
+      'position': instance.position.toJson(),
       'amountCurrent': instance.amountCurrent,
       'amountMax': instance.amountMax,
     };

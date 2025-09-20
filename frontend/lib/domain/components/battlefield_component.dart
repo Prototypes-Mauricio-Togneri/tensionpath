@@ -129,10 +129,9 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 mapCenter,
   }) {
     for (final Node node in battlefield.nodes) {
-      final Vector2 position = Dimensions.nodePosition(
-        center: mapCenter,
-        nodeSize: nodeSize,
-        location: node.location,
+      final Vector2 position = node.position.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
       );
 
       final NodeComponent nodeComponent = NodeComponent(
@@ -151,10 +150,9 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 mapCenter,
   }) {
     for (final Resources resources in battlefield.resources) {
-      final Vector2 position = Dimensions.nodePosition(
-        center: mapCenter,
-        nodeSize: nodeSize,
-        location: resources.location,
+      final Vector2 position = resources.position.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
       );
       final ResourceComponent resourceComponent = ResourceComponent(
         position: position,
