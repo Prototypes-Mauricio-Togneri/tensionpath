@@ -115,10 +115,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
         endPosition!.y + event.localDelta.y,
       );
 
-      match.highlightNodeAt(
-        nodeTypes: NodeType.canMove,
-        position: endPosition!,
-      );
+      match.highlightTargetAt(endPosition!);
     }
   }
 

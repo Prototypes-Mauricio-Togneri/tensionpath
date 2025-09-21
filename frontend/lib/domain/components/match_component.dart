@@ -160,18 +160,15 @@ class MatchComponent extends World {
     throw Exception('Node not found');
   }
 
-  void highlightNodeAt({
-    required List<NodeType> nodeTypes,
-    required Vector2 position,
-  }) {
+  void highlightTargetAt(Vector2 position) {
     unhighlightNodes();
 
     final NodeComponent? nodeComponent = getNodeAt(
-      nodeTypes: nodeTypes,
+      nodeTypes: NodeType.canMove,
       position: position,
     );
 
-    if (nodeComponent != null) {
+    if ((nodeComponent != null) && (nodeComponent.isFree)) {
       nodeComponent.highlight(true);
     }
   }
