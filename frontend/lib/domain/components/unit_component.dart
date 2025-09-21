@@ -22,15 +22,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   final Player player;
   late HealthBarComponent healthBarComponent;
   late NodeComponent closestNodeComponent;
-
-  Vector2? endPosition;
-
-  //Location? destinationLocation;
-  //Vector2? destinationPosition;
-  //Location? currentLocation;
-  Vector2? targetPosition;
-
   late final MovementOrderComponent movementOrderComponent;
+  Vector2? endPosition;
+  Vector2? targetPosition;
 
   UnitComponent({
     required super.position,
@@ -141,62 +135,12 @@ class UnitComponent extends PositionComponent with DragCallbacks {
           nodeComponent: nodeComponent,
         );
       }
-
-      /*if (nodeComponent != null) {
-        if (nodeComponent.node.isMovementTarget(unit)) {
-          /*match.match.onMoveUnit(
-            unit: unit,
-            nodeOrigin: node,
-            nodeTarget: nodeComponent.node,
-          );*/
-        } else if (nodeComponent.node.isAttackUnitTarget(unit)) {
-          /*match.match.onAttackUnit(
-            unitAttacker: unit,
-            unitDefender: nodeComponent.node.unit!,
-          );*/
-          position = initialPosition;
-        } else if (nodeComponent.node.isAttackBaseTarget(unit)) {
-          //match.match.onAttackBase(unit: unit, node: nodeComponent.node);
-          position = initialPosition;
-        } else {
-          position = initialPosition;
-        }
-      } else {
-        position = initialPosition;
-      }*/
     }
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-
-    /*if (destinationPosition != null) {
-      final Vector2 direction = destinationPosition! - absolutePosition;
-      final double distance = direction.length;
-      final double speed = size.x * type.speed;
-
-      if (distance < 1) {
-        position = destinationPosition!;
-        currentLocation = destinationLocation;
-        currentNodeType = match
-            .getNodeAt(
-              nodeTypes: NodeType.canMove,
-              position: absolutePosition,
-            )!
-            .type;
-
-        destinationLocation = null;
-        destinationPosition = null;
-      } else {
-        direction.normalize();
-        position += direction * (speed * dt);
-        closestNodeComponent = match.getClosestNode(
-          nodeTypes: NodeType.values,
-          position: absolutePosition,
-        );
-      }
-    }*/
 
     if (targetPosition != null) {
       final Vector2 direction = targetPosition! - absolutePosition;

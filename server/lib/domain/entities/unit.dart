@@ -10,11 +10,11 @@ class Unit {
   final Player player;
   final UnitType type;
   final num radius;
+  double health;
+  Position position;
   Node closestNode;
   Node? targetNode;
   Node? lockedNode;
-  Position position;
-  double health;
 
   Unit({
     required this.id,
