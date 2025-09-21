@@ -1,4 +1,3 @@
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
@@ -25,7 +24,7 @@ class Unit {
     required this.health,
   });
 
-  void move(Location location) {}
+  void move(Node node) {}
 
   bool update(double dt) {
     /*

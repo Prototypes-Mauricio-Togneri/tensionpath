@@ -2,8 +2,8 @@ import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
@@ -18,8 +18,8 @@ class Battlefield {
   final Missile missile;
   final IterableMap<String, Resources> resources;
   final IterableMap<String, Launcher> launchers;
-  final IterableMap<String, Node> nodes;
   final IterableMap<String, Unit> units;
+  final Nodes nodes;
 
   const Battlefield({
     required this.mapSize,
@@ -45,7 +45,7 @@ class Battlefield {
     required Location location,
     required UnitType type,
   }) {
-    final Node node = getNodeAt(location);
+    final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
       id: DateTime.now().toIso8601String(),
       player: player,
@@ -65,38 +65,9 @@ class Battlefield {
     final Unit unit = units.get(unitId);
 
     if (unit.player == player) {
-      unit.move(location);
+      final Node node = nodes.atLocation(location);
+      unit.move(node);
     }
-  }
-
-  Node getNodeAt(Location location) {
-    for (final Node node in nodes.list) {
-      if (node.location == location) {
-        return node;
-      }
-    }
-
-    throw Exception('No node at location ${location.id}');
-  }
-
-  Node getClosestNodeAt(Position position) {
-    Node? closestNode;
-    num closestDistance = double.infinity;
-
-    for (final Node node in nodes.list) {
-      final num distance = position.distanceTo(node.position);
-
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestNode = node;
-      }
-    }
-
-    if (closestNode == null) {
-      throw Exception('No closest node to position $position found');
-    }
-
-    return closestNode;
   }
 
   factory Battlefield.fromJson(JsonBattlefieldStart json) {
@@ -113,7 +84,7 @@ class Battlefield {
         nodes: nodes,
       ),
       launchers: Launcher.list(json.launchers),
-      nodes: nodes,
+      nodes: Nodes(nodes),
       units: IterableMap(),
     );
   }
