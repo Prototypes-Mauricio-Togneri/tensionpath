@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
@@ -8,6 +9,7 @@ class Unit {
   final String id;
   final Player player;
   final UnitType type;
+  final num radius;
   Node closestNode;
   Node? targetNode;
   Node? lockedNode;
@@ -18,6 +20,7 @@ class Unit {
     required this.id,
     required this.player,
     required this.type,
+    required this.radius,
     required this.closestNode,
     required this.position,
     required this.health,
@@ -30,22 +33,35 @@ class Unit {
     lockedNode = null;
   }
 
-  bool update(double dt) {
-    /*
-      - If moving
-        - If target node is free
-          - Update position
-          - If unit inside of target node -> assign node to unit
-        - If target node is not free
-          - Re-assign node
-          - Update position
-          - If unit inside of target node -> assign node to unit
-    */
+  bool update({
+    required double dt,
+    required Nodes nodes,
+  }) {
+    if (isMoving) {
+      if (targetNode!.notLockedBy(this)) {
+        // Re-assign node
+        targetNode = null; // TODO(momo): implement
+      }
+
+      // Update position
+      position.moveTowards(
+        target: targetNode!.position,
+        distance: type.speed * dt,
+      );
+
+      // If unit inside of target node -> assign node to unit
+      if (position.distanceTo(targetNode!.position) < radius) {
+        lockedNode = targetNode;
+        targetNode!.lock(this);
+      }
+    }
 
     /*if ((type == UnitType.harvester) &&
         (currentNodeType == NodeType.resources)) {
       player.addResources(dt * Constants.RESOURCES_PER_SECOND);
     }*/
+
+    closestNode = nodes.atPosition(position);
 
     return false;
   }

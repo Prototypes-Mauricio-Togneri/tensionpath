@@ -2,10 +2,25 @@ import 'dart:math';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 
 class Position {
-  final num x;
-  final num y;
+  num x;
+  num y;
 
-  const Position({required this.x, required this.y});
+  Position({required this.x, required this.y});
+
+  void moveTowards({
+    required Position target,
+    required num distance,
+  }) {
+    final num remainingDistance = distanceTo(target);
+
+    if (distance < remainingDistance) {
+      x += (target.x - x) * distance / remainingDistance;
+      y += (target.y - y) * distance / remainingDistance;
+    } else {
+      x = target.x;
+      y = target.y;
+    }
+  }
 
   num distanceTo(Position other) {
     final num dx = other.x - x;

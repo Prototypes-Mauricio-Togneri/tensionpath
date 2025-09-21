@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:tensionpath/domain/json/models/common/json_size.dart';
 
 class Size {
@@ -8,6 +10,8 @@ class Size {
     required this.width,
     required this.height,
   });
+
+  num get radius => max(width, height) / 2;
 
   factory Size.fromJson(JsonSize json) => Size(
     width: json.width,

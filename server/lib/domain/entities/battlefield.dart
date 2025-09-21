@@ -15,6 +15,7 @@ import 'package:tensionpath/utils/iterable_map.dart';
 
 class Battlefield {
   final Size mapSize;
+  final Size nodeSize;
   final Missile missile;
   final IterableMap<String, Resources> resources;
   final IterableMap<String, Launcher> launchers;
@@ -23,6 +24,7 @@ class Battlefield {
 
   const Battlefield({
     required this.mapSize,
+    required this.nodeSize,
     required this.missile,
     required this.resources,
     required this.launchers,
@@ -34,7 +36,10 @@ class Battlefield {
     bool result = false;
 
     for (final Unit unit in units.list) {
-      result |= unit.update(dt);
+      result |= unit.update(
+        dt: dt,
+        nodes: nodes,
+      );
     }
 
     return result;
@@ -50,6 +55,7 @@ class Battlefield {
       id: DateTime.now().toIso8601String(),
       player: player,
       type: type,
+      radius: nodeSize.radius,
       closestNode: node,
       position: node.position,
       health: type.maxHealth.toDouble(),
@@ -75,6 +81,7 @@ class Battlefield {
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),
+      nodeSize: Size.fromJson(json.nodeSize),
       missile: Missile.fromJson(
         json: json.missile,
         node: nodes.get(json.missile.location.id),
