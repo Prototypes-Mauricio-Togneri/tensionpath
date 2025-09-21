@@ -176,6 +176,23 @@ class MatchComponent extends World {
     }
   }
 
+  void highlightLauncher({
+    required Vector2 position,
+    required Player player,
+  }) {
+    unhighlightNodes();
+
+    final LauncherComponent? launcherComponent = getLauncherAt(
+      position,
+    );
+
+    if ((launcherComponent != null) &&
+        (launcherComponent.player == player) &&
+        (launcherComponent.nodeComponent.isFree)) {
+      launcherComponent.nodeComponent.highlight(true);
+    }
+  }
+
   void unhighlightNodes() {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.highlight(false);

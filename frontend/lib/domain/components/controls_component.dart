@@ -6,7 +6,6 @@ import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -178,9 +177,9 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     if (enabled) {
       position += event.localDelta;
 
-      match.highlightNodeAt(
-        nodeTypes: [NodeType.launcher],
+      match.highlightLauncher(
         position: absolutePosition,
+        player: player,
       );
     }
   }
