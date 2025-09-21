@@ -173,7 +173,7 @@ class MatchComponent extends World {
     }
   }
 
-  void highlightLauncher({
+  void highlightLauncherAt({
     required Vector2 position,
     required Player player,
   }) {

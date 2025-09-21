@@ -1,8 +1,5 @@
 # TODO
 
-- Don't deploy in an occupied tile
-- Don't move to an occupied tile
-
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen

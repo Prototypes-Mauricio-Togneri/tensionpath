@@ -95,9 +95,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   @override
   void onDragStart(DragStartEvent event) {
-    if (player.isSelf) {
-      super.onDragStart(event);
+    super.onDragStart(event);
 
+    if (player.isSelf) {
       final Vector2 offsetFromCenter = event.localPosition - (size / 2);
 
       endPosition = Vector2(
@@ -121,9 +121,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   @override
   void onDragEnd(DragEndEvent event) {
-    if (player.isSelf) {
-      super.onDragEnd(event);
+    super.onDragEnd(event);
 
+    if (player.isSelf) {
       final NodeComponent? nodeComponent = match.getNodeAt(
         nodeTypes: NodeType.canMove,
         position: endPosition!,

@@ -177,7 +177,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     if (enabled) {
       position += event.localDelta;
 
-      match.highlightLauncher(
+      match.highlightLauncherAt(
         position: absolutePosition,
         player: player,
       );
