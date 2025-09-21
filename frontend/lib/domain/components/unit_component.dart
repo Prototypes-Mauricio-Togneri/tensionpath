@@ -1,13 +1,13 @@
 import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:tensionpath/domain/components/movement_order_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
-import 'package:tensionpath/domain/components/target_component.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -22,16 +22,16 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   final UnitType type;
   final Player player;
   late HealthBarComponent healthBarComponent;
+
+  Vector2? endPosition;
+
+  //Location? destinationLocation;
+  //Vector2? destinationPosition;
+  //Location? currentLocation;
   Vector2? targetPosition;
 
-  Location? destinationLocation;
-  Vector2? destinationPosition;
-
-  NodeType? currentNodeType;
-  Location? currentLocation;
   late NodeComponent closestNodeComponent;
-
-  late final TargetComponent targetComponent;
+  late final MovementOrderComponent movementOrderComponent;
 
   UnitComponent({
     required super.position,
@@ -39,8 +39,6 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required this.id,
     required this.type,
     required this.player,
-    required this.currentNodeType,
-    required this.currentLocation,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
@@ -50,14 +48,8 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   void refresh(JsonUnitUpdate unit) => healthBarComponent.refresh(unit);
 
-  void moveTo({
-    required Location location,
-    required Vector2 position,
-  }) {
-    currentNodeType = null;
-    currentLocation = null;
-    destinationLocation = location;
-    destinationPosition = position;
+  void moveTo(Vector2 position) {
+    targetPosition = position;
   }
 
   @override
@@ -85,10 +77,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
     add(healthBarComponent);
 
-    targetComponent = TargetComponent(
+    movementOrderComponent = MovementOrderComponent(
       position: Vector2.zero(),
     );
-    match.add(targetComponent);
+    match.add(movementOrderComponent);
 
     return super.onLoad();
   }
@@ -100,7 +92,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
       final Vector2 offsetFromCenter = event.localPosition - (size / 2);
 
-      targetPosition = Vector2(
+      endPosition = Vector2(
         absolutePosition.x + offsetFromCenter.x,
         absolutePosition.y + offsetFromCenter.y,
       );
@@ -110,14 +102,14 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (player.isSelf) {
-      targetPosition = Vector2(
-        targetPosition!.x + event.localDelta.x,
-        targetPosition!.y + event.localDelta.y,
+      endPosition = Vector2(
+        endPosition!.x + event.localDelta.x,
+        endPosition!.y + event.localDelta.y,
       );
 
       match.highlightNodeAt(
         nodeTypes: NodeType.canMove,
-        position: targetPosition!,
+        position: endPosition!,
       );
     }
   }
@@ -129,11 +121,11 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
       final NodeComponent? nodeComponent = match.getNodeAt(
         nodeTypes: NodeType.canMove,
-        position: targetPosition!,
+        position: endPosition!,
       );
 
-      targetPosition = null;
-      targetComponent.hide();
+      endPosition = null;
+      movementOrderComponent.hide();
       match.unhighlightNodes();
 
       if (nodeComponent != null) {
@@ -172,7 +164,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   void update(double dt) {
     super.update(dt);
 
-    if (destinationPosition != null) {
+    /*if (destinationPosition != null) {
       final Vector2 direction = destinationPosition! - absolutePosition;
       final double distance = direction.length;
       final double speed = size.x * type.speed;
@@ -189,6 +181,24 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
         destinationLocation = null;
         destinationPosition = null;
+      } else {
+        direction.normalize();
+        position += direction * (speed * dt);
+        closestNodeComponent = match.getClosestNode(
+          nodeTypes: NodeType.values,
+          position: absolutePosition,
+        );
+      }
+    }*/
+
+    if (targetPosition != null) {
+      final Vector2 direction = targetPosition! - absolutePosition;
+      final double distance = direction.length;
+      final double speed = size.x * type.speed;
+
+      if (distance < 1) {
+        position = targetPosition!;
+        targetPosition = null;
       } else {
         direction.normalize();
         position += direction * (speed * dt);
@@ -214,10 +224,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
     canvas.restore();
 
-    if (targetPosition != null) {
-      targetComponent.show(
+    if (endPosition != null) {
+      movementOrderComponent.show(
         start: absolutePosition,
-        end: targetPosition!,
+        end: endPosition!,
       );
     }
   }

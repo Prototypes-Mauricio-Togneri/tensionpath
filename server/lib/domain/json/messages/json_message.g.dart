@@ -20,6 +20,11 @@ JsonMessage _$JsonMessageFromJson(
       (v) =>
           v == null ? null : JsonDeployUnit.fromJson(v as Map<String, dynamic>),
     ),
+    move: $checkedConvert(
+      'move',
+      (v) =>
+          v == null ? null : JsonMoveUnit.fromJson(v as Map<String, dynamic>),
+    ),
     welcome: $checkedConvert(
       'welcome',
       (v) => v == null ? null : JsonWelcome.fromJson(v as Map<String, dynamic>),
@@ -44,6 +49,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
     <String, dynamic>{
       'join': ?instance.join?.toJson(),
       'deploy': ?instance.deploy?.toJson(),
+      'move': ?instance.move?.toJson(),
       'welcome': ?instance.welcome?.toJson(),
       'start': ?instance.start?.toJson(),
       'update': ?instance.update?.toJson(),

@@ -193,9 +193,9 @@ class MatchComponent extends World {
   void onMoveUnit({
     required UnitComponent unitComponent,
     required NodeComponent nodeComponent,
-  }) => unitComponent.moveTo(
+  }) => game.matchState.onMoveUnit(
+    unitId: unitComponent.id,
     location: nodeComponent.location,
-    position: nodeComponent.absolutePosition,
   );
 }
 

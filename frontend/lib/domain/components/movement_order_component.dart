@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class TargetComponent extends PositionComponent {
+// TODO(momo): can it be just a component instead of PositionComponent?
+class MovementOrderComponent extends PositionComponent {
   final Paint targetPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
@@ -12,7 +13,7 @@ class TargetComponent extends PositionComponent {
   Vector2? startPosition;
   Vector2? endPosition;
 
-  TargetComponent({
+  MovementOrderComponent({
     required super.position,
   }) : super(
          anchor: Anchor.center,

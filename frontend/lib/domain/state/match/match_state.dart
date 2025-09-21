@@ -100,6 +100,17 @@ class MatchState extends BaseState {
     ),
   );
 
+  void onMoveUnit({
+    required String unitId,
+    required Location location,
+  }) => connection.send(
+    JsonMessage.moveUnit(
+      matchId: matchId,
+      unitId: unitId,
+      location: location.toJson(),
+    ),
+  );
+
   void onMatchFinished(bool won) {
     if (won) {
       InfoDialog.won(_onMatchQuit);

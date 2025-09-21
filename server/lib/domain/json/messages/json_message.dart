@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
@@ -23,6 +24,9 @@ class JsonMessage {
   @JsonKey(name: 'deploy')
   final JsonDeployUnit? deploy;
 
+  @JsonKey(name: 'move')
+  final JsonMoveUnit? move;
+
   // =========================== SERVER -> CLIENT =========================== \\
 
   @JsonKey(name: 'welcome')
@@ -38,8 +42,12 @@ class JsonMessage {
   final JsonError? error;
 
   const JsonMessage({
+    // Client -> Server
     this.join,
     this.deploy,
+    this.move,
+
+    // Server -> Client
     this.welcome,
     this.start,
     this.update,
@@ -51,6 +59,8 @@ class JsonMessage {
       return join;
     } else if (deploy != null) {
       return deploy;
+    } else if (move != null) {
+      return move;
     } else if (welcome != null) {
       return welcome;
     } else if (start != null) {
@@ -86,6 +96,18 @@ class JsonMessage {
       matchId: matchId,
       location: location,
       type: type,
+    ),
+  );
+
+  factory JsonMessage.moveUnit({
+    required String matchId,
+    required String unitId,
+    required JsonLocation location,
+  }) => JsonMessage(
+    move: JsonMoveUnit(
+      matchId: matchId,
+      unitId: unitId,
+      location: location,
     ),
   );
 

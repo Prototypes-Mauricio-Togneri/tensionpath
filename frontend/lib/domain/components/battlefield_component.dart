@@ -10,7 +10,6 @@ import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -250,13 +249,36 @@ class BattlefieldComponent extends PositionComponent {
   }) {
     missileComponent.refresh(missile);
 
-    final List<JsonUnitUpdate> newUnits = _newUnits(
+    _createNewUnits(
       units: units,
       unitComponents: unitComponents,
     );
 
+    _updateExistingUnits(
+      units: units,
+      unitComponents: unitComponents,
+    );
+
+    _updateResources(resources);
+  }
+
+  void _createNewUnits({
+    required Map<String, JsonUnitUpdate> units,
+    required List<UnitComponent> unitComponents,
+  }) {
+    final List<JsonUnitUpdate> newUnits = [];
+    final Set<String> existingUnitIds = unitComponents
+        .map((unitComponent) => unitComponent.id)
+        .toSet();
+
+    for (final MapEntry<String, JsonUnitUpdate> entry in units.entries) {
+      if (!existingUnitIds.contains(entry.key)) {
+        newUnits.add(entry.value);
+      }
+    }
+
     for (final JsonUnitUpdate unit in newUnits) {
-      final Position position = Position.fromJson(unit.position);
+      final Position position = Position.fromJson(unit.currentPosition);
       final UnitComponent unitComponent = UnitComponent(
         position: position.localPosition(
           mapCenter: size / 2,
@@ -266,13 +288,26 @@ class BattlefieldComponent extends PositionComponent {
         id: unit.id,
         type: unit.type,
         player: unit.playerIndex == self.index ? self : opponent,
-        currentNodeType: null,
-        currentLocation: Location.fromJson(unit.location),
       );
       add(unitComponent);
       unitComponents.add(unitComponent);
     }
+  }
 
+  void _updateExistingUnits({
+    required Map<String, JsonUnitUpdate> units,
+    required List<UnitComponent> unitComponents,
+  }) {
+    for (final UnitComponent unitComponent in unitComponents) {
+      final JsonUnitUpdate? unitUpdate = units[unitComponent.id];
+
+      if (unitUpdate != null) {
+        unitComponent.refresh(unitUpdate);
+      }
+    }
+  }
+
+  void _updateResources(Map<String, num> resources) {
     for (final ResourceComponent resourceComponent in resourceComponents) {
       final num? newAmount = resources[resourceComponent.resources.id];
 
@@ -280,24 +315,6 @@ class BattlefieldComponent extends PositionComponent {
         resourceComponent.refresh(newAmount);
       }
     }
-  }
-
-  List<JsonUnitUpdate> _newUnits({
-    required Map<String, JsonUnitUpdate> units,
-    required List<UnitComponent> unitComponents,
-  }) {
-    final List<JsonUnitUpdate> result = [];
-    final Set<String> existingUnitIds = unitComponents
-        .map((unitComponent) => unitComponent.id)
-        .toSet();
-
-    for (final MapEntry<String, JsonUnitUpdate> entry in units.entries) {
-      if (!existingUnitIds.contains(entry.key)) {
-        result.add(entry.value);
-      }
-    }
-
-    return result;
   }
 }
 
