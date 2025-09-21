@@ -41,7 +41,7 @@ class Unit {
     bool result = false;
 
     if (isMoving) {
-      print('Moving unit $id');
+      print('--------------------------------------------\nMoving unit $id');
 
       if (targetNode!.notLockedBy(this)) {
         // Re-assign node
@@ -54,13 +54,13 @@ class Unit {
       }
 
       // Update position
-      position.moveTowards(
+      position = position.moveTowards(
         target: targetNode!.position,
         distance: type.speed * dt,
       );
 
       final num distanceToTarget = position.distanceTo(targetNode!.position);
-      print('Unit target ${targetNode!.location.id}');
+      print('Unit target ${targetNode!.location.id} / ${targetNode!.position}');
       print('New unit position $position');
       print('Remaining distance: $distanceToTarget');
 
