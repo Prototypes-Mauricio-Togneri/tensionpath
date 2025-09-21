@@ -289,6 +289,7 @@ class BattlefieldComponent extends PositionComponent {
         size: nodeSize,
         id: unit.id,
         type: unit.type,
+        nodeSizeRatio: nodeSizeRatio,
         player: unit.playerIndex == self.index ? self : opponent,
       );
       add(unitComponent);

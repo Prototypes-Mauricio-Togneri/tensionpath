@@ -19,6 +19,7 @@ import 'package:tensionpath/utils/palette.dart';
 class UnitComponent extends PositionComponent with DragCallbacks {
   final String id;
   final UnitType type;
+  final num nodeSizeRatio;
   final Player player;
   late HealthBarComponent healthBarComponent;
   late NodeComponent closestNodeComponent;
@@ -31,6 +32,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required super.size,
     required this.id,
     required this.type,
+    required this.nodeSizeRatio,
     required this.player,
   }) : super(
          anchor: Anchor.center,
@@ -141,9 +143,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     super.update(dt);
 
     if (targetPosition != null) {
-      final Vector2 direction = targetPosition! - absolutePosition;
-      final double distance = direction.length;
-      final double speed = size.x * type.speed;
+      final Vector2 direction = targetPosition! - position;
+      final num distance = direction.length;
+      final num speed = nodeSizeRatio * type.speed;
 
       if (distance < 1) {
         position = targetPosition!;
@@ -156,6 +158,10 @@ class UnitComponent extends PositionComponent with DragCallbacks {
           position: absolutePosition,
         );
       }
+
+      print(
+        'Unit $id moved to $position at speed $speed. Remaining distance: $distance',
+      );
     }
   }
 
