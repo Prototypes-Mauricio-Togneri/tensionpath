@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -23,8 +24,7 @@ class NodeComponent extends PositionComponent {
     color: Palette.NODE_OCCUPIED,
   );
   bool highlighted = false;
-  bool occupied = false;
-  String? lockedUnitId;
+  UnitComponent? lockedUnit;
 
   NodeComponent({
     required super.position,
@@ -37,12 +37,14 @@ class NodeComponent extends PositionComponent {
          priority: Priority.node.value,
        );
 
-  void lock(String unitId) {
-    lockedUnitId = unitId;
+  bool get isFree => lockedUnit == null;
+
+  void lock(UnitComponent unit) {
+    lockedUnit = unit;
   }
 
   void unlock() {
-    lockedUnitId = null;
+    lockedUnit = null;
   }
 
   @override
@@ -80,10 +82,6 @@ class NodeComponent extends PositionComponent {
     highlighted = value;
   }
 
-  void occupy(bool value) {
-    occupied = value;
-  }
-
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -96,7 +94,7 @@ class NodeComponent extends PositionComponent {
       );
     }
 
-    if (occupied) {
+    if (lockedUnit != null) {
       canvas.drawHexagon(
         center: size / 2,
         size: size,

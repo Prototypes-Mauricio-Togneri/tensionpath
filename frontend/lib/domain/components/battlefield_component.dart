@@ -345,10 +345,10 @@ class BattlefieldComponent extends PositionComponent {
 
         if ((unitLocation != null) &&
             (unitLocation.id == nodeComponent.location.id)) {
-          nodeComponent.occupy(true);
+          nodeComponent.lock(unitComponent);
           break;
         } else {
-          nodeComponent.occupy(false);
+          nodeComponent.unlock();
         }
       }
     }

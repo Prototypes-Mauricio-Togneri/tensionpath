@@ -136,7 +136,9 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       movementOrderComponent.hide();
       match.unhighlightNodes();
 
-      if ((nodeComponent != null) && (nodeComponent != closestNodeComponent)) {
+      if ((nodeComponent != null) &&
+          nodeComponent.isFree &&
+          (nodeComponent != closestNodeComponent)) {
         match.onMoveUnit(
           unitComponent: this,
           nodeComponent: nodeComponent,

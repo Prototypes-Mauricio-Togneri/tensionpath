@@ -3,12 +3,6 @@
 - Don't deploy in an occupied tile
 - Don't move to an occupied tile
 
-- Units have 3 types of nodes
-
-  - Hovering node (mandatory)
-  - Target node (optional)
-  - Locked node (optional)
-
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen
