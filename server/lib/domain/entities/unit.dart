@@ -60,6 +60,7 @@ class Unit {
       if (distanceToTarget < (type.speed * 5)) {
         print('Unit $id has arrived to the target node ${targetNode!.id}');
         // If the unit has arrived to the target node -> stop moving
+        position = targetNode!.position;
         targetNode = null;
         result = true;
       } else if ((lockedNode == null) && (distanceToTarget < radius)) {
