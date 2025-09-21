@@ -57,7 +57,7 @@ class Unit {
         'New unit position $position. Remaining distance: $distanceToTarget',
       );
 
-      if (distanceToTarget < 1) {
+      if (distanceToTarget < (type.speed * 5)) {
         print('Unit $id has arrived to the target node ${targetNode!.id}');
         // If the unit has arrived to the target node -> stop moving
         targetNode = null;
