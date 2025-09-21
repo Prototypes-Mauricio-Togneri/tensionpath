@@ -329,6 +329,9 @@ class BattlefieldComponent extends PositionComponent {
         type: unit.type,
         nodeSizeRatio: nodeSizeRatio,
         player: unit.playerIndex == self.index ? self : opponent,
+        lockedLocation: unit.lockedLocation != null
+            ? Location.fromJson(unit.lockedLocation!)
+            : null,
       );
       add(unitComponent);
       unitComponents.add(unitComponent);

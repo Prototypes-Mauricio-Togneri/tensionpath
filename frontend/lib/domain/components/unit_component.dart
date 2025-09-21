@@ -36,6 +36,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required this.type,
     required this.nodeSizeRatio,
     required this.player,
+    required this.lockedLocation,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
