@@ -30,6 +30,7 @@ class Unit {
 
   void move(Node node) {
     targetNode = node;
+    lockedNode?.unlock();
     lockedNode = null;
   }
 
@@ -65,13 +66,15 @@ class Unit {
         print('Unit $id has arrived to the target node ${targetNode!.id}');
         // If the unit has arrived to the target node -> stop moving
         position = targetNode!.position;
+        lockedNode = targetNode;
+        lockedNode!.lock(this);
         targetNode = null;
         result = true;
       } else if ((lockedNode == null) && (distanceToTarget < radius)) {
         print('Unit $id has locked the target node ${targetNode!.id}');
         // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
-        targetNode!.lock(this);
+        lockedNode!.lock(this);
         result = true;
       }
     }

@@ -29,6 +29,10 @@ class Node {
     lockingUnit = unit;
   }
 
+  void unlock() {
+    lockingUnit = null;
+  }
+
   static IterableMap<String, Node> list(List<JsonNodeStart> nodes) {
     final IterableMap<String, Node> result = IterableMap();
 
