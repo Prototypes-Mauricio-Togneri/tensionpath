@@ -78,9 +78,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
     add(healthBarComponent);
 
-    movementOrderComponent = MovementOrderComponent(
-      position: Vector2.zero(),
-    );
+    movementOrderComponent = MovementOrderComponent();
     match.add(movementOrderComponent);
 
     return super.onLoad();

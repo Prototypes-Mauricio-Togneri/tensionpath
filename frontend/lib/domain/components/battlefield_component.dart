@@ -249,12 +249,12 @@ class BattlefieldComponent extends PositionComponent {
   }) {
     missileComponent.refresh(missile);
 
-    _createNewUnits(
+    _updateExistingUnits(
       units: units,
       unitComponents: unitComponents,
     );
 
-    _updateExistingUnits(
+    _createNewUnits(
       units: units,
       unitComponents: unitComponents,
     );
