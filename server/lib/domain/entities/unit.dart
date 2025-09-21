@@ -41,6 +41,8 @@ class Unit {
     bool result = false;
 
     if (isMoving) {
+      print('Moving unit $id');
+
       if (targetNode!.notLockedBy(this)) {
         // Re-assign node
         targetNode = nodes.closestFreeNode(position);
@@ -58,9 +60,9 @@ class Unit {
       );
 
       final num distanceToTarget = position.distanceTo(targetNode!.position);
-      print(
-        'New unit position $position. Remaining distance: $distanceToTarget',
-      );
+      print('Unit target ${targetNode!.location.id}');
+      print('New unit position $position');
+      print('Remaining distance: $distanceToTarget');
 
       if (distanceToTarget < 0.5) {
         print('Unit $id has arrived to the target node ${targetNode!.id}');

@@ -49,6 +49,8 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     healthBarComponent.refresh(health);
     position = newCurrentPosition;
     targetPosition = newTargetPosition;
+
+    print('Unit $id refreshed to position $position, target $targetPosition');
   }
 
   void moveTo(Vector2 position) {
