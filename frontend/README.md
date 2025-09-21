@@ -1,6 +1,7 @@
 # TODO
 
 - Do not show enemy units in the fog of war
+- Terminate match if all players leave
 
 - Dart compile in Docker
 - Continuous popcap
