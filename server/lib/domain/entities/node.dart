@@ -38,4 +38,10 @@ class Node {
     position: position.toJson(),
     type: type,
   );
+
+  @override
+  bool operator ==(Object other) => other is Node && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

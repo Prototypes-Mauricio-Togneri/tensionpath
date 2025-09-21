@@ -109,6 +109,19 @@ class Connection {
     );
   }
 
+  void moveUnit({
+    required WebSocket socket,
+    required String unitId,
+    required JsonLocation location,
+  }) {
+    final Participant participant = participantBySocket(socket);
+    _match?.moveUnit(
+      playerIndex: participant.playerIndex,
+      unitId: unitId,
+      location: Location.fromJson(location),
+    );
+  }
+
   Participant participantBySocket(WebSocket socket) {
     for (final Participant participant in participants.values) {
       if (participant.hasSocket(socket)) {

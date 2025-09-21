@@ -24,4 +24,10 @@ class Location {
   );
 
   JsonLocation toJson() => JsonLocation(x: x, y: y);
+
+  @override
+  bool operator ==(Object other) => other is Location && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

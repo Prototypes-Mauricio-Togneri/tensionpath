@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
@@ -52,6 +53,18 @@ class Dispatcher {
       socket: socket,
       location: json.location,
       type: json.type,
+    );
+  }
+
+  void moveUnit({
+    required JsonMoveUnit json,
+    required WebSocket socket,
+  }) {
+    final Connection connection = _getConnection(json.matchId);
+    connection.moveUnit(
+      socket: socket,
+      unitId: json.unitId,
+      location: json.location,
     );
   }
 

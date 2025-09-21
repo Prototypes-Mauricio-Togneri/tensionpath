@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
@@ -9,6 +10,8 @@ class Unit {
   final Player player;
   final UnitType type;
   Node closestNode;
+  Node? targetNode;
+  Node? lockedNode;
   Position position;
   double health;
   bool moving = false;
@@ -21,6 +24,8 @@ class Unit {
     required this.position,
     required this.health,
   });
+
+  void move(Location location) {}
 
   bool update(double dt) {
     /*
@@ -50,4 +55,10 @@ class Unit {
     position: position.toJson(),
     health: health,
   );
+
+  @override
+  bool operator ==(Object other) => other is Unit && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

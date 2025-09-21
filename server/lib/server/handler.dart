@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/server/dispatcher.dart';
@@ -24,6 +25,11 @@ class Handler {
         );
       } else if (message is JsonDeployUnit) {
         dispatcher.deployUnit(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonMoveUnit) {
+        dispatcher.moveUnit(
           json: message,
           socket: socket,
         );

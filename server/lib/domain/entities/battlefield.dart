@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
@@ -44,25 +45,46 @@ class Battlefield {
     required Location location,
     required UnitType type,
   }) {
-    final Node closestNode = getClosestNode(location);
-
+    final Node node = getNodeAt(location);
     final Unit unit = Unit(
       id: DateTime.now().toIso8601String(),
       player: player,
       type: type,
-      closestNode: closestNode,
-      position: closestNode.position,
+      closestNode: node,
+      position: node.position,
       health: type.maxHealth.toDouble(),
     );
     units.add(unit.id, unit);
   }
 
-  Node getClosestNode(Location location) {
+  void moveUnit({
+    required Player player,
+    required String unitId,
+    required Location location,
+  }) {
+    final Unit unit = units.get(unitId);
+
+    if (unit.player == player) {
+      unit.move(location);
+    }
+  }
+
+  Node getNodeAt(Location location) {
+    for (final Node node in nodes.list) {
+      if (node.location == location) {
+        return node;
+      }
+    }
+
+    throw Exception('No node at location ${location.id}');
+  }
+
+  Node getClosestNodeAt(Position position) {
     Node? closestNode;
     num closestDistance = double.infinity;
 
     for (final Node node in nodes.list) {
-      final num distance = location.distanceTo(node.location);
+      final num distance = position.distanceTo(node.position);
 
       if (distance < closestDistance) {
         closestDistance = distance;
@@ -71,7 +93,7 @@ class Battlefield {
     }
 
     if (closestNode == null) {
-      throw Exception('No closest node to location ${location.id} found');
+      throw Exception('No closest node to position $position found');
     }
 
     return closestNode;

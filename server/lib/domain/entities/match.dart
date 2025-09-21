@@ -64,6 +64,20 @@ class Match {
     }
   }
 
+  void moveUnit({
+    required String playerIndex,
+    required String unitId,
+    required Location location,
+  }) {
+    final Player player = players.get(playerIndex);
+    battlefield.moveUnit(
+      player: player,
+      unitId: unitId,
+      location: location,
+    );
+    _sendMatchUpdate();
+  }
+
   void update(double dt) {
     if (status == MatchStatus.playing) {
       totalTime += dt;

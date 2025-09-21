@@ -69,4 +69,10 @@ class Player {
     resources: resources,
     resourcesRateBase: resourcesRateBase,
   );
+
+  @override
+  bool operator ==(Object other) => other is Player && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
