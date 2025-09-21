@@ -12,15 +12,17 @@ JsonUnitUpdate _$JsonUnitUpdateFromJson(Map<String, dynamic> json) =>
         id: $checkedConvert('id', (v) => v as String),
         playerIndex: $checkedConvert('playerIndex', (v) => v as String),
         type: $checkedConvert('type', (v) => $enumDecode(_$UnitTypeEnumMap, v)),
-        location: $checkedConvert(
-          'location',
-          (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
-        ),
-        position: $checkedConvert(
-          'position',
+        health: $checkedConvert('health', (v) => v as num),
+        currentPosition: $checkedConvert(
+          'currentPosition',
           (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
         ),
-        health: $checkedConvert('health', (v) => v as num),
+        targetPosition: $checkedConvert(
+          'targetPosition',
+          (v) => v == null
+              ? null
+              : JsonPosition.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     });
@@ -30,9 +32,9 @@ Map<String, dynamic> _$JsonUnitUpdateToJson(JsonUnitUpdate instance) =>
       'id': instance.id,
       'playerIndex': instance.playerIndex,
       'type': _$UnitTypeEnumMap[instance.type]!,
-      'location': instance.location.toJson(),
-      'position': instance.position.toJson(),
       'health': instance.health,
+      'currentPosition': instance.currentPosition.toJson(),
+      'targetPosition': ?instance.targetPosition?.toJson(),
     };
 
 const _$UnitTypeEnumMap = {

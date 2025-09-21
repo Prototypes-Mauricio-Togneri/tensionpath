@@ -38,10 +38,10 @@ class Unit {
     required Nodes nodes,
   }) {
     if (isMoving) {
-      if (targetNode!.notLockedBy(this)) {
+      /*if (targetNode!.notLockedBy(this)) {
         // Re-assign node
         targetNode = null; // TODO(momo): implement
-      }
+      }*/
 
       // Update position
       position.moveTowards(
@@ -49,8 +49,13 @@ class Unit {
         distance: type.speed * dt,
       );
 
-      // If unit inside of target node -> assign node to unit
-      if (position.distanceTo(targetNode!.position) < radius) {
+      final num distanceToTarget = position.distanceTo(targetNode!.position);
+
+      if (distanceToTarget < 1) {
+        // If the unit has arrived to the target node -> stop moving
+        targetNode = null;
+      } else if (distanceToTarget < radius) {
+        // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
         targetNode!.lock(this);
       }
@@ -70,9 +75,9 @@ class Unit {
     id: id,
     playerIndex: player.index,
     type: type,
-    location: closestNode.location.toJson(),
-    position: position.toJson(),
     health: health,
+    currentPosition: position.toJson(),
+    targetPosition: targetNode?.position.toJson(),
   );
 
   @override
