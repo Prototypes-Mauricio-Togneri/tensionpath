@@ -21,7 +21,7 @@ class Nodes {
   }
 
   Node atPosition(Position position) {
-    Node? closestNode;
+    Node? result;
     num closestDistance = double.infinity;
 
     for (final Node node in _nodes.list) {
@@ -29,14 +29,31 @@ class Nodes {
 
       if (distance < closestDistance) {
         closestDistance = distance;
-        closestNode = node;
+        result = node;
       }
     }
 
-    if (closestNode == null) {
+    if (result == null) {
       throw Exception('No closest node to position $position found');
     }
 
-    return closestNode;
+    return result;
+  }
+
+  Node? closestFreeNode(Position position) {
+    Node? result;
+    num closestDistance = double.infinity;
+    final List<Node> freeNodes = _nodes.list.where((n) => n.isFree).toList();
+
+    for (final Node node in freeNodes) {
+      final num distance = position.distanceTo(node.position);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        result = node;
+      }
+    }
+
+    return result;
   }
 }

@@ -40,11 +40,15 @@ class Unit {
     bool result = false;
 
     if (isMoving) {
-      /*if (targetNode!.notLockedBy(this)) {
+      if (targetNode!.notLockedBy(this)) {
         // Re-assign node
-        targetNode = null; // TODO(momo): implement
+        targetNode = nodes.closestFreeNode(position);
         result = true;
-      }*/
+
+        print(
+          'Unit target node was re-assigned to ${targetNode!.id}',
+        );
+      }
 
       // Update position
       position.moveTowards(
