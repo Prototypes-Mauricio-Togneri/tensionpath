@@ -302,7 +302,26 @@ class BattlefieldComponent extends PositionComponent {
       final JsonUnitUpdate? unitUpdate = units[unitComponent.id];
 
       if (unitUpdate != null) {
-        unitComponent.refresh(unitUpdate);
+        final Position newCurrentPosition = Position.fromJson(
+          unitUpdate.currentPosition,
+        );
+        final Position? newTargetPosition = unitUpdate.targetPosition != null
+            ? Position.fromJson(
+                unitUpdate.targetPosition!,
+              )
+            : null;
+
+        unitComponent.refresh(
+          health: unitUpdate.health,
+          newCurrentPosition: newCurrentPosition.localPosition(
+            mapCenter: size / 2,
+            nodeSizeRatio: nodeSizeRatio,
+          ),
+          newTargetPosition: newTargetPosition?.localPosition(
+            mapCenter: size / 2,
+            nodeSizeRatio: nodeSizeRatio,
+          ),
+        );
       }
     }
   }

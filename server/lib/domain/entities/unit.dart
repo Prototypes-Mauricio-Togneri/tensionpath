@@ -37,10 +37,13 @@ class Unit {
     required double dt,
     required Nodes nodes,
   }) {
+    bool result = false;
+
     if (isMoving) {
       /*if (targetNode!.notLockedBy(this)) {
         // Re-assign node
         targetNode = null; // TODO(momo): implement
+        result = true;
       }*/
 
       // Update position
@@ -54,10 +57,12 @@ class Unit {
       if (distanceToTarget < 1) {
         // If the unit has arrived to the target node -> stop moving
         targetNode = null;
+        result = true;
       } else if (distanceToTarget < radius) {
         // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
         targetNode!.lock(this);
+        result = true;
       }
     }
 
@@ -68,7 +73,7 @@ class Unit {
 
     closestNode = nodes.atPosition(position);
 
-    return false;
+    return result;
   }
 
   JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(

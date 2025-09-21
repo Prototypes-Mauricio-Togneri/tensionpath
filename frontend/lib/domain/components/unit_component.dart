@@ -9,7 +9,6 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/movement_order_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -22,6 +21,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   final UnitType type;
   final Player player;
   late HealthBarComponent healthBarComponent;
+  late NodeComponent closestNodeComponent;
 
   Vector2? endPosition;
 
@@ -30,7 +30,6 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   //Location? currentLocation;
   Vector2? targetPosition;
 
-  late NodeComponent closestNodeComponent;
   late final MovementOrderComponent movementOrderComponent;
 
   UnitComponent({
@@ -46,7 +45,15 @@ class UnitComponent extends PositionComponent with DragCallbacks {
 
   bool belongsTo(Player other) => player.id == other.id;
 
-  void refresh(JsonUnitUpdate unit) => healthBarComponent.refresh(unit);
+  void refresh({
+    required num health,
+    required Vector2 newCurrentPosition,
+    required Vector2? newTargetPosition,
+  }) {
+    healthBarComponent.refresh(health);
+    position = newCurrentPosition;
+    targetPosition = newTargetPosition;
+  }
 
   void moveTo(Vector2 position) {
     targetPosition = position;
@@ -279,8 +286,8 @@ class HealthBarComponent extends PositionComponent {
     maxHealth = type.maxHealth.toDouble();
   }
 
-  void refresh(JsonUnitUpdate unit) {
-    health = unit.health;
+  void refresh(num newHealth) {
+    health = newHealth;
   }
 
   @override
