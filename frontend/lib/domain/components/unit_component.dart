@@ -129,7 +129,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       movementOrderComponent.hide();
       match.unhighlightNodes();
 
-      if (nodeComponent != null) {
+      if ((nodeComponent != null) && (nodeComponent != closestNodeComponent)) {
         match.onMoveUnit(
           unitComponent: this,
           nodeComponent: nodeComponent,
@@ -153,16 +153,17 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       } else {
         direction.normalize();
         position += direction * (speed * dt);
-        closestNodeComponent = match.getClosestNode(
-          nodeTypes: NodeType.values,
-          position: absolutePosition,
-        );
       }
 
       print(
         'Unit $id moved to $position at speed $speed. Remaining distance: $distance',
       );
     }
+
+    closestNodeComponent = match.getClosestNode(
+      nodeTypes: NodeType.values,
+      position: absolutePosition,
+    );
   }
 
   @override
