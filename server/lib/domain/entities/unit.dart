@@ -13,7 +13,6 @@ class Unit {
   Node? lockedNode;
   Position position;
   double health;
-  bool moving = false;
 
   Unit({
     required this.id,
@@ -24,7 +23,12 @@ class Unit {
     required this.health,
   });
 
-  void move(Node node) {}
+  bool get isMoving => targetNode != null;
+
+  void move(Node node) {
+    targetNode = node;
+    lockedNode = null;
+  }
 
   bool update(double dt) {
     /*
