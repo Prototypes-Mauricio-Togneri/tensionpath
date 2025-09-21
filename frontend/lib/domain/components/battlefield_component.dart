@@ -34,6 +34,7 @@ class BattlefieldComponent extends PositionComponent {
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
   late final MissileComponent missileComponent;
+  late final Vector2 mapCenter;
   late final Vector2 nodeSize;
   late final num nodeSizeRatio;
 
@@ -54,6 +55,7 @@ class BattlefieldComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() async {
+    mapCenter = size / 2;
     nodeSize = Dimensions.nodeSize(
       canvasSize: size,
       mapSize: battlefield.mapSize,
@@ -62,7 +64,6 @@ class BattlefieldComponent extends PositionComponent {
       localNodeSize: nodeSize,
       removeNodeSize: battlefield.nodeSize,
     );
-    final Vector2 mapCenter = size / 2;
 
     await _addBattlefieldComponent(
       nodeSize: nodeSize,
@@ -281,7 +282,7 @@ class BattlefieldComponent extends PositionComponent {
       final Position position = Position.fromJson(unit.currentPosition);
       final UnitComponent unitComponent = UnitComponent(
         position: position.localPosition(
-          mapCenter: size / 2,
+          mapCenter: mapCenter,
           nodeSizeRatio: nodeSizeRatio,
         ),
         size: nodeSize,
@@ -314,11 +315,11 @@ class BattlefieldComponent extends PositionComponent {
         unitComponent.refresh(
           health: unitUpdate.health,
           newCurrentPosition: newCurrentPosition.localPosition(
-            mapCenter: size / 2,
+            mapCenter: mapCenter,
             nodeSizeRatio: nodeSizeRatio,
           ),
           newTargetPosition: newTargetPosition?.localPosition(
-            mapCenter: size / 2,
+            mapCenter: mapCenter,
             nodeSizeRatio: nodeSizeRatio,
           ),
         );

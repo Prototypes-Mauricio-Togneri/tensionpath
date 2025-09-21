@@ -54,8 +54,8 @@ class Player {
   }
 
   JsonPlayerUpdate toJsonUpdate() => JsonPlayerUpdate(
-    baseHealth: baseHealth,
-    resources: resources,
+    baseHealth: baseHealth.ceil(),
+    resources: resources.floor(),
     resourcesRate: resourcesRate,
   );
 

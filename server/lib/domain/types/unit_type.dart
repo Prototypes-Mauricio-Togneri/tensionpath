@@ -2,22 +2,22 @@ enum UnitType {
   harvester(
     cost: 60,
     maxHealth: 1000,
-    speed: 0.3,
+    speed: 3,
   ),
   infrantry(
     cost: 10,
     maxHealth: 300,
-    speed: 0.5,
+    speed: 5,
   ),
   vehicle(
     cost: 20,
     maxHealth: 300,
-    speed: 0.4,
+    speed: 4,
   ),
   aircraft(
     cost: 50,
     maxHealth: 150,
-    speed: 0.6,
+    speed: 6,
   );
 
   final int cost;

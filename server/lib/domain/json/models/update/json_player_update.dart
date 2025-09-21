@@ -5,10 +5,10 @@ part 'json_player_update.g.dart';
 @JsonSerializable()
 class JsonPlayerUpdate {
   @JsonKey(name: 'baseHealth')
-  final num baseHealth;
+  final int baseHealth;
 
   @JsonKey(name: 'resources')
-  final num resources;
+  final int resources;
 
   @JsonKey(name: 'resourcesRate')
   final num resourcesRate;

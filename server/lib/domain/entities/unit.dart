@@ -53,12 +53,17 @@ class Unit {
       );
 
       final num distanceToTarget = position.distanceTo(targetNode!.position);
+      print(
+        'New unit position $position. Remaining distance: $distanceToTarget',
+      );
 
       if (distanceToTarget < 1) {
+        print('Unit $id has arrived to the target node ${targetNode!.id}');
         // If the unit has arrived to the target node -> stop moving
         targetNode = null;
         result = true;
-      } else if (distanceToTarget < radius) {
+      } else if ((lockedNode == null) && (distanceToTarget < radius)) {
+        print('Unit $id has locked the target node ${targetNode!.id}');
         // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
         targetNode!.lock(this);
