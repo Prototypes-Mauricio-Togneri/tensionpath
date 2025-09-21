@@ -1,5 +1,7 @@
 # TODO
 
+- Do not show enemy units in the fog of war
+
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen

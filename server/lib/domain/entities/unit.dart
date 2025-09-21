@@ -79,7 +79,6 @@ class Unit {
         // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
         lockedNode!.lock(this);
-        result = true;
       }
     }
 
