@@ -1,10 +1,7 @@
 # TODO
 
-- Target line in each unit
-
-  - Dragging for movement
-  - Moving towards a cell
-  - Attacking a unit
+- Don't deploy in an occupied tile
+- Don't move to an occupied tile
 
 - Units have 3 types of nodes
 
