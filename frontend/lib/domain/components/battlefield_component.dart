@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -261,7 +262,44 @@ class BattlefieldComponent extends PositionComponent {
       unitComponents: unitComponents,
     );
 
+    _updateNodes();
+
     _updateResources(resources);
+  }
+
+  void _updateExistingUnits({
+    required Map<String, JsonUnitUpdate> units,
+    required List<UnitComponent> unitComponents,
+  }) {
+    for (final UnitComponent unitComponent in unitComponents) {
+      final JsonUnitUpdate? unitUpdate = units[unitComponent.id];
+
+      if (unitUpdate != null) {
+        final Position newCurrentPosition = Position.fromJson(
+          unitUpdate.currentPosition,
+        );
+        final Position? newTargetPosition = unitUpdate.targetPosition != null
+            ? Position.fromJson(
+                unitUpdate.targetPosition!,
+              )
+            : null;
+
+        unitComponent.refresh(
+          health: unitUpdate.health,
+          newCurrentPosition: newCurrentPosition.localPosition(
+            mapCenter: mapCenter,
+            nodeSizeRatio: nodeSizeRatio,
+          ),
+          newTargetPosition: newTargetPosition?.localPosition(
+            mapCenter: mapCenter,
+            nodeSizeRatio: nodeSizeRatio,
+          ),
+          newLockedLocation: unitUpdate.lockedLocation != null
+              ? Location.fromJson(unitUpdate.lockedLocation!)
+              : null,
+        );
+      }
+    }
   }
 
   void _createNewUnits({
@@ -297,34 +335,18 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void _updateExistingUnits({
-    required Map<String, JsonUnitUpdate> units,
-    required List<UnitComponent> unitComponents,
-  }) {
-    for (final UnitComponent unitComponent in unitComponents) {
-      final JsonUnitUpdate? unitUpdate = units[unitComponent.id];
+  void _updateNodes() {
+    for (final NodeComponent nodeComponent in nodeComponents) {
+      for (final UnitComponent unitComponent in unitComponents) {
+        final Location? unitLocation = unitComponent.lockedLocation;
 
-      if (unitUpdate != null) {
-        final Position newCurrentPosition = Position.fromJson(
-          unitUpdate.currentPosition,
-        );
-        final Position? newTargetPosition = unitUpdate.targetPosition != null
-            ? Position.fromJson(
-                unitUpdate.targetPosition!,
-              )
-            : null;
-
-        unitComponent.refresh(
-          health: unitUpdate.health,
-          newCurrentPosition: newCurrentPosition.localPosition(
-            mapCenter: mapCenter,
-            nodeSizeRatio: nodeSizeRatio,
-          ),
-          newTargetPosition: newTargetPosition?.localPosition(
-            mapCenter: mapCenter,
-            nodeSizeRatio: nodeSizeRatio,
-          ),
-        );
+        if ((unitLocation != null) &&
+            (unitLocation.id == nodeComponent.location.id)) {
+          nodeComponent.occupy(true);
+          break;
+        } else {
+          nodeComponent.occupy(false);
+        }
       }
     }
   }

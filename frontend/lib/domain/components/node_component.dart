@@ -12,12 +12,19 @@ class NodeComponent extends PositionComponent {
   final NodeType type;
   final Location location;
   final Position remotePosition;
-  final Paint borderPaint = Palette.paint(
+  final Paint highlightedPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
-    color: Palette.NODE_HIGHLIGHT,
+    color: Palette.NODE_HIGHLIGHTED,
+  );
+  final Paint occupiedPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    strokeWidth: 5,
+    color: Palette.NODE_OCCUPIED,
   );
   bool highlighted = false;
+  bool occupied = false;
+  String? lockedUnitId;
 
   NodeComponent({
     required super.position,
@@ -29,6 +36,14 @@ class NodeComponent extends PositionComponent {
          anchor: Anchor.center,
          priority: Priority.node.value,
        );
+
+  void lock(String unitId) {
+    lockedUnitId = unitId;
+  }
+
+  void unlock() {
+    lockedUnitId = null;
+  }
 
   @override
   bool containsLocalPoint(Vector2 point) => Dimensions.pointInHexagon(
@@ -65,6 +80,10 @@ class NodeComponent extends PositionComponent {
     highlighted = value;
   }
 
+  void occupy(bool value) {
+    occupied = value;
+  }
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -73,7 +92,15 @@ class NodeComponent extends PositionComponent {
       canvas.drawHexagon(
         center: size / 2,
         size: size,
-        borderPaint: borderPaint,
+        borderPaint: highlightedPaint,
+      );
+    }
+
+    if (occupied) {
+      canvas.drawHexagon(
+        center: size / 2,
+        size: size,
+        borderPaint: occupiedPaint,
       );
     }
 

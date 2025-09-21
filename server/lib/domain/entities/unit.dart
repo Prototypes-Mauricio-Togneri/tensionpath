@@ -24,7 +24,9 @@ class Unit {
     required this.closestNode,
     required this.position,
     required this.health,
-  });
+  }) {
+    lockedNode = closestNode;
+  }
 
   bool get isMoving => targetNode != null;
 
@@ -98,6 +100,7 @@ class Unit {
     health: health,
     currentPosition: position.toJson(),
     targetPosition: targetNode?.position.toJson(),
+    lockedLocation: lockedNode?.location.toJson(),
   );
 
   @override

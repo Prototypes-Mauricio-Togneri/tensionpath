@@ -6,26 +6,31 @@ part of 'json_unit_update.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonUnitUpdate _$JsonUnitUpdateFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonUnitUpdate', json, ($checkedConvert) {
-      final val = JsonUnitUpdate(
-        id: $checkedConvert('id', (v) => v as String),
-        playerIndex: $checkedConvert('playerIndex', (v) => v as String),
-        type: $checkedConvert('type', (v) => $enumDecode(_$UnitTypeEnumMap, v)),
-        health: $checkedConvert('health', (v) => v as num),
-        currentPosition: $checkedConvert(
-          'currentPosition',
-          (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
-        ),
-        targetPosition: $checkedConvert(
-          'targetPosition',
-          (v) => v == null
-              ? null
-              : JsonPosition.fromJson(v as Map<String, dynamic>),
-        ),
-      );
-      return val;
-    });
+JsonUnitUpdate _$JsonUnitUpdateFromJson(
+  Map<String, dynamic> json,
+) => $checkedCreate('JsonUnitUpdate', json, ($checkedConvert) {
+  final val = JsonUnitUpdate(
+    id: $checkedConvert('id', (v) => v as String),
+    playerIndex: $checkedConvert('playerIndex', (v) => v as String),
+    type: $checkedConvert('type', (v) => $enumDecode(_$UnitTypeEnumMap, v)),
+    health: $checkedConvert('health', (v) => v as num),
+    currentPosition: $checkedConvert(
+      'currentPosition',
+      (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+    ),
+    targetPosition: $checkedConvert(
+      'targetPosition',
+      (v) =>
+          v == null ? null : JsonPosition.fromJson(v as Map<String, dynamic>),
+    ),
+    lockedLocation: $checkedConvert(
+      'lockedLocation',
+      (v) =>
+          v == null ? null : JsonLocation.fromJson(v as Map<String, dynamic>),
+    ),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$JsonUnitUpdateToJson(JsonUnitUpdate instance) =>
     <String, dynamic>{
@@ -35,6 +40,7 @@ Map<String, dynamic> _$JsonUnitUpdateToJson(JsonUnitUpdate instance) =>
       'health': instance.health,
       'currentPosition': instance.currentPosition.toJson(),
       'targetPosition': ?instance.targetPosition?.toJson(),
+      'lockedLocation': ?instance.lockedLocation?.toJson(),
     };
 
 const _$UnitTypeEnumMap = {

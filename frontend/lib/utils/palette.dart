@@ -18,7 +18,8 @@ class Palette {
   static const Color CONTROLS_COST_FOREGROUND = Colors.white;
 
   static const Color NODE_BORDER = Color(0x30aaaaaa);
-  static const Color NODE_HIGHLIGHT = Colors.white;
+  static const Color NODE_HIGHLIGHTED = Colors.white;
+  static const Color NODE_OCCUPIED = Colors.green;
   static const Color NODE_TARGET = Colors.white;
   static const Color NODE_FOG = Color(0x88000000);
 

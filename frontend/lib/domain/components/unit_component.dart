@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionpath/domain/components/movement_order_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -26,6 +27,7 @@ class UnitComponent extends PositionComponent with DragCallbacks {
   late final MovementOrderComponent movementOrderComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
+  Location? lockedLocation;
 
   UnitComponent({
     required super.position,
@@ -45,10 +47,12 @@ class UnitComponent extends PositionComponent with DragCallbacks {
     required num health,
     required Vector2 newCurrentPosition,
     required Vector2? newTargetPosition,
+    required Location? newLockedLocation,
   }) {
     healthBarComponent.refresh(health);
     position = newCurrentPosition;
     targetPosition = newTargetPosition;
+    lockedLocation = newLockedLocation;
 
     print('Unit $id refreshed to position $position, target $targetPosition');
   }

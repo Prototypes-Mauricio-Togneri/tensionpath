@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
@@ -24,6 +25,9 @@ class JsonUnitUpdate {
   @JsonKey(name: 'targetPosition')
   final JsonPosition? targetPosition;
 
+  @JsonKey(name: 'lockedLocation')
+  final JsonLocation? lockedLocation;
+
   const JsonUnitUpdate({
     required this.id,
     required this.playerIndex,
@@ -31,6 +35,7 @@ class JsonUnitUpdate {
     required this.health,
     required this.currentPosition,
     required this.targetPosition,
+    required this.lockedLocation,
   });
 
   factory JsonUnitUpdate.fromJson(Map<String, dynamic> json) =>
