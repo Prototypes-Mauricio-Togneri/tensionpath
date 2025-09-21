@@ -159,10 +159,13 @@ class Dimensions {
     );
   }
 
-  static bool pointInHexagon({required Vector2 point, required Vector2 size}) {
+  static bool pointInHexagon({
+    required Vector2 point,
+    required Vector2 size,
+  }) {
     final Vector2 fromCenter = point - (size / 2);
 
-    return fromCenter.length < size.x * 0.42;
+    return fromCenter.length < (size.x * 0.5);
   }
 
   static Vector2 fpsPosition(Viewport viewport) => Vector2(

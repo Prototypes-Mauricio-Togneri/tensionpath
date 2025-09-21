@@ -21,8 +21,10 @@ class LauncherComponent extends SpriteComponent {
        );
 
   @override
-  bool containsLocalPoint(Vector2 point) =>
-      Dimensions.pointInHexagon(point: point, size: size);
+  bool containsLocalPoint(Vector2 point) => Dimensions.pointInHexagon(
+    point: point,
+    size: size,
+  );
 
   bool belongsTo(Player player) => player.id == this.player.id;
 
