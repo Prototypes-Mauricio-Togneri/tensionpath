@@ -142,6 +142,7 @@ class BattlefieldComponent extends PositionComponent {
         size: nodeSize,
         type: node.type,
         location: node.location,
+        remotePosition: node.position,
       );
       add(nodeComponent);
       nodeComponents.add(nodeComponent);

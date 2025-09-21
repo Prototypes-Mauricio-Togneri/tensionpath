@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -10,6 +11,7 @@ import 'package:tensionpath/utils/palette.dart';
 class NodeComponent extends PositionComponent {
   final NodeType type;
   final Location location;
+  final Position remotePosition;
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
@@ -22,6 +24,7 @@ class NodeComponent extends PositionComponent {
     required super.size,
     required this.type,
     required this.location,
+    required this.remotePosition,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.node.value,
@@ -74,24 +77,44 @@ class NodeComponent extends PositionComponent {
       );
     }
 
-    /*canvas.drawText(
+    /*final double fontSize = size.x / 12;
+    const double gap = 1 / 9;
+
+    canvas.drawText(
       text: type.name,
-      position: Vector2(size.x / 2, size.y * 0.25),
-      size: size.x / 8,
+      position: Vector2(size.x / 2, size.y * gap * 2),
+      size: fontSize,
       color: Colors.white,
     );
 
     canvas.drawText(
-      text: location.id,
-      position: Vector2(size.x / 2, size.y * 0.5),
-      size: size.x / 8,
+      text: 'Location: ${location.id}',
+      position: Vector2(size.x / 2, size.y * gap * 3),
+      size: fontSize,
       color: Colors.white,
     );
 
     canvas.drawText(
-      text: '${absolutePosition.x.toInt()},${absolutePosition.y.toInt()}',
-      position: Vector2(size.x / 2, size.y * 0.75),
-      size: size.x / 8,
+      text:
+          'Absolute: ${absolutePosition.x.toStringAsFixed(2)},${absolutePosition.y.toStringAsFixed(2)}',
+      position: Vector2(size.x / 2, size.y * gap * 4),
+      size: fontSize,
+      color: Colors.white,
+    );
+
+    canvas.drawText(
+      text:
+          'Relative: ${position.x.toStringAsFixed(2)},${position.y.toStringAsFixed(2)}',
+      position: Vector2(size.x / 2, size.y * gap * 5),
+      size: fontSize,
+      color: Colors.white,
+    );
+
+    canvas.drawText(
+      text:
+          'Remote: ${remotePosition.x.toStringAsFixed(2)},${remotePosition.y.toStringAsFixed(2)}',
+      position: Vector2(size.x / 2, size.y * gap * 6),
+      size: fontSize,
       color: Colors.white,
     );*/
   }
