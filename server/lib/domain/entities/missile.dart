@@ -85,7 +85,7 @@ class Missile {
     charge: charge,
     owner: owner,
     platforms: {
-      for (final Platform platform in platforms) platform.id: null,
+      for (final Platform platform in platforms) platform.id: platform.owner,
     },
   );
 

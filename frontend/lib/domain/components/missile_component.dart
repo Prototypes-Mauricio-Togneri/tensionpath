@@ -23,6 +23,13 @@ class MissileComponent extends SpriteComponent {
   void refresh(MissileUpdate json) => missile.update(json);
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    missile.charge(dt);
+  }
+
+  @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
 

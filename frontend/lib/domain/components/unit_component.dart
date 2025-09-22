@@ -53,8 +53,6 @@ class UnitComponent extends PositionComponent
     position = newCurrentPosition;
     targetPosition = newTargetPosition;
     lockedNode = newLockedNode;
-
-    print('Unit $id refreshed to position $position, target $targetPosition');
   }
 
   void moveTo(Vector2 position) {
@@ -159,10 +157,6 @@ class UnitComponent extends PositionComponent
         direction.normalize();
         position += direction * (speed * dt);
       }
-
-      print(
-        'Unit $id moved to $position at speed $speed. Remaining distance: $distance',
-      );
     }
 
     closestNodeComponent = match.getClosestNode(
