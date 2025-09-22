@@ -25,12 +25,16 @@ class Missile {
     required this.platforms,
   });
 
-  void update() {
+  bool update() {
+    final String? previousOwner = owner;
+
     for (final Platform platform in platforms) {
       platform.update();
     }
 
     owner = _newOwner;
+
+    return (owner != previousOwner);
   }
 
   String? get _newOwner {
