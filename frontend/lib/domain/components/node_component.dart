@@ -23,6 +23,7 @@ class NodeComponent extends PositionComponent {
     strokeWidth: 5,
     color: Palette.NODE_OCCUPIED,
   );
+  bool visible = false;
   bool highlighted = false;
   UnitComponent? lockedUnit;
 
@@ -73,6 +74,7 @@ class NodeComponent extends PositionComponent {
 
     for (final NodeComponent node in nodes) {
       if ((node != this) && (distanceTo(node) <= visibilityRange)) {
+        node.visible = true;
         visibleNodes.add(node.position);
       }
     }
