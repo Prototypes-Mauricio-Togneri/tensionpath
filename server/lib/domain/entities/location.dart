@@ -9,7 +9,7 @@ class Location {
   String get id => '$x,$y';
 
   int distanceTo(Location other) {
-    final double distance =
+    final num distance =
         ((x - other.x).abs() +
             (x + y - other.x - other.y).abs() +
             (y - other.y).abs()) /

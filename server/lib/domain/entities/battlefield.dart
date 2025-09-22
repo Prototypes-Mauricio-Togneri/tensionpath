@@ -58,7 +58,7 @@ class Battlefield {
       radius: nodeSize.radius,
       closestNode: node,
       position: node.position,
-      health: type.maxHealth.toDouble(),
+      health: type.maxHealth,
     );
     units.add(unit.id, unit);
   }

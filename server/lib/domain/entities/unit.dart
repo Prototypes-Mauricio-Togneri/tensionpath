@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Unit {
@@ -10,7 +11,7 @@ class Unit {
   final Player player;
   final UnitType type;
   final num radius;
-  double health;
+  num health;
   Position position;
   Node closestNode;
   Node? targetNode;
@@ -80,12 +81,13 @@ class Unit {
         lockedNode = targetNode;
         lockedNode!.lock(this);
       }
+    } else {
+      if ((type == UnitType.harvester) &&
+          (lockedNode != null) &&
+          (lockedNode!.type == NodeType.resources)) {
+        player.increaseResourcesRate();
+      }
     }
-
-    /*if ((type == UnitType.harvester) &&
-        (currentNodeType == NodeType.resources)) {
-      player.addResources(dt * Constants.RESOURCES_PER_SECOND);
-    }*/
 
     closestNode = nodes.atPosition(position);
 

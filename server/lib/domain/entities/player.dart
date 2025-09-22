@@ -23,9 +23,20 @@ class Player {
     required this.resourcesRateBase,
   });
 
-  void removeResources(double amount) {
+  void increaseResourcesRate() {
+    resourcesRate += resourcesRateBase;
+  }
+
+  void addResources(num amount) {
+    resources += amount;
+  }
+
+  bool removeResources(num amount) {
     if (resources >= amount) {
       resources -= amount;
+      return true;
+    } else {
+      return false;
     }
   }
 

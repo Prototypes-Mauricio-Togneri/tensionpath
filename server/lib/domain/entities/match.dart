@@ -15,7 +15,7 @@ class Match {
   final DateTime createdAt;
   final Battlefield battlefield;
   final IterableMap<String, Player> players;
-  double totalTime = 0;
+  num totalTime = 0;
   MatchStatus status;
 
   Match._({
@@ -53,8 +53,7 @@ class Match {
   }) {
     final Player player = players.get(playerIndex);
 
-    if (player.resources >= type.cost) {
-      player.removeResources(type.cost.toDouble());
+    if (player.removeResources(type.cost)) {
       battlefield.deployUnit(
         player: player,
         location: location,
@@ -89,7 +88,7 @@ class Match {
       final bool sendUpdate = battlefield.update(dt);
 
       for (final Player player in players) {
-        player.resources += player.resourcesRate * dt;
+        player.addResources(player.resourcesRate * dt);
       }
 
       if (sendUpdate) {

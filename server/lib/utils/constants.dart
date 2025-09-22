@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:tensionpath/domain/entities/size.dart';
 
 class Constants {
