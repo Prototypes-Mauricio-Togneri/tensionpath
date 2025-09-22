@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:uuid/uuid.dart';
 
 class Unit {
   final String id;
@@ -119,6 +120,8 @@ class Unit {
     targetPosition: targetNode?.position.toJson(),
     lockedLocation: lockedNode?.location.toJson(),
   );
+
+  static String get newId => const Uuid().v4().substring(0, 16);
 
   @override
   bool operator ==(Object other) => other is Unit && id == other.id;

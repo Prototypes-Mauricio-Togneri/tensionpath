@@ -52,7 +52,7 @@ class Battlefield {
   }) {
     final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
-      id: DateTime.now().toIso8601String().hashCode.toString(),
+      id: Unit.newId,
       player: player,
       type: type,
       radius: nodeSize.radius,

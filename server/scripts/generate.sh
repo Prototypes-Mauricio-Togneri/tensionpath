@@ -11,5 +11,3 @@ rm -rf ../frontend/lib/domain/json/messages/*
 
 cp -r lib/domain/json/models/ ../frontend/lib/domain/json/
 cp -r lib/domain/json/messages/ ../frontend/lib/domain/json/
-
-cp -r lib/utils/iterable_map.dart ../frontend/lib/utils/
