@@ -38,7 +38,7 @@ class Unit {
 
   void move(Node node) {
     if (isHarvesting) {
-      player.increaseResourcesRate();
+      player.decreaseResourcesRate();
     }
 
     targetNode = node;
@@ -101,6 +101,10 @@ class Unit {
   }
 
   void destroy() {
+    if (isHarvesting) {
+      player.decreaseResourcesRate();
+    }
+
     lockedNode?.unlock();
     lockedNode = null;
     targetNode = null;

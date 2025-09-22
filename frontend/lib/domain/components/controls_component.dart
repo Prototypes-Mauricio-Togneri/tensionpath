@@ -260,9 +260,16 @@ class ResourcesComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${player.resources.floor().toString()}🛢️',
+      text: '${player.resources.floor()}🛢️',
       position: Vector2(size.x * 0.5, size.y * 0.2),
       size: size.x / 5,
+      color: Palette.CONTROLS_COST_FOREGROUND,
+    );
+
+    canvas.drawText(
+      text: '${player.resourcesRate}/s',
+      position: Vector2(size.x * 0.5, size.y * 0.5),
+      size: size.x / 10,
       color: Palette.CONTROLS_COST_FOREGROUND,
     );
   }
