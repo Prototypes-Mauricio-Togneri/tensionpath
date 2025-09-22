@@ -7,7 +7,7 @@
 - Harvester kill reward
 - New harvester free
 - Choose map
-- Use varaiable tick rate (the more simultaneous matches, the slower the tick rate)
+- Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
 - Toxic tiles that damage units
 - Re-attach to an active match
