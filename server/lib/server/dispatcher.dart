@@ -7,6 +7,8 @@ import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
+import '../utils/logger.dart';
+
 class Dispatcher {
   final IterableMap<String, Connection> connections = IterableMap();
   final Map<WebSocket, Connection> websocketToConnection = {};
@@ -38,6 +40,10 @@ class Dispatcher {
 
       if (connection.isEmpty) {
         connections.remove(connection.matchId, connection);
+        Logger.log(
+          socket,
+          'All players left match ${connection.matchId}. Match closed.',
+        );
       }
     } else {
       throw JsonMessage.error('Connection not linked with any match');

@@ -1,7 +1,5 @@
 # TODO
 
-- Terminate match if all players leave
-
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen
