@@ -11,7 +11,7 @@ class Node {
   final NodeType type;
   final Location location;
   final Position position;
-  Unit? lockingUnit;
+  Unit? lockedUnit;
 
   Node({
     required this.id,
@@ -20,18 +20,18 @@ class Node {
     required this.position,
   });
 
-  bool get isFree => lockingUnit == null;
+  bool get isFree => lockedUnit == null;
 
-  bool get isLocked => lockingUnit != null;
+  bool get isLocked => lockedUnit != null;
 
-  bool notLockedBy(Unit unit) => (lockingUnit != null) && (lockingUnit != unit);
+  bool notLockedBy(Unit unit) => (lockedUnit != null) && (lockedUnit != unit);
 
   void lock(Unit unit) {
-    lockingUnit = unit;
+    lockedUnit = unit;
   }
 
   void unlock() {
-    lockingUnit = null;
+    lockedUnit = null;
   }
 
   static Nodes load(List<JsonNodeStart> nodes) {

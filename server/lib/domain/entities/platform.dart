@@ -22,20 +22,23 @@ class Platform {
     owner = _newOwner;
   }
 
+  /*
+    '': contested
+    null: none
+    '1': player 1
+    '2': player 2
+  */
   String? get _newOwner {
-    const int player1 = 0;
-    const int player2 = 0;
+    int player1 = 0;
+    int player2 = 0;
 
-    // TODO(momo): check what units are in the platform
-    /*for (final Node node in nodes) {
-      if (node.hasUnit) {
-        if (node.unit!.player.isPlayer1) {
-          player1++;
-        } else if (node.unit!.player.isPlayer2) {
-          player2++;
-        }
+    for (final Pad pad in pads) {
+      if (pad.owner == Constants.PLAYER_1) {
+        player1++;
+      } else if (pad.owner == Constants.PLAYER_2) {
+        player2++;
       }
-    }*/
+    }
 
     if ((player1 > 0) && (player2 == 0)) {
       return Constants.PLAYER_1;

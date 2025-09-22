@@ -16,22 +16,7 @@ class Pad {
   });
 
   void update() {
-    owner = _newOwner;
-  }
-
-  String? get _newOwner {
-    // TODO(momo): check what units are in the platform
-    /*for (final Node node in nodes) {
-      if (node.hasUnit) {
-        if (node.unit!.player.isPlayer1) {
-          player1++;
-        } else if (node.unit!.player.isPlayer2) {
-          player2++;
-        }
-      }
-    }*/
-
-    return null;
+    owner = node.lockedUnit?.player.index;
   }
 
   factory Pad.fromJson({
