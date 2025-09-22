@@ -111,8 +111,8 @@ class MatchState extends BaseState {
     ),
   );
 
-  void onMatchFinished(bool won) {
-    if (won) {
+  void onMatchFinished(bool hasWon) {
+    if (hasWon) {
       InfoDialog.won(_onMatchQuit);
     } else {
       InfoDialog.lost(_onMatchQuit);

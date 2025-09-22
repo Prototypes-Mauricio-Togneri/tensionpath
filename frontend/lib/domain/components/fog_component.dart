@@ -62,7 +62,7 @@ class FogComponent extends PositionComponent {
     final Set<Vector2> visibleNodes = {};
 
     for (final NodeComponent nodeComponent in nodeComponents) {
-      nodeComponent.visible = false;
+      nodeComponent.isVisible = false;
     }
 
     for (final LauncherComponent launcherComponent in launcherComponents) {

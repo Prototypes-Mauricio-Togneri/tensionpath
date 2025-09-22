@@ -81,7 +81,7 @@ class UnitSelectorComponent extends PositionComponent {
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
-  bool enabled = false;
+  bool isEnabled = false;
 
   UnitSelectorComponent({
     required this.player,
@@ -119,11 +119,11 @@ class UnitSelectorComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    final bool before = enabled;
-    enabled = player.resources >= unitType.deploymentCost;
+    final bool before = isEnabled;
+    isEnabled = player.resources >= unitType.deploymentCost;
 
-    if (before != enabled) {
-      if (enabled) {
+    if (before != isEnabled) {
+      if (isEnabled) {
         decorator.removeLast();
       } else {
         decorator.addLast(PaintDecorator.tint(const Color(0x50000000)));
@@ -161,7 +161,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
   bool get enabled =>
       parent is UnitSelectorComponent &&
-      (parent as UnitSelectorComponent).enabled;
+      (parent as UnitSelectorComponent).isEnabled;
 
   @override
   void onDragStart(DragStartEvent event) {

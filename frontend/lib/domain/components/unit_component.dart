@@ -15,7 +15,8 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class UnitComponent extends PositionComponent with DragCallbacks {
+class UnitComponent extends PositionComponent
+    with DragCallbacks, HasVisibility {
   final String id;
   final UnitType type;
   final num nodeSizeRatio;
@@ -168,6 +169,8 @@ class UnitComponent extends PositionComponent with DragCallbacks {
       nodeTypes: NodeType.values,
       position: absolutePosition,
     );
+
+    isVisible = closestNodeComponent.isVisible || player.isSelf;
   }
 
   @override

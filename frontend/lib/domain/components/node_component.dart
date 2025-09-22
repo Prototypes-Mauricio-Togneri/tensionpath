@@ -23,8 +23,8 @@ class NodeComponent extends PositionComponent {
     strokeWidth: 5,
     color: Palette.NODE_OCCUPIED,
   );
-  bool visible = false;
-  bool highlighted = false;
+  bool isVisible = false;
+  bool isHighlighted = false;
   UnitComponent? lockedUnit;
 
   NodeComponent({
@@ -74,21 +74,21 @@ class NodeComponent extends PositionComponent {
 
     for (final NodeComponent node in nodes) {
       if ((node != this) && (distanceTo(node) <= visibilityRange)) {
-        node.visible = true;
+        node.isVisible = true;
         visibleNodes.add(node.position);
       }
     }
   }
 
   void highlight(bool value) {
-    highlighted = value;
+    isHighlighted = value;
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if (highlighted) {
+    if (isHighlighted) {
       canvas.drawHexagon(
         center: size / 2,
         size: size,
@@ -96,13 +96,13 @@ class NodeComponent extends PositionComponent {
       );
     }
 
-    if (lockedUnit != null) {
+    /*if (lockedUnit != null) {
       canvas.drawHexagon(
         center: size / 2,
         size: size,
         borderPaint: occupiedPaint,
       );
-    }
+    }*/
 
     /*final double fontSize = size.x / 12;
     const double gap = 1 / 9;

@@ -12,7 +12,7 @@ import 'package:tensionpath/utils/stream_listener.dart';
 
 class LobbyState extends BaseState {
   Room? _room;
-  bool canceling = false;
+  bool isCanceling = false;
   final StreamListener _roomListener = StreamListener();
 
   bool get isLoading => _room == null;
@@ -43,7 +43,7 @@ class LobbyState extends BaseState {
   }
 
   Future onCancel() async {
-    canceling = true;
+    isCanceling = true;
     notify();
 
     await const StopMatchmakingCallable()(roomId: _room!.id);
