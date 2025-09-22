@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
-import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -20,7 +20,7 @@ class MissileComponent extends SpriteComponent {
          priority: Priority.structure.value,
        );
 
-  void refresh(JsonMissileUpdate json) => missile.update(json);
+  void refresh(MissileUpdate json) => missile.update(json);
 
   @override
   FutureOr onLoad() async {

@@ -15,10 +15,8 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
-import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
-import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -246,9 +244,9 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onBattlefieldUpdated({
-    required JsonMissileUpdate missile,
+    required MissileUpdate missile,
     required Map<String, num> resources,
-    required Map<String, JsonUnitUpdate> units,
+    required Map<String, UnitUpdate> units,
   }) {
     missileComponent.refresh(missile);
 
@@ -268,59 +266,47 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void _updateExistingUnits({
-    required Map<String, JsonUnitUpdate> units,
+    required Map<String, UnitUpdate> units,
     required List<UnitComponent> unitComponents,
   }) {
     for (final UnitComponent unitComponent in unitComponents) {
-      final JsonUnitUpdate? unitUpdate = units[unitComponent.id];
+      final UnitUpdate? unitUpdate = units[unitComponent.id];
 
       if (unitUpdate != null) {
-        final Position newCurrentPosition = Position.fromJson(
-          unitUpdate.currentPosition,
-        );
-        final Position? newTargetPosition = unitUpdate.targetPosition != null
-            ? Position.fromJson(
-                unitUpdate.targetPosition!,
-              )
-            : null;
-
         unitComponent.refresh(
           health: unitUpdate.health,
-          newCurrentPosition: newCurrentPosition.localPosition(
+          newCurrentPosition: unitUpdate.currentPosition.localPosition(
             mapCenter: mapCenter,
             nodeSizeRatio: nodeSizeRatio,
           ),
-          newTargetPosition: newTargetPosition?.localPosition(
+          newTargetPosition: unitUpdate.targetPosition?.localPosition(
             mapCenter: mapCenter,
             nodeSizeRatio: nodeSizeRatio,
           ),
-          newLockedLocation: unitUpdate.lockedLocation != null
-              ? Location.fromJson(unitUpdate.lockedLocation!)
-              : null,
+          newLockedLocation: unitUpdate.lockedLocation,
         );
       }
     }
   }
 
   void _createNewUnits({
-    required Map<String, JsonUnitUpdate> units,
+    required Map<String, UnitUpdate> units,
     required List<UnitComponent> unitComponents,
   }) {
-    final List<JsonUnitUpdate> newUnits = [];
+    final List<UnitUpdate> newUnits = [];
     final Set<String> existingUnitIds = unitComponents
         .map((unitComponent) => unitComponent.id)
         .toSet();
 
-    for (final MapEntry<String, JsonUnitUpdate> entry in units.entries) {
+    for (final MapEntry<String, UnitUpdate> entry in units.entries) {
       if (!existingUnitIds.contains(entry.key)) {
         newUnits.add(entry.value);
       }
     }
 
-    for (final JsonUnitUpdate unit in newUnits) {
-      final Position position = Position.fromJson(unit.currentPosition);
+    for (final UnitUpdate unit in newUnits) {
       final UnitComponent unitComponent = UnitComponent(
-        position: position.localPosition(
+        position: unit.currentPosition.localPosition(
           mapCenter: mapCenter,
           nodeSizeRatio: nodeSizeRatio,
         ),
@@ -329,9 +315,7 @@ class BattlefieldComponent extends PositionComponent {
         type: unit.type,
         nodeSizeRatio: nodeSizeRatio,
         player: unit.playerIndex == self.index ? self : opponent,
-        lockedLocation: unit.lockedLocation != null
-            ? Location.fromJson(unit.lockedLocation!)
-            : null,
+        lockedLocation: unit.lockedLocation,
       );
       add(unitComponent);
       unitComponents.add(unitComponent);

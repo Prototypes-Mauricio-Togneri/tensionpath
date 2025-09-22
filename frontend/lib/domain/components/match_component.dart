@@ -10,7 +10,7 @@ import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -91,7 +91,7 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void onMatchUpdated(JsonMatchUpdate match) {
+  void onMatchUpdated(MatchUpdate match) {
     self.update(match.players[self.index]!);
     opponent.update(match.players[opponent.index]!);
     battlefieldComponent.onBattlefieldUpdated(

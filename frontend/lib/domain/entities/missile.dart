@@ -1,8 +1,8 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 
 class Missile {
   final Location location;
@@ -21,7 +21,7 @@ class Missile {
     required this.platforms,
   });
 
-  void update(JsonMissileUpdate json) {
+  void update(MissileUpdate json) {
     owner = json.owner;
     chargeCurrent = json.charge;
 

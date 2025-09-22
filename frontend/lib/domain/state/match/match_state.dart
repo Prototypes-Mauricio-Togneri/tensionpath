@@ -3,11 +3,11 @@ import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
-import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
@@ -50,7 +50,7 @@ class MatchState extends BaseState {
       } else if (json is JsonStart) {
         _onStart(Match.fromJson(json.match));
       } else if (json is JsonUpdate) {
-        _onUpdate(json.match);
+        _onUpdate(MatchUpdate.fromJson(json.match));
       }
     }
 
@@ -77,7 +77,7 @@ class MatchState extends BaseState {
     Delayed.post(notify);
   }
 
-  void _onUpdate(JsonMatchUpdate update) =>
+  void _onUpdate(MatchUpdate update) =>
       MatchComponentRef.instance.onMatchUpdated(update);
 
   void _onDisconnected() => InfoDialog.error(

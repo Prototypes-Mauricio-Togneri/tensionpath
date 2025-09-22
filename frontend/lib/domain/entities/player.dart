@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -32,7 +32,7 @@ class Player {
 
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
-  void update(JsonPlayerUpdate player) {
+  void update(PlayerUpdate player) {
     baseHealth = player.baseHealth;
     resources = player.resources;
     resourcesRate = player.resourcesRate;
