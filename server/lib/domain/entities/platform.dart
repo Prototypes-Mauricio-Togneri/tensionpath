@@ -14,6 +14,10 @@ class Platform {
   });
 
   void update() {
+    for (final Pad pad in pads) {
+      pad.update();
+    }
+
     owner = _newOwner;
   }
 
