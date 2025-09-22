@@ -1,5 +1,8 @@
 # TODO
 
+- Don't go over limit of missile charge
+- If 2 missiles are owned by the same player, when moving a unit from a pad, the pad doesn't become neutral immediately
+
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen
