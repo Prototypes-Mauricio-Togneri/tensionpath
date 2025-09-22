@@ -42,7 +42,7 @@ class Battlefield {
       );
     }
 
-    return missile.update() || result;
+    return missile.update(dt) || result;
   }
 
   void deployUnit({

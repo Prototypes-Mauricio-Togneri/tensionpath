@@ -15,7 +15,7 @@ class Missile {
   final num chargeBuffer;
   final IterableMap<String, Platform> platforms;
   String? owner;
-  num charge = 0;
+  num chargeCurrent = 0;
 
   Missile({
     required this.location,
@@ -25,7 +25,7 @@ class Missile {
     required this.platforms,
   });
 
-  bool update() {
+  bool update(double dt) {
     final String? previousOwner = owner;
 
     for (final Platform platform in platforms) {
@@ -33,6 +33,14 @@ class Missile {
     }
 
     owner = _newOwner;
+
+    if (owner == '') {
+      if (chargeCurrent > chargeBuffer) {
+        chargeCurrent -= dt;
+      }
+    } else if (owner != null) {
+      chargeCurrent += dt;
+    }
 
     return (owner != previousOwner);
   }
@@ -82,7 +90,7 @@ class Missile {
   }
 
   JsonMissileUpdate toJsonUpdate() => JsonMissileUpdate(
-    charge: charge,
+    charge: chargeCurrent,
     owner: owner,
     platforms: {
       for (final Platform platform in platforms) platform.id: platform.owner,
