@@ -8,17 +8,11 @@ class Nodes {
 
   const Nodes(this._nodes);
 
+  Node get(String id) => _nodes.get(id);
+
   List<Node> get list => _nodes.list;
 
-  Node atLocation(Location location) {
-    for (final Node node in _nodes.list) {
-      if (node.location == location) {
-        return node;
-      }
-    }
-
-    throw Exception('No node at location ${location.id}');
-  }
+  Node atLocation(Location location) => get(location.id);
 
   Node atPosition(Position position) {
     Node? result;

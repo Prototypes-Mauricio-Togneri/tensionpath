@@ -77,21 +77,21 @@ class Battlefield {
   }
 
   factory Battlefield.fromJson(JsonBattlefieldStart json) {
-    final IterableMap<String, Node> nodes = Node.list(json.nodes);
+    final Nodes nodes = Node.load(json.nodes);
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),
       nodeSize: Size.fromJson(json.nodeSize),
       missile: Missile.fromJson(
         json: json.missile,
-        node: nodes.get(json.missile.location.id),
+        nodes: nodes,
       ),
       resources: Resources.list(
         json: json.resources,
         nodes: nodes,
       ),
       launchers: Launcher.list(json.launchers),
-      nodes: Nodes(nodes),
+      nodes: nodes,
       units: IterableMap(),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
@@ -32,7 +33,7 @@ class Resources {
 
   static IterableMap<String, Resources> list({
     required List<JsonResourceStart> json,
-    required IterableMap<String, Node> nodes,
+    required Nodes nodes,
   }) {
     final IterableMap<String, Resources> result = IterableMap();
 
