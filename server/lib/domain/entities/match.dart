@@ -81,10 +81,6 @@ class Match {
     if (status == MatchStatus.playing) {
       totalTime += dt;
 
-      for (final Player player in players) {
-        player.resourcesRate = player.resourcesRateBase;
-      }
-
       final bool sendUpdate = battlefield.update(dt);
 
       for (final Player player in players) {

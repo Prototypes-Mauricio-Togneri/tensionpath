@@ -31,7 +31,16 @@ class Unit {
 
   bool get isMoving => targetNode != null;
 
+  bool get isHarvesting =>
+      (type == UnitType.harvester) &&
+      (lockedNode != null) &&
+      (lockedNode!.type == NodeType.resources);
+
   void move(Node node) {
+    if (isHarvesting) {
+      player.increaseResourcesRate();
+    }
+
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
@@ -75,20 +84,17 @@ class Unit {
         lockedNode!.lock(this);
         targetNode = null;
         result = true;
+
+        if (isHarvesting) {
+          player.increaseResourcesRate();
+        }
       } else if ((lockedNode == null) && (distanceToTarget < radius)) {
         print('Unit $id has locked the target node ${targetNode!.id}');
         // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
         lockedNode!.lock(this);
       }
-    } else {
-      if ((type == UnitType.harvester) &&
-          (lockedNode != null) &&
-          (lockedNode!.type == NodeType.resources)) {
-        player.increaseResourcesRate();
-      }
     }
-
     closestNode = nodes.atPosition(position);
 
     return result;

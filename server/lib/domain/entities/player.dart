@@ -27,6 +27,12 @@ class Player {
     resourcesRate += resourcesRateBase;
   }
 
+  void decreaseResourcesRate() {
+    if (resourcesRate >= resourcesRateBase) {
+      resourcesRate -= resourcesRateBase;
+    }
+  }
+
   void addResources(num amount) {
     resources += amount;
   }
