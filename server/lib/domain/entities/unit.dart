@@ -94,6 +94,12 @@ class Unit {
     return result;
   }
 
+  void destroy() {
+    lockedNode?.unlock();
+    lockedNode = null;
+    targetNode = null;
+  }
+
   JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(
     id: id,
     playerIndex: player.index,
