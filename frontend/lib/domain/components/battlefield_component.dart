@@ -10,7 +10,6 @@ import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -283,7 +282,9 @@ class BattlefieldComponent extends PositionComponent {
             mapCenter: mapCenter,
             nodeSizeRatio: nodeSizeRatio,
           ),
-          newLockedLocation: unitUpdate.lockedLocation,
+          newLockedNode: (unitUpdate.lockedLocation != null)
+              ? match.getNodeById(unitUpdate.lockedLocation!.id)
+              : null,
         );
       }
     }
@@ -315,7 +316,9 @@ class BattlefieldComponent extends PositionComponent {
         type: unit.type,
         nodeSizeRatio: nodeSizeRatio,
         player: unit.playerIndex == self.index ? self : opponent,
-        lockedLocation: unit.lockedLocation,
+        lockedNode: (unit.lockedLocation != null)
+            ? match.getNodeById(unit.lockedLocation!.id)
+            : null,
       );
       add(unitComponent);
       unitComponents.add(unitComponent);
@@ -325,10 +328,10 @@ class BattlefieldComponent extends PositionComponent {
   void _updateNodes() {
     for (final NodeComponent nodeComponent in nodeComponents) {
       for (final UnitComponent unitComponent in unitComponents) {
-        final Location? unitLocation = unitComponent.lockedLocation;
+        final NodeComponent? lockedNodeComponent = unitComponent.lockedNode;
 
-        if ((unitLocation != null) &&
-            (unitLocation.id == nodeComponent.location.id)) {
+        if ((lockedNodeComponent != null) &&
+            (lockedNodeComponent == nodeComponent)) {
           nodeComponent.lock(unitComponent);
           break;
         } else {
