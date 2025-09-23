@@ -16,6 +16,9 @@ class JsonUnitUpdate {
   @JsonKey(name: 'type')
   final UnitType type;
 
+  @JsonKey(name: 'maxHealth')
+  final num maxHealth;
+
   @JsonKey(name: 'health')
   final num health;
 
@@ -28,14 +31,19 @@ class JsonUnitUpdate {
   @JsonKey(name: 'lockedLocation')
   final JsonLocation? lockedLocation;
 
+  @JsonKey(name: 'targetUnitId')
+  final String? targetUnitId;
+
   const JsonUnitUpdate({
     required this.id,
     required this.playerIndex,
     required this.type,
+    required this.maxHealth,
     required this.health,
     required this.currentPosition,
     required this.targetPosition,
     required this.lockedLocation,
+    required this.targetUnitId,
   });
 
   factory JsonUnitUpdate.fromJson(Map<String, dynamic> json) =>

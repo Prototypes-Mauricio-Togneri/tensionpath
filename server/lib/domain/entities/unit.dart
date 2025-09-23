@@ -12,11 +12,13 @@ class Unit {
   final Player player;
   final UnitType type;
   final num radius;
-  num health;
+  final num maxHealth;
+  late num health;
   Position position;
   Node closestNode;
   Node? targetNode;
   Node? lockedNode;
+  Unit? targetUnit;
 
   Unit({
     required this.id,
@@ -25,8 +27,9 @@ class Unit {
     required this.radius,
     required this.closestNode,
     required this.position,
-    required this.health,
+    required this.maxHealth,
   }) {
+    health = maxHealth;
     lockedNode = closestNode;
   }
 
@@ -48,7 +51,7 @@ class Unit {
   }
 
   void attack(Unit target) {
-    // TODO(momo): implement
+    targetUnit = target;
   }
 
   bool update({
@@ -119,10 +122,12 @@ class Unit {
     id: id,
     playerIndex: player.index,
     type: type,
+    maxHealth: maxHealth,
     health: health,
     currentPosition: position.toJson(),
     targetPosition: targetNode?.position.toJson(),
     lockedLocation: lockedNode?.location.toJson(),
+    targetUnitId: targetUnit?.id,
   );
 
   static String get newId => const Uuid().v4().substring(0, 16);
