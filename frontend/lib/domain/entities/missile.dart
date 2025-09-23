@@ -24,13 +24,9 @@ class Missile {
   void update(MissileUpdate missileUpdate) {
     owner = missileUpdate.owner;
     chargeCurrent = missileUpdate.charge.clamp(0, chargeMax);
-    print('Missile updated: owner=$owner, charge=$chargeCurrent');
 
     for (final Platform platform in platforms) {
       platform.update(missileUpdate.platforms[platform.id]);
-      print(
-        'Platform ${platform.id} updated: ${missileUpdate.platforms[platform.id]}',
-      );
     }
   }
 

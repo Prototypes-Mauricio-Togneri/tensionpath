@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -25,6 +26,7 @@ class UnitComponent extends PositionComponent
   late NodeComponent closestNodeComponent;
   late final MovementPathComponent movementOrderComponent;
   late final MovementPathComponent movementCurrentComponent;
+  late final BattlefieldComponent battlefieldComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
   NodeComponent? lockedNode;
@@ -66,6 +68,8 @@ class UnitComponent extends PositionComponent
 
   @override
   FutureOr onLoad() async {
+    battlefieldComponent = parent as BattlefieldComponent;
+
     closestNodeComponent = match.getClosestNode(
       nodeTypes: NodeType.values,
       position: absolutePosition,
@@ -162,10 +166,13 @@ class UnitComponent extends PositionComponent
     super.update(dt);
 
     if (targetPosition != null) {
-      movementCurrentComponent.show(
-        start: absolutePosition,
-        end: targetPosition!,
-      );
+      if (player.isSelf) {
+        movementCurrentComponent.show(
+          start: absolutePosition,
+          end: targetPosition! + battlefieldComponent.position,
+        );
+      }
+
       final Vector2 direction = targetPosition! - position;
       final num distance = direction.length;
       final num speed = nodeSizeRatio * type.speed;
