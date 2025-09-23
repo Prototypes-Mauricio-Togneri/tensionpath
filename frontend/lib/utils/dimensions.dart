@@ -168,6 +168,15 @@ class Dimensions {
     return fromCenter.length < (size.x * 0.5);
   }
 
+  static bool pointInCircle({
+    required Vector2 point,
+    required Vector2 size,
+  }) {
+    final Vector2 fromCenter = point - (size / 2);
+
+    return fromCenter.length < (size.x * 0.5);
+  }
+
   static Vector2 fpsPosition(Viewport viewport) => Vector2(
     viewport.size.x - (viewport.size.x * 0.06),
     viewport.size.y - (viewport.size.y * 0.05),

@@ -13,6 +13,7 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class UnitComponent extends PositionComponent
@@ -40,6 +41,12 @@ class UnitComponent extends PositionComponent
          anchor: Anchor.center,
          priority: Priority.unit.value,
        );
+
+  @override
+  bool containsLocalPoint(Vector2 point) => Dimensions.pointInCircle(
+    point: point,
+    size: size,
+  );
 
   bool belongsTo(Player other) => player.id == other.id;
 
@@ -121,23 +128,32 @@ class UnitComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (player.isSelf) {
-      final NodeComponent? nodeComponent = match.getNodeAt(
-        nodeTypes: NodeType.canMove,
-        position: endPosition!,
-      );
+      final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
+
+      if (unitComponent != null) {
+        match.onAttackUnit(
+          attackerUnitComponent: this,
+          defenderUnitComponent: unitComponent,
+        );
+      } else {
+        final NodeComponent? nodeComponent = match.getNodeAt(
+          nodeTypes: NodeType.canMove,
+          position: endPosition!,
+        );
+
+        if ((nodeComponent != null) &&
+            nodeComponent.isFree &&
+            (nodeComponent != closestNodeComponent)) {
+          match.onMoveUnit(
+            unitComponent: this,
+            nodeComponent: nodeComponent,
+          );
+        }
+      }
 
       endPosition = null;
       movementOrderComponent.hide();
       match.unhighlightNodes();
-
-      if ((nodeComponent != null) &&
-          nodeComponent.isFree &&
-          (nodeComponent != closestNodeComponent)) {
-        match.onMoveUnit(
-          unitComponent: this,
-          nodeComponent: nodeComponent,
-        );
-      }
     }
   }
 

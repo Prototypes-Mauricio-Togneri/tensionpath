@@ -101,6 +101,17 @@ class MatchComponent extends World {
     );
   }
 
+  UnitComponent? getEnemyUnitAt(Vector2 position) {
+    for (final UnitComponent unitComponent in unitComponents) {
+      if (unitComponent.containsPoint(position) &&
+          unitComponent.belongsTo(opponent)) {
+        return unitComponent;
+      }
+    }
+
+    return null;
+  }
+
   LauncherComponent? getLauncherAt(Vector2 position) {
     for (final LauncherComponent launcherComponent in launcherComponents) {
       if (launcherComponent.containsPoint(position) &&
@@ -210,6 +221,14 @@ class MatchComponent extends World {
   }) => game.matchState.onMoveUnit(
     unitId: unitComponent.id,
     location: nodeComponent.location,
+  );
+
+  void onAttackUnit({
+    required UnitComponent attackerUnitComponent,
+    required UnitComponent defenderUnitComponent,
+  }) => game.matchState.onAttackUnit(
+    attackerUnitId: attackerUnitComponent.id,
+    defenderUnitId: defenderUnitComponent.id,
   );
 }
 
