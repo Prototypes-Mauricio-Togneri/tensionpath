@@ -4,8 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:tensionpath/domain/components/movement_order_component.dart';
+import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -24,7 +23,8 @@ class UnitComponent extends PositionComponent
   final Player player;
   late HealthBarComponent healthBarComponent;
   late NodeComponent closestNodeComponent;
-  late final MovementOrderComponent movementOrderComponent;
+  late final MovementPathComponent movementOrderComponent;
+  late final MovementPathComponent movementCurrentComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
   NodeComponent? lockedNode;
@@ -89,8 +89,11 @@ class UnitComponent extends PositionComponent
 
     add(healthBarComponent);
 
-    movementOrderComponent = MovementOrderComponent();
+    movementOrderComponent = MovementPathComponent(Colors.white);
     match.add(movementOrderComponent);
+
+    movementCurrentComponent = MovementPathComponent(Colors.black);
+    match.add(movementCurrentComponent);
 
     return super.onLoad();
   }
@@ -159,6 +162,10 @@ class UnitComponent extends PositionComponent
     super.update(dt);
 
     if (targetPosition != null) {
+      movementCurrentComponent.show(
+        start: absolutePosition,
+        end: targetPosition!,
+      );
       final Vector2 direction = targetPosition! - position;
       final num distance = direction.length;
       final num speed = nodeSizeRatio * type.speed;
@@ -170,6 +177,8 @@ class UnitComponent extends PositionComponent
         direction.normalize();
         position += direction * (speed * dt);
       }
+    } else {
+      movementCurrentComponent.hide();
     }
 
     closestNodeComponent = match.getClosestNode(

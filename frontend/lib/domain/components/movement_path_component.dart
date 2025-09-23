@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class MovementOrderComponent extends Component {
+class MovementPathComponent extends Component {
   final Paint targetPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 5,
-    color: Palette.NODE_TARGET,
   );
   Vector2? startPosition;
   Vector2? endPosition;
 
-  MovementOrderComponent() : super(priority: Priority.node.value);
+  MovementPathComponent(Color color) : super(priority: Priority.node.value) {
+    targetPaint.color = color;
+  }
 
   void show({
     required Vector2 start,
