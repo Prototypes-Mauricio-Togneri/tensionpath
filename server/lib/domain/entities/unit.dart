@@ -12,10 +12,11 @@ class Unit {
   final Player player;
   final UnitType type;
   final num radius;
-  final num attackPower;
+  final num damage;
   final num attackCooldown;
   final num maxHealth;
   late num health;
+  late num currentAttackCooldown;
   Position position;
   Node closestNode;
   Node? targetNode;
@@ -27,13 +28,14 @@ class Unit {
     required this.player,
     required this.type,
     required this.radius,
-    required this.attackPower,
+    required this.damage,
     required this.attackCooldown,
     required this.closestNode,
     required this.position,
     required this.maxHealth,
   }) {
     health = maxHealth;
+    currentAttackCooldown = attackCooldown;
     lockedNode = closestNode;
   }
 
@@ -106,10 +108,35 @@ class Unit {
         lockedNode = targetNode;
         lockedNode!.lock(this);
       }
+    } else {
+      if (targetUnit == null) {
+        // TODO(momo): assign closest enemy unit in range
+      }
+
+      if (targetUnit != null) {
+        final num distanceToTarget = position.distanceTo(targetUnit!.position);
+
+        if (distanceToTarget < (radius * 2.5)) {
+          currentAttackCooldown -= dt;
+
+          if (currentAttackCooldown <= 0) {
+            currentAttackCooldown = attackCooldown;
+            targetUnit!.hit(damage);
+            print(
+              'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
+            );
+          }
+        }
+      }
     }
+
     closestNode = nodes.atPosition(position);
 
     return result;
+  }
+
+  void hit(num attackPower) {
+    health -= attackPower;
   }
 
   void destroy() {
@@ -120,6 +147,7 @@ class Unit {
     lockedNode?.unlock();
     lockedNode = null;
     targetNode = null;
+    targetUnit = null;
   }
 
   JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(
