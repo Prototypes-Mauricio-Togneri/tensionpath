@@ -20,7 +20,7 @@ class MissileComponent extends SpriteComponent {
          priority: Priority.structure.value,
        );
 
-  void refresh(MissileUpdate json) => missile.update(json);
+  void refresh(MissileUpdate missileUpdate) => missile.update(missileUpdate);
 
   @override
   void update(double dt) {

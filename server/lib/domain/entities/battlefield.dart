@@ -45,6 +45,8 @@ class Battlefield {
     return missile.update(dt) || result;
   }
 
+  void updateMissile() => missile.update(0);
+
   void deployUnit({
     required Player player,
     required Location location,

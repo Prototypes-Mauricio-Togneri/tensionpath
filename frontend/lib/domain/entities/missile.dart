@@ -21,14 +21,16 @@ class Missile {
     required this.platforms,
   });
 
-  void update(MissileUpdate json) {
-    owner = json.owner;
-    chargeCurrent = json.charge;
+  void update(MissileUpdate missileUpdate) {
+    owner = missileUpdate.owner;
+    chargeCurrent = missileUpdate.charge;
     print('Missile updated: owner=$owner, charge=$chargeCurrent');
 
     for (final Platform platform in platforms) {
-      platform.update(json.platforms[platform.id]);
-      print('Platform ${platform.id} updated: ${json.platforms[platform.id]}');
+      platform.update(missileUpdate.platforms[platform.id]);
+      print(
+        'Platform ${platform.id} updated: ${missileUpdate.platforms[platform.id]}',
+      );
     }
   }
 

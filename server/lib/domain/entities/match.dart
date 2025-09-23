@@ -94,6 +94,8 @@ class Match {
   }
 
   void _sendMatchUpdate() {
+    battlefield.updateMissile();
+
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players) player.index: player.toJsonUpdate(),
     };
