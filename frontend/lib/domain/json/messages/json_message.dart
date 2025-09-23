@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
@@ -27,6 +28,9 @@ class JsonMessage {
   @JsonKey(name: 'move')
   final JsonMoveUnit? move;
 
+  @JsonKey(name: 'attackUnit')
+  final JsonAttackUnit? attackUnit;
+
   // =========================== SERVER -> CLIENT =========================== \\
 
   @JsonKey(name: 'welcome')
@@ -46,6 +50,7 @@ class JsonMessage {
     this.join,
     this.deploy,
     this.move,
+    this.attackUnit,
 
     // Server -> Client
     this.welcome,
@@ -61,6 +66,8 @@ class JsonMessage {
       return deploy;
     } else if (move != null) {
       return move;
+    } else if (attackUnit != null) {
+      return attackUnit;
     } else if (welcome != null) {
       return welcome;
     } else if (start != null) {
@@ -108,6 +115,18 @@ class JsonMessage {
       matchId: matchId,
       unitId: unitId,
       location: location,
+    ),
+  );
+
+  factory JsonMessage.attackUnit({
+    required String matchId,
+    required String attackerUnitId,
+    required String defenderUnitId,
+  }) => JsonMessage(
+    attackUnit: JsonAttackUnit(
+      matchId: matchId,
+      attackerUnitId: attackerUnitId,
+      defenderUnitId: defenderUnitId,
     ),
   );
 

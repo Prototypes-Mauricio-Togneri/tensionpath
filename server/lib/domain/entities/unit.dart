@@ -47,6 +47,10 @@ class Unit {
     lockedNode = null;
   }
 
+  void attack(Unit target) {
+    // TODO(momo): implement
+  }
+
   bool update({
     required double dt,
     required Nodes nodes,

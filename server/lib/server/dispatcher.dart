@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
@@ -71,6 +72,18 @@ class Dispatcher {
       socket: socket,
       unitId: json.unitId,
       location: json.location,
+    );
+  }
+
+  void attackUnit({
+    required JsonAttackUnit json,
+    required WebSocket socket,
+  }) {
+    final Connection connection = _getConnection(json.matchId);
+    connection.attackUnit(
+      socket: socket,
+      attackerUnitId: json.attackerUnitId,
+      defenderUnitId: json.defenderUnitId,
     );
   }
 

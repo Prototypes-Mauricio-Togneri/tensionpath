@@ -25,6 +25,11 @@ JsonMessage _$JsonMessageFromJson(
       (v) =>
           v == null ? null : JsonMoveUnit.fromJson(v as Map<String, dynamic>),
     ),
+    attackUnit: $checkedConvert(
+      'attackUnit',
+      (v) =>
+          v == null ? null : JsonAttackUnit.fromJson(v as Map<String, dynamic>),
+    ),
     welcome: $checkedConvert(
       'welcome',
       (v) => v == null ? null : JsonWelcome.fromJson(v as Map<String, dynamic>),
@@ -50,6 +55,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
       'join': ?instance.join?.toJson(),
       'deploy': ?instance.deploy?.toJson(),
       'move': ?instance.move?.toJson(),
+      'attackUnit': ?instance.attackUnit?.toJson(),
       'welcome': ?instance.welcome?.toJson(),
       'start': ?instance.start?.toJson(),
       'update': ?instance.update?.toJson(),

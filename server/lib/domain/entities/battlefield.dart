@@ -75,6 +75,25 @@ class Battlefield {
     if (unit.player == player) {
       final Node node = nodes.atLocation(location);
       unit.move(node);
+    } else {
+      throw Exception('Unit $unitId does not belong to player ${player.id}');
+    }
+  }
+
+  void attackUnit({
+    required Player player,
+    required String attackerUnitId,
+    required String defenderUnitId,
+  }) {
+    final Unit attackerUnit = units.get(attackerUnitId);
+    final Unit defenderUnit = units.get(defenderUnitId);
+
+    if (attackerUnit.player == player) {
+      attackerUnit.attack(defenderUnit);
+    } else {
+      throw Exception(
+        'Unit $attackerUnit does not belong to player ${player.id}',
+      );
     }
   }
 

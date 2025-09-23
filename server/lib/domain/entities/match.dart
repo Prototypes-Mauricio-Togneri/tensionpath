@@ -77,6 +77,20 @@ class Match {
     _sendMatchUpdate();
   }
 
+  void attackUnit({
+    required String playerIndex,
+    required String attackerUnitId,
+    required String defenderUnitId,
+  }) {
+    final Player player = players.get(playerIndex);
+    battlefield.attackUnit(
+      player: player,
+      attackerUnitId: attackerUnitId,
+      defenderUnitId: defenderUnitId,
+    );
+    _sendMatchUpdate();
+  }
+
   void update(double dt) {
     if (status == MatchStatus.playing) {
       totalTime += dt;

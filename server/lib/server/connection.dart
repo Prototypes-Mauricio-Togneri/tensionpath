@@ -122,6 +122,19 @@ class Connection {
     );
   }
 
+  void attackUnit({
+    required WebSocket socket,
+    required String attackerUnitId,
+    required String defenderUnitId,
+  }) {
+    final Participant participant = participantBySocket(socket);
+    _match?.attackUnit(
+      playerIndex: participant.playerIndex,
+      attackerUnitId: attackerUnitId,
+      defenderUnitId: defenderUnitId,
+    );
+  }
+
   Participant participantBySocket(WebSocket socket) {
     for (final Participant participant in participants.values) {
       if (participant.hasSocket(socket)) {
