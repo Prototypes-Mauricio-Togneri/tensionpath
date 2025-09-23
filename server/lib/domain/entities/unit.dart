@@ -12,6 +12,8 @@ class Unit {
   final Player player;
   final UnitType type;
   final num radius;
+  final num attackPower;
+  final num attackCooldown;
   final num maxHealth;
   late num health;
   Position position;
@@ -25,6 +27,8 @@ class Unit {
     required this.player,
     required this.type,
     required this.radius,
+    required this.attackPower,
+    required this.attackCooldown,
     required this.closestNode,
     required this.position,
     required this.maxHealth,
