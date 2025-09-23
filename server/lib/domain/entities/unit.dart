@@ -41,6 +41,8 @@ class Unit {
 
   bool get isMoving => targetNode != null;
 
+  bool get isAlive => health > 0;
+
   bool get isHarvesting =>
       (type == UnitType.harvester) &&
       (lockedNode != null) &&
@@ -113,7 +115,7 @@ class Unit {
         // TODO(momo): assign closest enemy unit in range
       }
 
-      if (targetUnit != null) {
+      if ((targetUnit != null) && (targetUnit!.isAlive)) {
         final num distanceToTarget = position.distanceTo(targetUnit!.position);
 
         if (distanceToTarget < (radius * 2.5)) {

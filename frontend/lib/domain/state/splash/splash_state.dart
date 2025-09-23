@@ -9,18 +9,18 @@ import 'package:tensionpath/utils/navigation.dart';
 class SplashState extends BaseState {
   @override
   void onLoad() {
-    if (Environment.get.isLocal) {
+    /*if (Environment.get.isLocal) {
       Navigation.matchScreen(
         host: 'ws://localhost:3000',
         matchId: 'test-match-id',
         userId: 'AAA',
       );
-    } else {
-      Authentication.checkIfAuthenticated(
-        onSuccess: _onSuccess,
-        onError: _onError,
-      );
-    }
+    } else {*/
+    Authentication.checkIfAuthenticated(
+      onSuccess: _onSuccess,
+      onError: _onError,
+    );
+    //}
   }
 
   void _onSuccess(User user) {

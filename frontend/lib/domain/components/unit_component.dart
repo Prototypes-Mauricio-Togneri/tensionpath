@@ -62,9 +62,7 @@ class UnitComponent extends PositionComponent
     lockedNode = newLockedNode;
   }
 
-  void moveTo(Vector2 position) {
-    targetPosition = position;
-  }
+  bool get isRevealed => closestNodeComponent.isVisible;
 
   @override
   FutureOr onLoad() async {
@@ -130,7 +128,7 @@ class UnitComponent extends PositionComponent
     if (player.isSelf) {
       final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
 
-      if (unitComponent != null) {
+      if ((unitComponent != null) && unitComponent.isRevealed) {
         match.onAttackUnit(
           attackerUnitComponent: this,
           defenderUnitComponent: unitComponent,
@@ -142,7 +140,6 @@ class UnitComponent extends PositionComponent
         );
 
         if ((nodeComponent != null) &&
-            nodeComponent.isFree &&
             (nodeComponent != closestNodeComponent)) {
           match.onMoveUnit(
             unitComponent: this,

@@ -179,7 +179,7 @@ class MatchComponent extends World {
       position: position,
     );
 
-    if ((nodeComponent != null) && (nodeComponent.isFree)) {
+    if (nodeComponent != null) {
       nodeComponent.highlight(true);
     }
   }
