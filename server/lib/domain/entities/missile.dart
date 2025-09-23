@@ -42,6 +42,8 @@ class Missile {
       chargeCurrent += dt;
     }
 
+    chargeCurrent = chargeCurrent.clamp(0, chargeMax);
+
     return (owner != previousOwner);
   }
 

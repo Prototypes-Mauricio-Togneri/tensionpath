@@ -23,7 +23,7 @@ class Missile {
 
   void update(MissileUpdate missileUpdate) {
     owner = missileUpdate.owner;
-    chargeCurrent = missileUpdate.charge;
+    chargeCurrent = missileUpdate.charge.clamp(0, chargeMax);
     print('Missile updated: owner=$owner, charge=$chargeCurrent');
 
     for (final Platform platform in platforms) {
@@ -42,6 +42,8 @@ class Missile {
     } else if (owner != null) {
       chargeCurrent += dt;
     }
+
+    chargeCurrent = chargeCurrent.clamp(0, chargeMax);
   }
 
   factory Missile.fromJson(JsonMissileStart json) => Missile(
