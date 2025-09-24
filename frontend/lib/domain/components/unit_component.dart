@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
@@ -13,6 +12,7 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -224,7 +224,12 @@ class UnitImageComponent extends SpriteComponent {
   FutureOr onLoad() async {
     sprite = await Sprite.load(type.sprite);
     scale = Vector2(type.spriteScale, type.spriteScale);
-    decorator.addLast(PaintDecorator.tint(player.color.darken(0.3)));
+
+    if (player.isPlayer1) {
+      setBlueShade();
+    } else if (player.isPlayer2) {
+      setRedShade();
+    }
 
     return super.onLoad();
   }

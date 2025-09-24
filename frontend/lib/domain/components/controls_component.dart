@@ -10,6 +10,7 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -154,7 +155,12 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(unitType.sprite);
-    decorator.addLast(PaintDecorator.tint(player.color));
+
+    if (player.isPlayer1) {
+      setBlueShade();
+    } else if (player.isPlayer2) {
+      setRedShade();
+    }
 
     return super.onLoad();
   }
