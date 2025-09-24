@@ -153,9 +153,9 @@ class Dimensions {
 
     return Vector2(
       gapSize,
-      ((numberOfCards - 2) * cardSize.y) +
-          (gapSize * (numberOfCards - 1)) +
-          gapSize,
+      ((numberOfCards - 1) * cardSize.y) +
+          (gapSize * numberOfCards) +
+          (gapSize * 1.5),
     );
   }
 

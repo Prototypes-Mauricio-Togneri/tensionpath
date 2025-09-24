@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -32,7 +33,7 @@ class ControlsComponent extends PositionComponent {
   @override
   FutureOr onLoad() {
     final int numberOfUnits = UnitType.values.length;
-    final int numberOfCards = numberOfUnits + 2;
+    final int numberOfCards = numberOfUnits + 1;
     final Vector2 cardSize = Dimensions.controlsCardSize(
       size: size,
       numberOfCards: numberOfCards,
@@ -99,7 +100,7 @@ class UnitSelectorComponent extends PositionComponent {
       UnitImageComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x / 2, size.y / 2),
+        position: Vector2(size.x * 0.4, size.y * 0.5),
         size: size * 0.6,
       ),
     );
@@ -108,7 +109,7 @@ class UnitSelectorComponent extends PositionComponent {
       UnitCostComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.81, size.y * 0.83),
+        position: Vector2(size.x * 0.81, size.y * 0.75),
         size: Vector2(size.x * 0.3, size.y * 0.34),
       ),
     );
@@ -251,7 +252,7 @@ class UnitCostComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${unitType.deploymentCost.toString()}🛢️',
+      text: '${unitType.deploymentCost.toString()}${Constants.RESOURCE_ICON}',
       position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 2.5,
       color: Palette.CONTROLS_COST_FOREGROUND,
@@ -281,7 +282,7 @@ class ResourcesComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${player.resources.floor()}🛢️',
+      text: '${player.resources.floor()}${Constants.RESOURCE_ICON}',
       position: Vector2(size.x * 0.5, size.y * 0.2),
       size: size.x / 5,
       color: Palette.CONTROLS_COST_FOREGROUND,
@@ -289,7 +290,7 @@ class ResourcesComponent extends PositionComponent {
 
     canvas.drawText(
       text: '${player.resourcesRate}/s',
-      position: Vector2(size.x * 0.5, size.y * 0.5),
+      position: Vector2(size.x * 0.5, size.y * 0.7),
       size: size.x / 10,
       color: Palette.CONTROLS_COST_FOREGROUND,
     );

@@ -5,4 +5,6 @@ class Constants {
   static const String PLAYER_2 = '2';
 
   static const int LAUNCHER_VISIBILITY = 2;
+
+  static const String RESOURCE_ICON = '🪙';
 }
