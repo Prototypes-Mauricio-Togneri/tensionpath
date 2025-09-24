@@ -49,7 +49,13 @@ Map<String, dynamic> _$JsonUnitUpdateToJson(JsonUnitUpdate instance) =>
 
 const _$UnitTypeEnumMap = {
   UnitType.harvester: 'harvester',
-  UnitType.infrantry: 'infrantry',
-  UnitType.vehicle: 'vehicle',
-  UnitType.aircraft: 'aircraft',
+  UnitType.plant_1: 'plant_1',
+  UnitType.plant_2: 'plant_2',
+  UnitType.plant_3: 'plant_3',
+  UnitType.water_1: 'water_1',
+  UnitType.water_2: 'water_2',
+  UnitType.water_3: 'water_3',
+  UnitType.fire_1: 'fire_1',
+  UnitType.fire_2: 'fire_2',
+  UnitType.fire_3: 'fire_3',
 };

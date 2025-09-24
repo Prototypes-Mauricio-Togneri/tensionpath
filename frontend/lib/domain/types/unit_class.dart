@@ -1,5 +1,6 @@
 enum UnitClass {
-  infantry,
-  vehicle,
-  aircraft,
+  neutral,
+  plant,
+  water,
+  fire,
 }

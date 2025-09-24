@@ -6,21 +6,63 @@ enum UnitType {
     damage: 0,
     attackCooldown: 0,
   ),
-  infrantry(
+  plant_1(
     cost: 10,
     health: 300,
     speed: 5,
     damage: 20,
     attackCooldown: 1,
   ),
-  vehicle(
+  plant_2(
     cost: 20,
     health: 300,
     speed: 4,
     damage: 30,
     attackCooldown: 1.5,
   ),
-  aircraft(
+  plant_3(
+    cost: 50,
+    health: 150,
+    speed: 6,
+    damage: 40,
+    attackCooldown: 2,
+  ),
+  water_1(
+    cost: 10,
+    health: 300,
+    speed: 5,
+    damage: 20,
+    attackCooldown: 1,
+  ),
+  water_2(
+    cost: 20,
+    health: 300,
+    speed: 4,
+    damage: 30,
+    attackCooldown: 1.5,
+  ),
+  water_3(
+    cost: 50,
+    health: 150,
+    speed: 6,
+    damage: 40,
+    attackCooldown: 2,
+  ),
+  fire_1(
+    cost: 10,
+    health: 300,
+    speed: 5,
+    damage: 20,
+    attackCooldown: 1,
+  ),
+  fire_2(
+    cost: 20,
+    health: 300,
+    speed: 4,
+    damage: 30,
+    attackCooldown: 1.5,
+  ),
+  fire_3(
     cost: 50,
     health: 150,
     speed: 6,

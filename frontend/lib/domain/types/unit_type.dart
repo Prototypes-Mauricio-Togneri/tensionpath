@@ -4,7 +4,7 @@ import 'package:tensionpath/utils/assets.dart';
 
 enum UnitType {
   harvester(
-    unitClass: UnitClass.vehicle,
+    unitClass: UnitClass.neutral,
     deploymentCost: 60,
     maxHealth: 1000,
     speed: 3,
@@ -17,8 +17,8 @@ enum UnitType {
     sprite: Assets.IMAGES_UNITS_HARVESTER,
     spriteScale: 0.5,
   ),
-  infrantry(
-    unitClass: UnitClass.infantry,
+  plant_1(
+    unitClass: UnitClass.plant,
     deploymentCost: 10,
     maxHealth: 300,
     speed: 5,
@@ -31,8 +31,8 @@ enum UnitType {
     sprite: Assets.IMAGES_UNITS_INFANTRY,
     spriteScale: 0.5,
   ),
-  vehicle(
-    unitClass: UnitClass.vehicle,
+  plant_2(
+    unitClass: UnitClass.plant,
     deploymentCost: 20,
     maxHealth: 300,
     speed: 4,
@@ -45,8 +45,92 @@ enum UnitType {
     sprite: Assets.IMAGES_UNITS_VEHICLE,
     spriteScale: 0.6,
   ),
-  aircraft(
-    unitClass: UnitClass.aircraft,
+  plant_3(
+    unitClass: UnitClass.plant,
+    deploymentCost: 50,
+    maxHealth: 150,
+    speed: 6,
+    visibilityRange: 3,
+    damageInfantry: 100,
+    damageVehicle: 40,
+    damageAir: 0,
+    damageHarvester: 40,
+    damageStructure: 40,
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    spriteScale: 0.5,
+  ),
+  water_1(
+    unitClass: UnitClass.water,
+    deploymentCost: 50,
+    maxHealth: 150,
+    speed: 6,
+    visibilityRange: 3,
+    damageInfantry: 100,
+    damageVehicle: 40,
+    damageAir: 0,
+    damageHarvester: 40,
+    damageStructure: 40,
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    spriteScale: 0.5,
+  ),
+  water_2(
+    unitClass: UnitClass.water,
+    deploymentCost: 50,
+    maxHealth: 150,
+    speed: 6,
+    visibilityRange: 3,
+    damageInfantry: 100,
+    damageVehicle: 40,
+    damageAir: 0,
+    damageHarvester: 40,
+    damageStructure: 40,
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    spriteScale: 0.5,
+  ),
+  water_3(
+    unitClass: UnitClass.water,
+    deploymentCost: 50,
+    maxHealth: 150,
+    speed: 6,
+    visibilityRange: 3,
+    damageInfantry: 100,
+    damageVehicle: 40,
+    damageAir: 0,
+    damageHarvester: 40,
+    damageStructure: 40,
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    spriteScale: 0.5,
+  ),
+  fire_1(
+    unitClass: UnitClass.fire,
+    deploymentCost: 50,
+    maxHealth: 150,
+    speed: 6,
+    visibilityRange: 3,
+    damageInfantry: 100,
+    damageVehicle: 40,
+    damageAir: 0,
+    damageHarvester: 40,
+    damageStructure: 40,
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    spriteScale: 0.5,
+  ),
+  fire_2(
+    unitClass: UnitClass.fire,
+    deploymentCost: 50,
+    maxHealth: 150,
+    speed: 6,
+    visibilityRange: 3,
+    damageInfantry: 100,
+    damageVehicle: 40,
+    damageAir: 0,
+    damageHarvester: 40,
+    damageStructure: 40,
+    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    spriteScale: 0.5,
+  ),
+  fire_3(
+    unitClass: UnitClass.fire,
     deploymentCost: 50,
     maxHealth: 150,
     speed: 6,
@@ -92,12 +176,14 @@ enum UnitType {
     final int maxDamage = max(max(damageInfantry, damageVehicle), damageAir);
 
     switch (unitClass) {
-      case UnitClass.infantry:
+      case UnitClass.plant:
         return _relativeDamage(damageInfantry, maxDamage);
-      case UnitClass.vehicle:
+      case UnitClass.water:
         return _relativeDamage(damageVehicle, maxDamage);
-      case UnitClass.aircraft:
+      case UnitClass.fire:
         return _relativeDamage(damageAir, maxDamage);
+      case UnitClass.neutral:
+        return _relativeDamage(damageHarvester, maxDamage);
     }
   }
 
