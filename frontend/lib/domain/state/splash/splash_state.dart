@@ -9,7 +9,7 @@ import 'package:tensionpath/utils/navigation.dart';
 class SplashState extends BaseState {
   @override
   void onLoad() {
-    if (Environment.get.isLocal) {
+    if (Environment.get.joinTestMatch) {
       Navigation.matchScreen(
         host: 'ws://localhost:3000',
         matchId: 'test-match-id',

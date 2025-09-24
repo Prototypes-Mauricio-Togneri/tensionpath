@@ -116,7 +116,7 @@ class Server {
   }
 
   Future _startTestMatch() async {
-    Logger.info('Running in local mode');
+    Logger.info('Creating test match...');
 
     dispatcher.create(
       JsonCreateMatch(

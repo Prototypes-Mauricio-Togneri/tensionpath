@@ -7,6 +7,9 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
+  bool get joinTestMatch => false;
+
+  @override
   Future configure() async {
     await FirebaseAuth.instance.useAuthEmulator(Environment.get.host, 9099);
     FirebaseFirestore.instance.useFirestoreEmulator(Environment.get.host, 8080);

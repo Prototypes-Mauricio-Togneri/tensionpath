@@ -56,6 +56,7 @@ class Unit {
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
+    targetUnit = null;
   }
 
   void attack(Unit target) {
@@ -68,18 +69,14 @@ class Unit {
   }) {
     bool result = false;
 
+    if (!isAlive) {
+      return result;
+    }
+
     if (isMoving) {
+      targetUnit = null;
+
       print('--------------------------------------------\nMoving unit $id');
-
-      if (targetNode!.notLockedBy(this)) {
-        // Re-assign node
-        targetNode = nodes.closestFreeNode(position);
-        result = true;
-
-        print(
-          'Unit target node was re-assigned to ${targetNode!.id}',
-        );
-      }
 
       // Update position
       position = position.moveTowards(
@@ -94,7 +91,6 @@ class Unit {
 
       if (distanceToTarget < 0.5) {
         print('Unit $id has arrived to the target node ${targetNode!.id}');
-        // If the unit has arrived to the target node -> stop moving
         position = targetNode!.position;
         lockedNode = targetNode;
         lockedNode!.lock(this);
@@ -104,9 +100,20 @@ class Unit {
         if (isHarvesting) {
           player.increaseResourcesRate();
         }
-      } else if ((lockedNode == null) && (distanceToTarget < radius)) {
+      } else if ((lockedNode == null) &&
+          (distanceToTarget < (radius * 2)) &&
+          targetNode!.notLockedBy(this)) {
+        // Re-assign node
+        targetNode = nodes.closestFreeNode(position);
+        result = true;
+
+        print(
+          'Unit target node was re-assigned to ${targetNode!.id}',
+        );
+      } else if ((lockedNode == null) &&
+          (distanceToTarget < radius) &&
+          targetNode!.isFree) {
         print('Unit $id has locked the target node ${targetNode!.id}');
-        // If the unit is inside of target node -> assign node to unit
         lockedNode = targetNode;
         lockedNode!.lock(this);
       }
@@ -124,6 +131,7 @@ class Unit {
           if (currentAttackCooldown <= 0) {
             currentAttackCooldown = attackCooldown;
             targetUnit!.hit(damage);
+            result = true;
             print(
               'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
             );
@@ -139,6 +147,10 @@ class Unit {
 
   void hit(num attackPower) {
     health -= attackPower;
+
+    if (health <= 0) {
+      destroy();
+    }
   }
 
   void destroy() {
@@ -164,7 +176,8 @@ class Unit {
     targetUnitId: targetUnit?.id,
   );
 
-  static String get newId => const Uuid().v4().substring(0, 16);
+  static String get newId =>
+      const Uuid().v4().replaceAll('-', '').substring(0, 16);
 
   @override
   bool operator ==(Object other) => other is Unit && id == other.id;
