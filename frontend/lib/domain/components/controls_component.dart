@@ -153,7 +153,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(unitType.thumbnail);
+    sprite = await Sprite.load(unitType.sprite);
     decorator.addLast(PaintDecorator.tint(player.color));
 
     return super.onLoad();
@@ -206,6 +206,21 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
       position = initialPosition;
     }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    canvas.save();
+
+    if (player.isPlayer2) {
+      canvas.translate(size.x / 2, 0); // Move to the center of the sprite
+      canvas.scale(-1, 1); // Flip horizontally
+      canvas.translate(-size.x / 2, 0); // Move back to the original position
+    }
+
+    super.render(canvas);
+
+    canvas.restore();
   }
 }
 

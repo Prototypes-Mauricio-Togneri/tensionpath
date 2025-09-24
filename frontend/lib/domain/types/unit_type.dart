@@ -16,7 +16,6 @@ enum UnitType {
     damageStructure: 0,
     sprite: Assets.IMAGES_UNITS_HARVESTER,
     spriteScale: 0.5,
-    thumbnail: Assets.IMAGES_UNITS_HARVESTER,
   ),
   infrantry(
     unitClass: UnitClass.infantry,
@@ -31,7 +30,6 @@ enum UnitType {
     damageStructure: 50,
     sprite: Assets.IMAGES_UNITS_INFANTRY,
     spriteScale: 0.5,
-    thumbnail: Assets.IMAGES_UNITS_INFANTRY,
   ),
   vehicle(
     unitClass: UnitClass.vehicle,
@@ -46,7 +44,6 @@ enum UnitType {
     damageStructure: 80,
     sprite: Assets.IMAGES_UNITS_VEHICLE,
     spriteScale: 0.6,
-    thumbnail: Assets.IMAGES_UNITS_VEHICLE,
   ),
   aircraft(
     unitClass: UnitClass.aircraft,
@@ -61,7 +58,6 @@ enum UnitType {
     damageStructure: 40,
     sprite: Assets.IMAGES_UNITS_AIRCRAFT,
     spriteScale: 0.5,
-    thumbnail: Assets.IMAGES_UNITS_AIRCRAFT,
   );
 
   final UnitClass unitClass;
@@ -76,7 +72,6 @@ enum UnitType {
   final int damageStructure;
   final String sprite;
   final double spriteScale;
-  final String thumbnail;
 
   const UnitType({
     required this.unitClass,
@@ -91,7 +86,6 @@ enum UnitType {
     required this.damageStructure,
     required this.sprite,
     required this.spriteScale,
-    required this.thumbnail,
   });
 
   int damageAgainst(UnitClass unitClass) {
