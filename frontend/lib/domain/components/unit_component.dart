@@ -198,17 +198,7 @@ class UnitComponent extends PositionComponent
 
   @override
   void render(Canvas canvas) {
-    canvas.save();
-
-    if (player.isPlayer2) {
-      canvas.translate(size.x / 2, 0); // Move to the center of the sprite
-      canvas.scale(-1, 1); // Flip horizontally
-      canvas.translate(-size.x / 2, 0); // Move back to the original position
-    }
-
     super.render(canvas);
-
-    canvas.restore();
 
     if (endPosition != null) {
       movementOrderComponent.show(
@@ -237,6 +227,21 @@ class UnitImageComponent extends SpriteComponent {
     decorator.addLast(PaintDecorator.tint(player.color.darken(0.3)));
 
     return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    canvas.save();
+
+    if (player.isPlayer2) {
+      canvas.translate(size.x / 2, 0); // Move to the center of the sprite
+      canvas.scale(-1, 1); // Flip horizontally
+      canvas.translate(-size.x / 2, 0); // Move back to the original position
+    }
+
+    super.render(canvas);
+
+    canvas.restore();
   }
 }
 
