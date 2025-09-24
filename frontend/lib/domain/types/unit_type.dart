@@ -28,7 +28,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 50,
     damageStructure: 50,
-    sprite: Assets.IMAGES_UNITS_INFANTRY,
+    sprite: Assets.IMAGES_UNITS_PLANT_1,
     spriteScale: 0.5,
   ),
   plant_2(
@@ -42,7 +42,7 @@ enum UnitType {
     damageAir: 150,
     damageHarvester: 100,
     damageStructure: 80,
-    sprite: Assets.IMAGES_UNITS_VEHICLE,
+    sprite: Assets.IMAGES_UNITS_PLANT_2,
     spriteScale: 0.6,
   ),
   plant_3(
@@ -56,7 +56,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_PLANT_3,
     spriteScale: 0.5,
   ),
   water_1(
@@ -70,7 +70,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_WATER_1,
     spriteScale: 0.5,
   ),
   water_2(
@@ -84,7 +84,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_WATER_2,
     spriteScale: 0.5,
   ),
   water_3(
@@ -98,7 +98,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_WATER_3,
     spriteScale: 0.5,
   ),
   fire_1(
@@ -112,7 +112,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_FIRE_1,
     spriteScale: 0.5,
   ),
   fire_2(
@@ -126,7 +126,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_FIRE_2,
     spriteScale: 0.5,
   ),
   fire_3(
@@ -140,7 +140,7 @@ enum UnitType {
     damageAir: 0,
     damageHarvester: 40,
     damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_AIRCRAFT,
+    sprite: Assets.IMAGES_UNITS_FIRE_3,
     spriteScale: 0.5,
   );
 
