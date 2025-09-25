@@ -12,8 +12,6 @@ class Unit {
   final Player player;
   final UnitType type;
   final num radius;
-  final num damage;
-  final num attackCooldown;
   final num maxHealth;
   late num health;
   late num currentAttackCooldown;
@@ -28,14 +26,12 @@ class Unit {
     required this.player,
     required this.type,
     required this.radius,
-    required this.damage,
-    required this.attackCooldown,
     required this.closestNode,
     required this.position,
     required this.maxHealth,
   }) {
     health = maxHealth;
-    currentAttackCooldown = attackCooldown;
+    currentAttackCooldown = type.attackCooldown;
     lockedNode = closestNode;
   }
 
@@ -129,7 +125,8 @@ class Unit {
           currentAttackCooldown -= dt;
 
           if (currentAttackCooldown <= 0) {
-            currentAttackCooldown = attackCooldown;
+            final num damage = type.damageAgainst(targetUnit!);
+            currentAttackCooldown = type.attackCooldown;
             targetUnit!.hit(damage);
             result = true;
             print(

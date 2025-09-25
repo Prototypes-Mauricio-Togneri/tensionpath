@@ -58,8 +58,6 @@ class Battlefield {
       player: player,
       type: type,
       radius: nodeSize.radius,
-      damage: type.damage,
-      attackCooldown: type.attackCooldown,
       closestNode: node,
       position: node.position,
       maxHealth: type.health,

@@ -11,3 +11,5 @@ rm -rf ../frontend/lib/domain/json/messages/*
 
 cp -r lib/domain/json/models/ ../frontend/lib/domain/json/
 cp -r lib/domain/json/messages/ ../frontend/lib/domain/json/
+
+cp -r lib/domain/types/unit_type.dart ../frontend/lib/domain/types/
