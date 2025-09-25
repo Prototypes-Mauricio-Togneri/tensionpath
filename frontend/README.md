@@ -1,5 +1,10 @@
 # TODO
 
+- Attack from far -> move unit closer and then attack
+- Destroy unit
+- Launch missile
+- Attack base
+
 - Dart compile in Docker
 - Continuous popcap
 - Add changelog to home screen
