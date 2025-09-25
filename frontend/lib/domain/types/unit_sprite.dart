@@ -17,11 +17,11 @@ String unitSprite(UnitType type) {
       return Assets.IMAGES_UNITS_WATER_2;
     case UnitType.water_3:
       return Assets.IMAGES_UNITS_WATER_3;
-    case UnitType.fire_1:
-      return Assets.IMAGES_UNITS_FIRE_1;
-    case UnitType.fire_2:
-      return Assets.IMAGES_UNITS_FIRE_2;
-    case UnitType.fire_3:
-      return Assets.IMAGES_UNITS_FIRE_3;
+    case UnitType.flame_1:
+      return Assets.IMAGES_UNITS_FLAME_1;
+    case UnitType.flame_2:
+      return Assets.IMAGES_UNITS_FLAME_2;
+    case UnitType.flame_3:
+      return Assets.IMAGES_UNITS_FLAME_3;
   }
 }

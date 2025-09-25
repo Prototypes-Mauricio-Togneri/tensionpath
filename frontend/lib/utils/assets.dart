@@ -15,9 +15,9 @@ class Assets {
   static const String IMAGES_STRUCTURES_PAD_PLAYER_2 =
       'structures/pad_player_2.png';
   static const String IMAGES_STRUCTURES_RESOURCES = 'structures/resources.png';
-  static const String IMAGES_UNITS_FIRE_1 = 'units/fire_1.png';
-  static const String IMAGES_UNITS_FIRE_2 = 'units/fire_2.png';
-  static const String IMAGES_UNITS_FIRE_3 = 'units/fire_3.png';
+  static const String IMAGES_UNITS_FLAME_1 = 'units/flame_1.png';
+  static const String IMAGES_UNITS_FLAME_2 = 'units/flame_2.png';
+  static const String IMAGES_UNITS_FLAME_3 = 'units/flame_3.png';
   static const String IMAGES_UNITS_HARVESTER = 'units/harvester.png';
   static const String IMAGES_UNITS_PLANT_1 = 'units/plant_1.png';
   static const String IMAGES_UNITS_PLANT_2 = 'units/plant_2.png';

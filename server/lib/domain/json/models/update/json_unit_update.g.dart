@@ -55,7 +55,7 @@ const _$UnitTypeEnumMap = {
   UnitType.water_1: 'water_1',
   UnitType.water_2: 'water_2',
   UnitType.water_3: 'water_3',
-  UnitType.fire_1: 'fire_1',
-  UnitType.fire_2: 'fire_2',
-  UnitType.fire_3: 'fire_3',
+  UnitType.flame_1: 'flame_1',
+  UnitType.flame_2: 'flame_2',
+  UnitType.flame_3: 'flame_3',
 };

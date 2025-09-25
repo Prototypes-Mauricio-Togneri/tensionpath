@@ -9,7 +9,7 @@ enum UnitType {
     visibility: 1,
     damagePlant: 0,
     damageWater: 0,
-    damageFire: 0,
+    damageFlame: 0,
     damageHarvester: 0,
     damageStructure: 0,
     attackCooldown: 0,
@@ -22,7 +22,7 @@ enum UnitType {
     visibility: 3,
     damagePlant: 10,
     damageWater: 20,
-    damageFire: 5,
+    damageFlame: 5,
     damageHarvester: 10,
     damageStructure: 10,
     attackCooldown: 1,
@@ -35,9 +35,9 @@ enum UnitType {
     visibility: 2,
     damagePlant: 15,
     damageWater: 25,
-    damageFire: 10,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 10,
+    damageHarvester: 15,
+    damageStructure: 15,
     attackCooldown: 1.5,
   ),
   plant_3(
@@ -48,9 +48,9 @@ enum UnitType {
     visibility: 2,
     damagePlant: 20,
     damageWater: 30,
-    damageFire: 15,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 15,
+    damageHarvester: 20,
+    damageStructure: 20,
     attackCooldown: 2,
   ),
   water_1(
@@ -61,9 +61,9 @@ enum UnitType {
     visibility: 3,
     damagePlant: 5,
     damageWater: 10,
-    damageFire: 20,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 20,
+    damageHarvester: 10,
+    damageStructure: 10,
     attackCooldown: 1,
   ),
   water_2(
@@ -74,9 +74,9 @@ enum UnitType {
     visibility: 2,
     damagePlant: 10,
     damageWater: 15,
-    damageFire: 25,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 25,
+    damageHarvester: 15,
+    damageStructure: 15,
     attackCooldown: 1.5,
   ),
   water_3(
@@ -87,48 +87,48 @@ enum UnitType {
     visibility: 2,
     damagePlant: 15,
     damageWater: 20,
-    damageFire: 30,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 30,
+    damageHarvester: 20,
+    damageStructure: 20,
     attackCooldown: 2,
   ),
-  fire_1(
-    clazz: UnitClass.fire,
+  flame_1(
+    clazz: UnitClass.flame,
     cost: 10,
     health: 100,
     speed: 5,
     visibility: 3,
     damagePlant: 20,
     damageWater: 5,
-    damageFire: 10,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 10,
+    damageHarvester: 10,
+    damageStructure: 10,
     attackCooldown: 1,
   ),
-  fire_2(
-    clazz: UnitClass.fire,
+  flame_2(
+    clazz: UnitClass.flame,
     cost: 20,
     health: 150,
     speed: 7,
     visibility: 2,
     damagePlant: 25,
     damageWater: 10,
-    damageFire: 15,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 15,
+    damageHarvester: 15,
+    damageStructure: 15,
     attackCooldown: 1.5,
   ),
-  fire_3(
-    clazz: UnitClass.fire,
+  flame_3(
+    clazz: UnitClass.flame,
     cost: 50,
     health: 200,
     speed: 5,
     visibility: 2,
     damagePlant: 30,
     damageWater: 15,
-    damageFire: 20,
-    damageHarvester: 0,
-    damageStructure: 0,
+    damageFlame: 20,
+    damageHarvester: 20,
+    damageStructure: 20,
     attackCooldown: 2,
   );
 
@@ -139,7 +139,7 @@ enum UnitType {
   final int visibility;
   final num damagePlant;
   final num damageWater;
-  final num damageFire;
+  final num damageFlame;
   final num damageHarvester;
   final num damageStructure;
   final num attackCooldown;
@@ -152,7 +152,7 @@ enum UnitType {
     required this.visibility,
     required this.damagePlant,
     required this.damageWater,
-    required this.damageFire,
+    required this.damageFlame,
     required this.damageHarvester,
     required this.damageStructure,
     required this.attackCooldown,
@@ -164,8 +164,8 @@ enum UnitType {
         return damagePlant;
       case UnitClass.water:
         return damageWater;
-      case UnitClass.fire:
-        return damageFire;
+      case UnitClass.flame:
+        return damageFlame;
       case UnitClass.harvester:
         return damageHarvester;
     }
