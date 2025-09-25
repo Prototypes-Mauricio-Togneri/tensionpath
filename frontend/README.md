@@ -4,13 +4,15 @@
 - Destroy unit
 - Launch missile
 - Attack base
+- Continuous popcap
+- Harvester logic
+
+  - Max 2 harvesters
+  - Harvester kill reward
+  - New harvester free
 
 - Dart compile in Docker
-- Continuous popcap
 - Add changelog to home screen
-- Max 2 harvesters
-- Harvester kill reward
-- New harvester free
 - Choose map
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
