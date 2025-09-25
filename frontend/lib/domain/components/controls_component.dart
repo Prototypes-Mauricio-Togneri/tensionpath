@@ -9,6 +9,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -125,7 +126,7 @@ class UnitSelectorComponent extends PositionComponent {
     super.update(dt);
 
     final bool before = isEnabled;
-    isEnabled = player.resources >= unitType.deploymentCost;
+    isEnabled = player.resources >= unitType.cost;
 
     if (before != isEnabled) {
       if (isEnabled) {
@@ -158,7 +159,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(unitType.sprite);
+    sprite = await Sprite.load(unitSprite(unitType));
 
     if (player.isPlayer1) {
       setBlueShade();
@@ -255,7 +256,7 @@ class UnitCostComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawText(
-      text: '${unitType.deploymentCost.toString()}${Constants.RESOURCE_ICON}',
+      text: '${unitType.cost.toString()}${Constants.RESOURCE_ICON}',
       position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 2.5,
       color: Palette.CONTROLS_COST_FOREGROUND,

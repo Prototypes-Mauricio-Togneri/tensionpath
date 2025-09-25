@@ -1,5 +1,4 @@
-import 'package:tensionpath/domain/entities/unit.dart';
-import 'package:tensionpath/domain/types/unity_class.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 
 enum UnitType {
   harvester(
@@ -159,8 +158,8 @@ enum UnitType {
     required this.attackCooldown,
   });
 
-  num damageAgainst(Unit unit) {
-    switch (unit.type.clazz) {
+  num damageAgainst(UnitClass unitClass) {
+    switch (unitClass) {
       case UnitClass.plant:
         return damagePlant;
       case UnitClass.water:

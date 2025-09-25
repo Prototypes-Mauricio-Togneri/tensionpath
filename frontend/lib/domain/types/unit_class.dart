@@ -1,5 +1,5 @@
 enum UnitClass {
-  neutral,
+  harvester,
   plant,
   water,
   fire,

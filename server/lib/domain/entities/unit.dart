@@ -125,7 +125,7 @@ class Unit {
           currentAttackCooldown -= dt;
 
           if (currentAttackCooldown <= 0) {
-            final num damage = type.damageAgainst(targetUnit!);
+            final num damage = type.damageAgainst(targetUnit!.type.clazz);
             currentAttackCooldown = type.attackCooldown;
             targetUnit!.hit(damage);
             result = true;

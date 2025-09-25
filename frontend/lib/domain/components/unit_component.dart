@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -79,7 +80,7 @@ class UnitComponent extends PositionComponent
       UnitImageComponent(
         position: size / 2,
         size: Vector2(size.x, size.x),
-        type: type,
+        unitType: type,
         player: player,
       ),
     );
@@ -210,20 +211,20 @@ class UnitComponent extends PositionComponent
 }
 
 class UnitImageComponent extends SpriteComponent {
-  final UnitType type;
+  final UnitType unitType;
   final Player player;
 
   UnitImageComponent({
     required super.position,
     required super.size,
-    required this.type,
+    required this.unitType,
     required this.player,
   }) : super(anchor: Anchor.center);
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(type.sprite);
-    scale = Vector2(type.spriteScale, type.spriteScale);
+    sprite = await Sprite.load(unitSprite(unitType));
+    scale = Vector2(0.5, 0.5);
 
     if (player.isPlayer1) {
       setBlueShade();
@@ -271,8 +272,8 @@ class HealthBarComponent extends PositionComponent {
   }) : super(anchor: Anchor.center) {
     foregroundHealthPaint.color = player.color;
     borderHealthPaint.strokeWidth = size.y / 60;
-    health = type.maxHealth.toDouble();
-    maxHealth = type.maxHealth.toDouble();
+    health = type.health.toDouble();
+    maxHealth = type.health.toDouble();
   }
 
   void refresh(num newHealth) {

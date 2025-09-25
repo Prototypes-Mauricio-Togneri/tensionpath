@@ -1,194 +1,173 @@
-import 'dart:math';
 import 'package:tensionpath/domain/types/unit_class.dart';
-import 'package:tensionpath/utils/assets.dart';
 
 enum UnitType {
   harvester(
-    unitClass: UnitClass.neutral,
-    deploymentCost: 60,
-    maxHealth: 1000,
-    speed: 3,
-    visibilityRange: 1,
-    sprite: Assets.IMAGES_UNITS_HARVESTER,
-    spriteScale: 0.5,
+    clazz: UnitClass.harvester,
+    cost: 60,
+    health: 500,
+    speed: 2,
+    visibility: 1,
+    damagePlant: 0,
+    damageWater: 0,
+    damageFire: 0,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 0,
   ),
   plant_1(
-    unitClass: UnitClass.plant,
-    deploymentCost: 10,
-    maxHealth: 300,
+    clazz: UnitClass.plant,
+    cost: 10,
+    health: 100,
     speed: 5,
-    visibilityRange: 3,
-    damageInfantry: 80,
-    damageVehicle: 60,
-    damageAir: 0,
-    damageHarvester: 50,
-    damageStructure: 50,
-    sprite: Assets.IMAGES_UNITS_PLANT_1,
-    spriteScale: 0.5,
+    visibility: 3,
+    damagePlant: 10,
+    damageWater: 20,
+    damageFire: 5,
+    damageHarvester: 10,
+    damageStructure: 10,
+    attackCooldown: 1,
   ),
   plant_2(
-    unitClass: UnitClass.plant,
-    deploymentCost: 20,
-    maxHealth: 300,
-    speed: 4,
-    visibilityRange: 2,
-    damageInfantry: 40,
-    damageVehicle: 150,
-    damageAir: 150,
-    damageHarvester: 100,
-    damageStructure: 80,
-    sprite: Assets.IMAGES_UNITS_PLANT_2,
-    spriteScale: 0.6,
+    clazz: UnitClass.plant,
+    cost: 20,
+    health: 150,
+    speed: 7,
+    visibility: 2,
+    damagePlant: 15,
+    damageWater: 25,
+    damageFire: 10,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 1.5,
   ),
   plant_3(
-    unitClass: UnitClass.plant,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_PLANT_3,
-    spriteScale: 0.5,
+    clazz: UnitClass.plant,
+    cost: 50,
+    health: 200,
+    speed: 5,
+    visibility: 2,
+    damagePlant: 20,
+    damageWater: 30,
+    damageFire: 15,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 2,
   ),
   water_1(
-    unitClass: UnitClass.water,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_WATER_1,
-    spriteScale: 0.5,
+    clazz: UnitClass.water,
+    cost: 10,
+    health: 100,
+    speed: 5,
+    visibility: 3,
+    damagePlant: 5,
+    damageWater: 10,
+    damageFire: 20,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 1,
   ),
   water_2(
-    unitClass: UnitClass.water,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_WATER_2,
-    spriteScale: 0.5,
+    clazz: UnitClass.water,
+    cost: 20,
+    health: 150,
+    speed: 7,
+    visibility: 2,
+    damagePlant: 10,
+    damageWater: 15,
+    damageFire: 25,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 1.5,
   ),
   water_3(
-    unitClass: UnitClass.water,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_WATER_3,
-    spriteScale: 0.5,
+    clazz: UnitClass.water,
+    cost: 50,
+    health: 200,
+    speed: 5,
+    visibility: 2,
+    damagePlant: 15,
+    damageWater: 20,
+    damageFire: 30,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 2,
   ),
   fire_1(
-    unitClass: UnitClass.fire,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_FIRE_1,
-    spriteScale: 0.5,
+    clazz: UnitClass.fire,
+    cost: 10,
+    health: 100,
+    speed: 5,
+    visibility: 3,
+    damagePlant: 20,
+    damageWater: 5,
+    damageFire: 10,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 1,
   ),
   fire_2(
-    unitClass: UnitClass.fire,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_FIRE_2,
-    spriteScale: 0.5,
+    clazz: UnitClass.fire,
+    cost: 20,
+    health: 150,
+    speed: 7,
+    visibility: 2,
+    damagePlant: 25,
+    damageWater: 10,
+    damageFire: 15,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 1.5,
   ),
   fire_3(
-    unitClass: UnitClass.fire,
-    deploymentCost: 50,
-    maxHealth: 150,
-    speed: 6,
-    visibilityRange: 3,
-    damageInfantry: 100,
-    damageVehicle: 40,
-    damageAir: 0,
-    damageHarvester: 40,
-    damageStructure: 40,
-    sprite: Assets.IMAGES_UNITS_FIRE_3,
-    spriteScale: 0.5,
+    clazz: UnitClass.fire,
+    cost: 50,
+    health: 200,
+    speed: 5,
+    visibility: 2,
+    damagePlant: 30,
+    damageWater: 15,
+    damageFire: 20,
+    damageHarvester: 0,
+    damageStructure: 0,
+    attackCooldown: 2,
   );
 
-  final UnitClass unitClass;
-  final int deploymentCost;
-  final int maxHealth;
+  final UnitClass clazz;
+  final int cost;
+  final int health;
   final num speed;
-  final int visibilityRange;
-  final int damageInfantry;
-  final int damageVehicle;
-  final int damageAir;
-  final int damageHarvester;
-  final int damageStructure;
-  final String sprite;
-  final double spriteScale;
+  final int visibility;
+  final num damagePlant;
+  final num damageWater;
+  final num damageFire;
+  final num damageHarvester;
+  final num damageStructure;
+  final num attackCooldown;
 
   const UnitType({
-    required this.unitClass,
-    required this.deploymentCost,
-    required this.maxHealth,
+    required this.clazz,
+    required this.cost,
+    required this.health,
     required this.speed,
-    required this.visibilityRange,
-    required this.damageInfantry,
-    required this.damageVehicle,
-    required this.damageAir,
+    required this.visibility,
+    required this.damagePlant,
+    required this.damageWater,
+    required this.damageFire,
     required this.damageHarvester,
     required this.damageStructure,
-    required this.sprite,
-    required this.spriteScale,
+    required this.attackCooldown,
   });
 
-  int damageAgainst(UnitClass unitClass) {
-    final int maxDamage = max(max(damageInfantry, damageVehicle), damageAir);
-
+  num damageAgainst(UnitClass unitClass) {
     switch (unitClass) {
       case UnitClass.plant:
-        return _relativeDamage(damageInfantry, maxDamage);
+        return damagePlant;
       case UnitClass.water:
-        return _relativeDamage(damageVehicle, maxDamage);
+        return damageWater;
       case UnitClass.fire:
-        return _relativeDamage(damageAir, maxDamage);
-      case UnitClass.neutral:
-        return _relativeDamage(damageHarvester, maxDamage);
-    }
-  }
-
-  int _relativeDamage(int damage, int maxDamage) {
-    if (damage == 0) {
-      return -1;
-    } else if (damage == maxDamage) {
-      return 1;
-    } else {
-      return 0;
+        return damageFire;
+      case UnitClass.harvester:
+        return damageHarvester;
     }
   }
 }
