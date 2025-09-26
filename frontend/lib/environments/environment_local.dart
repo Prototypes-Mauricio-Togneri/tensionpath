@@ -7,7 +7,7 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
-  bool get joinTestMatch => true;
+  bool get joinTestMatch => false;
 
   @override
   Future configure() async {

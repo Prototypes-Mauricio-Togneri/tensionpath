@@ -101,6 +101,7 @@ class Match {
         for (final Player player in players) {
           if (player.id != battlefield.missile.owner) {
             player.removeHealth(player.baseMaxHealth / 2);
+            print('Missile launched to ${player.id}');
             break;
           }
         }
