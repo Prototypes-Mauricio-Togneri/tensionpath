@@ -1,6 +1,5 @@
 # TODO
 
-- Dotted line
 - Attack line
 - Formula how close two units are
 - Attack from far -> move unit closer and then attack
