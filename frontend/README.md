@@ -1,6 +1,5 @@
 # TODO
 
-- Attack line
 - Attack from far -> move unit closer and then attack
 - Attack base
 - Continuous popcap
