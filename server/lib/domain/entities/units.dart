@@ -12,7 +12,7 @@ class Units {
 
   List<Unit> get list => _units.list;
 
-  Unit? closestEnemyUnit(Unit unit) {
+  Unit? closestUnitInRange(Unit unit) {
     Unit? result;
     num closestDistance = double.infinity;
     final List<Unit> enemyUnits = _units.list

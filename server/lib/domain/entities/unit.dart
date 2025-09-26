@@ -117,8 +117,8 @@ class Unit {
         lockedNode!.lock(this);
       }
     } else {
-      // Assign the closest enemy there is not one assigned
-      targetUnit ??= units.closestEnemyUnit(this);
+      // Assign the closest enemy in range if there is not one assigned
+      targetUnit ??= units.closestUnitInRange(this);
 
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
         final num distanceToTarget = distanceTo(targetUnit!);
