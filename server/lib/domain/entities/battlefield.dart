@@ -37,10 +37,12 @@ class Battlefield {
     bool result = false;
 
     for (final Unit unit in units.list) {
-      result |= unit.update(
-        dt: dt,
-        nodes: nodes,
-      );
+      if (unit.isAlive) {
+        result |= unit.update(
+          dt: dt,
+          nodes: nodes,
+        );
+      }
     }
 
     return missile.update(dt) || result;
