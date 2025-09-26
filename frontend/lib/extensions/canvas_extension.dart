@@ -112,4 +112,42 @@ extension CanvasExtension on Canvas {
     required Vector2 point,
     required Vector2 size,
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
+
+  void drawDashedLine({
+    required Offset start,
+    required Offset end,
+    required Paint paint,
+    required double dashSpacing,
+    required double dashLength,
+  }) {
+    final double totalDistance = (end - start).distance;
+    final Vector2 direction = Vector2(end.dx - start.dx, end.dy - start.dy)
+      ..normalize();
+
+    double currentDistance = 0;
+    bool drawDash = true;
+
+    while (currentDistance < totalDistance) {
+      final double segmentLength = drawDash ? dashLength : dashSpacing;
+      final double nextDistance = currentDistance + segmentLength;
+
+      if (drawDash) {
+        final Offset segmentStart = Offset(
+          start.dx + direction.x * currentDistance,
+          start.dy + direction.y * currentDistance,
+        );
+        final Offset segmentEnd = nextDistance >= totalDistance
+            ? end
+            : Offset(
+                start.dx + direction.x * nextDistance,
+                start.dy + direction.y * nextDistance,
+              );
+
+        drawLine(segmentStart, segmentEnd, paint);
+      }
+
+      currentDistance = nextDistance;
+      drawDash = !drawDash;
+    }
+  }
 }

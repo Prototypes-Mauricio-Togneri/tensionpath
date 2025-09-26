@@ -1,18 +1,22 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class MovementPathComponent extends Component {
   final Paint targetPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 5,
+    style: PaintingStyle.fill,
   );
   Vector2? startPosition;
   Vector2? endPosition;
 
-  MovementPathComponent(Color color) : super(priority: Priority.node.value) {
+  MovementPathComponent({
+    required Color color,
+    required double width,
+  }) : super(priority: Priority.node.value) {
     targetPaint.color = color;
+    targetPaint.strokeWidth = width;
   }
 
   void show({
@@ -33,10 +37,12 @@ class MovementPathComponent extends Component {
     super.render(canvas);
 
     if ((startPosition != null) && (endPosition != null)) {
-      canvas.drawLine(
-        startPosition!.toOffset(),
-        endPosition!.toOffset(),
-        targetPaint,
+      canvas.drawDashedLine(
+        start: startPosition!.toOffset(),
+        end: endPosition!.toOffset(),
+        paint: targetPaint,
+        dashSpacing: targetPaint.strokeWidth * 1,
+        dashLength: targetPaint.strokeWidth * 2,
       );
     }
   }

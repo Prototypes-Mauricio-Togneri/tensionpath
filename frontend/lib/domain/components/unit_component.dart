@@ -94,10 +94,16 @@ class UnitComponent extends PositionComponent
 
     add(healthBarComponent);
 
-    movementOrderComponent = MovementPathComponent(Colors.white);
+    movementOrderComponent = MovementPathComponent(
+      color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
+      width: size.x / 30,
+    );
     match.add(movementOrderComponent);
 
-    movementCurrentComponent = MovementPathComponent(Colors.black);
+    movementCurrentComponent = MovementPathComponent(
+      color: Palette.PATH_MOVEMENT_ORDER,
+      width: size.x / 30,
+    );
     match.add(movementCurrentComponent);
 
     return super.onLoad();
