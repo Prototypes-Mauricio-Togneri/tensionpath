@@ -72,18 +72,22 @@ class UnitUpdate {
   final String playerIndex;
   final UnitType type;
   final num health;
+  final num maxHealth;
   final Position currentPosition;
   final Position? targetPosition;
   final Location? lockedLocation;
+  final String? targetUnitId;
 
   const UnitUpdate({
     required this.id,
     required this.playerIndex,
     required this.type,
     required this.health,
+    required this.maxHealth,
     required this.currentPosition,
     required this.targetPosition,
     required this.lockedLocation,
+    required this.targetUnitId,
   });
 
   factory UnitUpdate.fromJson(JsonUnitUpdate json) => UnitUpdate(
@@ -91,6 +95,7 @@ class UnitUpdate {
     playerIndex: json.playerIndex,
     type: json.type,
     health: json.health,
+    maxHealth: json.maxHealth,
     currentPosition: Position.fromJson(json.currentPosition),
     targetPosition: json.targetPosition != null
         ? Position.fromJson(json.targetPosition!)
@@ -98,5 +103,6 @@ class UnitUpdate {
     lockedLocation: json.lockedLocation != null
         ? Location.fromJson(json.lockedLocation!)
         : null,
+    targetUnitId: json.targetUnitId,
   );
 }

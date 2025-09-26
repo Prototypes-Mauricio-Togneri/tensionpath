@@ -289,6 +289,11 @@ class BattlefieldComponent extends PositionComponent {
           newLockedNode: (unitUpdate.lockedLocation != null)
               ? match.getNodeById(unitUpdate.lockedLocation!.id)
               : null,
+          newTargetUnit: unitUpdate.targetUnitId != null
+              ? unitComponents
+                    .where((unit) => unit.id == unitUpdate.targetUnitId)
+                    .firstOrNull
+              : null,
         );
       }
     }

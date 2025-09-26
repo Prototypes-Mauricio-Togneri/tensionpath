@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/attack_path_component.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
@@ -27,10 +28,12 @@ class UnitComponent extends PositionComponent
   late NodeComponent closestNodeComponent;
   late final MovementPathComponent movementOrderComponent;
   late final MovementPathComponent movementCurrentComponent;
+  late final AttackPathComponent attackPathComponent;
   late final BattlefieldComponent battlefieldComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
   NodeComponent? lockedNode;
+  UnitComponent? targetUnit;
 
   UnitComponent({
     required super.position,
@@ -58,11 +61,13 @@ class UnitComponent extends PositionComponent
     required Vector2 newCurrentPosition,
     required Vector2? newTargetPosition,
     required NodeComponent? newLockedNode,
+    required UnitComponent? newTargetUnit,
   }) {
     healthBarComponent.refresh(health);
     position = newCurrentPosition;
     targetPosition = newTargetPosition;
     lockedNode = newLockedNode;
+    targetUnit = newTargetUnit;
   }
 
   bool get isRevealed => closestNodeComponent.isVisible;
@@ -105,6 +110,12 @@ class UnitComponent extends PositionComponent
       thickness: size.x / 30,
     );
     match.add(movementCurrentComponent);
+
+    attackPathComponent = AttackPathComponent(
+      color: player.color,
+      thickness: size.x / 30,
+    );
+    match.add(attackPathComponent);
 
     return super.onLoad();
   }
@@ -193,6 +204,15 @@ class UnitComponent extends PositionComponent
       }
     } else {
       movementCurrentComponent.hide();
+    }
+
+    if (targetUnit != null) {
+      attackPathComponent.show(
+        start: absolutePosition,
+        end: targetUnit!.absolutePosition,
+      );
+    } else {
+      attackPathComponent.hide();
     }
 
     closestNodeComponent = match.getClosestNode(
