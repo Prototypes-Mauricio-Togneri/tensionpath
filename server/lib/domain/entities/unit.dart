@@ -48,22 +48,18 @@ class Unit {
       (lockedNode!.type == NodeType.resources);
 
   void move(Node node) {
-    if (isAlive) {
-      if (isHarvesting) {
-        player.decreaseResourcesRate();
-      }
-
-      targetNode = node;
-      lockedNode?.unlock();
-      lockedNode = null;
-      targetUnit = null;
+    if (isHarvesting) {
+      player.decreaseResourcesRate();
     }
+
+    targetNode = node;
+    lockedNode?.unlock();
+    lockedNode = null;
+    targetUnit = null;
   }
 
   void attack(Unit target) {
-    if (isAlive && target.isAlive) {
-      targetUnit = target;
-    }
+    targetUnit = target;
   }
 
   bool update({

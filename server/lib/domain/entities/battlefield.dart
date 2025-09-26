@@ -78,7 +78,7 @@ class Battlefield {
   }) {
     final Unit unit = units.get(unitId);
 
-    if (unit.player == player) {
+    if (unit.isAlive && (unit.player == player)) {
       final Node node = nodes.atLocation(location);
       unit.move(node);
     } else {
@@ -94,7 +94,9 @@ class Battlefield {
     final Unit attackerUnit = units.get(attackerUnitId);
     final Unit defenderUnit = units.get(defenderUnitId);
 
-    if (attackerUnit.player == player) {
+    if (attackerUnit.isAlive &&
+        defenderUnit.isAlive &&
+        (attackerUnit.player == player)) {
       attackerUnit.attack(defenderUnit);
     } else {
       throw Exception(
