@@ -18,7 +18,7 @@ class Dispatcher {
 
   void create(JsonCreateMatch json) {
     final Connection connection = Connection.fromJson(json);
-    connections.add(json.matchId, connection);
+    connections.add(connection.matchId, connection);
   }
 
   void join({
@@ -40,7 +40,7 @@ class Dispatcher {
       websocketToConnection.remove(socket);
 
       if (connection.isEmpty) {
-        connections.remove(connection.matchId, connection);
+        connections.remove(connection.matchId);
         Logger.log(
           socket,
           'All players left match ${connection.matchId}. Match closed.',

@@ -30,4 +30,16 @@ class Units {
 
     return result;
   }
+
+  bool removeDestroyed() {
+    final List<Unit> unitsToRemove = _units.list
+        .where((unit) => !unit.isAlive)
+        .toList();
+
+    for (final Unit unit in unitsToRemove) {
+      _units.remove(unit.id);
+    }
+
+    return unitsToRemove.isNotEmpty;
+  }
 }

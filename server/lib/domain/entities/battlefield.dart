@@ -45,6 +45,8 @@ class Battlefield {
       }
     }
 
+    result |= units.removeDestroyed();
+
     return missile.update(dt) || result;
   }
 
