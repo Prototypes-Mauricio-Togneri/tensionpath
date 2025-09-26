@@ -7,8 +7,8 @@ class MovementPathComponent extends Component {
   final Paint targetPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
-  Vector2? startPosition;
-  Vector2? endPosition;
+  Offset? startPosition;
+  Offset? endPosition;
 
   MovementPathComponent({
     required Color color,
@@ -22,8 +22,8 @@ class MovementPathComponent extends Component {
     required Vector2 start,
     required Vector2 end,
   }) {
-    startPosition = start;
-    endPosition = end;
+    startPosition = start.toOffset();
+    endPosition = end.toOffset();
   }
 
   void hide() {
@@ -37,8 +37,8 @@ class MovementPathComponent extends Component {
 
     if ((startPosition != null) && (endPosition != null)) {
       canvas.drawDashedLine(
-        start: startPosition!.toOffset(),
-        end: endPosition!.toOffset(),
+        start: startPosition!,
+        end: endPosition!,
         paint: targetPaint,
         dashSpacing: targetPaint.strokeWidth * 1,
         dashLength: targetPaint.strokeWidth * 2,
