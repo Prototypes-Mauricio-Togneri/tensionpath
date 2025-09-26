@@ -26,9 +26,9 @@ class UnitComponent extends PositionComponent
   final Player player;
   late HealthBarComponent healthBarComponent;
   late NodeComponent closestNodeComponent;
-  late final MovementPathComponent movementOrderComponent;
-  late final MovementPathComponent movementCurrentComponent;
-  late final AttackPathComponent attackPathComponent;
+  MovementPathComponent? movementOrderComponent;
+  MovementPathComponent? movementCurrentComponent;
+  AttackPathComponent? attackPathComponent;
   late final BattlefieldComponent battlefieldComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
@@ -99,23 +99,25 @@ class UnitComponent extends PositionComponent
 
     add(healthBarComponent);
 
-    movementOrderComponent = MovementPathComponent(
-      color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
-      thickness: size.x / 30,
-    );
-    match.add(movementOrderComponent);
+    if (player.isSelf) {
+      movementOrderComponent = MovementPathComponent(
+        color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
+        thickness: size.x / 30,
+      );
+      match.add(movementOrderComponent!);
 
-    movementCurrentComponent = MovementPathComponent(
-      color: Palette.PATH_MOVEMENT_ORDER,
-      thickness: size.x / 30,
-    );
-    match.add(movementCurrentComponent);
+      movementCurrentComponent = MovementPathComponent(
+        color: Palette.PATH_MOVEMENT_ORDER,
+        thickness: size.x / 30,
+      );
+      match.add(movementCurrentComponent!);
 
-    attackPathComponent = AttackPathComponent(
-      color: player.color,
-      thickness: size.x / 30,
-    );
-    match.add(attackPathComponent);
+      attackPathComponent = AttackPathComponent(
+        color: player.color,
+        thickness: size.x / 30,
+      );
+      match.add(attackPathComponent!);
+    }
 
     return super.onLoad();
   }
@@ -179,7 +181,7 @@ class UnitComponent extends PositionComponent
       }
 
       endPosition = null;
-      movementOrderComponent.hide();
+      movementOrderComponent?.hide();
       match.unhighlightNodes();
     }
   }
@@ -190,7 +192,7 @@ class UnitComponent extends PositionComponent
 
     if (targetPosition != null) {
       if (player.isSelf) {
-        movementCurrentComponent.show(
+        movementCurrentComponent?.show(
           start: absolutePosition,
           end: targetPosition! + battlefieldComponent.position,
         );
@@ -208,16 +210,16 @@ class UnitComponent extends PositionComponent
         position += direction * (speed * dt);
       }
     } else {
-      movementCurrentComponent.hide();
+      movementCurrentComponent?.hide();
     }
 
     if (targetUnit != null) {
-      attackPathComponent.show(
+      attackPathComponent?.show(
         start: absolutePosition,
         end: targetUnit!.absolutePosition,
       );
     } else {
-      attackPathComponent.hide();
+      attackPathComponent?.hide();
     }
 
     closestNodeComponent = match.getClosestNode(
@@ -233,7 +235,7 @@ class UnitComponent extends PositionComponent
     super.render(canvas);
 
     if (endPosition != null) {
-      movementOrderComponent.show(
+      movementOrderComponent?.show(
         start: absolutePosition,
         end: endPosition!,
       );
@@ -242,9 +244,9 @@ class UnitComponent extends PositionComponent
 
   void destroy() {
     lockedNode?.unlock();
-    movementOrderComponent.removeFromParent();
-    movementCurrentComponent.removeFromParent();
-    attackPathComponent.removeFromParent();
+    movementOrderComponent?.removeFromParent();
+    movementCurrentComponent?.removeFromParent();
+    attackPathComponent?.removeFromParent();
     removeFromParent();
   }
 }

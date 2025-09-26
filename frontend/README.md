@@ -1,6 +1,7 @@
 # TODO
 
 - Attack base
+- Send message when a match is over
 - Continuous popcap
 - Harvester logic
 
