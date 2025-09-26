@@ -145,8 +145,8 @@ class Unit {
 
   num distanceTo(Unit unit) => position.distanceTo(unit.position) - unit.radius;
 
-  void hit(num attackPower) {
-    health -= attackPower;
+  void hit(num damage) {
+    health -= damage;
 
     if (health <= 0) {
       destroy();
@@ -162,6 +162,9 @@ class Unit {
     lockedNode = null;
     targetNode = null;
     targetUnit = null;
+    health = 0;
+
+    print('Unit $id has been destroyed');
   }
 
   JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(
