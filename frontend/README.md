@@ -2,6 +2,7 @@
 
 - Attack base
 - Send message when a match is over
+- Drag the entire unit card, not just the unit sprite
 - Continuous popcap
 - Harvester logic
 
