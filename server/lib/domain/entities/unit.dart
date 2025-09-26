@@ -119,9 +119,9 @@ class Unit {
       }
 
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
-        final num distanceToTarget = position.distanceTo(targetUnit!.position);
+        final num distanceToTarget = distanceTo(targetUnit!);
 
-        if (distanceToTarget < (radius * 2.5)) {
+        if (distanceToTarget < type.attackRange) {
           currentAttackCooldown -= dt;
 
           if (currentAttackCooldown <= 0) {
@@ -141,6 +141,8 @@ class Unit {
 
     return result;
   }
+
+  num distanceTo(Unit unit) => position.distanceTo(unit.position) - unit.radius;
 
   void hit(num attackPower) {
     health -= attackPower;

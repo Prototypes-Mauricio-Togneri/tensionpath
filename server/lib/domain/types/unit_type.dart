@@ -12,6 +12,7 @@ enum UnitType {
     damageFlame: 0,
     damageHarvester: 0,
     damageStructure: 0,
+    attackRange: 0,
     attackCooldown: 0,
   ),
   plant_1(
@@ -25,6 +26,7 @@ enum UnitType {
     damageFlame: 5,
     damageHarvester: 10,
     damageStructure: 10,
+    attackRange: 1.5,
     attackCooldown: 1,
   ),
   plant_2(
@@ -38,6 +40,7 @@ enum UnitType {
     damageFlame: 10,
     damageHarvester: 15,
     damageStructure: 15,
+    attackRange: 1.5,
     attackCooldown: 1.5,
   ),
   plant_3(
@@ -51,6 +54,7 @@ enum UnitType {
     damageFlame: 15,
     damageHarvester: 20,
     damageStructure: 20,
+    attackRange: 1.5,
     attackCooldown: 2,
   ),
   water_1(
@@ -64,6 +68,7 @@ enum UnitType {
     damageFlame: 20,
     damageHarvester: 10,
     damageStructure: 10,
+    attackRange: 1.5,
     attackCooldown: 1,
   ),
   water_2(
@@ -77,6 +82,7 @@ enum UnitType {
     damageFlame: 25,
     damageHarvester: 15,
     damageStructure: 15,
+    attackRange: 1.5,
     attackCooldown: 1.5,
   ),
   water_3(
@@ -90,6 +96,7 @@ enum UnitType {
     damageFlame: 30,
     damageHarvester: 20,
     damageStructure: 20,
+    attackRange: 1.5,
     attackCooldown: 2,
   ),
   flame_1(
@@ -103,6 +110,7 @@ enum UnitType {
     damageFlame: 10,
     damageHarvester: 10,
     damageStructure: 10,
+    attackRange: 1.5,
     attackCooldown: 1,
   ),
   flame_2(
@@ -116,6 +124,7 @@ enum UnitType {
     damageFlame: 15,
     damageHarvester: 15,
     damageStructure: 15,
+    attackRange: 1.5,
     attackCooldown: 1.5,
   ),
   flame_3(
@@ -129,6 +138,7 @@ enum UnitType {
     damageFlame: 20,
     damageHarvester: 20,
     damageStructure: 20,
+    attackRange: 1.5,
     attackCooldown: 2,
   );
 
@@ -142,6 +152,7 @@ enum UnitType {
   final num damageFlame;
   final num damageHarvester;
   final num damageStructure;
+  final num attackRange;
   final num attackCooldown;
 
   const UnitType({
@@ -155,6 +166,7 @@ enum UnitType {
     required this.damageFlame,
     required this.damageHarvester,
     required this.damageStructure,
+    required this.attackRange,
     required this.attackCooldown,
   });
 
