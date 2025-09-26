@@ -67,8 +67,8 @@ class MatchComponent extends World {
 
     add(
       HeaderComponent(
-        player1: self,
-        player2: opponent,
+        player1: self.isPlayer1 ? self : opponent,
+        player2: self.isPlayer2 ? self : opponent,
         position: Dimensions.headerPosition(
           resolution: resolution,
           isPlayer1: self.isPlayer1,
