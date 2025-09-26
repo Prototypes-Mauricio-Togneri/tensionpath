@@ -2,7 +2,6 @@
 
 - Attack line
 - Attack from far -> move unit closer and then attack
-- Launch missile
 - Attack base
 - Continuous popcap
 - Harvester logic

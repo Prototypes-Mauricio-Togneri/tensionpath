@@ -97,6 +97,17 @@ class Match {
 
       final bool sendUpdate = battlefield.update(dt);
 
+      if (battlefield.missile.isFullyCharged) {
+        for (final Player player in players) {
+          if (player.id != battlefield.missile.owner) {
+            player.removeHealth(player.baseMaxHealth / 2);
+            break;
+          }
+        }
+
+        battlefield.missile.resetCharge();
+      }
+
       for (final Player player in players) {
         player.addResources(player.resourcesRate * dt);
       }

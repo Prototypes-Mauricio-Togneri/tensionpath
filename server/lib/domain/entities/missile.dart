@@ -25,6 +25,10 @@ class Missile {
     required this.platforms,
   });
 
+  bool get isFullyCharged => chargeCurrent >= chargeMax;
+
+  void resetCharge() => chargeCurrent = 0;
+
   bool update(double dt) {
     final String? previousOwner = owner;
 

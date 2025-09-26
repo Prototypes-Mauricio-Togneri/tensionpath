@@ -33,6 +33,14 @@ class Player {
     }
   }
 
+  void removeHealth(num amount) {
+    baseHealth -= amount;
+    
+    if (baseHealth < 0) {
+      baseHealth = 0;
+    }
+  }
+
   void addResources(num amount) {
     resources += amount;
   }
