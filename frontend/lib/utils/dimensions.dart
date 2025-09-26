@@ -3,6 +3,7 @@ import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 
 class Dimensions {
@@ -177,8 +178,20 @@ class Dimensions {
     return fromCenter.length < (size.x * 0.5);
   }
 
-  static Vector2 fpsPosition(Viewport viewport) => Vector2(
-    viewport.size.x - (viewport.size.x * 0.06),
-    viewport.size.y - (viewport.size.y * 0.05),
-  );
+  static Vector2 fpsPosition({
+    required Player self,
+    required Viewport viewport,
+  }) {
+    if (self.isPlayer1) {
+      return Vector2(
+        viewport.size.x - (viewport.size.x * 0.06),
+        viewport.size.y - (viewport.size.y * 0.05),
+      );
+    } else {
+      return Vector2(
+        viewport.size.x * 0.01,
+        viewport.size.y - (viewport.size.y * 0.05),
+      );
+    }
+  }
 }
