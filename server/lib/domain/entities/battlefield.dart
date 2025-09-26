@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -19,7 +20,7 @@ class Battlefield {
   final Missile missile;
   final IterableMap<String, Resources> resources;
   final IterableMap<String, Launcher> launchers;
-  final IterableMap<String, Unit> units;
+  final Units units;
   final Nodes nodes;
 
   const Battlefield({
@@ -54,6 +55,7 @@ class Battlefield {
   }) {
     final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
+      units: units,
       id: Unit.newId,
       player: player,
       type: type,
@@ -62,7 +64,7 @@ class Battlefield {
       position: node.position,
       maxHealth: type.health,
     );
-    units.add(unit.id, unit);
+    units.add(unit);
   }
 
   void moveUnit({
@@ -113,7 +115,7 @@ class Battlefield {
       ),
       launchers: Launcher.list(json.launchers),
       nodes: nodes,
-      units: IterableMap(),
+      units: Units(),
     );
   }
 

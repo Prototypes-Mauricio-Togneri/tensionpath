@@ -2,12 +2,14 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:uuid/uuid.dart';
 
 class Unit {
+  final Units units;
   final String id;
   final Player player;
   final UnitType type;
@@ -22,6 +24,7 @@ class Unit {
   Unit? targetUnit;
 
   Unit({
+    required this.units,
     required this.id,
     required this.player,
     required this.type,
@@ -114,14 +117,13 @@ class Unit {
         lockedNode!.lock(this);
       }
     } else {
-      if (targetUnit == null) {
-        // TODO(momo): assign closest enemy unit in range
-      }
+      // Assign the closest enemy there is not one assigned
+      targetUnit ??= units.closestEnemyUnit(this);
 
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
         final num distanceToTarget = distanceTo(targetUnit!);
 
-        if (distanceToTarget < type.attackRange) {
+        if (isInAttackRange(distanceToTarget)) {
           currentAttackCooldown -= dt;
 
           if (currentAttackCooldown <= 0) {
@@ -141,6 +143,8 @@ class Unit {
 
     return result;
   }
+
+  bool isInAttackRange(num distance) => distance < (radius * type.attackRange);
 
   num distanceTo(Unit unit) => position.distanceTo(unit.position) - unit.radius;
 
