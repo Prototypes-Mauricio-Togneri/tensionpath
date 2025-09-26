@@ -244,6 +244,7 @@ class UnitComponent extends PositionComponent
     lockedNode?.unlock();
     movementOrderComponent.removeFromParent();
     movementCurrentComponent.removeFromParent();
+    attackPathComponent.removeFromParent();
     removeFromParent();
   }
 }

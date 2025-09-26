@@ -113,20 +113,28 @@ class Unit {
         lockedNode!.lock(this);
       }
     } else {
+      if (targetUnit != null && !targetUnit!.isAlive) {
+        targetUnit = null;
+      }
+
       // Assign the closest enemy in range if there is not one assigned
       targetUnit ??= units.closestUnitInRange(this);
 
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
         final num distanceToTarget = distanceTo(targetUnit!);
 
-        if (isInAttackRange(distanceToTarget) && (currentAttackCooldown <= 0)) {
-          final num damage = type.damageAgainst(targetUnit!.type);
-          currentAttackCooldown = type.attackCooldown;
-          targetUnit!.hit(damage);
-          result = true;
-          print(
-            'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
-          );
+        if (isInAttackRange(distanceToTarget)) {
+          if (currentAttackCooldown <= 0) {
+            final num damage = type.damageAgainst(targetUnit!.type);
+            currentAttackCooldown = type.attackCooldown;
+            targetUnit!.hit(damage);
+            result = true;
+            print(
+              'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
+            );
+          }
+        } else {
+          targetUnit = null;
         }
       }
     }
