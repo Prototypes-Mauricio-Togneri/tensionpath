@@ -59,7 +59,9 @@ class Unit {
   }
 
   void attack(Unit target) {
-    targetUnit = target;
+    if (target.isAlive) {
+      targetUnit = target;
+    }
   }
 
   bool update({
@@ -123,22 +125,19 @@ class Unit {
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
         final num distanceToTarget = distanceTo(targetUnit!);
 
-        if (isInAttackRange(distanceToTarget)) {
-          currentAttackCooldown -= dt;
-
-          if (currentAttackCooldown <= 0) {
-            final num damage = type.damageAgainst(targetUnit!.type.clazz);
-            currentAttackCooldown = type.attackCooldown;
-            targetUnit!.hit(damage);
-            result = true;
-            print(
-              'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
-            );
-          }
+        if (isInAttackRange(distanceToTarget) && (currentAttackCooldown <= 0)) {
+          final num damage = type.damageAgainst(targetUnit!.type);
+          currentAttackCooldown = type.attackCooldown;
+          targetUnit!.hit(damage);
+          result = true;
+          print(
+            'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
+          );
         }
       }
     }
 
+    currentAttackCooldown -= dt;
     closestNode = nodes.atPosition(position);
 
     return result;

@@ -16,7 +16,7 @@ class Units {
     Unit? result;
     num closestDistance = double.infinity;
     final List<Unit> enemyUnits = _units.list
-        .where((u) => u.player != unit.player)
+        .where((u) => (u.player != unit.player) && u.isAlive)
         .toList();
 
     for (final Unit enemyUnit in enemyUnits) {

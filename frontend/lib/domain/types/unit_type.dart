@@ -170,8 +170,8 @@ enum UnitType {
     required this.attackCooldown,
   });
 
-  num damageAgainst(UnitClass unitClass) {
-    switch (unitClass) {
+  num damageAgainst(UnitType unitType) {
+    switch (unitType.clazz) {
       case UnitClass.plant:
         return damagePlant;
       case UnitClass.water:
