@@ -69,7 +69,10 @@ class Unit {
     bool result = false;
 
     if (isMoving) {
-      targetUnit = null;
+      if (targetUnit != null) {
+        targetUnit = null;
+        result = true;
+      }
 
       print('--------------------------------------------\nMoving unit $id');
 
@@ -115,10 +118,14 @@ class Unit {
     } else {
       if (targetUnit != null && !targetUnit!.isAlive) {
         targetUnit = null;
+        result = true;
       }
 
       // Assign the closest enemy in range if there is not one assigned
-      targetUnit ??= units.closestUnitInRange(this);
+      if (targetUnit == null) {
+        targetUnit = units.closestUnitInRange(this);
+        result = true;
+      }
 
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
         final num distanceToTarget = distanceTo(targetUnit!);
@@ -135,6 +142,7 @@ class Unit {
           }
         } else {
           targetUnit = null;
+          result = true;
         }
       }
     }
