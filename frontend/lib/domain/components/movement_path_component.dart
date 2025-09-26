@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -13,10 +12,10 @@ class MovementPathComponent extends Component {
 
   MovementPathComponent({
     required Color color,
-    required double width,
-  }) : super(priority: Priority.node.value) {
+    required double thickness,
+  }) {
     targetPaint.color = color;
-    targetPaint.strokeWidth = width;
+    targetPaint.strokeWidth = thickness;
   }
 
   void show({

@@ -96,13 +96,13 @@ class UnitComponent extends PositionComponent
 
     movementOrderComponent = MovementPathComponent(
       color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
-      width: size.x / 30,
+      thickness: size.x / 30,
     );
     match.add(movementOrderComponent);
 
     movementCurrentComponent = MovementPathComponent(
       color: Palette.PATH_MOVEMENT_ORDER,
-      width: size.x / 30,
+      thickness: size.x / 30,
     );
     match.add(movementCurrentComponent);
 
