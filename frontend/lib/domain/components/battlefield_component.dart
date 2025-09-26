@@ -258,6 +258,11 @@ class BattlefieldComponent extends PositionComponent {
       unitComponents: unitComponents,
     );
 
+    _removeDestroyedUnits(
+      units: units,
+      unitComponents: unitComponents,
+    );
+
     _updateNodes();
 
     _updateResources(resources);
@@ -324,19 +329,31 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
+  void _removeDestroyedUnits({
+    required Map<String, UnitUpdate> units,
+    required List<UnitComponent> unitComponents,
+  }) {
+    final List<UnitComponent> destroyedUnits = [];
+
+    for (final UnitComponent unitComponent in unitComponents) {
+      if (!units.containsKey(unitComponent.id)) {
+        destroyedUnits.add(unitComponent);
+      }
+    }
+
+    for (final UnitComponent unitComponent in destroyedUnits) {
+      unitComponent.destroy();
+      unitComponents.remove(unitComponent);
+    }
+  }
+
   void _updateNodes() {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      for (final UnitComponent unitComponent in unitComponents) {
-        final NodeComponent? lockedNodeComponent = unitComponent.lockedNode;
+      nodeComponent.unlock();
+    }
 
-        if ((lockedNodeComponent != null) &&
-            (lockedNodeComponent == nodeComponent)) {
-          nodeComponent.lock(unitComponent);
-          break;
-        } else {
-          nodeComponent.unlock();
-        }
-      }
+    for (final UnitComponent unitComponent in unitComponents) {
+      unitComponent.lockedNode?.lock(unitComponent);
     }
   }
 

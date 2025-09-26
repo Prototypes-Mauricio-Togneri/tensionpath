@@ -214,6 +214,13 @@ class UnitComponent extends PositionComponent
       );
     }
   }
+
+  void destroy() {
+    lockedNode?.unlock();
+    movementOrderComponent.removeFromParent();
+    movementCurrentComponent.removeFromParent();
+    removeFromParent();
+  }
 }
 
 class UnitImageComponent extends SpriteComponent {
