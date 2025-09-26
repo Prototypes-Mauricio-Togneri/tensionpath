@@ -152,8 +152,13 @@ class UnitComponent extends PositionComponent
 
     if (player.isSelf) {
       final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
+      final int? distance = unitComponent?.closestNodeComponent.location
+          .distanceTo(closestNodeComponent.location);
 
-      if ((unitComponent != null) && unitComponent.isRevealed) {
+      if ((unitComponent != null) &&
+          unitComponent.isRevealed &&
+          (distance != null) &&
+          (distance <= 1)) {
         match.onAttackUnit(
           attackerUnitComponent: this,
           defenderUnitComponent: unitComponent,

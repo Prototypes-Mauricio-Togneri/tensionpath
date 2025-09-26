@@ -8,6 +8,16 @@ class Location {
 
   String get id => '$x,$y';
 
+  int distanceTo(Location other) {
+    final num distance =
+        ((x - other.x).abs() +
+            (x + y - other.x - other.y).abs() +
+            (y - other.y).abs()) /
+        2;
+
+    return distance.toInt();
+  }
+
   factory Location.fromJson(JsonLocation json) => Location(
     x: json.x,
     y: json.y,
