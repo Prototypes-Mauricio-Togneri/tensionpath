@@ -92,6 +92,22 @@ class Match {
     _sendMatchUpdate();
   }
 
+  void unitAction({
+    required String playerIndex,
+    required String unitId,
+    required Location? targetLocation,
+    required String? targetUnitId,
+  }) {
+    final Player player = players.get(playerIndex);
+    battlefield.unitAction(
+      player: player,
+      unitId: unitId,
+      targetLocation: targetLocation,
+      targetUnitId: targetUnitId,
+    );
+    _sendMatchUpdate();
+  }
+
   void update(double dt) {
     if (status == MatchStatus.playing) {
       bool sendUpdate = battlefield.update(dt);

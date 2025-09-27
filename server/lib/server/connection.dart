@@ -135,6 +135,23 @@ class Connection {
     );
   }
 
+  void unitAction({
+    required WebSocket socket,
+    required String unitId,
+    required JsonLocation? targetLocation,
+    required String? targetUnitId,
+  }) {
+    final Participant participant = participantBySocket(socket);
+    _match?.unitAction(
+      playerIndex: participant.playerIndex,
+      unitId: unitId,
+      targetLocation: targetLocation != null
+          ? Location.fromJson(targetLocation)
+          : null,
+      targetUnitId: targetUnitId,
+    );
+  }
+
   Participant participantBySocket(WebSocket socket) {
     for (final Participant participant in participants.values) {
       if (participant.hasSocket(socket)) {

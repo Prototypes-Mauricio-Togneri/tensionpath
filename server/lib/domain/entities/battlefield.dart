@@ -103,6 +103,39 @@ class Battlefield {
     }
   }
 
+  void unitAction({
+    required Player player,
+    required String unitId,
+    required Location? targetLocation,
+    required String? targetUnitId,
+  }) {
+    if ((targetLocation == null) && targetUnitId == null) {
+      throw Exception('Either targetLocation or targetUnitId must be provided');
+    }
+
+    final Unit attackerUnit = units.get(unitId);
+    final Unit? defenderUnit = targetUnitId != null
+        ? units.get(targetUnitId)
+        : null;
+    final Location location =
+        targetLocation ??
+        defenderUnit!.lockedNode?.location ??
+        defenderUnit!.closestNode.location;
+    final Node targetNode = nodes.atLocation(location);
+
+    attackerUnit.move(targetNode);
+
+    /*if (attackerUnit.isAlive &&
+        (defenderUnit?.isAlive ?? false) &&
+        (attackerUnit.player == player)) {
+      attackerUnit.attack(defenderUnit);
+    } else {
+      throw Exception(
+        'Unit $attackerUnit does not belong to player ${player.index}',
+      );
+    }*/
+  }
+
   factory Battlefield.fromJson(JsonBattlefieldStart json) {
     final Nodes nodes = Node.load(json.nodes);
 

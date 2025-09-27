@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/server/dispatcher.dart';
@@ -36,6 +37,11 @@ class Handler {
         );
       } else if (message is JsonAttackUnit) {
         dispatcher.attackUnit(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonUnitAction) {
+        dispatcher.unitAction(
           json: message,
           socket: socket,
         );

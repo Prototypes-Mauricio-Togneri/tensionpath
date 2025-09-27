@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_finish.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
@@ -32,6 +33,9 @@ class JsonMessage {
   @JsonKey(name: 'attackUnit')
   final JsonAttackUnit? attackUnit;
 
+  @JsonKey(name: 'action')
+  final JsonUnitAction? action;
+
   // =========================== SERVER -> CLIENT =========================== \\
 
   @JsonKey(name: 'welcome')
@@ -55,6 +59,7 @@ class JsonMessage {
     this.deploy,
     this.move,
     this.attackUnit,
+    this.action,
 
     // Server -> Client
     this.welcome,
@@ -73,6 +78,8 @@ class JsonMessage {
       return move;
     } else if (attackUnit != null) {
       return attackUnit;
+    } else if (action != null) {
+      return action;
     } else if (welcome != null) {
       return welcome;
     } else if (start != null) {

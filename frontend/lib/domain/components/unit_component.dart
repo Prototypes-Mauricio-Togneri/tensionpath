@@ -151,12 +151,11 @@ class UnitComponent extends PositionComponent
           defenderUnitComponent: unitComponent,
         );
       } else {
-        // revealed empty -> YES (DIRECT)
-        // revealed with enemy -> YES (RE-ASSIGN)
-        // revealed with own -> NO
-        // not revealed empty -> YES (DIRECT)
-        // not revealed with enemy -> YES (DIRECT)
-        // enemy base -> YES (RE-ASSIGN)
+        // revealed with own -> (DIRECT) [location]
+        // revealed empty -> (DIRECT) [location]
+        // revealed with enemy -> (RE-ASSIGN) [unit]
+        // not revealed -> (DIRECT) [location]
+        // enemy base -> (DIRECT) [location]
         final NodeComponent? nodeComponent = match.getNodeAt(
           nodeTypes: NodeType.canMove,
           position: endPosition!,
