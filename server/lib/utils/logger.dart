@@ -1,23 +1,29 @@
 import 'dart:io';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
-import 'package:tensionpath/utils/constants.dart';
+import 'package:tensionpath/server/environment.dart';
 
 class Logger {
+  static late final Environment environment;
+
+  static void initialize(Environment environment) {
+    Logger.environment = environment;
+  }
+
   static void log(WebSocket socket, String text) {
-    if (Constants.LOGS_ENABLED) {
-      print('[${socket.id} ${DateTime.now()}] $text');
-    }
+    print('[${socket.id} ${DateTime.now()}] $text');
   }
 
   static void info(String text) {
-    if (Constants.LOGS_ENABLED) {
+    print('[${DateTime.now()}] $text');
+  }
+
+  static void debug(String text) {
+    if (environment.isLocal) {
       print('[${DateTime.now()}] $text');
     }
   }
 
   static void error(WebSocket socket, Object error) {
-    if (Constants.LOGS_ENABLED) {
-      print('[${socket.id} ${DateTime.now()}] Error: $error');
-    }
+    print('[${socket.id} ${DateTime.now()}] Error: $error');
   }
 }

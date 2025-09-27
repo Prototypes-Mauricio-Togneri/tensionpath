@@ -8,14 +8,15 @@ import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
+import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
+import 'package:tensionpath/utils/logger.dart';
 
 class Match {
   final Connection connection;
   final DateTime createdAt;
   final Battlefield battlefield;
   final IterableMap<String, Player> players;
-  num totalTime = 0;
   MatchStatus status;
 
   Match._({
@@ -93,15 +94,13 @@ class Match {
 
   void update(double dt) {
     if (status == MatchStatus.playing) {
-      totalTime += dt;
-
       final bool sendUpdate = battlefield.update(dt);
 
       if (battlefield.missile.isFullyCharged) {
         for (final Player player in players) {
           if (player.id != battlefield.missile.owner) {
             player.removeHealth(player.baseMaxHealth / 2);
-            print('Missile launched to ${player.id}');
+            Logger.info('Missile launched to ${player.id}');
             break;
           }
         }
@@ -120,6 +119,14 @@ class Match {
   }
 
   void _sendMatchUpdate() {
+    final String? winner = _winner;
+
+    if (winner != null) {
+      status = MatchStatus.finished;
+      connection.broadcast(JsonMessage.finish(winner));
+      return;
+    }
+
     battlefield.updateMissile();
 
     final Map<String, JsonPlayerUpdate> playersUpdate = {
@@ -134,6 +141,21 @@ class Match {
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
+  }
+
+  String? get _winner {
+    final Player player1 = players.get(Constants.PLAYER_1);
+    final Player player2 = players.get(Constants.PLAYER_2);
+
+    if (!player2.isAlive && player1.isAlive) {
+      Logger.info('Player 1 wins!');
+      return player1.id;
+    } else if (!player1.isAlive && player2.isAlive) {
+      Logger.info('Player 2 wins!');
+      return player2.id;
+    } else {
+      return null;
+    }
   }
 
   JsonMatchStart toJson(String selfId) => JsonMatchStart(

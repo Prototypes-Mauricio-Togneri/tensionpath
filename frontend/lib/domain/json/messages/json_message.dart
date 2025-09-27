@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_finish.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
@@ -42,6 +43,9 @@ class JsonMessage {
   @JsonKey(name: 'update')
   final JsonUpdate? update;
 
+  @JsonKey(name: 'finish')
+  final JsonFinish? finish;
+
   @JsonKey(name: 'error')
   final JsonError? error;
 
@@ -56,6 +60,7 @@ class JsonMessage {
     this.welcome,
     this.start,
     this.update,
+    this.finish,
     this.error,
   });
 
@@ -74,6 +79,8 @@ class JsonMessage {
       return start;
     } else if (update != null) {
       return update;
+    } else if (finish != null) {
+      return finish;
     } else if (error != null) {
       return error;
     } else {
@@ -140,6 +147,10 @@ class JsonMessage {
 
   factory JsonMessage.update(JsonMatchUpdate match) => JsonMessage(
     update: JsonUpdate(match: match),
+  );
+
+  factory JsonMessage.finish(String winner) => JsonMessage(
+    finish: JsonFinish(winner: winner),
   );
 
   factory JsonMessage.error(String message) => JsonMessage(

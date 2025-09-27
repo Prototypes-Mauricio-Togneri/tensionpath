@@ -42,6 +42,10 @@ JsonMessage _$JsonMessageFromJson(
       'update',
       (v) => v == null ? null : JsonUpdate.fromJson(v as Map<String, dynamic>),
     ),
+    finish: $checkedConvert(
+      'finish',
+      (v) => v == null ? null : JsonFinish.fromJson(v as Map<String, dynamic>),
+    ),
     error: $checkedConvert(
       'error',
       (v) => v == null ? null : JsonError.fromJson(v as Map<String, dynamic>),
@@ -59,5 +63,6 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
       'welcome': ?instance.welcome?.toJson(),
       'start': ?instance.start?.toJson(),
       'update': ?instance.update?.toJson(),
+      'finish': ?instance.finish?.toJson(),
       'error': ?instance.error?.toJson(),
     };

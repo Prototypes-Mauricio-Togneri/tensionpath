@@ -1,7 +1,7 @@
 # TODO
 
-- Attack base
 - Send message when a match is over
+- Attack base
 - Drag the entire unit card, not just the unit sprite
 - Continuous popcap
 - Harvester logic

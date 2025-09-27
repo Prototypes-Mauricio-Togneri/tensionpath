@@ -23,6 +23,8 @@ class Player {
     required this.resourcesRateBase,
   });
 
+  bool get isAlive => baseHealth > 0;
+
   void increaseResourcesRate() {
     resourcesRate += resourcesRateBase;
   }
@@ -35,7 +37,7 @@ class Player {
 
   void removeHealth(num amount) {
     baseHealth -= amount;
-    
+
     if (baseHealth < 0) {
       baseHealth = 0;
     }

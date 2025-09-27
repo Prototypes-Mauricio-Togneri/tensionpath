@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/utils/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Unit {
@@ -74,7 +75,7 @@ class Unit {
         result = true;
       }
 
-      print('--------------------------------------------\nMoving unit $id');
+      Logger.debug('----------------------------------------\nMoving unit $id');
 
       // Update position
       position = position.moveTowards(
@@ -83,12 +84,16 @@ class Unit {
       );
 
       final num distanceToTarget = position.distanceTo(targetNode!.position);
-      print('Unit target ${targetNode!.location.id} / ${targetNode!.position}');
-      print('New unit position $position');
-      print('Remaining distance: $distanceToTarget');
+      Logger.debug(
+        'Unit target ${targetNode!.location.id} / ${targetNode!.position}',
+      );
+      Logger.debug('New unit position $position');
+      Logger.debug('Remaining distance: $distanceToTarget');
 
       if (distanceToTarget < 0.5) {
-        print('Unit $id has arrived to the target node ${targetNode!.id}');
+        Logger.debug(
+          'Unit $id has arrived to the target node ${targetNode!.id}',
+        );
         position = targetNode!.position;
         lockedNode = targetNode;
         lockedNode!.lock(this);
@@ -105,13 +110,13 @@ class Unit {
         targetNode = nodes.closestFreeNode(position);
         result = true;
 
-        print(
+        Logger.debug(
           'Unit target node was re-assigned to ${targetNode!.id}',
         );
       } else if ((lockedNode == null) &&
           (distanceToTarget < radius) &&
           targetNode!.isFree) {
-        print('Unit $id has locked the target node ${targetNode!.id}');
+        Logger.debug('Unit $id has locked the target node ${targetNode!.id}');
         lockedNode = targetNode;
         lockedNode!.lock(this);
       }
@@ -127,7 +132,7 @@ class Unit {
 
         if (targetUnit != null) {
           result = true;
-          print('Unit $id has re-targeted to ${targetUnit!.id}');
+          Logger.debug('Unit $id has re-targeted to ${targetUnit!.id}');
         }
       }
 
@@ -140,7 +145,7 @@ class Unit {
             currentAttackCooldown = type.attackCooldown;
             targetUnit!.hit(damage);
             result = true;
-            print(
+            Logger.debug(
               'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
             );
           }
@@ -181,7 +186,7 @@ class Unit {
     targetUnit = null;
     health = 0;
 
-    print('Unit $id has been destroyed');
+    Logger.debug('Unit $id has been destroyed');
   }
 
   JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(

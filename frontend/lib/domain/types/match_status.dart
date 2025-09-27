@@ -1,4 +1,4 @@
 enum MatchStatus {
-  active,
+  playing,
   finished,
 }
