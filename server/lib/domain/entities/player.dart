@@ -56,18 +56,16 @@ class Player {
     }
   }
 
-  factory Player.fromJson(JsonPlayerStart json) {
-    return Player(
-      id: json.id,
-      name: json.name,
-      index: json.index,
-      baseMaxHealth: json.baseMaxHealth,
-      baseHealth: json.baseHealth,
-      resources: json.resources,
-      resourcesRate: json.resourcesRateBase,
-      resourcesRateBase: json.resourcesRateBase,
-    );
-  }
+  factory Player.fromJson(JsonPlayerStart json) => Player(
+    id: json.id,
+    name: json.name,
+    index: json.index,
+    baseMaxHealth: json.baseMaxHealth,
+    baseHealth: json.baseHealth,
+    resources: json.resources,
+    resourcesRate: json.resourcesRateBase,
+    resourcesRateBase: json.resourcesRateBase,
+  );
 
   static IterableMap<String, Player> list(List<JsonPlayerStart> json) {
     final IterableMap<String, Player> result = IterableMap();
