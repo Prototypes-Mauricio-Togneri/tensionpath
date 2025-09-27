@@ -38,10 +38,7 @@ class Battlefield {
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
-        result |= unit.update(
-          dt: dt,
-          nodes: nodes,
-        );
+        result |= unit.update(dt);
       }
     }
 
@@ -59,6 +56,7 @@ class Battlefield {
   }) {
     final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
+      nodes: nodes,
       units: units,
       id: Unit.newId,
       player: player,

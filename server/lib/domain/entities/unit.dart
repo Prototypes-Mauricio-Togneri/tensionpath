@@ -10,6 +10,7 @@ import 'package:tensionpath/utils/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Unit {
+  final Nodes nodes;
   final Units units;
   final String id;
   final Player player;
@@ -25,6 +26,7 @@ class Unit {
   Unit? targetUnit;
 
   Unit({
+    required this.nodes,
     required this.units,
     required this.id,
     required this.player,
@@ -63,10 +65,7 @@ class Unit {
     targetUnit = target;
   }
 
-  bool update({
-    required double dt,
-    required Nodes nodes,
-  }) {
+  bool update(double dt) {
     bool result = false;
 
     if (isMoving) {
