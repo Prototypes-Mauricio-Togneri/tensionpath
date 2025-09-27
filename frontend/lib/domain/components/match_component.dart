@@ -170,13 +170,6 @@ class MatchComponent extends World {
     throw Exception('Node not found');
   }
 
-  void highlightActionNodeAt(Vector2 position) {
-    unhighlightNodes();
-
-    final NodeComponent? nodeComponent = getActionNodeAt(position);
-    nodeComponent?.highlight(true);
-  }
-
   void highlightLauncherAt({
     required Vector2 position,
     required Player player,
@@ -192,6 +185,13 @@ class MatchComponent extends World {
         (launcherComponent.nodeComponent.isFree)) {
       launcherComponent.nodeComponent.highlight(true);
     }
+  }
+
+  void highlightActionNodeAt(Vector2 position) {
+    unhighlightNodes();
+
+    final NodeComponent? nodeComponent = getActionNodeAt(position);
+    nodeComponent?.highlight(true);
   }
 
   void unhighlightNodes() {
