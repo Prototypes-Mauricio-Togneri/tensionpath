@@ -94,18 +94,11 @@ class Match {
 
   void update(double dt) {
     if (status == MatchStatus.playing) {
-      final bool sendUpdate = battlefield.update(dt);
+      bool sendUpdate = battlefield.update(dt);
 
       if (battlefield.missile.isFullyCharged) {
-        for (final Player player in players) {
-          if (player.index != battlefield.missile.owner) {
-            player.removeHealth(player.baseMaxHealth / 2);
-            Logger.info('Missile launched to ${player.index}');
-            break;
-          }
-        }
-
-        battlefield.missile.resetCharge();
+        _fireMissile();
+        sendUpdate = true;
       }
 
       for (final Player player in players) {
@@ -116,6 +109,18 @@ class Match {
         _sendMatchUpdate();
       }
     }
+  }
+
+  void _fireMissile() {
+    for (final Player player in players) {
+      if (player.index != battlefield.missile.owner) {
+        player.removeHealth(player.baseMaxHealth / 2);
+        Logger.info('Missile launched to ${player.index}');
+        break;
+      }
+    }
+
+    battlefield.missile.resetCharge();
   }
 
   void _sendMatchUpdate() {
