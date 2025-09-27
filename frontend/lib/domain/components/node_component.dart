@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -39,6 +40,9 @@ class NodeComponent extends PositionComponent {
        );
 
   bool get isFree => lockedUnit == null;
+
+  bool containsEnemyUnit(Player player) =>
+      (lockedUnit != null) && (lockedUnit!.player != player);
 
   void lock(UnitComponent unit) {
     lockedUnit = unit;

@@ -157,7 +157,8 @@ class UnitComponent extends PositionComponent
         );
 
         if ((nodeComponent != null) &&
-            (nodeComponent != closestNodeComponent)) {
+            (nodeComponent != closestNodeComponent) &&
+            (nodeComponent.isFree || nodeComponent.containsEnemyUnit(player))) {
           match.onMoveUnit(
             unitComponent: this,
             nodeComponent: nodeComponent,
