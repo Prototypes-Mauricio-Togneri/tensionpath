@@ -136,7 +136,7 @@ class UnitComponent extends PositionComponent
     if (player.isSelf) {
       // revealed with own -> (DIRECT) [location] "OK"
       // revealed empty -> (DIRECT) [location] "OK"
-      // revealed with enemy -> (RE-ASSIGN) [unit]
+      // revealed with enemy -> (RE-ASSIGN) [unit] "OK"
       // not revealed -> (DIRECT) [location] "OK"
       // enemy base -> (DIRECT) [location]
 
