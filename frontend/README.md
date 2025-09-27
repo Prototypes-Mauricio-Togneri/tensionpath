@@ -9,6 +9,7 @@
   - Harvester kill reward
   - New harvester free
 
+- Ramping resources rate and popcap
 - Selecte deck
 
 - Dart compile in Docker
