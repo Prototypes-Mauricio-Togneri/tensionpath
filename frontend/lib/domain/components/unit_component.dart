@@ -26,10 +26,10 @@ class UnitComponent extends PositionComponent
   final Player player;
   late HealthBarComponent healthBarComponent;
   late NodeComponent closestNodeComponent;
-  MovementPathComponent? movementOrderComponent;
-  MovementPathComponent? movementCurrentComponent;
-  AttackPathComponent? attackPathComponent;
-  late final BattlefieldComponent battlefieldComponent;
+  final MovementPathComponent? movementOrderComponent;
+  final MovementPathComponent? movementCurrentComponent;
+  final AttackPathComponent? attackPathComponent;
+  final BattlefieldComponent battlefieldComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
   NodeComponent? lockedNode;
@@ -43,6 +43,10 @@ class UnitComponent extends PositionComponent
     required this.nodeSizeRatio,
     required this.player,
     required this.lockedNode,
+    required this.movementOrderComponent,
+    required this.movementCurrentComponent,
+    required this.attackPathComponent,
+    required this.battlefieldComponent,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,
@@ -74,8 +78,6 @@ class UnitComponent extends PositionComponent
 
   @override
   FutureOr onLoad() async {
-    battlefieldComponent = parent as BattlefieldComponent;
-
     closestNodeComponent = match.getClosestNode(
       nodeTypes: NodeType.values,
       position: absolutePosition,
@@ -98,26 +100,6 @@ class UnitComponent extends PositionComponent
     );
 
     add(healthBarComponent);
-
-    if (player.isSelf) {
-      movementOrderComponent = MovementPathComponent(
-        color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
-        thickness: size.x / 30,
-      );
-      match.add(movementOrderComponent!);
-
-      movementCurrentComponent = MovementPathComponent(
-        color: Palette.PATH_MOVEMENT_ORDER,
-        thickness: size.x / 30,
-      );
-      match.add(movementCurrentComponent!);
-
-      attackPathComponent = AttackPathComponent(
-        color: player.color,
-        thickness: size.x / 30,
-      );
-      match.add(attackPathComponent!);
-    }
 
     return super.onLoad();
   }

@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/attack_path_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
+import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
@@ -315,6 +317,33 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     for (final UnitUpdate unit in newUnits) {
+      final Player player = unit.playerIndex == self.index ? self : opponent;
+      MovementPathComponent? movementOrderComponent;
+      MovementPathComponent? movementCurrentComponent;
+      AttackPathComponent? attackPathComponent;
+
+      if (player.isSelf) {
+        movementOrderComponent = MovementPathComponent(
+          position: mapCenter - absoluteCenter,
+          color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
+          thickness: nodeSize.x / 30,
+        );
+        add(movementOrderComponent);
+
+        movementCurrentComponent = MovementPathComponent(
+          position: mapCenter - absoluteCenter,
+          color: Palette.PATH_MOVEMENT_ORDER,
+          thickness: nodeSize.x / 30,
+        );
+        add(movementCurrentComponent);
+
+        attackPathComponent = AttackPathComponent(
+          color: player.color,
+          thickness: nodeSize.x / 30,
+        );
+        add(attackPathComponent);
+      }
+
       final UnitComponent unitComponent = UnitComponent(
         position: unit.currentPosition.localPosition(
           mapCenter: mapCenter,
@@ -324,10 +353,14 @@ class BattlefieldComponent extends PositionComponent {
         id: unit.id,
         type: unit.type,
         nodeSizeRatio: nodeSizeRatio,
-        player: unit.playerIndex == self.index ? self : opponent,
+        player: player,
         lockedNode: (unit.lockedLocation != null)
             ? match.getNodeById(unit.lockedLocation!.id)
             : null,
+        battlefieldComponent: this,
+        movementOrderComponent: movementOrderComponent,
+        movementCurrentComponent: movementCurrentComponent,
+        attackPathComponent: attackPathComponent,
       );
       add(unitComponent);
       unitComponents.add(unitComponent);

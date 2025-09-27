@@ -124,7 +124,11 @@ class Unit {
       // Assign the closest enemy in range if there is not one assigned
       if (targetUnit == null) {
         targetUnit = units.closestUnitInRange(this);
-        result = true;
+
+        if (targetUnit != null) {
+          result = true;
+          print('Unit $id has re-targeted to ${targetUnit!.id}');
+        }
       }
 
       if ((targetUnit != null) && (targetUnit!.isAlive)) {
