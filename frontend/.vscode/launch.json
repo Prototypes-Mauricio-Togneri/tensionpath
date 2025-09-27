@@ -2,14 +2,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run (LOCAL)",
+            "name": "Run (1P)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main_local.dart",
             "flutterMode": "debug",
             "args": [
                 "--no-web-experimental-hot-reload"
-            ]
+            ],
+            "env": {
+                "JOIN_TEST_MATCH": "true"
+            }
+        },
+        {
+            "name": "Run (2P)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main/main_local.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--no-web-experimental-hot-reload"
+            ],
+            "env": {
+                "JOIN_TEST_MATCH": "false"
+            }
         },
         {
             "name": "Run (REMOTE)",
