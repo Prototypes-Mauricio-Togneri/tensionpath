@@ -157,7 +157,8 @@ class Unit {
     return result;
   }
 
-  bool isInAttackRange(num distance) => distance < (radius * type.attackRange);
+  bool isInAttackRange(num distance) =>
+      distance < (radius * (type.attackRange + 0.5));
 
   num distanceTo(Unit unit) => position.distanceTo(unit.position) - unit.radius;
 
