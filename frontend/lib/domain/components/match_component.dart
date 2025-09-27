@@ -132,7 +132,7 @@ class MatchComponent extends World {
 
     for (final LauncherComponent launcherComponent in launcherComponents) {
       if (launcherComponent.containsPoint(position) &&
-          !launcherComponent.belongsTo(self)) {
+          launcherComponent.belongsTo(opponent)) {
         return launcherComponent.nodeComponent;
       }
     }
