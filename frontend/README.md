@@ -1,10 +1,5 @@
 # TODO
 
-- Move to an unreveled tile -> YES
-- Move to an empty unit -> YES
-- Move to an enemy unit -> YES
-- Move to an own unit -> NO
-
 - Attack base
 - Drag the entire unit card, not just the unit sprite
 - Continuous popcap

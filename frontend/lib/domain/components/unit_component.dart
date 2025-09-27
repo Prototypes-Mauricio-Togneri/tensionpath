@@ -151,6 +151,12 @@ class UnitComponent extends PositionComponent
           defenderUnitComponent: unitComponent,
         );
       } else {
+        // visible empty -> YES (DIRECT)
+        // visible with enemy -> YES (RE-ASSIGN)
+        // visible with own -> NO
+        // invisible empty -> YES (DIRECT)
+        // invisible with enemy -> YES (DIRECT)
+        // enemy base -> YES (RE-ASSIGN)
         final NodeComponent? nodeComponent = match.getNodeAt(
           nodeTypes: NodeType.canMove,
           position: endPosition!,
