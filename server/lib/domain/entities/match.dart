@@ -98,9 +98,9 @@ class Match {
 
       if (battlefield.missile.isFullyCharged) {
         for (final Player player in players) {
-          if (player.id != battlefield.missile.owner) {
+          if (player.index != battlefield.missile.owner) {
             player.removeHealth(player.baseMaxHealth / 2);
-            Logger.info('Missile launched to ${player.id}');
+            Logger.info('Missile launched to ${player.index}');
             break;
           }
         }

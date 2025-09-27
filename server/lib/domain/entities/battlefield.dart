@@ -82,7 +82,7 @@ class Battlefield {
       final Node node = nodes.atLocation(location);
       unit.move(node);
     } else {
-      throw Exception('Unit $unitId does not belong to player ${player.id}');
+      throw Exception('Unit $unitId does not belong to player ${player.index}');
     }
   }
 
@@ -100,7 +100,7 @@ class Battlefield {
       attackerUnit.attack(defenderUnit);
     } else {
       throw Exception(
-        'Unit $attackerUnit does not belong to player ${player.id}',
+        'Unit $attackerUnit does not belong to player ${player.index}',
       );
     }
   }

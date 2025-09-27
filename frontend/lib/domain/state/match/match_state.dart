@@ -57,13 +57,6 @@ class MatchState extends BaseState {
         _onFinish(json.winner);
       }
     }
-
-    // TODO(momo): for when the match ends
-    /*if (match.selfWon) {
-      onMatchFinished(true);
-    } else if (match.opponentWon) {
-      onMatchFinished(false);
-    }*/
   }
 
   void _onWelcome() => connection.send(
@@ -84,9 +77,9 @@ class MatchState extends BaseState {
   void _onUpdate(MatchUpdate update) =>
       MatchComponentRef.instance.onMatchUpdated(update);
 
-  void _onFinish(String winner) {
+  void _onFinish(String winnerId) {
     matchStatus = MatchStatus.finished;
-    Delayed.post(() => onMatchFinished(winner == selfId));
+    Delayed.post(() => onMatchFinished(winnerId == selfId));
   }
 
   void _onDisconnected() => InfoDialog.error(
