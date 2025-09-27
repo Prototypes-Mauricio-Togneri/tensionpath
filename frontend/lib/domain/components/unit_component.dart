@@ -53,10 +53,7 @@ class UnitComponent extends PositionComponent
        );
 
   bool get isAlive =>
-      (healthBarComponent.health > 0) &&
-      !targetUnit!.isRemoving &&
-      !targetUnit!.isRemoved &&
-      targetUnit!.isMounted;
+      (healthBarComponent.health > 0) && !isRemoving && !isRemoved && isMounted;
 
   @override
   bool containsLocalPoint(Vector2 point) => Dimensions.pointInCircle(
