@@ -11,7 +11,6 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/update.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -140,10 +139,7 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent getClosestNodeAt({
-    required List<NodeType> nodeTypes,
-    required Vector2 position,
-  }) {
+  NodeComponent getClosestNodeAt(Vector2 position) {
     NodeComponent? closestNode;
     double closestDistance = double.infinity;
 

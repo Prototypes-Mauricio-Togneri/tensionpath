@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -81,10 +80,7 @@ class UnitComponent extends PositionComponent
 
   @override
   FutureOr onLoad() async {
-    closestNodeComponent = match.getClosestNodeAt(
-      nodeTypes: NodeType.values,
-      position: absolutePosition,
-    );
+    closestNodeComponent = match.getClosestNodeAt(absolutePosition);
 
     add(
       UnitImageComponent(
@@ -212,10 +208,7 @@ class UnitComponent extends PositionComponent
       attackPathComponent?.hide();
     }
 
-    closestNodeComponent = match.getClosestNodeAt(
-      nodeTypes: NodeType.values,
-      position: absolutePosition,
-    );
+    closestNodeComponent = match.getClosestNodeAt(absolutePosition);
 
     isVisible = closestNodeComponent.isRevealed || player.isSelf;
   }
