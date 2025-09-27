@@ -141,34 +141,6 @@ class UnitComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (player.isSelf) {
-      /*final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
-      final int? distance = unitComponent?.closestNodeComponent.location
-          .distanceTo(closestNodeComponent.location);
-
-      if ((unitComponent != null) &&
-          unitComponent.isRevealed &&
-          (distance != null) &&
-          (distance <= 1)) {
-        match.onAttackUnit(
-          attackerUnitComponent: this,
-          defenderUnitComponent: unitComponent,
-        );
-      } else {
-        final NodeComponent? nodeComponent = match.getNodeAt(
-          nodeTypes: NodeType.canMove,
-          position: endPosition!,
-        );
-
-        if ((nodeComponent != null) &&
-            (nodeComponent != closestNodeComponent) &&
-            (nodeComponent.isFree || nodeComponent.containsEnemyUnit(player))) {
-          match.onMoveUnit(
-            unitComponent: this,
-            nodeComponent: nodeComponent,
-          );
-        }
-      }*/
-
       // revealed with own -> (DIRECT) [location] "OK"
       // revealed empty -> (DIRECT) [location] "OK"
       // revealed with enemy -> (RE-ASSIGN) [unit]
