@@ -52,6 +52,12 @@ class UnitComponent extends PositionComponent
          priority: Priority.unit.value,
        );
 
+  bool get isAlive =>
+      (healthBarComponent.health > 0) &&
+      !targetUnit!.isRemoving &&
+      !targetUnit!.isRemoved &&
+      targetUnit!.isMounted;
+
   @override
   bool containsLocalPoint(Vector2 point) => Dimensions.pointInCircle(
     point: point,
@@ -195,7 +201,7 @@ class UnitComponent extends PositionComponent
       movementCurrentComponent?.hide();
     }
 
-    if (targetUnit != null) {
+    if ((targetUnit != null) && targetUnit!.isAlive) {
       attackPathComponent?.show(
         start: absolutePosition,
         end: targetUnit!.absolutePosition,
