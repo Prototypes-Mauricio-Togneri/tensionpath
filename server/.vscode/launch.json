@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run",
+            "name": "Run (1P)",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main.dart",
@@ -10,6 +10,17 @@
                 "foo",
                 "3000",
                 "false"
+            ]
+        },
+        {
+            "name": "Run (2P)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main/main.dart",
+            "args": [
+                "foo",
+                "3000",
+                "true"
             ]
         }
     ]
