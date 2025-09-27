@@ -129,10 +129,7 @@ class UnitComponent extends PositionComponent
         endPosition!.y + event.localDelta.y,
       );
 
-      match.highlightActionNodeAt(
-        player: player,
-        position: endPosition!,
-      );
+      match.highlightActionNodeAt(endPosition!);
     }
   }
 
@@ -156,9 +153,8 @@ class UnitComponent extends PositionComponent
           targetUnitComponent: unitComponent,
         );
       } else {
-        final NodeComponent? nodeComponent = match.getActionNode(
-          player: player,
-          position: endPosition!,
+        final NodeComponent? nodeComponent = match.getActionNodeAt(
+          endPosition!,
         );
 
         if ((nodeComponent != null) &&

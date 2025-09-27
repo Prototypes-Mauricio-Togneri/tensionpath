@@ -123,10 +123,7 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getActionNode({
-    required Player player,
-    required Vector2 position,
-  }) {
+  NodeComponent? getActionNodeAt(Vector2 position) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.containsPoint(position) && nodeComponent.type.canMove) {
         return nodeComponent;
@@ -135,7 +132,7 @@ class MatchComponent extends World {
 
     for (final LauncherComponent launcherComponent in launcherComponents) {
       if (launcherComponent.containsPoint(position) &&
-          !launcherComponent.belongsTo(player)) {
+          !launcherComponent.belongsTo(self)) {
         return launcherComponent.nodeComponent;
       }
     }
@@ -177,17 +174,10 @@ class MatchComponent extends World {
     throw Exception('Node not found');
   }
 
-  void highlightActionNodeAt({
-    required Player player,
-    required Vector2 position,
-  }) {
+  void highlightActionNodeAt(Vector2 position) {
     unhighlightNodes();
 
-    final NodeComponent? nodeComponent = getActionNode(
-      player: player,
-      position: position,
-    );
-
+    final NodeComponent? nodeComponent = getActionNodeAt(position);
     nodeComponent?.highlight(true);
   }
 
