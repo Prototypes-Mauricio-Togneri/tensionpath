@@ -187,11 +187,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     if (enabled) {
       position += event.localDelta;
-
-      match.highlightLauncherAt(
-        position: absolutePosition,
-        player: player,
-      );
+      match.highlightLauncherAt(absolutePosition);
     }
   }
 
@@ -207,7 +203,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
       );
 
       if ((launcherComponent != null) &&
-          (launcherComponent.player == player) &&
+          (launcherComponent.belongsTo(player)) &&
           (launcherComponent.nodeComponent.isFree)) {
         match.onDeployUnit(
           location: launcherComponent.nodeComponent.location,
