@@ -81,7 +81,7 @@ class UnitComponent extends PositionComponent
 
   @override
   FutureOr onLoad() async {
-    closestNodeComponent = match.getClosestNode(
+    closestNodeComponent = match.getClosestNodeAt(
       nodeTypes: NodeType.values,
       position: absolutePosition,
     );
@@ -212,7 +212,7 @@ class UnitComponent extends PositionComponent
       attackPathComponent?.hide();
     }
 
-    closestNodeComponent = match.getClosestNode(
+    closestNodeComponent = match.getClosestNodeAt(
       nodeTypes: NodeType.values,
       position: absolutePosition,
     );

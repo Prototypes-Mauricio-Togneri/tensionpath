@@ -140,7 +140,7 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent getClosestNode({
+  NodeComponent getClosestNodeAt({
     required List<NodeType> nodeTypes,
     required Vector2 position,
   }) {
