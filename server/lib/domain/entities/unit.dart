@@ -58,7 +58,6 @@ class Unit {
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
-    targetUnit = null;
   }
 
   void attack(Unit target) {
@@ -69,11 +68,6 @@ class Unit {
     bool result = false;
 
     if (isMoving) {
-      if (targetUnit != null) {
-        targetUnit = null;
-        result = true;
-      }
-
       Logger.debug('----------------------------------------\nMoving unit $id');
 
       // Update position
@@ -148,9 +142,6 @@ class Unit {
               'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
             );
           }
-        } else {
-          targetUnit = null;
-          result = true;
         }
       }
     }
