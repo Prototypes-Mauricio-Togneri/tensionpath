@@ -9,6 +9,8 @@
   - Harvester kill reward
   - New harvester free
 
+- Selecte deck
+
 - Dart compile in Docker
 - Add changelog to home screen
 - Choose map
