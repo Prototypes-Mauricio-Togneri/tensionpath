@@ -232,7 +232,10 @@ class UnitComponent extends PositionComponent
       movementCurrentComponent?.hide();
     }
 
-    if ((targetUnit != null) && targetUnit!.isAlive) {
+    if ((targetPosition == null) &&
+        (targetUnit != null) &&
+        targetUnit!.isAlive &&
+        isInAttackRange(targetUnit!)) {
       attackPathComponent?.show(
         start: absolutePosition,
         end: targetUnit!.absolutePosition,
@@ -247,6 +250,14 @@ class UnitComponent extends PositionComponent
     );
 
     isVisible = closestNodeComponent.isRevealed || player.isSelf;
+  }
+
+  bool isInAttackRange(UnitComponent unitComponent) {
+    final double radius = size.x / 2;
+    final double distance =
+        position.distanceTo(unitComponent.position) - radius;
+
+    return distance < (radius * (type.attackRange + 0.5));
   }
 
   @override
