@@ -1,6 +1,5 @@
 # TODO
 
-- Try attack from far
 - Try new path components
 
 - Attack base
