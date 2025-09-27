@@ -114,7 +114,8 @@ class MatchComponent extends World {
   LauncherComponent? getLauncherAt(Vector2 position) {
     for (final LauncherComponent launcherComponent in launcherComponents) {
       if (launcherComponent.containsPoint(position) &&
-          launcherComponent.belongsTo(self)) {
+          launcherComponent.belongsTo(self) &&
+          launcherComponent.nodeComponent.isFree) {
         return launcherComponent;
       }
     }
@@ -174,12 +175,7 @@ class MatchComponent extends World {
     unhighlightNodes();
 
     final LauncherComponent? launcherComponent = getLauncherAt(position);
-
-    if ((launcherComponent != null) &&
-        (launcherComponent.belongsTo(self)) &&
-        (launcherComponent.nodeComponent.isFree)) {
-      launcherComponent.nodeComponent.highlight(true);
-    }
+    launcherComponent?.nodeComponent.highlight(true);
   }
 
   void highlightActionNodeAt(Vector2 position) {
