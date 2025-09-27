@@ -338,7 +338,8 @@ class BattlefieldComponent extends PositionComponent {
         add(movementCurrentComponent);
 
         attackPathComponent = AttackPathComponent(
-          color: player.color,
+          position: mapCenter - absoluteCenter,
+          color: player.color.withAlpha(128),
           thickness: nodeSize.x / 30,
         );
         add(attackPathComponent);

@@ -1,8 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class AttackPathComponent extends Component {
+class AttackPathComponent extends PositionComponent {
   final Paint targetPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
@@ -10,9 +11,10 @@ class AttackPathComponent extends Component {
   Offset? endPosition;
 
   AttackPathComponent({
+    required super.position,
     required Color color,
     required double thickness,
-  }) {
+  }) : super(priority: Priority.path.value) {
     targetPaint.color = color;
     targetPaint.strokeWidth = thickness;
   }
