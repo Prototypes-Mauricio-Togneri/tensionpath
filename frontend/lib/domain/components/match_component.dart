@@ -123,14 +123,20 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getNodeAt({
-    required List<NodeType> nodeTypes,
+  NodeComponent? getActionNode({
+    required Player player,
     required Vector2 position,
   }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) &&
-          nodeTypes.contains(nodeComponent.type)) {
+      if (nodeComponent.containsPoint(position) && nodeComponent.type.canMove) {
         return nodeComponent;
+      }
+    }
+
+    for (final LauncherComponent launcherComponent in launcherComponents) {
+      if (launcherComponent.containsPoint(position) &&
+          !launcherComponent.belongsTo(player)) {
+        return launcherComponent.nodeComponent;
       }
     }
 
@@ -171,17 +177,18 @@ class MatchComponent extends World {
     throw Exception('Node not found');
   }
 
-  void highlightTargetAt(Vector2 position) {
+  void highlightActionNodeAt({
+    required Player player,
+    required Vector2 position,
+  }) {
     unhighlightNodes();
 
-    final NodeComponent? nodeComponent = getNodeAt(
-      nodeTypes: NodeType.canMove,
+    final NodeComponent? nodeComponent = getActionNode(
+      player: player,
       position: position,
     );
 
-    if (nodeComponent != null) {
-      nodeComponent.highlight(true);
-    }
+    nodeComponent?.highlight(true);
   }
 
   void highlightLauncherAt({
@@ -229,6 +236,16 @@ class MatchComponent extends World {
   }) => game.matchState.onAttackUnit(
     attackerUnitId: attackerUnitComponent.id,
     defenderUnitId: defenderUnitComponent.id,
+  );
+
+  void onUnitAction({
+    required UnitComponent unitComponent,
+    required NodeComponent? targetNodeComponent,
+    required UnitComponent? targetUnitComponent,
+  }) => game.matchState.onUnitAction(
+    unitId: unitComponent.id,
+    targetLocation: targetNodeComponent?.location,
+    targetUnitId: targetUnitComponent?.id,
   );
 }
 

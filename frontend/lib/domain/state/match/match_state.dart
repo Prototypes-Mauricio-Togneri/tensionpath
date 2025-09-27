@@ -124,6 +124,19 @@ class MatchState extends BaseState {
     ),
   );
 
+  void onUnitAction({
+    required String unitId,
+    required Location? targetLocation,
+    required String? targetUnitId,
+  }) => connection.send(
+    JsonMessage.unitAction(
+      matchId: matchId,
+      unitId: unitId,
+      targetLocation: targetLocation?.toJson(),
+      targetUnitId: targetUnitId,
+    ),
+  );
+
   void onMatchFinished(bool hasWon) {
     if (hasWon) {
       InfoDialog.won(_onMatchQuit);

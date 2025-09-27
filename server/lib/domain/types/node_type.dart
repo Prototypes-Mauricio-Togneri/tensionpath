@@ -5,9 +5,9 @@ enum NodeType {
   pad,
   missile;
 
-  static List<NodeType> get canMove => [
+  bool get canMove => [
     empty,
     resources,
     pad,
-  ];
+  ].contains(this);
 }

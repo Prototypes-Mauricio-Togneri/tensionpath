@@ -123,7 +123,29 @@ class Battlefield {
         defenderUnit!.closestNode.location;
     final Node targetNode = nodes.atLocation(location);
 
-    attackerUnit.move(targetNode);
+    if (defenderUnit == null) {
+      // Just moving
+      if (attackerUnit.isAlive) {
+        attackerUnit.move(targetNode);
+      } else {
+        throw Exception('Unit $attackerUnit is not alive');
+      }
+    } else {
+      // Attacking
+      if (attackerUnit.isAlive &&
+          defenderUnit.isAlive &&
+          (attackerUnit.player == player)) {
+        final num distanceToTarget = attackerUnit.distanceTo(defenderUnit);
+
+        if (!attackerUnit.isInAttackRange(distanceToTarget)) {
+          attackerUnit.move(targetNode);
+        }
+
+        attackerUnit.attack(defenderUnit);
+      } else {
+        throw Exception('Invalid attack');
+      }
+    }
 
     /*if (attackerUnit.isAlive &&
         (defenderUnit?.isAlive ?? false) &&

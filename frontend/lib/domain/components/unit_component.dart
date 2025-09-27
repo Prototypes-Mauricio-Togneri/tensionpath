@@ -129,7 +129,10 @@ class UnitComponent extends PositionComponent
         endPosition!.y + event.localDelta.y,
       );
 
-      match.highlightTargetAt(endPosition!);
+      match.highlightActionNodeAt(
+        player: player,
+        position: endPosition!,
+      );
     }
   }
 
@@ -138,7 +141,7 @@ class UnitComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (player.isSelf) {
-      final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
+      /*final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
       final int? distance = unitComponent?.closestNodeComponent.location
           .distanceTo(closestNodeComponent.location);
 
@@ -151,11 +154,6 @@ class UnitComponent extends PositionComponent
           defenderUnitComponent: unitComponent,
         );
       } else {
-        // revealed with own -> (DIRECT) [location]
-        // revealed empty -> (DIRECT) [location]
-        // revealed with enemy -> (RE-ASSIGN) [unit]
-        // not revealed -> (DIRECT) [location]
-        // enemy base -> (DIRECT) [location]
         final NodeComponent? nodeComponent = match.getNodeAt(
           nodeTypes: NodeType.canMove,
           position: endPosition!,
@@ -167,6 +165,36 @@ class UnitComponent extends PositionComponent
           match.onMoveUnit(
             unitComponent: this,
             nodeComponent: nodeComponent,
+          );
+        }
+      }*/
+
+      // revealed with own -> (DIRECT) [location] "OK"
+      // revealed empty -> (DIRECT) [location] "OK"
+      // revealed with enemy -> (RE-ASSIGN) [unit]
+      // not revealed -> (DIRECT) [location] "OK"
+      // enemy base -> (DIRECT) [location]
+
+      final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
+
+      if (unitComponent != null) {
+        match.onUnitAction(
+          unitComponent: this,
+          targetNodeComponent: null,
+          targetUnitComponent: unitComponent,
+        );
+      } else {
+        final NodeComponent? nodeComponent = match.getActionNode(
+          player: player,
+          position: endPosition!,
+        );
+
+        if ((nodeComponent != null) &&
+            (nodeComponent != closestNodeComponent)) {
+          match.onUnitAction(
+            unitComponent: this,
+            targetNodeComponent: nodeComponent,
+            targetUnitComponent: null,
           );
         }
       }

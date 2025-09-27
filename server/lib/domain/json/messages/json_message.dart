@@ -144,6 +144,20 @@ class JsonMessage {
     ),
   );
 
+  factory JsonMessage.unitAction({
+    required String matchId,
+    required String unitId,
+    required JsonLocation? targetLocation,
+    required String? targetUnitId,
+  }) => JsonMessage(
+    action: JsonUnitAction(
+      matchId: matchId,
+      unitId: unitId,
+      targetLocation: targetLocation,
+      targetUnitId: targetUnitId,
+    ),
+  );
+
   factory JsonMessage.welcome() => JsonMessage(
     welcome: JsonWelcome(),
   );
