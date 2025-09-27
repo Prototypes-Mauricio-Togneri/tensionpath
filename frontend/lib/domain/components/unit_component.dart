@@ -77,7 +77,7 @@ class UnitComponent extends PositionComponent
     targetUnit = newTargetUnit;
   }
 
-  bool get isRevealed => closestNodeComponent.isVisible;
+  bool get isRevealed => closestNodeComponent.isRevealed;
 
   @override
   FutureOr onLoad() async {
@@ -151,11 +151,11 @@ class UnitComponent extends PositionComponent
           defenderUnitComponent: unitComponent,
         );
       } else {
-        // visible empty -> YES (DIRECT)
-        // visible with enemy -> YES (RE-ASSIGN)
-        // visible with own -> NO
-        // invisible empty -> YES (DIRECT)
-        // invisible with enemy -> YES (DIRECT)
+        // revealed empty -> YES (DIRECT)
+        // revealed with enemy -> YES (RE-ASSIGN)
+        // revealed with own -> NO
+        // not revealed empty -> YES (DIRECT)
+        // not revealed with enemy -> YES (DIRECT)
         // enemy base -> YES (RE-ASSIGN)
         final NodeComponent? nodeComponent = match.getNodeAt(
           nodeTypes: NodeType.canMove,
@@ -219,7 +219,7 @@ class UnitComponent extends PositionComponent
       position: absolutePosition,
     );
 
-    isVisible = closestNodeComponent.isVisible || player.isSelf;
+    isVisible = closestNodeComponent.isRevealed || player.isSelf;
   }
 
   @override

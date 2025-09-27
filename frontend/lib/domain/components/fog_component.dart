@@ -59,34 +59,34 @@ class FogComponent extends PositionComponent {
       fogPaint,
     );
 
-    final Set<Vector2> visibleNodes = {};
+    final Set<Vector2> revealedNodes = {};
 
     for (final NodeComponent nodeComponent in nodeComponents) {
-      nodeComponent.isVisible = false;
+      nodeComponent.isRevealed = false;
     }
 
     for (final LauncherComponent launcherComponent in launcherComponents) {
-      launcherComponent.nodeComponent.visibleNodes(
+      launcherComponent.nodeComponent.revealedNodes(
         visibilityRange: Constants.LAUNCHER_VISIBILITY,
         nodes: nodeComponents,
-        visibleNodes: visibleNodes,
+        revealedNodes: revealedNodes,
       );
     }
 
     for (final UnitComponent unitComponent in unitComponents) {
       if (unitComponent.belongsTo(self)) {
         final NodeComponent closestNode = unitComponent.closestNodeComponent;
-        closestNode.visibleNodes(
+        closestNode.revealedNodes(
           visibilityRange: unitComponent.type.visibility,
           nodes: nodeComponents,
-          visibleNodes: visibleNodes,
+          revealedNodes: revealedNodes,
         );
       }
     }
 
-    for (final Vector2 visibleNode in visibleNodes) {
+    for (final Vector2 revealedNode in revealedNodes) {
       canvas.drawHexagon(
-        center: visibleNode,
+        center: revealedNode,
         size: nodeSize * 1.03,
         fillPaint: clearPaint,
       );

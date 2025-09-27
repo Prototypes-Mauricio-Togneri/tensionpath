@@ -24,7 +24,7 @@ class NodeComponent extends PositionComponent {
     strokeWidth: 5,
     color: Palette.NODE_OCCUPIED,
   );
-  bool isVisible = false;
+  bool isRevealed = false;
   bool isHighlighted = false;
   UnitComponent? lockedUnit;
 
@@ -69,17 +69,17 @@ class NodeComponent extends PositionComponent {
     return distance.toInt();
   }
 
-  void visibleNodes({
+  void revealedNodes({
     required int visibilityRange,
     required List<NodeComponent> nodes,
-    required Set<Vector2> visibleNodes,
+    required Set<Vector2> revealedNodes,
   }) {
-    visibleNodes.add(position);
+    revealedNodes.add(position);
 
     for (final NodeComponent node in nodes) {
       if ((node != this) && (distanceTo(node) <= visibilityRange)) {
-        node.isVisible = true;
-        visibleNodes.add(node.position);
+        node.isRevealed = true;
+        revealedNodes.add(node.position);
       }
     }
   }
