@@ -24,11 +24,14 @@ class MatchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(
-      child: StateProvider<MatchState>(
-        state: state,
-        builder: (context, state) =>
-            state.isLoading ? const Loading() : Content(state),
+    return OnClose(
+      onClose: state.onOpenMenu,
+      child: GameContainer(
+        child: StateProvider<MatchState>(
+          state: state,
+          builder: (context, state) =>
+              state.isLoading ? const Loading() : Content(state),
+        ),
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'package:tensionpath/domain/json/messages/server_client/json_update.dart'
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/presentation/common/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/connection.dart';
 import 'package:tensionpath/utils/navigation.dart';
@@ -146,4 +147,6 @@ class MatchState extends BaseState {
   }
 
   void _onMatchQuit() => Navigation.pop();
+
+  void onOpenMenu() => ConfirmationDialog.quitMatch(_onMatchQuit);
 }

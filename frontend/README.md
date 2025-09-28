@@ -11,6 +11,8 @@
   - Harvester kill reward
   - New harvester free
 
+- New map
+
 ### Phase 2
 
 - Ramping resources rate and popcap

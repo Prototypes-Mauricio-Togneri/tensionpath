@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -97,7 +98,7 @@ class PlayerIndicatorComponent extends PositionComponent {
   }
 }
 
-class CenterIndicatorComponent extends PositionComponent {
+class CenterIndicatorComponent extends PositionComponent with TapCallbacks {
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.HEADER_CENTER_BACKGROUND,
@@ -105,6 +106,12 @@ class CenterIndicatorComponent extends PositionComponent {
 
   CenterIndicatorComponent({required super.position, required super.size})
     : super(anchor: Anchor.topLeft);
+
+  @override
+  bool onTapDown(TapDownEvent event) {
+    game.matchState.onOpenMenu();
+    return true;
+  }
 
   @override
   void render(Canvas canvas) {
