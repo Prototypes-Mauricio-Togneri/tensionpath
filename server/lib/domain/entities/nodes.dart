@@ -37,7 +37,9 @@ class Nodes {
   Node? closestFreeNode(Position position) {
     Node? result;
     num closestDistance = double.infinity;
-    final List<Node> freeNodes = _nodes.list.where((n) => n.isFree).toList();
+    final List<Node> freeNodes = _nodes.list
+        .where((n) => n.isFree && n.type.canMove)
+        .toList();
 
     for (final Node node in freeNodes) {
       final num distance = position.distanceTo(node.position);
