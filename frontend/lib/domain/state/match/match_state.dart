@@ -148,5 +148,10 @@ class MatchState extends BaseState {
 
   void _onMatchQuit() => Navigation.pop();
 
-  void onOpenMenu() => ConfirmationDialog.quitMatch(_onMatchQuit);
+  void onOpenMenu() => ConfirmationDialog.quitMatch(_onSurrender);
+
+  void _onSurrender() {
+    connection.send(JsonMessage.surrenderMatch(matchId: matchId));
+    _onMatchQuit();
+  }
 }

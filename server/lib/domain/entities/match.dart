@@ -108,6 +108,14 @@ class Match {
     _sendMatchUpdate();
   }
 
+  void surrenderMatch(String playerIndex) {
+    final Player player = players.get(playerIndex);
+    player.surrender();
+    status = MatchStatus.finished;
+    Logger.debug('Player ${player.index} surrendered');
+    _sendMatchUpdate();
+  }
+
   void update(double dt) {
     if (status == MatchStatus.playing) {
       bool sendUpdate = battlefield.update(dt);
@@ -131,7 +139,7 @@ class Match {
     for (final Player player in players) {
       if (player.index != battlefield.missile.owner) {
         player.removeHealth(player.baseMaxHealth / 2);
-        Logger.info('Missile launched to ${player.index}');
+        Logger.debug('Missile launched to ${player.index}');
         break;
       }
     }
@@ -169,10 +177,10 @@ class Match {
     final Player player2 = players.get(Constants.PLAYER_2);
 
     if (!player2.isAlive && player1.isAlive) {
-      Logger.info('Player 1 wins!');
+      Logger.debug('Player 1 wins!');
       return player1.id;
     } else if (!player1.isAlive && player2.isAlive) {
-      Logger.info('Player 2 wins!');
+      Logger.debug('Player 2 wins!');
       return player2.id;
     } else {
       return null;

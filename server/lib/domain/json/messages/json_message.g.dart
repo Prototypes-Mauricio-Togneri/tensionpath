@@ -35,6 +35,12 @@ JsonMessage _$JsonMessageFromJson(
       (v) =>
           v == null ? null : JsonUnitAction.fromJson(v as Map<String, dynamic>),
     ),
+    surrender: $checkedConvert(
+      'surrender',
+      (v) => v == null
+          ? null
+          : JsonSurrenderMatch.fromJson(v as Map<String, dynamic>),
+    ),
     welcome: $checkedConvert(
       'welcome',
       (v) => v == null ? null : JsonWelcome.fromJson(v as Map<String, dynamic>),
@@ -66,6 +72,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
       'move': ?instance.move?.toJson(),
       'attackUnit': ?instance.attackUnit?.toJson(),
       'action': ?instance.action?.toJson(),
+      'surrender': ?instance.surrender?.toJson(),
       'welcome': ?instance.welcome?.toJson(),
       'start': ?instance.start?.toJson(),
       'update': ?instance.update?.toJson(),

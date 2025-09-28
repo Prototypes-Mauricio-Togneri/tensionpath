@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_finish.dart';
@@ -36,6 +37,9 @@ class JsonMessage {
   @JsonKey(name: 'action')
   final JsonUnitAction? action;
 
+  @JsonKey(name: 'surrender')
+  final JsonSurrenderMatch? surrender;
+
   // =========================== SERVER -> CLIENT =========================== \\
 
   @JsonKey(name: 'welcome')
@@ -60,6 +64,7 @@ class JsonMessage {
     this.move,
     this.attackUnit,
     this.action,
+    this.surrender,
 
     // Server -> Client
     this.welcome,
@@ -70,6 +75,7 @@ class JsonMessage {
   });
 
   dynamic get message {
+    // Client -> Server
     if (join != null) {
       return join;
     } else if (deploy != null) {
@@ -80,7 +86,11 @@ class JsonMessage {
       return attackUnit;
     } else if (action != null) {
       return action;
-    } else if (welcome != null) {
+    } else if (surrender != null) {
+      return surrender;
+    }
+    // Server -> Client
+    else if (welcome != null) {
       return welcome;
     } else if (start != null) {
       return start;
@@ -90,7 +100,9 @@ class JsonMessage {
       return finish;
     } else if (error != null) {
       return error;
-    } else {
+    }
+    // Error
+    else {
       throw JsonMessage.error('Unknown message');
     }
   }
@@ -156,6 +168,12 @@ class JsonMessage {
       targetLocation: targetLocation,
       targetUnitId: targetUnitId,
     ),
+  );
+
+  factory JsonMessage.surrenderMatch({
+    required String matchId,
+  }) => JsonMessage(
+    surrender: JsonSurrenderMatch(matchId: matchId),
   );
 
   factory JsonMessage.welcome() => JsonMessage(

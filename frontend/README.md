@@ -2,7 +2,6 @@
 
 ### Phase 1
 
-- Surrender option
 - Attack base
 - Continuous popcap
 - Harvester logic

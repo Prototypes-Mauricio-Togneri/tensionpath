@@ -152,6 +152,11 @@ class Connection {
     );
   }
 
+  void surrenderMatch(WebSocket socket) {
+    final Participant participant = participantBySocket(socket);
+    _match?.surrenderMatch(participant.playerIndex);
+  }
+
   Participant participantBySocket(WebSocket socket) {
     for (final Participant participant in participants.values) {
       if (participant.hasSocket(socket)) {

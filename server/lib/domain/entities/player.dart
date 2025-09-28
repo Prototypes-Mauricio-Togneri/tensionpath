@@ -43,6 +43,10 @@ class Player {
     }
   }
 
+  void surrender() {
+    baseHealth = 0;
+  }
+
   void addResources(num amount) {
     resources += amount;
   }
