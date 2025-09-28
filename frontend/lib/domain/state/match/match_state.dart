@@ -80,6 +80,7 @@ class MatchState extends BaseState {
 
   void _onFinish(String winnerId) {
     matchStatus = MatchStatus.finished;
+    MatchComponentRef.instance.setWinner(winnerId);
     Delayed.post(() => onMatchFinished(winnerId == selfId));
   }
 

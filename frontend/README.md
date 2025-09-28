@@ -2,14 +2,13 @@
 
 ### Phase 1
 
-- Attack base
-- Continuous popcap
 - Harvester logic
 
   - Max 2 harvesters
   - Harvester kill reward
   - New harvester free
 
+- Continuous popcap
 - New map
 
 ### Phase 2

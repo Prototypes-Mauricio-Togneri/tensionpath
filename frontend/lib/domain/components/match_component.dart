@@ -100,6 +100,14 @@ class MatchComponent extends World {
     );
   }
 
+  void setWinner(String playerId) {
+    if (self.id == playerId) {
+      opponent.baseHealth = 0;
+    } else {
+      self.baseHealth = 0;
+    }
+  }
+
   UnitComponent? getEnemyUnitAt(Vector2 position) {
     for (final UnitComponent unitComponent in unitComponents) {
       if (unitComponent.containsPoint(position) &&
