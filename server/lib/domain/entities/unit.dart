@@ -69,86 +69,94 @@ class Unit {
     bool result = false;
 
     if (isMoving) {
-      Logger.debug('----------------------------------------\nMoving unit $id');
-
-      // Update position
-      position = position.moveTowards(
-        target: targetNode!.position,
-        distance: type.speed * dt,
-      );
-
-      final num distanceToTarget = position.distanceTo(targetNode!.position);
-      Logger.debug(
-        'Unit target ${targetNode!.location.id} / ${targetNode!.position}',
-      );
-      Logger.debug('New unit position $position');
-      Logger.debug('Remaining distance: $distanceToTarget');
-
-      if (distanceToTarget < 0.5) {
-        Logger.debug(
-          'Unit $id has arrived to the target node ${targetNode!.id}',
-        );
-        position = targetNode!.position;
-        lockedNode = targetNode;
-        lockedNode!.lock(this);
-        targetNode = null;
-        result = true;
-
-        if (isHarvesting) {
-          player.increaseResourcesRate();
-        }
-      } else if ((lockedNode == null) &&
-          (distanceToTarget < (radius * 2)) &&
-          targetNode!.notLockedBy(this)) {
-        // Re-assign node
-        targetNode = nodes.closestFreeNode(position);
-        result = true;
-
-        Logger.debug(
-          'Unit target node was re-assigned to ${targetNode!.id}',
-        );
-      } else if ((lockedNode == null) &&
-          (distanceToTarget < radius) &&
-          targetNode!.isFree) {
-        Logger.debug('Unit $id has locked the target node ${targetNode!.id}');
-        lockedNode = targetNode;
-        lockedNode!.lock(this);
-      }
+      result = _processMoving(dt);
     } else {
-      if (targetUnit != null && !targetUnit!.isAlive) {
-        targetUnit = null;
-        result = true;
-      }
-
-      // Assign the closest enemy in range if there is not one assigned
-      if (targetUnit == null) {
-        targetUnit = units.closestUnitInRange(this);
-
-        if (targetUnit != null) {
-          result = true;
-          Logger.debug('Unit $id has re-targeted to ${targetUnit!.id}');
-        }
-      }
-
-      if ((targetUnit != null) && (targetUnit!.isAlive)) {
-        final num distanceToTarget = distanceTo(targetUnit!);
-
-        if (isInAttackRange(distanceToTarget)) {
-          if (currentAttackCooldown <= 0) {
-            final num damage = type.damageAgainst(targetUnit!.type);
-            currentAttackCooldown = type.attackCooldown;
-            targetUnit!.hit(damage);
-            result = true;
-            Logger.debug(
-              'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
-            );
-          }
-        }
-      }
+      result = _processStanding(dt);
     }
 
     currentAttackCooldown -= dt;
     closestNode = nodes.atPosition(position);
+
+    return result;
+  }
+
+  bool _processMoving(double dt) {
+    bool result = false;
+    Logger.debug('----------------------------------------\nMoving unit $id');
+
+    // Update position
+    position = position.moveTowards(
+      target: targetNode!.position,
+      distance: type.speed * dt,
+    );
+
+    final num distanceToTarget = position.distanceTo(targetNode!.position);
+    Logger.debug('Target ${targetNode!.location.id} / ${targetNode!.position}');
+    Logger.debug('Position $position');
+    Logger.debug('Distance: $distanceToTarget');
+
+    if (distanceToTarget < 0.5) {
+      Logger.debug('Unit has arrived at the target node ${targetNode!.id}');
+      position = targetNode!.position;
+      lockedNode = targetNode;
+      lockedNode!.lock(this);
+      targetNode = null;
+      result = true;
+
+      if (isHarvesting) {
+        player.increaseResourcesRate();
+      }
+    } else if ((lockedNode == null) &&
+        (distanceToTarget < (radius * 2)) &&
+        targetNode!.notLockedBy(this)) {
+      Logger.debug('Target node re-assigned to ${targetNode!.id}');
+      // Target node is already locked. Re-assign node
+      targetNode = nodes.closestFreeNode(position);
+      result = true;
+    } else if ((lockedNode == null) &&
+        (distanceToTarget < radius) &&
+        targetNode!.isFree) {
+      Logger.debug('Unit has locked the target node ${targetNode!.id}');
+      lockedNode = targetNode;
+      lockedNode!.lock(this);
+    }
+
+    return result;
+  }
+
+  bool _processStanding(double dt) {
+    bool result = false;
+
+    if (targetUnit != null && !targetUnit!.isAlive) {
+      targetUnit = null;
+      result = true;
+    }
+
+    // Assign the closest enemy in range if there is not one assigned
+    if (targetUnit == null) {
+      targetUnit = units.closestUnitInRange(this);
+
+      if (targetUnit != null) {
+        result = true;
+        Logger.debug('Unit $id has re-targeted to ${targetUnit!.id}');
+      }
+    }
+
+    if ((targetUnit != null) && (targetUnit!.isAlive)) {
+      final num distanceToTarget = distanceTo(targetUnit!);
+
+      if (isInAttackRange(distanceToTarget)) {
+        if (currentAttackCooldown <= 0) {
+          final num damage = type.damageAgainst(targetUnit!.type);
+          currentAttackCooldown = type.attackCooldown;
+          targetUnit!.hit(damage);
+          result = true;
+          Logger.debug(
+            'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
+          );
+        }
+      }
+    }
 
     return result;
   }
