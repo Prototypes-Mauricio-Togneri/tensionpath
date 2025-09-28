@@ -127,6 +127,7 @@ class Unit {
   bool _processStanding(double dt) {
     bool result = false;
 
+    // Target unit is no longer alive
     if (targetUnit != null && !targetUnit!.isAlive) {
       targetUnit = null;
       result = true;
@@ -138,7 +139,7 @@ class Unit {
 
       if (targetUnit != null) {
         result = true;
-        Logger.debug('Unit $id has re-targeted to ${targetUnit!.id}');
+        Logger.debug('Unit retargeted to target unit ${targetUnit!.id}');
       }
     }
 
@@ -151,9 +152,15 @@ class Unit {
           currentAttackCooldown = type.attackCooldown;
           targetUnit!.hit(damage);
           result = true;
-          Logger.debug(
-            'Unit $id attacked unit ${targetUnit!.id} with $damage damage',
-          );
+          Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
+        }
+      } else {
+        // Previous target unit is out of range, retargeting
+        targetUnit = units.closestUnitInRange(this);
+
+        if (targetUnit != null) {
+          result = true;
+          Logger.debug('Unit retargeted to target unit ${targetUnit!.id}');
         }
       }
     }
