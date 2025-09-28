@@ -11,7 +11,7 @@ class Launchers {
 
   List<Launcher> get list => _launchers.list;
 
-  Launcher? closestEnemyBase(Unit unit) {
+  Launcher? closestEnemyBaseInRange(Unit unit) {
     Launcher? result;
     num closestDistance = double.infinity;
     final List<Launcher> availableLaunchers = _launchers.list
@@ -21,7 +21,7 @@ class Launchers {
     for (final Launcher launcher in availableLaunchers) {
       final num distance = unit.position.distanceTo(launcher.position);
 
-      if (distance < closestDistance) {
+      if (unit.isInAttackRange(distance) && (distance < closestDistance)) {
         closestDistance = distance;
         result = launcher;
       }

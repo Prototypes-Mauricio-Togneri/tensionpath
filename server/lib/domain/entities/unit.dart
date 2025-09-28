@@ -157,7 +157,7 @@ class Unit {
 
       // Assign the closest base in range if there is not one assigned
       if (targetBase == null) {
-        targetBase = launchers.closestEnemyBase(this);
+        targetBase = launchers.closestEnemyBaseInRange(this);
 
         if (targetBase != null) {
           result = true;
