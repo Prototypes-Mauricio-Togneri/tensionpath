@@ -3,7 +3,6 @@
 - Problem with keeping old target unit and not retargeting if a new enemy appears in range
 - Surrender option
 - Attack base
-- Drag the entire unit card, not just the unit sprite
 - Continuous popcap
 - Harvester logic
 
@@ -13,9 +12,11 @@
 
 - Ramping resources rate and popcap
 - Selecte deck
-
+- Drag the entire unit card, not just the unit sprite
 - Events for shooting
 - Path finding
+
+# =================================================================================================== #
 
 - Dart compile in Docker
 - Add changelog to home screen
