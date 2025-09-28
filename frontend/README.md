@@ -15,6 +15,7 @@
 
 ### Phase 2
 
+- Music and sound effects
 - Ramping resources rate and popcap
 - Selecte deck before match
 - Drag the entire unit card, not just the unit sprite
