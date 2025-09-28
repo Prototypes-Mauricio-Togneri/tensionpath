@@ -58,12 +58,24 @@ class Nodes {
     required Node node,
     required Unit unit,
   }) {
-    final Node? upLeft = get('${node.location.x}-${node.location.y - 1}');
-    final Node? upRight = get('${node.location.x + 1}-${node.location.y - 1}');
-    final Node? right = get('${node.location.x + 1}-${node.location.y}');
-    final Node? downRight = get('${node.location.x}-${node.location.y + 1}');
-    final Node? downLeft = get('${node.location.x - 1}-${node.location.y + 1}');
-    final Node? left = get('${node.location.x - 1}-${node.location.y}');
+    final Node? upLeft = _nodes.getOrNull(
+      '${node.location.x},${node.location.y - 1}',
+    );
+    final Node? upRight = _nodes.getOrNull(
+      '${node.location.x + 1},${node.location.y - 1}',
+    );
+    final Node? right = _nodes.getOrNull(
+      '${node.location.x + 1},${node.location.y}',
+    );
+    final Node? downRight = _nodes.getOrNull(
+      '${node.location.x},${node.location.y + 1}',
+    );
+    final Node? downLeft = _nodes.getOrNull(
+      '${node.location.x - 1},${node.location.y + 1}',
+    );
+    final Node? left = _nodes.getOrNull(
+      '${node.location.x - 1},${node.location.y}',
+    );
 
     final num distanceUpLeft = upLeft != null
         ? unit.position.distanceTo(upLeft.position)

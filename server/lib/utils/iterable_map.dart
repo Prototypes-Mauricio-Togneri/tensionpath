@@ -9,6 +9,8 @@ class IterableMap<K, V> extends Iterable<V> {
 
   V get(K key) => _map[key]!;
 
+  V? getOrNull(K key) => _map[key];
+
   void add(K key, V value) => _map[key] = value;
 
   void remove(K key) => _map.remove(key);
