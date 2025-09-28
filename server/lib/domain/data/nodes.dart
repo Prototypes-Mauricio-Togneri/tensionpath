@@ -1,6 +1,7 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Nodes {
@@ -37,11 +38,33 @@ class Nodes {
   Node? closestFreeNode(Position position) {
     Node? result;
     num closestDistance = double.infinity;
-    final List<Node> freeNodes = _nodes.list
+    final List<Node> availableNodes = _nodes.list
         .where((n) => n.isFree && n.type.canMove)
         .toList();
 
-    for (final Node node in freeNodes) {
+    for (final Node node in availableNodes) {
+      final num distance = position.distanceTo(node.position);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        result = node;
+      }
+    }
+
+    return result;
+  }
+
+  Node? closestAlternative({
+    required Position position,
+    required Unit unit,
+  }) {
+    Node? result;
+    num closestDistance = double.infinity;
+    final List<Node> availableNodes = _nodes.list
+        .where((n) => n.isFree && n.type.canMove)
+        .toList();
+
+    for (final Node node in availableNodes) {
       final num distance = position.distanceTo(node.position);
 
       if (distance < closestDistance) {

@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -9,14 +10,13 @@ import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 import 'package:tensionpath/utils/logger.dart';
 
 class Match {
   final Connection connection;
   final DateTime createdAt;
   final Battlefield battlefield;
-  final IterableMap<String, Player> players;
+  final Players players;
   MatchStatus status;
 
   Match._({
@@ -30,16 +30,23 @@ class Match {
   factory Match.fromJson({
     required Connection connection,
     required JsonMatchStart jsonMatch,
-  }) => Match._(
-    connection: connection,
-    createdAt: DateTime.parse(jsonMatch.createdAt),
-    status: MatchStatus.playing,
-    battlefield: Battlefield.fromJson(jsonMatch.battlefield),
-    players: Player.list(jsonMatch.players),
-  );
+  }) {
+    final Players players = Players(Player.list(jsonMatch.players));
+
+    return Match._(
+      connection: connection,
+      createdAt: DateTime.parse(jsonMatch.createdAt),
+      status: MatchStatus.playing,
+      battlefield: Battlefield.fromJson(
+        json: jsonMatch.battlefield,
+        players: players,
+      ),
+      players: players,
+    );
+  }
 
   void start() {
-    for (final Player player in players) {
+    for (final Player player in players.list) {
       connection.direct(
         playerIndex: player.index,
         json: JsonMessage.start(toJson(player.id)),
@@ -125,7 +132,7 @@ class Match {
         sendUpdate = true;
       }
 
-      for (final Player player in players) {
+      for (final Player player in players.list) {
         player.addResources(player.resourcesRate * dt);
       }
 
@@ -136,7 +143,7 @@ class Match {
   }
 
   void _fireMissile() {
-    for (final Player player in players) {
+    for (final Player player in players.list) {
       if (player.index != battlefield.missile.owner) {
         player.removeHealth(player.baseMaxHealth / 2);
         Logger.debug('Missile launched to ${player.index}');
@@ -159,7 +166,8 @@ class Match {
     battlefield.updateMissile();
 
     final Map<String, JsonPlayerUpdate> playersUpdate = {
-      for (final Player player in players) player.index: player.toJsonUpdate(),
+      for (final Player player in players.list)
+        player.index: player.toJsonUpdate(),
     };
 
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(

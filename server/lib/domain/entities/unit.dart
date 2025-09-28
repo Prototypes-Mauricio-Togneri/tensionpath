@@ -1,16 +1,20 @@
+import 'package:tensionpath/domain/data/launchers.dart';
+import 'package:tensionpath/domain/data/nodes.dart';
+import 'package:tensionpath/domain/data/units.dart';
+import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Unit {
   final Nodes nodes;
+  final Launchers launchers;
   final Units units;
   final String id;
   final Player player;
@@ -21,12 +25,14 @@ class Unit {
   late num currentAttackCooldown;
   Position position;
   Node closestNode;
-  Node? targetNode;
   Node? lockedNode;
+  Node? targetNode;
+  Launcher? targetBase;
   Unit? targetUnit;
 
   Unit({
     required this.nodes,
+    required this.launchers,
     required this.units,
     required this.id,
     required this.player,
@@ -58,11 +64,18 @@ class Unit {
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
+    targetBase = null;
     targetUnit = null;
   }
 
-  void attack(Unit target) {
+  void attackUnit(Unit target) {
+    targetBase = null;
     targetUnit = target;
+  }
+
+  void attackBase(Launcher base) {
+    targetBase = base;
+    targetUnit = null;
   }
 
   bool update(double dt) {
@@ -133,22 +146,33 @@ class Unit {
       result = true;
     }
 
-    // Assign the closest enemy in range if there is not one assigned
+    // Assign the closest unit in range if there is not one assigned
     if (targetUnit == null) {
       targetUnit = units.closestUnitInRange(this);
 
       if (targetUnit != null) {
         result = true;
-        Logger.debug('Unit retargeted to target unit ${targetUnit!.id}');
+        Logger.debug('Unit retargeted to unit ${targetUnit!.id}');
+      }
+
+      // Assign the closest base in range if there is not one assigned
+      if (targetBase == null) {
+        targetBase = launchers.closestEnemyBase(this);
+
+        if (targetBase != null) {
+          result = true;
+          Logger.debug('Unit retargeted to base ${targetBase!.id}');
+        }
       }
     }
 
+    // Check if can shoot target unit
     if ((targetUnit != null) && (targetUnit!.isAlive)) {
-      final num distanceToTarget = distanceTo(targetUnit!);
+      final num distanceToTarget = distanceToUnit(targetUnit!);
 
       if (isInAttackRange(distanceToTarget)) {
         if (currentAttackCooldown <= 0) {
-          final num damage = type.damageAgainst(targetUnit!.type);
+          final num damage = type.damageAgainst(targetUnit!.type.clazz);
           currentAttackCooldown = type.attackCooldown;
           targetUnit!.hit(damage);
           result = true;
@@ -160,7 +184,20 @@ class Unit {
 
         if (targetUnit != null) {
           result = true;
-          Logger.debug('Unit retargeted to target unit ${targetUnit!.id}');
+          Logger.debug('Unit retargeted to unit ${targetUnit!.id}');
+        }
+      }
+    } else if (targetBase != null) {
+      // Check if can shoot target base
+      final num distanceToTarget = distanceToBase(targetBase!);
+
+      if (isInAttackRange(distanceToTarget)) {
+        if (currentAttackCooldown <= 0) {
+          final num damage = type.damageAgainst(UnitClass.structure);
+          currentAttackCooldown = type.attackCooldown;
+          targetBase!.player.removeHealth(damage);
+          result = true;
+          Logger.debug('Attacked unit ${targetBase!.id} with $damage damage');
         }
       }
     }
@@ -171,7 +208,11 @@ class Unit {
   bool isInAttackRange(num distance) =>
       distance < (radius * (type.attackRange + 0.5));
 
-  num distanceTo(Unit unit) => position.distanceTo(unit.position) - unit.radius;
+  num distanceToUnit(Unit unit) =>
+      position.distanceTo(unit.position) - unit.radius;
+
+  num distanceToBase(Launcher launcher) =>
+      position.distanceTo(launcher.position) - launcher.radius;
 
   void hit(num damage) {
     health -= damage;
@@ -189,6 +230,7 @@ class Unit {
     lockedNode?.unlock();
     lockedNode = null;
     targetNode = null;
+    targetBase = null;
     targetUnit = null;
     health = 0;
 
@@ -202,8 +244,9 @@ class Unit {
     maxHealth: maxHealth,
     health: health,
     currentPosition: position.toJson(),
-    targetPosition: targetNode?.position.toJson(),
     lockedLocation: lockedNode?.location.toJson(),
+    targetPosition: targetNode?.position.toJson(),
+    targetBase: targetBase?.location.toJson(),
     targetUnitId: targetUnit?.id,
   );
 

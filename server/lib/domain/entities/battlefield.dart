@@ -1,25 +1,28 @@
+import 'package:tensionpath/domain/data/launchers.dart';
+import 'package:tensionpath/domain/data/nodes.dart';
+import 'package:tensionpath/domain/data/players.dart';
+import 'package:tensionpath/domain/data/resources.dart';
+import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
-import 'package:tensionpath/domain/entities/nodes.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/entities/resources.dart';
+import 'package:tensionpath/domain/entities/resource.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
-import 'package:tensionpath/domain/entities/units.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/constants.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 
 class Battlefield {
   final Size mapSize;
   final Size nodeSize;
   final Missile missile;
-  final IterableMap<String, Resources> resources;
-  final IterableMap<String, Launcher> launchers;
+  final Resources resources;
+  final Launchers launchers;
   final Units units;
   final Nodes nodes;
 
@@ -57,6 +60,7 @@ class Battlefield {
     final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
       nodes: nodes,
+      launchers: launchers,
       units: units,
       id: Unit.newId,
       player: player,
@@ -95,7 +99,7 @@ class Battlefield {
     if (attackerUnit.isAlive &&
         defenderUnit.isAlive &&
         (attackerUnit.player == player)) {
-      attackerUnit.attack(defenderUnit);
+      attackerUnit.attackUnit(defenderUnit);
     } else {
       throw Exception(
         'Unit $attackerUnit does not belong to player ${player.index}',
@@ -117,44 +121,80 @@ class Battlefield {
     final Unit? defenderUnit = targetUnitId != null
         ? units.get(targetUnitId)
         : null;
-    final Location location =
-        targetLocation ??
-        defenderUnit!.lockedNode?.location ??
-        defenderUnit!.closestNode.location;
-    final Node targetNode = nodes.atLocation(location);
 
     if (!attackerUnit.isAlive || (attackerUnit.player != player)) {
       throw Exception('Invalid attacker unit');
     }
 
     if (defenderUnit == null) {
-      attackerUnit.move(targetNode);
-    } else if (defenderUnit.isAlive) {
-      final num distanceToTarget = attackerUnit.distanceTo(defenderUnit);
+      final Node targetNode = nodes.atLocation(targetLocation!);
 
-      if (!attackerUnit.isInAttackRange(distanceToTarget)) {
+      if (targetNode.type == NodeType.launcher) {
+        final Launcher targetBase = launchers.get(targetNode.id);
+        final num distanceToTarget = attackerUnit.distanceToBase(targetBase);
+
+        if (!attackerUnit.isInAttackRange(distanceToTarget)) {
+          final Node? alternativeNode = nodes.closestAlternative(
+            position: targetBase.position,
+            unit: attackerUnit,
+          );
+
+          if (alternativeNode != null) {
+            attackerUnit.move(alternativeNode);
+          }
+        }
+
+        attackerUnit.attackBase(targetBase);
+      } else {
         attackerUnit.move(targetNode);
       }
+    } else if (defenderUnit.isAlive) {
+      final num distanceToTarget = attackerUnit.distanceToUnit(defenderUnit);
 
-      attackerUnit.attack(defenderUnit);
+      if (!attackerUnit.isInAttackRange(distanceToTarget)) {
+        final Node targetNode =
+            defenderUnit.lockedNode ?? defenderUnit.closestNode;
+        final Node? alternativeNode = nodes.closestAlternative(
+          position: targetNode.position,
+          unit: attackerUnit,
+        );
+
+        if (alternativeNode != null) {
+          attackerUnit.move(alternativeNode);
+        }
+      }
+
+      attackerUnit.attackUnit(defenderUnit);
     }
   }
 
-  factory Battlefield.fromJson(JsonBattlefieldStart json) {
+  factory Battlefield.fromJson({
+    required JsonBattlefieldStart json,
+    required Players players,
+  }) {
     final Nodes nodes = Node.load(json.nodes);
+    final Size nodeSize = Size.fromJson(json.nodeSize);
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),
-      nodeSize: Size.fromJson(json.nodeSize),
+      nodeSize: nodeSize,
       missile: Missile.fromJson(
         json: json.missile,
         nodes: nodes,
       ),
-      resources: Resources.list(
-        json: json.resources,
-        nodes: nodes,
+      resources: Resources(
+        Resource.list(
+          json: json.resources,
+          nodes: nodes,
+        ),
       ),
-      launchers: Launcher.list(json.launchers),
+      launchers: Launchers(
+        Launcher.list(
+          json: json.launchers,
+          players: players,
+          radius: nodeSize.radius,
+        ),
+      ),
       nodes: nodes,
       units: Units(),
     );

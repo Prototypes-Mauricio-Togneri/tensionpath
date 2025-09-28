@@ -20,7 +20,7 @@ class Units {
         .toList();
 
     for (final Unit enemyUnit in enemyUnits) {
-      final num distance = unit.distanceTo(enemyUnit);
+      final num distance = unit.distanceToUnit(enemyUnit);
 
       if (unit.isInAttackRange(distance) && (distance < closestDistance)) {
         closestDistance = distance;

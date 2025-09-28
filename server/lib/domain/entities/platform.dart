@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/entities/nodes.dart';
+import 'package:tensionpath/domain/data/nodes.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform_start.dart';
 import 'package:tensionpath/utils/constants.dart';

@@ -29,6 +29,11 @@ JsonUnitUpdate _$JsonUnitUpdateFromJson(
       (v) =>
           v == null ? null : JsonLocation.fromJson(v as Map<String, dynamic>),
     ),
+    targetBase: $checkedConvert(
+      'targetBase',
+      (v) =>
+          v == null ? null : JsonLocation.fromJson(v as Map<String, dynamic>),
+    ),
     targetUnitId: $checkedConvert('targetUnitId', (v) => v as String?),
   );
   return val;
@@ -44,6 +49,7 @@ Map<String, dynamic> _$JsonUnitUpdateToJson(JsonUnitUpdate instance) =>
       'currentPosition': instance.currentPosition.toJson(),
       'targetPosition': ?instance.targetPosition?.toJson(),
       'lockedLocation': ?instance.lockedLocation?.toJson(),
+      'targetBase': ?instance.targetBase?.toJson(),
       'targetUnitId': ?instance.targetUnitId,
     };
 

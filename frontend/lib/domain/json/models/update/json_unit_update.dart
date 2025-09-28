@@ -31,6 +31,9 @@ class JsonUnitUpdate {
   @JsonKey(name: 'lockedLocation')
   final JsonLocation? lockedLocation;
 
+  @JsonKey(name: 'targetBase')
+  final JsonLocation? targetBase;
+
   @JsonKey(name: 'targetUnitId')
   final String? targetUnitId;
 
@@ -43,6 +46,7 @@ class JsonUnitUpdate {
     required this.currentPosition,
     required this.targetPosition,
     required this.lockedLocation,
+    required this.targetBase,
     required this.targetUnitId,
   });
 
