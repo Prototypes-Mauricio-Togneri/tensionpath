@@ -296,6 +296,9 @@ class BattlefieldComponent extends PositionComponent {
                     .where((unit) => unit.id == unitUpdate.targetUnitId)
                     .firstOrNull
               : null,
+          newTargetBase: (unitUpdate.targetBase != null)
+              ? match.getNodeById(unitUpdate.targetBase!.id)
+              : null,
         );
       }
     }

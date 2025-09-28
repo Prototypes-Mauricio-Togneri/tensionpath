@@ -32,6 +32,7 @@ class UnitComponent extends PositionComponent
   Vector2? endPosition;
   Vector2? targetPosition;
   NodeComponent? lockedNode;
+  NodeComponent? targetBase;
   UnitComponent? targetUnit;
 
   UnitComponent({
@@ -67,12 +68,14 @@ class UnitComponent extends PositionComponent
     required Vector2 newCurrentPosition,
     required Vector2? newTargetPosition,
     required NodeComponent? newLockedNode,
+    required NodeComponent? newTargetBase,
     required UnitComponent? newTargetUnit,
   }) {
     healthBarComponent.refresh(health);
     position = newCurrentPosition;
     targetPosition = newTargetPosition;
     lockedNode = newLockedNode;
+    targetBase = newTargetBase;
     targetUnit = newTargetUnit;
   }
 
@@ -153,8 +156,7 @@ class UnitComponent extends PositionComponent
           endPosition!,
         );
 
-        if ((nodeComponent != null) &&
-            (nodeComponent != lockedNode)) {
+        if ((nodeComponent != null) && (nodeComponent != lockedNode)) {
           match.onUnitAction(
             unitComponent: this,
             targetNodeComponent: nodeComponent,
@@ -199,10 +201,17 @@ class UnitComponent extends PositionComponent
     if ((targetPosition == null) &&
         (targetUnit != null) &&
         targetUnit!.isAlive &&
-        isInAttackRange(targetUnit!)) {
+        isInAttackRange(targetUnit!.position)) {
       attackPathComponent?.show(
         start: absolutePosition,
         end: targetUnit!.absolutePosition,
+      );
+    } else if ((targetPosition == null) &&
+        (targetBase != null) &&
+        isInAttackRange(targetBase!.position)) {
+      attackPathComponent?.show(
+        start: absolutePosition,
+        end: targetBase!.absolutePosition,
       );
     } else {
       attackPathComponent?.hide();
@@ -213,10 +222,9 @@ class UnitComponent extends PositionComponent
     isVisible = closestNodeComponent.isRevealed || player.isSelf;
   }
 
-  bool isInAttackRange(UnitComponent unitComponent) {
+  bool isInAttackRange(Vector2 position) {
     final double radius = size.x / 2;
-    final double distance =
-        position.distanceTo(unitComponent.position) - radius;
+    final double distance = position.distanceTo(position) - radius;
 
     return distance < (radius * (type.attackRange + 0.5));
   }

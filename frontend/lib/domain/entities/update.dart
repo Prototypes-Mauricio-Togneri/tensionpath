@@ -76,6 +76,7 @@ class UnitUpdate {
   final Position currentPosition;
   final Position? targetPosition;
   final Location? lockedLocation;
+  final Location? targetBase;
   final String? targetUnitId;
 
   const UnitUpdate({
@@ -87,6 +88,7 @@ class UnitUpdate {
     required this.currentPosition,
     required this.targetPosition,
     required this.lockedLocation,
+    required this.targetBase,
     required this.targetUnitId,
   });
 
@@ -102,6 +104,9 @@ class UnitUpdate {
         : null,
     lockedLocation: json.lockedLocation != null
         ? Location.fromJson(json.lockedLocation!)
+        : null,
+    targetBase: json.targetBase != null
+        ? Location.fromJson(json.targetBase!)
         : null,
     targetUnitId: json.targetUnitId,
   );
