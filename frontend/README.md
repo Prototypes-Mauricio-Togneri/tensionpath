@@ -1,6 +1,5 @@
 # TODO
 
-- Problem with keeping old target unit and not retargeting if a new enemy appears in range
 - Surrender option
 - Attack base
 - Continuous popcap
@@ -16,7 +15,7 @@
 - Events for shooting
 - Path finding
 
-# =================================================================================================== #
+# ===================================================================================================
 
 - Dart compile in Docker
 - Add changelog to home screen
