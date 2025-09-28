@@ -1,5 +1,7 @@
 # TODO
 
+### Phase 1
+
 - Surrender option
 - Attack base
 - Continuous popcap
@@ -9,13 +11,15 @@
   - Harvester kill reward
   - New harvester free
 
+### Phase 2
+
 - Ramping resources rate and popcap
-- Selecte deck
+- Selecte deck before match
 - Drag the entire unit card, not just the unit sprite
 - Events for shooting
 - Path finding
 
-# ===================================================================================================
+### Phase 3
 
 - Dart compile in Docker
 - Add changelog to home screen
