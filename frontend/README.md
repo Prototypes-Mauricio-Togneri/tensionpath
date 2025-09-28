@@ -1,5 +1,9 @@
 # TODO
 
+- Resources shrink?
+- When targeting an enemy unit that is out of reach, instead of going directly, find an alternative
+- Retarget harvester automatic when patch is empty
+
 ### Phase 1
 
 - Harvester logic
@@ -22,6 +26,7 @@
 
 ### Phase 3
 
+- Show list of open matches to play knowing the map
 - Dart compile in Docker
 - Add changelog to home screen
 - Choose map
