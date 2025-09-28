@@ -154,7 +154,7 @@ class UnitComponent extends PositionComponent
         );
 
         if ((nodeComponent != null) &&
-            (nodeComponent != closestNodeComponent)) {
+            (nodeComponent != lockedNode)) {
           match.onUnitAction(
             unitComponent: this,
             targetNodeComponent: nodeComponent,
