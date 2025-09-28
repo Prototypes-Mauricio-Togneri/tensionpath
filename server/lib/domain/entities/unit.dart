@@ -58,6 +58,7 @@ class Unit {
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
+    targetUnit = null;
   }
 
   void attack(Unit target) {
