@@ -1,5 +1,8 @@
 # TODO
 
+- Problem with keeping old target unit and not retargeting if a new enemy appears in range
+- Close connection when closing screen
+- Surrender option
 - Attack base
 - Drag the entire unit card, not just the unit sprite
 - Continuous popcap
@@ -11,6 +14,9 @@
 
 - Ramping resources rate and popcap
 - Selecte deck
+
+- Events for shooting
+- Path finding
 
 - Dart compile in Docker
 - Add changelog to home screen
