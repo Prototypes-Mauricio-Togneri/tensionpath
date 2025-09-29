@@ -9,7 +9,7 @@ abstract class Environment {
 
   bool get isRelease => kReleaseMode;
 
-  bool get joinTestMatch => true;
+  bool get joinTestMatch => false;
 
   bool get isLocal => name == 'local';
 
