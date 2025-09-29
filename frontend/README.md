@@ -1,5 +1,7 @@
 # TODO
 
+- Remove JSON message finished
+- Add winner and status
 - Resources shrink?
 - When targeting an enemy unit that is out of reach, instead of going directly, find an alternative
 - Retarget harvester automatic when patch is empty
