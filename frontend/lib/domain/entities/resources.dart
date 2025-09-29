@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
@@ -9,7 +8,6 @@ class Resources {
   final Position position;
   final num amountMax;
   num amountCurrent;
-  num ratio;
 
   Resources({
     required this.id,
@@ -17,14 +15,10 @@ class Resources {
     required this.position,
     required this.amountCurrent,
     required this.amountMax,
-    required this.ratio,
   });
-
-  Vector2 get scale => Vector2(ratio.toDouble(), ratio.toDouble());
 
   void update(num newAmountCurrent) {
     amountCurrent = newAmountCurrent;
-    ratio = amountCurrent / amountMax;
   }
 
   factory Resources.fromJson(JsonResourceStart json) => Resources(
@@ -33,7 +27,6 @@ class Resources {
     position: Position.fromJson(json.position),
     amountCurrent: json.amountCurrent,
     amountMax: json.amountMax,
-    ratio: json.amountCurrent / json.amountMax,
   );
 
   static List<Resources> list(List<JsonResourceStart> json) {

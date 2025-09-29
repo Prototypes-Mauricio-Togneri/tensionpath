@@ -1,6 +1,5 @@
 # TODO
 
-- Resources shrink?
 - When targeting an enemy unit that is out of reach, instead of going directly, find an alternative
 - Retarget harvester automatic when patch is empty
 
@@ -11,6 +10,7 @@
   - Max 2 harvesters
   - Harvester kill reward
   - New harvester free
+  - Drive harvester to patch automatically
 
 - Continuous popcap
 - New map

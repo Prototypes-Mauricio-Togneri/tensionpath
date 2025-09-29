@@ -18,13 +18,11 @@ class ResourceComponent extends SpriteComponent {
 
   void refresh(num newAmountCurrent) {
     resources.update(newAmountCurrent);
-    scale = resources.scale;
   }
 
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
-    scale = resources.scale;
 
     return super.onLoad();
   }
