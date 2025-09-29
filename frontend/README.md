@@ -1,8 +1,5 @@
 # TODO
 
-- When targeting an enemy unit that is out of reach, instead of going directly, find an alternative
-- Retarget harvester automatic when patch is empty
-
 ### Phase 1
 
 - Harvester logic
