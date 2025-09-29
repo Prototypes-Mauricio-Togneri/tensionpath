@@ -1,13 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_finish.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
@@ -28,12 +25,6 @@ class JsonMessage {
   @JsonKey(name: 'deploy')
   final JsonDeployUnit? deploy;
 
-  @JsonKey(name: 'move')
-  final JsonMoveUnit? move;
-
-  @JsonKey(name: 'attackUnit')
-  final JsonAttackUnit? attackUnit;
-
   @JsonKey(name: 'action')
   final JsonUnitAction? action;
 
@@ -51,9 +42,6 @@ class JsonMessage {
   @JsonKey(name: 'update')
   final JsonUpdate? update;
 
-  @JsonKey(name: 'finish')
-  final JsonFinish? finish;
-
   @JsonKey(name: 'error')
   final JsonError? error;
 
@@ -61,8 +49,6 @@ class JsonMessage {
     // Client -> Server
     this.join,
     this.deploy,
-    this.move,
-    this.attackUnit,
     this.action,
     this.surrender,
 
@@ -70,7 +56,6 @@ class JsonMessage {
     this.welcome,
     this.start,
     this.update,
-    this.finish,
     this.error,
   });
 
@@ -80,10 +65,6 @@ class JsonMessage {
       return join;
     } else if (deploy != null) {
       return deploy;
-    } else if (move != null) {
-      return move;
-    } else if (attackUnit != null) {
-      return attackUnit;
     } else if (action != null) {
       return action;
     } else if (surrender != null) {
@@ -96,8 +77,6 @@ class JsonMessage {
       return start;
     } else if (update != null) {
       return update;
-    } else if (finish != null) {
-      return finish;
     } else if (error != null) {
       return error;
     }
@@ -132,30 +111,6 @@ class JsonMessage {
     ),
   );
 
-  factory JsonMessage.moveUnit({
-    required String matchId,
-    required String unitId,
-    required JsonLocation location,
-  }) => JsonMessage(
-    move: JsonMoveUnit(
-      matchId: matchId,
-      unitId: unitId,
-      location: location,
-    ),
-  );
-
-  factory JsonMessage.attackUnit({
-    required String matchId,
-    required String attackerUnitId,
-    required String defenderUnitId,
-  }) => JsonMessage(
-    attackUnit: JsonAttackUnit(
-      matchId: matchId,
-      attackerUnitId: attackerUnitId,
-      defenderUnitId: defenderUnitId,
-    ),
-  );
-
   factory JsonMessage.unitAction({
     required String matchId,
     required String unitId,
@@ -186,10 +141,6 @@ class JsonMessage {
 
   factory JsonMessage.update(JsonMatchUpdate match) => JsonMessage(
     update: JsonUpdate(match: match),
-  );
-
-  factory JsonMessage.finish(String winner) => JsonMessage(
-    finish: JsonFinish(winner: winner),
   );
 
   factory JsonMessage.error(String message) => JsonMessage(

@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/json/messages/server_client/json_finish.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
@@ -54,8 +53,6 @@ class MatchState extends BaseState {
         _onStart(Match.fromJson(json.match));
       } else if (json is JsonUpdate) {
         _onUpdate(MatchUpdate.fromJson(json.match));
-      } else if (json is JsonFinish) {
-        _onFinish(json.winner);
       }
     }
   }
@@ -75,13 +72,16 @@ class MatchState extends BaseState {
     Delayed.post(notify);
   }
 
-  void _onUpdate(MatchUpdate update) =>
-      MatchComponentRef.instance.onMatchUpdated(update);
+  void _onUpdate(MatchUpdate update) {
+    matchStatus = update.status;
+    final String? winnerId = update.winner;
 
-  void _onFinish(String winnerId) {
-    matchStatus = MatchStatus.finished;
-    MatchComponentRef.instance.setWinner(winnerId);
-    Delayed.post(() => onMatchFinished(winnerId == selfId));
+    if (winnerId != null) {
+      MatchComponentRef.instance.setWinner(winnerId);
+      Delayed.post(() => onMatchFinished(winnerId == selfId));
+    } else {
+      MatchComponentRef.instance.onMatchUpdated(update);
+    }
   }
 
   void _onDisconnected() => InfoDialog.error(
@@ -101,28 +101,6 @@ class MatchState extends BaseState {
       matchId: matchId,
       location: location.toJson(),
       type: type,
-    ),
-  );
-
-  void onMoveUnit({
-    required String unitId,
-    required Location location,
-  }) => connection.send(
-    JsonMessage.moveUnit(
-      matchId: matchId,
-      unitId: unitId,
-      location: location.toJson(),
-    ),
-  );
-
-  void onAttackUnit({
-    required String attackerUnitId,
-    required String defenderUnitId,
-  }) => connection.send(
-    JsonMessage.attackUnit(
-      matchId: matchId,
-      attackerUnitId: attackerUnitId,
-      defenderUnitId: defenderUnitId,
     ),
   );
 

@@ -207,22 +207,6 @@ class MatchComponent extends World {
     type: type,
   );
 
-  void onMoveUnit({
-    required UnitComponent unitComponent,
-    required NodeComponent nodeComponent,
-  }) => game.matchState.onMoveUnit(
-    unitId: unitComponent.id,
-    location: nodeComponent.location,
-  );
-
-  void onAttackUnit({
-    required UnitComponent attackerUnitComponent,
-    required UnitComponent defenderUnitComponent,
-  }) => game.matchState.onAttackUnit(
-    attackerUnitId: attackerUnitComponent.id,
-    defenderUnitId: defenderUnitComponent.id,
-  );
-
   void onUnitAction({
     required UnitComponent unitComponent,
     required NodeComponent? targetNodeComponent,

@@ -4,22 +4,28 @@ import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchUpdate {
+  final MatchStatus status;
   final Map<String, PlayerUpdate> players;
   final MissileUpdate missile;
   final Map<String, num> resources;
   final Map<String, UnitUpdate> units;
+  final String? winner;
 
   const MatchUpdate({
+    required this.status,
     required this.players,
     required this.missile,
     required this.resources,
     required this.units,
+    required this.winner,
   });
 
   factory MatchUpdate.fromJson(JsonMatchUpdate json) => MatchUpdate(
+    status: json.status,
     players: json.players.map(
       (key, value) => MapEntry(key, PlayerUpdate.fromJson(value)),
     ),
@@ -28,6 +34,7 @@ class MatchUpdate {
     units: json.units.map(
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
     ),
+    winner: json.winner,
   );
 }
 

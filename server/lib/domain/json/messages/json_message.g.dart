@@ -20,16 +20,6 @@ JsonMessage _$JsonMessageFromJson(
       (v) =>
           v == null ? null : JsonDeployUnit.fromJson(v as Map<String, dynamic>),
     ),
-    move: $checkedConvert(
-      'move',
-      (v) =>
-          v == null ? null : JsonMoveUnit.fromJson(v as Map<String, dynamic>),
-    ),
-    attackUnit: $checkedConvert(
-      'attackUnit',
-      (v) =>
-          v == null ? null : JsonAttackUnit.fromJson(v as Map<String, dynamic>),
-    ),
     action: $checkedConvert(
       'action',
       (v) =>
@@ -53,10 +43,6 @@ JsonMessage _$JsonMessageFromJson(
       'update',
       (v) => v == null ? null : JsonUpdate.fromJson(v as Map<String, dynamic>),
     ),
-    finish: $checkedConvert(
-      'finish',
-      (v) => v == null ? null : JsonFinish.fromJson(v as Map<String, dynamic>),
-    ),
     error: $checkedConvert(
       'error',
       (v) => v == null ? null : JsonError.fromJson(v as Map<String, dynamic>),
@@ -69,13 +55,10 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
     <String, dynamic>{
       'join': ?instance.join?.toJson(),
       'deploy': ?instance.deploy?.toJson(),
-      'move': ?instance.move?.toJson(),
-      'attackUnit': ?instance.attackUnit?.toJson(),
       'action': ?instance.action?.toJson(),
       'surrender': ?instance.surrender?.toJson(),
       'welcome': ?instance.welcome?.toJson(),
       'start': ?instance.start?.toJson(),
       'update': ?instance.update?.toJson(),
-      'finish': ?instance.finish?.toJson(),
       'error': ?instance.error?.toJson(),
     };

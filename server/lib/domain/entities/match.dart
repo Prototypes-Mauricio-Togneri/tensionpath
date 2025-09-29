@@ -71,34 +71,6 @@ class Match {
     }
   }
 
-  void moveUnit({
-    required String playerIndex,
-    required String unitId,
-    required Location location,
-  }) {
-    final Player player = players.get(playerIndex);
-    battlefield.moveUnit(
-      player: player,
-      unitId: unitId,
-      location: location,
-    );
-    _sendMatchUpdate();
-  }
-
-  void attackUnit({
-    required String playerIndex,
-    required String attackerUnitId,
-    required String defenderUnitId,
-  }) {
-    final Player player = players.get(playerIndex);
-    battlefield.attackUnit(
-      player: player,
-      attackerUnitId: attackerUnitId,
-      defenderUnitId: defenderUnitId,
-    );
-    _sendMatchUpdate();
-  }
-
   void unitAction({
     required String playerIndex,
     required String unitId,
@@ -159,11 +131,9 @@ class Match {
 
     if (winner != null) {
       status = MatchStatus.finished;
-      connection.broadcast(JsonMessage.finish(winner));
-      return;
+    } else {
+      battlefield.updateMissile();
     }
-
-    battlefield.updateMissile();
 
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players.list)
@@ -171,10 +141,12 @@ class Match {
     };
 
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
+      status: status,
       players: playersUpdate,
       missile: battlefield.missile.toJsonUpdate(),
       resources: battlefield.resourcesToJsonUpdate(),
       units: battlefield.unitsToJsonUpdate(),
+      winner: winner,
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));

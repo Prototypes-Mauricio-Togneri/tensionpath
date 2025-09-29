@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_attack_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
-import 'package:tensionpath/domain/json/messages/client_server/json_move_unit.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
@@ -62,30 +60,6 @@ class Dispatcher {
       socket: socket,
       location: json.location,
       type: json.type,
-    );
-  }
-
-  void moveUnit({
-    required JsonMoveUnit json,
-    required WebSocket socket,
-  }) {
-    final Connection connection = _getConnection(json.matchId);
-    connection.moveUnit(
-      socket: socket,
-      unitId: json.unitId,
-      location: json.location,
-    );
-  }
-
-  void attackUnit({
-    required JsonAttackUnit json,
-    required WebSocket socket,
-  }) {
-    final Connection connection = _getConnection(json.matchId);
-    connection.attackUnit(
-      socket: socket,
-      attackerUnitId: json.attackerUnitId,
-      defenderUnitId: json.defenderUnitId,
     );
   }
 

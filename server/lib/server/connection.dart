@@ -109,32 +109,6 @@ class Connection {
     );
   }
 
-  void moveUnit({
-    required WebSocket socket,
-    required String unitId,
-    required JsonLocation location,
-  }) {
-    final Participant participant = participantBySocket(socket);
-    _match?.moveUnit(
-      playerIndex: participant.playerIndex,
-      unitId: unitId,
-      location: Location.fromJson(location),
-    );
-  }
-
-  void attackUnit({
-    required WebSocket socket,
-    required String attackerUnitId,
-    required String defenderUnitId,
-  }) {
-    final Participant participant = participantBySocket(socket);
-    _match?.attackUnit(
-      playerIndex: participant.playerIndex,
-      attackerUnitId: attackerUnitId,
-      defenderUnitId: defenderUnitId,
-    );
-  }
-
   void unitAction({
     required WebSocket socket,
     required String unitId,
