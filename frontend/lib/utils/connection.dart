@@ -38,6 +38,6 @@ class Connection {
   }
 
   void disconnect() {
-    channel.sink.close(WebSocketStatus.goingAway);
+    channel.sink.close(WebSocketStatus.normalClosure);
   }
 }

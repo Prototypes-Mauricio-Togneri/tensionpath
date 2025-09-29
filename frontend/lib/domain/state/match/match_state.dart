@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/location.dart';
@@ -14,6 +13,7 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/connection.dart';
+import 'package:tensionpath/utils/error_handler.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class MatchState extends BaseState {
@@ -83,14 +83,16 @@ class MatchState extends BaseState {
     }
   }
 
-  void _onDisconnected() => InfoDialog.error(
-    text: 'Server disconnection',
-    onAccept: Navigation.pop,
-  );
-
-  void _onError(dynamic error) {
-    debugPrint(error);
+  void _onDisconnected() {
+    if (matchStatus == MatchStatus.playing) {
+      InfoDialog.error(
+        text: 'Server disconnection',
+        onAccept: Navigation.pop,
+      );
+    }
   }
+
+  void _onError(dynamic error) => ErrorHandler.process(error);
 
   void onDeployUnit({
     required Location location,
@@ -118,18 +120,16 @@ class MatchState extends BaseState {
 
   void onMatchFinished(bool hasWon) {
     if (hasWon) {
-      InfoDialog.won(_onMatchQuit);
+      InfoDialog.won(Navigation.pop);
     } else {
-      InfoDialog.lost(_onMatchQuit);
+      InfoDialog.lost(Navigation.pop);
     }
   }
-
-  void _onMatchQuit() => Navigation.pop();
 
   void onOpenMenu() => ConfirmationDialog.quitMatch(_onSurrender);
 
   void _onSurrender() {
     connection.send(JsonMessage.surrenderMatch(matchId: matchId));
-    _onMatchQuit();
+    Navigation.pop();
   }
 }
