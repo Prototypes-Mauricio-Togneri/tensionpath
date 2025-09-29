@@ -130,6 +130,5 @@ class MatchState extends BaseState {
 
   void _onSurrender() {
     connection.send(JsonMessage.surrenderMatch(matchId: matchId));
-    Navigation.pop();
   }
 }
