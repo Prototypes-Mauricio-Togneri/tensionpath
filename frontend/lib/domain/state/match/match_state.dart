@@ -73,14 +73,13 @@ class MatchState extends BaseState {
   }
 
   void _onUpdate(MatchUpdate update) {
+    MatchComponentRef.instance.onMatchUpdated(update);
+
     matchStatus = update.status;
     final String? winnerId = update.winner;
 
     if (winnerId != null) {
-      MatchComponentRef.instance.setWinner(winnerId);
-      Delayed.post(() => onMatchFinished(winnerId == selfId));
-    } else {
-      MatchComponentRef.instance.onMatchUpdated(update);
+      onMatchFinished(winnerId == selfId);
     }
   }
 

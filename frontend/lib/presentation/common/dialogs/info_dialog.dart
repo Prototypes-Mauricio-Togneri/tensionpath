@@ -14,11 +14,13 @@ class InfoDialog extends StatelessWidget {
   }) {
     final BuildContext context = Navigation.context();
 
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => InfoDialog._(text, onAccept),
-    );
+    Delayed.post(() {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => InfoDialog._(text, onAccept),
+      );
+    });
 
     return DialogController(context);
   }
