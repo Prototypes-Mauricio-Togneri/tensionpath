@@ -2,6 +2,8 @@
 
 ### Phase 1
 
+- Implement obstacles (water, rocks, etc). Low obstacles (only flying units can cross it) and high obstacles (cannot be crossed)
+
 - Events
 
   - Shooting
