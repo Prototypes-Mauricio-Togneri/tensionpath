@@ -10,6 +10,7 @@ JsonCreateMatch _$JsonCreateMatchFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonCreateMatch', json, ($checkedConvert) {
       final val = JsonCreateMatch(
         matchId: $checkedConvert('matchId', (v) => v as String),
+        mapId: $checkedConvert('mapId', (v) => v as String),
         createdAt: $checkedConvert(
           'createdAt',
           (v) => DateTime.parse(v as String),
@@ -30,6 +31,7 @@ JsonCreateMatch _$JsonCreateMatchFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonCreateMatchToJson(JsonCreateMatch instance) =>
     <String, dynamic>{
       'matchId': instance.matchId,
+      'mapId': instance.mapId,
       'createdAt': instance.createdAt.toIso8601String(),
       'numberOfPlayers': instance.numberOfPlayers,
       'matchType': instance.matchType,

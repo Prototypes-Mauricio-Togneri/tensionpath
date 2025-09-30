@@ -7,6 +7,7 @@ import {getAvailableRoomDocument} from '../../../database/room/get-available-roo
 import {updateRoomDocument} from '../../../database/room/update-room-document'
 import {createRoomDocument} from '../../../database/room/create-room-document'
 import {API_KEY, IS_EMULATOR, MATCH_SERVER_HTTP, MATCH_SERVER_WS} from '../../..'
+import {getRandomMapId} from '../../../types/map.id'
 
 interface StartMatchmakingCallableParams {
   userId: string,
@@ -117,6 +118,7 @@ const createMatch = async (params: {
 
   const data = {
     'matchId': matchId,
+    'mapId': getRandomMapId(),
     'createdAt': new Date().toISOString(),
     'numberOfPlayers': params.room.userIds.length,
     'matchType': 'pvp',

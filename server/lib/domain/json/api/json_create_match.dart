@@ -7,6 +7,9 @@ class JsonCreateMatch {
   @JsonKey(name: 'matchId')
   final String matchId;
 
+  @JsonKey(name: 'mapId')
+  final String mapId;
+
   @JsonKey(name: 'createdAt')
   final DateTime createdAt;
 
@@ -21,6 +24,7 @@ class JsonCreateMatch {
 
   const JsonCreateMatch({
     required this.matchId,
+    required this.mapId,
     required this.createdAt,
     required this.numberOfPlayers,
     required this.matchType,

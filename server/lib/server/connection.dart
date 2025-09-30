@@ -12,6 +12,7 @@ import 'package:tensionpath/utils/match_loader.dart';
 
 class Connection {
   final String matchId;
+  final String mapId;
   final DateTime createdAt;
   final int numberOfPlayers;
   final String matchType;
@@ -20,6 +21,7 @@ class Connection {
 
   Connection._({
     required this.matchId,
+    required this.mapId,
     required this.createdAt,
     required this.numberOfPlayers,
     required this.matchType,
@@ -45,6 +47,7 @@ class Connection {
 
     return Connection._(
       matchId: json.matchId,
+      mapId: json.mapId,
       createdAt: json.createdAt,
       numberOfPlayers: json.numberOfPlayers,
       matchType: json.matchType,
@@ -84,7 +87,7 @@ class Connection {
 
   Future _onMatchStart() async {
     final JsonMatchStart jsonMatch = await MatchLoader.load(
-      path: 'assets/w9h7.json',
+      path: 'assets/$mapId.json',
       participants: participants,
     );
 
