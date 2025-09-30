@@ -2,6 +2,11 @@
 
 ### Phase 1
 
+- Events
+
+  - Shooting
+  - Destroying unit
+
 - Harvester logic
 
   - Max 2 harvesters
