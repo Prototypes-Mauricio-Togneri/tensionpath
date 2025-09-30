@@ -16,7 +16,6 @@
 
 - Continuous popcap
 - New map
-- Fix position jumping
 
 ### Phase 2
 
