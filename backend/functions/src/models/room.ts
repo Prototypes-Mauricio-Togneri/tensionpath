@@ -6,6 +6,7 @@ export interface IRoom {
   id: string,
   version: number,
   createdAt: Date,
+  mapId: string,
   numberOfPlayers: number,
   visibility: RoomVisibility,
   status: RoomStatus,
@@ -20,6 +21,7 @@ export class Room implements IRoom {
   id: string
   version: number
   createdAt: Date
+  mapId: string
   numberOfPlayers: number
   visibility: RoomVisibility
   status: RoomStatus
@@ -33,6 +35,7 @@ export class Room implements IRoom {
     this.id = data.id
     this.version = data.version
     this.createdAt = data.createdAt
+    this.mapId = data.mapId
     this.numberOfPlayers = data.numberOfPlayers
     this.visibility = data.visibility
     this.status = data.status
@@ -79,6 +82,7 @@ export class Room implements IRoom {
     userId: string,
     name: string,
     version: number,
+    mapId: string,
     matchType: string,
     numberOfPlayers: number,
     visibility: RoomVisibility,
@@ -87,6 +91,7 @@ export class Room implements IRoom {
       id: '',
       version: params.version,
       createdAt: new Date(),
+      mapId: params.mapId,
       numberOfPlayers: params.numberOfPlayers,
       visibility: params.visibility,
       status: RoomStatus.open,

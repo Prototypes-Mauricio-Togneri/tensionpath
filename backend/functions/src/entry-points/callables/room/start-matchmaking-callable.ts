@@ -51,6 +51,7 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
         userId: params.userId,
         name: params.name,
         version: params.version,
+        mapId: getRandomMapId(),
         matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,
         visibility: params.visibility,
@@ -87,6 +88,7 @@ const createNewRoom = async (params: {
   userId: string,
   name: string,
   version: number,
+  mapId: string,
   matchType: string,
   numberOfPlayers: number,
   visibility: RoomVisibility,
@@ -95,6 +97,7 @@ const createNewRoom = async (params: {
     userId: params.userId,
     name: params.name,
     version: params.version,
+    mapId: params.mapId,
     matchType: params.matchType,
     numberOfPlayers: params.numberOfPlayers,
     visibility: params.visibility,
@@ -118,7 +121,7 @@ const createMatch = async (params: {
 
   const data = {
     'matchId': matchId,
-    'mapId': getRandomMapId(),
+    'mapId': params.room.mapId,
     'createdAt': new Date().toISOString(),
     'numberOfPlayers': params.room.userIds.length,
     'matchType': 'pvp',
