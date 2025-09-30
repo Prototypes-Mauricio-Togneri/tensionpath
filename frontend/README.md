@@ -79,6 +79,12 @@
   - Pros: easier to implement
   - Cons: less tactical
 
+## Avoid
+
+- Squads (pop caping)
+- 2 range units
+- Shooting while moving
+
 ## Units
 
 ### Barracks
