@@ -7,19 +7,19 @@ part 'json_node_start.g.dart';
 
 @JsonSerializable()
 class JsonNodeStart {
+  @JsonKey(name: 'type')
+  final NodeType type;
+
   @JsonKey(name: 'location')
   final JsonLocation location;
 
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  @JsonKey(name: 'type')
-  final NodeType type;
-
   JsonNodeStart({
+    required this.type,
     required this.location,
     required this.position,
-    required this.type,
   });
 
   factory JsonNodeStart.fromJson(Map<String, dynamic> json) =>

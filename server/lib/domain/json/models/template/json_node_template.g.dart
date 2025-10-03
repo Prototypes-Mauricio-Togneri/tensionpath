@@ -9,6 +9,7 @@ part of 'json_node_template.dart';
 JsonNodeTemplate _$JsonNodeTemplateFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonNodeTemplate', json, ($checkedConvert) {
       final val = JsonNodeTemplate(
+        type: $checkedConvert('type', (v) => $enumDecode(_$NodeTypeEnumMap, v)),
         location: $checkedConvert(
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
@@ -18,4 +19,15 @@ JsonNodeTemplate _$JsonNodeTemplateFromJson(Map<String, dynamic> json) =>
     });
 
 Map<String, dynamic> _$JsonNodeTemplateToJson(JsonNodeTemplate instance) =>
-    <String, dynamic>{'location': instance.location.toJson()};
+    <String, dynamic>{
+      'type': _$NodeTypeEnumMap[instance.type]!,
+      'location': instance.location.toJson(),
+    };
+
+const _$NodeTypeEnumMap = {
+  NodeType.empty: 'empty',
+  NodeType.resources: 'resources',
+  NodeType.launcher: 'launcher',
+  NodeType.pad: 'pad',
+  NodeType.missile: 'missile',
+};

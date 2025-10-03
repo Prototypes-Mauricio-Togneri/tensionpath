@@ -21,7 +21,6 @@ import 'package:tensionpath/domain/json/models/template/json_node_template.dart'
 import 'package:tensionpath/domain/json/models/template/json_platform_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_player_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_resource_template.dart';
-import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
 
@@ -112,16 +111,11 @@ class MatchLoader {
     for (final JsonNodeTemplate jsonNode in battlefield.nodes) {
       jsonNodesStart.add(
         JsonNodeStart(
+          type: jsonNode.type,
           location: jsonNode.location,
           position: _getNodePosition(
             nodeSize: Constants.NODE_SIZE,
             location: Location.fromJson(jsonNode.location),
-          ),
-          type: _getNodeType(
-            positionId: jsonNode.location.id,
-            missile: battlefield.missile,
-            resources: battlefield.resources,
-            launchers: battlefield.launchers,
           ),
         ),
       );
@@ -241,41 +235,6 @@ class MatchLoader {
     required JsonLocation location,
     required List<JsonNodeStart> nodes,
   }) => nodes.firstWhere((node) => node.location.id == location.id);
-
-  static NodeType _getNodeType({
-    required String positionId,
-    required JsonMissileTemplate missile,
-    required List<JsonResourceTemplate> resources,
-    required List<JsonLaunchersTemplate> launchers,
-  }) {
-    if (missile.location.id == positionId) {
-      return NodeType.missile;
-    }
-
-    final List<JsonLocation> padsPositions = missile.platforms
-        .map((p) => p.pads)
-        .expand((p) => p)
-        .toList();
-
-    if (padsPositions.any((pad) => pad.id == positionId)) {
-      return NodeType.pad;
-    }
-
-    if (resources.any((resource) => resource.location.id == positionId)) {
-      return NodeType.resources;
-    }
-
-    final List<JsonLocation> launchersPositions = launchers
-        .map((launchers) => launchers.locations)
-        .expand((locations) => locations)
-        .toList();
-
-    if (launchersPositions.any((launcher) => launcher.id == positionId)) {
-      return NodeType.launcher;
-    }
-
-    return NodeType.empty;
-  }
 
   static JsonPosition _getNodePosition({
     required Size nodeSize,
