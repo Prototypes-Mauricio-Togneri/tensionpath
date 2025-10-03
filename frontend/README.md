@@ -58,6 +58,12 @@
     - Increases attack
     - Increases conquering rate
 
+## Harvesting
+
+- 0 harv: 10 tib in 5 seconds
+- 1 harv: 10 tib in 3 seconds
+- 2 harv: 10 tib in 2 seconds
+
 ## Combat
 
 - Face to face
