@@ -22,12 +22,6 @@ JsonBattlefieldTemplate _$JsonBattlefieldTemplateFromJson(
       'missile',
       (v) => JsonMissileTemplate.fromJson(v as Map<String, dynamic>),
     ),
-    resources: $checkedConvert(
-      'resources',
-      (v) => (v as List<dynamic>)
-          .map((e) => JsonResourceTemplate.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    ),
     launchers: $checkedConvert(
       'launchers',
       (v) => (v as List<dynamic>)
@@ -50,7 +44,6 @@ Map<String, dynamic> _$JsonBattlefieldTemplateToJson(
   'mapSize': instance.mapSize.toJson(),
   'nodeSize': instance.nodeSize.toJson(),
   'missile': instance.missile.toJson(),
-  'resources': instance.resources.map((e) => e.toJson()).toList(),
   'launchers': instance.launchers.map((e) => e.toJson()).toList(),
   'nodes': instance.nodes.map((e) => e.toJson()).toList(),
 };

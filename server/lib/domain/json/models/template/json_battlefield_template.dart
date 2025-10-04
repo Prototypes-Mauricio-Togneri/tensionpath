@@ -3,7 +3,6 @@ import 'package:tensionpath/domain/json/models/common/json_size.dart';
 import 'package:tensionpath/domain/json/models/template/json_launchers_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_missile_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
-import 'package:tensionpath/domain/json/models/template/json_resource_template.dart';
 
 part 'json_battlefield_template.g.dart';
 
@@ -18,9 +17,6 @@ class JsonBattlefieldTemplate {
   @JsonKey(name: 'missile')
   final JsonMissileTemplate missile;
 
-  @JsonKey(name: 'resources')
-  final List<JsonResourceTemplate> resources;
-
   @JsonKey(name: 'launchers')
   final List<JsonLaunchersTemplate> launchers;
 
@@ -31,7 +27,6 @@ class JsonBattlefieldTemplate {
     required this.mapSize,
     required this.nodeSize,
     required this.missile,
-    required this.resources,
     required this.launchers,
     required this.nodes,
   });

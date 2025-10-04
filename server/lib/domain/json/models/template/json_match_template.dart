@@ -1,11 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/template/json_battlefield_template.dart';
+import 'package:tensionpath/domain/json/models/template/json_config_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_player_template.dart';
 
 part 'json_match_template.g.dart';
 
 @JsonSerializable()
 class JsonMatchTemplate {
+  @JsonKey(name: 'config')
+  final JsonConfigTemplate config;
+
   @JsonKey(name: 'players')
   final List<JsonPlayerTemplate> players;
 
@@ -13,6 +17,7 @@ class JsonMatchTemplate {
   final JsonBattlefieldTemplate battlefield;
 
   JsonMatchTemplate({
+    required this.config,
     required this.players,
     required this.battlefield,
   });

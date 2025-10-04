@@ -2,7 +2,10 @@
 
 ### Phase 1
 
+- Simplify players, launchers, missile fields in template
+
 - Config
+  - Resources path amount
   - Passive resources rate
   - Harvester rate
   - Popcap rate

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
@@ -20,7 +21,7 @@ import 'package:tensionpath/domain/json/models/template/json_missile_template.da
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_platform_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_player_template.dart';
-import 'package:tensionpath/domain/json/models/template/json_resource_template.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
 
@@ -94,6 +95,7 @@ class MatchLoader {
   static JsonBattlefieldStart _getJsonBattlefieldStart(
     JsonMatchTemplate jsonMatchTemplate,
   ) {
+    final Config config = Config.fromJson(jsonMatchTemplate.config);
     final List<JsonNodeStart> jsonNodeStart = _getJsonNodesStart(
       jsonMatchTemplate.battlefield,
     );
@@ -107,7 +109,7 @@ class MatchLoader {
         nodes: jsonNodeStart,
       ),
       resources: _getJsonResourcesStart(
-        resources: jsonMatchTemplate.battlefield.resources,
+        config: config,
         nodes: jsonNodeStart,
       ),
       launchers: _getJsonLaunchersStart(
@@ -194,26 +196,24 @@ class MatchLoader {
   }
 
   static List<JsonResourceStart> _getJsonResourcesStart({
-    required List<JsonResourceTemplate> resources,
+    required Config config,
     required List<JsonNodeStart> nodes,
   }) {
     final List<JsonResourceStart> result = [];
+    final num patchAmount = config.resourcesPerPatch;
 
-    for (final JsonResourceTemplate resource in resources) {
-      final JsonNodeStart node = _getNodeByLocation(
-        location: resource.location,
-        nodes: nodes,
-      );
-
-      result.add(
-        JsonResourceStart(
-          id: resource.id,
-          location: node.location,
-          position: node.position,
-          amountCurrent: resource.amount,
-          amountMax: resource.amount,
-        ),
-      );
+    for (final JsonNodeStart node in nodes) {
+      if (node.type == NodeType.resources) {
+        result.add(
+          JsonResourceStart(
+            id: node.location.id,
+            location: node.location,
+            position: node.position,
+            amountCurrent: patchAmount,
+            amountMax: patchAmount,
+          ),
+        );
+      }
     }
 
     return result;

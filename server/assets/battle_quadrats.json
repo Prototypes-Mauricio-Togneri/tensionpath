@@ -1,4 +1,14 @@
 {
+    "config": {
+        "resourcesPerPatch": 150,
+        "resourcesRate": 1,
+        "popcapRate": 1,
+        "missileMaxCharge": 40,
+        "missileChargeBuffer": 35,
+        "missileChargeRate": 1,
+        "missileDamage": 0.5,
+        "baseHealth": 1000
+    },
     "players": [
         {
             "index": "1",
@@ -66,72 +76,6 @@
                 }
             ]
         },
-        "resources": [
-            {
-                "id": "resources1",
-                "location": {
-                    "x": -3,
-                    "y": -1
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources2",
-                "location": {
-                    "x": -2,
-                    "y": 2
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources3",
-                "location": {
-                    "x": -3,
-                    "y": 3
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources4",
-                "location": {
-                    "x": -2,
-                    "y": 3
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources5",
-                "location": {
-                    "x": 3,
-                    "y": 1
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources6",
-                "location": {
-                    "x": 2,
-                    "y": -3
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources7",
-                "location": {
-                    "x": 3,
-                    "y": -3
-                },
-                "amount": 150
-            },
-            {
-                "id": "resources8",
-                "location": {
-                    "x": 2,
-                    "y": -2
-                },
-                "amount": 150
-            }
-        ],
         "launchers": [
             {
                 "playerIndex": "1",
