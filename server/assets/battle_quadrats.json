@@ -20,42 +20,6 @@
             "width": 8.660254038,
             "height": 10
         },
-        "platforms": [
-            {
-                "id": "platform1",
-                "pads": [
-                    {
-                        "x": -1,
-                        "y": -2
-                    },
-                    {
-                        "x": 0,
-                        "y": -2
-                    },
-                    {
-                        "x": -1,
-                        "y": -1
-                    }
-                ]
-            },
-            {
-                "id": "platform2",
-                "pads": [
-                    {
-                        "x": 1,
-                        "y": 1
-                    },
-                    {
-                        "x": 0,
-                        "y": 2
-                    },
-                    {
-                        "x": 1,
-                        "y": 2
-                    }
-                ]
-            }
-        ],
         "nodes": [
             {
                 "type": "missile",
@@ -65,7 +29,7 @@
                 }
             },
             {
-                "type": "pad",
+                "type": "empty",
                 "location": {
                     "x": 0,
                     "y": -1
@@ -86,7 +50,7 @@
                 }
             },
             {
-                "type": "pad",
+                "type": "empty",
                 "location": {
                     "x": 0,
                     "y": 1
@@ -107,7 +71,7 @@
                 }
             },
             {
-                "type": "pad",
+                "type": "empty",
                 "location": {
                     "x": 1,
                     "y": -2
@@ -135,21 +99,23 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "pad",
                 "location": {
                     "x": 1,
                     "y": 1
-                }
+                },
+                "platformId": "2"
             },
             {
                 "type": "pad",
                 "location": {
                     "x": 0,
                     "y": 2
-                }
+                },
+                "platformId": "2"
             },
             {
-                "type": "pad",
+                "type": "empty",
                 "location": {
                     "x": -1,
                     "y": 2
@@ -177,18 +143,20 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "pad",
                 "location": {
                     "x": -1,
                     "y": -1
-                }
+                },
+                "platformId": "1"
             },
             {
                 "type": "pad",
                 "location": {
                     "x": 0,
                     "y": -2
-                }
+                },
+                "platformId": "1"
             },
             {
                 "type": "empty",
@@ -247,11 +215,12 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "pad",
                 "location": {
                     "x": 1,
                     "y": 2
-                }
+                },
+                "platformId": "2"
             },
             {
                 "type": "empty",
@@ -310,11 +279,12 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "pad",
                 "location": {
                     "x": -1,
                     "y": -2
-                }
+                },
+                "platformId": "1"
             },
             {
                 "type": "empty",

@@ -55,6 +55,7 @@ class Node {
     position: position.toJson(),
     type: type,
     playerIndex: null,
+    platformId: null,
   );
 
   @override

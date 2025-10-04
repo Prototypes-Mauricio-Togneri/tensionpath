@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/size.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_launcher_start.dart';
@@ -17,7 +16,6 @@ import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
 import 'package:tensionpath/domain/json/models/template/json_battlefield_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_match_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
-import 'package:tensionpath/domain/json/models/template/json_platform_template.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
@@ -89,7 +87,6 @@ class MatchLoader {
       nodes: jsonNodeStart,
       missile: _getJsonMissileStart(
         config: config,
-        platforms: jsonMatchTemplate.battlefield.platforms,
         nodes: jsonNodeStart,
       ),
       resources: _getJsonResourcesStart(
@@ -115,6 +112,7 @@ class MatchLoader {
             location: Location.fromJson(jsonNode.location),
           ),
           playerIndex: jsonNode.playerIndex,
+          platformId: jsonNode.platformId,
         ),
       );
     }
@@ -124,7 +122,6 @@ class MatchLoader {
 
   static JsonMissileStart _getJsonMissileStart({
     required Config config,
-    required List<JsonPlatformTemplate> platforms,
     required List<JsonNodeStart> nodes,
   }) {
     final JsonNodeStart node = _getMissileNode(nodes);
@@ -134,10 +131,7 @@ class MatchLoader {
       position: node.position,
       chargeMax: config.missileMaxCharge,
       chargeBuffer: config.missileChargeBuffer,
-      platforms: _getJsonPlatformStart(
-        platforms: platforms,
-        nodes: nodes,
-      ),
+      platforms: _getJsonPlatformStart(nodes),
     );
   }
 
@@ -151,38 +145,34 @@ class MatchLoader {
     throw Exception('No missile node found');
   }
 
-  static List<JsonPlatformStart> _getJsonPlatformStart({
-    required List<JsonPlatformTemplate> platforms,
-    required List<JsonNodeStart> nodes,
-  }) {
-    final List<JsonPlatformStart> result = [];
+  static List<JsonPlatformStart> _getJsonPlatformStart(
+    List<JsonNodeStart> nodes,
+  ) {
+    final Map<String, List<JsonPadStart>> result = {};
 
-    for (final JsonPlatformTemplate platform in platforms) {
-      final List<JsonPadStart> pads = [];
-
-      for (final JsonLocation padPosition in platform.pads) {
-        final JsonNodeStart node = _getNodeByLocation(
-          location: padPosition,
-          nodes: nodes,
+    for (final JsonNodeStart node in nodes) {
+      if (node.type == NodeType.pad) {
+        final JsonPadStart pad = JsonPadStart(
+          location: node.location,
+          position: node.position,
         );
 
-        pads.add(
-          JsonPadStart(
-            location: node.location,
-            position: node.position,
-          ),
-        );
+        if (result.containsKey(node.platformId)) {
+          result[node.platformId!]!.add(pad);
+        } else {
+          result[node.platformId!] = [pad];
+        }
       }
-
-      result.add(
-        JsonPlatformStart(
-          id: platform.id,
-          pads: pads,
-        ),
-      );
     }
 
-    return result;
+    return result.entries
+        .map(
+          (entry) => JsonPlatformStart(
+            id: entry.key,
+            pads: entry.value,
+          ),
+        )
+        .toList();
   }
 
   static List<JsonResourceStart> _getJsonResourcesStart({
@@ -227,19 +217,6 @@ class MatchLoader {
     }
 
     return result;
-  }
-
-  static JsonNodeStart _getNodeByLocation({
-    required JsonLocation location,
-    required List<JsonNodeStart> nodes,
-  }) {
-    for (final JsonNodeStart node in nodes) {
-      if (node.location.id == location.id) {
-        return node;
-      }
-    }
-
-    throw Exception('Node with location ${location.toJson()} not found');
   }
 
   static JsonPosition _getNodePosition({

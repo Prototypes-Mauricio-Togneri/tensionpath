@@ -19,11 +19,15 @@ class JsonNodeStart {
   @JsonKey(name: 'playerIndex')
   final String? playerIndex;
 
+  @JsonKey(name: 'platformId')
+  final String? platformId;
+
   JsonNodeStart({
     required this.type,
     required this.location,
     required this.position,
     required this.playerIndex,
+    required this.platformId,
   });
 
   factory JsonNodeStart.fromJson(Map<String, dynamic> json) =>

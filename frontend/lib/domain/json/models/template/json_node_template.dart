@@ -15,10 +15,14 @@ class JsonNodeTemplate {
   @JsonKey(name: 'playerIndex')
   final String? playerIndex;
 
+  @JsonKey(name: 'platformId')
+  final String? platformId;
+
   JsonNodeTemplate({
     required this.type,
     required this.location,
     required this.playerIndex,
+    required this.platformId,
   });
 
   factory JsonNodeTemplate.fromJson(Map<String, dynamic> json) =>
