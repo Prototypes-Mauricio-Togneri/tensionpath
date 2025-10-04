@@ -73,8 +73,7 @@
                     "x": 4,
                     "y": -3
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             },
             {
                 "id": "resources2",
@@ -82,8 +81,7 @@
                     "x": 3,
                     "y": 2
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             },
             {
                 "id": "resources3",
@@ -91,8 +89,7 @@
                     "x": -3,
                     "y": -2
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             },
             {
                 "id": "resources4",
@@ -100,8 +97,7 @@
                     "x": -4,
                     "y": 3
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             }
         ],
         "launchers": [

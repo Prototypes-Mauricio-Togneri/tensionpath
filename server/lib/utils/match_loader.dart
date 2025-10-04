@@ -196,8 +196,8 @@ class MatchLoader {
           id: resource.id,
           location: node.location,
           position: node.position,
-          amountCurrent: resource.amountCurrent,
-          amountMax: resource.amountMax,
+          amountCurrent: resource.amount,
+          amountMax: resource.amount,
         ),
       );
     }

@@ -11,17 +11,13 @@ class JsonResourceTemplate {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
-  @JsonKey(name: 'amountCurrent')
-  final num amountCurrent;
-
-  @JsonKey(name: 'amountMax')
-  final num amountMax;
+  @JsonKey(name: 'amount')
+  final num amount;
 
   const JsonResourceTemplate({
     required this.id,
     required this.location,
-    required this.amountCurrent,
-    required this.amountMax,
+    required this.amount,
   });
 
   factory JsonResourceTemplate.fromJson(Map<String, dynamic> json) =>

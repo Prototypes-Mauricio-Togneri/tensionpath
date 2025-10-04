@@ -16,9 +16,11 @@
 - Config
   - Resources rate
   - Popcap rate
+  - Missile max charge
+  - Missile charge buffer
   - Missile charge rate
   - How much a missile takes
-  - Base HP
+  - Base max health
   - Units stats
 
 ### Phase 2

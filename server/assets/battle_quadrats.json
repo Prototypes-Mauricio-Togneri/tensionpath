@@ -34,16 +34,16 @@
                     "id": "platform1",
                     "pads": [
                         {
+                            "x": -1,
+                            "y": -2
+                        },
+                        {
                             "x": 0,
+                            "y": -2
+                        },
+                        {
+                            "x": -1,
                             "y": -1
-                        },
-                        {
-                            "x": 1,
-                            "y": -2
-                        },
-                        {
-                            "x": 0,
-                            "y": -2
                         }
                     ]
                 },
@@ -51,7 +51,7 @@
                     "id": "platform2",
                     "pads": [
                         {
-                            "x": 0,
+                            "x": 1,
                             "y": 1
                         },
                         {
@@ -59,7 +59,7 @@
                             "y": 2
                         },
                         {
-                            "x": -1,
+                            "x": 1,
                             "y": 2
                         }
                     ]
@@ -70,11 +70,10 @@
             {
                 "id": "resources1",
                 "location": {
-                    "x": 4,
-                    "y": -3
+                    "x": -1,
+                    "y": -1
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             },
             {
                 "id": "resources2",
@@ -82,8 +81,7 @@
                     "x": 3,
                     "y": 2
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             },
             {
                 "id": "resources3",
@@ -91,8 +89,7 @@
                     "x": -3,
                     "y": -2
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
             },
             {
                 "id": "resources4",
@@ -100,8 +97,39 @@
                     "x": -4,
                     "y": 3
                 },
-                "amountCurrent": 100,
-                "amountMax": 100
+                "amount": 100
+            },
+            {
+                "id": "resources5",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                },
+                "amount": 100
+            },
+            {
+                "id": "resources6",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                },
+                "amount": 100
+            },
+            {
+                "id": "resources7",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                },
+                "amount": 100
+            },
+            {
+                "id": "resources8",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                },
+                "amount": 100
             }
         ],
         "launchers": [
