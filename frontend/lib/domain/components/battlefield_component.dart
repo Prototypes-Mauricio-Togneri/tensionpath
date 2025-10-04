@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
+import 'package:tensionpath/domain/components/rocks_low_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
@@ -18,6 +19,7 @@ import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/update.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -76,6 +78,11 @@ class BattlefieldComponent extends PositionComponent {
     );
 
     _addResourceComponents(
+      nodeSize: nodeSize,
+      mapCenter: mapCenter,
+    );
+
+    _addRocksLowComponents(
       nodeSize: nodeSize,
       mapCenter: mapCenter,
     );
@@ -165,6 +172,25 @@ class BattlefieldComponent extends PositionComponent {
       );
       add(resourceComponent);
       resourceComponents.add(resourceComponent);
+    }
+  }
+
+  void _addRocksLowComponents({
+    required Vector2 nodeSize,
+    required Vector2 mapCenter,
+  }) {
+    for (final Node node in battlefield.nodes) {
+      if (node.type == NodeType.rocks_low) {
+        final Vector2 position = node.position.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
+        );
+        final RocksLowComponent rocksLowComponent = RocksLowComponent(
+          position: position,
+          size: nodeSize,
+        );
+        add(rocksLowComponent);
+      }
     }
   }
 

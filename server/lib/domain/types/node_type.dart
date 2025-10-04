@@ -3,7 +3,7 @@ enum NodeType {
   resources(canMove: true),
   launcher(canMove: false),
   pad(canMove: true),
-  water(canMove: false),
+  rocks_low(canMove: false),
   missile(canMove: false);
 
   final bool canMove;
