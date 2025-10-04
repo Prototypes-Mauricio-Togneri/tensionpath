@@ -2,18 +2,6 @@
 
 ### Phase 1
 
-- Implement obstacles (water, rocks, etc). Low obstacles (only flying units can cross it) and high obstacles (cannot be crossed)
-- Events
-  - Shooting
-  - Destroying unit
-- Harvester logic
-  - Max 2 harvesters
-  - Harvester kill reward
-  - New harvester free
-  - Drive harvester to patch automatically
-  - Update harvesting rate (see picture)
-- Continuous popcap
-- New map
 - Config
   - Passive resources rate
   - Harvester rate
@@ -24,9 +12,19 @@
   - How much a missile takes
   - Base max health
   - Units stats
+- Harvester logic
+  - Max 2 harvesters
+  - Harvester kill reward
+  - New harvester free
+  - Drive harvester to patch automatically
+  - Update harvesting rate (see picture)
+- Continuous popcap
 
 ### Phase 2
 
+- Events
+  - Shooting
+  - Destroying unit
 - Music and sound effects
 - Ramping resources rate and popcap
 - Selecte deck before match
