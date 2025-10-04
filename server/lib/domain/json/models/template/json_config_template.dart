@@ -4,11 +4,17 @@ part 'json_config_template.g.dart';
 
 @JsonSerializable()
 class JsonConfigTemplate {
+  @JsonKey(name: 'resourcesStart')
+  final num resourcesStart;
+
   @JsonKey(name: 'resourcesPerPatch')
   final num resourcesPerPatch;
 
-  @JsonKey(name: 'resourcesRate')
-  final num resourcesRate;
+  @JsonKey(name: 'resourcesPassiveRate')
+  final num resourcesPassiveRate;
+
+  @JsonKey(name: 'resourcesHarvestRate')
+  final num resourcesHarvestRate;
 
   @JsonKey(name: 'popcapRate')
   final num popcapRate;
@@ -29,8 +35,10 @@ class JsonConfigTemplate {
   final num baseHealth;
 
   const JsonConfigTemplate({
+    required this.resourcesStart,
     required this.resourcesPerPatch,
-    required this.resourcesRate,
+    required this.resourcesPassiveRate,
+    required this.resourcesHarvestRate,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,

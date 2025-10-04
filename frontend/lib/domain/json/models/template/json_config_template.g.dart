@@ -10,8 +10,16 @@ JsonConfigTemplate _$JsonConfigTemplateFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('JsonConfigTemplate', json, ($checkedConvert) {
   final val = JsonConfigTemplate(
+    resourcesStart: $checkedConvert('resourcesStart', (v) => v as num),
     resourcesPerPatch: $checkedConvert('resourcesPerPatch', (v) => v as num),
-    resourcesRate: $checkedConvert('resourcesRate', (v) => v as num),
+    resourcesPassiveRate: $checkedConvert(
+      'resourcesPassiveRate',
+      (v) => v as num,
+    ),
+    resourcesHarvestRate: $checkedConvert(
+      'resourcesHarvestRate',
+      (v) => v as num,
+    ),
     popcapRate: $checkedConvert('popcapRate', (v) => v as num),
     missileMaxCharge: $checkedConvert('missileMaxCharge', (v) => v as num),
     missileChargeBuffer: $checkedConvert(
@@ -27,8 +35,10 @@ JsonConfigTemplate _$JsonConfigTemplateFromJson(
 
 Map<String, dynamic> _$JsonConfigTemplateToJson(JsonConfigTemplate instance) =>
     <String, dynamic>{
+      'resourcesStart': instance.resourcesStart,
       'resourcesPerPatch': instance.resourcesPerPatch,
-      'resourcesRate': instance.resourcesRate,
+      'resourcesPassiveRate': instance.resourcesPassiveRate,
+      'resourcesHarvestRate': instance.resourcesHarvestRate,
       'popcapRate': instance.popcapRate,
       'missileMaxCharge': instance.missileMaxCharge,
       'missileChargeBuffer': instance.missileChargeBuffer,

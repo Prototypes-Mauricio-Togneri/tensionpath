@@ -1,7 +1,9 @@
 {
     "config": {
+        "resourcesStart": 100,
         "resourcesPerPatch": 150,
-        "resourcesRate": 1,
+        "resourcesPassiveRate": 2,
+        "resourcesHarvestRate": 1.5,
         "popcapRate": 1,
         "missileMaxCharge": 40,
         "missileChargeBuffer": 35,
@@ -9,20 +11,6 @@
         "missileDamage": 0.5,
         "baseHealth": 1000
     },
-    "players": [
-        {
-            "index": "1",
-            "baseHealth": 1000,
-            "resources": 100,
-            "resourcesRateBase": 2
-        },
-        {
-            "index": "2",
-            "baseHealth": 1000,
-            "resources": 100,
-            "resourcesRateBase": 2
-        }
-    ],
     "battlefield": {
         "mapSize": {
             "width": 9,

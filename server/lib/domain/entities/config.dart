@@ -1,8 +1,10 @@
 import 'package:tensionpath/domain/json/models/template/json_config_template.dart';
 
 class Config {
+  final num resourcesStart;
   final num resourcesPerPatch;
-  final num resourcesRate;
+  final num resourcesPassiveRate;
+  final num resourcesHarvestRate;
   final num popcapRate;
   final num missileMaxCharge;
   final num missileChargeBuffer;
@@ -11,8 +13,10 @@ class Config {
   final num baseHealth;
 
   const Config({
+    required this.resourcesStart,
     required this.resourcesPerPatch,
-    required this.resourcesRate,
+    required this.resourcesPassiveRate,
+    required this.resourcesHarvestRate,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
@@ -22,8 +26,10 @@ class Config {
   });
 
   factory Config.fromJson(JsonConfigTemplate json) => Config(
+    resourcesStart: json.resourcesStart,
     resourcesPerPatch: json.resourcesPerPatch,
-    resourcesRate: json.resourcesRate,
+    resourcesPassiveRate: json.resourcesPassiveRate,
+    resourcesHarvestRate: json.resourcesHarvestRate,
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,

@@ -13,14 +13,6 @@ JsonMatchTemplate _$JsonMatchTemplateFromJson(Map<String, dynamic> json) =>
           'config',
           (v) => JsonConfigTemplate.fromJson(v as Map<String, dynamic>),
         ),
-        players: $checkedConvert(
-          'players',
-          (v) => (v as List<dynamic>)
-              .map(
-                (e) => JsonPlayerTemplate.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
-        ),
         battlefield: $checkedConvert(
           'battlefield',
           (v) => JsonBattlefieldTemplate.fromJson(v as Map<String, dynamic>),
@@ -32,6 +24,5 @@ JsonMatchTemplate _$JsonMatchTemplateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchTemplateToJson(JsonMatchTemplate instance) =>
     <String, dynamic>{
       'config': instance.config.toJson(),
-      'players': instance.players.map((e) => e.toJson()).toList(),
       'battlefield': instance.battlefield.toJson(),
     };

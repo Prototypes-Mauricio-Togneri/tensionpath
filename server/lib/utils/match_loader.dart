@@ -20,7 +20,6 @@ import 'package:tensionpath/domain/json/models/template/json_match_template.dart
 import 'package:tensionpath/domain/json/models/template/json_missile_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_platform_template.dart';
-import 'package:tensionpath/domain/json/models/template/json_player_template.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
@@ -31,14 +30,18 @@ class MatchLoader {
     required Map<String, Participant> participants,
   }) async {
     final JsonMatchTemplate jsonMatchTemplate = _getJsonMatchTemplate(path);
+    final Config config = Config.fromJson(jsonMatchTemplate.config);
 
     return JsonMatchStart(
       createdAt: DateTime.now().toUtc().toIso8601String(),
       players: _getJsonPlayersStart(
+        config: config,
         participants: participants,
-        playersTemplate: jsonMatchTemplate.players,
       ),
-      battlefield: _getJsonBattlefieldStart(jsonMatchTemplate),
+      battlefield: _getJsonBattlefieldStart(
+        config: config,
+        jsonMatchTemplate: jsonMatchTemplate,
+      ),
     );
   }
 
@@ -51,27 +54,22 @@ class MatchLoader {
   }
 
   static List<JsonPlayerStart> _getJsonPlayersStart({
+    required Config config,
     required Map<String, Participant> participants,
-    required List<JsonPlayerTemplate> playersTemplate,
   }) {
     final List<JsonPlayerStart> jsonPlayersStart = [];
 
     for (final Participant participant in participants.values) {
-      final JsonPlayerTemplate jsonPlayerTemplate = _getPlayerByIndex(
-        playerIndex: participant.playerIndex,
-        playersTemplate: playersTemplate,
-      );
-
       jsonPlayersStart.add(
         JsonPlayerStart(
           id: participant.playerId,
           name: participant.playerName,
           isSelf: false,
-          index: jsonPlayerTemplate.index,
-          baseHealth: jsonPlayerTemplate.baseHealth,
-          baseMaxHealth: jsonPlayerTemplate.baseHealth,
-          resources: jsonPlayerTemplate.resources,
-          resourcesRateBase: jsonPlayerTemplate.resourcesRateBase,
+          index: participant.playerIndex,
+          baseHealth: config.baseHealth,
+          baseMaxHealth: config.baseHealth,
+          resources: config.resourcesStart,
+          resourcesRateBase: config.resourcesPassiveRate,
         ),
       );
     }
@@ -79,23 +77,10 @@ class MatchLoader {
     return jsonPlayersStart;
   }
 
-  static JsonPlayerTemplate _getPlayerByIndex({
-    required String playerIndex,
-    required List<JsonPlayerTemplate> playersTemplate,
+  static JsonBattlefieldStart _getJsonBattlefieldStart({
+    required Config config,
+    required JsonMatchTemplate jsonMatchTemplate,
   }) {
-    for (final JsonPlayerTemplate player in playersTemplate) {
-      if (player.index == playerIndex) {
-        return player;
-      }
-    }
-
-    throw Exception('Player with index $playerIndex not found');
-  }
-
-  static JsonBattlefieldStart _getJsonBattlefieldStart(
-    JsonMatchTemplate jsonMatchTemplate,
-  ) {
-    final Config config = Config.fromJson(jsonMatchTemplate.config);
     final List<JsonNodeStart> jsonNodeStart = _getJsonNodesStart(
       jsonMatchTemplate.battlefield,
     );
