@@ -18,9 +18,11 @@ JsonBattlefieldTemplate _$JsonBattlefieldTemplateFromJson(
       'nodeSize',
       (v) => JsonSize.fromJson(v as Map<String, dynamic>),
     ),
-    missile: $checkedConvert(
-      'missile',
-      (v) => JsonMissileTemplate.fromJson(v as Map<String, dynamic>),
+    platforms: $checkedConvert(
+      'platforms',
+      (v) => (v as List<dynamic>)
+          .map((e) => JsonPlatformTemplate.fromJson(e as Map<String, dynamic>))
+          .toList(),
     ),
     nodes: $checkedConvert(
       'nodes',
@@ -37,6 +39,6 @@ Map<String, dynamic> _$JsonBattlefieldTemplateToJson(
 ) => <String, dynamic>{
   'mapSize': instance.mapSize.toJson(),
   'nodeSize': instance.nodeSize.toJson(),
-  'missile': instance.missile.toJson(),
+  'platforms': instance.platforms.map((e) => e.toJson()).toList(),
   'nodes': instance.nodes.map((e) => e.toJson()).toList(),
 };

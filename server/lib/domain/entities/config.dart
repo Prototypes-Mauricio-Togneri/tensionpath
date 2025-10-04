@@ -4,12 +4,12 @@ class Config {
   final num resourcesStart;
   final num resourcesPerPatch;
   final num resourcesPassiveRate;
-  final num resourcesHarvestRate;
-  final num popcapRate;
+  final num resourcesHarvestRate; // TODO(momo): use
+  final num popcapRate; // TODO(momo): use
   final num missileMaxCharge;
   final num missileChargeBuffer;
-  final num missileChargeRate;
-  final num missileDamage;
+  final num missileChargeRate; // TODO(momo): use
+  final num missileDamage; // TODO(momo): use
   final num baseHealth;
 
   const Config({

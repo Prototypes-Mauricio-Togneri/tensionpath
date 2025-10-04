@@ -20,50 +20,42 @@
             "width": 8.660254038,
             "height": 10
         },
-        "missile": {
-            "location": {
-                "x": 0,
-                "y": 0
+        "platforms": [
+            {
+                "id": "platform1",
+                "pads": [
+                    {
+                        "x": -1,
+                        "y": -2
+                    },
+                    {
+                        "x": 0,
+                        "y": -2
+                    },
+                    {
+                        "x": -1,
+                        "y": -1
+                    }
+                ]
             },
-            "chargeMax": 40,
-            "chargeBuffer": 35,
-            "platforms": [
-                {
-                    "id": "platform1",
-                    "pads": [
-                        {
-                            "x": -1,
-                            "y": -2
-                        },
-                        {
-                            "x": 0,
-                            "y": -2
-                        },
-                        {
-                            "x": -1,
-                            "y": -1
-                        }
-                    ]
-                },
-                {
-                    "id": "platform2",
-                    "pads": [
-                        {
-                            "x": 1,
-                            "y": 1
-                        },
-                        {
-                            "x": 0,
-                            "y": 2
-                        },
-                        {
-                            "x": 1,
-                            "y": 2
-                        }
-                    ]
-                }
-            ]
-        },
+            {
+                "id": "platform2",
+                "pads": [
+                    {
+                        "x": 1,
+                        "y": 1
+                    },
+                    {
+                        "x": 0,
+                        "y": 2
+                    },
+                    {
+                        "x": 1,
+                        "y": 2
+                    }
+                ]
+            }
+        ],
         "nodes": [
             {
                 "type": "missile",

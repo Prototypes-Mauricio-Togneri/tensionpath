@@ -2,7 +2,6 @@
 
 ### Phase 1
 
-- Simplify launchers, missile fields in template
 - Harvester logic
   - Max 2 harvesters
   - Harvester kill reward

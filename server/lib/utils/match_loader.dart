@@ -16,7 +16,6 @@ import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
 import 'package:tensionpath/domain/json/models/template/json_battlefield_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_match_template.dart';
-import 'package:tensionpath/domain/json/models/template/json_missile_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_platform_template.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -89,7 +88,8 @@ class MatchLoader {
       nodeSize: jsonMatchTemplate.battlefield.nodeSize,
       nodes: jsonNodeStart,
       missile: _getJsonMissileStart(
-        missileTemplate: jsonMatchTemplate.battlefield.missile,
+        config: config,
+        platforms: jsonMatchTemplate.battlefield.platforms,
         nodes: jsonNodeStart,
       ),
       resources: _getJsonResourcesStart(
@@ -123,24 +123,32 @@ class MatchLoader {
   }
 
   static JsonMissileStart _getJsonMissileStart({
-    required JsonMissileTemplate missileTemplate,
+    required Config config,
+    required List<JsonPlatformTemplate> platforms,
     required List<JsonNodeStart> nodes,
   }) {
-    final JsonNodeStart node = _getNodeByLocation(
-      location: missileTemplate.location,
-      nodes: nodes,
-    );
+    final JsonNodeStart node = _getMissileNode(nodes);
 
     return JsonMissileStart(
-      location: missileTemplate.location,
+      location: node.location,
       position: node.position,
-      chargeMax: missileTemplate.chargeMax,
-      chargeBuffer: missileTemplate.chargeBuffer,
+      chargeMax: config.missileMaxCharge,
+      chargeBuffer: config.missileChargeBuffer,
       platforms: _getJsonPlatformStart(
-        platforms: missileTemplate.platforms,
+        platforms: platforms,
         nodes: nodes,
       ),
     );
+  }
+
+  static JsonNodeStart _getMissileNode(List<JsonNodeStart> nodes) {
+    for (final JsonNodeStart node in nodes) {
+      if (node.type == NodeType.missile) {
+        return node;
+      }
+    }
+
+    throw Exception('No missile node found');
   }
 
   static List<JsonPlatformStart> _getJsonPlatformStart({
