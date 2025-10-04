@@ -257,7 +257,7 @@ class UnitImageComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(unitSprite(unitType));
-    scale = Vector2(0.6, 0.6);
+    scale = unitScale(unitType);
 
     if (player.isPlayer1) {
       setBlueShade();
