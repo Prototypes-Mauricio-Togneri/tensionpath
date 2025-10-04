@@ -16,10 +16,14 @@ class JsonNodeStart {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
+  @JsonKey(name: 'playerIndex')
+  final String? playerIndex;
+
   JsonNodeStart({
     required this.type,
     required this.location,
     required this.position,
+    required this.playerIndex,
   });
 
   factory JsonNodeStart.fromJson(Map<String, dynamic> json) =>

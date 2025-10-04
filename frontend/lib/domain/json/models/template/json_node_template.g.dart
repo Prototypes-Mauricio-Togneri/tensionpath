@@ -14,6 +14,7 @@ JsonNodeTemplate _$JsonNodeTemplateFromJson(Map<String, dynamic> json) =>
           'location',
           (v) => JsonLocation.fromJson(v as Map<String, dynamic>),
         ),
+        playerIndex: $checkedConvert('playerIndex', (v) => v as String?),
       );
       return val;
     });
@@ -22,6 +23,7 @@ Map<String, dynamic> _$JsonNodeTemplateToJson(JsonNodeTemplate instance) =>
     <String, dynamic>{
       'type': _$NodeTypeEnumMap[instance.type]!,
       'location': instance.location.toJson(),
+      'playerIndex': ?instance.playerIndex,
     };
 
 const _$NodeTypeEnumMap = {

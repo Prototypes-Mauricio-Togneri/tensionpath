@@ -54,6 +54,7 @@ class Node {
     location: location.toJson(),
     position: position.toJson(),
     type: type,
+    playerIndex: null,
   );
 
   @override

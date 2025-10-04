@@ -12,9 +12,13 @@ class JsonNodeTemplate {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
+  @JsonKey(name: 'playerIndex')
+  final String? playerIndex;
+
   JsonNodeTemplate({
     required this.type,
     required this.location,
+    required this.playerIndex,
   });
 
   factory JsonNodeTemplate.fromJson(Map<String, dynamic> json) =>

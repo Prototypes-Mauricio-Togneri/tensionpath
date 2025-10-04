@@ -64,42 +64,6 @@
                 }
             ]
         },
-        "launchers": [
-            {
-                "playerIndex": "1",
-                "locations": [
-                    {
-                        "x": -4,
-                        "y": 0
-                    },
-                    {
-                        "x": -4,
-                        "y": 1
-                    },
-                    {
-                        "x": -5,
-                        "y": 2
-                    }
-                ]
-            },
-            {
-                "playerIndex": "2",
-                "locations": [
-                    {
-                        "x": 5,
-                        "y": -2
-                    },
-                    {
-                        "x": 4,
-                        "y": -1
-                    },
-                    {
-                        "x": 4,
-                        "y": 0
-                    }
-                ]
-            }
-        ],
         "nodes": [
             {
                 "type": "missile",
@@ -386,21 +350,24 @@
                 "location": {
                     "x": 5,
                     "y": -2
-                }
+                },
+                "playerIndex": "2"
             },
             {
                 "type": "launcher",
                 "location": {
                     "x": 4,
                     "y": -1
-                }
+                },
+                "playerIndex": "2"
             },
             {
                 "type": "launcher",
                 "location": {
                     "x": 4,
                     "y": 0
-                }
+                },
+                "playerIndex": "2"
             },
             {
                 "type": "resources",
@@ -477,14 +444,16 @@
                 "location": {
                     "x": -4,
                     "y": 0
-                }
+                },
+                "playerIndex": "1"
             },
             {
                 "type": "launcher",
                 "location": {
                     "x": -4,
                     "y": 1
-                }
+                },
+                "playerIndex": "1"
             },
             {
                 "type": "empty",
@@ -498,7 +467,8 @@
                 "location": {
                     "x": -5,
                     "y": 2
-                }
+                },
+                "playerIndex": "1"
             },
             {
                 "type": "empty",

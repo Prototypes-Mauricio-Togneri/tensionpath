@@ -15,7 +15,6 @@ import 'package:tensionpath/domain/json/models/start/json_platform_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
 import 'package:tensionpath/domain/json/models/template/json_battlefield_template.dart';
-import 'package:tensionpath/domain/json/models/template/json_launchers_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_match_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_missile_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
@@ -97,10 +96,7 @@ class MatchLoader {
         config: config,
         nodes: jsonNodeStart,
       ),
-      launchers: _getJsonLaunchersStart(
-        launchers: jsonMatchTemplate.battlefield.launchers,
-        nodes: jsonNodeStart,
-      ),
+      launchers: _getJsonLaunchersStart(jsonNodeStart),
     );
   }
 
@@ -118,6 +114,7 @@ class MatchLoader {
             nodeSize: Constants.NODE_SIZE,
             location: Location.fromJson(jsonNode.location),
           ),
+          playerIndex: jsonNode.playerIndex,
         ),
       );
     }
@@ -204,22 +201,16 @@ class MatchLoader {
     return result;
   }
 
-  static List<JsonLauncherStart> _getJsonLaunchersStart({
-    required List<JsonLaunchersTemplate> launchers,
-    required List<JsonNodeStart> nodes,
-  }) {
+  static List<JsonLauncherStart> _getJsonLaunchersStart(
+    List<JsonNodeStart> nodes,
+  ) {
     final List<JsonLauncherStart> result = [];
 
-    for (final JsonLaunchersTemplate launcher in launchers) {
-      for (final JsonLocation locaction in launcher.locations) {
-        final JsonNodeStart node = _getNodeByLocation(
-          location: locaction,
-          nodes: nodes,
-        );
-
+    for (final JsonNodeStart node in nodes) {
+      if (node.type == NodeType.launcher) {
         result.add(
           JsonLauncherStart(
-            playerIndex: launcher.playerIndex,
+            playerIndex: node.playerIndex!,
             location: node.location,
             position: node.position,
           ),

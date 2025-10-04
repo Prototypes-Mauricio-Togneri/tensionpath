@@ -18,6 +18,7 @@ JsonNodeStart _$JsonNodeStartFromJson(Map<String, dynamic> json) =>
           'position',
           (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
         ),
+        playerIndex: $checkedConvert('playerIndex', (v) => v as String?),
       );
       return val;
     });
@@ -27,6 +28,7 @@ Map<String, dynamic> _$JsonNodeStartToJson(JsonNodeStart instance) =>
       'type': _$NodeTypeEnumMap[instance.type]!,
       'location': instance.location.toJson(),
       'position': instance.position.toJson(),
+      'playerIndex': ?instance.playerIndex,
     };
 
 const _$NodeTypeEnumMap = {
