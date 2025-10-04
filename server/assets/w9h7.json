@@ -73,7 +73,7 @@
                     "x": 4,
                     "y": -3
                 },
-                "amount": 100
+                "amount": 150
             },
             {
                 "id": "resources2",
@@ -81,7 +81,7 @@
                     "x": 3,
                     "y": 2
                 },
-                "amount": 100
+                "amount": 150
             },
             {
                 "id": "resources3",
@@ -89,7 +89,7 @@
                     "x": -3,
                     "y": -2
                 },
-                "amount": 100
+                "amount": 150
             },
             {
                 "id": "resources4",
@@ -97,7 +97,7 @@
                     "x": -4,
                     "y": 3
                 },
-                "amount": 100
+                "amount": 150
             }
         ],
         "launchers": [
