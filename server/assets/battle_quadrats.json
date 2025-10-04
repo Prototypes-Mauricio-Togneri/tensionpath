@@ -1,0 +1,561 @@
+{
+    "players": [
+        {
+            "index": "1",
+            "baseHealth": 1000,
+            "baseMaxHealth": 1000,
+            "resources": 100,
+            "resourcesRateBase": 2
+        },
+        {
+            "index": "2",
+            "baseHealth": 1000,
+            "baseMaxHealth": 1000,
+            "resources": 100,
+            "resourcesRateBase": 2
+        }
+    ],
+    "battlefield": {
+        "mapSize": {
+            "width": 9,
+            "height": 7
+        },
+        "nodeSize": {
+            "width": 8.660254038,
+            "height": 10
+        },
+        "missile": {
+            "location": {
+                "x": 0,
+                "y": 0
+            },
+            "chargeMax": 40,
+            "chargeBuffer": 35,
+            "platforms": [
+                {
+                    "id": "platform1",
+                    "pads": [
+                        {
+                            "x": 0,
+                            "y": -1
+                        },
+                        {
+                            "x": 1,
+                            "y": -2
+                        },
+                        {
+                            "x": 0,
+                            "y": -2
+                        }
+                    ]
+                },
+                {
+                    "id": "platform2",
+                    "pads": [
+                        {
+                            "x": 0,
+                            "y": 1
+                        },
+                        {
+                            "x": 0,
+                            "y": 2
+                        },
+                        {
+                            "x": -1,
+                            "y": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        "resources": [
+            {
+                "id": "resources1",
+                "location": {
+                    "x": 4,
+                    "y": -3
+                },
+                "amountCurrent": 100,
+                "amountMax": 100
+            },
+            {
+                "id": "resources2",
+                "location": {
+                    "x": 3,
+                    "y": 2
+                },
+                "amountCurrent": 100,
+                "amountMax": 100
+            },
+            {
+                "id": "resources3",
+                "location": {
+                    "x": -3,
+                    "y": -2
+                },
+                "amountCurrent": 100,
+                "amountMax": 100
+            },
+            {
+                "id": "resources4",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                },
+                "amountCurrent": 100,
+                "amountMax": 100
+            }
+        ],
+        "launchers": [
+            {
+                "playerIndex": "1",
+                "locations": [
+                    {
+                        "x": -4,
+                        "y": 0
+                    },
+                    {
+                        "x": -4,
+                        "y": 1
+                    },
+                    {
+                        "x": -5,
+                        "y": 2
+                    }
+                ]
+            },
+            {
+                "playerIndex": "2",
+                "locations": [
+                    {
+                        "x": 5,
+                        "y": -2
+                    },
+                    {
+                        "x": 4,
+                        "y": -1
+                    },
+                    {
+                        "x": 4,
+                        "y": 0
+                    }
+                ]
+            }
+        ],
+        "nodes": [
+            {
+                "type": "missile",
+                "location": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 0
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 0
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": 2
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -1,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": -1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": -2
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 4,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 5,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": -2
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": 5,
+                    "y": -2
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": 4,
+                    "y": -1
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": 4,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 2
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 3,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -2
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -3,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": -1
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": -4,
+                    "y": 0
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": -4,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -4,
+                    "y": 2
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": -5,
+                    "y": 2
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -5,
+                    "y": 3
+                }
+            }
+        ]
+    }
+}

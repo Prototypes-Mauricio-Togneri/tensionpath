@@ -3,21 +3,23 @@
 ### Phase 1
 
 - Implement obstacles (water, rocks, etc). Low obstacles (only flying units can cross it) and high obstacles (cannot be crossed)
-
 - Events
-
   - Shooting
   - Destroying unit
-
 - Harvester logic
-
   - Max 2 harvesters
   - Harvester kill reward
   - New harvester free
   - Drive harvester to patch automatically
-
 - Continuous popcap
 - New map
+- Config
+  - Resources rate
+  - Popcap rate
+  - Missile charge rate
+  - How much a missile takes
+  - Base HP
+  - Units stats
 
 ### Phase 2
 
