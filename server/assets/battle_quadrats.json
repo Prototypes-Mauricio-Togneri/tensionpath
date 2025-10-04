@@ -226,7 +226,7 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": 2,
                     "y": -2
@@ -268,7 +268,7 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": -2,
                     "y": 2
@@ -317,14 +317,14 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": 2,
                     "y": -3
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": 3,
                     "y": -3
@@ -380,14 +380,14 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": -2,
                     "y": 3
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": -3,
                     "y": 3
@@ -429,7 +429,7 @@
                 }
             },
             {
-                "type": "resources",
+                "type": "empty",
                 "location": {
                     "x": 4,
                     "y": -3
@@ -471,7 +471,7 @@
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": 3,
                     "y": 1
@@ -485,7 +485,7 @@
                 }
             },
             {
-                "type": "resources",
+                "type": "empty",
                 "location": {
                     "x": 3,
                     "y": 2
@@ -527,14 +527,14 @@
                 }
             },
             {
-                "type": "resources",
+                "type": "empty",
                 "location": {
                     "x": -3,
                     "y": -2
                 }
             },
             {
-                "type": "empty",
+                "type": "resources",
                 "location": {
                     "x": -3,
                     "y": -1
@@ -569,7 +569,7 @@
                 }
             },
             {
-                "type": "resources",
+                "type": "empty",
                 "location": {
                     "x": -4,
                     "y": 3
