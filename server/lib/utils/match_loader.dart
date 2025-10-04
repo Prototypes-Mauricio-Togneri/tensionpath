@@ -67,7 +67,7 @@ class MatchLoader {
           isSelf: false,
           index: jsonPlayerTemplate.index,
           baseHealth: jsonPlayerTemplate.baseHealth,
-          baseMaxHealth: jsonPlayerTemplate.baseMaxHealth,
+          baseMaxHealth: jsonPlayerTemplate.baseHealth,
           resources: jsonPlayerTemplate.resources,
           resourcesRateBase: jsonPlayerTemplate.resourcesRateBase,
         ),

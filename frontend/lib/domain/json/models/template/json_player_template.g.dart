@@ -11,7 +11,6 @@ JsonPlayerTemplate _$JsonPlayerTemplateFromJson(Map<String, dynamic> json) =>
       final val = JsonPlayerTemplate(
         index: $checkedConvert('index', (v) => v as String),
         baseHealth: $checkedConvert('baseHealth', (v) => v as num),
-        baseMaxHealth: $checkedConvert('baseMaxHealth', (v) => v as num),
         resources: $checkedConvert('resources', (v) => v as num),
         resourcesRateBase: $checkedConvert(
           'resourcesRateBase',
@@ -25,7 +24,6 @@ Map<String, dynamic> _$JsonPlayerTemplateToJson(JsonPlayerTemplate instance) =>
     <String, dynamic>{
       'index': instance.index,
       'baseHealth': instance.baseHealth,
-      'baseMaxHealth': instance.baseMaxHealth,
       'resources': instance.resources,
       'resourcesRateBase': instance.resourcesRateBase,
     };

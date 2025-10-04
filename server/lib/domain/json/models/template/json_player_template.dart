@@ -10,9 +10,6 @@ class JsonPlayerTemplate {
   @JsonKey(name: 'baseHealth')
   final num baseHealth;
 
-  @JsonKey(name: 'baseMaxHealth')
-  final num baseMaxHealth;
-
   @JsonKey(name: 'resources')
   final num resources;
 
@@ -22,7 +19,6 @@ class JsonPlayerTemplate {
   JsonPlayerTemplate({
     required this.index,
     required this.baseHealth,
-    required this.baseMaxHealth,
     required this.resources,
     required this.resourcesRateBase,
   });
