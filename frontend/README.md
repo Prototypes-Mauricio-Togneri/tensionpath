@@ -2,19 +2,7 @@
 
 ### Phase 1
 
-- Simplify players, launchers, missile fields in template
-
-- Config
-  - Resources path amount
-  - Passive resources rate
-  - Harvester rate
-  - Popcap rate
-  - Missile max charge
-  - Missile charge buffer
-  - Missile charge rate
-  - How much a missile takes
-  - Base max health
-  - Units stats
+- Simplify launchers, missile fields in template
 - Harvester logic
   - Max 2 harvesters
   - Harvester kill reward
