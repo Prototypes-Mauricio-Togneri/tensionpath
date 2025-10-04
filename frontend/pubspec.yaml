@@ -46,3 +46,5 @@ flutter:
     - assets/images/battlefields/
     - assets/images/structures/
     - assets/images/units/
+    - assets/images/units/player_1/
+    - assets/images/units/player_2/
