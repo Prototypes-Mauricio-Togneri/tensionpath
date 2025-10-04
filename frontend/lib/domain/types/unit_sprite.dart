@@ -30,9 +30,9 @@ String unitSprite(UnitType type) {
 Vector2 unitScale(UnitType type) {
   switch (type) {
     case UnitType.harvester:
-      return Vector2(0.3, 0.3);
+      return Vector2(0.7, 0.7);
     case UnitType.plant_1:
-      return Vector2(0.4, 0.4);
+      return Vector2(0.3, 0.3);
     case UnitType.plant_2:
       return Vector2(0.5, 0.5);
     case UnitType.plant_3:

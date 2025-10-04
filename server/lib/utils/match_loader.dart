@@ -65,7 +65,8 @@ class MatchLoader {
           baseHealth: config.baseHealth,
           baseMaxHealth: config.baseHealth,
           resources: config.resourcesStart,
-          resourcesRateBase: config.resourcesPassiveRate,
+          resourcesPassiveRate: config.resourcesPassiveRate,
+          resourcesActiveRate: config.resourcesActiveRate,
         ),
       );
     }

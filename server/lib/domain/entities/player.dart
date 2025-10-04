@@ -7,10 +7,11 @@ class Player {
   final String name;
   final String index;
   final num baseMaxHealth;
-  final num resourcesRateBase;
+  final num resourcesPassiveRate;
+  final num resourcesActiveRate;
   num baseHealth;
   num resources;
-  num resourcesRate;
+  late num resourcesRate;
 
   Player({
     required this.id,
@@ -19,19 +20,21 @@ class Player {
     required this.baseMaxHealth,
     required this.baseHealth,
     required this.resources,
-    required this.resourcesRate,
-    required this.resourcesRateBase,
-  });
+    required this.resourcesPassiveRate,
+    required this.resourcesActiveRate,
+  }) {
+    resourcesRate = resourcesPassiveRate;
+  }
 
   bool get isAlive => baseHealth > 0;
 
   void increaseResourcesRate() {
-    resourcesRate += resourcesRateBase;
+    resourcesRate += resourcesActiveRate;
   }
 
   void decreaseResourcesRate() {
-    if (resourcesRate >= resourcesRateBase) {
-      resourcesRate -= resourcesRateBase;
+    if (resourcesRate >= resourcesActiveRate) {
+      resourcesRate -= resourcesActiveRate;
     }
   }
 
@@ -67,8 +70,8 @@ class Player {
     baseMaxHealth: json.baseMaxHealth,
     baseHealth: json.baseHealth,
     resources: json.resources,
-    resourcesRate: json.resourcesRateBase,
-    resourcesRateBase: json.resourcesRateBase,
+    resourcesPassiveRate: json.resourcesPassiveRate,
+    resourcesActiveRate: json.resourcesActiveRate,
   );
 
   static IterableMap<String, Player> list(List<JsonPlayerStart> json) {
@@ -96,7 +99,8 @@ class Player {
     baseHealth: baseHealth,
     baseMaxHealth: baseMaxHealth,
     resources: resources,
-    resourcesRateBase: resourcesRateBase,
+    resourcesPassiveRate: resourcesPassiveRate,
+    resourcesActiveRate: resourcesActiveRate,
   );
 
   @override

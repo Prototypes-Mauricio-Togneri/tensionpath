@@ -16,8 +16,12 @@ JsonPlayerStart _$JsonPlayerStartFromJson(Map<String, dynamic> json) =>
         baseHealth: $checkedConvert('baseHealth', (v) => v as num),
         baseMaxHealth: $checkedConvert('baseMaxHealth', (v) => v as num),
         resources: $checkedConvert('resources', (v) => v as num),
-        resourcesRateBase: $checkedConvert(
-          'resourcesRateBase',
+        resourcesPassiveRate: $checkedConvert(
+          'resourcesPassiveRate',
+          (v) => v as num,
+        ),
+        resourcesActiveRate: $checkedConvert(
+          'resourcesActiveRate',
           (v) => v as num,
         ),
       );
@@ -33,5 +37,6 @@ Map<String, dynamic> _$JsonPlayerStartToJson(JsonPlayerStart instance) =>
       'baseHealth': instance.baseHealth,
       'baseMaxHealth': instance.baseMaxHealth,
       'resources': instance.resources,
-      'resourcesRateBase': instance.resourcesRateBase,
+      'resourcesPassiveRate': instance.resourcesPassiveRate,
+      'resourcesActiveRate': instance.resourcesActiveRate,
     };

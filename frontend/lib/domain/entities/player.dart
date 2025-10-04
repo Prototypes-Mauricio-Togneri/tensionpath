@@ -13,6 +13,7 @@ class Player {
   num baseHealth;
   num resources;
   num resourcesRate;
+
   Player({
     required this.id,
     required this.name,
@@ -50,6 +51,6 @@ class Player {
     baseMaxHealth: player.baseMaxHealth,
     baseHealth: player.baseHealth,
     resources: player.resources,
-    resourcesRate: player.resourcesRateBase,
+    resourcesRate: player.resourcesPassiveRate,
   );
 }

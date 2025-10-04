@@ -16,8 +16,8 @@ JsonConfigTemplate _$JsonConfigTemplateFromJson(
       'resourcesPassiveRate',
       (v) => v as num,
     ),
-    resourcesHarvestRate: $checkedConvert(
-      'resourcesHarvestRate',
+    resourcesActiveRate: $checkedConvert(
+      'resourcesActiveRate',
       (v) => v as num,
     ),
     popcapRate: $checkedConvert('popcapRate', (v) => v as num),
@@ -38,7 +38,7 @@ Map<String, dynamic> _$JsonConfigTemplateToJson(JsonConfigTemplate instance) =>
       'resourcesStart': instance.resourcesStart,
       'resourcesPerPatch': instance.resourcesPerPatch,
       'resourcesPassiveRate': instance.resourcesPassiveRate,
-      'resourcesHarvestRate': instance.resourcesHarvestRate,
+      'resourcesActiveRate': instance.resourcesActiveRate,
       'popcapRate': instance.popcapRate,
       'missileMaxCharge': instance.missileMaxCharge,
       'missileChargeBuffer': instance.missileChargeBuffer,

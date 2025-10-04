@@ -25,8 +25,11 @@ class JsonPlayerStart {
   @JsonKey(name: 'resources')
   final num resources;
 
-  @JsonKey(name: 'resourcesRateBase')
-  final num resourcesRateBase;
+  @JsonKey(name: 'resourcesPassiveRate')
+  final num resourcesPassiveRate;
+
+  @JsonKey(name: 'resourcesActiveRate')
+  final num resourcesActiveRate;
 
   JsonPlayerStart({
     required this.id,
@@ -36,7 +39,8 @@ class JsonPlayerStart {
     required this.baseHealth,
     required this.baseMaxHealth,
     required this.resources,
-    required this.resourcesRateBase,
+    required this.resourcesPassiveRate,
+    required this.resourcesActiveRate,
   });
 
   factory JsonPlayerStart.fromJson(Map<String, dynamic> json) =>
