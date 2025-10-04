@@ -56,8 +56,9 @@ class MatchLoader {
     final List<JsonPlayerStart> jsonPlayersStart = [];
 
     for (final Participant participant in participants.values) {
-      final JsonPlayerTemplate jsonPlayerTemplate = playersTemplate.firstWhere(
-        (p) => p.index == participant.playerIndex,
+      final JsonPlayerTemplate jsonPlayerTemplate = _getPlayerByIndex(
+        playerIndex: participant.playerIndex,
+        playersTemplate: playersTemplate,
       );
 
       jsonPlayersStart.add(
@@ -75,6 +76,19 @@ class MatchLoader {
     }
 
     return jsonPlayersStart;
+  }
+
+  static JsonPlayerTemplate _getPlayerByIndex({
+    required String playerIndex,
+    required List<JsonPlayerTemplate> playersTemplate,
+  }) {
+    for (final JsonPlayerTemplate player in playersTemplate) {
+      if (player.index == playerIndex) {
+        return player;
+      }
+    }
+
+    throw Exception('Player with index $playerIndex not found');
   }
 
   static JsonBattlefieldStart _getJsonBattlefieldStart(
@@ -234,7 +248,15 @@ class MatchLoader {
   static JsonNodeStart _getNodeByLocation({
     required JsonLocation location,
     required List<JsonNodeStart> nodes,
-  }) => nodes.firstWhere((node) => node.location.id == location.id);
+  }) {
+    for (final JsonNodeStart node in nodes) {
+      if (node.location.id == location.id) {
+        return node;
+      }
+    }
+
+    throw Exception('Node with location ${location.toJson()} not found');
+  }
 
   static JsonPosition _getNodePosition({
     required Size nodeSize,

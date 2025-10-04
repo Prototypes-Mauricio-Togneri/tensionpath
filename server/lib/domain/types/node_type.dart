@@ -1,13 +1,14 @@
 enum NodeType {
-  empty,
-  resources,
-  launcher,
-  pad,
-  missile;
+  empty(canMove: true),
+  resources(canMove: true),
+  launcher(canMove: false),
+  pad(canMove: true),
+  water(canMove: false),
+  missile(canMove: false);
 
-  bool get canMove => [
-    empty,
-    resources,
-    pad,
-  ].contains(this);
+  final bool canMove;
+
+  const NodeType({
+    required this.canMove,
+  });
 }

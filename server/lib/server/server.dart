@@ -121,7 +121,7 @@ class Server {
     dispatcher.create(
       JsonCreateMatch(
         matchId: 'test-match-id',
-        mapId: 'w9h7',
+        mapId: 'battle_quadrats',
         createdAt: DateTime.now(),
         numberOfPlayers: 2,
         matchType: 'pvp',

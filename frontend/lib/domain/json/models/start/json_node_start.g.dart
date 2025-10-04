@@ -34,5 +34,6 @@ const _$NodeTypeEnumMap = {
   NodeType.resources: 'resources',
   NodeType.launcher: 'launcher',
   NodeType.pad: 'pad',
+  NodeType.water: 'water',
   NodeType.missile: 'missile',
 };

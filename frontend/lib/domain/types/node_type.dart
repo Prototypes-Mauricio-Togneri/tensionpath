@@ -3,6 +3,7 @@ enum NodeType {
   resources,
   launcher,
   pad,
+  water,
   missile;
 
   bool get canMove => [
