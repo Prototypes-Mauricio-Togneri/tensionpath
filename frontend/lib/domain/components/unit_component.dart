@@ -257,7 +257,7 @@ class UnitImageComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(unitSprite(unitType));
-    scale = Vector2(0.5, 0.5);
+    scale = Vector2(0.6, 0.6);
 
     if (player.isPlayer1) {
       setBlueShade();
@@ -300,6 +300,7 @@ class HealthBarComponent extends PositionComponent {
   );
   late num health;
   late num maxHealth;
+  late Rect rect;
 
   HealthBarComponent({
     required super.position,
@@ -308,9 +309,15 @@ class HealthBarComponent extends PositionComponent {
     required this.player,
   }) : super(anchor: Anchor.center) {
     foregroundHealthPaint.color = player.color;
-    borderHealthPaint.strokeWidth = size.y / 90;
+    borderHealthPaint.strokeWidth = size.y / 100;
     health = type.health.toDouble();
     maxHealth = type.health.toDouble();
+
+    final double rectWidth = size.x * 0.7;
+    final double rectHeight = size.y * 0.06;
+    final double rectX = (size.x - rectWidth) / 2;
+    final double rectY = size.y * 0.18;
+    rect = Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight);
   }
 
   void refresh(num newHealth) {
@@ -321,24 +328,8 @@ class HealthBarComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final double rectWidth = size.x * 0.7;
-    final double rectHeight = size.y * 0.06;
-    final double rectX = (size.x - rectWidth) / 2;
-    final double rectY = size.y * 0.18;
-
-    canvas.drawRect(
-      Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight),
-      backgroundHealthPaint,
-    );
-
-    canvas.drawRect(
-      Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight),
-      foregroundHealthPaint,
-    );
-
-    canvas.drawRect(
-      Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight),
-      borderHealthPaint,
-    );
+    canvas.drawRect(rect, backgroundHealthPaint);
+    canvas.drawRect(rect, foregroundHealthPaint);
+    canvas.drawRect(rect, borderHealthPaint);
   }
 }
