@@ -11,10 +11,12 @@
   - Harvester kill reward
   - New harvester free
   - Drive harvester to patch automatically
+  - Update harvesting rate (see picture)
 - Continuous popcap
 - New map
 - Config
-  - Resources rate
+  - Passive resources rate
+  - Harvester rate
   - Popcap rate
   - Missile max charge
   - Missile charge buffer
@@ -61,12 +63,6 @@
     - Increases range
     - Increases attack
     - Increases conquering rate
-
-## Harvesting
-
-- 0 harv: 10 tib in 5 seconds
-- 1 harv: 10 tib in 3 seconds
-- 2 harv: 10 tib in 2 seconds
 
 ## Combat
 
