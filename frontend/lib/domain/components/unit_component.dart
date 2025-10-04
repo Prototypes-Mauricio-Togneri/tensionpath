@@ -11,7 +11,6 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
@@ -137,12 +136,6 @@ class UnitComponent extends PositionComponent
     super.onDragEnd(event);
 
     if (player.isSelf) {
-      // revealed with own -> (DIRECT) [location] "OK"
-      // revealed empty -> (DIRECT) [location] "OK"
-      // revealed with enemy -> (RE-ASSIGN) [unit] "OK"
-      // not revealed -> (DIRECT) [location] "OK"
-      // enemy base -> (DIRECT) [location]
-
       final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
 
       if (unitComponent != null) {
@@ -295,7 +288,11 @@ class HealthBarComponent extends PositionComponent {
   final UnitType type;
   final Player player;
   final Paint foregroundHealthPaint = Palette.paint(
-    style: PaintingStyle.stroke,
+    style: PaintingStyle.fill,
+  );
+  final Paint backgroundHealthPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.UNIT_HEALTH_BACKGROUND,
   );
   final Paint borderHealthPaint = Palette.paint(
     style: PaintingStyle.stroke,
@@ -311,7 +308,7 @@ class HealthBarComponent extends PositionComponent {
     required this.player,
   }) : super(anchor: Anchor.center) {
     foregroundHealthPaint.color = player.color;
-    borderHealthPaint.strokeWidth = size.y / 60;
+    borderHealthPaint.strokeWidth = size.y / 90;
     health = type.health.toDouble();
     maxHealth = type.health.toDouble();
   }
@@ -324,25 +321,24 @@ class HealthBarComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    final double radius = size.x / 2.5;
-    final double thickness = size.y / 20;
-    final double sweepDegrees = 360 * (health / maxHealth);
-    final double borderThickness = thickness * 0.05;
+    final double rectWidth = size.x * 0.7;
+    final double rectHeight = size.y * 0.06;
+    final double rectX = (size.x - rectWidth) / 2;
+    final double rectY = size.y * 0.18;
 
-    canvas.drawArc2(
-      center: size / 2,
-      radius: radius,
-      thickness: thickness,
-      sweepDegrees: sweepDegrees,
-      paint: borderHealthPaint,
+    canvas.drawRect(
+      Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight),
+      backgroundHealthPaint,
     );
 
-    canvas.drawArc2(
-      center: size / 2,
-      radius: radius - borderThickness,
-      thickness: thickness - (borderThickness * 2),
-      sweepDegrees: sweepDegrees,
-      paint: foregroundHealthPaint,
+    canvas.drawRect(
+      Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight),
+      foregroundHealthPaint,
+    );
+
+    canvas.drawRect(
+      Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight),
+      borderHealthPaint,
     );
   }
 }

@@ -26,6 +26,7 @@ class Palette {
   static const Color NODE_FOG = Color(0x88000000);
 
   static const Color UNIT_HEALTH_BORDER = Colors.white;
+  static const Color UNIT_HEALTH_BACKGROUND = Color(0xff444444);
 
   static const Color MISSILE_OWNER_NONE = Colors.grey;
   static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);
