@@ -8,8 +8,8 @@ class Config {
   final num popcapRate; // TODO(momo): use
   final num missileMaxCharge;
   final num missileChargeBuffer;
-  final num missileChargeRate; // TODO(momo): use
-  final num missileDamage; // TODO(momo): use
+  final num missileChargeRate;
+  final num missileDamage;
   final num baseHealth;
 
   const Config({

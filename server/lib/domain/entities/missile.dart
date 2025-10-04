@@ -13,6 +13,8 @@ class Missile {
   final Position position;
   final num chargeMax;
   final num chargeBuffer;
+  final num chargeRate;
+  final num damage;
   final IterableMap<String, Platform> platforms;
   String? owner;
   num chargeCurrent = 0;
@@ -22,6 +24,8 @@ class Missile {
     required this.position,
     required this.chargeMax,
     required this.chargeBuffer,
+    required this.chargeRate,
+    required this.damage,
     required this.platforms,
   });
 
@@ -30,6 +34,7 @@ class Missile {
   void resetCharge() => chargeCurrent = 0;
 
   bool update(double dt) {
+    final num deltaCharge = dt * chargeRate;
     final String? previousOwner = owner;
 
     for (final Platform platform in platforms) {
@@ -40,10 +45,10 @@ class Missile {
 
     if (owner == '') {
       if (chargeCurrent > chargeBuffer) {
-        chargeCurrent -= dt;
+        chargeCurrent -= deltaCharge;
       }
     } else if (owner != null) {
-      chargeCurrent += dt;
+      chargeCurrent += deltaCharge;
     }
 
     chargeCurrent = chargeCurrent.clamp(0, chargeMax);
@@ -88,6 +93,8 @@ class Missile {
       position: node.position,
       chargeMax: json.chargeMax,
       chargeBuffer: json.chargeBuffer,
+      chargeRate: json.chargeRate,
+      damage: json.damage,
       platforms: Platform.list(
         json: json.platforms,
         nodes: nodes,
@@ -108,6 +115,8 @@ class Missile {
     position: position.toJson(),
     chargeMax: chargeMax,
     chargeBuffer: chargeBuffer,
+    chargeRate: chargeRate,
+    damage: damage,
     platforms: platforms.map((p) => p.toJsonStart()).toList(),
   );
 }

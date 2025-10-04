@@ -117,7 +117,7 @@ class Match {
   void _fireMissile() {
     for (final Player player in players.list) {
       if (player.index != battlefield.missile.owner) {
-        player.removeHealth(player.baseMaxHealth / 2);
+        player.removeHealth(player.baseMaxHealth * battlefield.missile.damage);
         Logger.debug('Missile launched to ${player.index}');
         break;
       }
