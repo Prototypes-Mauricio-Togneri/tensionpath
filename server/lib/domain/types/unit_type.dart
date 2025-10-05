@@ -24,41 +24,41 @@ enum UnitType {
     health: 650,
     speed: 4.42,
     visibility: 3,
-    damageInfantry: 190,
-    damageVehicle: 75,
+    damageInfantry: 110,
+    damageVehicle: 44,
     damageAircraft: 0,
-    damageStructure: 190,
-    damageHarvester: 75,
+    damageStructure: 110,
+    damageHarvester: 44,
     attackRange: 1,
     attackCooldown: 1.72,
   ),
   shocks(
     clazz: UnitClass.infantry,
-    cost: 10,
-    health: 100,
-    speed: 5,
-    visibility: 3,
-    damageInfantry: 10,
-    damageVehicle: 20,
-    damageAircraft: 5,
-    damageStructure: 10,
-    damageHarvester: 10,
+    cost: 40,
+    health: 1200,
+    speed: 4.41,
+    visibility: 2,
+    damageInfantry: 225,
+    damageVehicle: 45,
+    damageAircraft: 0,
+    damageStructure: 300,
+    damageHarvester: 45,
     attackRange: 1,
-    attackCooldown: 1,
+    attackCooldown: 0.66,
   ),
   missiles(
     clazz: UnitClass.infantry,
-    cost: 10,
-    health: 100,
-    speed: 5,
-    visibility: 3,
-    damageInfantry: 10,
-    damageVehicle: 20,
-    damageAircraft: 5,
-    damageStructure: 10,
-    damageHarvester: 10,
+    cost: 20,
+    health: 880,
+    speed: 3.53,
+    visibility: 2,
+    damageInfantry: 28,
+    damageVehicle: 200,
+    damageAircraft: 200,
+    damageStructure: 200,
+    damageHarvester: 200,
     attackRange: 1,
-    attackCooldown: 1,
+    attackCooldown: 1.25,
   ),
   grenadier(
     clazz: UnitClass.infantry,
@@ -237,7 +237,7 @@ enum UnitType {
   final UnitClass clazz;
   final int cost;
   final int health;
-  final num speed; // Rivals value / 1.567
+  final num speed; // Speed / 1.567
   final int visibility;
   final num damageInfantry;
   final num damageVehicle;
@@ -245,7 +245,7 @@ enum UnitType {
   final num damageStructure;
   final num damageHarvester;
   final num attackRange;
-  final num attackCooldown;
+  final num attackCooldown; // Cooldown / squad size
 
   const UnitType({
     required this.clazz,
