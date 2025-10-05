@@ -75,6 +75,7 @@ class NodeComponent extends PositionComponent {
     required Set<Vector2> revealedNodes,
   }) {
     revealedNodes.add(position);
+    isRevealed = true;
 
     for (final NodeComponent node in nodes) {
       if ((node != this) && (distanceTo(node) <= visibilityRange)) {

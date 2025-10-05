@@ -75,8 +75,7 @@ class FogComponent extends PositionComponent {
 
     for (final UnitComponent unitComponent in unitComponents) {
       if (unitComponent.belongsTo(self)) {
-        final NodeComponent closestNode = unitComponent.closestNodeComponent;
-        closestNode.revealedNodes(
+        unitComponent.closestNodeComponent.revealedNodes(
           visibilityRange: unitComponent.type.visibility,
           nodes: nodeComponents,
           revealedNodes: revealedNodes,
