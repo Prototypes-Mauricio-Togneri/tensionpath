@@ -59,9 +59,19 @@ class Match {
     required Location location,
     required UnitType type,
   }) {
-    final Player player = players.get(playerIndex);
+    if ((type == UnitType.harvester) &&
+        (battlefield.units.harvesterCurrentCount(playerIndex) >=
+            Constants.MAX_HARVESTERS_PER_PLAYER)) {
+      throw Exception('Max harvesters reached');
+    }
 
-    if (player.removeResources(type.cost)) {
+    final Player player = players.get(playerIndex);
+    final int cost = battlefield.units.unitCost(
+      type: type,
+      player: player,
+    );
+
+    if (player.removeResources(cost)) {
       battlefield.deployUnit(
         player: player,
         location: location,

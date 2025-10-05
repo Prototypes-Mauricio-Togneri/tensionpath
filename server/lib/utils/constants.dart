@@ -5,6 +5,8 @@ class Constants {
   static const String PLAYER_1 = '1';
   static const String PLAYER_2 = '2';
 
+  static const int MAX_HARVESTERS_PER_PLAYER = 2;
+
   static Size NODE_SIZE = Size(
     width: 10 * (sqrt(3) / 2),
     height: 10,
