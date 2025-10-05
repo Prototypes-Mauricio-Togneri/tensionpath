@@ -153,7 +153,9 @@ class Match {
 
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players.list)
-        player.index: player.toJsonUpdate(),
+        player.index: player.toJsonUpdate(
+          battlefield.units.harvesterCurrentCount(player.index),
+        ),
     };
 
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(

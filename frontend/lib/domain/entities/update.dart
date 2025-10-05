@@ -42,17 +42,20 @@ class PlayerUpdate {
   final int baseHealth;
   final int resources;
   final num resourcesRate;
+  final int harvesterCount;
 
   const PlayerUpdate({
     required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
+    required this.harvesterCount,
   });
 
   factory PlayerUpdate.fromJson(JsonPlayerUpdate json) => PlayerUpdate(
     baseHealth: json.baseHealth,
     resources: json.resources,
     resourcesRate: json.resourcesRate,
+    harvesterCount: json.harvesterCount,
   );
 }
 

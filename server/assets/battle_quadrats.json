@@ -4,6 +4,7 @@
         "resourcesPerPatch": 150,
         "resourcesPassiveRate": 2,
         "resourcesActiveRate": 1.5,
+        "maxHarvestersCount": 2,
         "popcapRate": 1,
         "missileMaxCharge": 40,
         "missileChargeBuffer": 35,

@@ -126,12 +126,24 @@ class UnitSelectorComponent extends PositionComponent {
     return super.onLoad();
   }
 
+  int get unitCost {
+    if (unitType == UnitType.harvester) {
+      if (player.harvesterCount < maxHarvestersCount) {
+        return 0;
+      } else {
+        return unitType.cost;
+      }
+    } else {
+      return unitType.cost;
+    }
+  }
+
   @override
   void update(double dt) {
     super.update(dt);
 
     final bool before = isEnabled;
-    isEnabled = player.resources >= unitType.cost;
+    isEnabled = player.resources >= unitCost;
 
     if (before != isEnabled) {
       if (isEnabled) {
@@ -153,6 +165,7 @@ class UnitSelectorComponent extends PositionComponent {
 class UnitImageComponent extends SpriteComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
+  late final UnitSelectorComponent unitSelectorComponent;
   Vector2 initialPosition = Vector2(0, 0);
 
   UnitImageComponent({
@@ -164,6 +177,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
   @override
   FutureOr onLoad() async {
+    unitSelectorComponent = parent as UnitSelectorComponent;
     sprite = await Sprite.load(unitSprite(unitType));
 
     if (player.isPlayer1) {
@@ -175,9 +189,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     return super.onLoad();
   }
 
-  bool get enabled =>
-      parent is UnitSelectorComponent &&
-      (parent as UnitSelectorComponent).isEnabled;
+  bool get enabled => unitSelectorComponent.isEnabled;
 
   @override
   void onDragStart(DragStartEvent event) {
@@ -237,6 +249,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 class UnitCostComponent extends PositionComponent {
   final Player player;
   final UnitType unitType;
+  late final UnitSelectorComponent unitSelectorComponent;
 
   UnitCostComponent({
     required this.player,
@@ -247,6 +260,8 @@ class UnitCostComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
+    unitSelectorComponent = parent as UnitSelectorComponent;
+
     return super.onLoad();
   }
 
@@ -254,8 +269,12 @@ class UnitCostComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
 
+    final String cost = unitSelectorComponent.unitCost == 0
+        ? 'FREE'
+        : unitSelectorComponent.unitCost.toString();
+
     canvas.drawText(
-      text: '${unitType.cost.toString()}${Constants.RESOURCE_ICON}',
+      text: '$cost${Constants.RESOURCE_ICON}',
       position: Vector2(size.x * 1, size.y * 0.55),
       size: size.x / 2.5,
       color: Palette.CONTROLS_COST_FOREGROUND,
