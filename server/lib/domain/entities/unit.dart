@@ -62,10 +62,6 @@ class Unit {
       resources.get(lockedNode!.id).hasResources;
 
   void move(Node node) {
-    if (isHarvesting) {
-      player.decreaseResourcesRate();
-    }
-
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
@@ -120,10 +116,6 @@ class Unit {
       lockedNode!.lock(this);
       targetNode = null;
       result = true;
-
-      if (isHarvesting) {
-        player.increaseResourcesRate();
-      }
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
         targetNode!.notLockedBy(this)) {
@@ -144,6 +136,10 @@ class Unit {
 
   bool _processStanding(double dt) {
     bool result = false;
+
+    if (isHarvesting) {
+      player.addResources(player.resourcesActiveRate * dt);
+    }
 
     // Target unit is no longer alive
     if (targetUnit != null && !targetUnit!.isAlive) {
@@ -228,10 +224,6 @@ class Unit {
   }
 
   void destroy() {
-    if (isHarvesting) {
-      player.decreaseResourcesRate();
-    }
-
     lockedNode?.unlock();
     lockedNode = null;
     targetNode = null;

@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/data/players.dart';
+import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -114,7 +115,7 @@ class Match {
       }
 
       for (final Player player in players.list) {
-        player.addResources(player.resourcesRate * dt);
+        player.addResources(player.resourcesPassiveRate * dt);
       }
 
       if (sendUpdate) {
@@ -144,19 +145,9 @@ class Match {
       battlefield.updateMissile();
     }
 
-    final Map<String, JsonPlayerUpdate> playersUpdate = {
-      for (final Player player in players.list)
-        player.index: player.toJsonUpdate(
-          currentHarvesterCount: battlefield.units.currentHarvesterCount(
-            player.index,
-          ),
-          maxHarvesterCount: battlefield.units.maxHarvesterCount(player.index),
-        ),
-    };
-
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
       status: status,
-      players: playersUpdate,
+      players: _getPlayersUpdate(),
       missile: battlefield.missile.toJsonUpdate(),
       resources: battlefield.resourcesToJsonUpdate(),
       units: battlefield.unitsToJsonUpdate(),
@@ -164,6 +155,23 @@ class Match {
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
+  }
+
+  Map<String, JsonPlayerUpdate> _getPlayersUpdate() {
+    final Units units = battlefield.units;
+    final Map<String, JsonPlayerUpdate> result = {};
+
+    for (final Player player in players.list) {
+      result[player.index] = player.toJsonUpdate(
+        currentHarvesterCount: units.currentHarvesterCount(player.index),
+        maxHarvesterCount: units.maxHarvesterCount(player.index),
+        resourcesExtraRate:
+            units.currentHarvestersWorking(player.index) *
+            player.resourcesActiveRate,
+      );
+    }
+
+    return result;
   }
 
   String? get _winner {

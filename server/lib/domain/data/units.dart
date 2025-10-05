@@ -27,6 +27,12 @@ class Units {
   bool hasMaxHarvesters(String playerIndex) =>
       currentHarvesterCount(playerIndex) >= maxHarvestersCount;
 
+  int currentHarvestersWorking(String playerIndex) => _units.list
+      .where(
+        (unit) => (unit.player.index == playerIndex) && (unit.isHarvesting),
+      )
+      .length;
+
   int unitCost({
     required UnitType type,
     required Player player,

@@ -3,9 +3,7 @@
 ### Phase 1
 
 - Harvester logic
-  - Max 2 harvesters
   - Harvester kill reward
-  - New harvester free
   - Drive harvester to patch automatically
 - Select deck before match
 - Continuous popcap

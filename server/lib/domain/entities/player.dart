@@ -11,7 +11,6 @@ class Player {
   final num resourcesActiveRate;
   num baseHealth;
   num resources;
-  late num resourcesRate;
 
   Player({
     required this.id,
@@ -22,21 +21,9 @@ class Player {
     required this.resources,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
-  }) {
-    resourcesRate = resourcesPassiveRate;
-  }
+  });
 
   bool get isAlive => baseHealth > 0;
-
-  void increaseResourcesRate() {
-    resourcesRate += resourcesActiveRate;
-  }
-
-  void decreaseResourcesRate() {
-    if (resourcesRate >= resourcesActiveRate) {
-      resourcesRate -= resourcesActiveRate;
-    }
-  }
 
   void removeHealth(num amount) {
     baseHealth -= amount;
@@ -88,10 +75,11 @@ class Player {
   JsonPlayerUpdate toJsonUpdate({
     required int currentHarvesterCount,
     required int maxHarvesterCount,
+    required num resourcesExtraRate,
   }) => JsonPlayerUpdate(
     baseHealth: baseHealth.ceil(),
     resources: resources.floor(),
-    resourcesRate: resourcesRate,
+    resourcesRate: resourcesPassiveRate + resourcesExtraRate,
     currentHarvesterCount: currentHarvesterCount,
     maxHarvesterCount: maxHarvesterCount,
   );
