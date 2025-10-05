@@ -12,7 +12,6 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
-import 'package:tensionpath/extensions/sprite_component_extension.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -256,14 +255,13 @@ class UnitImageComponent extends SpriteComponent {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(unitSprite(unitType));
+    sprite = await Sprite.load(
+      unitSprite(
+        type: unitType,
+        player: player,
+      ),
+    );
     scale = unitScale(unitType);
-
-    if (player.isPlayer1) {
-      setBlueShade();
-    } else if (player.isPlayer2) {
-      setRedShade();
-    }
 
     return super.onLoad();
   }

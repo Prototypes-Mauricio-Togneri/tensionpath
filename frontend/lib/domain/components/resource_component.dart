@@ -30,7 +30,7 @@ class ResourceComponent extends SpriteComponent with HasVisibility {
   @override
   void update(double dt) {
     super.update(dt);
-    
+
     isVisible = resources.hasResources;
   }
 }

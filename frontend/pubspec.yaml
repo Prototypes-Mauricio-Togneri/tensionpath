@@ -45,6 +45,11 @@ flutter:
   assets:
     - assets/images/battlefields/
     - assets/images/structures/
-    - assets/images/units/
-    - assets/images/units/player_1/
-    - assets/images/units/player_2/
+    - assets/images/units/player_1/harvester/
+    - assets/images/units/player_1/infantry/
+    - assets/images/units/player_1/vehicle/
+    - assets/images/units/player_1/aircraft/
+    - assets/images/units/player_2/harvester/
+    - assets/images/units/player_2/infantry/
+    - assets/images/units/player_2/vehicle/
+    - assets/images/units/player_2/aircraft/

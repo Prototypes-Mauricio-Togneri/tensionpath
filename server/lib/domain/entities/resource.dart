@@ -30,7 +30,7 @@ class Resource {
     } else {
       final num all = amountCurrent;
       amountCurrent = 0;
-      
+
       return all;
     }
   }
