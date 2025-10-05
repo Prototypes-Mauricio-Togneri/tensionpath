@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/assets.dart';
 
-class ResourceComponent extends SpriteComponent {
+class ResourceComponent extends SpriteComponent with HasVisibility {
   final Resources resources;
 
   ResourceComponent({
@@ -25,5 +25,12 @@ class ResourceComponent extends SpriteComponent {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
 
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    
+    isVisible = resources.hasResources;
   }
 }

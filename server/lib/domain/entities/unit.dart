@@ -33,6 +33,7 @@ class Unit {
   Node? targetNode;
   Launcher? targetBase;
   Unit? targetUnit;
+  bool lastOrderManual = false;
 
   Unit({
     required this.config,
@@ -64,7 +65,11 @@ class Unit {
       (lockedNode!.type == NodeType.resources) &&
       resources.get(lockedNode!.id).hasResources;
 
-  void move(Node node) {
+  void move({
+    required Node node,
+    required bool manual,
+  }) {
+    lastOrderManual = manual;
     targetNode = node;
     lockedNode?.unlock();
     lockedNode = null;
@@ -141,8 +146,9 @@ class Unit {
     bool result = false;
 
     if (isHarvesting) {
+      lastOrderManual = false;
       player.addResources(player.resourcesActiveRate * dt);
-    } else if (type == UnitType.harvester) {
+    } else if ((type == UnitType.harvester) && !lastOrderManual) {
       final Node? patchNode = nodes.closestNodeToHarvest(
         position: position,
         lockedNode: lockedNode,
@@ -150,7 +156,10 @@ class Unit {
 
       if (patchNode != null) {
         Logger.debug('Harvester $id automatically moving to ${patchNode.id}');
-        move(patchNode);
+        move(
+          node: patchNode,
+          manual: false,
+        );
 
         return true;
       }

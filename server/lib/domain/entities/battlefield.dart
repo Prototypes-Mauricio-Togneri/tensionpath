@@ -111,13 +111,19 @@ class Battlefield {
           );
 
           if (alternativeNode != null) {
-            attackerUnit.move(alternativeNode);
+            attackerUnit.move(
+              node: alternativeNode,
+              manual: true,
+            );
           }
         }
 
         attackerUnit.attackBase(targetBase);
       } else {
-        attackerUnit.move(targetNode);
+        attackerUnit.move(
+          node: targetNode,
+          manual: true,
+        );
       }
     } else if (defenderUnit.isAlive) {
       final num distanceToTarget = attackerUnit.distanceToUnit(defenderUnit);
@@ -131,7 +137,10 @@ class Battlefield {
         );
 
         if (alternativeNode != null) {
-          attackerUnit.move(alternativeNode);
+          attackerUnit.move(
+            node: alternativeNode,
+            manual: true,
+          );
         }
       }
 

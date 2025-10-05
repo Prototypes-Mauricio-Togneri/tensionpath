@@ -17,6 +17,8 @@ class Resources {
     required this.amountMax,
   });
 
+  bool get hasResources => amountCurrent > 0;
+
   void update(num newAmountCurrent) {
     amountCurrent = newAmountCurrent;
   }

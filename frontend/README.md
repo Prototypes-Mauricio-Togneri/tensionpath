@@ -2,8 +2,7 @@
 
 ### Phase 1
 
-- Harvester logic
-  - Drive harvester to patch automatically
+- Drive harvester to patch automatically
 - Select deck before match
 - Continuous popcap
 
