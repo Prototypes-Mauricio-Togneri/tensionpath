@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
+import 'package:tensionpath/domain/json/models/common/json_size.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_launcher_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
@@ -84,7 +85,10 @@ class MatchLoader {
 
     return JsonBattlefieldStart(
       mapSize: jsonMatchTemplate.battlefield.mapSize,
-      nodeSize: jsonMatchTemplate.battlefield.nodeSize,
+      nodeSize: JsonSize(
+        width: Constants.NODE_SIZE.width,
+        height: Constants.NODE_SIZE.height,
+      ),
       nodes: jsonNodeStart,
       missile: _getJsonMissileStart(
         config: config,

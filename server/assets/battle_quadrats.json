@@ -16,10 +16,6 @@
             "width": 9,
             "height": 7
         },
-        "nodeSize": {
-            "width": 8.660254038,
-            "height": 10
-        },
         "nodes": [
             {
                 "type": "missile",

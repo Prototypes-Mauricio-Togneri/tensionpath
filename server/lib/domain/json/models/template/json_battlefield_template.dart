@@ -9,15 +9,11 @@ class JsonBattlefieldTemplate {
   @JsonKey(name: 'mapSize')
   final JsonSize mapSize;
 
-  @JsonKey(name: 'nodeSize')
-  final JsonSize nodeSize;
-
   @JsonKey(name: 'nodes')
   final List<JsonNodeTemplate> nodes;
 
   const JsonBattlefieldTemplate({
     required this.mapSize,
-    required this.nodeSize,
     required this.nodes,
   });
 
