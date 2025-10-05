@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Units {
@@ -48,7 +49,7 @@ class Units {
       if (_harvesterMaxCount.containsKey(playerIndex)) {
         _harvesterMaxCount[playerIndex] = min(
           _harvesterMaxCount[playerIndex]! + 1,
-          2,
+          Constants.MAX_HARVESTERS_PER_PLAYER,
         );
       } else {
         _harvesterMaxCount[playerIndex] = 1;
