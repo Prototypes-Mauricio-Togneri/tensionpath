@@ -124,7 +124,7 @@ class Unit {
         targetNode!.notLockedBy(this)) {
       Logger.debug('Target node re-assigned to ${targetNode!.id}');
       // Target node is already locked. Re-assign node
-      targetNode = nodes.closestFreeNode(position);
+      targetNode = nodes.closestNodeToMove(position);
       result = true;
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
@@ -142,6 +142,18 @@ class Unit {
 
     if (isHarvesting) {
       player.addResources(player.resourcesActiveRate * dt);
+    } else if (type == UnitType.harvester) {
+      final Node? patchNode = nodes.closestNodeToHarvest(
+        position: position,
+        lockedNode: lockedNode,
+      );
+
+      if (patchNode != null) {
+        Logger.debug('Harvester $id automatically moving to ${patchNode.id}');
+        move(patchNode);
+
+        return true;
+      }
     }
 
     // Target unit is no longer alive

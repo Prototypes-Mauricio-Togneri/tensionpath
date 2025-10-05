@@ -2,6 +2,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Nodes {
@@ -16,17 +17,10 @@ class Nodes {
   Node atLocation(Location location) => get(location.id);
 
   Node atPosition(Position position) {
-    Node? result;
-    num closestDistance = double.infinity;
-
-    for (final Node node in _nodes.list) {
-      final num distance = position.distanceTo(node.position);
-
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        result = node;
-      }
-    }
+    final Node? result = closestFromList(
+      position: position,
+      availableNodes: _nodes.list,
+    );
 
     if (result == null) {
       throw Exception('No closest node to position $position found');
@@ -35,12 +29,39 @@ class Nodes {
     return result;
   }
 
-  Node? closestFreeNode(Position position) {
-    Node? result;
-    num closestDistance = double.infinity;
+  Node? closestNodeToHarvest({
+    required Position position,
+    required Node? lockedNode,
+  }) {
+    final List<Node> availableNodes = _nodes.list
+        .where(
+          (n) => n.isFree && n.type == NodeType.resources && n != lockedNode,
+        )
+        .toList();
+
+    return closestFromList(
+      position: position,
+      availableNodes: availableNodes,
+    );
+  }
+
+  Node? closestNodeToMove(Position position) {
     final List<Node> availableNodes = _nodes.list
         .where((n) => n.isFree && n.type.canMove)
         .toList();
+
+    return closestFromList(
+      position: position,
+      availableNodes: availableNodes,
+    );
+  }
+
+  Node? closestFromList({
+    required Position position,
+    required List<Node> availableNodes,
+  }) {
+    Node? result;
+    num closestDistance = double.infinity;
 
     for (final Node node in availableNodes) {
       final num distance = position.distanceTo(node.position);
