@@ -1,17 +1,18 @@
 import 'package:tensionpath/domain/json/models/template/json_config_template.dart';
 
 class Config {
-  final num resourcesStart;
-  final num resourcesPerPatch;
+  final int resourcesStart;
+  final int resourcesPerPatch;
   final num resourcesPassiveRate;
   final num resourcesActiveRate;
   final int maxHarvestersCount;
+  final int harvesterReward;
   final num popcapRate; // TODO(momo): use
-  final num missileMaxCharge;
-  final num missileChargeBuffer;
+  final int missileMaxCharge;
+  final int missileChargeBuffer;
   final num missileChargeRate;
-  final num missileDamage;
-  final num baseHealth;
+  final int missileDamage;
+  final int baseHealth;
 
   const Config({
     required this.resourcesStart,
@@ -19,6 +20,7 @@ class Config {
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
     required this.maxHarvestersCount,
+    required this.harvesterReward,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
@@ -33,6 +35,7 @@ class Config {
     resourcesPassiveRate: json.resourcesPassiveRate,
     resourcesActiveRate: json.resourcesActiveRate,
     maxHarvestersCount: json.maxHarvestersCount,
+    harvesterReward: json.harvesterReward,
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,

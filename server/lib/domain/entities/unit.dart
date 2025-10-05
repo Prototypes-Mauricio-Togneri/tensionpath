@@ -176,6 +176,12 @@ class Unit {
           final num damage = type.damageAgainst(targetUnit!.type.clazz);
           currentAttackCooldown = type.attackCooldown;
           targetUnit!.hit(damage);
+
+          if ((targetUnit!.type == UnitType.harvester) &&
+              !targetUnit!.isAlive) {
+            // TODO(momo): add reward
+          }
+
           result = true;
           Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
         }
