@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/entities/resource.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
@@ -147,7 +148,11 @@ class Unit {
 
     if (isHarvesting) {
       lastOrderManual = false;
-      player.addResources(player.resourcesActiveRate * dt);
+      final Resource resource = resources.get(lockedNode!.id);
+      final num amount = resource.removeResources(
+        player.resourcesActiveRate * dt,
+      );
+      player.addResources(amount);
     } else if ((type == UnitType.harvester) && !lastOrderManual) {
       final Node? patchNode = nodes.closestNodeToHarvest(
         position: position,

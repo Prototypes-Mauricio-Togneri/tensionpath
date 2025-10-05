@@ -2,7 +2,6 @@
 
 ### Phase 1
 
-- Drive harvester to patch automatically
 - Select deck before match
 - Continuous popcap
 

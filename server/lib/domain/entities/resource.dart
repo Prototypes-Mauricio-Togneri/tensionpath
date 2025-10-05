@@ -22,6 +22,19 @@ class Resource {
 
   bool get hasResources => amountCurrent > 0;
 
+  num removeResources(num amount) {
+    if (amountCurrent >= amount) {
+      amountCurrent -= amount;
+
+      return amount;
+    } else {
+      final num all = amountCurrent;
+      amountCurrent = 0;
+      
+      return all;
+    }
+  }
+
   factory Resource.fromJson({
     required JsonResourceStart json,
     required Node node,
