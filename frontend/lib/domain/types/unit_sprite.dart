@@ -12,13 +12,13 @@ Vector2 unitScale(UnitType type) {
     case UnitType.harvester:
       return Vector2(0.7, 0.7);
     case UnitType.riflemen:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.4, 0.4);
     case UnitType.shocks:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.45, 0.45);
     case UnitType.missiles:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.45, 0.45);
     case UnitType.grenadier:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.35, 0.35);
     case UnitType.sniper:
       return Vector2(0.5, 0.5);
     case UnitType.rhino:
