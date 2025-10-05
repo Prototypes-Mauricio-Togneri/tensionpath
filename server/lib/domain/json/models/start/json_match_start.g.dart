@@ -10,6 +10,11 @@ JsonMatchStart _$JsonMatchStartFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonMatchStart', json, ($checkedConvert) {
       final val = JsonMatchStart(
         createdAt: $checkedConvert('createdAt', (v) => v as String),
+        maxHarvestersCount: $checkedConvert(
+          'maxHarvestersCount',
+          (v) => (v as num).toInt(),
+        ),
+        popcapRate: $checkedConvert('popcapRate', (v) => v as num),
         players: $checkedConvert(
           'players',
           (v) => (v as List<dynamic>)
@@ -27,6 +32,8 @@ JsonMatchStart _$JsonMatchStartFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchStartToJson(JsonMatchStart instance) =>
     <String, dynamic>{
       'createdAt': instance.createdAt,
+      'maxHarvestersCount': instance.maxHarvestersCount,
+      'popcapRate': instance.popcapRate,
       'players': instance.players.map((e) => e.toJson()).toList(),
       'battlefield': instance.battlefield.toJson(),
     };

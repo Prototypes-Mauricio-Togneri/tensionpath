@@ -31,6 +31,8 @@ class MatchLoader {
 
     return JsonMatchStart(
       createdAt: DateTime.now().toUtc().toIso8601String(),
+      maxHarvestersCount: config.maxHarvestersCount,
+      popcapRate: config.popcapRate,
       players: _getJsonPlayersStart(
         config: config,
         participants: participants,

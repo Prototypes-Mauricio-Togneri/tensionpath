@@ -19,10 +19,12 @@ import 'package:tensionpath/utils/palette.dart';
 
 class ControlsComponent extends PositionComponent {
   final Player player;
+  final int maxHarvestersCount;
   final Paint backgroundPaint = Palette.paint(style: PaintingStyle.fill);
 
   ControlsComponent({
     required this.player,
+    required this.maxHarvestersCount,
     required super.position,
     required super.size,
   }) : super(
@@ -46,6 +48,7 @@ class ControlsComponent extends PositionComponent {
         UnitSelectorComponent(
           player: player,
           unitType: UnitType.values[i],
+          maxHarvestersCount: maxHarvestersCount,
           position: Dimensions.controlsUnitCardPosition(
             size: size,
             cardSize: cardSize,
@@ -82,6 +85,7 @@ class ControlsComponent extends PositionComponent {
 class UnitSelectorComponent extends PositionComponent {
   final Player player;
   final UnitType unitType;
+  final int maxHarvestersCount;
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
@@ -90,6 +94,7 @@ class UnitSelectorComponent extends PositionComponent {
   UnitSelectorComponent({
     required this.player,
     required this.unitType,
+    required this.maxHarvestersCount,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center);
@@ -287,7 +292,7 @@ class ResourcesComponent extends PositionComponent {
     );
 
     canvas.drawText(
-      text: '${player.resourcesRate}/s',
+      text: '${player.resourcesRate}${Constants.RESOURCE_ICON} / s',
       position: Vector2(size.x * 0.5, size.y * 0.7),
       size: size.x / 10,
       color: Palette.CONTROLS_COST_FOREGROUND,

@@ -2,14 +2,16 @@ import 'dart:math';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Units {
+  final int maxHarvestersCount;
   final IterableMap<String, Unit> _units;
   final Map<String, int> _harvesterMaxCount = {};
 
-  Units() : _units = IterableMap();
+  Units({
+    required this.maxHarvestersCount,
+  }) : _units = IterableMap();
 
   int harvesterCurrentCount(String playerIndex) => _units.list
       .where(
@@ -23,7 +25,7 @@ class Units {
       _harvesterMaxCount[playerIndex] ?? 0;
 
   bool hasMaxHarvesters(String playerIndex) =>
-      harvesterCurrentCount(playerIndex) >= Constants.MAX_HARVESTERS_PER_PLAYER;
+      harvesterCurrentCount(playerIndex) >= maxHarvestersCount;
 
   int unitCost({
     required UnitType type,
@@ -52,7 +54,7 @@ class Units {
       if (_harvesterMaxCount.containsKey(playerIndex)) {
         _harvesterMaxCount[playerIndex] = min(
           _harvesterMaxCount[playerIndex]! + 1,
-          Constants.MAX_HARVESTERS_PER_PLAYER,
+          maxHarvestersCount,
         );
       } else {
         _harvesterMaxCount[playerIndex] = 1;

@@ -5,6 +5,7 @@ class Config {
   final num resourcesPerPatch;
   final num resourcesPassiveRate;
   final num resourcesActiveRate;
+  final int maxHarvestersCount;
   final num popcapRate; // TODO(momo): use
   final num missileMaxCharge;
   final num missileChargeBuffer;
@@ -17,6 +18,7 @@ class Config {
     required this.resourcesPerPatch,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
+    required this.maxHarvestersCount,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
@@ -30,6 +32,7 @@ class Config {
     resourcesPerPatch: json.resourcesPerPatch,
     resourcesPassiveRate: json.resourcesPassiveRate,
     resourcesActiveRate: json.resourcesActiveRate,
+    maxHarvestersCount: json.maxHarvestersCount,
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,

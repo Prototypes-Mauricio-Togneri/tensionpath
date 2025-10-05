@@ -136,11 +136,14 @@ class Battlefield {
 
   factory Battlefield.fromJson({
     required JsonBattlefieldStart json,
+    required int maxHarvestersCount,
     required Players players,
   }) {
     final Nodes nodes = Node.load(json.nodes);
     final Size nodeSize = Size.fromJson(json.nodeSize);
-    final Units units = Units();
+    final Units units = Units(
+      maxHarvestersCount: maxHarvestersCount,
+    );
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),

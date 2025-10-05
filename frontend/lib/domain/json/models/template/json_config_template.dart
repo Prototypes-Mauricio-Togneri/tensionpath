@@ -16,6 +16,9 @@ class JsonConfigTemplate {
   @JsonKey(name: 'resourcesActiveRate')
   final num resourcesActiveRate;
 
+  @JsonKey(name: 'maxHarvestersCount')
+  final int maxHarvestersCount;
+
   @JsonKey(name: 'popcapRate')
   final num popcapRate;
 
@@ -39,6 +42,7 @@ class JsonConfigTemplate {
     required this.resourcesPerPatch,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
+    required this.maxHarvestersCount,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
