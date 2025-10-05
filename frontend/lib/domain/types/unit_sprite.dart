@@ -11,6 +11,7 @@ Vector2 unitScale(UnitType type) {
   switch (type) {
     case UnitType.harvester:
       return Vector2(0.7, 0.7);
+
     case UnitType.riflemen:
       return Vector2(0.4, 0.4);
     case UnitType.shocks:
@@ -21,24 +22,26 @@ Vector2 unitScale(UnitType type) {
       return Vector2(0.35, 0.35);
     case UnitType.sniper:
       return Vector2(0.5, 0.5);
+
     case UnitType.rhino:
-      return Vector2(0.6, 0.6);
+      return Vector2(0.4, 0.4);
     case UnitType.pitbull:
-      return Vector2(0.6, 0.6);
+      return Vector2(0.5, 0.5);
     case UnitType.shatterer:
-      return Vector2(0.6, 0.6);
+      return Vector2(0.4, 0.4);
     case UnitType.predator:
-      return Vector2(0.6, 0.6);
+      return Vector2(0.75, 0.75);
     case UnitType.mlrs:
       return Vector2(0.6, 0.6);
+
     case UnitType.talon:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.6, 0.6);
     case UnitType.razorback:
       return Vector2(0.5, 0.5);
     case UnitType.orca:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.6, 0.6);
     case UnitType.mohawk:
-      return Vector2(0.5, 0.5);
+      return Vector2(0.65, 0.65);
     case UnitType.hammerhead:
       return Vector2(0.5, 0.5);
   }
