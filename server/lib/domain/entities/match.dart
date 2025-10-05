@@ -147,10 +147,10 @@ class Match {
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players.list)
         player.index: player.toJsonUpdate(
-          currentHarvesterCount: battlefield.units.harvesterCurrentCount(
+          currentHarvesterCount: battlefield.units.currentHarvesterCount(
             player.index,
           ),
-          maxHarvesterCount: battlefield.units.harvesterMaxCount(player.index),
+          maxHarvesterCount: battlefield.units.maxHarvesterCount(player.index),
         ),
     };
 

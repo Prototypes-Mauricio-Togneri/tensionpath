@@ -7,13 +7,13 @@ import 'package:tensionpath/utils/iterable_map.dart';
 class Units {
   final int maxHarvestersCount;
   final IterableMap<String, Unit> _units;
-  final Map<String, int> _harvesterMaxCount = {};
+  final Map<String, int> _maxHarvesterCount = {};
 
   Units({
     required this.maxHarvestersCount,
   }) : _units = IterableMap();
 
-  int harvesterCurrentCount(String playerIndex) => _units.list
+  int currentHarvesterCount(String playerIndex) => _units.list
       .where(
         (unit) =>
             (unit.player.index == playerIndex) &&
@@ -21,19 +21,19 @@ class Units {
       )
       .length;
 
-  int harvesterMaxCount(String playerIndex) =>
-      _harvesterMaxCount[playerIndex] ?? 0;
+  int maxHarvesterCount(String playerIndex) =>
+      _maxHarvesterCount[playerIndex] ?? 0;
 
   bool hasMaxHarvesters(String playerIndex) =>
-      harvesterCurrentCount(playerIndex) >= maxHarvestersCount;
+      currentHarvesterCount(playerIndex) >= maxHarvestersCount;
 
   int unitCost({
     required UnitType type,
     required Player player,
   }) {
     if (type == UnitType.harvester) {
-      final int currentCount = harvesterCurrentCount(player.index);
-      final int maxCount = harvesterMaxCount(player.index);
+      final int currentCount = currentHarvesterCount(player.index);
+      final int maxCount = maxHarvesterCount(player.index);
 
       if (currentCount < maxCount) {
         return 0;
@@ -50,15 +50,10 @@ class Units {
 
     if (unit.type == UnitType.harvester) {
       final String playerIndex = unit.player.index;
-
-      if (_harvesterMaxCount.containsKey(playerIndex)) {
-        _harvesterMaxCount[playerIndex] = min(
-          _harvesterMaxCount[playerIndex]! + 1,
-          maxHarvestersCount,
-        );
-      } else {
-        _harvesterMaxCount[playerIndex] = 1;
-      }
+      _maxHarvesterCount[playerIndex] = max(
+        maxHarvesterCount(playerIndex),
+        currentHarvesterCount(playerIndex),
+      );
     }
   }
 
