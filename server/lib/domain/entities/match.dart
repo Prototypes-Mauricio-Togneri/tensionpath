@@ -60,8 +60,7 @@ class Match {
     required UnitType type,
   }) {
     if ((type == UnitType.harvester) &&
-        (battlefield.units.harvesterCurrentCount(playerIndex) >=
-            Constants.MAX_HARVESTERS_PER_PLAYER)) {
+        battlefield.units.hasMaxHarvesters(playerIndex)) {
       throw Exception('Max harvesters reached');
     }
 

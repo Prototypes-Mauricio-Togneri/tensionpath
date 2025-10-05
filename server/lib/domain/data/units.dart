@@ -22,6 +22,9 @@ class Units {
   int harvesterMaxCount(String playerIndex) =>
       _harvesterMaxCount[playerIndex] ?? 0;
 
+  bool hasMaxHarvesters(String playerIndex) =>
+      harvesterCurrentCount(playerIndex) >= Constants.MAX_HARVESTERS_PER_PLAYER;
+
   int unitCost({
     required UnitType type,
     required Player player,
