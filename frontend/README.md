@@ -19,16 +19,16 @@
 - Ramping popcap and resources rate (see picture)
 - Drag the entire unit card, not just the unit sprite
 - Path finding
+- Choose map
+- Toxic tiles that damage units
 
 ### Phase 3
 
 - Show list of open matches to play knowing the map
 - Dart compile in Docker
 - Add changelog to home screen
-- Choose map
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
-- Toxic tiles that damage units
 - Re-attach to an active match
 - After 5 minutes, bases take damage every turn
 - Show match replay
