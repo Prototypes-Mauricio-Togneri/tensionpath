@@ -42,20 +42,23 @@ class PlayerUpdate {
   final int baseHealth;
   final int resources;
   final num resourcesRate;
-  final int harvesterCount;
+  final int currentHarvesterCount;
+  final int maxHarvesterCount;
 
   const PlayerUpdate({
     required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
-    required this.harvesterCount,
+    required this.currentHarvesterCount,
+    required this.maxHarvesterCount,
   });
 
   factory PlayerUpdate.fromJson(JsonPlayerUpdate json) => PlayerUpdate(
     baseHealth: json.baseHealth,
     resources: json.resources,
     resourcesRate: json.resourcesRate,
-    harvesterCount: json.harvesterCount,
+    currentHarvesterCount: json.currentHarvesterCount,
+    maxHarvesterCount: json.maxHarvesterCount,
   );
 }
 

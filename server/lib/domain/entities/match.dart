@@ -15,8 +15,6 @@ import 'package:tensionpath/utils/logger.dart';
 class Match {
   final Connection connection;
   final DateTime createdAt;
-  final int maxHarvestersCount;
-  final num popcapRate;
   final Battlefield battlefield;
   final Players players;
   MatchStatus status;
@@ -24,8 +22,6 @@ class Match {
   Match._({
     required this.connection,
     required this.createdAt,
-    required this.maxHarvestersCount,
-    required this.popcapRate,
     required this.status,
     required this.battlefield,
     required this.players,
@@ -40,12 +36,9 @@ class Match {
     return Match._(
       connection: connection,
       createdAt: DateTime.parse(jsonMatch.createdAt),
-      maxHarvestersCount: jsonMatch.maxHarvestersCount,
-      popcapRate: jsonMatch.popcapRate,
       status: MatchStatus.playing,
       battlefield: Battlefield.fromJson(
         json: jsonMatch.battlefield,
-        maxHarvestersCount: jsonMatch.maxHarvestersCount,
         players: players,
       ),
       players: players,
@@ -154,7 +147,10 @@ class Match {
     final Map<String, JsonPlayerUpdate> playersUpdate = {
       for (final Player player in players.list)
         player.index: player.toJsonUpdate(
-          battlefield.units.harvesterCurrentCount(player.index),
+          currentHarvesterCount: battlefield.units.harvesterCurrentCount(
+            player.index,
+          ),
+          maxHarvesterCount: battlefield.units.harvesterMaxCount(player.index),
         ),
     };
 
@@ -187,8 +183,6 @@ class Match {
 
   JsonMatchStart toJson(String selfId) => JsonMatchStart(
     createdAt: createdAt.toIso8601String(),
-    maxHarvestersCount: maxHarvestersCount,
-    popcapRate: popcapRate,
     players: players.list
         .map((player) => player.toJson(selfId == player.id))
         .toList(),

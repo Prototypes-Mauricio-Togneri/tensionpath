@@ -9,12 +9,6 @@ class JsonMatchStart {
   @JsonKey(name: 'createdAt')
   final String createdAt;
 
-  @JsonKey(name: 'maxHarvestersCount')
-  final int maxHarvestersCount;
-
-  @JsonKey(name: 'popcapRate')
-  final num popcapRate;
-
   @JsonKey(name: 'players')
   final List<JsonPlayerStart> players;
 
@@ -23,8 +17,6 @@ class JsonMatchStart {
 
   JsonMatchStart({
     required this.createdAt,
-    required this.maxHarvestersCount,
-    required this.popcapRate,
     required this.players,
     required this.battlefield,
   });

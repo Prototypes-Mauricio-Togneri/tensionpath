@@ -13,14 +13,18 @@ class JsonPlayerUpdate {
   @JsonKey(name: 'resourcesRate')
   final num resourcesRate;
 
-  @JsonKey(name: 'harvesterCount')
-  final int harvesterCount;
+  @JsonKey(name: 'currentHarvesterCount')
+  final int currentHarvesterCount;
+
+  @JsonKey(name: 'maxHarvesterCount')
+  final int maxHarvesterCount;
 
   JsonPlayerUpdate({
     required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
-    required this.harvesterCount,
+    required this.currentHarvesterCount,
+    required this.maxHarvesterCount,
   });
 
   factory JsonPlayerUpdate.fromJson(Map<String, dynamic> json) =>

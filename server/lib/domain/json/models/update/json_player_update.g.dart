@@ -12,8 +12,12 @@ JsonPlayerUpdate _$JsonPlayerUpdateFromJson(Map<String, dynamic> json) =>
         baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
         resources: $checkedConvert('resources', (v) => (v as num).toInt()),
         resourcesRate: $checkedConvert('resourcesRate', (v) => v as num),
-        harvesterCount: $checkedConvert(
-          'harvesterCount',
+        currentHarvesterCount: $checkedConvert(
+          'currentHarvesterCount',
+          (v) => (v as num).toInt(),
+        ),
+        maxHarvesterCount: $checkedConvert(
+          'maxHarvesterCount',
           (v) => (v as num).toInt(),
         ),
       );
@@ -25,5 +29,6 @@ Map<String, dynamic> _$JsonPlayerUpdateToJson(JsonPlayerUpdate instance) =>
       'baseHealth': instance.baseHealth,
       'resources': instance.resources,
       'resourcesRate': instance.resourcesRate,
-      'harvesterCount': instance.harvesterCount,
+      'currentHarvesterCount': instance.currentHarvesterCount,
+      'maxHarvesterCount': instance.maxHarvesterCount,
     };

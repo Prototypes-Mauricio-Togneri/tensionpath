@@ -85,11 +85,15 @@ class Player {
     return result;
   }
 
-  JsonPlayerUpdate toJsonUpdate(int harvesterCount) => JsonPlayerUpdate(
+  JsonPlayerUpdate toJsonUpdate({
+    required int currentHarvesterCount,
+    required int maxHarvesterCount,
+  }) => JsonPlayerUpdate(
     baseHealth: baseHealth.ceil(),
     resources: resources.floor(),
     resourcesRate: resourcesRate,
-    harvesterCount: harvesterCount,
+    currentHarvesterCount: currentHarvesterCount,
+    maxHarvesterCount: maxHarvesterCount,
   );
 
   JsonPlayerStart toJson(bool isSelf) => JsonPlayerStart(

@@ -20,6 +20,7 @@ import 'package:tensionpath/utils/constants.dart';
 class Battlefield {
   final Size mapSize;
   final Size nodeSize;
+  final int maxHarvestersCount;
   final Missile missile;
   final Resources resources;
   final Launchers launchers;
@@ -29,6 +30,7 @@ class Battlefield {
   const Battlefield({
     required this.mapSize,
     required this.nodeSize,
+    required this.maxHarvestersCount,
     required this.missile,
     required this.resources,
     required this.launchers,
@@ -136,18 +138,16 @@ class Battlefield {
 
   factory Battlefield.fromJson({
     required JsonBattlefieldStart json,
-    required int maxHarvestersCount,
     required Players players,
   }) {
     final Nodes nodes = Node.load(json.nodes);
     final Size nodeSize = Size.fromJson(json.nodeSize);
-    final Units units = Units(
-      maxHarvestersCount: maxHarvestersCount,
-    );
+    final Units units = Units(maxHarvestersCount: json.maxHarvestersCount);
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),
       nodeSize: nodeSize,
+      maxHarvestersCount: json.maxHarvestersCount,
       missile: Missile.fromJson(
         json: json.missile,
         nodes: nodes,
@@ -182,6 +182,7 @@ class Battlefield {
   JsonBattlefieldStart toJsonStart() => JsonBattlefieldStart(
     mapSize: mapSize.toJson(),
     nodeSize: Constants.NODE_SIZE.toJson(),
+    maxHarvestersCount: maxHarvestersCount,
     missile: missile.toJsonStart(),
     resources: resources.list.map((r) => r.toJsonStart()).toList(),
     launchers: launchers.list.map((l) => l.toJsonStart()).toList(),

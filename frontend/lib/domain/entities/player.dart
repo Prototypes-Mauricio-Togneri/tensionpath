@@ -13,7 +13,8 @@ class Player {
   num baseHealth;
   num resources;
   num resourcesRate;
-  int harvesterCount;
+  int currentHarvesterCount;
+  int maxHarvesterCount;
 
   Player({
     required this.id,
@@ -24,7 +25,8 @@ class Player {
     required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
-    required this.harvesterCount,
+    required this.currentHarvesterCount,
+    required this.maxHarvesterCount,
   });
 
   bool get isOpponent => !isSelf;
@@ -39,7 +41,8 @@ class Player {
     baseHealth = player.baseHealth;
     resources = player.resources;
     resourcesRate = player.resourcesRate;
-    harvesterCount = player.harvesterCount;
+    currentHarvesterCount = player.currentHarvesterCount;
+    maxHarvesterCount = player.maxHarvesterCount;
   }
 
   void addResources(double value) {
@@ -55,6 +58,7 @@ class Player {
     baseHealth: player.baseHealth,
     resources: player.resources,
     resourcesRate: player.resourcesPassiveRate,
-    harvesterCount: 0,
+    currentHarvesterCount: 0,
+    maxHarvesterCount: 0,
   );
 }

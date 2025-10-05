@@ -79,7 +79,6 @@ class MatchComponent extends World {
     add(
       ControlsComponent(
         player: self,
-        maxHarvestersCount: match.maxHarvestersCount,
         position: Dimensions.controlsPosition(
           resolution: resolution,
           isPlayer1: self.isPlayer1,
