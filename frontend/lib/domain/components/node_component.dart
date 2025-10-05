@@ -53,7 +53,7 @@ class NodeComponent extends PositionComponent {
   }
 
   @override
-  bool containsLocalPoint(Vector2 point) => Dimensions.pointInHexagon(
+  bool containsLocalPoint(Vector2 point) => Dimensions.pointInCircle(
     point: point,
     size: size,
   );

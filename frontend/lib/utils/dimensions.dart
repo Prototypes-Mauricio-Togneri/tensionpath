@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 
@@ -70,7 +69,7 @@ class Dimensions {
     resolution.y - headerSize(resolution).y,
   );
 
-  static Vector2 maxNodeSizeWidth({
+  static Vector2 _maxNodeSizeWidth({
     required Vector2 canvasSize,
     required Size mapSize,
   }) {
@@ -79,7 +78,7 @@ class Dimensions {
     return Vector2(maxWidth, maxWidth / (sqrt(3) / 2));
   }
 
-  static Vector2 maxNodeSizeHeight({
+  static Vector2 _maxNodeSizeHeight({
     required Vector2 canvasSize,
     required Size mapSize,
   }) {
@@ -92,11 +91,11 @@ class Dimensions {
     required Vector2 canvasSize,
     required Size mapSize,
   }) {
-    final Vector2 maxSizeWidth = maxNodeSizeWidth(
+    final Vector2 maxSizeWidth = _maxNodeSizeWidth(
       canvasSize: canvasSize,
       mapSize: mapSize,
     );
-    final Vector2 maxSizeHeight = maxNodeSizeHeight(
+    final Vector2 maxSizeHeight = _maxNodeSizeHeight(
       canvasSize: canvasSize,
       mapSize: mapSize,
     );
@@ -109,22 +108,13 @@ class Dimensions {
     required Size removeNodeSize,
   }) => localNodeSize.x / removeNodeSize.width;
 
-  static Vector2 nodePosition({
-    required Vector2 center,
-    required Vector2 nodeSize,
-    required Location location,
-  }) => Vector2(
-    center.x + (nodeSize.x * ((location.y / 2) + location.x)),
-    center.y + (nodeSize.y * 3 / 4 * location.y),
-  );
-
-  static double controlsGapSize(Vector2 size) => size.x * 0.07;
+  static double _controlsGapSize(Vector2 size) => size.x * 0.07;
 
   static Vector2 controlsCardSize({
     required Vector2 size,
     required int numberOfCards,
   }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
+    final double gapSize = Dimensions._controlsGapSize(size);
     final double cardWidth = size.x - (gapSize * 2);
     final double cardHeight =
         (size.y - gapSize - (gapSize * (numberOfCards + 1))) / numberOfCards;
@@ -137,7 +127,7 @@ class Dimensions {
     required Vector2 cardSize,
     required int i,
   }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
+    final double gapSize = Dimensions._controlsGapSize(size);
 
     return Vector2(
       gapSize + (cardSize.x / 2),
@@ -150,7 +140,7 @@ class Dimensions {
     required Vector2 cardSize,
     required int numberOfCards,
   }) {
-    final double gapSize = Dimensions.controlsGapSize(size);
+    final double gapSize = Dimensions._controlsGapSize(size);
 
     return Vector2(
       gapSize,
@@ -158,15 +148,6 @@ class Dimensions {
           (gapSize * numberOfCards) +
           (gapSize * 1.5),
     );
-  }
-
-  static bool pointInHexagon({
-    required Vector2 point,
-    required Vector2 size,
-  }) {
-    final Vector2 fromCenter = point - (size / 2);
-
-    return fromCenter.length < (size.x * 0.5);
   }
 
   static bool pointInCircle({
