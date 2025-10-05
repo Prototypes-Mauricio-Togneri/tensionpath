@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/json/models/template/json_config_template.dart';
+import 'package:tensionpath/domain/json/models/common/json_config.dart';
 
 class Config {
   final int resourcesStart;
@@ -29,7 +29,7 @@ class Config {
     required this.baseHealth,
   });
 
-  factory Config.fromJson(JsonConfigTemplate json) => Config(
+  factory Config.fromJson(JsonConfig json) => Config(
     resourcesStart: json.resourcesStart,
     resourcesPerPatch: json.resourcesPerPatch,
     resourcesPassiveRate: json.resourcesPassiveRate,
@@ -42,5 +42,20 @@ class Config {
     missileChargeRate: json.missileChargeRate,
     missileDamage: json.missileDamage,
     baseHealth: json.baseHealth,
+  );
+
+  JsonConfig toJson() => JsonConfig(
+    resourcesStart: resourcesStart,
+    resourcesPerPatch: resourcesPerPatch,
+    resourcesPassiveRate: resourcesPassiveRate,
+    resourcesActiveRate: resourcesActiveRate,
+    maxHarvestersCount: maxHarvestersCount,
+    harvesterReward: harvesterReward,
+    popcapRate: popcapRate,
+    missileMaxCharge: missileMaxCharge,
+    missileChargeBuffer: missileChargeBuffer,
+    missileChargeRate: missileChargeRate,
+    missileDamage: missileDamage,
+    baseHealth: baseHealth,
   );
 }

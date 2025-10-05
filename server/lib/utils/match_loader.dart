@@ -31,6 +31,7 @@ class MatchLoader {
 
     return JsonMatchStart(
       createdAt: DateTime.now().toUtc().toIso8601String(),
+      config: jsonMatchTemplate.config,
       players: _getJsonPlayersStart(
         config: config,
         participants: participants,
@@ -89,7 +90,6 @@ class MatchLoader {
         width: Constants.NODE_SIZE.width,
         height: Constants.NODE_SIZE.height,
       ),
-      maxHarvestersCount: config.maxHarvestersCount,
       nodes: jsonNodeStart,
       missile: _getJsonMissileStart(
         config: config,

@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart
 class Battlefield {
   final Size mapSize;
   final Size nodeSize;
-  final int maxHarvestersCount;
   final Missile missile;
   final List<Resources> resources;
   final List<Launcher> launchers;
@@ -17,7 +16,6 @@ class Battlefield {
   const Battlefield({
     required this.mapSize,
     required this.nodeSize,
-    required this.maxHarvestersCount,
     required this.missile,
     required this.resources,
     required this.launchers,
@@ -27,7 +25,6 @@ class Battlefield {
   factory Battlefield.fromJson(JsonBattlefieldStart json) => Battlefield(
     mapSize: Size.fromJson(json.mapSize),
     nodeSize: Size.fromJson(json.nodeSize),
-    maxHarvestersCount: json.maxHarvestersCount,
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
     launchers: Launcher.list(json.launchers),

@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'json_config_template.g.dart';
+part 'json_config.g.dart';
 
 @JsonSerializable()
-class JsonConfigTemplate {
+class JsonConfig {
   @JsonKey(name: 'resourcesStart')
   final int resourcesStart;
 
@@ -40,7 +40,7 @@ class JsonConfigTemplate {
   @JsonKey(name: 'baseHealth')
   final int baseHealth;
 
-  const JsonConfigTemplate({
+  const JsonConfig({
     required this.resourcesStart,
     required this.resourcesPerPatch,
     required this.resourcesPassiveRate,
@@ -55,8 +55,8 @@ class JsonConfigTemplate {
     required this.baseHealth,
   });
 
-  factory JsonConfigTemplate.fromJson(Map<String, dynamic> json) =>
-      _$JsonConfigTemplateFromJson(json);
+  factory JsonConfig.fromJson(Map<String, dynamic> json) =>
+      _$JsonConfigFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonConfigTemplateToJson(this);
+  Map<String, dynamic> toJson() => _$JsonConfigToJson(this);
 }

@@ -2,6 +2,7 @@ import 'package:tensionpath/domain/data/launchers.dart';
 import 'package:tensionpath/domain/data/nodes.dart';
 import 'package:tensionpath/domain/data/resources.dart';
 import 'package:tensionpath/domain/data/units.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -14,6 +15,7 @@ import 'package:tensionpath/utils/logger.dart';
 import 'package:uuid/uuid.dart';
 
 class Unit {
+  final Config config;
   final Nodes nodes;
   final Resources resources;
   final Launchers launchers;
@@ -33,6 +35,7 @@ class Unit {
   Unit? targetUnit;
 
   Unit({
+    required this.config,
     required this.nodes,
     required this.resources,
     required this.launchers,
@@ -179,7 +182,7 @@ class Unit {
 
           if ((targetUnit!.type == UnitType.harvester) &&
               !targetUnit!.isAlive) {
-            // TODO(momo): add reward
+            player.addResources(config.harvesterReward);
           }
 
           result = true;

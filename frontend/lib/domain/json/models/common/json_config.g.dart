@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_config_template.dart';
+part of 'json_config.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonConfigTemplate _$JsonConfigTemplateFromJson(
+JsonConfig _$JsonConfigFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate('JsonConfigTemplate', json, ($checkedConvert) {
-  final val = JsonConfigTemplate(
+) => $checkedCreate('JsonConfig', json, ($checkedConvert) {
+  final val = JsonConfig(
     resourcesStart: $checkedConvert(
       'resourcesStart',
       (v) => (v as num).toInt(),
@@ -50,7 +50,7 @@ JsonConfigTemplate _$JsonConfigTemplateFromJson(
   return val;
 });
 
-Map<String, dynamic> _$JsonConfigTemplateToJson(JsonConfigTemplate instance) =>
+Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
     <String, dynamic>{
       'resourcesStart': instance.resourcesStart,
       'resourcesPerPatch': instance.resourcesPerPatch,

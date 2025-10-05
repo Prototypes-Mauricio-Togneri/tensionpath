@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/data/nodes.dart';
 import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/data/resources.dart';
 import 'package:tensionpath/domain/data/units.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
@@ -18,9 +19,9 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/constants.dart';
 
 class Battlefield {
+  final Config config;
   final Size mapSize;
   final Size nodeSize;
-  final int maxHarvestersCount;
   final Missile missile;
   final Resources resources;
   final Launchers launchers;
@@ -28,9 +29,9 @@ class Battlefield {
   final Nodes nodes;
 
   const Battlefield({
+    required this.config,
     required this.mapSize,
     required this.nodeSize,
-    required this.maxHarvestersCount,
     required this.missile,
     required this.resources,
     required this.launchers,
@@ -61,6 +62,7 @@ class Battlefield {
   }) {
     final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
+      config: config,
       nodes: nodes,
       resources: resources,
       launchers: launchers,
@@ -139,16 +141,17 @@ class Battlefield {
 
   factory Battlefield.fromJson({
     required JsonBattlefieldStart json,
+    required Config config,
     required Players players,
   }) {
     final Nodes nodes = Node.load(json.nodes);
     final Size nodeSize = Size.fromJson(json.nodeSize);
-    final Units units = Units(maxHarvestersCount: json.maxHarvestersCount);
+    final Units units = Units(maxHarvestersCount: config.maxHarvestersCount);
 
     return Battlefield(
+      config: config,
       mapSize: Size.fromJson(json.mapSize),
       nodeSize: nodeSize,
-      maxHarvestersCount: json.maxHarvestersCount,
       missile: Missile.fromJson(
         json: json.missile,
         nodes: nodes,
@@ -183,7 +186,6 @@ class Battlefield {
   JsonBattlefieldStart toJsonStart() => JsonBattlefieldStart(
     mapSize: mapSize.toJson(),
     nodeSize: Constants.NODE_SIZE.toJson(),
-    maxHarvestersCount: maxHarvestersCount,
     missile: missile.toJsonStart(),
     resources: resources.list.map((r) => r.toJsonStart()).toList(),
     launchers: launchers.list.map((l) => l.toJsonStart()).toList(),

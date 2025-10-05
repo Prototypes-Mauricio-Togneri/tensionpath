@@ -15,9 +15,6 @@ class JsonBattlefieldStart {
   @JsonKey(name: 'nodeSize')
   final JsonSize nodeSize;
 
-  @JsonKey(name: 'maxHarvestersCount')
-  final int maxHarvestersCount;
-
   @JsonKey(name: 'missile')
   final JsonMissileStart missile;
 
@@ -33,7 +30,6 @@ class JsonBattlefieldStart {
   const JsonBattlefieldStart({
     required this.mapSize,
     required this.nodeSize,
-    required this.maxHarvestersCount,
     required this.missile,
     required this.resources,
     required this.launchers,

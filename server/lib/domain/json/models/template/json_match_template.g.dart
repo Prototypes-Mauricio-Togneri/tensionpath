@@ -11,7 +11,7 @@ JsonMatchTemplate _$JsonMatchTemplateFromJson(Map<String, dynamic> json) =>
       final val = JsonMatchTemplate(
         config: $checkedConvert(
           'config',
-          (v) => JsonConfigTemplate.fromJson(v as Map<String, dynamic>),
+          (v) => JsonConfig.fromJson(v as Map<String, dynamic>),
         ),
         battlefield: $checkedConvert(
           'battlefield',

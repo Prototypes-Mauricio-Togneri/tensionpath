@@ -18,10 +18,6 @@ JsonBattlefieldStart _$JsonBattlefieldStartFromJson(
       'nodeSize',
       (v) => JsonSize.fromJson(v as Map<String, dynamic>),
     ),
-    maxHarvestersCount: $checkedConvert(
-      'maxHarvestersCount',
-      (v) => (v as num).toInt(),
-    ),
     missile: $checkedConvert(
       'missile',
       (v) => JsonMissileStart.fromJson(v as Map<String, dynamic>),
@@ -53,7 +49,6 @@ Map<String, dynamic> _$JsonBattlefieldStartToJson(
 ) => <String, dynamic>{
   'mapSize': instance.mapSize.toJson(),
   'nodeSize': instance.nodeSize.toJson(),
-  'maxHarvestersCount': instance.maxHarvestersCount,
   'missile': instance.missile.toJson(),
   'resources': instance.resources.map((e) => e.toJson()).toList(),
   'launchers': instance.launchers.map((e) => e.toJson()).toList(),

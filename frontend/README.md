@@ -3,7 +3,6 @@
 ### Phase 1
 
 - Harvester logic
-  - Harvester kill reward
   - Drive harvester to patch automatically
 - Select deck before match
 - Continuous popcap

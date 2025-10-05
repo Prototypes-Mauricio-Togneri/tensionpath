@@ -1,6 +1,7 @@
 import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
@@ -16,6 +17,7 @@ import 'package:tensionpath/utils/logger.dart';
 class Match {
   final Connection connection;
   final DateTime createdAt;
+  final Config config;
   final Battlefield battlefield;
   final Players players;
   MatchStatus status;
@@ -23,6 +25,7 @@ class Match {
   Match._({
     required this.connection,
     required this.createdAt,
+    required this.config,
     required this.status,
     required this.battlefield,
     required this.players,
@@ -33,13 +36,16 @@ class Match {
     required JsonMatchStart jsonMatch,
   }) {
     final Players players = Players(Player.list(jsonMatch.players));
+    final Config config = Config.fromJson(jsonMatch.config);
 
     return Match._(
       connection: connection,
       createdAt: DateTime.parse(jsonMatch.createdAt),
+      config: config,
       status: MatchStatus.playing,
       battlefield: Battlefield.fromJson(
         json: jsonMatch.battlefield,
+        config: config,
         players: players,
       ),
       players: players,
@@ -191,6 +197,7 @@ class Match {
 
   JsonMatchStart toJson(String selfId) => JsonMatchStart(
     createdAt: createdAt.toIso8601String(),
+    config: config.toJson(),
     players: players.list
         .map((player) => player.toJson(selfId == player.id))
         .toList(),
