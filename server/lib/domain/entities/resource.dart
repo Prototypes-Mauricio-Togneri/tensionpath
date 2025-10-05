@@ -20,6 +20,8 @@ class Resource {
     required this.amountMax,
   });
 
+  bool get hasResources => amountCurrent > 0;
+
   factory Resource.fromJson({
     required JsonResourceStart json,
     required Node node,

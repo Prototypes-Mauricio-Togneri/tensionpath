@@ -62,6 +62,7 @@ class Battlefield {
     final Node node = nodes.atLocation(location);
     final Unit unit = Unit(
       nodes: nodes,
+      resources: resources,
       launchers: launchers,
       units: units,
       id: Unit.newId,

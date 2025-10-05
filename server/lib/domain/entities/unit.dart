@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/data/launchers.dart';
 import 'package:tensionpath/domain/data/nodes.dart';
+import 'package:tensionpath/domain/data/resources.dart';
 import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -14,6 +15,7 @@ import 'package:uuid/uuid.dart';
 
 class Unit {
   final Nodes nodes;
+  final Resources resources;
   final Launchers launchers;
   final Units units;
   final String id;
@@ -32,6 +34,7 @@ class Unit {
 
   Unit({
     required this.nodes,
+    required this.resources,
     required this.launchers,
     required this.units,
     required this.id,
@@ -53,8 +56,10 @@ class Unit {
 
   bool get isHarvesting =>
       (type == UnitType.harvester) &&
+      !isMoving &&
       (lockedNode != null) &&
-      (lockedNode!.type == NodeType.resources);
+      (lockedNode!.type == NodeType.resources) &&
+      resources.get(lockedNode!.id).hasResources;
 
   void move(Node node) {
     if (isHarvesting) {
