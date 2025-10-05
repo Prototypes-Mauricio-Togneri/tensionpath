@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/data/nodes.dart';
+import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/json/models/start/json_platform_start.dart';
 import 'package:tensionpath/utils/constants.dart';
@@ -14,9 +15,9 @@ class Platform {
     required this.pads,
   });
 
-  void update() {
+  void update(Units units) {
     for (final Pad pad in pads) {
-      pad.update();
+      pad.update(units);
     }
 
     owner = _newOwner;

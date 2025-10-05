@@ -140,6 +140,7 @@ class Battlefield {
   }) {
     final Nodes nodes = Node.load(json.nodes);
     final Size nodeSize = Size.fromJson(json.nodeSize);
+    final Units units = Units();
 
     return Battlefield(
       mapSize: Size.fromJson(json.mapSize),
@@ -147,6 +148,7 @@ class Battlefield {
       missile: Missile.fromJson(
         json: json.missile,
         nodes: nodes,
+        units: units,
       ),
       resources: Resources(
         Resource.list(
@@ -162,7 +164,7 @@ class Battlefield {
         ),
       ),
       nodes: nodes,
-      units: Units(),
+      units: units,
     );
   }
 

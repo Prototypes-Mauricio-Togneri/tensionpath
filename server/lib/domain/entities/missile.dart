@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/data/nodes.dart';
+import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -9,6 +10,7 @@ import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Missile {
+  final Units units;
   final Location location;
   final Position position;
   final num chargeMax;
@@ -20,6 +22,7 @@ class Missile {
   num chargeCurrent = 0;
 
   Missile({
+    required this.units,
     required this.location,
     required this.position,
     required this.chargeMax,
@@ -38,7 +41,7 @@ class Missile {
     final String? previousOwner = owner;
 
     for (final Platform platform in platforms) {
-      platform.update();
+      platform.update(units);
     }
 
     owner = _newOwner;
@@ -85,10 +88,12 @@ class Missile {
   factory Missile.fromJson({
     required JsonMissileStart json,
     required Nodes nodes,
+    required Units units,
   }) {
     final Node node = nodes.get(json.location.id);
 
     return Missile(
+      units: units,
       location: node.location,
       position: node.position,
       chargeMax: json.chargeMax,

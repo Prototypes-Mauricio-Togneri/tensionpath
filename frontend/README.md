@@ -7,6 +7,7 @@
   - Harvester kill reward
   - New harvester free
   - Drive harvester to patch automatically
+- Select deck before match
 - Continuous popcap
 
 ### Phase 2
@@ -16,9 +17,7 @@
   - Destroying unit
 - Music and sound effects
 - Ramping popcap and resources rate (see picture)
-- Selecte deck before match
 - Drag the entire unit card, not just the unit sprite
-- Events for shooting
 - Path finding
 
 ### Phase 3
