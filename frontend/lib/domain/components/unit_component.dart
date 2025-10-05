@@ -329,7 +329,15 @@ class HealthBarComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(rect, backgroundHealthPaint);
-    canvas.drawRect(rect, foregroundHealthPaint);
+
+    final Rect rectHealth = Rect.fromLTWH(
+      rect.left,
+      rect.top,
+      rect.width * (health / maxHealth),
+      rect.height,
+    );
+    canvas.drawRect(rectHealth, foregroundHealthPaint);
+
     canvas.drawRect(rect, borderHealthPaint);
   }
 }
