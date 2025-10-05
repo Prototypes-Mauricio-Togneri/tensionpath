@@ -1,5 +1,4 @@
 const mapIds = [
-  'w9h7',
   'battle_quadrats',
 ]
 
