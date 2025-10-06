@@ -2,10 +2,14 @@
 
 ### Phase 1
 
+- Tiberium field with less opacity
+- Remove health for infantry in a tiberium field
+- Don't attack a unit that cannot be targeted
 - Continuous popcap
 
 ### Phase 2
 
+- More maps
 - Events
   - Shooting
   - Destroying unit
