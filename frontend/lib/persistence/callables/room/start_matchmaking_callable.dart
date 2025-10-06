@@ -1,6 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/domain/json/models/room/json_room.dart';
+import 'package:tensionpath/domain/json/room/json_room.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/callable.dart';

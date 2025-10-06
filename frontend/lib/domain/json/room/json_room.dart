@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/domain/json/models/room/json_user.dart';
+import 'package:tensionpath/domain/json/room/json_user.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 

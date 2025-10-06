@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tensionpath/domain/entities/room.dart';
-import 'package:tensionpath/domain/json/models/room/json_room.dart';
+import 'package:tensionpath/domain/json/room/json_room.dart';
 import 'package:tensionpath/extensions/document_snapshot_extension.dart';
 import 'package:tensionpath/utils/error_handler.dart';
 

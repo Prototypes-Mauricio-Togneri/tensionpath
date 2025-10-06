@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:tensionpath/domain/types/unit_class.dart';
 
 enum UnitType {
@@ -100,7 +99,7 @@ enum UnitType {
     visibility: 3,
     damageInfantry: 107,
     damageVehicle: 80,
-    damageAircraft: 107,
+    damageAircraft: 109,
     damageHarvester: 80,
     damageStructure: 107,
     attackRange: 1,
@@ -112,11 +111,11 @@ enum UnitType {
     health: 1611,
     speed: 4.42,
     visibility: 2,
-    damageInfantry: 35,
-    damageVehicle: 250,
+    damageInfantry: 33,
+    damageVehicle: 139,
     damageAircraft: 250,
-    damageHarvester: 250,
-    damageStructure: 250,
+    damageHarvester: 139,
+    damageStructure: 139,
     attackRange: 1,
     attackCooldown: 1.8,
   ),
@@ -171,7 +170,7 @@ enum UnitType {
     health: 909,
     speed: 5.1,
     visibility: 2,
-    damageInfantry: 173,
+    damageInfantry: 114,
     damageVehicle: 40,
     damageAircraft: 173,
     damageHarvester: 40,
@@ -305,5 +304,15 @@ enum UnitType {
     } else {
       return 0;
     }
+  }
+
+  String get stats {
+    String result = name.toUpperCase();
+
+    result += '\nCost: $cost';
+    result += '\nHealth: $health';
+    result += '\nSpeed: $speed';
+
+    return result;
   }
 }
