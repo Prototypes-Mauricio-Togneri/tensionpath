@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/persistence/storage/deck_storage.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
@@ -8,9 +9,18 @@ class HomeState extends BaseState {
 
   final List<UnitType> deck = [];
 
+  @override
+  Future onLoad() async {
+    deck.addAll(await DeckStorage.load());
+    notify();
+  }
+
   void onSettings() => Navigation.settingsScreen();
 
-  void onPlay() => Navigation.lobbyScreen(deck);
+  void onPlay() {
+    DeckStorage.save(deck);
+    Navigation.lobbyScreen(deck);
+  }
 
   void onFullscreen() => SetFullscreen.set();
 
