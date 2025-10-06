@@ -18,6 +18,7 @@ import 'package:tensionpath/domain/json/models/template/json_battlefield_templat
 import 'package:tensionpath/domain/json/models/template/json_match_template.dart';
 import 'package:tensionpath/domain/json/models/template/json_node_template.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
 
@@ -69,7 +70,7 @@ class MatchLoader {
           resources: config.resourcesStart,
           resourcesPassiveRate: config.resourcesPassiveRate,
           resourcesActiveRate: config.resourcesActiveRate,
-          deck: participant.deck,
+          deck: [UnitType.harvester, ...participant.deck],
         ),
       );
     }
