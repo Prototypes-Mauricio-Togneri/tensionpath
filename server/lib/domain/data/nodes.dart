@@ -35,7 +35,8 @@ class Nodes {
   }) {
     final List<Node> availableNodes = _nodes.list
         .where(
-          (n) => n.isFree && n.type == NodeType.resources && n != lockedNode,
+          (n) =>
+              n.isFree && (n.type == NodeType.resources) && (n != lockedNode),
         )
         .toList();
 
