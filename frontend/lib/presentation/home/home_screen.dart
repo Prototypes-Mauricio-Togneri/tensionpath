@@ -160,7 +160,8 @@ class DeckRow extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (final UnitType type in types) DeckCard(state: state, type: type),
+        for (final UnitType type in types)
+          DeckCard(state: state, unitType: type),
       ],
     );
   }
@@ -168,75 +169,80 @@ class DeckRow extends StatelessWidget {
 
 class DeckCard extends StatelessWidget {
   final HomeState state;
-  final UnitType type;
+  final UnitType unitType;
 
   const DeckCard({
     required this.state,
-    required this.type,
+    required this.unitType,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Palette.CARD_UNSELECTED,
-          width: 5,
+    return GestureDetector(
+      onTap: () => state.onCardSelected(unitType),
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: state.isSelected(unitType)
+                ? Palette.CARD_SELECTED
+                : Palette.CARD_UNSELECTED,
+            width: 5,
+          ),
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.transparent,
         ),
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.transparent,
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 100,
-              height: 20,
-              color: Palette.GAME_BACKGROUND,
-              child: Center(
-                child: Text(
-                  type.name.toUpperCase(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(3),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 100,
+                height: 20,
+                color: Palette.GAME_BACKGROUND,
+                child: Center(
+                  child: Text(
+                    unitType.name.toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 100,
-              height: 120,
-              child: Image.asset(
-                cardUnitSprite(type),
-                fit: BoxFit.contain,
+              SizedBox(
+                width: 100,
+                height: 120,
+                child: Image.asset(
+                  cardUnitSprite(unitType),
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            SizedBox(
-              width: 100,
-              height: 33.33,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Counter(
-                    unitClass: UnitClass.infantry,
-                    value: type.counterAgainst(UnitClass.infantry),
-                  ),
-                  Counter(
-                    unitClass: UnitClass.vehicle,
-                    value: type.counterAgainst(UnitClass.vehicle),
-                  ),
-                  Counter(
-                    unitClass: UnitClass.aircraft,
-                    value: type.counterAgainst(UnitClass.aircraft),
-                  ),
-                ],
+              SizedBox(
+                width: 100,
+                height: 33.33,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Counter(
+                      unitClass: UnitClass.infantry,
+                      value: unitType.counterAgainst(UnitClass.infantry),
+                    ),
+                    Counter(
+                      unitClass: UnitClass.vehicle,
+                      value: unitType.counterAgainst(UnitClass.vehicle),
+                    ),
+                    Counter(
+                      unitClass: UnitClass.aircraft,
+                      value: unitType.counterAgainst(UnitClass.aircraft),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
