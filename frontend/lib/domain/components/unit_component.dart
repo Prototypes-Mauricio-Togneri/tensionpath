@@ -261,7 +261,7 @@ class UnitImageComponent extends SpriteComponent {
         player: player,
       ),
     );
-    scale = unitScale(unitType);
+    scale = battlefieldUnitScale(unitType);
 
     return super.onLoad();
   }

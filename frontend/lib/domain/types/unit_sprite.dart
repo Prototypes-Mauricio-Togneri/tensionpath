@@ -7,10 +7,50 @@ String unitSprite({
   required Player player,
 }) => 'units/player_${player.index}/${type.clazz.name}/${type.name}.png';
 
-Vector2 unitScale(UnitType type) {
+double controlsUnitScale(UnitType type) {
   switch (type) {
     case UnitType.harvester:
-      return Vector2(0.7, 0.7);
+      return 0.75;
+
+    case UnitType.riflemen:
+      return 0.6;
+    case UnitType.shocks:
+      return 0.65; // CHECK
+    case UnitType.missiles:
+      return 0.65;
+    case UnitType.grenadier:
+      return 0.55; // CHECK
+    case UnitType.sniper:
+      return 0.5; // CHECK
+
+    case UnitType.rhino:
+      return 0.6;
+    case UnitType.pitbull:
+      return 0.7; // CHECK
+    case UnitType.shatterer:
+      return 0.6; // CHECK
+    case UnitType.predator:
+      return 1;
+    case UnitType.mlrs:
+      return 0.8; // CHECK
+
+    case UnitType.talon:
+      return 0.8; // CHECK
+    case UnitType.razorback:
+      return 0.7; // CHECK
+    case UnitType.orca:
+      return 0.8;
+    case UnitType.mohawk:
+      return 0.95; // CHECK
+    case UnitType.hammerhead:
+      return 0.8;
+  }
+}
+
+Vector2 battlefieldUnitScale(UnitType type) {
+  switch (type) {
+    case UnitType.harvester:
+      return Vector2(0.6, 0.6);
 
     case UnitType.riflemen:
       return Vector2(0.4, 0.4);

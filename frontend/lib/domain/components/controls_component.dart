@@ -108,8 +108,8 @@ class UnitSelectorComponent extends PositionComponent {
       UnitImageComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.35, size.y * 0.5),
-        size: Vector2(spriteSize, spriteSize) * 0.8,
+        position: Vector2(size.x * 0.5, size.y * 0.5),
+        size: Vector2(spriteSize, spriteSize) * controlsUnitScale(unitType),
       ),
     );
 
@@ -117,8 +117,8 @@ class UnitSelectorComponent extends PositionComponent {
       UnitCostComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.81, size.y * 0.75),
-        size: Vector2(size.x * 0.3, size.y * 0.34),
+        position: Vector2(size.x * 0.87, size.y * 0.82),
+        size: Vector2(size.x * 0.2, size.y * 0.25),
       ),
     );
 
