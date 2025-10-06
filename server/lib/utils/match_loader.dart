@@ -59,6 +59,12 @@ class MatchLoader {
     final List<JsonPlayerStart> jsonPlayersStart = [];
 
     for (final Participant participant in participants.values) {
+      final List<UnitType> deck = [
+        UnitType.harvester,
+        ...participant.deck,
+      ];
+      deck.sort((a, b) => a.index.compareTo(b.index));
+
       jsonPlayersStart.add(
         JsonPlayerStart(
           id: participant.playerId,
@@ -70,7 +76,7 @@ class MatchLoader {
           resources: config.resourcesStart,
           resourcesPassiveRate: config.resourcesPassiveRate,
           resourcesActiveRate: config.resourcesActiveRate,
-          deck: [UnitType.harvester, ...participant.deck],
+          deck: deck,
         ),
       );
     }
