@@ -15,35 +15,35 @@ double controlsUnitScale(UnitType type) {
     case UnitType.riflemen:
       return 0.6;
     case UnitType.shocks:
-      return 0.65; // CHECK
+      return 0.65;
     case UnitType.missiles:
       return 0.65;
     case UnitType.grenadier:
-      return 0.55; // CHECK
+      return 0.55;
     case UnitType.sniper:
-      return 0.5; // CHECK
+      return 0.6;
 
     case UnitType.rhino:
       return 0.6;
     case UnitType.pitbull:
-      return 0.7; // CHECK
+      return 0.65;
     case UnitType.shatterer:
-      return 0.6; // CHECK
+      return 0.5;
     case UnitType.predator:
       return 1;
     case UnitType.mlrs:
-      return 0.8; // CHECK
+      return 0.75;
 
     case UnitType.talon:
-      return 0.8; // CHECK
+      return 0.8;
     case UnitType.razorback:
-      return 0.7; // CHECK
+      return 0.6;
     case UnitType.orca:
       return 0.8;
     case UnitType.mohawk:
-      return 0.95; // CHECK
+      return 0.85; // CHECK
     case UnitType.hammerhead:
-      return 0.8;
+      return 0.7;
   }
 }
 

@@ -131,11 +131,11 @@ class Server {
           'AAA': const JsonPlayer(
             name: 'Alice',
             deck: [
-              UnitType.riflemen,
-              UnitType.missiles,
-              UnitType.rhino,
-              UnitType.predator,
-              UnitType.orca,
+              UnitType.shocks,
+              UnitType.grenadier,
+              UnitType.sniper,
+              UnitType.talon,
+              UnitType.mohawk,
               UnitType.hammerhead,
             ],
           ),
