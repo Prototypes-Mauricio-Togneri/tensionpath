@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/data/resources.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/position.dart';
@@ -30,13 +31,21 @@ class Nodes {
   }
 
   Node? closestNodeToHarvest({
+    required Resources resources,
     required Position position,
     required Node? lockedNode,
   }) {
+    final List<Location> availableLocations = resources.list
+        .where((r) => r.hasResources)
+        .map((r) => r.location)
+        .toList();
     final List<Node> availableNodes = _nodes.list
         .where(
           (n) =>
-              n.isFree && (n.type == NodeType.resources) && (n != lockedNode),
+              availableLocations.contains(n.location) &&
+              n.isFree &&
+              (n.type == NodeType.resources) &&
+              (n != lockedNode),
         )
         .toList();
 

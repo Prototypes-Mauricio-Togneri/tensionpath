@@ -155,6 +155,7 @@ class Unit {
       player.addResources(amount);
     } else if ((type == UnitType.harvester) && !lastOrderManual) {
       final Node? patchNode = nodes.closestNodeToHarvest(
+        resources: resources,
         position: position,
         lockedNode: lockedNode,
       );
