@@ -266,7 +266,7 @@ class UnitImageComponent extends SpriteComponent {
     return super.onLoad();
   }
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     canvas.save();
 
@@ -279,7 +279,7 @@ class UnitImageComponent extends SpriteComponent {
     super.render(canvas);
 
     canvas.restore();
-  }
+  }*/
 }
 
 class HealthBarComponent extends PositionComponent {

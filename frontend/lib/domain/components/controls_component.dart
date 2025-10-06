@@ -236,7 +236,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     }
   }
 
-  @override
+  /*@override
   void render(Canvas canvas) {
     canvas.save();
 
@@ -249,7 +249,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
     super.render(canvas);
 
     canvas.restore();
-  }
+  }*/
 }
 
 class UnitCostComponent extends PositionComponent {
