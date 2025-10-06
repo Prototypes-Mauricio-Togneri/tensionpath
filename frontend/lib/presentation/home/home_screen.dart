@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/home/home_state.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
@@ -208,8 +209,47 @@ class DeckCard extends StatelessWidget {
             width: 100,
             height: 33.33,
             color: Palette.PRIMARY,
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Counter(
+                  unitClass: UnitClass.infantry,
+                  value: 0,
+                ),
+                Counter(
+                  unitClass: UnitClass.vehicle,
+                  value: 0,
+                ),
+                Counter(
+                  unitClass: UnitClass.aircraft,
+                  value: 0,
+                ),
+              ],
+            ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Counter extends StatelessWidget {
+  final UnitClass unitClass;
+  final int value;
+
+  const Counter({
+    required this.unitClass,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 33.33,
+      height: 33.33,
+      child: Image.asset(
+        'assets/images/units/counter/${unitClass.name}_bad.png',
+        fit: BoxFit.contain,
       ),
     );
   }

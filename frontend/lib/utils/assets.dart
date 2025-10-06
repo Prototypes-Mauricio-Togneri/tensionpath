@@ -46,6 +46,24 @@ class Assets {
       'units/cards/vehicle/rhino.png';
   static const String IMAGES_UNITS_CARDS_VEHICLE_SHATTERER =
       'units/cards/vehicle/shatterer.png';
+  static const String IMAGES_UNITS_COUNTER_AIRCRAFT_BAD =
+      'units/counter/aircraft_bad.png';
+  static const String IMAGES_UNITS_COUNTER_AIRCRAFT_GOOD =
+      'units/counter/aircraft_good.png';
+  static const String IMAGES_UNITS_COUNTER_AIRCRAFT_NORMAL =
+      'units/counter/aircraft_normal.png';
+  static const String IMAGES_UNITS_COUNTER_INFANTRY_BAD =
+      'units/counter/infantry_bad.png';
+  static const String IMAGES_UNITS_COUNTER_INFANTRY_GOOD =
+      'units/counter/infantry_good.png';
+  static const String IMAGES_UNITS_COUNTER_INFANTRY_NORMAL =
+      'units/counter/infantry_normal.png';
+  static const String IMAGES_UNITS_COUNTER_VEHICLE_BAD =
+      'units/counter/vehicle_bad.png';
+  static const String IMAGES_UNITS_COUNTER_VEHICLE_GOOD =
+      'units/counter/vehicle_good.png';
+  static const String IMAGES_UNITS_COUNTER_VEHICLE_NORMAL =
+      'units/counter/vehicle_normal.png';
   static const String IMAGES_UNITS_PLAYER_1_AIRCRAFT_HAMMERHEAD =
       'units/player_1/aircraft/hammerhead.png';
   static const String IMAGES_UNITS_PLAYER_1_AIRCRAFT_MOHAWK =
