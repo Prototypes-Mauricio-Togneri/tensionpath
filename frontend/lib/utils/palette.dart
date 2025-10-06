@@ -11,6 +11,9 @@ class Palette {
   static const Color PLAYER_1 = Color(0xff2479ae);
   static const Color PLAYER_2 = Color(0xffd54336);
 
+  static const Color CARD_UNSELECTED = Colors.grey;
+  static const Color CARD_SELECTED = Colors.blue;
+
   static const Color HEADER_PLAYER_NAME = Colors.white;
   static const Color HEADER_CENTER_BACKGROUND = Colors.grey;
   static const Color HEADER_INDICATOR_BACKGROUND = Color(0xff555555);

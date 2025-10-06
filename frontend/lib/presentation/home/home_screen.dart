@@ -179,54 +179,65 @@ class DeckCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 100,
-            height: 20,
-            color: Palette.GAME_BACKGROUND,
-            child: Center(
-              child: Text(
-                type.name.toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Palette.CARD_UNSELECTED,
+          width: 5,
+        ),
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.transparent,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(3),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 100,
+              height: 20,
+              color: Palette.GAME_BACKGROUND,
+              child: Center(
+                child: Text(
+                  type.name.toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            width: 100,
-            height: 120,
-            child: Image.asset(
-              cardUnitSprite(type),
-              fit: BoxFit.contain,
+            SizedBox(
+              width: 100,
+              height: 120,
+              child: Image.asset(
+                cardUnitSprite(type),
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 100,
-            height: 33.33,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Counter(
-                  unitClass: UnitClass.infantry,
-                  value: type.counterAgainst(UnitClass.infantry),
-                ),
-                Counter(
-                  unitClass: UnitClass.vehicle,
-                  value: type.counterAgainst(UnitClass.vehicle),
-                ),
-                Counter(
-                  unitClass: UnitClass.aircraft,
-                  value: type.counterAgainst(UnitClass.aircraft),
-                ),
-              ],
+            SizedBox(
+              width: 100,
+              height: 33.33,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Counter(
+                    unitClass: UnitClass.infantry,
+                    value: type.counterAgainst(UnitClass.infantry),
+                  ),
+                  Counter(
+                    unitClass: UnitClass.vehicle,
+                    value: type.counterAgainst(UnitClass.vehicle),
+                  ),
+                  Counter(
+                    unitClass: UnitClass.aircraft,
+                    value: type.counterAgainst(UnitClass.aircraft),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
