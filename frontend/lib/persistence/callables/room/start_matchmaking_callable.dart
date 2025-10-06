@@ -2,6 +2,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/json/json_room.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/callable.dart';
 import 'package:tensionpath/utils/json.dart';
 
@@ -14,6 +15,7 @@ class StartMatchmakingCallable extends Callable {
     required String matchType,
     required int numberOfPlayers,
     required RoomVisibility visibility,
+    required List<UnitType> deck,
   }) async {
     final Map<String, Object?> parameters = {
       'name': playerName,
@@ -21,6 +23,7 @@ class StartMatchmakingCallable extends Callable {
       'matchType': matchType,
       'numberOfPlayers': numberOfPlayers,
       'visibility': visibility.name,
+      'deck': deck.map((unit) => unit.name).toList(),
     };
 
     final HttpsCallableResult<dynamic> result = await super.invoke(parameters);

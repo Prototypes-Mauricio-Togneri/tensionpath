@@ -35,7 +35,7 @@ class ControlsComponent extends PositionComponent {
 
   @override
   FutureOr onLoad() {
-    final int numberOfUnits = UnitType.values.length;
+    final int numberOfUnits = player.deck.length;
     final int numberOfCards = numberOfUnits + 1;
     final Vector2 cardSize = Dimensions.controlsCardSize(
       size: size,
@@ -46,7 +46,7 @@ class ControlsComponent extends PositionComponent {
       add(
         UnitSelectorComponent(
           player: player,
-          unitType: UnitType.values[i],
+          unitType: player.deck[i],
           maxHarvestersCount: maxHarvestersCount,
           position: Dimensions.controlsUnitCardPosition(
             size: size,

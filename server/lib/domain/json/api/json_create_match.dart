@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/api/json_player.dart';
 
 part 'json_create_match.g.dart';
 
@@ -20,7 +21,7 @@ class JsonCreateMatch {
   final String matchType;
 
   @JsonKey(name: 'players')
-  final Map<String, String> players;
+  final Map<String, JsonPlayer> players;
 
   const JsonCreateMatch({
     required this.matchId,

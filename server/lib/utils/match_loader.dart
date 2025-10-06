@@ -69,6 +69,7 @@ class MatchLoader {
           resources: config.resourcesStart,
           resourcesPassiveRate: config.resourcesPassiveRate,
           resourcesActiveRate: config.resourcesActiveRate,
+          deck: participant.deck,
         ),
       );
     }

@@ -16,6 +16,7 @@ interface StartMatchmakingCallableParams {
   matchType: string,
   numberOfPlayers: number,
   visibility: RoomVisibility,
+  deck: string[],
 }
 
 export const startMatchmakingCallable = registerCallable(async (params: StartMatchmakingCallableParams): Promise<Room> => {
@@ -35,6 +36,7 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
         room: room,
         userId: params.userId,
         name: params.name,
+        deck: params.deck,
       })
 
       if (joinedRoom.isFull) {
@@ -55,6 +57,7 @@ export const startMatchmakingCallable = registerCallable(async (params: StartMat
         matchType: params.matchType,
         numberOfPlayers: params.numberOfPlayers,
         visibility: params.visibility,
+        deck: params.deck,
       })
     }
   })
@@ -65,6 +68,7 @@ const joinExistingRoom = async (params: {
   room: Room,
   userId: string,
   name: string,
+  deck: string[],
 }): Promise<Room> => {
   if (params.room.hasUser(params.userId)) {
     return params.room
@@ -72,6 +76,7 @@ const joinExistingRoom = async (params: {
     const newRoom = params.room.join({
       userId: params.userId,
       name: params.name,
+      deck: params.deck,
     })
 
     await updateRoomDocument({
@@ -92,6 +97,7 @@ const createNewRoom = async (params: {
   matchType: string,
   numberOfPlayers: number,
   visibility: RoomVisibility,
+  deck: string[],
 }): Promise<Room> => {
   const newRoom = Room.create({
     userId: params.userId,
@@ -101,6 +107,7 @@ const createNewRoom = async (params: {
     matchType: params.matchType,
     numberOfPlayers: params.numberOfPlayers,
     visibility: params.visibility,
+    deck: params.deck,
   })
 
   const result = await createRoomDocument({

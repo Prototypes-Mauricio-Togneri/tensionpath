@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -10,6 +11,7 @@ class Player {
   final String index;
   final bool isSelf;
   final num baseMaxHealth;
+  final List<UnitType> deck;
   num baseHealth;
   num resources;
   num resourcesRate;
@@ -27,6 +29,7 @@ class Player {
     required this.resourcesRate,
     required this.currentHarvesterCount,
     required this.maxHarvesterCount,
+    required this.deck,
   });
 
   bool get isOpponent => !isSelf;
@@ -60,5 +63,6 @@ class Player {
     resourcesRate: player.resourcesPassiveRate,
     currentHarvesterCount: 0,
     maxHarvesterCount: 0,
+    deck: player.deck,
   );
 }

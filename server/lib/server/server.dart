@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
+import 'package:tensionpath/domain/json/api/json_player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/dispatcher.dart';
 import 'package:tensionpath/server/environment.dart';
 import 'package:tensionpath/server/handler.dart';
@@ -126,8 +128,28 @@ class Server {
         numberOfPlayers: 2,
         matchType: 'pvp',
         players: {
-          'AAA': 'Max',
-          'ZZZ': 'Bob',
+          'AAA': const JsonPlayer(
+            name: 'Alice',
+            deck: [
+              UnitType.riflemen,
+              UnitType.missiles,
+              UnitType.rhino,
+              UnitType.predator,
+              UnitType.orca,
+              UnitType.hammerhead,
+            ],
+          ),
+          'ZZZ': const JsonPlayer(
+            name: 'Bob',
+            deck: [
+              UnitType.shocks,
+              UnitType.sniper,
+              UnitType.shatterer,
+              UnitType.mlrs,
+              UnitType.razorback,
+              UnitType.mohawk,
+            ],
+          ),
         },
       ),
     );

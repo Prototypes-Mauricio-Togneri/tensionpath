@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/entities/room.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/persistence/callables/room/start_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/callables/room/stop_matchmaking_callable.dart';
 import 'package:tensionpath/persistence/repository/room_repository.dart';
@@ -26,6 +27,15 @@ class LobbyState extends BaseState {
       matchType: 'pvp',
       numberOfPlayers: 2,
       visibility: RoomVisibility.public,
+      deck: [
+        // TODO(momo): fill with user selection
+        UnitType.riflemen,
+        UnitType.missiles,
+        UnitType.rhino,
+        UnitType.predator,
+        UnitType.orca,
+        UnitType.hammerhead,
+      ],
     );
     notify();
 

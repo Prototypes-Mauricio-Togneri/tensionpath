@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
+import 'package:tensionpath/domain/json/api/json_player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
@@ -32,14 +33,15 @@ class Connection {
     final Map<String, Participant> participants = {};
     int index = 1;
 
-    for (final MapEntry<String, String> player in json.players.entries) {
+    for (final MapEntry<String, JsonPlayer> player in json.players.entries) {
       final String playerId = player.key;
-      final String playerName = player.value;
+      final JsonPlayer playerData = player.value;
 
       participants[playerId] = Participant(
         playerId: playerId,
         playerIndex: index.toString(),
-        playerName: playerName,
+        playerName: playerData.name,
+        deck: playerData.deck,
       );
 
       index++;
@@ -180,12 +182,14 @@ class Participant {
   final String playerId;
   final String playerIndex;
   final String playerName;
+  final List<UnitType> deck;
   WebSocket? _socket;
 
   Participant({
     required this.playerId,
     required this.playerIndex,
     required this.playerName,
+    required this.deck,
   });
 
   bool get isConnected => _socket != null;

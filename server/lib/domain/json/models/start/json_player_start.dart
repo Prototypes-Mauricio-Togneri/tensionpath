@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_player_start.g.dart';
 
@@ -31,6 +32,9 @@ class JsonPlayerStart {
   @JsonKey(name: 'resourcesActiveRate')
   final num resourcesActiveRate;
 
+  @JsonKey(name: 'deck')
+  final List<UnitType> deck;
+
   JsonPlayerStart({
     required this.id,
     required this.name,
@@ -41,6 +45,7 @@ class JsonPlayerStart {
     required this.resources,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
+    required this.deck,
   });
 
   factory JsonPlayerStart.fromJson(Map<String, dynamic> json) =>

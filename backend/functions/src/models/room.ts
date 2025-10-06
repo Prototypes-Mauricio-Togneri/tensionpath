@@ -2,6 +2,11 @@ import {FirebaseDocument} from '../database/firebase-document'
 import {RoomStatus} from '../types/room-status'
 import {RoomVisibility} from '../types/room-visibility'
 
+export interface IUser {
+  name: string,
+  deck: string[],
+}
+
 export interface IRoom {
   id: string,
   version: number,
@@ -12,7 +17,7 @@ export interface IRoom {
   status: RoomStatus,
   matchType: string,
   userIds: string[],
-  users: Record<string, string>,
+  users: Record<string, IUser>,
   matchId?: string,
   matchHost?: string,
 }
@@ -27,7 +32,7 @@ export class Room implements IRoom {
   status: RoomStatus
   matchType: string
   userIds: string[]
-  users: Record<string, string>
+  users: Record<string, IUser>
   matchId?: string
   matchHost?: string
 
@@ -56,7 +61,8 @@ export class Room implements IRoom {
 
   public join(params: {
     userId: string,
-    name: string
+    name: string,
+    deck: string[],
   }): Room {
     this.userIds = [
       ...this.userIds,
@@ -64,7 +70,10 @@ export class Room implements IRoom {
     ]
     this.users = {
       ...this.users,
-      [params.userId]: params.name,
+      [params.userId]: {
+        name: params.name,
+        deck: params.deck,
+      },
     }
     this.status = this.isFull ? RoomStatus.close : RoomStatus.open
 
@@ -86,6 +95,7 @@ export class Room implements IRoom {
     matchType: string,
     numberOfPlayers: number,
     visibility: RoomVisibility,
+    deck: string[],
   }): Room {
     return new Room({
       id: '',
@@ -98,7 +108,10 @@ export class Room implements IRoom {
       matchType: params.matchType,
       userIds: [params.userId],
       users: {
-        [params.userId]: params.name,
+        [params.userId]: {
+          name: params.name,
+          deck: params.deck,
+        },
       },
     })
   }

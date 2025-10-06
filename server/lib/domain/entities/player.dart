@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Player {
@@ -9,6 +10,7 @@ class Player {
   final num baseMaxHealth;
   final num resourcesPassiveRate;
   final num resourcesActiveRate;
+  final List<UnitType> deck;
   num baseHealth;
   num resources;
 
@@ -21,6 +23,7 @@ class Player {
     required this.resources,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
+    required this.deck,
   });
 
   bool get isAlive => baseHealth > 0;
@@ -59,6 +62,7 @@ class Player {
     resources: json.resources,
     resourcesPassiveRate: json.resourcesPassiveRate,
     resourcesActiveRate: json.resourcesActiveRate,
+    deck: json.deck,
   );
 
   static IterableMap<String, Player> list(List<JsonPlayerStart> json) {
@@ -94,6 +98,7 @@ class Player {
     resources: resources,
     resourcesPassiveRate: resourcesPassiveRate,
     resourcesActiveRate: resourcesActiveRate,
+    deck: deck,
   );
 
   @override
