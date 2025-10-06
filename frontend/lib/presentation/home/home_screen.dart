@@ -78,7 +78,7 @@ class Form extends StatelessWidget {
             const VBox(30),
             PrimaryButton(
               label: 'Play',
-              enabled: true,
+              enabled: state.isDeckFull,
               foregroundColor: Palette.PRIMARY,
               onPressed: state.onPlay,
             ),
