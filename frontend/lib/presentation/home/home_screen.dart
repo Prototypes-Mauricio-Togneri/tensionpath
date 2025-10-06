@@ -182,16 +182,31 @@ class DeckCard extends StatelessWidget {
         children: [
           Container(
             width: 100,
+            height: 20,
+            color: Colors.red,
+            child: Center(
+              child: Text(
+                type.name.toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: 100,
             height: 120,
             color: Colors.green,
             child: Image.asset(
-              'assets/images/units/player_1/infantry/riflemen.png',
+              'assets/images/units/player_1/${type.clazz.name}/${type.name}.png',
               fit: BoxFit.contain,
             ),
           ),
           Container(
             width: 100,
-            height: 20,
+            height: 33.33,
             color: Colors.red,
           ),
         ],
