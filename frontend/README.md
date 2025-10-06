@@ -2,6 +2,7 @@
 
 ### Phase 1
 
+- Bug wit
 - Tiberium field with less opacity
 - Remove health for infantry in a tiberium field
 - Don't attack a unit that cannot be targeted
