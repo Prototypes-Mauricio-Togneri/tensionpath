@@ -186,7 +186,7 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
   FutureOr onLoad() async {
     unitSelectorComponent = parent as UnitSelectorComponent;
     sprite = await Sprite.load(
-      unitSprite(
+      matchUnitSprite(
         type: unitType,
         player: player,
       ),

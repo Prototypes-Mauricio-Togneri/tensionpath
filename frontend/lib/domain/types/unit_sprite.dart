@@ -2,7 +2,10 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
-String unitSprite({
+String cardUnitSprite(UnitType type) =>
+    'assets/images/units/cards/${type.clazz.name}/${type.name}.png';
+
+String matchUnitSprite({
   required UnitType type,
   required Player player,
 }) => 'units/player_${player.index}/${type.clazz.name}/${type.name}.png';

@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/home/home_state.dart';
+import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/buttons/top_button.dart';
@@ -183,31 +184,30 @@ class DeckCard extends StatelessWidget {
           Container(
             width: 100,
             height: 20,
-            color: Colors.red,
+            color: Palette.PRIMARY,
             child: Center(
               child: Text(
                 type.name.toUpperCase(),
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 11,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: 100,
             height: 120,
-            color: Colors.green,
             child: Image.asset(
-              'assets/images/units/player_1/${type.clazz.name}/${type.name}.png',
+              cardUnitSprite(type),
               fit: BoxFit.contain,
             ),
           ),
           Container(
             width: 100,
             height: 33.33,
-            color: Colors.red,
+            color: Palette.PRIMARY,
           ),
         ],
       ),

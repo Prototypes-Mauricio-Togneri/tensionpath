@@ -116,14 +116,14 @@ class NodeComponent extends PositionComponent {
       text: type.name,
       position: Vector2(size.x / 2, size.y * gap * 2),
       size: fontSize,
-      color: Colors.white,
+      color: Palette.TEXT_DEBUG,
     );
 
     canvas.drawText(
       text: 'Location: ${location.id}',
       position: Vector2(size.x / 2, size.y * gap * 3),
       size: fontSize,
-      color: Colors.white,
+      color: Palette.TEXT_DEBUG,
     );
 
     canvas.drawText(
@@ -131,7 +131,7 @@ class NodeComponent extends PositionComponent {
           'Absolute: ${absolutePosition.x.toStringAsFixed(2)},${absolutePosition.y.toStringAsFixed(2)}',
       position: Vector2(size.x / 2, size.y * gap * 4),
       size: fontSize,
-      color: Colors.white,
+      color: Palette.TEXT_DEBUG,
     );
 
     canvas.drawText(
@@ -139,7 +139,7 @@ class NodeComponent extends PositionComponent {
           'Relative: ${position.x.toStringAsFixed(2)},${position.y.toStringAsFixed(2)}',
       position: Vector2(size.x / 2, size.y * gap * 5),
       size: fontSize,
-      color: Colors.white,
+      color: Palette.TEXT_DEBUG,
     );
 
     canvas.drawText(
@@ -147,7 +147,7 @@ class NodeComponent extends PositionComponent {
           'Remote: ${remotePosition.x.toStringAsFixed(2)},${remotePosition.y.toStringAsFixed(2)}',
       position: Vector2(size.x / 2, size.y * gap * 6),
       size: fontSize,
-      color: Colors.white,
+      color: Palette.TEXT_DEBUG,
     );*/
   }
 }

@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/state/match/match_state.dart';
 import 'package:tensionpath/utils/dimensions.dart';
+import 'package:tensionpath/utils/palette.dart';
 
 class GameComponent extends FlameGame {
   final Match match;
@@ -41,7 +42,7 @@ class GameComponent extends FlameGame {
         textRenderer: TextPaint(
           style: TextStyle(
             fontSize: camera.viewport.size.y * 0.03,
-            color: Colors.white,
+            color: Palette.TEXT_DEBUG,
           ),
         ),
       ),

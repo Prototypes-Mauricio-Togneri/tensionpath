@@ -256,7 +256,7 @@ class UnitImageComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(
-      unitSprite(
+      matchUnitSprite(
         type: unitType,
         player: player,
       ),
