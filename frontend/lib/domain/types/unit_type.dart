@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:tensionpath/domain/types/unit_class.dart';
 
 enum UnitType {
@@ -98,7 +100,7 @@ enum UnitType {
     visibility: 3,
     damageInfantry: 107,
     damageVehicle: 80,
-    damageAircraft: 109,
+    damageAircraft: 107,
     damageHarvester: 80,
     damageStructure: 107,
     attackRange: 1,
@@ -110,11 +112,11 @@ enum UnitType {
     health: 1611,
     speed: 4.42,
     visibility: 2,
-    damageInfantry: 33,
-    damageVehicle: 139,
+    damageInfantry: 35,
+    damageVehicle: 250,
     damageAircraft: 250,
-    damageHarvester: 139,
-    damageStructure: 139,
+    damageHarvester: 250,
+    damageStructure: 250,
     attackRange: 1,
     attackCooldown: 1.8,
   ),
@@ -169,7 +171,7 @@ enum UnitType {
     health: 909,
     speed: 5.1,
     visibility: 2,
-    damageInfantry: 114,
+    damageInfantry: 173,
     damageVehicle: 40,
     damageAircraft: 173,
     damageHarvester: 40,
@@ -274,6 +276,34 @@ enum UnitType {
         return damageVehicle;
       case UnitClass.aircraft:
         return damageAircraft;
+    }
+  }
+
+  int counterAgainst(UnitClass unitClass) {
+    final double maxDamage = max(
+      max(damageInfantry.toDouble(), damageVehicle.toDouble()),
+      damageAircraft.toDouble(),
+    );
+
+    switch (unitClass) {
+      case UnitClass.infantry:
+        return _relativeDamage(damageInfantry.toDouble(), maxDamage);
+      case UnitClass.vehicle:
+        return _relativeDamage(damageVehicle.toDouble(), maxDamage);
+      case UnitClass.aircraft:
+        return _relativeDamage(damageAircraft.toDouble(), maxDamage);
+      default:
+        throw Exception('Invalid unit class');
+    }
+  }
+
+  int _relativeDamage(double damage, double maxDamage) {
+    if (damage == 0) {
+      return -1;
+    } else if (damage == maxDamage) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 }

@@ -185,7 +185,7 @@ class DeckCard extends StatelessWidget {
           Container(
             width: 100,
             height: 20,
-            color: Palette.PRIMARY,
+            color: Palette.GAME_BACKGROUND,
             child: Center(
               child: Text(
                 type.name.toUpperCase(),
@@ -205,24 +205,23 @@ class DeckCard extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          Container(
+          SizedBox(
             width: 100,
             height: 33.33,
-            color: Palette.PRIMARY,
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Counter(
                   unitClass: UnitClass.infantry,
-                  value: 0,
+                  value: type.counterAgainst(UnitClass.infantry),
                 ),
                 Counter(
                   unitClass: UnitClass.vehicle,
-                  value: 0,
+                  value: type.counterAgainst(UnitClass.vehicle),
                 ),
                 Counter(
                   unitClass: UnitClass.aircraft,
-                  value: 0,
+                  value: type.counterAgainst(UnitClass.aircraft),
                 ),
               ],
             ),
@@ -248,9 +247,19 @@ class Counter extends StatelessWidget {
       width: 33.33,
       height: 33.33,
       child: Image.asset(
-        'assets/images/units/counter/${unitClass.name}_bad.png',
+        'assets/images/units/counter/${unitClass.name}_$_indicator.png',
         fit: BoxFit.contain,
       ),
     );
+  }
+
+  String get _indicator {
+    if (value > 0) {
+      return 'good';
+    } else if (value < 0) {
+      return 'bad';
+    } else {
+      return 'normal';
+    }
   }
 }
