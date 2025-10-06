@@ -2,7 +2,6 @@
 
 ### Phase 1
 
-- Select deck before match
 - Continuous popcap
 
 ### Phase 2
