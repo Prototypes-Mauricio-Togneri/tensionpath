@@ -312,6 +312,14 @@ enum UnitType {
     result += '\nCost: $cost';
     result += '\nHealth: $health';
     result += '\nSpeed: $speed';
+    result += '\nVisibility: $visibility';
+    result += '\nDamage infantry: $damageInfantry';
+    result += '\nDamage vehicle: $damageVehicle';
+    result += '\nDamage aircraft: $damageAircraft';
+    result += '\nDamage harvester: $damageHarvester';
+    result += '\nDamage structure: $damageStructure';
+    result += '\nAttack range: $attackRange';
+    result += '\nAttack cooldown: $attackCooldown';
 
     return result;
   }
