@@ -6,23 +6,23 @@ import 'package:tensionpath/utils/navigation.dart';
 class HomeState extends BaseState {
   static const int MAX_CARDS = 6;
 
-  final List<UnitType> cardsSelected = [];
+  final List<UnitType> deck = [];
 
   void onSettings() => Navigation.settingsScreen();
 
-  void onPlay() => Navigation.lobbyScreen();
+  void onPlay() => Navigation.lobbyScreen(deck);
 
   void onFullscreen() => SetFullscreen.set();
 
-  bool get isDeckFull => cardsSelected.length == MAX_CARDS;
+  bool get isDeckFull => deck.length == MAX_CARDS;
 
-  bool isSelected(UnitType unitType) => cardsSelected.contains(unitType);
+  bool isSelected(UnitType unitType) => deck.contains(unitType);
 
   void onCardSelected(UnitType unitType) {
     if (isSelected(unitType)) {
-      cardsSelected.remove(unitType);
-    } else if (cardsSelected.length < MAX_CARDS) {
-      cardsSelected.add(unitType);
+      deck.remove(unitType);
+    } else if (deck.length < MAX_CARDS) {
+      deck.add(unitType);
     }
 
     notify();

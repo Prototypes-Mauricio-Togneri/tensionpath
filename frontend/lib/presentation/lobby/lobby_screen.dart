@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/lobby/lobby_state.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/presentation/common/text/label.dart';
@@ -11,7 +12,8 @@ class LobbyScreen extends StatelessWidget {
 
   const LobbyScreen._(this.state);
 
-  factory LobbyScreen.instance() => LobbyScreen._(LobbyState());
+  factory LobbyScreen.instance(List<UnitType> deck) =>
+      LobbyScreen._(LobbyState(deck));
 
   @override
   Widget build(BuildContext context) {

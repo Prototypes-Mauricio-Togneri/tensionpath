@@ -14,7 +14,10 @@ import 'package:tensionpath/utils/stream_listener.dart';
 class LobbyState extends BaseState {
   Room? _room;
   bool isCanceling = false;
+  final List<UnitType> deck;
   final StreamListener _roomListener = StreamListener();
+
+  LobbyState(this.deck);
 
   bool get isLoading => _room == null;
 
@@ -27,15 +30,7 @@ class LobbyState extends BaseState {
       matchType: 'pvp',
       numberOfPlayers: 2,
       visibility: RoomVisibility.public,
-      deck: [
-        // TODO(momo): fill with user selection
-        UnitType.riflemen,
-        UnitType.missiles,
-        UnitType.rhino,
-        UnitType.predator,
-        UnitType.orca,
-        UnitType.hammerhead,
-      ],
+      deck: deck,
     );
     notify();
 
