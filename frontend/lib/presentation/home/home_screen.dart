@@ -212,14 +212,10 @@ class DeckCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 100,
-                height: 120,
-                child: Image.asset(
-                  cardUnitSprite(unitType),
-                  fit: BoxFit.contain,
-                ),
-              ),
+              if (state.isSelected(unitType))
+                SelectedCard(unitType)
+              else
+                UnselectedCard(unitType),
               SizedBox(
                 width: 100,
                 height: 33.33,
@@ -244,6 +240,50 @@ class DeckCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class UnselectedCard extends StatelessWidget {
+  final UnitType unitType;
+
+  const UnselectedCard(this.unitType);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 120,
+      child: ColorFiltered(
+        colorFilter: const ColorFilter.matrix([
+          0.2126, 0.7152, 0.0722, 0, 0, // Red channel
+          0.2126, 0.7152, 0.0722, 0, 0, // Green channel
+          0.2126, 0.7152, 0.0722, 0, 0, // Blue channel
+          0, 0, 0, 1, 0, // Alpha channel
+        ]),
+        child: Image.asset(
+          cardUnitSprite(unitType),
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+}
+
+class SelectedCard extends StatelessWidget {
+  final UnitType unitType;
+
+  const SelectedCard(this.unitType);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 120,
+      child: Image.asset(
+        cardUnitSprite(unitType),
+        fit: BoxFit.contain,
       ),
     );
   }
