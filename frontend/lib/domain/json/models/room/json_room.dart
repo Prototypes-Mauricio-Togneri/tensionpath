@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/room.dart';
+import 'package:tensionpath/domain/json/models/room/json_user.dart';
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
 
@@ -28,8 +29,7 @@ class JsonRoom {
   @JsonKey(name: 'matchType')
   final String matchType;
 
-  @JsonKey(name: 'users')
-  final Map<String, String> users;
+  final Map<String, JsonUser> users;
 
   @JsonKey(name: 'matchId')
   final String? matchId;
@@ -57,7 +57,7 @@ class JsonRoom {
     numberOfPlayers: numberOfPlayers,
     visibility: visibility,
     status: status,
-    users: users,
+    users: users.map((key, value) => MapEntry(key, value.object)),
     matchType: matchType,
     matchId: matchId,
     matchHost: matchHost,

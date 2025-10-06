@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/types/room_status.dart';
 import 'package:tensionpath/domain/types/room_visibility.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Room {
   final String id;
@@ -8,7 +9,7 @@ class Room {
   final int numberOfPlayers;
   final RoomVisibility visibility;
   final RoomStatus status;
-  final Map<String, String> users;
+  final Map<String, User> users;
   final String matchType;
   final String? matchId;
   final String? matchHost;
@@ -27,4 +28,14 @@ class Room {
   });
 
   bool get isReady => (users.length >= numberOfPlayers) && (matchId != null);
+}
+
+class User {
+  final String name;
+  final List<UnitType> deck;
+
+  const User({
+    required this.name,
+    required this.deck,
+  });
 }
