@@ -87,7 +87,7 @@ class Form extends StatelessWidget {
                     foregroundColor: Palette.PRIMARY,
                     onPressed: state.onPlay,
                   ),
-                  if (Platform.isMobile)
+                  if (!Platform.isMobile)
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: PrimaryButton(

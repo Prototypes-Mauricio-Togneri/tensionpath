@@ -22,7 +22,11 @@ class HomeState extends BaseState {
     Navigation.lobbyScreen(deck);
   }
 
-  void onFullscreen() => SetFullscreen.set();
+  Future onFullscreen() async {
+    SetFullscreen.set();
+    await Future.delayed(const Duration(seconds: 1));
+    Navigation.homeScreen();
+  }
 
   bool get isDeckFull => deck.length == MAX_CARDS;
 
