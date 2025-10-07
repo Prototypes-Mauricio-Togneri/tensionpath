@@ -199,12 +199,6 @@ class DeckCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double innerHeight = cardHeight - 20;
-    final double imageHeight = innerHeight * 0.7;
-    final double cardWidth = imageHeight / 1.2;
-    final double counterHeight = cardWidth / 3;
-    final double headerHeight = innerHeight - imageHeight - counterHeight;
-
     return Tooltip(
       waitDuration: const Duration(seconds: 1),
       message: unitType.stats,
@@ -212,9 +206,8 @@ class DeckCard extends StatelessWidget {
         onTap: () => state.onCardSelected(unitType),
         child: Container(
           margin: const EdgeInsets.all(10),
-          width: cardWidth,
           height: cardHeight,
-          /*decoration: BoxDecoration(
+          decoration: BoxDecoration(
             border: Border.all(
               color: state.isSelected(unitType)
                   ? Palette.CARD_SELECTED
@@ -222,63 +215,73 @@ class DeckCard extends StatelessWidget {
               width: 5,
             ),
             borderRadius: BorderRadius.circular(8),
-            color: Colors.transparent,
-          ),*/
+          ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(3),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: cardWidth,
-                  height: headerHeight,
-                  color: Palette.GAME_BACKGROUND,
-                  child: Center(
-                    child: Text(
-                      unitType.name.toUpperCase(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final double innerHeight = constraints.maxHeight;
+                final double imageHeight = innerHeight * 0.7;
+                final double cardWidth = imageHeight / 1.2;
+                final double counterHeight = cardWidth / 3;
+                final double headerHeight =
+                    innerHeight - imageHeight - counterHeight;
+
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: cardWidth,
+                      height: headerHeight,
+                      color: Palette.GAME_BACKGROUND,
+                      child: Center(
+                        child: Text(
+                          unitType.name.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                if (state.isSelected(unitType))
-                  SelectedCard(
-                    unitType: unitType,
-                    cardHeight: imageHeight,
-                  )
-                else
-                  UnselectedCard(
-                    unitType: unitType,
-                    cardHeight: imageHeight,
-                  ),
-                SizedBox(
-                  width: cardWidth,
-                  height: counterHeight,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Counter(
-                        unitClass: UnitClass.infantry,
-                        value: unitType.counterAgainst(UnitClass.infantry),
-                        size: counterHeight,
+                    if (state.isSelected(unitType))
+                      SelectedCard(
+                        unitType: unitType,
+                        cardHeight: imageHeight,
+                      )
+                    else
+                      UnselectedCard(
+                        unitType: unitType,
+                        cardHeight: imageHeight,
                       ),
-                      Counter(
-                        unitClass: UnitClass.vehicle,
-                        value: unitType.counterAgainst(UnitClass.vehicle),
-                        size: counterHeight,
+                    SizedBox(
+                      width: cardWidth,
+                      height: counterHeight,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Counter(
+                            unitClass: UnitClass.infantry,
+                            value: unitType.counterAgainst(UnitClass.infantry),
+                            size: counterHeight,
+                          ),
+                          Counter(
+                            unitClass: UnitClass.vehicle,
+                            value: unitType.counterAgainst(UnitClass.vehicle),
+                            size: counterHeight,
+                          ),
+                          Counter(
+                            unitClass: UnitClass.aircraft,
+                            value: unitType.counterAgainst(UnitClass.aircraft),
+                            size: counterHeight,
+                          ),
+                        ],
                       ),
-                      Counter(
-                        unitClass: UnitClass.aircraft,
-                        value: unitType.counterAgainst(UnitClass.aircraft),
-                        size: counterHeight,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),
