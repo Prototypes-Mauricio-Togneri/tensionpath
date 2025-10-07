@@ -27,7 +27,7 @@
   - hammerhead-phantom
 - Other
   - Adapt it for mobile
-  - Remove health for infantry in a tiberium field
+  - Make sprites all pointing to right
   - Continuous popcap
 
 ### Phase 2
