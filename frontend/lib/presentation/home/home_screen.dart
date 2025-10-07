@@ -75,7 +75,7 @@ class Form extends StatelessWidget {
             children: [
               Deck(
                 state: state,
-                cardHeight: constraints.maxHeight / 3.5,
+                cardHeight: constraints.maxHeight / 4,
               ),
               const VBox(30),
               PrimaryButton(
@@ -127,7 +127,6 @@ class Deck extends StatelessWidget {
           ],
           cardHeight: cardHeight,
         ),
-        const VBox(10),
         DeckRow(
           state: state,
           types: const [
@@ -139,7 +138,6 @@ class Deck extends StatelessWidget {
           ],
           cardHeight: cardHeight,
         ),
-        const VBox(10),
         DeckRow(
           state: state,
           types: const [
@@ -205,7 +203,7 @@ class DeckCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () => state.onCardSelected(unitType),
         child: Container(
-          margin: const EdgeInsets.all(10),
+          margin: EdgeInsets.all(cardHeight / 20),
           height: cardHeight,
           decoration: BoxDecoration(
             border: Border.all(
