@@ -35,7 +35,7 @@ class JsonConfig {
   final num missileChargeRate;
 
   @JsonKey(name: 'missileDamage')
-  final int missileDamage;
+  final num missileDamage;
 
   @JsonKey(name: 'baseHealth')
   final int baseHealth;

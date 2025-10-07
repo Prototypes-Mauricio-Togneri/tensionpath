@@ -11,7 +11,7 @@ class Config {
   final int missileMaxCharge;
   final int missileChargeBuffer;
   final num missileChargeRate;
-  final int missileDamage;
+  final num missileDamage;
   final int baseHealth;
 
   const Config({
