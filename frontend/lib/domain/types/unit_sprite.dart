@@ -27,7 +27,7 @@ double controlsUnitScale(UnitType type) {
       return 0.6;
 
     case UnitType.rhino:
-      return 0.6;
+      return 0.7;
     case UnitType.pitbull:
       return 0.65;
     case UnitType.shatterer:
@@ -67,7 +67,7 @@ Vector2 battlefieldUnitScale(UnitType type) {
       return Vector2(0.5, 0.5);
 
     case UnitType.rhino:
-      return Vector2(0.4, 0.4);
+      return Vector2(0.55, 0.55);
     case UnitType.pitbull:
       return Vector2(0.5, 0.5);
     case UnitType.shatterer:
