@@ -86457,7 +86457,7 @@ A.a64.prototype={
 $2(a,b){return new A.ee(this.a.c,new A.a62(b),null,t.VZ)},
 $S:641}
 A.a62.prototype={
-$2(a,b){var s=null,r=this.a.d,q=r/20,p=t.p,o=A.c([A.O2(b.b.length===6,B.b8,"Play",b.gan7())],p)
+$2(a,b){var s=null,r=this.a.d,q=r/15,p=t.p,o=A.c([A.O2(b.b.length===6,B.b8,"Play",b.gan7())],p)
 if($.aBf())o.push(new A.dG(B.E_,A.O2(!0,B.b8,"Full screen",b.gan_()),s))
 return A.jB(A.c([new A.Ke(b,r/3.7,s),new A.lK(q,s),A.OX(o,B.b3),new A.lK(q,s)],p),B.aH,B.aA,B.ex)},
 $S:642}

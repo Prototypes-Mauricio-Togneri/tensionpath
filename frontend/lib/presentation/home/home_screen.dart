@@ -68,7 +68,6 @@ class Form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height);
     return LayoutBuilder(
       builder: (context, constraints) {
         return StateProvider<HomeState>(
@@ -80,7 +79,7 @@ class Form extends StatelessWidget {
                 state: state,
                 cardHeight: constraints.maxHeight / 3.7,
               ),
-              VBox(constraints.maxHeight / 20),
+              VBox(constraints.maxHeight / 15),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -102,7 +101,7 @@ class Form extends StatelessWidget {
                     ),
                 ],
               ),
-              VBox(constraints.maxHeight / 20),
+              VBox(constraints.maxHeight / 15),
             ],
           ),
         );
