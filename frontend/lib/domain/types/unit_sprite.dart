@@ -13,7 +13,7 @@ String matchUnitSprite({
 double controlsUnitScale(UnitType type) {
   switch (type) {
     case UnitType.harvester:
-      return 0.75;
+      return 0.85;
 
     case UnitType.riflemen:
       return 0.6;
@@ -53,7 +53,7 @@ double controlsUnitScale(UnitType type) {
 Vector2 battlefieldUnitScale(UnitType type) {
   switch (type) {
     case UnitType.harvester:
-      return Vector2(0.6, 0.6);
+      return Vector2(0.65, 0.65);
 
     case UnitType.riflemen:
       return Vector2(0.5, 0.5);
