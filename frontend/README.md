@@ -2,7 +2,15 @@
 
 ### Phase 1
 
-- Bug wit
+- More units
+  - Jump jets
+  - Dogs
+  - Drones
+- Nod faction
+
+- Adapt it for mobile
+- Show health bar only if not full
+- Bug with missile not dealing damage
 - Tiberium field with less opacity
 - Remove health for infantry in a tiberium field
 - Don't attack a unit that cannot be targeted
