@@ -282,7 +282,7 @@ class UnitImageComponent extends SpriteComponent {
   }*/
 }
 
-class HealthBarComponent extends PositionComponent {
+class HealthBarComponent extends PositionComponent with HasVisibility {
   final UnitType type;
   final Player player;
   final Paint foregroundHealthPaint = Palette.paint(
@@ -320,6 +320,13 @@ class HealthBarComponent extends PositionComponent {
 
   void refresh(num newHealth) {
     health = newHealth;
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    isVisible = (health < maxHealth) && (health > 0);
   }
 
   @override

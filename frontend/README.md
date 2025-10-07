@@ -26,12 +26,12 @@
   - mohawk-catship
   - hammerhead-phantom
 - Other
-  - Adapt it for mobile
   - Show health bar only if not full
-  - Bug with missile not dealing damage
   - Tiberium field with less opacity
-  - Remove health for infantry in a tiberium field
   - Don't attack a unit that cannot be targeted
+  - Bug with missile not dealing damage
+  - Adapt it for mobile
+  - Remove health for infantry in a tiberium field
   - Continuous popcap
 
 ### Phase 2

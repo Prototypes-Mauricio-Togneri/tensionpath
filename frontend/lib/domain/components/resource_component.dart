@@ -23,6 +23,7 @@ class ResourceComponent extends SpriteComponent with HasVisibility {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
+    opacity = 0.5;
 
     return super.onLoad();
   }
