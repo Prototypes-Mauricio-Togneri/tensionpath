@@ -30,12 +30,16 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
+    return Stack(
       children: [
-        TopButtons(state),
-        Expanded(child: Form(state)),
+        Align(
+          alignment: Alignment.topCenter,
+          child: TopButtons(state),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Expanded(child: Form(state)),
+        ),
       ],
     );
   }
@@ -74,7 +78,7 @@ class Form extends StatelessWidget {
             children: [
               Deck(
                 state: state,
-                cardHeight: constraints.maxHeight / 4,
+                cardHeight: constraints.maxHeight / 3.7,
               ),
               VBox(constraints.maxHeight / 20),
               Row(
@@ -86,7 +90,7 @@ class Form extends StatelessWidget {
                     foregroundColor: Palette.PRIMARY,
                     onPressed: state.onPlay,
                   ),
-                  if (!Platform.isMobile)
+                  if (Platform.isMobile)
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: PrimaryButton(
