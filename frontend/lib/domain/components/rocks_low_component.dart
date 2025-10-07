@@ -15,6 +15,7 @@ class RocksLowComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_ROCKS_LOW);
+    opacity = 0.5;
 
     return super.onLoad();
   }

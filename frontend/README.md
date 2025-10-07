@@ -26,8 +26,6 @@
   - mohawk-catship
   - hammerhead-phantom
 - Other
-  - Show health bar only if not full
-  - Tiberium field with less opacity
   - Don't attack a unit that cannot be targeted
   - Bug with missile not dealing damage
   - Adapt it for mobile

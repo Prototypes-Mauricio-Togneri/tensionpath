@@ -56,7 +56,7 @@ Vector2 battlefieldUnitScale(UnitType type) {
       return Vector2(0.6, 0.6);
 
     case UnitType.riflemen:
-      return Vector2(0.4, 0.4);
+      return Vector2(0.5, 0.5);
     case UnitType.shocks:
       return Vector2(0.45, 0.45);
     case UnitType.missiles:
