@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
-import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/platform.dart';
@@ -19,40 +18,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(child: Content(state));
-  }
-}
-
-class Content extends StatelessWidget {
-  final HomeState state;
-
-  const Content(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        TopButtons(state),
-        Expanded(child: Form(state)),
-      ],
-    );
-  }
-}
-
-class TopButtons extends StatelessWidget {
-  final HomeState state;
-
-  const TopButtons(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Spacer(),
-        TopButton(icon: Icons.settings, onPressed: state.onSettings),
-      ],
+    return GameContainer(
+      child: Center(child: Form(state)),
     );
   }
 }
@@ -69,13 +36,15 @@ class Form extends StatelessWidget {
         return StateProvider<HomeState>(
           state: state,
           builder: (context, state) => Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
+              VBox(constraints.maxHeight / 40),
               Deck(
                 state: state,
-                cardHeight: constraints.maxHeight / 3.7,
+                cardHeight: constraints.maxHeight / 3.6,
               ),
-              VBox(constraints.maxHeight / 20),
+              VBox(constraints.maxHeight / 40),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -84,6 +53,13 @@ class Form extends StatelessWidget {
                     enabled: state.isDeckFull,
                     foregroundColor: Palette.PRIMARY,
                     onPressed: state.onPlay,
+                  ),
+                  const HBox(20),
+                  PrimaryButton(
+                    label: 'Settings',
+                    enabled: true,
+                    foregroundColor: Palette.PRIMARY,
+                    onPressed: state.onSettings,
                   ),
                   if (Platform.isMobile)
                     Padding(
@@ -97,7 +73,7 @@ class Form extends StatelessWidget {
                     ),
                 ],
               ),
-              VBox(constraints.maxHeight / 20),
+              VBox(constraints.maxHeight / 40),
             ],
           ),
         );
