@@ -72,10 +72,7 @@ class Units {
     num closestDistance = double.infinity;
     final List<Unit> enemyUnits = _units.list
         .where(
-          (u) =>
-              (u.player != unit.player) &&
-              u.isAlive &&
-              (unit.type.damageAgainst(u.type.clazz) > 0),
+          (u) => (u.player != unit.player) && u.isAlive && unit.canAttack(u),
         )
         .toList();
 

@@ -80,11 +80,17 @@ class Unit {
 
   void attackUnit(Unit target) {
     targetBase = null;
-    targetUnit = target;
+
+    if (canAttack(target)) {
+      targetUnit = target;
+    }
   }
 
   void attackBase(Launcher base) {
-    targetBase = base;
+    if (canAttackStructures) {
+      targetBase = base;
+    }
+
     targetUnit = null;
   }
 
@@ -187,7 +193,7 @@ class Unit {
       }
 
       // Assign the closest base in range if there is not one assigned
-      if (targetBase == null) {
+      if ((targetBase == null) && canAttackStructures) {
         targetBase = launchers.closestEnemyBaseInRange(this);
 
         if (targetBase != null) {
@@ -241,6 +247,10 @@ class Unit {
 
     return result;
   }
+
+  bool canAttack(Unit unit) => type.damageAgainst(unit.type.clazz) > 0;
+
+  bool get canAttackStructures => type.damageAgainst(UnitClass.structure) > 0;
 
   bool isInAttackRange(num distance) =>
       distance < (radius * (type.attackRange + 0.5));

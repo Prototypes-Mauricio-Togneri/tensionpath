@@ -26,8 +26,6 @@
   - mohawk-catship
   - hammerhead-phantom
 - Other
-  - Don't attack a unit that cannot be targeted
-  - Bug with missile not dealing damage
   - Adapt it for mobile
   - Remove health for infantry in a tiberium field
   - Continuous popcap
