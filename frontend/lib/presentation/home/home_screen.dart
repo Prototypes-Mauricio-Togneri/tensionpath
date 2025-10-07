@@ -30,17 +30,14 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<HomeState>(
-      state: state,
-      builder: (context, state) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TopButtons(state),
-          const Spacer(),
-          Form(state),
-          const Spacer(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        TopButtons(state),
+        Expanded(child: Form(state)),
+        const VBox(20),
+      ],
     );
   }
 }
@@ -68,41 +65,54 @@ class Form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<HomeState>(
-      state: state,
-      builder: (context, state) => Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Deck(state),
-            const VBox(30),
-            PrimaryButton(
-              label: 'Play',
-              enabled: state.isDeckFull,
-              foregroundColor: Palette.PRIMARY,
-              onPressed: state.onPlay,
-            ),
-            if (Platform.isMobile)
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: PrimaryButton(
-                  label: 'Full screen',
-                  enabled: true,
-                  foregroundColor: Palette.PRIMARY,
-                  onPressed: state.onFullscreen,
+    print(MediaQuery.of(context).size.height);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return StateProvider<HomeState>(
+          state: state,
+          builder: (context, state) => Container(
+            color: Colors.pink,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Deck(
+                  state: state,
+                  cardHeight: constraints.maxHeight / 6,
                 ),
-              ),
-          ],
-        ),
-      ),
+                const VBox(30),
+                PrimaryButton(
+                  label: 'Play',
+                  enabled: state.isDeckFull,
+                  foregroundColor: Palette.PRIMARY,
+                  onPressed: state.onPlay,
+                ),
+                if (Platform.isMobile)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: PrimaryButton(
+                      label: 'Full screen',
+                      enabled: true,
+                      foregroundColor: Palette.PRIMARY,
+                      onPressed: state.onFullscreen,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
 class Deck extends StatelessWidget {
   final HomeState state;
+  final double cardHeight;
 
-  const Deck(this.state);
+  const Deck({
+    required this.state,
+    required this.cardHeight,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +128,7 @@ class Deck extends StatelessWidget {
             UnitType.grenadier,
             UnitType.sniper,
           ],
+          cardHeight: cardHeight,
         ),
         const VBox(10),
         DeckRow(
@@ -129,6 +140,7 @@ class Deck extends StatelessWidget {
             UnitType.predator,
             UnitType.mlrs,
           ],
+          cardHeight: cardHeight,
         ),
         const VBox(10),
         DeckRow(
@@ -140,6 +152,7 @@ class Deck extends StatelessWidget {
             UnitType.mohawk,
             UnitType.hammerhead,
           ],
+          cardHeight: cardHeight,
         ),
       ],
     );
@@ -149,10 +162,12 @@ class Deck extends StatelessWidget {
 class DeckRow extends StatelessWidget {
   final HomeState state;
   final List<UnitType> types;
+  final double cardHeight;
 
   const DeckRow({
     required this.state,
     required this.types,
+    required this.cardHeight,
   });
 
   @override
@@ -161,7 +176,11 @@ class DeckRow extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         for (final UnitType type in types)
-          DeckCard(state: state, unitType: type),
+          DeckCard(
+            state: state,
+            unitType: type,
+            cardHeight: cardHeight,
+          ),
       ],
     );
   }
@@ -170,10 +189,12 @@ class DeckRow extends StatelessWidget {
 class DeckCard extends StatelessWidget {
   final HomeState state;
   final UnitType unitType;
+  final double cardHeight;
 
   const DeckCard({
     required this.state,
     required this.unitType,
+    required this.cardHeight,
   });
 
   @override
@@ -201,8 +222,8 @@ class DeckCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 100,
-                  height: 20,
+                  width: cardHeight / 1.2,
+                  height: cardHeight / 1.2 / 5,
                   color: Palette.GAME_BACKGROUND,
                   child: Center(
                     child: Text(
@@ -216,26 +237,35 @@ class DeckCard extends StatelessWidget {
                   ),
                 ),
                 if (state.isSelected(unitType))
-                  SelectedCard(unitType)
+                  SelectedCard(
+                    unitType: unitType,
+                    cardHeight: cardHeight,
+                  )
                 else
-                  UnselectedCard(unitType),
+                  UnselectedCard(
+                    unitType: unitType,
+                    cardHeight: cardHeight,
+                  ),
                 SizedBox(
-                  width: 100,
-                  height: 33.33,
+                  width: cardHeight / 1.2,
+                  height: cardHeight / 1.2 / 3,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Counter(
                         unitClass: UnitClass.infantry,
                         value: unitType.counterAgainst(UnitClass.infantry),
+                        size: cardHeight / 1.2 / 3,
                       ),
                       Counter(
                         unitClass: UnitClass.vehicle,
                         value: unitType.counterAgainst(UnitClass.vehicle),
+                        size: cardHeight / 1.2 / 3,
                       ),
                       Counter(
                         unitClass: UnitClass.aircraft,
                         value: unitType.counterAgainst(UnitClass.aircraft),
+                        size: cardHeight / 1.2 / 3,
                       ),
                     ],
                   ),
@@ -251,14 +281,18 @@ class DeckCard extends StatelessWidget {
 
 class UnselectedCard extends StatelessWidget {
   final UnitType unitType;
+  final double cardHeight;
 
-  const UnselectedCard(this.unitType);
+  const UnselectedCard({
+    required this.unitType,
+    required this.cardHeight,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100,
-      height: 120,
+      width: cardHeight / 1.2,
+      height: cardHeight,
       child: ColorFiltered(
         colorFilter: const ColorFilter.matrix([
           0.2126, 0.7152, 0.0722, 0, 0, // Red channel
@@ -277,14 +311,18 @@ class UnselectedCard extends StatelessWidget {
 
 class SelectedCard extends StatelessWidget {
   final UnitType unitType;
+  final double cardHeight;
 
-  const SelectedCard(this.unitType);
+  const SelectedCard({
+    required this.unitType,
+    required this.cardHeight,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 100,
-      height: 120,
+      width: cardHeight / 1.2,
+      height: cardHeight,
       child: Image.asset(
         cardUnitSprite(unitType),
         fit: BoxFit.contain,
@@ -296,17 +334,19 @@ class SelectedCard extends StatelessWidget {
 class Counter extends StatelessWidget {
   final UnitClass unitClass;
   final int value;
+  final double size;
 
   const Counter({
     required this.unitClass,
     required this.value,
+    required this.size,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 33.33,
-      height: 33.33,
+      width: size,
+      height: size,
       child: Image.asset(
         'assets/images/units/counter/${unitClass.name}_$_indicator.png',
         fit: BoxFit.contain,
