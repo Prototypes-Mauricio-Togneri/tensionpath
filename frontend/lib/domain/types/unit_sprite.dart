@@ -44,7 +44,7 @@ double controlsUnitScale(UnitType type) {
     case UnitType.orca:
       return 0.8;
     case UnitType.mohawk:
-      return 0.85; // CHECK
+      return 0.85;
     case UnitType.hammerhead:
       return 0.7;
   }

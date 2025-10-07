@@ -7,14 +7,32 @@
   - Dogs
   - Drones
 - Nod faction
-
-- Adapt it for mobile
-- Show health bar only if not full
-- Bug with missile not dealing damage
-- Tiberium field with less opacity
-- Remove health for infantry in a tiberium field
-- Don't attack a unit that cannot be targeted
-- Continuous popcap
+  - riflemen-militants
+  - shocks-flames
+  - missiles-laser
+  - jumpjets-scavenger
+  - grenadier-mutant
+  - sniper-fanatic
+  - dogs-wheels
+  - rhino-buggy
+  - pitbull-bikes
+  - shatterer-chuggy
+  - predator-scorpion
+  - mlrs-giga
+  - drones swarm-laser drones
+  - talon-banshee
+  - razorback-venom
+  - orca-shade
+  - mohawk-catship
+  - hammerhead-phantom
+- Other
+  - Adapt it for mobile
+  - Show health bar only if not full
+  - Bug with missile not dealing damage
+  - Tiberium field with less opacity
+  - Remove health for infantry in a tiberium field
+  - Don't attack a unit that cannot be targeted
+  - Continuous popcap
 
 ### Phase 2
 
