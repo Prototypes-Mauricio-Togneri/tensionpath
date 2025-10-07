@@ -36,7 +36,7 @@ class Content extends StatelessWidget {
       children: [
         TopButtons(state),
         Expanded(child: Form(state)),
-        const VBox(20),
+        const VBox(10),
       ],
     );
   }
@@ -77,23 +77,28 @@ class Form extends StatelessWidget {
                 state: state,
                 cardHeight: constraints.maxHeight / 4,
               ),
-              const VBox(30),
-              PrimaryButton(
-                label: 'Play',
-                enabled: state.isDeckFull,
-                foregroundColor: Palette.PRIMARY,
-                onPressed: state.onPlay,
-              ),
-              if (Platform.isMobile)
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: PrimaryButton(
-                    label: 'Full screen',
-                    enabled: true,
+              VBox(constraints.maxHeight / 20),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  PrimaryButton(
+                    label: 'Play',
+                    enabled: state.isDeckFull,
                     foregroundColor: Palette.PRIMARY,
-                    onPressed: state.onFullscreen,
+                    onPressed: state.onPlay,
                   ),
-                ),
+                  if (Platform.isMobile)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: PrimaryButton(
+                        label: 'Full screen',
+                        enabled: true,
+                        foregroundColor: Palette.PRIMARY,
+                        onPressed: state.onFullscreen,
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
         );
@@ -235,9 +240,9 @@ class DeckCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           unitType.name.toUpperCase(),
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
-                            fontSize: 11,
+                            fontSize: headerHeight / 2,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
