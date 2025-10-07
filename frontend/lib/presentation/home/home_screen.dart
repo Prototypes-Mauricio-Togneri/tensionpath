@@ -36,7 +36,6 @@ class Content extends StatelessWidget {
       children: [
         TopButtons(state),
         Expanded(child: Form(state)),
-        const VBox(10),
       ],
     );
   }
@@ -99,6 +98,7 @@ class Form extends StatelessWidget {
                     ),
                 ],
               ),
+              VBox(constraints.maxHeight / 20),
             ],
           ),
         );
