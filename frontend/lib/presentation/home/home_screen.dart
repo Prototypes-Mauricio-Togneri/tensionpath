@@ -77,7 +77,7 @@ class Form extends StatelessWidget {
               children: [
                 Deck(
                   state: state,
-                  cardHeight: constraints.maxHeight / 6,
+                  cardHeight: constraints.maxHeight / 3.5,
                 ),
                 const VBox(30),
                 PrimaryButton(
@@ -172,16 +172,19 @@ class DeckRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (final UnitType type in types)
-          DeckCard(
-            state: state,
-            unitType: type,
-            cardHeight: cardHeight,
-          ),
-      ],
+    return SizedBox(
+      height: cardHeight,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final UnitType type in types)
+            DeckCard(
+              state: state,
+              unitType: type,
+              cardHeight: cardHeight,
+            ),
+        ],
+      ),
     );
   }
 }
@@ -199,6 +202,11 @@ class DeckCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double cardWidth = cardHeight / 1.6;
+    final double headerHeight = cardWidth / 7;
+    final double counterHeight = cardWidth / 3;
+    final double imageHeight = cardHeight - headerHeight - counterHeight;
+
     return Tooltip(
       waitDuration: const Duration(seconds: 1),
       message: unitType.stats,
@@ -206,6 +214,8 @@ class DeckCard extends StatelessWidget {
         onTap: () => state.onCardSelected(unitType),
         child: Container(
           margin: const EdgeInsets.all(10),
+          width: cardWidth,
+          height: cardHeight,
           decoration: BoxDecoration(
             border: Border.all(
               color: state.isSelected(unitType)
@@ -222,8 +232,8 @@ class DeckCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: cardHeight / 1.2,
-                  height: cardHeight / 1.2 / 5,
+                  width: cardWidth,
+                  height: headerHeight,
                   color: Palette.GAME_BACKGROUND,
                   child: Center(
                     child: Text(
@@ -239,33 +249,33 @@ class DeckCard extends StatelessWidget {
                 if (state.isSelected(unitType))
                   SelectedCard(
                     unitType: unitType,
-                    cardHeight: cardHeight,
+                    cardHeight: imageHeight,
                   )
                 else
                   UnselectedCard(
                     unitType: unitType,
-                    cardHeight: cardHeight,
+                    cardHeight: imageHeight,
                   ),
                 SizedBox(
-                  width: cardHeight / 1.2,
-                  height: cardHeight / 1.2 / 3,
+                  width: cardWidth,
+                  height: counterHeight,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Counter(
                         unitClass: UnitClass.infantry,
                         value: unitType.counterAgainst(UnitClass.infantry),
-                        size: cardHeight / 1.2 / 3,
+                        size: counterHeight,
                       ),
                       Counter(
                         unitClass: UnitClass.vehicle,
                         value: unitType.counterAgainst(UnitClass.vehicle),
-                        size: cardHeight / 1.2 / 3,
+                        size: counterHeight,
                       ),
                       Counter(
                         unitClass: UnitClass.aircraft,
                         value: unitType.counterAgainst(UnitClass.aircraft),
-                        size: cardHeight / 1.2 / 3,
+                        size: counterHeight,
                       ),
                     ],
                   ),
