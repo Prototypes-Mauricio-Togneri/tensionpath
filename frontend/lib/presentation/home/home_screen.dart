@@ -70,34 +70,31 @@ class Form extends StatelessWidget {
       builder: (context, constraints) {
         return StateProvider<HomeState>(
           state: state,
-          builder: (context, state) => Container(
-            color: Colors.pink,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Deck(
-                  state: state,
-                  cardHeight: constraints.maxHeight / 3.5,
-                ),
-                const VBox(30),
-                PrimaryButton(
-                  label: 'Play',
-                  enabled: state.isDeckFull,
-                  foregroundColor: Palette.PRIMARY,
-                  onPressed: state.onPlay,
-                ),
-                if (Platform.isMobile)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: PrimaryButton(
-                      label: 'Full screen',
-                      enabled: true,
-                      foregroundColor: Palette.PRIMARY,
-                      onPressed: state.onFullscreen,
-                    ),
+          builder: (context, state) => Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Deck(
+                state: state,
+                cardHeight: constraints.maxHeight / 3.5,
+              ),
+              const VBox(30),
+              PrimaryButton(
+                label: 'Play',
+                enabled: state.isDeckFull,
+                foregroundColor: Palette.PRIMARY,
+                onPressed: state.onPlay,
+              ),
+              if (Platform.isMobile)
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: PrimaryButton(
+                    label: 'Full screen',
+                    enabled: true,
+                    foregroundColor: Palette.PRIMARY,
+                    onPressed: state.onFullscreen,
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         );
       },
@@ -202,10 +199,11 @@ class DeckCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double cardWidth = cardHeight / 1.6;
+    final double innerHeight = cardHeight - 10; // minus border
+    final double cardWidth = innerHeight / 1.6;
     final double headerHeight = cardWidth / 7;
     final double counterHeight = cardWidth / 3;
-    final double imageHeight = cardHeight - headerHeight - counterHeight;
+    final double imageHeight = innerHeight - headerHeight - counterHeight;
 
     return Tooltip(
       waitDuration: const Duration(seconds: 1),
