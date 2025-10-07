@@ -199,11 +199,11 @@ class DeckCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double innerHeight = cardHeight - 10; // minus border
-    final double cardWidth = innerHeight / 1.6;
-    final double headerHeight = cardWidth / 7;
+    final double innerHeight = cardHeight - 20;
+    final double imageHeight = innerHeight * 0.7;
+    final double cardWidth = imageHeight / 1.2;
     final double counterHeight = cardWidth / 3;
-    final double imageHeight = innerHeight - headerHeight - counterHeight;
+    final double headerHeight = innerHeight - imageHeight - counterHeight;
 
     return Tooltip(
       waitDuration: const Duration(seconds: 1),
@@ -214,7 +214,7 @@ class DeckCard extends StatelessWidget {
           margin: const EdgeInsets.all(10),
           width: cardWidth,
           height: cardHeight,
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(
               color: state.isSelected(unitType)
                   ? Palette.CARD_SELECTED
@@ -223,7 +223,7 @@ class DeckCard extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8),
             color: Colors.transparent,
-          ),
+          ),*/
           child: ClipRRect(
             borderRadius: BorderRadius.circular(3),
             child: Column(
