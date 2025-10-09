@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -302,7 +303,9 @@ class ResourcesComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    player.addResources(dt * player.resourcesRate);
+    if (game.matchState.matchStatus == MatchStatus.playing) {
+      player.addResources(dt * player.resourcesRate);
+    }
   }
 
   @override

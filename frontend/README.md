@@ -2,8 +2,8 @@
 
 ### Phase 1
 
-- Custom match with another account to test unit matchup
-- Stop making money after game finish
+---- Stop making money after game finish
+
 - Increase base health
 - Position optional in unit update
 - Deployment loading indicator

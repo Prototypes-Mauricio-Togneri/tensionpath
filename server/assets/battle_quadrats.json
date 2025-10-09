@@ -11,7 +11,7 @@
         "missileChargeBuffer": 35,
         "missileChargeRate": 1,
         "missileDamage": 0.5,
-        "baseHealth": 1000
+        "baseHealth": 30000
     },
     "battlefield": {
         "mapSize": {

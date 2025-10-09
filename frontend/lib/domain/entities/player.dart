@@ -48,7 +48,7 @@ class Player {
     maxHarvesterCount = player.maxHarvesterCount;
   }
 
-  void addResources(double value) {
+  void addResources(num value) {
     resources += value;
   }
 
