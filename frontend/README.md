@@ -2,6 +2,14 @@
 
 ### Phase 1
 
+- Custom match with another account to test unit matchup
+- Stop making money after game finish
+- Increase base health
+- Position optional in unit update
+- Deployment loading indicator
+- Random colored floor tiles
+- Allow to deploy units on the field directly
+
 - More units
   - Jump jets
   - Dogs
