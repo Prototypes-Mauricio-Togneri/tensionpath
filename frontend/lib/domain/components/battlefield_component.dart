@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/attack_path_component.dart';
@@ -449,9 +450,8 @@ class BattlefieldGridComponent extends SpriteComponent {
   final num nodeSizeRatio;
   final List<Node> nodes;
   final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 3,
-    color: Palette.NODE_BORDER,
+    style: PaintingStyle.fill,
+    color: const Color(0xffCBA972),
   );
 
   BattlefieldGridComponent({
@@ -468,6 +468,9 @@ class BattlefieldGridComponent extends SpriteComponent {
     final Canvas canvas = Canvas(recorder, Rect.fromLTWH(0, 0, size.x, size.y));
 
     for (final Node node in nodes) {
+      borderPaint.color = borderPaint.color.withAlpha(
+        Random().nextInt(60) + 60,
+      );
       final Vector2 position = node.position.localPosition(
         mapCenter: size / 2,
         nodeSizeRatio: nodeSizeRatio,
@@ -475,7 +478,7 @@ class BattlefieldGridComponent extends SpriteComponent {
       canvas.drawHexagon(
         center: position,
         size: nodeSize,
-        borderPaint: borderPaint,
+        fillPaint: borderPaint,
       );
     }
 

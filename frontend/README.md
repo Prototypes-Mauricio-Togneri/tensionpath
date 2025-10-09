@@ -2,12 +2,8 @@
 
 ### Phase 1
 
----- Stop making money after game finish
-
-- Increase base health
 - Position optional in unit update
 - Deployment loading indicator
-- Random colored floor tiles
 - Allow to deploy units on the field directly
 
 - More units
