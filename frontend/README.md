@@ -5,7 +5,21 @@
 - Position optional in unit update
 - Deployment loading indicator
 - Allow to deploy units on the field directly
+- Make sprites all pointing to right
+- Continuous popcap
 
+### Phase 2
+
+- More maps
+- Events
+  - Shooting
+  - Destroying unit
+- Music and sound effects
+- Ramping popcap and resources rate (see picture)
+- Drag the entire unit card, not just the unit sprite
+- Path finding
+- Choose map
+- Toxic tiles that damage units
 - Nod faction
   - riflemen-militants
   - shocks-flames
@@ -22,23 +36,6 @@
   - orca-shade
   - mohawk-catship
   - hammerhead-phantom
-- Other
-  - Adapt it for mobile
-  - Make sprites all pointing to right
-  - Continuous popcap
-
-### Phase 2
-
-- More maps
-- Events
-  - Shooting
-  - Destroying unit
-- Music and sound effects
-- Ramping popcap and resources rate (see picture)
-- Drag the entire unit card, not just the unit sprite
-- Path finding
-- Choose map
-- Toxic tiles that damage units
 
 ### Phase 3
 
