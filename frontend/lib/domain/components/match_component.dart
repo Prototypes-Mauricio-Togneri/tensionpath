@@ -194,11 +194,18 @@ class MatchComponent extends World {
 
   void onDeployUnit({
     required Location location,
+    required Vector2 position,
     required UnitType type,
-  }) => game.matchState.onDeployUnit(
-    location: location,
-    type: type,
-  );
+  }) {
+    battlefieldComponent.addDeploymentIndicator(
+      location: location,
+      position: position,
+    );
+    game.matchState.onDeployUnit(
+      location: location,
+      type: type,
+    );
+  }
 
   void onUnitAction({
     required UnitComponent unitComponent,

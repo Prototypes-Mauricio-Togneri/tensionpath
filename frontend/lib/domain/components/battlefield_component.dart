@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/attack_path_component.dart';
+import 'package:tensionpath/domain/components/deployment_indicator_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
@@ -14,6 +15,7 @@ import 'package:tensionpath/domain/components/rocks_low_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -36,6 +38,7 @@ class BattlefieldComponent extends PositionComponent {
   final List<ResourceComponent> resourceComponents;
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
+  final Map<Location, DeploymentIndicatorComponent> deploymentIndicators = {};
   late final MissileComponent missileComponent;
   late final Vector2 mapCenter;
   late final Vector2 nodeSize;
@@ -375,6 +378,15 @@ class BattlefieldComponent extends PositionComponent {
         add(attackPathComponent);
       }
 
+      if (unit.lockedLocation != null) {
+        final DeploymentIndicatorComponent? deploymentIndicatorComponent =
+            deploymentIndicators[unit.lockedLocation!];
+
+        if (deploymentIndicatorComponent != null) {
+          deploymentIndicatorComponent.removeFromParent();
+        }
+      }
+
       final UnitComponent unitComponent = UnitComponent(
         position: unit.currentPosition.localPosition(
           mapCenter: mapCenter,
@@ -434,6 +446,20 @@ class BattlefieldComponent extends PositionComponent {
         resourceComponent.refresh(newAmount);
       }
     }
+  }
+
+  void addDeploymentIndicator({
+    required Location location,
+    required Vector2 position,
+  }) {
+    final DeploymentIndicatorComponent deploymentIndicatorComponent =
+        DeploymentIndicatorComponent(
+          position: position,
+          size: nodeSize * 0.3,
+          location: location,
+        );
+    add(deploymentIndicatorComponent);
+    deploymentIndicators[location] = deploymentIndicatorComponent;
   }
 }
 

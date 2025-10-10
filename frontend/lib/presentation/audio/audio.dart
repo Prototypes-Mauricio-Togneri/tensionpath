@@ -1,3 +1,4 @@
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/storage/audio_storage.dart';
 import 'package:tensionpath/presentation/audio/music.dart';
 import 'package:tensionpath/presentation/audio/sound.dart';
@@ -20,7 +21,7 @@ class Audio with Music, Sound {
   }
 
   Future load() async {
-    enabled = await AudioStorage.load();
+    enabled = Environment.get.isRelease && await AudioStorage.load();
     await loadSound();
     await loadMusic();
   }
