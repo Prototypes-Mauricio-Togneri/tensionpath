@@ -40,11 +40,11 @@ double controlsUnitScale(UnitType type) {
     case UnitType.talon:
       return 0.8;
     case UnitType.razorback:
-      return 0.6;
+      return 0.65;
     case UnitType.orca:
       return 0.8;
     case UnitType.mohawk:
-      return 0.85;
+      return 1;
     case UnitType.hammerhead:
       return 0.7;
   }
@@ -84,7 +84,7 @@ Vector2 battlefieldUnitScale(UnitType type) {
     case UnitType.orca:
       return Vector2(0.6, 0.6);
     case UnitType.mohawk:
-      return Vector2(0.65, 0.65);
+      return Vector2(0.8, 0.8);
     case UnitType.hammerhead:
       return Vector2(0.5, 0.5);
   }

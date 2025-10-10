@@ -135,8 +135,8 @@ class Server {
               UnitType.missiles,
               UnitType.rhino,
               UnitType.predator,
-              UnitType.orca,
-              UnitType.hammerhead,
+              UnitType.razorback,
+              UnitType.mohawk,
             ],
           ),
           'ZZZ': const JsonPlayer(
