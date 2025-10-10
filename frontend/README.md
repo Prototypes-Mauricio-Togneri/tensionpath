@@ -12,6 +12,8 @@
 
 - More maps
 - Events
+  - Pad on/off
+  - Missile alarm
   - Moving
   - Shooting
   - Unit destroyed
