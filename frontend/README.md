@@ -3,7 +3,6 @@
 ### Phase 1
 
 - Allow to deploy units on the field directly
-- Make sprites all pointing to right
 
 ### Phase 2
 

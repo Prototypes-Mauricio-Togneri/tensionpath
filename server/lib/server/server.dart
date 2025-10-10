@@ -132,9 +132,9 @@ class Server {
             name: 'Alice',
             deck: [
               UnitType.riflemen,
-              UnitType.missiles,
+              UnitType.grenadier,
               UnitType.rhino,
-              UnitType.mlrs,
+              UnitType.predator,
               UnitType.orca,
               UnitType.hammerhead,
             ],
