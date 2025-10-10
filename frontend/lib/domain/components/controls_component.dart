@@ -146,12 +146,28 @@ class UnitSelectorComponent extends PositionComponent {
     }
   }
 
+  int get popcapLimit {
+    final int timeElapsed = match.timeElapsed;
+
+    if (timeElapsed < 60) {
+      return 3;
+    } else if (timeElapsed < 120) {
+      return 4;
+    } else if (timeElapsed < 180) {
+      return 5;
+    } else {
+      return 6;
+    }
+  }
+
+  bool get underPopcap => match.unitsOfPlayer(player) < popcapLimit;
+
   @override
   void update(double dt) {
     super.update(dt);
 
     final bool before = isEnabled;
-    isEnabled = (player.resources >= unitCost) && canDeploy;
+    isEnabled = (player.resources >= unitCost) && canDeploy && underPopcap;
 
     if (before != isEnabled) {
       if (isEnabled) {

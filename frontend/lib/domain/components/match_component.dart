@@ -101,6 +101,10 @@ class MatchComponent extends World {
     );
   }
 
+  int unitsOfPlayer(Player player) => unitComponents
+      .where((unit) => unit.isAlive && unit.belongsTo(player))
+      .length;
+
   UnitComponent? getEnemyUnitAt(Vector2 position) {
     for (final UnitComponent unitComponent in unitComponents) {
       if (unitComponent.containsPoint(position) &&
