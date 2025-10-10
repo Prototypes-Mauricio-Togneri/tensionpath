@@ -12,11 +12,12 @@
 
 - More maps
 - Events
+  - Moving
   - Shooting
-  - Destroying unit
+  - Unit destroyed
 - Animations
   - Shooting
-  - Destroying
+  - Unit destroyed
 - Music
 - Sound effects (https://vocalremover.org)
   - Pad on/off
