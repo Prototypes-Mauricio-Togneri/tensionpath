@@ -1,15 +1,30 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/audio_spec.dart';
+import 'package:tensionpath/utils/assets.dart';
 
 mixin Music {
   final Map<String, AudioPlayer> _musicPlayers = {};
   AudioPlayer? _playerToResume;
 
-  Future playMusic(String music) async {
+  static const AudioSpec MUSIC = AudioSpec(
+    path: Assets.AUDIO_MUSIC_MUSIC,
+    loop: true,
+  );
+
+  Future<AudioPlayer> _getPlayer(AudioSpec spec) async {
+    final AudioPlayer player = AudioPlayer();
+    await player.setAsset(spec.path);
+    await player.setLoopMode(spec.loop ? LoopMode.all : LoopMode.off);
+
+    return player;
+  }
+
+  Future playMusic(AudioSpec audioSpec) async {
     if (Audio.get.enabled) {
       await stopMusic();
-      await _musicPlayers[music]?.seek(Duration.zero);
-      await _musicPlayers[music]?.play();
+      await _musicPlayers[audioSpec.path]?.seek(Duration.zero);
+      await _musicPlayers[audioSpec.path]?.play();
     }
   }
 
@@ -33,7 +48,7 @@ mixin Music {
       Future.wait(_musicPlayers.values.map((player) => player.stop()));
 
   Future loadMusic() async {
-    //_musicPlayers[musidPath] = await _getPlayer(musidPath);
+    _musicPlayers[MUSIC.path] = await _getPlayer(MUSIC);
   }
 
   void musicSpeed(double value) {

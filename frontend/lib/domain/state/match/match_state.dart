@@ -10,6 +10,8 @@ import 'package:tensionpath/domain/json/messages/server_client/json_update.dart'
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/music.dart';
 import 'package:tensionpath/presentation/common/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/connection.dart';
@@ -40,10 +42,17 @@ class MatchState extends BaseState {
   bool get isLoading => gameComponent == null;
 
   @override
-  Future onLoad() => connection.connect();
+  Future onLoad() {
+    Audio.get.playMusic(Music.MUSIC);
+
+    return connection.connect();
+  }
 
   @override
-  void onDestroy() => connection.disconnect();
+  void onDestroy() {
+    Audio.get.stopMusic();
+    connection.disconnect();
+  }
 
   void _onMessage(dynamic json) {
     if (matchStatus == MatchStatus.playing) {
