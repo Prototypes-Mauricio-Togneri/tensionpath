@@ -2,7 +2,6 @@
 
 ### Phase 1
 
-- Position optional in unit update
 - Deployment loading indicator
 - Allow to deploy units on the field directly
 - Make sprites all pointing to right
