@@ -134,7 +134,7 @@ class Server {
               UnitType.riflemen,
               UnitType.missiles,
               UnitType.rhino,
-              UnitType.predator,
+              UnitType.mlrs,
               UnitType.orca,
               UnitType.hammerhead,
             ],
