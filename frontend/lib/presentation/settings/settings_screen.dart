@@ -1,9 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/state/settings/settings_state.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
 import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
+import 'package:tensionpath/presentation/common/text/label.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -93,6 +95,22 @@ class Form extends StatelessWidget {
                 onChanged: (text) => state.notify(),
               ),
               const VBox(30),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Label(
+                    text: 'Audio',
+                    color: Palette.TEXT_COLOR_PRIMARY,
+                    size: 14,
+                  ),
+                  const HBox(10),
+                  Switch(
+                    value: Audio.get.enabled,
+                    onChanged: (v) => state.onAudioToggle(),
+                  ),
+                ],
+              ),
+              const VBox(30),
               PrimaryButton(
                 label: 'Save',
                 enabled: state.canSave,
@@ -119,7 +137,9 @@ class Footer extends StatelessWidget {
       children: [
         SelectableText(
           Authentication.userId,
-          style: TextStyle(color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128)),
+          style: TextStyle(
+            color: Palette.TEXT_COLOR_PRIMARY.withAlpha(128),
+          ),
         ),
         const VBox(10),
       ],

@@ -1,4 +1,6 @@
 class Assets {
+  static const String AUDIO_SOUNDS_DETECTION =
+      'assets/audio/sounds/detection.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =

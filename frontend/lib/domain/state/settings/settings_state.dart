@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/persistence/storage/settings_storage.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SettingsState extends BaseState {
@@ -15,6 +16,11 @@ class SettingsState extends BaseState {
   }
 
   void onClose() => Navigation.pop();
+
+  Future onAudioToggle() async {
+    await Audio.get.toggle();
+    notify();
+  }
 
   Future onSave() async {
     final String name = nameController.text.trim();

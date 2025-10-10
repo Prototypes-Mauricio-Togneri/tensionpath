@@ -3,12 +3,15 @@ import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/persistence/storage/settings_storage.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/utils/authentication.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override
-  void onLoad() {
+  Future onLoad() async {
+    await Audio.get.load();
+
     if (Environment.get.joinTestMatch) {
       Navigation.matchScreen(
         host: 'ws://localhost:3000',
