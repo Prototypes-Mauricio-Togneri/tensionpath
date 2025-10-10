@@ -17,7 +17,17 @@
 - Animations
   - Shooting
   - Destroying
-- Music and sound effects
+- Music
+- Sound effects (https://vocalremover.org)
+  - Pad on/off
+  - Missile alarm
+  - Missile explosion
+  - Unit ready
+  - Unit lost
+  - Base under attack
+  - Harvester under attack
+  - Mission accomplished
+  - Mission failed
 - Ramping popcap and resources rate (see picture)
 - Drag the entire unit card, not just the unit sprite
 - Path finding
