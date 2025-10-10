@@ -18,7 +18,6 @@
 - Animations
   - Shooting
   - Unit destroyed
-- Music
 - Sound effects (https://vocalremover.org)
   - Pad on/off
   - Missile alarm
@@ -32,27 +31,27 @@
 - Ramping popcap and resources rate (see picture)
 - Drag the entire unit card, not just the unit sprite
 - Path finding
-- Choose map
 - Toxic tiles that damage units
 - Nod faction
-  - riflemen-militants
-  - shocks-flames
-  - missiles-laser
-  - grenadier-mutant
-  - sniper-fanatic
-  - rhino-buggy
-  - pitbull-bikes
-  - shatterer-chuggy
-  - predator-scorpion
-  - mlrs-giga
-  - talon-banshee
-  - razorback-venom
-  - orca-shade
-  - mohawk-catship
-  - hammerhead-phantom
+  - militants
+  - laser
+  - flames
+  - mutant
+  - fanatic
+  - buggy
+  - bikes
+  - chuggy
+  - scorpion
+  - giga
+  - banshee
+  - venom
+  - shade
+  - catship
+  - phantom
 
 ### Phase 3
 
+- Choose map
 - Show list of open matches to play knowing the map
 - Dart compile in Docker
 - Add changelog to home screen
@@ -62,7 +61,6 @@
 - After 5 minutes, bases take damage every turn
 - Show match replay
 - Commanders abilities
-
   - Paratroopers (only on revealed tiles)
   - Radar
     - Reveal map
