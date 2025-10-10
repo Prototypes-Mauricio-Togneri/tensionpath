@@ -11,26 +11,25 @@
 - Events
   - Pad on/off
   - Missile alarm
-  - Moving
-  - Shooting
-  - Unit destroyed
+  - Missile fired
+  - Unit ready
+  - Unit moving
+  - Unit shooting
+  - Unit lost
 - Animations
   - Shooting
   - Unit destroyed
 - Sound effects (https://vocalremover.org)
   - Pad on/off
   - Missile alarm
-  - Missile explosion
+  - Missile fired
   - Unit ready
   - Unit lost
   - Base under attack
   - Harvester under attack
   - Mission accomplished
   - Mission failed
-- Ramping popcap and resources rate (see picture)
 - Drag the entire unit card, not just the unit sprite
-- Path finding
-- Toxic tiles that damage units
 - Nod faction
   - militants
   - laser
@@ -50,6 +49,9 @@
 
 ### Phase 3
 
+- Path finding
+- Toxic tiles that damage units
+- Ramping popcap and resources rate (see picture)
 - Choose map
 - Show list of open matches to play knowing the map
 - Dart compile in Docker
