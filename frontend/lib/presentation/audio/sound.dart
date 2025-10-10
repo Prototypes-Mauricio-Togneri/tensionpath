@@ -7,12 +7,12 @@ mixin Sound {
   final Map<String, AudioPlayer> _soundPlayers = {};
   final List<AudioPlayer> _freePlayers = [];
 
-  static const AudioSpec DOOR_LOCKED = AudioSpec(
-    path: Assets.AUDIO_SOUNDS_DETECTION,
+  static const AudioSpec MISSILE_ALARM = AudioSpec(
+    path: Assets.AUDIO_SOUND_MISSILE_ALARM,
   );
 
   static const List<AudioSpec> ALL_SOUNDS = [
-    DOOR_LOCKED,
+    MISSILE_ALARM,
   ];
 
   Future playSound(AudioSpec spec) async {

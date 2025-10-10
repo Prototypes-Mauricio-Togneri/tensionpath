@@ -1,7 +1,7 @@
 class Assets {
   static const String AUDIO_MUSIC_MUSIC = 'assets/audio/music/music.mp3';
-  static const String AUDIO_SOUNDS_DETECTION =
-      'assets/audio/sounds/detection.mp3';
+  static const String AUDIO_SOUND_MISSILE_ALARM =
+      'assets/audio/sound/missile_alarm.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =

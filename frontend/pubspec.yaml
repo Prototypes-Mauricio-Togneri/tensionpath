@@ -45,7 +45,7 @@ flutter:
 
   assets:
     - assets/audio/music/
-    - assets/audio/sounds/
+    - assets/audio/sound/
     - assets/images/battlefields/
     - assets/images/structures/
     - assets/images/units/counter/
