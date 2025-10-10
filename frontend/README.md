@@ -14,6 +14,9 @@
 - Events
   - Shooting
   - Destroying unit
+- Animations
+  - Shooting
+  - Destroying
 - Music and sound effects
 - Ramping popcap and resources rate (see picture)
 - Drag the entire unit card, not just the unit sprite
