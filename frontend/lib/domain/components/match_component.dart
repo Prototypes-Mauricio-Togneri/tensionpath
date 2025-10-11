@@ -201,10 +201,10 @@ class MatchComponent extends World {
     required Vector2 position,
     required UnitType type,
   }) {
-    battlefieldComponent.addDeploymentIndicator(
+    /*battlefieldComponent.addDeploymentIndicator(
       location: location,
       position: position,
-    );
+    );*/
     game.matchState.onDeployUnit(
       location: location,
       type: type,

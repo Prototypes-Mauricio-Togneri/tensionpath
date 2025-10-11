@@ -49,6 +49,9 @@ class UnitComponent extends PositionComponent
     required this.movementCurrentComponent,
     required this.attackPathComponent,
     required this.battlefieldComponent,
+    required this.targetPosition,
+    required this.targetBase,
+    required this.targetUnit,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.unit.value,

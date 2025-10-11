@@ -60,7 +60,13 @@ class Battlefield {
     required Location location,
     required UnitType type,
   }) {
-    final Node node = nodes.atLocation(location);
+    final Node targetNode = nodes.atLocation(location);
+    final Launcher? launcher = launchers.closestLauncher(
+      position: targetNode.position,
+      player: player,
+    );
+    final Node originNode = nodes.get(launcher!.id);
+
     final Unit unit = Unit(
       config: config,
       nodes: nodes,
@@ -71,11 +77,15 @@ class Battlefield {
       player: player,
       type: type,
       radius: nodeSize.radius,
-      closestNode: node,
-      position: node.position,
+      closestNode: originNode,
+      position: originNode.position,
       maxHealth: type.health,
     );
     units.add(unit);
+    unit.move(
+      node: targetNode,
+      manual: true,
+    );
   }
 
   void unitAction({

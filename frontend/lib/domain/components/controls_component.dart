@@ -6,7 +6,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -241,7 +241,7 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     if (enabled) {
       position += event.localDelta;
-      match.highlightLauncherAt(absolutePosition);
+      match.highlightActionNodeAt(absolutePosition);
     }
   }
 
@@ -252,14 +252,14 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
     match.unhighlightNodes();
 
     if (enabled) {
-      final LauncherComponent? launcherComponent = match.getLauncherAt(
+      final NodeComponent? nodeComponent = match.getActionNodeAt(
         absolutePosition,
       );
 
-      if (launcherComponent != null) {
+      if (nodeComponent != null) {
         match.onDeployUnit(
-          location: launcherComponent.nodeComponent.location,
-          position: launcherComponent.nodeComponent.position,
+          location: nodeComponent.location,
+          position: nodeComponent.position,
           type: unitType,
         );
       }

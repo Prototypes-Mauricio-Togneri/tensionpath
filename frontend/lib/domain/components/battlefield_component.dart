@@ -406,7 +406,18 @@ class BattlefieldComponent extends PositionComponent {
         movementOrderComponent: movementOrderComponent,
         movementCurrentComponent: movementCurrentComponent,
         attackPathComponent: attackPathComponent,
+        targetPosition: unit.targetPosition?.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
+        ),
+        targetUnit: unit.targetUnitId != null
+            ? unitComponents.where((u) => u.id == unit.targetUnitId).firstOrNull
+            : null,
+        targetBase: (unit.targetBase != null)
+            ? match.getNodeById(unit.targetBase!.id)
+            : null,
       );
+
       add(unitComponent);
       unitComponents.add(unitComponent);
 

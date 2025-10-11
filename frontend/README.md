@@ -2,7 +2,6 @@
 
 ### Phase 1
 
-- Allow to deploy units on the field directly
 - More maps
 - Events
   - Pad on/off
