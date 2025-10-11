@@ -18,7 +18,6 @@
 - Sound effects
   - Missile launched (voice + explosion)
   - Base under attack
-- Drag the entire unit card, not just the unit sprite
 - Nod faction
   - militants
   - laser

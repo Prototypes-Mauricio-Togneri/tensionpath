@@ -100,8 +100,19 @@ class UnitSelectorComponent extends PositionComponent {
   }) : super(anchor: Anchor.center);
 
   @override
-  FutureOr onLoad() {
+  FutureOr onLoad() async {
     backgroundPaint.color = player.color.darken(0.3);
+
+    final double spriteSize = min(size.x, size.y);
+
+    add(
+      UnitImageComponent(
+        player: player,
+        unitType: unitType,
+        position: Vector2(size.x * 0.5, size.y * 0.5),
+        size: Vector2(spriteSize, spriteSize) * controlsUnitScale(unitType),
+      ),
+    );
 
     add(
       UnitDraggableComponent(
