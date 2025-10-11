@@ -42,8 +42,11 @@
 - Ramping popcap and resources rate (see picture)
 - Choose map
 - Show list of open matches to play knowing the map
-- Dart compile in Docker
 - Add changelog to home screen
+
+### Phase 3
+
+- Dart compile in Docker
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
 - Re-attach to an active match
