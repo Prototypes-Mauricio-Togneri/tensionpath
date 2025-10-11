@@ -1,5 +1,9 @@
 # TODO
 
+- Name of player 1 should be on the right
+- Name of player 2 should be on the left
+- Remove deployment indicator
+
 ### Phase 1
 
 - More maps
