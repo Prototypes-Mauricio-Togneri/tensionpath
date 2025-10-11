@@ -3,9 +3,6 @@
 ### Phase 1
 
 - Allow to deploy units on the field directly
-
-### Phase 2
-
 - More maps
 - Events
   - Pad on/off
@@ -19,10 +16,8 @@
   - Shooting
   - Unit destroyed
 - Sound effects
-  - Missile fired
+  - Missile launched (voice + explosion)
   - Base under attack
-  - Mission accomplished
-  - Mission failed
 - Drag the entire unit card, not just the unit sprite
 - Nod faction
   - militants
@@ -41,7 +36,7 @@
   - catship
   - phantom
 
-### Phase 3
+### Phase 2
 
 - Path finding
 - Toxic tiles that damage units
