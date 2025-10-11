@@ -9,7 +9,7 @@ abstract class Environment {
 
   bool get isRelease => kReleaseMode;
 
-  bool get audioEnabled => false;
+  bool get audioEnabled => true;
 
   bool get joinTestMatch => false;
 

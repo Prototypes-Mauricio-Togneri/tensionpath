@@ -10,12 +10,14 @@ mixin Music {
   static const AudioSpec MUSIC = AudioSpec(
     path: Assets.AUDIO_MUSIC_MUSIC,
     loop: true,
+    volume: 0.2,
   );
 
   Future<AudioPlayer> _getPlayer(AudioSpec spec) async {
     final AudioPlayer player = AudioPlayer();
     await player.setAsset(spec.path);
     await player.setLoopMode(spec.loop ? LoopMode.all : LoopMode.off);
+    await player.setVolume(spec.volume);
 
     return player;
   }

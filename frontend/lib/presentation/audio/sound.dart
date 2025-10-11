@@ -98,6 +98,7 @@ mixin Sound {
     final AudioPlayer player = await _getFreePlayer(spec);
     await player.setAsset(spec.path);
     await player.setLoopMode(spec.loop ? LoopMode.all : LoopMode.off);
+    await player.setVolume(spec.volume);
 
     return player;
   }
