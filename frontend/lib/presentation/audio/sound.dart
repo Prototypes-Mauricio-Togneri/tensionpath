@@ -70,6 +70,9 @@ mixin Sound {
 
   Future stopSound(AudioSpec spec) async => _soundPlayers[spec.path]?.stop();
 
+  Future stopAllSounds() =>
+      Future.wait(_soundPlayers.values.map((player) => player.stop()));
+
   Future _playLoopableSound(AudioSpec spec) async {
     final AudioPlayer player = _soundPlayers[spec.path]!;
 

@@ -52,6 +52,7 @@ class MatchState extends BaseState {
   @override
   void onDestroy() {
     Audio.get.stopMusic();
+    Audio.get.stopAllSounds();
     connection.disconnect();
   }
 
