@@ -1,7 +1,25 @@
 class Assets {
   static const String AUDIO_MUSIC_MUSIC = 'assets/audio/music/music.mp3';
+  static const String AUDIO_SOUND_BASE_UNDER_ATTACK =
+      'assets/audio/sound/base_under_attack.mp3';
+  static const String AUDIO_SOUND_CANNOT_DEPLOY =
+      'assets/audio/sound/cannot_deploy.mp3';
+  static const String AUDIO_SOUND_HARVESTER_UNDER_ATTACK =
+      'assets/audio/sound/harvester_under_attack.mp3';
   static const String AUDIO_SOUND_MISSILE_ALARM =
       'assets/audio/sound/missile_alarm.mp3';
+  static const String AUDIO_SOUND_MISSILE_LAUNCHED =
+      'assets/audio/sound/missile_launched.mp3';
+  static const String AUDIO_SOUND_MISSION_ACCOMPLISHED =
+      'assets/audio/sound/mission_accomplished.mp3';
+  static const String AUDIO_SOUND_MISSION_FAILED =
+      'assets/audio/sound/mission_failed.mp3';
+  static const String AUDIO_SOUND_SELECT_TARGET =
+      'assets/audio/sound/select_target.mp3';
+  static const String AUDIO_SOUND_UNIT_LOST =
+      'assets/audio/sound/unit_lost.mp3';
+  static const String AUDIO_SOUND_UNIT_READY =
+      'assets/audio/sound/unit_ready.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =

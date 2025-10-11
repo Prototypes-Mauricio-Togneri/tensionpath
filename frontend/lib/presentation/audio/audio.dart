@@ -21,7 +21,7 @@ class Audio with Music, Sound {
   }
 
   Future load() async {
-    enabled = Environment.get.isRelease && await AudioStorage.load();
+    enabled = Environment.get.audioEnabled && await AudioStorage.load();
     await loadSound();
     await loadMusic();
   }

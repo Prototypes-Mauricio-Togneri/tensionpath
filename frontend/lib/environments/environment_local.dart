@@ -7,6 +7,9 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
+  bool get audioEnabled => true;
+
+  @override
   bool get joinTestMatch =>
       const String.fromEnvironment(
         'JOIN_TEST_MATCH',

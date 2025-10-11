@@ -26,6 +26,8 @@ import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -407,6 +409,10 @@ class BattlefieldComponent extends PositionComponent {
       );
       add(unitComponent);
       unitComponents.add(unitComponent);
+
+      if (unit.playerIndex == self.index) {
+        Audio.get.playSound(Sound.UNIT_READY);
+      }
     }
   }
 
@@ -415,16 +421,25 @@ class BattlefieldComponent extends PositionComponent {
     required List<UnitComponent> unitComponents,
   }) {
     final List<UnitComponent> destroyedUnits = [];
+    bool selfUnitDestroyed = false;
 
     for (final UnitComponent unitComponent in unitComponents) {
       if (!units.containsKey(unitComponent.id)) {
         destroyedUnits.add(unitComponent);
+
+        if (unitComponent.player.isSelf) {
+          selfUnitDestroyed = true;
+        }
       }
     }
 
     for (final UnitComponent unitComponent in destroyedUnits) {
       unitComponent.destroy();
       unitComponents.remove(unitComponent);
+    }
+
+    if (selfUnitDestroyed) {
+      Audio.get.playSound(Sound.UNIT_LOST);
     }
   }
 
