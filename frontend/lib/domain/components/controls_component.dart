@@ -369,16 +369,16 @@ class ResourcesComponent extends PositionComponent {
 
     canvas.drawText(
       text: '${player.resources.floor()}${Constants.RESOURCE_ICON}',
-      position: Vector2(size.x * 0.5, size.y * 0.2),
+      position: Vector2(size.x * 0.5, size.y * 0.4),
       size: size.x / 5,
       color: Palette.CONTROLS_COST_FOREGROUND,
     );
 
-    canvas.drawText(
+    /*canvas.drawText(
       text: '${player.resourcesRate}${Constants.RESOURCE_ICON} / s',
       position: Vector2(size.x * 0.5, size.y * 0.7),
       size: size.x / 10,
       color: Palette.CONTROLS_COST_FOREGROUND,
-    );
+    );*/
   }
 }
