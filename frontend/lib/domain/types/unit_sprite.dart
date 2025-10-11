@@ -42,7 +42,7 @@ double controlsUnitScale(UnitType type) {
     case UnitType.razorback:
       return 0.65;
     case UnitType.orca:
-      return 0.8;
+      return 0.75;
     case UnitType.mohawk:
       return 1;
     case UnitType.hammerhead:
