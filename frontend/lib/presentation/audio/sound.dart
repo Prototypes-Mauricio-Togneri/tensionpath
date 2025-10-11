@@ -8,6 +8,9 @@ mixin Sound {
   final List<AudioPlayer> _freePlayers = [];
 
   // Effects
+  static const AudioSpec PAD = AudioSpec(
+    path: Assets.AUDIO_SOUND_PAD,
+  );
   static const AudioSpec MISSILE_ALARM = AudioSpec(
     path: Assets.AUDIO_SOUND_MISSILE_ALARM,
     loop: true,
@@ -44,6 +47,7 @@ mixin Sound {
 
   static const List<AudioSpec> ALL_SOUNDS = [
     // Effects
+    PAD,
     MISSILE_ALARM,
 
     // Voices

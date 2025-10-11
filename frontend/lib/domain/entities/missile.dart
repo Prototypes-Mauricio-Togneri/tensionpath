@@ -32,7 +32,8 @@ class Missile {
     }
   }
 
-  bool get isAlarmActive => (chargeMax - chargeCurrent) < Missile.ALARM_THRESHOLD;
+  bool get isAlarmActive =>
+      (chargeMax - chargeCurrent) < Missile.ALARM_THRESHOLD;
 
   void charge(double dt) {
     if (owner == '') {

@@ -14,6 +14,7 @@ class Assets {
       'assets/audio/sound/mission_accomplished.mp3';
   static const String AUDIO_SOUND_MISSION_FAILED =
       'assets/audio/sound/mission_failed.mp3';
+  static const String AUDIO_SOUND_PAD = 'assets/audio/sound/pad.mp3';
   static const String AUDIO_SOUND_SELECT_TARGET =
       'assets/audio/sound/select_target.mp3';
   static const String AUDIO_SOUND_UNIT_LOST =
