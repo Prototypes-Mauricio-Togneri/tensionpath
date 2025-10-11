@@ -20,7 +20,7 @@ double controlsUnitScale(UnitType type) {
     case UnitType.shocks:
       return 0.65;
     case UnitType.missiles:
-      return 0.65;
+      return 0.7;
     case UnitType.grenadier:
       return 0.55;
     case UnitType.sniper:
@@ -31,7 +31,7 @@ double controlsUnitScale(UnitType type) {
     case UnitType.pitbull:
       return 0.65;
     case UnitType.shatterer:
-      return 0.5;
+      return 0.6;
     case UnitType.predator:
       return 1;
     case UnitType.mlrs:
@@ -60,9 +60,9 @@ Vector2 battlefieldUnitScale(UnitType type) {
     case UnitType.shocks:
       return Vector2(0.45, 0.45);
     case UnitType.missiles:
-      return Vector2(0.45, 0.45);
+      return Vector2(0.5, 0.5);
     case UnitType.grenadier:
-      return Vector2(0.35, 0.35);
+      return Vector2(0.4, 0.4);
     case UnitType.sniper:
       return Vector2(0.5, 0.5);
 
@@ -71,7 +71,7 @@ Vector2 battlefieldUnitScale(UnitType type) {
     case UnitType.pitbull:
       return Vector2(0.5, 0.5);
     case UnitType.shatterer:
-      return Vector2(0.4, 0.4);
+      return Vector2(0.45, 0.45);
     case UnitType.predator:
       return Vector2(0.75, 0.75);
     case UnitType.mlrs:
