@@ -5,6 +5,8 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -26,7 +28,15 @@ class MissileComponent extends SpriteComponent {
   void update(double dt) {
     super.update(dt);
 
+    final bool alarmWasActive = missile.isAlarmActive;
     missile.charge(dt);
+    final bool alarmIsActive = missile.isAlarmActive;
+
+    if (!alarmWasActive && alarmIsActive) {
+      Audio.get.playSound(Sound.MISSILE_ALARM);
+    } else if (alarmWasActive && !alarmIsActive) {
+      Audio.get.stopSound(Sound.MISSILE_ALARM);
+    }
   }
 
   @override

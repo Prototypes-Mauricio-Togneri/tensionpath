@@ -12,6 +12,7 @@ import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/audio/music.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/presentation/common/dialogs/confirmation_dialog.dart';
 import 'package:tensionpath/presentation/common/dialogs/info_dialog.dart';
 import 'package:tensionpath/utils/connection.dart';
@@ -129,8 +130,10 @@ class MatchState extends BaseState {
 
   void onMatchFinished(bool hasWon) {
     if (hasWon) {
+      Audio.get.playSound(Sound.MISSION_ACCOMPLISHED);
       InfoDialog.won(Navigation.pop);
     } else {
+      Audio.get.playSound(Sound.MISSION_FAILED);
       InfoDialog.lost(Navigation.pop);
     }
   }

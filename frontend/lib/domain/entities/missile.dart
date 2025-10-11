@@ -13,6 +13,8 @@ class Missile {
   String? owner;
   num chargeCurrent = 0;
 
+  static const num ALARM_THRESHOLD = 8;
+
   Missile({
     required this.location,
     required this.position,
@@ -29,6 +31,8 @@ class Missile {
       platform.update(missileUpdate.platforms[platform.id]);
     }
   }
+
+  bool get isAlarmActive => (chargeMax - chargeCurrent) < Missile.ALARM_THRESHOLD;
 
   void charge(double dt) {
     if (owner == '') {

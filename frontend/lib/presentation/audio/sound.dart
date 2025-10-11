@@ -10,6 +10,7 @@ mixin Sound {
   // Effects
   static const AudioSpec MISSILE_ALARM = AudioSpec(
     path: Assets.AUDIO_SOUND_MISSILE_ALARM,
+    loop: true,
   );
 
   // Voices
