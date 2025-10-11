@@ -15,7 +15,6 @@ import 'package:tensionpath/domain/components/rocks_low_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
-import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -40,7 +39,6 @@ class BattlefieldComponent extends PositionComponent {
   final List<ResourceComponent> resourceComponents;
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
-  final Map<Location, DeploymentIndicatorComponent> deploymentIndicators = {};
   late final MissileComponent missileComponent;
   late final Vector2 mapCenter;
   late final Vector2 nodeSize;
@@ -380,15 +378,6 @@ class BattlefieldComponent extends PositionComponent {
         add(attackPathComponent);
       }
 
-      if (unit.lockedLocation != null) {
-        final DeploymentIndicatorComponent? deploymentIndicatorComponent =
-            deploymentIndicators[unit.lockedLocation!];
-
-        if (deploymentIndicatorComponent != null) {
-          deploymentIndicatorComponent.removeFromParent();
-        }
-      }
-
       final UnitComponent unitComponent = UnitComponent(
         position: unit.currentPosition.localPosition(
           mapCenter: mapCenter,
@@ -482,7 +471,6 @@ class BattlefieldComponent extends PositionComponent {
           location: nodeComponent.location,
         );
     add(deploymentIndicatorComponent);
-    deploymentIndicators[nodeComponent.location] = deploymentIndicatorComponent;
   }
 }
 

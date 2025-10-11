@@ -13,7 +13,7 @@ class DeploymentIndicatorComponent extends PositionComponent {
   );
   double filled = 0;
 
-  static const int TIMEOUT = 3; // in seconds
+  static const num TIMEOUT = 0.5; // in seconds
 
   DeploymentIndicatorComponent({
     required super.position,
