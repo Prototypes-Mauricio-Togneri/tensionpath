@@ -18,21 +18,21 @@
   - Missile launched (voice + explosion)
   - Base under attack
 - Nod faction
-  - militants
-  - laser
-  - flames
-  - mutant
-  - fanatic
-  - buggy
-  - bikes
-  - chuggy
-  - scorpion
-  - giga
-  - banshee
-  - venom
-  - shade
-  - catship
-  - phantom
+  - Militants
+  - Laser
+  - Flames
+  - Mutant
+  - Fanatic
+  - Buggy
+  - Bikes
+  - Chuggy
+  - Scorpion
+  - Giga
+  - Banshee
+  - Venom
+  - Shade
+  - Catship
+  - Phantom
 
 ### Phase 2
 
