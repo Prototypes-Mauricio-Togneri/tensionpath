@@ -474,18 +474,15 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void addDeploymentIndicator({
-    required Location location,
-    required Vector2 position,
-  }) {
+  void addDeploymentIndicator(NodeComponent nodeComponent) {
     final DeploymentIndicatorComponent deploymentIndicatorComponent =
         DeploymentIndicatorComponent(
-          position: position,
+          position: nodeComponent.position,
           size: nodeSize * 0.3,
-          location: location,
+          location: nodeComponent.location,
         );
     add(deploymentIndicatorComponent);
-    deploymentIndicators[location] = deploymentIndicatorComponent;
+    deploymentIndicators[nodeComponent.location] = deploymentIndicatorComponent;
   }
 }
 

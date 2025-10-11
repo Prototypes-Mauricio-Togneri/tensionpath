@@ -29,6 +29,10 @@ class DeploymentIndicatorComponent extends PositionComponent {
     super.update(dt);
 
     filled += dt / TIMEOUT;
+
+    if (filled >= 1) {
+      removeFromParent();
+    }
   }
 
   @override
