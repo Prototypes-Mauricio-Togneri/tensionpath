@@ -11,10 +11,10 @@ class DeckStorage extends Storage {
   static Future<List<UnitType>> load() async {
     final List<String> defaultValue = Environment.get.isLocal
         ? [
-            UnitType.riflemen.name,
+            UnitType.missiles.name,
             UnitType.shocks.name,
             UnitType.rhino.name,
-            UnitType.predator.name,
+            UnitType.pitbull.name,
             UnitType.orca.name,
             UnitType.hammerhead.name,
           ]
