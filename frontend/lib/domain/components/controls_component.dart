@@ -103,14 +103,13 @@ class UnitSelectorComponent extends PositionComponent {
   FutureOr onLoad() {
     backgroundPaint.color = player.color.darken(0.3);
 
-    final double spriteSize = min(size.x, size.y);
-
     add(
-      UnitImageComponent(
+      UnitDraggableComponent(
         player: player,
         unitType: unitType,
+        unitSelectorComponent: this,
         position: Vector2(size.x * 0.5, size.y * 0.5),
-        size: Vector2(spriteSize, spriteSize) * controlsUnitScale(unitType),
+        size: size,
       ),
     );
 
@@ -186,33 +185,37 @@ class UnitSelectorComponent extends PositionComponent {
   }
 }
 
-class UnitImageComponent extends SpriteComponent with DragCallbacks {
+class UnitDraggableComponent extends PositionComponent with DragCallbacks {
   final Player player;
   final UnitType unitType;
-  late final UnitSelectorComponent unitSelectorComponent;
+  final UnitSelectorComponent unitSelectorComponent;
   Vector2 initialPosition = Vector2(0, 0);
 
-  UnitImageComponent({
+  UnitDraggableComponent({
     required this.player,
     required this.unitType,
+    required this.unitSelectorComponent,
     required super.position,
     required super.size,
   }) : super(anchor: Anchor.center);
 
+  bool get enabled => unitSelectorComponent.isEnabled;
+
   @override
   FutureOr onLoad() async {
-    unitSelectorComponent = parent as UnitSelectorComponent;
-    sprite = await Sprite.load(
-      matchUnitSprite(
-        type: unitType,
+    final double spriteSize = min(size.x, size.y);
+
+    add(
+      UnitImageComponent(
         player: player,
+        unitType: unitType,
+        position: Vector2(size.x * 0.5, size.y * 0.5),
+        size: Vector2(spriteSize, spriteSize) * controlsUnitScale(unitType),
       ),
     );
 
     return super.onLoad();
   }
-
-  bool get enabled => unitSelectorComponent.isEnabled;
 
   @override
   void onDragStart(DragStartEvent event) {
@@ -252,6 +255,30 @@ class UnitImageComponent extends SpriteComponent with DragCallbacks {
 
       position = initialPosition;
     }
+  }
+}
+
+class UnitImageComponent extends SpriteComponent {
+  final Player player;
+  final UnitType unitType;
+
+  UnitImageComponent({
+    required this.player,
+    required this.unitType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(
+      matchUnitSprite(
+        type: unitType,
+        player: player,
+      ),
+    );
+
+    return super.onLoad();
   }
 
   /*@override

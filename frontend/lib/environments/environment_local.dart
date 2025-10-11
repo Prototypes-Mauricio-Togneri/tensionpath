@@ -7,7 +7,7 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
-  bool get audioEnabled => true;
+  bool get audioEnabled => false;
 
   @override
   bool get joinTestMatch =>
