@@ -18,14 +18,9 @@
 - Animations
   - Shooting
   - Unit destroyed
-- Sound effects (https://vocalremover.org)
-  - Pad on/off
-  - Missile alarm
+- Sound effects
   - Missile fired
-  - Unit ready
-  - Unit lost
   - Base under attack
-  - Harvester under attack
   - Mission accomplished
   - Mission failed
 - Drag the entire unit card, not just the unit sprite

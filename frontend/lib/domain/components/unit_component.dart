@@ -12,6 +12,9 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
+import 'package:tensionpath/utils/alert_timer.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -21,6 +24,7 @@ class UnitComponent extends PositionComponent
   final UnitType type;
   final num nodeSizeRatio;
   final Player player;
+  final AlertTimer attackAlert = AlertTimer(10);
   late HealthBarComponent healthBarComponent;
   late NodeComponent closestNodeComponent;
   final MovementPathComponent? movementOrderComponent;
@@ -69,6 +73,13 @@ class UnitComponent extends PositionComponent
     required NodeComponent? newTargetBase,
     required UnitComponent? newTargetUnit,
   }) {
+    if ((type == UnitType.harvester) &&
+        player.isSelf &&
+        (health < healthBarComponent.health) &&
+        attackAlert.isReady) {
+      Audio.get.playSound(Sound.HARVESTER_UNDER_ATTACK);
+    }
+
     healthBarComponent.refresh(health);
     position = newCurrentPosition;
     targetPosition = newTargetPosition;
@@ -166,6 +177,8 @@ class UnitComponent extends PositionComponent
   @override
   void update(double dt) {
     super.update(dt);
+
+    attackAlert.update(dt);
 
     if (targetPosition != null) {
       if (player.isSelf) {
