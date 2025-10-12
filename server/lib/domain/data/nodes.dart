@@ -55,9 +55,12 @@ class Nodes {
     );
   }
 
-  Node? closestNodeToMove(Position position) {
+  Node? closestNodeToMove({
+    required Position position,
+    required Unit unit,
+  }) {
     final List<Node> availableNodes = _nodes.list
-        .where((n) => n.isFree && n.type.canMove)
+        .where((n) => n.isFree && n.type.canMove(unit.type))
         .toList();
 
     return closestFromList(

@@ -136,7 +136,10 @@ class Unit {
         targetNode!.notLockedBy(this)) {
       Logger.debug('Target node re-assigned to ${targetNode!.id}');
       // Target node is already locked. Re-assign node
-      targetNode = nodes.closestNodeToMove(position);
+      targetNode = nodes.closestNodeToMove(
+        position: position,
+        unit: this,
+      );
       result = true;
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&

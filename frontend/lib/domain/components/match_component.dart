@@ -128,9 +128,13 @@ class MatchComponent extends World {
     return null;
   }
 
-  NodeComponent? getActionNodeAt(Vector2 position) {
+  NodeComponent? getActionNodeAt({
+    required Vector2 position,
+    required UnitType unitType,
+  }) {
     for (final NodeComponent nodeComponent in nodeComponents) {
-      if (nodeComponent.containsPoint(position) && nodeComponent.type.canMove) {
+      if (nodeComponent.containsPoint(position) &&
+          nodeComponent.type.canMove(unitType)) {
         return nodeComponent;
       }
     }
@@ -204,10 +208,16 @@ class MatchComponent extends World {
     launcherComponent?.nodeComponent.highlight(true);
   }
 
-  void highlightActionNodeAt(Vector2 position) {
+  void highlightActionNodeAt({
+    required Vector2 position,
+    required UnitType unitType,
+  }) {
     unhighlightNodes();
 
-    final NodeComponent? nodeComponent = getActionNodeAt(position);
+    final NodeComponent? nodeComponent = getActionNodeAt(
+      position: position,
+      unitType: unitType,
+    );
     nodeComponent?.highlight(true);
   }
 

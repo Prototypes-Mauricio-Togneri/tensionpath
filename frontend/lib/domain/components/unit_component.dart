@@ -140,7 +140,10 @@ class UnitComponent extends PositionComponent
         endPosition!.y + event.localDelta.y,
       );
 
-      match.highlightActionNodeAt(endPosition!);
+      match.highlightActionNodeAt(
+        position: endPosition!,
+        unitType: type,
+      );
     }
   }
 
@@ -159,7 +162,8 @@ class UnitComponent extends PositionComponent
         );
       } else {
         final NodeComponent? nodeComponent = match.getActionNodeAt(
-          endPosition!,
+          position: endPosition!,
+          unitType: type,
         );
 
         if ((nodeComponent != null) && (nodeComponent != lockedNode)) {

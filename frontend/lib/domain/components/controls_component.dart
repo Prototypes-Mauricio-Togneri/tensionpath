@@ -241,7 +241,10 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
   void onDragUpdate(DragUpdateEvent event) {
     if (enabled) {
       position += event.localDelta;
-      match.highlightActionNodeAt(absolutePosition);
+      match.highlightActionNodeAt(
+        position: absolutePosition,
+        unitType: unitType,
+      );
     }
   }
 
@@ -253,7 +256,8 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
 
     if (enabled) {
       final NodeComponent? nodeComponent = match.getActionNodeAt(
-        absolutePosition,
+        position: absolutePosition,
+        unitType: unitType,
       );
 
       if (nodeComponent != null) {
