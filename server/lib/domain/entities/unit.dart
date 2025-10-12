@@ -184,7 +184,7 @@ class Unit {
     }
 
     // Assign the closest unit in range if there is not one assigned
-    if (targetUnit == null) {
+    if ((targetUnit == null) && (targetBase == null)) {
       targetUnit = units.closestUnitInRange(this);
 
       if (targetUnit != null) {

@@ -37,7 +37,7 @@ class Launchers {
         .toList();
 
     for (final Launcher launcher in availableLaunchers) {
-      final num distance = unit.position.distanceTo(launcher.position);
+      final num distance = unit.distanceToBase(launcher);
 
       if (unit.isInAttackRange(distance) && (distance < closestDistance)) {
         closestDistance = distance;
