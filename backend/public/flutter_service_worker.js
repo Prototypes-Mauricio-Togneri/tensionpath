@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "e2c9948d21f62408010d026cc234b1bc",
-"main.dart.js": "240279356a58be7818396d4547a635f4",
+const RESOURCES = {"flutter_bootstrap.js": "3699eeab7db0f89b54225fdb2a2af7e7",
+"main.dart.js": "11f968b64b29717f2d465c711452376d",
 "assets/NOTICES": "0734c55eded78d52cd40876693e3d704",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/audio/sound/mission_accomplished.mp3": "8480c6e35221d312a47b495c23c0caf5",
@@ -22,8 +22,8 @@ const RESOURCES = {"flutter_bootstrap.js": "e2c9948d21f62408010d026cc234b1bc",
 "assets/assets/images/structures/pad_contested.png": "f9b84ac566cf3a458272d7d5b0d2e8df",
 "assets/assets/images/structures/missile.png": "4f943190fd2e9d52c08560e6f87c8244",
 "assets/assets/images/structures/pad_neutral.png": "a4d40d726e647093dd52988b9b97a309",
-"assets/assets/images/structures/resources.png": "bc851acce354ba42160cdd053ac3b5eb",
-"assets/assets/images/structures/rocks_low.png": "a0eede7634d069806198e89fed7589a8",
+"assets/assets/images/structures/resources.png": "81cff1ef8fad631a9c17d77257fff35d",
+"assets/assets/images/structures/rocks_low.png": "77caa550ee356366218f1fb06edf3b1a",
 "assets/assets/images/structures/pad_player_1.png": "e4e6b1cfb5bcd0dd7e75dded359aa022",
 "assets/assets/images/structures/pad_player_2.png": "3f91063b5104eb6c138f02e7ba57ce82",
 "assets/assets/images/structures/launcher_2.png": "fbe34109979525b0fc2cb185c19d1476",
