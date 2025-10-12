@@ -3,7 +3,6 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/attack_path_component.dart';
-import 'package:tensionpath/domain/components/deployment_indicator_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
@@ -461,16 +460,6 @@ class BattlefieldComponent extends PositionComponent {
         resourceComponent.refresh(newAmount);
       }
     }
-  }
-
-  void addDeploymentIndicator(NodeComponent nodeComponent) {
-    final DeploymentIndicatorComponent deploymentIndicatorComponent =
-        DeploymentIndicatorComponent(
-          position: nodeComponent.position,
-          size: nodeSize * 0.3,
-          location: nodeComponent.location,
-        );
-    add(deploymentIndicatorComponent);
   }
 }
 

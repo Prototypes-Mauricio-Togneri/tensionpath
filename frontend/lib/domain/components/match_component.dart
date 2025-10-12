@@ -219,19 +219,11 @@ class MatchComponent extends World {
 
   void onDeployUnit({
     required Location location,
-    required Vector2 position,
     required UnitType type,
-  }) {
-    final LauncherComponent launcherComponent = getClosestLauncherAt(position);
-    battlefieldComponent.addDeploymentIndicator(
-      launcherComponent.nodeComponent,
-    );
-
-    game.matchState.onDeployUnit(
-      location: location,
-      type: type,
-    );
-  }
+  }) => game.matchState.onDeployUnit(
+    location: location,
+    type: type,
+  );
 
   void onUnitAction({
     required UnitComponent unitComponent,

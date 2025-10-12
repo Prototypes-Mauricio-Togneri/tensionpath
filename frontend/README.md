@@ -1,10 +1,8 @@
 # TODO
 
-- Remove deployment indicator
-- Voice over for units
-
 ### Phase 1
 
+- Voice over for units
 - More maps
 - Events
   - Pad on/off

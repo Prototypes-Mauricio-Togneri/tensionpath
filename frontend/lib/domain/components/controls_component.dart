@@ -259,7 +259,6 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
       if (nodeComponent != null) {
         match.onDeployUnit(
           location: nodeComponent.location,
-          position: nodeComponent.absolutePosition,
           type: unitType,
         );
       }
