@@ -216,7 +216,7 @@ class DeckCard extends StatelessWidget {
                         child: Text(
                           unitType.name.toUpperCase(),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Palette.TEXT_COLOR_TERTIARY,
                             fontSize: headerHeight / 2,
                             fontWeight: FontWeight.bold,
                           ),

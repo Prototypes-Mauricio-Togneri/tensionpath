@@ -1,8 +1,5 @@
 # TODO
 
-- Test retarget enemy unit
-- Name of player 1 should be on the right
-- Name of player 2 should be on the left
 - Remove deployment indicator
 - Voice over for units
 

@@ -80,18 +80,25 @@ class PlayerIndicatorComponent extends PositionComponent {
     final double healthWidth =
         width * (player.baseHealth / player.baseMaxHealth);
 
-    canvas.drawRect(
-      Rect.fromLTWH(width - healthWidth, 0, healthWidth, height),
-      fillPaint,
-    );
+    if (player.isPlayer1) {
+      canvas.drawRect(
+        Rect.fromLTWH(width - healthWidth, 0, healthWidth, height),
+        fillPaint,
+      );
+    } else {
+      canvas.drawRect(
+        Rect.fromLTWH(0, 0, healthWidth, height),
+        fillPaint,
+      );
+    }
 
     canvas.drawText(
       text: player.name.toUpperCase(),
       position: Vector2(
-        player.isPlayer1 ? (width * 0.02) : (width * 0.98),
+        player.isPlayer1 ? (width * 0.05) : (width * 0.95),
         size.y / 2,
       ),
-      size: size.y * 0.5,
+      size: size.y / 2,
       color: Palette.HEADER_PLAYER_NAME,
       anchor: player.isPlayer1 ? Anchor.centerLeft : Anchor.centerRight,
     );
