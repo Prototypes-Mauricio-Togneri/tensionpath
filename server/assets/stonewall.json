@@ -1,0 +1,494 @@
+{
+    "config": {
+        "resourcesStart": 100,
+        "resourcesPerPatch": 150,
+        "resourcesPassiveRate": 2,
+        "resourcesActiveRate": 1.5,
+        "maxHarvestersCount": 2,
+        "harvesterReward": 80,
+        "popcapRate": 1,
+        "missileMaxCharge": 40,
+        "missileChargeBuffer": 35,
+        "missileChargeRate": 1,
+        "missileDamage": 0.5,
+        "baseHealth": 30000
+    },
+    "battlefield": {
+        "mapSize": {
+            "width": 10,
+            "height": 7
+        },
+        "nodes": [
+            {
+                "type": "launcher",
+                "location": {
+                    "x": -3,
+                    "y": -3
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -1,
+                    "y": -3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 0,
+                    "y": -3
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": -3
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 2,
+                    "y": -3
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 3,
+                    "y": -3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 4,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 5,
+                    "y": -3
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": 6,
+                    "y": -3
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": -3,
+                    "y": -2
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -2
+                }
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": -1,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": -2
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": -2
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -2
+                }
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": 3,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": -2
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": 5,
+                    "y": -2
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": -4,
+                    "y": -1
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": -1
+                }
+            },
+            {
+                "type": "launcher",
+                "location": {
+                    "x": 5,
+                    "y": -1
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -4,
+                    "y": 0
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -3,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 0
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 3,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -5,
+                    "y": 1
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -4,
+                    "y": 1
+                }
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": -3,
+                    "y": 1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -2,
+                    "y": 1
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": 1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": 1
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": 2,
+                    "y": 1
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 3,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -5,
+                    "y": 2
+                }
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": -4,
+                    "y": 2
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -3,
+                    "y": 2
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -2,
+                    "y": 2
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "missile",
+                "location": {
+                    "x": -1,
+                    "y": 2
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": 2
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": 2
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": 2,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -5,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 3
+                }
+            }
+        ]
+    }
+}

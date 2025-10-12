@@ -101,14 +101,6 @@ class NodeComponent extends PositionComponent {
       );
     }
 
-    /*if (lockedUnit != null) {
-      canvas.drawHexagon(
-        center: size / 2,
-        size: size,
-        borderPaint: occupiedPaint,
-      );
-    }*/
-
     /*final double fontSize = size.x / 12;
     const double gap = 1 / 9;
 
