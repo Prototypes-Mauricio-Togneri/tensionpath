@@ -1,5 +1,6 @@
 const mapIds = [
-  'battle_quadrats',
+  'battle_quadrants',
+  'stonewall',
 ]
 
 export const getRandomMapId = (): string => {
