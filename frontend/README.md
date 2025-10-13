@@ -1,6 +1,5 @@
 # TODO
 
-- Check in brackend that popcap is not passed
 - Counter icons for controls cards
 
 ### Phase 1
