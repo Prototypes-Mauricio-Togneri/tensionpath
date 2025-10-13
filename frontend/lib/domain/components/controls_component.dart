@@ -159,7 +159,9 @@ class UnitSelectorComponent extends PositionComponent {
   int get popcapLimit {
     final int timeElapsed = match.timeElapsed;
 
-    if (timeElapsed < 60) {
+    if (timeElapsed < 30) {
+      return 3;
+    } else if (timeElapsed < 60) {
       return 4;
     } else if (timeElapsed < 90) {
       return 5;
