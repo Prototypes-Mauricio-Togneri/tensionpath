@@ -1,8 +1,6 @@
 # TODO
 
 - Check in brackend that popcap is not passed
-- Unblock units first?
-- Measure how many units I can have on the field in a custom match
 - Snipers attack aircraft?
 - Counter icons for controls cards
 
@@ -45,6 +43,7 @@
 
 - Path finding
 - Toxic tiles that damage units
+- Unblock units first before being able to deploy them
 - Ramping popcap and resources rate (see picture)
 - Choose map
 - Show list of open matches to play knowing the map
