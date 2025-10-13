@@ -132,7 +132,7 @@ class Server {
             name: 'Alice',
             deck: [
               UnitType.missiles,
-              UnitType.shocks,
+              UnitType.sniper,
               UnitType.rhino,
               UnitType.pitbull,
               UnitType.orca,
@@ -143,11 +143,11 @@ class Server {
             name: 'Bob',
             deck: [
               UnitType.shocks,
-              UnitType.sniper,
-              UnitType.shatterer,
-              UnitType.mlrs,
+              UnitType.talon,
               UnitType.razorback,
+              UnitType.orca,
               UnitType.mohawk,
+              UnitType.hammerhead,
             ],
           ),
         },

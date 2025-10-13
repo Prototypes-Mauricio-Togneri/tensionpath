@@ -1,7 +1,6 @@
 # TODO
 
 - Check in brackend that popcap is not passed
-- Snipers attack aircraft?
 - Counter icons for controls cards
 
 ### Phase 1
