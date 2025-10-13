@@ -14,7 +14,7 @@
   - Open fire
   - Target locked
   - Fire at will
-  - Give ’em hell
+  - Give 'em hell
 
 - More maps
 - Events

@@ -51,7 +51,7 @@ class Unit {
     required this.maxHealth,
   }) {
     health = maxHealth;
-    currentAttackCooldown = type.attackCooldown;
+    currentAttackCooldown = 0;
     lockedNode = closestNode;
   }
 
