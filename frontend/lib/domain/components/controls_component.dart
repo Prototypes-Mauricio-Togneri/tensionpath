@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -362,7 +363,8 @@ class UnitCounterComponent extends PositionComponent {
   FutureOr onLoad() async {
     add(
       UnitCounterIconComponent(
-        iconPath: 'units/counter/infantry_good.png',
+        iconPath:
+            'units/counter/infantry_${unitType.counterAgainst(UnitClass.infantry)}.png',
         position: Vector2(0, 0),
         size: Vector2(size.x / 3, size.y),
       ),
@@ -370,7 +372,8 @@ class UnitCounterComponent extends PositionComponent {
 
     add(
       UnitCounterIconComponent(
-        iconPath: 'units/counter/vehicle_good.png',
+        iconPath:
+            'units/counter/vehicle_${unitType.counterAgainst(UnitClass.vehicle)}.png',
         position: Vector2(size.x / 3, 0),
         size: Vector2(size.x / 3, size.y),
       ),
@@ -378,7 +381,8 @@ class UnitCounterComponent extends PositionComponent {
 
     add(
       UnitCounterIconComponent(
-        iconPath: 'units/counter/aircraft_good.png',
+        iconPath:
+            'units/counter/aircraft_${unitType.counterAgainst(UnitClass.aircraft)}.png',
         position: Vector2(size.x * 2 / 3, 0),
         size: Vector2(size.x / 3, size.y),
       ),

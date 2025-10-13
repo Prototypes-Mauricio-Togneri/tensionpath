@@ -1,7 +1,5 @@
 # TODO
 
-- Counter icons for controls cards
-
 ### Phase 1
 
 - Voice over for units
