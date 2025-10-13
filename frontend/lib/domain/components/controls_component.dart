@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
@@ -156,21 +157,8 @@ class UnitSelectorComponent extends PositionComponent {
     }
   }
 
-  int get popcapLimit {
-    final int timeElapsed = match.timeElapsed;
-
-    if (timeElapsed < 30) {
-      return 3;
-    } else if (timeElapsed < 60) {
-      return 4;
-    } else if (timeElapsed < 90) {
-      return 5;
-    } else {
-      return 6;
-    }
-  }
-
-  bool get underPopcap => match.unitsOfPlayer(player) < popcapLimit;
+  bool get underPopcap =>
+      match.unitsOfPlayer(player) < Popcap.fromElapsedTime(match.timeElapsed);
 
   @override
   void update(double dt) {
