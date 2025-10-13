@@ -13,6 +13,9 @@ class Units {
     required this.maxHarvestersCount,
   }) : _units = IterableMap();
 
+  int ofPlayer(Player player) =>
+      _units.list.where((unit) => unit.isAlive && unit.player == player).length;
+
   int currentHarvesterCount(String playerIndex) => _units.list
       .where(
         (unit) =>

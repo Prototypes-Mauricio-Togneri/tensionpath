@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -20,6 +21,7 @@ class Match {
   final Config config;
   final Battlefield battlefield;
   final Players players;
+  num elapsedTime = 0;
   MatchStatus status;
 
   Match._({
@@ -72,6 +74,13 @@ class Match {
     }
 
     final Player player = players.get(playerIndex);
+    final int currentAmountOfUnits = battlefield.units.ofPlayer(player);
+    final int popcapLimit = Popcap.fromElapsedTime(elapsedTime);
+
+    if (currentAmountOfUnits >= popcapLimit) {
+      throw Exception('Popcap limit reached');
+    }
+
     final int cost = battlefield.units.unitCost(
       type: type,
       player: player,
@@ -112,6 +121,8 @@ class Match {
   }
 
   void update(double dt) {
+    elapsedTime += dt;
+
     if (status == MatchStatus.playing) {
       bool sendUpdate = battlefield.update(dt);
 
