@@ -110,7 +110,7 @@ class UnitSelectorComponent extends PositionComponent {
       UnitImageComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.5, size.y * 0.5),
+        position: Vector2(size.x * 0.5, size.y * 0.4),
         size: Vector2(spriteSize, spriteSize) * controlsUnitScale(unitType),
       ),
     );
@@ -120,8 +120,18 @@ class UnitSelectorComponent extends PositionComponent {
         player: player,
         unitType: unitType,
         unitSelectorComponent: this,
-        position: Vector2(size.x * 0.5, size.y * 0.5),
+        position: Vector2(size.x * 0.5, size.y * 0.4),
         size: size,
+      ),
+    );
+
+    final double bottomPartSize = size.x / 6;
+
+    add(
+      UnitCounterComponent(
+        unitType: unitType,
+        position: Vector2(0, size.y - bottomPartSize),
+        size: Vector2(bottomPartSize * 3, bottomPartSize),
       ),
     );
 
@@ -129,8 +139,11 @@ class UnitSelectorComponent extends PositionComponent {
       UnitCostComponent(
         player: player,
         unitType: unitType,
-        position: Vector2(size.x * 0.87, size.y * 0.82),
-        size: Vector2(size.x * 0.2, size.y * 0.25),
+        position: Vector2(
+          size.x - (bottomPartSize * 1.5),
+          size.y - bottomPartSize,
+        ),
+        size: Vector2(bottomPartSize * 1.5, bottomPartSize),
       ),
     );
 
@@ -309,7 +322,7 @@ class UnitCostComponent extends PositionComponent {
     required this.unitType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.topLeft);
 
   @override
   FutureOr onLoad() {
@@ -328,11 +341,67 @@ class UnitCostComponent extends PositionComponent {
 
     canvas.drawText(
       text: '$cost${Constants.RESOURCE_ICON}',
-      position: Vector2(size.x * 1, size.y * 0.55),
+      position: Vector2(size.x * 0.9, size.y * 0.5),
       size: size.x / 2.5,
       color: Palette.CONTROLS_COST_FOREGROUND,
       anchor: Anchor.centerRight,
     );
+  }
+}
+
+class UnitCounterComponent extends PositionComponent {
+  final UnitType unitType;
+
+  UnitCounterComponent({
+    required this.unitType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft);
+
+  @override
+  FutureOr onLoad() async {
+    add(
+      UnitCounterIconComponent(
+        iconPath: 'units/counter/infantry_good.png',
+        position: Vector2(0, 0),
+        size: Vector2(size.x / 3, size.y),
+      ),
+    );
+
+    add(
+      UnitCounterIconComponent(
+        iconPath: 'units/counter/vehicle_good.png',
+        position: Vector2(size.x / 3, 0),
+        size: Vector2(size.x / 3, size.y),
+      ),
+    );
+
+    add(
+      UnitCounterIconComponent(
+        iconPath: 'units/counter/aircraft_good.png',
+        position: Vector2(size.x * 2 / 3, 0),
+        size: Vector2(size.x / 3, size.y),
+      ),
+    );
+
+    return super.onLoad();
+  }
+}
+
+class UnitCounterIconComponent extends SpriteComponent {
+  final String iconPath;
+
+  UnitCounterIconComponent({
+    required this.iconPath,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft);
+
+  @override
+  FutureOr onLoad() async {
+    sprite = await Sprite.load(iconPath);
+
+    return super.onLoad();
   }
 }
 
