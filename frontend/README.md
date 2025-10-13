@@ -1,5 +1,11 @@
 # TODO
 
+- Check in brackend that popcap is not passed
+- Unblock units first?
+- Measure how many units I can have on the field in a custom match
+- Snipers attack aircraft?
+- Counter icons for controls cards
+
 ### Phase 1
 
 - Voice over for units
