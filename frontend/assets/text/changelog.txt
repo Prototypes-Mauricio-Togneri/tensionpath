@@ -1,6 +1,7 @@
 # 14.10.2025
 
 - Stop units when the match is finished
+- Voice for unit movement and attack
 
 # 13.10.2025
 

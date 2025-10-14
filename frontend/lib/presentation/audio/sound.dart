@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:just_audio/just_audio.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/audio/audio_spec.dart';
@@ -79,6 +80,28 @@ mixin Sound {
     path: Assets.AUDIO_SOUND_VOICE_ATTACK_OPEN_FIRE,
   );
 
+  static const List<AudioSpec> MOVEMENT_SOUNDS = [
+    MOVEMENT_MOVING_OUT,
+    MOVEMENT_ON_MY_WAY,
+    MOVEMENT_ADVANCING,
+    MOVEMENT_COPY_THAT,
+    MOVEMENT_ORDERS_RECEIVED,
+  ];
+
+  static AudioSpec randomMovementSound() =>
+      MOVEMENT_SOUNDS[Random().nextInt(MOVEMENT_SOUNDS.length)];
+
+  static const List<AudioSpec> ATTACK_SOUNDS = [
+    ATTACK_TARGET_ACQUIRED,
+    ATTACK_FIRE_AT_WILL,
+    ATTACK_GIVE_EM_HELL,
+    ATTACK_TARGET_LOCKED,
+    ATTACK_OPEN_FIRE,
+  ];
+
+  static AudioSpec randomAttackSound() =>
+      ATTACK_SOUNDS[Random().nextInt(ATTACK_SOUNDS.length)];
+
   static const List<AudioSpec> ALL_SOUNDS = [
     // Effects
     EFFECT_PAD,
@@ -96,18 +119,10 @@ mixin Sound {
     EVA_UNIT_READY,
 
     // Voices (Moving)
-    MOVEMENT_MOVING_OUT,
-    MOVEMENT_ON_MY_WAY,
-    MOVEMENT_ADVANCING,
-    MOVEMENT_COPY_THAT,
-    MOVEMENT_ORDERS_RECEIVED,
+    ...MOVEMENT_SOUNDS,
 
     // Voices (Attack)
-    ATTACK_TARGET_ACQUIRED,
-    ATTACK_FIRE_AT_WILL,
-    ATTACK_GIVE_EM_HELL,
-    ATTACK_TARGET_LOCKED,
-    ATTACK_OPEN_FIRE,
+    ...ATTACK_SOUNDS,
   ];
 
   Future playSound(AudioSpec spec) async {
