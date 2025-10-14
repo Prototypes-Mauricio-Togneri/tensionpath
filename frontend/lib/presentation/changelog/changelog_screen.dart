@@ -65,19 +65,19 @@ class Changes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Label(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 600),
+              child: Label(
                 text: state.text,
                 color: Palette.TEXT_COLOR_PRIMARY,
                 size: 14,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
