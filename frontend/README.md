@@ -1,6 +1,6 @@
 # TODO
 
-- Measure ping
+- Add changelog to home screen
 
 ### Phase 1
 
@@ -51,7 +51,7 @@
 
 ### Phase 2
 
-- Add changelog to home screen
+- Measure ping
 - More maps
 - Path finding
 - Toxic tiles that damage units
