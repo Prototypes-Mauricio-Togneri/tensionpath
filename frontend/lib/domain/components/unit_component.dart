@@ -185,53 +185,55 @@ class UnitComponent extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    attackAlert.update(dt);
+    if (game.matchState.isPlaying) {
+      attackAlert.update(dt);
 
-    if (targetPosition != null) {
-      if (player.isSelf) {
-        movementCurrentComponent?.show(
-          start: absolutePosition,
-          end: targetPosition! + battlefieldComponent.position,
-        );
-      }
+      if (targetPosition != null) {
+        if (player.isSelf) {
+          movementCurrentComponent?.show(
+            start: absolutePosition,
+            end: targetPosition! + battlefieldComponent.position,
+          );
+        }
 
-      final Vector2 direction = targetPosition! - position;
-      final num distance = direction.length;
-      final num speed = nodeSizeRatio * type.speed;
+        final Vector2 direction = targetPosition! - position;
+        final num distance = direction.length;
+        final num speed = nodeSizeRatio * type.speed;
 
-      if (distance < 1) {
-        position = targetPosition!;
-        targetPosition = null;
+        if (distance < 1) {
+          position = targetPosition!;
+          targetPosition = null;
+        } else {
+          direction.normalize();
+          position += direction * (speed * dt);
+        }
       } else {
-        direction.normalize();
-        position += direction * (speed * dt);
+        movementCurrentComponent?.hide();
       }
-    } else {
-      movementCurrentComponent?.hide();
+
+      if ((targetPosition == null) &&
+          (targetUnit != null) &&
+          targetUnit!.isAlive &&
+          isInAttackRange(targetUnit!.position)) {
+        attackPathComponent?.show(
+          start: absolutePosition,
+          end: targetUnit!.absolutePosition,
+        );
+      } else if ((targetPosition == null) &&
+          (targetBase != null) &&
+          isInAttackRange(targetBase!.position)) {
+        attackPathComponent?.show(
+          start: absolutePosition,
+          end: targetBase!.absolutePosition,
+        );
+      } else {
+        attackPathComponent?.hide();
+      }
+
+      closestNodeComponent = match.getClosestNodeAt(absolutePosition);
+
+      isVisible = closestNodeComponent.isRevealed || player.isSelf;
     }
-
-    if ((targetPosition == null) &&
-        (targetUnit != null) &&
-        targetUnit!.isAlive &&
-        isInAttackRange(targetUnit!.position)) {
-      attackPathComponent?.show(
-        start: absolutePosition,
-        end: targetUnit!.absolutePosition,
-      );
-    } else if ((targetPosition == null) &&
-        (targetBase != null) &&
-        isInAttackRange(targetBase!.position)) {
-      attackPathComponent?.show(
-        start: absolutePosition,
-        end: targetBase!.absolutePosition,
-      );
-    } else {
-      attackPathComponent?.hide();
-    }
-
-    closestNodeComponent = match.getClosestNodeAt(absolutePosition);
-
-    isVisible = closestNodeComponent.isRevealed || player.isSelf;
   }
 
   bool isInAttackRange(Vector2 position) {

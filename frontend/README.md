@@ -1,8 +1,6 @@
 # TODO
 
 - Measure ping
-- Build structures before making unit
-- Don't update units if game is finished
 
 ### Phase 1
 
@@ -20,7 +18,6 @@
   - Fire at will
   - Give 'em hell
 
-- More maps
 - Events
   - Pad on/off
   - Missile alarm
@@ -54,13 +51,14 @@
 
 ### Phase 2
 
+- Add changelog to home screen
+- More maps
 - Path finding
 - Toxic tiles that damage units
-- Unblock units first before being able to deploy them
+- Build structures before making units
 - Ramping popcap and resources rate (see picture)
 - Choose map
 - Show list of open matches to play knowing the map
-- Add changelog to home screen
 
 ### Phase 3
 

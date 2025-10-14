@@ -42,6 +42,8 @@ class MatchState extends BaseState {
 
   bool get isLoading => gameComponent == null;
 
+  bool get isPlaying => matchStatus == MatchStatus.playing;
+
   @override
   Future onLoad() {
     Audio.get.playMusic(Music.MUSIC);
@@ -57,7 +59,7 @@ class MatchState extends BaseState {
   }
 
   void _onMessage(dynamic json) {
-    if (matchStatus == MatchStatus.playing) {
+    if (isPlaying) {
       if (json is JsonWelcome) {
         _onWelcome();
       } else if (json is JsonStart) {
@@ -95,7 +97,7 @@ class MatchState extends BaseState {
   }
 
   void _onDisconnected() {
-    if (matchStatus == MatchStatus.playing) {
+    if (isPlaying) {
       InfoDialog.error(
         text: 'Server disconnection',
         onAccept: Navigation.pop,

@@ -9,7 +9,6 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
-import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
@@ -422,7 +421,7 @@ class ResourcesComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    if (game.matchState.matchStatus == MatchStatus.playing) {
+    if (game.matchState.isPlaying) {
       player.addResources(dt * player.resourcesRate);
     }
   }
