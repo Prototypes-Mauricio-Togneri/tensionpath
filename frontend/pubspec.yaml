@@ -45,7 +45,10 @@ flutter:
 
   assets:
     - assets/audio/music/
-    - assets/audio/sound/
+    - assets/audio/sound/effects/
+    - assets/audio/sound/voice/attack/
+    - assets/audio/sound/voice/eva/
+    - assets/audio/sound/voice/movement/
     - assets/images/battlefields/
     - assets/images/structures/
     - assets/images/units/counter/
