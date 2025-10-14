@@ -133,10 +133,10 @@ class MatchState extends BaseState {
 
   void onMatchFinished(bool hasWon) {
     if (hasWon) {
-      Audio.get.playSound(Sound.MISSION_ACCOMPLISHED);
+      Audio.get.playSound(Sound.EVA_MISSION_ACCOMPLISHED);
       InfoDialog.won(Navigation.pop);
     } else {
-      Audio.get.playSound(Sound.MISSION_FAILED);
+      Audio.get.playSound(Sound.EVA_MISSION_FAILED);
       InfoDialog.lost(Navigation.pop);
     }
   }

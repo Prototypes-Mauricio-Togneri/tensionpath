@@ -1,26 +1,47 @@
 class Assets {
   static const String AUDIO_MUSIC_MUSIC = 'assets/audio/music/music.mp3';
-  static const String AUDIO_SOUND_BASE_UNDER_ATTACK =
-      'assets/audio/sound/base_under_attack.mp3';
-  static const String AUDIO_SOUND_CANNOT_DEPLOY =
-      'assets/audio/sound/cannot_deploy.mp3';
-  static const String AUDIO_SOUND_HARVESTER_UNDER_ATTACK =
-      'assets/audio/sound/harvester_under_attack.mp3';
-  static const String AUDIO_SOUND_MISSILE_ALARM =
-      'assets/audio/sound/missile_alarm.mp3';
-  static const String AUDIO_SOUND_MISSILE_LAUNCHED =
-      'assets/audio/sound/missile_launched.mp3';
-  static const String AUDIO_SOUND_MISSION_ACCOMPLISHED =
-      'assets/audio/sound/mission_accomplished.mp3';
-  static const String AUDIO_SOUND_MISSION_FAILED =
-      'assets/audio/sound/mission_failed.mp3';
-  static const String AUDIO_SOUND_PAD = 'assets/audio/sound/pad.mp3';
-  static const String AUDIO_SOUND_SELECT_TARGET =
-      'assets/audio/sound/select_target.mp3';
-  static const String AUDIO_SOUND_UNIT_LOST =
-      'assets/audio/sound/unit_lost.mp3';
-  static const String AUDIO_SOUND_UNIT_READY =
-      'assets/audio/sound/unit_ready.mp3';
+  static const String AUDIO_SOUND_EFFECTS_MISSILE_ALARM =
+      'assets/audio/sound/effects/missile_alarm.mp3';
+  static const String AUDIO_SOUND_EFFECTS_MISSION_ACCOMPLISHED =
+      'assets/audio/sound/effects/mission_accomplished.mp3';
+  static const String AUDIO_SOUND_EFFECTS_PAD =
+      'assets/audio/sound/effects/pad.mp3';
+  static const String AUDIO_SOUND_VOICE_ATTACK_FIRE_AT_WILL =
+      'assets/audio/sound/voice/attack/fire_at_will.mp3';
+  static const String AUDIO_SOUND_VOICE_ATTACK_GIVE_EM_HELL =
+      'assets/audio/sound/voice/attack/give_em_hell.mp3';
+  static const String AUDIO_SOUND_VOICE_ATTACK_OPEN_FIRE =
+      'assets/audio/sound/voice/attack/open_fire.mp3';
+  static const String AUDIO_SOUND_VOICE_ATTACK_TARGET_ACQUIRED =
+      'assets/audio/sound/voice/attack/target_acquired.mp3';
+  static const String AUDIO_SOUND_VOICE_ATTACK_TARGET_LOCKED =
+      'assets/audio/sound/voice/attack/target_locked.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_BASE_UNDER_ATTACK =
+      'assets/audio/sound/voice/eva/base_under_attack.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_CANNOT_DEPLOY =
+      'assets/audio/sound/voice/eva/cannot_deploy.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_HARVESTER_UNDER_ATTACK =
+      'assets/audio/sound/voice/eva/harvester_under_attack.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_MISSILE_LAUNCHED =
+      'assets/audio/sound/voice/eva/missile_launched.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_MISSION_FAILED =
+      'assets/audio/sound/voice/eva/mission_failed.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_SELECT_TARGET =
+      'assets/audio/sound/voice/eva/select_target.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_UNIT_LOST =
+      'assets/audio/sound/voice/eva/unit_lost.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_UNIT_READY =
+      'assets/audio/sound/voice/eva/unit_ready.mp3';
+  static const String AUDIO_SOUND_VOICE_MOVEMENT_ADVANCING =
+      'assets/audio/sound/voice/movement/advancing.mp3';
+  static const String AUDIO_SOUND_VOICE_MOVEMENT_COPY_THAT =
+      'assets/audio/sound/voice/movement/copy_that.mp3';
+  static const String AUDIO_SOUND_VOICE_MOVEMENT_MOVING_OUT =
+      'assets/audio/sound/voice/movement/moving_out.mp3';
+  static const String AUDIO_SOUND_VOICE_MOVEMENT_ON_MY_WAY =
+      'assets/audio/sound/voice/movement/on_my_way.mp3';
+  static const String AUDIO_SOUND_VOICE_MOVEMENT_ORDERS_RECEIVED =
+      'assets/audio/sound/voice/movement/orders-received.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =

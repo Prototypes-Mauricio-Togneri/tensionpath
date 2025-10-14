@@ -33,9 +33,9 @@ class MissileComponent extends SpriteComponent {
     final bool alarmIsActive = missile.isAlarmActive;
 
     if (!alarmWasActive && alarmIsActive) {
-      Audio.get.playSound(Sound.MISSILE_ALARM);
+      Audio.get.playSound(Sound.EFFECT_MISSILE_ALARM);
     } else if (!alarmIsActive) {
-      Audio.get.stopSound(Sound.MISSILE_ALARM);
+      Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
     }
   }
 

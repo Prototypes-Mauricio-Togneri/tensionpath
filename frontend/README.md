@@ -2,20 +2,6 @@
 
 ### Phase 1
 
-- Voice over for units
-
-  - Moving out
-  - On my way
-  - Advancing
-  - Orders received
-  - Copy that
-
-  - Target acquired
-  - Open fire
-  - Target locked
-  - Fire at will
-  - Give 'em hell
-
 - Events
   - Pad on/off
   - Missile alarm

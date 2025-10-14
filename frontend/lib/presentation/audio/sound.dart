@@ -8,58 +8,106 @@ mixin Sound {
   final List<AudioPlayer> _freePlayers = [];
 
   // Effects
-  static const AudioSpec PAD = AudioSpec(
-    path: Assets.AUDIO_SOUND_PAD,
+  static const AudioSpec EFFECT_PAD = AudioSpec(
+    path: Assets.AUDIO_SOUND_EFFECTS_PAD,
   );
-  static const AudioSpec MISSILE_ALARM = AudioSpec(
-    path: Assets.AUDIO_SOUND_MISSILE_ALARM,
+  static const AudioSpec EFFECT_MISSILE_ALARM = AudioSpec(
+    path: Assets.AUDIO_SOUND_EFFECTS_MISSILE_ALARM,
     loop: true,
   );
 
-  // Voices
-  static const AudioSpec BASE_UNDER_ATTACK = AudioSpec(
-    path: Assets.AUDIO_SOUND_BASE_UNDER_ATTACK,
+  // Voices (Eva)
+  static const AudioSpec EVA_BASE_UNDER_ATTACK = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_BASE_UNDER_ATTACK,
   );
-  static const AudioSpec HARVESTER_UNDER_ATTACK = AudioSpec(
-    path: Assets.AUDIO_SOUND_HARVESTER_UNDER_ATTACK,
+  static const AudioSpec EVA_HARVESTER_UNDER_ATTACK = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_HARVESTER_UNDER_ATTACK,
   );
-  static const AudioSpec CANNOT_DEPLOY = AudioSpec(
-    path: Assets.AUDIO_SOUND_CANNOT_DEPLOY,
+  static const AudioSpec EVA_CANNOT_DEPLOY = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_CANNOT_DEPLOY,
   );
-  static const AudioSpec MISSILE_LAUNCHED = AudioSpec(
-    path: Assets.AUDIO_SOUND_MISSILE_LAUNCHED,
+  static const AudioSpec EVA_MISSILE_LAUNCHED = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_MISSILE_LAUNCHED,
   );
-  static const AudioSpec MISSION_ACCOMPLISHED = AudioSpec(
-    path: Assets.AUDIO_SOUND_MISSION_ACCOMPLISHED,
+  static const AudioSpec EVA_MISSION_ACCOMPLISHED = AudioSpec(
+    path: Assets.AUDIO_SOUND_EFFECTS_MISSION_ACCOMPLISHED,
   );
-  static const AudioSpec MISSION_FAILED = AudioSpec(
-    path: Assets.AUDIO_SOUND_MISSION_FAILED,
+  static const AudioSpec EVA_MISSION_FAILED = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_MISSION_FAILED,
   );
-  static const AudioSpec SELECT_TARGET = AudioSpec(
-    path: Assets.AUDIO_SOUND_SELECT_TARGET,
+  static const AudioSpec EVA_SELECT_TARGET = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_SELECT_TARGET,
   );
-  static const AudioSpec UNIT_LOST = AudioSpec(
-    path: Assets.AUDIO_SOUND_UNIT_LOST,
+  static const AudioSpec EVA_UNIT_LOST = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_UNIT_LOST,
   );
-  static const AudioSpec UNIT_READY = AudioSpec(
-    path: Assets.AUDIO_SOUND_UNIT_READY,
+  static const AudioSpec EVA_UNIT_READY = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_UNIT_READY,
+  );
+
+  // Voices (Moving)
+  static const AudioSpec MOVEMENT_MOVING_OUT = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_MOVEMENT_MOVING_OUT,
+  );
+  static const AudioSpec MOVEMENT_ON_MY_WAY = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_MOVEMENT_ON_MY_WAY,
+  );
+  static const AudioSpec MOVEMENT_ADVANCING = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_MOVEMENT_ADVANCING,
+  );
+  static const AudioSpec MOVEMENT_COPY_THAT = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_MOVEMENT_COPY_THAT,
+  );
+  static const AudioSpec MOVEMENT_ORDERS_RECEIVED = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_MOVEMENT_ORDERS_RECEIVED,
+  );
+
+  // Voices (Attack)
+  static const AudioSpec ATTACK_TARGET_ACQUIRED = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_ATTACK_TARGET_ACQUIRED,
+  );
+  static const AudioSpec ATTACK_FIRE_AT_WILL = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_ATTACK_FIRE_AT_WILL,
+  );
+  static const AudioSpec ATTACK_GIVE_EM_HELL = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_ATTACK_GIVE_EM_HELL,
+  );
+  static const AudioSpec ATTACK_TARGET_LOCKED = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_ATTACK_TARGET_LOCKED,
+  );
+  static const AudioSpec ATTACK_OPEN_FIRE = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_ATTACK_OPEN_FIRE,
   );
 
   static const List<AudioSpec> ALL_SOUNDS = [
     // Effects
-    PAD,
-    MISSILE_ALARM,
+    EFFECT_PAD,
+    EFFECT_MISSILE_ALARM,
 
-    // Voices
-    BASE_UNDER_ATTACK,
-    HARVESTER_UNDER_ATTACK,
-    CANNOT_DEPLOY,
-    MISSILE_LAUNCHED,
-    MISSION_ACCOMPLISHED,
-    MISSION_FAILED,
-    SELECT_TARGET,
-    UNIT_LOST,
-    UNIT_READY,
+    // Voices (Eva)
+    EVA_BASE_UNDER_ATTACK,
+    EVA_HARVESTER_UNDER_ATTACK,
+    EVA_CANNOT_DEPLOY,
+    EVA_MISSILE_LAUNCHED,
+    EVA_MISSION_ACCOMPLISHED,
+    EVA_MISSION_FAILED,
+    EVA_SELECT_TARGET,
+    EVA_UNIT_LOST,
+    EVA_UNIT_READY,
+
+    // Voices (Moving)
+    MOVEMENT_MOVING_OUT,
+    MOVEMENT_ON_MY_WAY,
+    MOVEMENT_ADVANCING,
+    MOVEMENT_COPY_THAT,
+    MOVEMENT_ORDERS_RECEIVED,
+
+    // Voices (Attack)
+    ATTACK_TARGET_ACQUIRED,
+    ATTACK_FIRE_AT_WILL,
+    ATTACK_GIVE_EM_HELL,
+    ATTACK_TARGET_LOCKED,
+    ATTACK_OPEN_FIRE,
   ];
 
   Future playSound(AudioSpec spec) async {

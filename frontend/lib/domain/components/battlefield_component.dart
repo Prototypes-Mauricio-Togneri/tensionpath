@@ -410,7 +410,7 @@ class BattlefieldComponent extends PositionComponent {
       unitComponents.add(unitComponent);
 
       if (unit.playerIndex == self.index) {
-        Audio.get.playSound(Sound.UNIT_READY);
+        Audio.get.playSound(Sound.EVA_UNIT_READY);
       }
     }
   }
@@ -438,7 +438,7 @@ class BattlefieldComponent extends PositionComponent {
     }
 
     if (selfUnitDestroyed) {
-      Audio.get.playSound(Sound.UNIT_LOST);
+      Audio.get.playSound(Sound.EVA_UNIT_LOST);
     }
   }
 

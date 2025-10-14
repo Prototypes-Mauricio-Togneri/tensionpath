@@ -80,7 +80,7 @@ class UnitComponent extends PositionComponent
         player.isSelf &&
         (health < healthBarComponent.health) &&
         attackAlert.isReady) {
-      Audio.get.playSound(Sound.HARVESTER_UNDER_ATTACK);
+      Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
     }
 
     healthBarComponent.refresh(health);

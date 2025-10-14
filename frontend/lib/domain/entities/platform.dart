@@ -15,9 +15,9 @@ class Platform {
 
   void update(String? newOwner) {
     if ((owner == null) && (newOwner != null) && (newOwner != '')) {
-      Audio.get.playSound(Sound.PAD);
+      Audio.get.playSound(Sound.EFFECT_PAD);
     } else if ((owner != null) && (owner != '') && (newOwner == null)) {
-      Audio.get.playSound(Sound.PAD);
+      Audio.get.playSound(Sound.EFFECT_PAD);
     }
 
     owner = newOwner;
