@@ -1,5 +1,9 @@
 # TODO
 
+- Measure ping
+- Build structures before making unit
+- Don't update units if game is finished
+
 ### Phase 1
 
 - Voice over for units
