@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/presentation/changelog/changelog_screen.dart';
 import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
@@ -25,6 +26,10 @@ class Navigation {
 
   static void settingsScreen() =>
       get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
+
+  static void changelogScreen() => get.routes.push(
+    BasicRoute(ChangelogScreen.instance(), name: 'changelog'),
+  );
 
   static void lobbyScreen(List<UnitType> deck) =>
       get.routes.push(BasicRoute(LobbyScreen.instance(deck), name: 'lobby'));

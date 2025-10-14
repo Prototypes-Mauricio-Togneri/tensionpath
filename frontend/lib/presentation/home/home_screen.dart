@@ -71,6 +71,13 @@ class Form extends StatelessWidget {
                         onPressed: state.onFullscreen,
                       ),
                     ),
+                  const HBox(20),
+                  PrimaryButton(
+                    label: 'Changelog',
+                    enabled: true,
+                    foregroundColor: Palette.PRIMARY,
+                    onPressed: state.onChangelog,
+                  ),
                 ],
               ),
               VBox(constraints.maxHeight / 40),

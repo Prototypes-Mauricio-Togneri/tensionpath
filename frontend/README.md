@@ -1,7 +1,5 @@
 # TODO
 
-- Add changelog to home screen
-
 ### Phase 1
 
 - Voice over for units
