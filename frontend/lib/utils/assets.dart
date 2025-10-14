@@ -150,5 +150,5 @@ class Assets {
       'units/player_2/vehicle/rhino.png';
   static const String IMAGES_UNITS_PLAYER_2_VEHICLE_SHATTERER =
       'units/player_2/vehicle/shatterer.png';
-  static const String TEXT_CHANGELOG = 'assets/text/changelog.md';
+  static const String TEXT_CHANGELOG = 'assets/text/changelog.txt';
 }

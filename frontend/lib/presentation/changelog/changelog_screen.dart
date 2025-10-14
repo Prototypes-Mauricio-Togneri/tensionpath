@@ -32,9 +32,7 @@ class Content extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TopButtons(state),
-          const Spacer(),
           Changes(state),
-          const Spacer(),
         ],
       ),
     );
@@ -49,7 +47,12 @@ class TopButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [TopButton(icon: Icons.arrow_back, onPressed: state.onClose)],
+      children: [
+        TopButton(
+          icon: Icons.arrow_back,
+          onPressed: state.onClose,
+        ),
+      ],
     );
   }
 }
@@ -61,16 +64,21 @@ class Changes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Label(
-            text: state.text,
-            color: Palette.TEXT_COLOR_SECONDARY,
-            size: 14,
+    return Expanded(
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Label(
+                text: state.text,
+                color: Palette.TEXT_COLOR_PRIMARY,
+                size: 14,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

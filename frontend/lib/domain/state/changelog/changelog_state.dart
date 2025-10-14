@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
 class ChangelogState extends BaseState {
@@ -9,7 +10,7 @@ class ChangelogState extends BaseState {
 
   @override
   Future onLoad() async {
-    text = await rootBundle.loadString('assets/text/changelog.txt');
+    text = await rootBundle.loadString(Assets.TEXT_CHANGELOG);
     notify();
   }
 
