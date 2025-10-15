@@ -10,6 +10,9 @@ class PingStateState extends BaseState {
   late final Connection connection;
   DateTime start = DateTime.now();
   bool isRunning = false;
+  int lastPing = 0;
+  int sum = 0;
+  int count = 0;
   String result = '';
 
   @override
@@ -25,6 +28,7 @@ class PingStateState extends BaseState {
 
   @override
   void onDestroy() {
+    onStop();
     connection.disconnect();
   }
 
@@ -44,15 +48,15 @@ class PingStateState extends BaseState {
     if (isRunning) {
       start = DateTime.now();
       connection.send(JsonMessage.check(''));
-      print('Sending ping');
     }
   }
 
   Future receivePing() async {
-    print('Receiving ping');
     final DateTime end = DateTime.now();
-    final int difference = end.difference(start).inMilliseconds;
-    result = 'Ping: ${difference}ms';
+    lastPing = end.difference(start).inMilliseconds;
+    sum += lastPing;
+    count += 1;
+    result = 'Last ping: ${lastPing}ms\nAvg. ping: ${sum ~/ count}ms';
     notify();
 
     await Future.delayed(const Duration(seconds: 1));
@@ -60,6 +64,9 @@ class PingStateState extends BaseState {
   }
 
   void onStart() {
+    lastPing = 0;
+    sum = 0;
+    count = 0;
     isRunning = true;
     notify();
     sendPing();
