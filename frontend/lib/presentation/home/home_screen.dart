@@ -329,7 +329,7 @@ class SelectedCard extends StatelessWidget {
 
 class Counter extends StatelessWidget {
   final UnitClass unitClass;
-  final String value;
+  final int value;
   final double size;
 
   const Counter({
@@ -344,9 +344,22 @@ class Counter extends StatelessWidget {
       width: size,
       height: size,
       child: Image.asset(
-        'assets/images/units/counter/${unitClass.name}_$value.png',
+        'assets/images/units/counter/${unitClass.name}_$valueName.png',
         fit: BoxFit.contain,
       ),
     );
+  }
+
+  String get valueName {
+    switch (value) {
+      case -1:
+        return 'bad';
+      case 0:
+        return 'normal';
+      case 1:
+        return 'good';
+      default:
+        throw Exception('Invalid counter value: $value');
+    }
   }
 }
