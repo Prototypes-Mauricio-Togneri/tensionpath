@@ -78,6 +78,13 @@ class Form extends StatelessWidget {
                     foregroundColor: Palette.PRIMARY,
                     onPressed: state.onChangelog,
                   ),
+                  const HBox(20),
+                  PrimaryButton(
+                    label: 'Ping test',
+                    enabled: true,
+                    foregroundColor: Palette.PRIMARY,
+                    onPressed: state.onPingTest,
+                  ),
                 ],
               ),
               VBox(constraints.maxHeight / 40),

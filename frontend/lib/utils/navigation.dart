@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/changelog/changelog_screen.dart';
+import 'package:tensionpath/presentation/check/ping_test_screen.dart';
 import 'package:tensionpath/presentation/home/home_screen.dart';
 import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
@@ -29,6 +30,10 @@ class Navigation {
 
   static void changelogScreen() => get.routes.push(
     BasicRoute(ChangelogScreen.instance(), name: 'changelog'),
+  );
+
+  static void pingTestScreen() => get.routes.push(
+    BasicRoute(PingTestScreen.instance(), name: 'ping_test'),
   );
 
   static void lobbyScreen(List<UnitType> deck) =>

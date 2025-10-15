@@ -19,6 +19,8 @@ class HomeState extends BaseState {
 
   void onChangelog() => Navigation.changelogScreen();
 
+  void onPingTest() => Navigation.pingTestScreen();
+
   void onPlay() {
     DeckStorage.save(deck);
     Navigation.lobbyScreen(deck);
