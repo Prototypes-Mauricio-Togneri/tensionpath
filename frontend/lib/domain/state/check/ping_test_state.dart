@@ -55,7 +55,7 @@ class PingStateState extends BaseState {
     final DateTime end = DateTime.now();
     lastPing = end.difference(start).inMilliseconds;
     sum += lastPing;
-    count += 1;
+    count++;
     result = 'Last ping: ${lastPing}ms\nAvg. ping: ${sum ~/ count}ms';
     notify();
 
