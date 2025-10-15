@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_health_check.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
@@ -18,6 +19,9 @@ part 'json_message.g.dart';
 @JsonSerializable()
 class JsonMessage {
   // =========================== CLIENT -> SERVER =========================== \\
+
+  @JsonKey(name: 'check')
+  final JsonHealthCheck? check;
 
   @JsonKey(name: 'join')
   final JsonJoinMatch? join;
@@ -47,6 +51,7 @@ class JsonMessage {
 
   const JsonMessage({
     // Client -> Server
+    this.check,
     this.join,
     this.deploy,
     this.action,
@@ -61,7 +66,9 @@ class JsonMessage {
 
   dynamic get message {
     // Client -> Server
-    if (join != null) {
+    if (check != null) {
+      return check;
+    } else if (join != null) {
       return join;
     } else if (deploy != null) {
       return deploy;
@@ -88,6 +95,9 @@ class JsonMessage {
 
   factory JsonMessage.fromJson(Map<String, dynamic> json) =>
       _$JsonMessageFromJson(json);
+
+  factory JsonMessage.check(String id) =>
+      JsonMessage(check: JsonHealthCheck(id: id));
 
   factory JsonMessage.join({
     required String matchId,

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_health_check.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
@@ -19,7 +20,12 @@ class Handler {
     try {
       final dynamic message = json.message;
 
-      if (message is JsonJoinMatch) {
+      if (message is JsonHealthCheck) {
+        dispatcher.check(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonJoinMatch) {
         dispatcher.join(
           json: message,
           socket: socket,

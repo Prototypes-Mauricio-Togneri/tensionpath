@@ -10,6 +10,12 @@ JsonMessage _$JsonMessageFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('JsonMessage', json, ($checkedConvert) {
   final val = JsonMessage(
+    check: $checkedConvert(
+      'check',
+      (v) => v == null
+          ? null
+          : JsonHealthCheck.fromJson(v as Map<String, dynamic>),
+    ),
     join: $checkedConvert(
       'join',
       (v) =>
@@ -53,6 +59,7 @@ JsonMessage _$JsonMessageFromJson(
 
 Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
     <String, dynamic>{
+      'check': ?instance.check?.toJson(),
       'join': ?instance.join?.toJson(),
       'deploy': ?instance.deploy?.toJson(),
       'action': ?instance.action?.toJson(),

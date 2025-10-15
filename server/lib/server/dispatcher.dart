@@ -1,14 +1,15 @@
 import 'dart:io';
 import 'package:tensionpath/domain/json/api/json_create_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_deploy_unit.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_health_check.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
-
-import '../utils/logger.dart';
+import 'package:tensionpath/utils/logger.dart';
 
 class Dispatcher {
   final IterableMap<String, Connection> connections = IterableMap();
@@ -20,6 +21,11 @@ class Dispatcher {
     final Connection connection = Connection.fromJson(json);
     connections.add(connection.matchId, connection);
   }
+
+  void check({
+    required JsonHealthCheck json,
+    required WebSocket socket,
+  }) => socket.send(JsonMessage.check(json.id));
 
   void join({
     required JsonJoinMatch json,
