@@ -17,6 +17,8 @@ abstract class Environment {
 
   bool get isRemote => name == 'remote';
 
+  String get serverHost;
+
   String get host => Platform.isWeb ? 'localhost' : '10.0.2.2';
 
   Future configure() async {}

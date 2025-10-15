@@ -7,6 +7,9 @@ class LocalEnvironment extends Environment {
   String get name => 'local';
 
   @override
+  String get serverHost => 'ws://localhost:3000';
+
+  @override
   bool get audioEnabled => false;
 
   @override
