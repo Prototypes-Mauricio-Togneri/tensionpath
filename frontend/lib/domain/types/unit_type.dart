@@ -278,7 +278,7 @@ enum UnitType {
     }
   }
 
-  int counterAgainst(UnitClass unitClass) {
+  String counterAgainst(UnitClass unitClass) {
     final double maxDamage = max(
       max(damageInfantry.toDouble(), damageVehicle.toDouble()),
       damageAircraft.toDouble(),
@@ -296,13 +296,13 @@ enum UnitType {
     }
   }
 
-  int _relativeDamage(double damage, double maxDamage) {
+  String _relativeDamage(double damage, double maxDamage) {
     if (damage == 0) {
-      return -1;
+      return 'bad';
     } else if (damage == maxDamage) {
-      return 1;
+      return 'good';
     } else {
-      return 0;
+      return 'normal';
     }
   }
 
