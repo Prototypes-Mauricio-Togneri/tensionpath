@@ -3,7 +3,6 @@
 - Drive popcap from server
 - Shoot while moving but half damage
 - Configurable network delay
-- Health check to measure ping
 
 ### Phase 1
 

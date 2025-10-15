@@ -1,3 +1,6 @@
+# 15.10.2025
+- Implemented ping test
+
 # 14.10.2025
 
 - Stop units when the match is finished

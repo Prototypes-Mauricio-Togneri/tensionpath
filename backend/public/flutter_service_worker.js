@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "d2ab71e49b3a7579c60c43a3411692a4",
-"main.dart.js": "4928b0ba6817b642866ee83f2b243463",
+const RESOURCES = {"flutter_bootstrap.js": "6dfbbe50b8ac3969f9c300c18ddbfea5",
+"main.dart.js": "7bd2dcb2c8cb565579146c8b7452aa47",
 "assets/NOTICES": "0734c55eded78d52cd40876693e3d704",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/audio/sound/voice/attack/fire_at_will.mp3": "f9ce958ea8a7792c43a8c0f00130672c",
@@ -101,7 +101,7 @@ const RESOURCES = {"flutter_bootstrap.js": "d2ab71e49b3a7579c60c43a3411692a4",
 "assets/AssetManifest.bin": "e91f2db4a27a4b4d7af58f7a151def8b",
 "assets/AssetManifest.json": "98a6b7dd970f90736e6e1738317f8122",
 "assets/AssetManifest.bin.json": "85bed6fe261d5081959da5accf67ba06",
-"manifest.json": "3d5e19274a2e878d1df3652a9e8c6e25",
+"manifest.json": "1da0152e6393fbc7868523d2fb7cc328",
 "canvaskit/canvaskit.wasm": "07b9f5853202304d3b0749d9306573cc",
 "canvaskit/skwasm.js": "1ef3ea3a0fec4569e5d531da25f34095",
 "canvaskit/canvaskit.js": "140ccb7d34d0a55065fbd422b843add6",
