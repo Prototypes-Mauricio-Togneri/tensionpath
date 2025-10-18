@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
@@ -21,11 +22,9 @@ class JsonEvent {
   @JsonKey(name: 'resource_depleted')
   final JsonEventResourceDepleted? resourceDepleted;
 
-  // match finished
-  //   * winner
-  //   * loser
-  //   * draw
-  // unit created
+  @JsonKey(name: 'match_finished')
+  final JsonEventMatchFinished? matchFinished;
+
   // unit update
   //   * health
   //   * locked node
@@ -40,6 +39,7 @@ class JsonEvent {
     this.missile,
     this.player,
     this.resourceDepleted,
+    this.matchFinished,
   });
 
   factory JsonEvent.unitCreated(Unit unit) => JsonEvent(

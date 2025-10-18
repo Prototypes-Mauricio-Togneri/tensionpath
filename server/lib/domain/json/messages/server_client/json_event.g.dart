@@ -35,12 +35,19 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventResourceDepleted.fromJson(v as Map<String, dynamic>),
       ),
+      matchFinished: $checkedConvert(
+        'match_finished',
+        (v) => v == null
+            ? null
+            : JsonEventMatchFinished.fromJson(v as Map<String, dynamic>),
+      ),
     );
     return val;
   },
   fieldKeyMap: const {
     'unitCreated': 'unit_created',
     'resourceDepleted': 'resource_depleted',
+    'matchFinished': 'match_finished',
   },
 );
 
@@ -49,4 +56,5 @@ Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
   'resource_depleted': ?instance.resourceDepleted?.toJson(),
+  'match_finished': ?instance.matchFinished?.toJson(),
 };
