@@ -52,7 +52,7 @@ class Server {
         _onConnect(socket);
       } else {
         Logger.info(
-          'Invalid HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
+          'Unhandled HTTP request: ${request.method} ${request.requestedUri} ${request.uri}\n${request.headers}',
         );
 
         request.response.statusCode = HttpStatus.forbidden;
