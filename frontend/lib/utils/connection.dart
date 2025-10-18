@@ -18,6 +18,7 @@ class Connection {
   });
 
   Future connect() async {
+    print('Connecting to $host');
     channel = WebSocketChannel.connect(Uri.parse(host));
     await channel.ready;
     channel.stream.listen(
