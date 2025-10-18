@@ -1,5 +1,6 @@
 FROM dart:stable
 
+# Set working directory
 WORKDIR /app
 
 # Copy only server folder
@@ -11,8 +12,5 @@ RUN dart pub get
 # Expose port
 EXPOSE 8080
 
-# Declare entrypoint
-ENTRYPOINT ["dart", "run", "lib/main/main.dart"]
-
-# Default parameters (can be overridden)
-CMD []
+# Run app
+CMD ["dart", "run", "lib/main/main.dart"]
