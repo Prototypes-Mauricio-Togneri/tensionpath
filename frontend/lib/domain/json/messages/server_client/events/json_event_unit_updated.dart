@@ -7,7 +7,9 @@ class JsonEventUnitUpdated {
   @JsonKey(name: 'id')
   final String id;
 
-  //   * health
+  @JsonKey(name: 'health')
+  final num health;
+
   //   * locked node
   //   * move
   //   * unit target
@@ -16,6 +18,7 @@ class JsonEventUnitUpdated {
 
   const JsonEventUnitUpdated({
     required this.id,
+    required this.health,
   });
 
   factory JsonEventUnitUpdated.fromJson(Map<String, dynamic> json) =>
