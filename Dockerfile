@@ -11,5 +11,5 @@ RUN dart pub get
 # Expose Heroku port
 EXPOSE 8080
 
-# Run your server
-CMD ["dart", "run", "lib/main/main.dart"]
+# Declare entry point
+ENTRYPOINT ["dart", "run", "lib/main/main.dart"]
