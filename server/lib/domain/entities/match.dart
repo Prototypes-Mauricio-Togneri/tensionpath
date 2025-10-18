@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
@@ -87,12 +88,12 @@ class Match {
     );
 
     if (player.removeResources(cost)) {
-      battlefield.deployUnit(
+      final JsonEvent event = battlefield.deployUnit(
         player: player,
         location: location,
         type: type,
       );
-      _sendMatchUpdate();
+      _sendMatchUpdate([event]);
     }
   }
 
@@ -109,7 +110,7 @@ class Match {
       targetLocation: targetLocation,
       targetUnitId: targetUnitId,
     );
-    _sendMatchUpdate();
+    _sendMatchUpdate([]);
   }
 
   void surrenderMatch(String playerIndex) {
@@ -117,7 +118,7 @@ class Match {
     player.surrender();
     status = MatchStatus.finished;
     Logger.debug('Player ${player.index} surrendered');
-    _sendMatchUpdate();
+    _sendMatchUpdate([]);
   }
 
   void update(double dt) {
@@ -136,7 +137,7 @@ class Match {
       }
 
       if (sendUpdate) {
-        _sendMatchUpdate();
+        _sendMatchUpdate([]);
       }
     }
   }
@@ -153,7 +154,7 @@ class Match {
     battlefield.missile.resetCharge();
   }
 
-  void _sendMatchUpdate() {
+  void _sendMatchUpdate(List<JsonEvent> events) {
     final String? winner = _winner;
 
     if (winner != null) {
@@ -168,7 +169,7 @@ class Match {
       missile: battlefield.missile.toJsonUpdate(),
       resources: battlefield.resourcesToJsonUpdate(),
       units: battlefield.unitsToJsonUpdate(),
-      events: [],
+      events: events,
       winner: winner,
     );
 

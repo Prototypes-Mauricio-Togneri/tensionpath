@@ -12,6 +12,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resource.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
@@ -55,7 +56,7 @@ class Battlefield {
 
   void updateMissile() => missile.update(0);
 
-  void deployUnit({
+  JsonEvent deployUnit({
     required Player player,
     required Location location,
     required UnitType type,
@@ -86,6 +87,8 @@ class Battlefield {
       node: targetNode,
       manual: true,
     );
+
+    return JsonEvent.unitCreated(unit);
   }
 
   void unitAction({
