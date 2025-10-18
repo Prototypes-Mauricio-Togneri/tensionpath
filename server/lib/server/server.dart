@@ -37,12 +37,7 @@ class Server {
 
   Future _handleRequest(HttpRequest request) async {
     try {
-      if ((request.method == 'POST') &&
-          (request.uri.toString() == '/matches')) {
-        await _handleMatchCreation(request);
-      } else if ((request.method == 'GET') && (request.uri.toString() == '/')) {
-        await _handleGreeting(request);
-      } else if (WebSocketTransformer.isUpgradeRequest(request)) {
+      if (WebSocketTransformer.isUpgradeRequest(request)) {
         final WebSocket socket = await WebSocketTransformer.upgrade(request);
         socket.listen(
           (message) => _onMessage(socket, message),
@@ -50,6 +45,11 @@ class Server {
           onError: (error) => _onError(socket, error),
         );
         _onConnect(socket);
+      } else if ((request.method == 'POST') &&
+          (request.uri.toString() == '/matches')) {
+        await _handleMatchCreation(request);
+      } else if ((request.method == 'GET') && (request.uri.toString() == '/')) {
+        await _handleGreeting(request);
       } else {
         Logger.info(
           'Unhandled HTTP request: ${request.method} ${request.requestedUri} ${request.uri}\n${request.headers}',

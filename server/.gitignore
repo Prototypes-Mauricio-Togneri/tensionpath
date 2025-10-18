@@ -37,3 +37,6 @@ build/
 !.vscode/
 !scripts/
 debug.json
+
+# bin
+/bin/
