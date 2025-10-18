@@ -1,8 +1,6 @@
 # TODO
 
 - Drive popcap from server
-- Shoot while moving but half damage
-- Configurable network delay
 
 ### Phase 1
 
@@ -51,6 +49,7 @@
 ### Phase 3
 
 - Dart compile in Docker
+- Shoot while moving but dealing half damage
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
 - Re-attach to an active match

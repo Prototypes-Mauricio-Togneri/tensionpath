@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "b4a62835d0392d98595f53f06398834f",
-"main.dart.js": "b366a06f605112ef12fc97dd2bdafd42",
+const RESOURCES = {"flutter_bootstrap.js": "954bcf17e7434fb4eff5d647fffb95cc",
+"main.dart.js": "7bac907e5400b88ce1f77a7dcdd682f2",
 "assets/NOTICES": "0734c55eded78d52cd40876693e3d704",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/audio/sound/voice/attack/fire_at_will.mp3": "f9ce958ea8a7792c43a8c0f00130672c",

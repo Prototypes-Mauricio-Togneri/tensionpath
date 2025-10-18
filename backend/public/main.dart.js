@@ -91860,7 +91860,7 @@ A.re.prototype={
 ab(){var s=0,r=A.q(t.z),q=this,p
 var $async$ab=A.m(function(a,b){if(a===1)return A.n(b,r)
 while(true)switch(s){case 0:$.bC().$1$0(t.vr)
-p=new A.zU("ws://static.215.236.119.168.clients.your-server.de:8080",q.gafy(),q.gafc(),q.gagR())
+p=new A.zU("wss://zeronest.com/ws",q.gafy(),q.gafc(),q.gagR())
 q.b!==$&&A.aQ()
 q.b=p
 s=2
