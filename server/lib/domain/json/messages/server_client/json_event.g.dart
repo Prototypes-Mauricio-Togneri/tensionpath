@@ -15,10 +15,17 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) =>
               ? null
               : JsonEventUnitCreated.fromJson(v as Map<String, dynamic>),
         ),
+        missile: $checkedConvert(
+          'missile',
+          (v) => v == null
+              ? null
+              : JsonEventMissile.fromJson(v as Map<String, dynamic>),
+        ),
       );
       return val;
     }, fieldKeyMap: const {'unitCreated': 'unit_created'});
 
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'unit_created': ?instance.unitCreated?.toJson(),
+  'missile': ?instance.missile?.toJson(),
 };
