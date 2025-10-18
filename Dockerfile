@@ -8,8 +8,11 @@ COPY server/ .
 # Install dependencies
 RUN dart pub get
 
-# Expose Heroku port
+# Expose port
 EXPOSE 8080
 
-# Declare entry point
+# Declare entrypoint
 ENTRYPOINT ["dart", "run", "lib/main/main.dart"]
+
+# Default parameters (can be overridden)
+CMD []
