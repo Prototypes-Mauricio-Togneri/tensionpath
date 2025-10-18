@@ -5,6 +5,5 @@ class RemoteEnvironment extends Environment {
   String get name => 'remote';
 
   @override
-  String get serverHost =>
-      'ws://static.215.236.119.168.clients.your-server.de:8080';
+  String get serverHost => 'wss://zeronest.com/ws';
 }
