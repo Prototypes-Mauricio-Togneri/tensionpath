@@ -6,33 +6,47 @@ part of 'json_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('JsonEvent', json, ($checkedConvert) {
-      final val = JsonEvent(
-        unitCreated: $checkedConvert(
-          'unit_created',
-          (v) => v == null
-              ? null
-              : JsonEventUnitCreated.fromJson(v as Map<String, dynamic>),
-        ),
-        missile: $checkedConvert(
-          'missile',
-          (v) => v == null
-              ? null
-              : JsonEventMissile.fromJson(v as Map<String, dynamic>),
-        ),
-        player: $checkedConvert(
-          'player',
-          (v) => v == null
-              ? null
-              : JsonEventPlayer.fromJson(v as Map<String, dynamic>),
-        ),
-      );
-      return val;
-    }, fieldKeyMap: const {'unitCreated': 'unit_created'});
+JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
+  'JsonEvent',
+  json,
+  ($checkedConvert) {
+    final val = JsonEvent(
+      unitCreated: $checkedConvert(
+        'unit_created',
+        (v) => v == null
+            ? null
+            : JsonEventUnitCreated.fromJson(v as Map<String, dynamic>),
+      ),
+      missile: $checkedConvert(
+        'missile',
+        (v) => v == null
+            ? null
+            : JsonEventMissile.fromJson(v as Map<String, dynamic>),
+      ),
+      player: $checkedConvert(
+        'player',
+        (v) => v == null
+            ? null
+            : JsonEventPlayer.fromJson(v as Map<String, dynamic>),
+      ),
+      resourceDepleted: $checkedConvert(
+        'resource_depleted',
+        (v) => v == null
+            ? null
+            : JsonEventResourceDepleted.fromJson(v as Map<String, dynamic>),
+      ),
+    );
+    return val;
+  },
+  fieldKeyMap: const {
+    'unitCreated': 'unit_created',
+    'resourceDepleted': 'resource_depleted',
+  },
+);
 
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'unit_created': ?instance.unitCreated?.toJson(),
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
+  'resource_depleted': ?instance.resourceDepleted?.toJson(),
 };
