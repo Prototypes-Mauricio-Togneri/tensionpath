@@ -11,12 +11,6 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
   json,
   ($checkedConvert) {
     final val = JsonEvent(
-      unitCreated: $checkedConvert(
-        'unit_created',
-        (v) => v == null
-            ? null
-            : JsonEventUnitCreated.fromJson(v as Map<String, dynamic>),
-      ),
       missile: $checkedConvert(
         'missile',
         (v) => v == null
@@ -35,6 +29,24 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventResourceDepleted.fromJson(v as Map<String, dynamic>),
       ),
+      unitCreated: $checkedConvert(
+        'unit_created',
+        (v) => v == null
+            ? null
+            : JsonEventUnitCreated.fromJson(v as Map<String, dynamic>),
+      ),
+      unitUpdated: $checkedConvert(
+        'unit_updated',
+        (v) => v == null
+            ? null
+            : JsonEventUnitUpdated.fromJson(v as Map<String, dynamic>),
+      ),
+      unitDestroyed: $checkedConvert(
+        'unit_destroyed',
+        (v) => v == null
+            ? null
+            : JsonEventUnitDestroyed.fromJson(v as Map<String, dynamic>),
+      ),
       matchFinished: $checkedConvert(
         'match_finished',
         (v) => v == null
@@ -45,16 +57,20 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
     return val;
   },
   fieldKeyMap: const {
-    'unitCreated': 'unit_created',
     'resourceDepleted': 'resource_depleted',
+    'unitCreated': 'unit_created',
+    'unitUpdated': 'unit_updated',
+    'unitDestroyed': 'unit_destroyed',
     'matchFinished': 'match_finished',
   },
 );
 
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
-  'unit_created': ?instance.unitCreated?.toJson(),
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
   'resource_depleted': ?instance.resourceDepleted?.toJson(),
+  'unit_created': ?instance.unitCreated?.toJson(),
+  'unit_updated': ?instance.unitUpdated?.toJson(),
+  'unit_destroyed': ?instance.unitDestroyed?.toJson(),
   'match_finished': ?instance.matchFinished?.toJson(),
 };

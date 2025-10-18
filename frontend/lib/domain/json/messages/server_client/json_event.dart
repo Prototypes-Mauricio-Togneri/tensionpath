@@ -5,14 +5,13 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
 
 part 'json_event.g.dart';
 
 @JsonSerializable()
 class JsonEvent {
-  @JsonKey(name: 'unit_created')
-  final JsonEventUnitCreated? unitCreated;
-
   @JsonKey(name: 'missile')
   final JsonEventMissile? missile;
 
@@ -22,23 +21,25 @@ class JsonEvent {
   @JsonKey(name: 'resource_depleted')
   final JsonEventResourceDepleted? resourceDepleted;
 
+  @JsonKey(name: 'unit_created')
+  final JsonEventUnitCreated? unitCreated;
+
+  @JsonKey(name: 'unit_updated')
+  final JsonEventUnitUpdated? unitUpdated;
+
+  @JsonKey(name: 'unit_destroyed')
+  final JsonEventUnitDestroyed? unitDestroyed;
+
   @JsonKey(name: 'match_finished')
   final JsonEventMatchFinished? matchFinished;
 
-  // unit update
-  //   * health
-  //   * locked node
-  //   * move
-  //   * unit target
-  //   * base target
-  //   * attack (target? damage?)
-  // unit destroyed
-
   const JsonEvent({
-    this.unitCreated,
     this.missile,
     this.player,
     this.resourceDepleted,
+    this.unitCreated,
+    this.unitUpdated,
+    this.unitDestroyed,
     this.matchFinished,
   });
 
