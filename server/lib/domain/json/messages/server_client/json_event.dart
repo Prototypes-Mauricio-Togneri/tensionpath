@@ -9,6 +9,30 @@ class JsonEvent {
   @JsonKey(name: 'unit_created')
   final JsonEventUnitCreated? unitCreated;
 
+  // player update
+  //   * health
+  //   * resources
+  //   * resourcesRate
+  //   * currentHarvesterCount
+  // missile
+  //   * charge
+  //   * missile owner
+  //   * platform owner
+  //   * alarm: bool
+  //   * fired: bool
+  // resource depleted
+  // unit created
+  // unit update
+  //   * health
+  //   * locked node
+  //   * move
+  //   * attack (target? damage?)
+  // unit destroyed
+  // match finished
+  //   * winner
+  //   * loser
+  //   * draw
+
   const JsonEvent({
     this.unitCreated,
   });

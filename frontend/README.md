@@ -4,14 +4,6 @@
 
 ### Phase 1
 
-- Events
-  - Pad on/off
-  - Missile alarm
-  - Missile fired
-  - Unit created
-  - Unit actions (move + attacking)
-  - Unit destroyed
-  - Match finished
 - Animations
   - Shooting
   - Unit destroyed
