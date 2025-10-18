@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
@@ -23,6 +24,9 @@ class JsonMatchUpdate {
   @JsonKey(name: 'units')
   final Map<String, JsonUnitUpdate> units;
 
+  @JsonKey(name: 'events')
+  final List<JsonEvent> events;
+
   @JsonKey(name: 'winner')
   final String? winner;
 
@@ -32,6 +36,7 @@ class JsonMatchUpdate {
     required this.missile,
     required this.resources,
     required this.units,
+    required this.events,
     required this.winner,
   });
 

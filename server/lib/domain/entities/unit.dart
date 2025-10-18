@@ -26,14 +26,14 @@ class Unit {
   final UnitType type;
   final num radius;
   final num maxHealth;
-  late num health;
+  late num health; // updated by frontend, corrected by server
   late num currentAttackCooldown;
-  Position position;
-  Node closestNode;
-  Node? lockedNode;
-  Node? targetNode;
-  Launcher? targetBase;
-  Unit? targetUnit;
+  Position position; // updated by frontend, corrected by server
+  Node closestNode; // updated by frontend
+  Node? lockedNode; // set by server
+  Node? targetNode; // updated by frontend, corrected by server
+  Launcher? targetBase; // updated by frontend, corrected by server
+  Unit? targetUnit; // updated by frontend, corrected by server
   bool lastOrderManual = false;
 
   Unit({

@@ -37,6 +37,12 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
                 MapEntry(k, JsonUnitUpdate.fromJson(e as Map<String, dynamic>)),
           ),
         ),
+        events: $checkedConvert(
+          'events',
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonEvent.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        ),
         winner: $checkedConvert('winner', (v) => v as String?),
       );
       return val;
@@ -49,6 +55,7 @@ Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
       'missile': instance.missile.toJson(),
       'resources': instance.resources,
       'units': instance.units.map((k, e) => MapEntry(k, e.toJson())),
+      'events': instance.events.map((e) => e.toJson()).toList(),
       'winner': ?instance.winner,
     };
 

@@ -168,6 +168,7 @@ class Match {
       missile: battlefield.missile.toJsonUpdate(),
       resources: battlefield.resourcesToJsonUpdate(),
       units: battlefield.unitsToJsonUpdate(),
+      events: [],
       winner: winner,
     );
 
