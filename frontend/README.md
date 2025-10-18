@@ -48,7 +48,6 @@
 
 ### Phase 3
 
-- Dart compile in Docker
 - Shoot while moving but dealing half damage
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
