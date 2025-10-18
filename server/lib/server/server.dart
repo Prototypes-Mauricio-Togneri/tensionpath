@@ -40,6 +40,8 @@ class Server {
       if ((request.method == 'POST') &&
           (request.uri.toString() == '/matches')) {
         await _handleMatchCreation(request);
+      } else if ((request.method == 'GET') && (request.uri.toString() == '/')) {
+        await _handleGreeting(request);
       } else if (WebSocketTransformer.isUpgradeRequest(request)) {
         final WebSocket socket = await WebSocketTransformer.upgrade(request);
         socket.listen(
@@ -88,6 +90,17 @@ class Server {
 
   void _onError(WebSocket socket, dynamic error) {
     Logger.error(socket, error);
+  }
+
+  Future _handleGreeting(HttpRequest request) async {
+    Logger.info(
+      'HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
+    );
+
+    request.response.statusCode = HttpStatus.ok;
+    request.response.write('Server up and running!');
+
+    await request.response.close();
   }
 
   Future _handleMatchCreation(HttpRequest request) async {
