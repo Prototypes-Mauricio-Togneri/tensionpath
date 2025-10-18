@@ -21,17 +21,19 @@ class JsonEvent {
   //   * alarm: bool
   //   * fired: bool
   // resource depleted
+  // match finished
+  //   * winner
+  //   * loser
+  //   * draw
   // unit created
   // unit update
   //   * health
   //   * locked node
   //   * move
+  //   * unit target
+  //   * base target
   //   * attack (target? damage?)
   // unit destroyed
-  // match finished
-  //   * winner
-  //   * loser
-  //   * draw
 
   const JsonEvent({
     this.unitCreated,
