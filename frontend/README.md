@@ -8,10 +8,10 @@
   - Pad on/off
   - Missile alarm
   - Missile fired
-  - Unit ready
-  - Unit moving
-  - Unit shooting
-  - Unit lost
+  - Unit created
+  - Unit actions (move + attacking)
+  - Unit destroyed
+  - Match finished
 - Animations
   - Shooting
   - Unit destroyed
