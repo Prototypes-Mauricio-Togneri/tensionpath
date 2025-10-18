@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
 
 part 'json_event.g.dart';
@@ -13,11 +14,9 @@ class JsonEvent {
   @JsonKey(name: 'missile')
   final JsonEventMissile? missile;
 
-  // player update
-  //   * health
-  //   * resources
-  //   * resourcesRate
-  //   * currentHarvesterCount
+  @JsonKey(name: 'player')
+  final JsonEventPlayer? player;
+
   // resource depleted
   // match finished
   //   * winner
@@ -36,6 +35,7 @@ class JsonEvent {
   const JsonEvent({
     this.unitCreated,
     this.missile,
+    this.player,
   });
 
   factory JsonEvent.unitCreated(Unit unit) => JsonEvent(
