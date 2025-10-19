@@ -1,8 +1,12 @@
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Event {
   static Event fromJson(JsonEvent json) {
@@ -12,6 +16,8 @@ class Event {
       return EventPlayer.fromJson(json.player!);
     } else if (json.resourceDepleted != null) {
       return EventResourcesDepleted.fromJson(json.resourceDepleted!);
+    } else if (json.unitCreated != null) {
+      return EventUnitCreated.fromJson(json.unitCreated!);
     } else if (json.matchFinished != null) {
       return EventMatchFinished.fromJson(json.matchFinished!);
     } else {
@@ -97,6 +103,49 @@ class EventResourcesDepleted implements Event {
 
   factory EventResourcesDepleted.fromJson(JsonEventResourceDepleted json) =>
       EventResourcesDepleted(id: json.id);
+}
+
+class EventUnitCreated implements Event {
+  final String id;
+  final String playerIndex;
+  final UnitType type;
+  final num health;
+  final Position currentPosition;
+  final Position? targetPosition;
+  final Location? lockedLocation;
+  final Location? targetBase;
+  final String? targetUnitId;
+
+  const EventUnitCreated({
+    required this.id,
+    required this.playerIndex,
+    required this.type,
+    required this.health,
+    required this.currentPosition,
+    required this.targetPosition,
+    required this.lockedLocation,
+    required this.targetBase,
+    required this.targetUnitId,
+  });
+
+  factory EventUnitCreated.fromJson(JsonEventUnitCreated json) =>
+      EventUnitCreated(
+        id: json.id,
+        playerIndex: json.playerIndex,
+        type: json.type,
+        health: json.health,
+        currentPosition: Position.fromJson(json.currentPosition),
+        targetPosition: json.targetPosition != null
+            ? Position.fromJson(json.targetPosition!)
+            : null,
+        lockedLocation: json.lockedLocation != null
+            ? Location.fromJson(json.lockedLocation!)
+            : null,
+        targetBase: json.targetBase != null
+            ? Location.fromJson(json.targetBase!)
+            : null,
+        targetUnitId: json.targetUnitId,
+      );
 }
 
 class EventMatchFinished implements Event {

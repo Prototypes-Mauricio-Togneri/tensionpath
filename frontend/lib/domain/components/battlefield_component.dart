@@ -13,6 +13,7 @@ import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/rocks_low_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
@@ -272,6 +273,72 @@ class BattlefieldComponent extends PositionComponent {
     );
   }
 
+  void onUnitCreated(EventUnitCreated event) {
+    final Player player = event.playerIndex == self.index ? self : opponent;
+    MovementPathComponent? movementOrderComponent;
+    MovementPathComponent? movementCurrentComponent;
+    AttackPathComponent? attackPathComponent;
+
+    if (player.isSelf) {
+      movementOrderComponent = MovementPathComponent(
+        position: mapCenter - absoluteCenter,
+        color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
+        thickness: nodeSize.x / 30,
+      );
+      add(movementOrderComponent);
+
+      movementCurrentComponent = MovementPathComponent(
+        position: mapCenter - absoluteCenter,
+        color: Palette.PATH_MOVEMENT_ORDER,
+        thickness: nodeSize.x / 30,
+      );
+      add(movementCurrentComponent);
+
+      attackPathComponent = AttackPathComponent(
+        position: mapCenter - absoluteCenter,
+        color: player.color.withAlpha(128),
+        thickness: nodeSize.x / 30,
+      );
+      add(attackPathComponent);
+    }
+
+    final UnitComponent unitComponent = UnitComponent(
+      position: event.currentPosition.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
+      ),
+      size: nodeSize,
+      id: event.id,
+      type: event.type,
+      nodeSizeRatio: nodeSizeRatio,
+      player: player,
+      lockedNode: (event.lockedLocation != null)
+          ? match.getNodeById(event.lockedLocation!.id)
+          : null,
+      battlefieldComponent: this,
+      movementOrderComponent: movementOrderComponent,
+      movementCurrentComponent: movementCurrentComponent,
+      attackPathComponent: attackPathComponent,
+      targetPosition: event.targetPosition?.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
+      ),
+      targetUnit: event.targetUnitId != null
+          ? unitComponents.where((u) => u.id == event.targetUnitId).firstOrNull
+          : null,
+      targetBase: (event.targetBase != null)
+          ? match.getNodeById(event.targetBase!.id)
+          : null,
+    );
+
+    add(unitComponent);
+    unitComponents.add(unitComponent);
+
+    if (event.playerIndex == self.index) {
+      Audio.get.playSound(Sound.EVA_UNIT_READY);
+    }
+  }
+
   void onBattlefieldUpdated({
     required Map<String, UnitUpdate> units,
   }) {
@@ -280,17 +347,10 @@ class BattlefieldComponent extends PositionComponent {
       unitComponents: unitComponents,
     );
 
-    _createNewUnits(
-      units: units,
-      unitComponents: unitComponents,
-    );
-
     _removeDestroyedUnits(
       units: units,
       unitComponents: unitComponents,
     );
-
-    _updateNodes();
   }
 
   void _updateExistingUnits({
@@ -327,88 +387,6 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void _createNewUnits({
-    required Map<String, UnitUpdate> units,
-    required List<UnitComponent> unitComponents,
-  }) {
-    final List<UnitUpdate> newUnits = [];
-    final Set<String> existingUnitIds = unitComponents
-        .map((unitComponent) => unitComponent.id)
-        .toSet();
-
-    for (final MapEntry<String, UnitUpdate> entry in units.entries) {
-      if (!existingUnitIds.contains(entry.key)) {
-        newUnits.add(entry.value);
-      }
-    }
-
-    for (final UnitUpdate unit in newUnits) {
-      final Player player = unit.playerIndex == self.index ? self : opponent;
-      MovementPathComponent? movementOrderComponent;
-      MovementPathComponent? movementCurrentComponent;
-      AttackPathComponent? attackPathComponent;
-
-      if (player.isSelf) {
-        movementOrderComponent = MovementPathComponent(
-          position: mapCenter - absoluteCenter,
-          color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
-          thickness: nodeSize.x / 30,
-        );
-        add(movementOrderComponent);
-
-        movementCurrentComponent = MovementPathComponent(
-          position: mapCenter - absoluteCenter,
-          color: Palette.PATH_MOVEMENT_ORDER,
-          thickness: nodeSize.x / 30,
-        );
-        add(movementCurrentComponent);
-
-        attackPathComponent = AttackPathComponent(
-          position: mapCenter - absoluteCenter,
-          color: player.color.withAlpha(128),
-          thickness: nodeSize.x / 30,
-        );
-        add(attackPathComponent);
-      }
-
-      final UnitComponent unitComponent = UnitComponent(
-        position: unit.currentPosition.localPosition(
-          mapCenter: mapCenter,
-          nodeSizeRatio: nodeSizeRatio,
-        ),
-        size: nodeSize,
-        id: unit.id,
-        type: unit.type,
-        nodeSizeRatio: nodeSizeRatio,
-        player: player,
-        lockedNode: (unit.lockedLocation != null)
-            ? match.getNodeById(unit.lockedLocation!.id)
-            : null,
-        battlefieldComponent: this,
-        movementOrderComponent: movementOrderComponent,
-        movementCurrentComponent: movementCurrentComponent,
-        attackPathComponent: attackPathComponent,
-        targetPosition: unit.targetPosition?.localPosition(
-          mapCenter: mapCenter,
-          nodeSizeRatio: nodeSizeRatio,
-        ),
-        targetUnit: unit.targetUnitId != null
-            ? unitComponents.where((u) => u.id == unit.targetUnitId).firstOrNull
-            : null,
-        targetBase: (unit.targetBase != null)
-            ? match.getNodeById(unit.targetBase!.id)
-            : null,
-      );
-
-      add(unitComponent);
-      unitComponents.add(unitComponent);
-
-      if (unit.playerIndex == self.index) {
-        Audio.get.playSound(Sound.EVA_UNIT_READY);
-      }
-    }
-  }
-
   void _removeDestroyedUnits({
     required Map<String, UnitUpdate> units,
     required List<UnitComponent> unitComponents,
@@ -436,7 +414,7 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void _updateNodes() {
+  void updateNodesLocks() {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.unlock();
     }

@@ -94,9 +94,7 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(MatchUpdate matchUpdate) {
-    battlefieldComponent.onBattlefieldUpdated(
-      units: matchUpdate.units,
-    );
+    bool updateNodeLocks = false;
 
     for (final Event event in matchUpdate.events) {
       if (event is EventMissile) {
@@ -114,7 +112,14 @@ class MatchComponent extends World {
             break;
           }
         }
+      } else if (event is EventUnitCreated) {
+        updateNodeLocks = true;
+        battlefieldComponent.onUnitCreated(event);
       }
+    }
+
+    if (updateNodeLocks) {
+      battlefieldComponent.updateNodesLocks();
     }
   }
 

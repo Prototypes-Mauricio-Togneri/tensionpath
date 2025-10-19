@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
-import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
-import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 
