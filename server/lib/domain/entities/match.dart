@@ -137,10 +137,11 @@ class Match {
     if (_isPlaying) {
       elapsedTime += dt;
 
-      final List<JsonEvent> events = battlefield.update(dt);
       final Map<String, JsonEventPlayer> previousEvents = players.events(
         battlefield.units,
       );
+
+      final List<JsonEvent> events = battlefield.update(dt);
 
       for (final Player player in players.list) {
         player.addResources(player.resourcesPassiveRate * dt);
