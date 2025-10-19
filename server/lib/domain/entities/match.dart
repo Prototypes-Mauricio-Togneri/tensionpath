@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -136,10 +137,20 @@ class Match {
       elapsedTime += dt;
 
       final List<JsonEvent> events = battlefield.update(dt);
+      final List<JsonEventPlayer> previousEvents = players.events(
+        battlefield.units,
+      );
 
       for (final Player player in players.list) {
         player.addResources(player.resourcesPassiveRate * dt);
       }
+
+      events.addAll(
+        players.newEvents(
+          units: battlefield.units,
+          previousEvents: previousEvents,
+        ),
+      );
 
       final String? winner = _winner;
 

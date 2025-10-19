@@ -23,6 +23,12 @@ class JsonEventPlayer {
     required this.currentHarvesterCount,
   });
 
+  bool hasChanged(JsonEventPlayer other) {
+    return health != other.health ||
+        resourcesRate != other.resourcesRate ||
+        currentHarvesterCount != other.currentHarvesterCount;
+  }
+
   factory JsonEventPlayer.fromJson(Map<String, dynamic> json) =>
       _$JsonEventPlayerFromJson(json);
 
