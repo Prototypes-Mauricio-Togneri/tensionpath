@@ -35,9 +35,6 @@ class Event {
 
   @JsonKey(name: 'unit_destroyed')
   final JsonEventUnitDestroyed? unitDestroyed;
-
-  @JsonKey(name: 'match_finished')
-  final JsonEventMatchFinished? matchFinished;
 */
 
 class EventMissile implements Event {
