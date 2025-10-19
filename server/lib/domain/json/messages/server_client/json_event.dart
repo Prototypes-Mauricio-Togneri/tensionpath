@@ -32,10 +32,10 @@ class JsonEvent {
   final JsonEventUnitMovementStarted? unitMovementStarted;
 
   @JsonKey(name: 'unit_movement_ended')
-  final JsonEventUnitMovementEnded? unitMovementEnded; // on update
+  final JsonEventUnitMovementEnded? unitMovementEnded;
 
   @JsonKey(name: 'unit_updated')
-  final JsonEventUnitUpdated? unitUpdated; // on update
+  final JsonEventUnitUpdated? unitUpdated;
 
   @JsonKey(name: 'unit_destroyed')
   final JsonEventUnitDestroyed? unitDestroyed;

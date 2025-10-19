@@ -46,7 +46,7 @@ class Battlefield {
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
-        unit.update(dt);
+        result.addAll([?unit.update(dt)]);
       }
     }
 
