@@ -114,6 +114,8 @@ class MatchComponent extends World {
             break;
           }
         }
+      } else if (event is EventMatchFinished) {
+        
       }
     }
   }

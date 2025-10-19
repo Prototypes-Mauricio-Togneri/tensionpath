@@ -10,13 +10,11 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 class MatchUpdate {
   final MatchStatus status;
   final Map<String, UnitUpdate> units;
-  final String? winner;
   final List<Event> events;
 
   const MatchUpdate({
     required this.status,
     required this.units,
-    required this.winner,
     required this.events,
   });
 
@@ -25,7 +23,6 @@ class MatchUpdate {
     units: json.units.map(
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
     ),
-    winner: null,
     events: json.events.map(Event.fromJson).toList(),
   );
 }

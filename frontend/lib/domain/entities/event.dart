@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
@@ -11,6 +12,8 @@ class Event {
       return EventPlayer.fromJson(json.player!);
     } else if (json.resourceDepleted != null) {
       return EventResourcesDepleted.fromJson(json.resourceDepleted!);
+    } else if (json.matchFinished != null) {
+      return EventMatchFinished.fromJson(json.matchFinished!);
     } else {
       throw UnimplementedError('Unknown event type');
     }
@@ -94,4 +97,15 @@ class EventResourcesDepleted implements Event {
 
   factory EventResourcesDepleted.fromJson(JsonEventResourceDepleted json) =>
       EventResourcesDepleted(id: json.id);
+}
+
+class EventMatchFinished implements Event {
+  final String winner;
+
+  const EventMatchFinished({
+    required this.winner,
+  });
+
+  factory EventMatchFinished.fromJson(JsonEventMatchFinished json) =>
+      EventMatchFinished(winner: json.winner);
 }

@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionpath/domain/components/game_component.dart';
 import 'package:tensionpath/domain/components/match_component.dart';
+import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/update.dart';
@@ -85,14 +86,16 @@ class MatchState extends BaseState {
     Delayed.post(notify);
   }
 
-  void _onUpdate(MatchUpdate update) {
-    MatchComponentRef.instance.onMatchUpdated(update);
+  void _onUpdate(MatchUpdate matchUpdate) {
+    MatchComponentRef.instance.onMatchUpdated(matchUpdate);
 
-    matchStatus = update.status;
-    final String? winnerId = update.winner;
+    matchStatus = matchUpdate.status;
 
-    if (winnerId != null) {
-      onMatchFinished(winnerId == selfId);
+    for (final Event event in matchUpdate.events) {
+      if (event is EventMatchFinished) {
+        _onMatchFinished(event.winner == selfId);
+        break;
+      }
     }
   }
 
@@ -131,7 +134,7 @@ class MatchState extends BaseState {
     ),
   );
 
-  void onMatchFinished(bool hasWon) {
+  void _onMatchFinished(bool hasWon) {
     if (hasWon) {
       Audio.get.playSound(Sound.EVA_MISSION_ACCOMPLISHED);
       InfoDialog.won(Navigation.pop);
