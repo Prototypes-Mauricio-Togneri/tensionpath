@@ -38,10 +38,10 @@ class JsonEvent {
   final JsonEventUnitUpdated? unitUpdated; // on update
 
   @JsonKey(name: 'unit_destroyed')
-  final JsonEventUnitDestroyed? unitDestroyed; // on update: OK
+  final JsonEventUnitDestroyed? unitDestroyed;
 
   @JsonKey(name: 'match_finished')
-  final JsonEventMatchFinished? matchFinished; // on update: OK
+  final JsonEventMatchFinished? matchFinished;
 
   const JsonEvent({
     this.missile,
