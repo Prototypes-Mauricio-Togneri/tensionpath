@@ -18,9 +18,6 @@ class Event {
 }
 
 /*
-  @JsonKey(name: 'resource_depleted')
-  final JsonEventResourceDepleted? resourceDepleted;
-
   @JsonKey(name: 'unit_created')
   final JsonEventUnitCreated? unitCreated;
 
