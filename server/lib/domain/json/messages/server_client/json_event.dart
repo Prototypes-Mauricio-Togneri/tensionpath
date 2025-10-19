@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/entities/resource.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
@@ -9,6 +10,8 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_position.dart';
 
 part 'json_event.g.dart';
 
@@ -53,6 +56,24 @@ class JsonEvent {
     this.matchFinished,
   });
 
+  factory JsonEvent.missile({
+    required num charge,
+    required String? owner,
+    required Map<String, String?> platforms,
+    required bool alarm,
+    required bool fired,
+  }) => JsonEvent(
+    missile: JsonEventMissile(
+      charge: charge,
+      owner: owner,
+      platforms: platforms,
+      alarm: alarm,
+      fired: fired,
+    ),
+  );
+
+  factory JsonEvent.player(JsonEventPlayer player) => JsonEvent(player: player);
+
   factory JsonEvent.unitCreated(Unit unit) => JsonEvent(
     unitCreated: JsonEventUnitCreated(
       id: unit.id,
@@ -65,6 +86,52 @@ class JsonEvent {
       targetBase: unit.targetBase?.location.toJson(),
       targetUnitId: unit.targetUnit?.id,
     ),
+  );
+
+  factory JsonEvent.unitMovementStarted({
+    required String unitId,
+    required JsonPosition currentPosition,
+    required JsonPosition targetPosition,
+  }) => JsonEvent(
+    unitMovementStarted: JsonEventUnitMovementStarted(
+      id: unitId,
+      currentPosition: currentPosition,
+      targetPosition: targetPosition,
+    ),
+  );
+
+  factory JsonEvent.unitMovementEnded({
+    required String unitId,
+    required JsonPosition currentPosition,
+    required JsonLocation? lockedLocation,
+  }) => JsonEvent(
+    unitMovementEnded: JsonEventUnitMovementEnded(
+      id: unitId,
+      currentPosition: currentPosition,
+      lockedLocation: lockedLocation,
+    ),
+  );
+
+  factory JsonEvent.unitUpdated({
+    required String unitId,
+    required num health,
+  }) => JsonEvent(
+    unitUpdated: JsonEventUnitUpdated(
+      id: unitId,
+      health: health,
+    ),
+  );
+
+  factory JsonEvent.unitDestroyed(Unit unit) => JsonEvent(
+    unitDestroyed: JsonEventUnitDestroyed(id: unit.id),
+  );
+
+  factory JsonEvent.resourceDepleted(Resource resource) => JsonEvent(
+    resourceDepleted: JsonEventResourceDepleted(id: resource.id),
+  );
+
+  factory JsonEvent.matchFinished(String winner) => JsonEvent(
+    matchFinished: JsonEventMatchFinished(winner: winner),
   );
 
   factory JsonEvent.fromJson(Map<String, dynamic> json) =>

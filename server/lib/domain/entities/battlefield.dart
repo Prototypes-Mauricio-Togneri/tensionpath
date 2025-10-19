@@ -42,10 +42,17 @@ class Battlefield {
 
   List<JsonEvent> update(double dt) {
     final List<JsonEvent> events = [];
+    final List<Resource> nonEmptyResources = resources.nonEmpty;
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
         unit.update(dt);
+      }
+    }
+
+    for (final Resource resource in nonEmptyResources) {
+      if (!resource.hasResources) {
+        events.add(JsonEvent.resourceDepleted(resource));
       }
     }
 

@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -127,11 +126,7 @@ class Match {
       Logger.debug('Player $playerIndex surrendered');
       status = MatchStatus.finished;
       _sendMatchUpdate([
-        JsonEvent(
-          matchFinished: JsonEventMatchFinished(
-            winner: players.other(player.index).id,
-          ),
-        ),
+        JsonEvent.matchFinished(players.other(player.index).id),
       ]);
     }
   }
@@ -150,9 +145,7 @@ class Match {
 
       if (winner != null) {
         status = MatchStatus.finished;
-        events.add(
-          JsonEvent(matchFinished: JsonEventMatchFinished(winner: winner)),
-        );
+        events.add(JsonEvent.matchFinished(winner));
       }
 
       if (events.isNotEmpty) {

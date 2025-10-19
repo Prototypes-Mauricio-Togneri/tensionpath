@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
@@ -81,17 +80,15 @@ class Missile {
         fired ||
         platformsOwnershipChanged ||
         missileOwnershipChanged) {
-      return JsonEvent(
-        missile: JsonEventMissile(
-          charge: chargeCurrent,
-          owner: owner,
-          platforms: {
-            for (final Platform platform in platforms)
-              platform.id: platform.owner,
-          },
-          alarm: alarm,
-          fired: fired,
-        ),
+      return JsonEvent.missile(
+        charge: chargeCurrent,
+        owner: owner,
+        platforms: {
+          for (final Platform platform in platforms)
+            platform.id: platform.owner,
+        },
+        alarm: alarm,
+        fired: fired,
       );
     } else {
       return null;

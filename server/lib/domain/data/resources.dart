@@ -9,4 +9,7 @@ class Resources {
   Resource get(String id) => _resources.get(id);
 
   List<Resource> get list => _resources.list;
+
+  List<Resource> get nonEmpty =>
+      _resources.list.where((r) => r.hasResources).toList();
 }
