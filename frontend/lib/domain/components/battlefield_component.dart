@@ -356,6 +356,22 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
+  void onUnitMovementEnded(EventUnitMovementEnded event) {
+    final UnitComponent? unitComponent = unitComponentById(event.id);
+
+    if (unitComponent != null) {
+      unitComponent.onMovementEnded(
+        newCurrentPosition: event.currentPosition.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
+        ),
+        newLockedNode: (event.lockedLocation != null)
+            ? match.getNodeById(event.lockedLocation!.id)
+            : null,
+      );
+    }
+  }
+
   void onBattlefieldUpdated({
     required Map<String, UnitUpdate> units,
   }) {

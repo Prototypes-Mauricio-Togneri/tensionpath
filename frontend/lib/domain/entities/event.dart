@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -21,6 +22,8 @@ class Event {
       return EventUnitCreated.fromJson(json.unitCreated!);
     } else if (json.unitMovementStarted != null) {
       return EventUnitMovementStarted.fromJson(json.unitMovementStarted!);
+    } else if (json.unitMovementEnded != null) {
+      return EventUnitMovementEnded.fromJson(json.unitMovementEnded!);
     } else if (json.matchFinished != null) {
       return EventMatchFinished.fromJson(json.matchFinished!);
     } else {
@@ -165,6 +168,28 @@ class EventUnitMovementStarted implements Event {
     id: json.id,
     currentPosition: Position.fromJson(json.currentPosition),
     targetPosition: Position.fromJson(json.targetPosition),
+  );
+}
+
+class EventUnitMovementEnded implements Event {
+  final String id;
+  final Position currentPosition;
+  final Location? lockedLocation;
+
+  const EventUnitMovementEnded({
+    required this.id,
+    required this.currentPosition,
+    required this.lockedLocation,
+  });
+
+  factory EventUnitMovementEnded.fromJson(
+    JsonEventUnitMovementEnded json,
+  ) => EventUnitMovementEnded(
+    id: json.id,
+    currentPosition: Position.fromJson(json.currentPosition),
+    lockedLocation: (json.lockedLocation != null)
+        ? Location.fromJson(json.lockedLocation!)
+        : null,
   );
 }
 

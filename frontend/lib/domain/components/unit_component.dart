@@ -99,6 +99,14 @@ class UnitComponent extends PositionComponent
     targetPosition = newTargetPosition;
   }
 
+  void onMovementEnded({
+    required Vector2 newCurrentPosition,
+    required NodeComponent? newLockedNode,
+  }) {
+    position = newCurrentPosition;
+    lockedNode = newLockedNode;
+  }
+
   bool get isRevealed => closestNodeComponent.isRevealed;
 
   @override
