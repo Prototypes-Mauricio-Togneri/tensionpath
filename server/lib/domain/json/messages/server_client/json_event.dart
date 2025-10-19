@@ -20,7 +20,7 @@ class JsonEvent {
   final JsonEventMissile? missile;
 
   @JsonKey(name: 'player')
-  final JsonEventPlayer? player; // on update: OK
+  final JsonEventPlayer? player;
 
   @JsonKey(name: 'resource_depleted')
   final JsonEventResourceDepleted? resourceDepleted;
