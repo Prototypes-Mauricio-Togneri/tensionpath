@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
@@ -91,15 +93,19 @@ class Units {
     return result;
   }
 
-  bool removeDestroyed() {
+  List<JsonEvent> removeDestroyed() {
+    final List<JsonEvent> events = [];
     final List<Unit> unitsToRemove = _units.list
         .where((unit) => !unit.isAlive)
         .toList();
 
     for (final Unit unit in unitsToRemove) {
       _units.remove(unit.id);
+      events.add(
+        JsonEvent(unitDestroyed: JsonEventUnitDestroyed(id: unit.id)),
+      );
     }
 
-    return unitsToRemove.isNotEmpty;
+    return events;
   }
 }

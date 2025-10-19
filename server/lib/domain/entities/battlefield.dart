@@ -49,7 +49,7 @@ class Battlefield {
       }
     }
 
-    units.removeDestroyed();
+    events.addAll(units.removeDestroyed());
     events.addAll([?missile.update(dt)]);
 
     return events;
