@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
+import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -92,13 +93,21 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(MatchUpdate match) {
-    self.update(match.players[self.index]!);
-    opponent.update(match.players[opponent.index]!);
     battlefieldComponent.onBattlefieldUpdated(
       missile: match.missile,
       resources: match.resources,
       units: match.units,
     );
+
+    for (final Event event in match.events) {
+      if (event is EventPlayer) {
+        if (event.id == self.id) {
+          self.update(event);
+        } else if (event.id == opponent.id) {
+          opponent.update(event);
+        }
+      } else if (event is EventMissile) {}
+    }
   }
 
   int unitsOfPlayer(Player player) => unitComponents

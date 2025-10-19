@@ -4,8 +4,11 @@ part 'json_event_player.g.dart';
 
 @JsonSerializable()
 class JsonEventPlayer {
-  @JsonKey(name: 'health')
-  final num health;
+  @JsonKey(name: 'id')
+  final String id;
+
+  @JsonKey(name: 'baseHealth')
+  final num baseHealth;
 
   @JsonKey(name: 'resources')
   final num resources;
@@ -17,14 +20,15 @@ class JsonEventPlayer {
   final int currentHarvesterCount;
 
   const JsonEventPlayer({
-    required this.health,
+    required this.id,
+    required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,
   });
 
   bool hasChanged(JsonEventPlayer other) {
-    return health != other.health ||
+    return baseHealth != other.baseHealth ||
         resourcesRate != other.resourcesRate ||
         currentHarvesterCount != other.currentHarvesterCount;
   }

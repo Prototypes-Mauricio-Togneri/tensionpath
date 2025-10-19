@@ -152,7 +152,7 @@ class UnitSelectorComponent extends PositionComponent {
 
   int get unitCost {
     if (unitType == UnitType.harvester) {
-      if (player.currentHarvesterCount < player.maxHarvesterCount) {
+      if (player.currentHarvesterCount < player.maxHarvestersCount) {
         return 0;
       } else {
         return unitType.cost;

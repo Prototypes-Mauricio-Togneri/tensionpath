@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -9,32 +10,30 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchUpdate {
   final MatchStatus status;
-  final Map<String, PlayerUpdate> players;
   final MissileUpdate missile;
   final Map<String, num> resources;
   final Map<String, UnitUpdate> units;
   final String? winner;
+  final List<Event> events;
 
   const MatchUpdate({
     required this.status,
-    required this.players,
     required this.missile,
     required this.resources,
     required this.units,
     required this.winner,
+    required this.events,
   });
 
   factory MatchUpdate.fromJson(JsonMatchUpdate json) => MatchUpdate(
     status: json.status,
-    players: json.players.map(
-      (key, value) => MapEntry(key, PlayerUpdate.fromJson(value)),
-    ),
     missile: MissileUpdate.fromJson(json.missile),
     resources: Map<String, num>.from(json.resources),
     units: json.units.map(
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
     ),
     winner: null,
+    events: json.events.map(Event.fromJson).toList(),
   );
 }
 
@@ -43,14 +42,12 @@ class PlayerUpdate {
   final int resources;
   final num resourcesRate;
   final int currentHarvesterCount;
-  final int maxHarvesterCount;
 
   const PlayerUpdate({
     required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,
-    required this.maxHarvesterCount,
   });
 
   factory PlayerUpdate.fromJson(JsonPlayerUpdate json) => PlayerUpdate(
@@ -58,7 +55,6 @@ class PlayerUpdate {
     resources: json.resources,
     resourcesRate: json.resourcesRate,
     currentHarvesterCount: json.currentHarvesterCount,
-    maxHarvesterCount: json.maxHarvesterCount,
   );
 }
 

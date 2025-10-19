@@ -17,31 +17,31 @@ part 'json_event.g.dart';
 @JsonSerializable()
 class JsonEvent {
   @JsonKey(name: 'missile')
-  final JsonEventMissile? missile; // on update: OK
+  final JsonEventMissile? missile;
 
   @JsonKey(name: 'player')
-  final JsonEventPlayer? player; // on update: OK
+  final JsonEventPlayer? player;
 
   @JsonKey(name: 'resource_depleted')
-  final JsonEventResourceDepleted? resourceDepleted; // on update: OK
+  final JsonEventResourceDepleted? resourceDepleted;
 
   @JsonKey(name: 'unit_created')
-  final JsonEventUnitCreated? unitCreated; // on message: OK
+  final JsonEventUnitCreated? unitCreated;
 
   @JsonKey(name: 'unit_movement_started')
-  final JsonEventUnitMovementStarted? unitMovementStarted; // on message: OK
+  final JsonEventUnitMovementStarted? unitMovementStarted;
 
   @JsonKey(name: 'unit_movement_ended')
-  final JsonEventUnitMovementEnded? unitMovementEnded; // on update
+  final JsonEventUnitMovementEnded? unitMovementEnded;
 
   @JsonKey(name: 'unit_updated')
-  final JsonEventUnitUpdated? unitUpdated; // on update
+  final JsonEventUnitUpdated? unitUpdated;
 
   @JsonKey(name: 'unit_destroyed')
-  final JsonEventUnitDestroyed? unitDestroyed; // on update: OK
+  final JsonEventUnitDestroyed? unitDestroyed;
 
   @JsonKey(name: 'match_finished')
-  final JsonEventMatchFinished? matchFinished; // on update: OK
+  final JsonEventMatchFinished? matchFinished;
 
   const JsonEvent({
     this.missile,

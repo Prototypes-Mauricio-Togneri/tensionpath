@@ -9,7 +9,8 @@ part of 'json_event_player.dart';
 JsonEventPlayer _$JsonEventPlayerFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonEventPlayer', json, ($checkedConvert) {
       final val = JsonEventPlayer(
-        health: $checkedConvert('health', (v) => v as num),
+        id: $checkedConvert('id', (v) => v as String),
+        baseHealth: $checkedConvert('baseHealth', (v) => v as num),
         resources: $checkedConvert('resources', (v) => v as num),
         resourcesRate: $checkedConvert('resourcesRate', (v) => v as num),
         currentHarvesterCount: $checkedConvert(
@@ -22,7 +23,8 @@ JsonEventPlayer _$JsonEventPlayerFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonEventPlayerToJson(JsonEventPlayer instance) =>
     <String, dynamic>{
-      'health': instance.health,
+      'id': instance.id,
+      'baseHealth': instance.baseHealth,
       'resources': instance.resources,
       'resourcesRate': instance.resourcesRate,
       'currentHarvesterCount': instance.currentHarvesterCount,

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/entities/update.dart';
+import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -11,12 +11,12 @@ class Player {
   final String index;
   final bool isSelf;
   final num baseMaxHealth;
+  final int maxHarvestersCount;
   final List<UnitType> deck;
   num baseHealth;
   num resources;
   num resourcesRate;
   int currentHarvesterCount;
-  int maxHarvesterCount;
 
   Player({
     required this.id,
@@ -28,7 +28,7 @@ class Player {
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,
-    required this.maxHarvesterCount,
+    required this.maxHarvestersCount,
     required this.deck,
   });
 
@@ -40,19 +40,21 @@ class Player {
 
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
-  void update(PlayerUpdate player) {
-    baseHealth = player.baseHealth;
-    resources = player.resources;
-    resourcesRate = player.resourcesRate;
-    currentHarvesterCount = player.currentHarvesterCount;
-    maxHarvesterCount = player.maxHarvesterCount;
+  void update(EventPlayer event) {
+    baseHealth = event.baseHealth;
+    resources = event.resources;
+    resourcesRate = event.resourcesRate;
+    currentHarvesterCount = event.currentHarvesterCount;
   }
 
   void addResources(num value) {
     resources += value;
   }
 
-  factory Player.fromJson(JsonPlayerStart player) => Player(
+  factory Player.fromJson({
+    required JsonPlayerStart player,
+    required int maxHarvestersCount,
+  }) => Player(
     id: player.id,
     index: player.index,
     isSelf: player.isSelf,
@@ -62,7 +64,7 @@ class Player {
     resources: player.resources,
     resourcesRate: player.resourcesPassiveRate,
     currentHarvesterCount: 0,
-    maxHarvesterCount: 0,
+    maxHarvestersCount: maxHarvestersCount,
     deck: player.deck,
   );
 }
