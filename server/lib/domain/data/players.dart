@@ -23,19 +23,17 @@ class Players {
     throw Exception('No other player found with index $playerIndex');
   }
 
-  List<JsonEventPlayer> events(Units units) {
-    final List<JsonEventPlayer> result = [];
+  Map<String, JsonEventPlayer> events(Units units) {
+    final Map<String, JsonEventPlayer> result = {};
 
     for (final Player player in _players) {
-      result.add(
-        JsonEventPlayer(
-          health: player.baseHealth,
-          resources: player.resources,
-          resourcesRate:
-              units.currentHarvestersWorking(player.index) *
-              player.resourcesActiveRate,
-          currentHarvesterCount: units.currentHarvesterCount(player.index),
-        ),
+      result[player.index] = JsonEventPlayer(
+        health: player.baseHealth,
+        resources: player.resources,
+        resourcesRate:
+            units.currentHarvestersWorking(player.index) *
+            player.resourcesActiveRate,
+        currentHarvesterCount: units.currentHarvesterCount(player.index),
       );
     }
 
@@ -43,15 +41,18 @@ class Players {
   }
 
   List<JsonEvent> newEvents({
-    required Units units,
-    required List<JsonEventPlayer> previousEvents,
+    required Map<String, JsonEventPlayer> previousEvents,
+    required Map<String, JsonEventPlayer> newEvents,
   }) {
-    final List<JsonEventPlayer> newEvents = events(units);
     final List<JsonEventPlayer> result = [];
 
-    for (int i = 0; i < newEvents.length; i++) {
-      if (!newEvents[i].hasChanged(previousEvents[i])) {
-        result.add(newEvents[i]);
+    for (final MapEntry<String, JsonEventPlayer> entry
+        in previousEvents.entries) {
+      final JsonEventPlayer previousEvent = entry.value;
+      final JsonEventPlayer newEvent = newEvents[entry.key]!;
+
+      if (newEvent.hasChanged(previousEvent)) {
+        result.add(newEvent);
       }
     }
 

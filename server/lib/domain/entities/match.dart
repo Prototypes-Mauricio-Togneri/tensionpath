@@ -138,7 +138,7 @@ class Match {
       elapsedTime += dt;
 
       final List<JsonEvent> events = battlefield.update(dt);
-      final List<JsonEventPlayer> previousEvents = players.events(
+      final Map<String, JsonEventPlayer> previousEvents = players.events(
         battlefield.units,
       );
 
@@ -148,8 +148,8 @@ class Match {
 
       events.addAll(
         players.newEvents(
-          units: battlefield.units,
           previousEvents: previousEvents,
+          newEvents: players.events(battlefield.units),
         ),
       );
 
