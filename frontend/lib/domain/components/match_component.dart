@@ -99,14 +99,14 @@ class MatchComponent extends World {
     );
 
     for (final Event event in matchUpdate.events) {
-      if (event is EventPlayer) {
+      if (event is EventMissile) {
+        match.battlefield.missile.update(event);
+      } else if (event is EventPlayer) {
         if (event.id == self.id) {
           self.update(event);
         } else if (event.id == opponent.id) {
           opponent.update(event);
         }
-      } else if (event is EventMissile) {
-        match.battlefield.missile.update(event);
       }
     }
   }
