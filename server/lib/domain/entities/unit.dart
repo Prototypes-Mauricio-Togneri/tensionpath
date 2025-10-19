@@ -133,7 +133,11 @@ class Unit {
       lockedNode = targetNode;
       lockedNode!.lock(this);
       targetNode = null;
-      result = JsonEvent.unitMovementEnded(this);
+      result = JsonEvent.unitMovementEnded(
+        unitId: id,
+        currentPosition: position,
+        lockedLocation: lockedNode?.location,
+      );
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
         targetNode!.notLockedBy(this)) {

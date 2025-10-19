@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/resource.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
@@ -94,27 +95,34 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitMovementEnded(Unit unit) => JsonEvent(
+  factory JsonEvent.unitMovementEnded({
+    required String unitId,
+    required Position currentPosition,
+    required Location? lockedLocation,
+  }) => JsonEvent(
     unitMovementEnded: JsonEventUnitMovementEnded(
-      id: unit.id,
-      currentPosition: unit.position.toJson(),
-      lockedLocation: unit.lockedNode?.location.toJson(),
+      id: unitId,
+      currentPosition: currentPosition.toJson(),
+      lockedLocation: lockedLocation?.toJson(),
     ),
   );
 
-  factory JsonEvent.unitUpdated(Unit unit) => JsonEvent(
+  factory JsonEvent.unitUpdated({
+    required String unitId,
+    required num health,
+  }) => JsonEvent(
     unitUpdated: JsonEventUnitUpdated(
-      id: unit.id,
-      health: unit.health,
+      id: unitId,
+      health: health,
     ),
   );
 
-  factory JsonEvent.unitDestroyed(Unit unit) => JsonEvent(
-    unitDestroyed: JsonEventUnitDestroyed(id: unit.id),
+  factory JsonEvent.unitDestroyed(String unitId) => JsonEvent(
+    unitDestroyed: JsonEventUnitDestroyed(id: unitId),
   );
 
-  factory JsonEvent.resourceDepleted(Resource resource) => JsonEvent(
-    resourceDepleted: JsonEventResourceDepleted(id: resource.id),
+  factory JsonEvent.resourceDepleted(String resourceId) => JsonEvent(
+    resourceDepleted: JsonEventResourceDepleted(id: resourceId),
   );
 
   factory JsonEvent.matchFinished(String winner) => JsonEvent(

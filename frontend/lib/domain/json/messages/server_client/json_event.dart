@@ -1,6 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/resource.dart';
-import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';

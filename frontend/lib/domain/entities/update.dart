@@ -34,7 +34,7 @@ class MatchUpdate {
     units: json.units.map(
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
     ),
-    winner: json.winner,
+    winner: null,
   );
 }
 

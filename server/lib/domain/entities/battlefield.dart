@@ -52,7 +52,7 @@ class Battlefield {
 
     for (final Resource resource in nonEmptyResources) {
       if (!resource.hasResources) {
-        result.add(JsonEvent.resourceDepleted(resource));
+        result.add(JsonEvent.resourceDepleted(resource.id));
       }
     }
 

@@ -100,7 +100,7 @@ class Units {
 
     for (final Unit unit in unitsToRemove) {
       _units.remove(unit.id);
-      result.add(JsonEvent.unitCreated(unit));
+      result.add(JsonEvent.unitDestroyed(unit.id));
     }
 
     return result;
