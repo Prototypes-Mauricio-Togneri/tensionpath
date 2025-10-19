@@ -19,8 +19,8 @@ class Resources {
 
   bool get hasResources => amountCurrent > 0;
 
-  void update(num newAmountCurrent) {
-    amountCurrent = newAmountCurrent;
+  void deplete() {
+    amountCurrent = 0;
   }
 
   factory Resources.fromJson(JsonResourceStart json) => Resources(

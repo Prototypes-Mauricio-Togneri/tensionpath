@@ -11,6 +11,7 @@ import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -94,7 +95,6 @@ class MatchComponent extends World {
 
   void onMatchUpdated(MatchUpdate matchUpdate) {
     battlefieldComponent.onBattlefieldUpdated(
-      resources: matchUpdate.resources,
       units: matchUpdate.units,
     );
 
@@ -106,6 +106,13 @@ class MatchComponent extends World {
           self.update(event);
         } else if (event.id == opponent.id) {
           opponent.update(event);
+        }
+      } else if (event is EventResourcesDepleted) {
+        for (final Resources resources in match.battlefield.resources) {
+          if (event.id == resources.id) {
+            resources.deplete();
+            break;
+          }
         }
       }
     }

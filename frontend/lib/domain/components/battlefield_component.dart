@@ -273,7 +273,6 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onBattlefieldUpdated({
-    required Map<String, num> resources,
     required Map<String, UnitUpdate> units,
   }) {
     _updateExistingUnits(
@@ -292,8 +291,6 @@ class BattlefieldComponent extends PositionComponent {
     );
 
     _updateNodes();
-
-    _updateResources(resources);
   }
 
   void _updateExistingUnits({
@@ -446,16 +443,6 @@ class BattlefieldComponent extends PositionComponent {
 
     for (final UnitComponent unitComponent in unitComponents) {
       unitComponent.lockedNode?.lock(unitComponent);
-    }
-  }
-
-  void _updateResources(Map<String, num> resources) {
-    for (final ResourceComponent resourceComponent in resourceComponents) {
-      final num? newAmount = resources[resourceComponent.resources.id];
-
-      if (newAmount != null) {
-        resourceComponent.refresh(newAmount);
-      }
     }
   }
 }

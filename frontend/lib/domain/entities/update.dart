@@ -9,14 +9,12 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchUpdate {
   final MatchStatus status;
-  final Map<String, num> resources;
   final Map<String, UnitUpdate> units;
   final String? winner;
   final List<Event> events;
 
   const MatchUpdate({
     required this.status,
-    required this.resources,
     required this.units,
     required this.winner,
     required this.events,
@@ -24,7 +22,6 @@ class MatchUpdate {
 
   factory MatchUpdate.fromJson(JsonMatchUpdate json) => MatchUpdate(
     status: json.status,
-    resources: Map<String, num>.from(json.resources),
     units: json.units.map(
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
     ),

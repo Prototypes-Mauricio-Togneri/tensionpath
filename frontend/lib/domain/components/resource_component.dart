@@ -16,10 +16,6 @@ class ResourceComponent extends SpriteComponent with HasVisibility {
          priority: Priority.structure.value,
        );
 
-  void refresh(num newAmountCurrent) {
-    resources.update(newAmountCurrent);
-  }
-
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_RESOURCES);
