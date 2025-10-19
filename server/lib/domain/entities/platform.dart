@@ -83,8 +83,8 @@ class Platform {
     return result;
   }
 
-  JsonPlatformStart toJsonStart() => JsonPlatformStart(
+  JsonPlatformStart toJson() => JsonPlatformStart(
     id: id,
-    pads: pads.map((p) => p.toJsonStart()).toList(),
+    pads: pads.map((p) => p.toJson()).toList(),
   );
 }

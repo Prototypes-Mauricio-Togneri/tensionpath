@@ -13,23 +13,6 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
           'status',
           (v) => $enumDecode(_$MatchStatusEnumMap, v),
         ),
-        players: $checkedConvert(
-          'players',
-          (v) => (v as Map<String, dynamic>).map(
-            (k, e) => MapEntry(
-              k,
-              JsonPlayerUpdate.fromJson(e as Map<String, dynamic>),
-            ),
-          ),
-        ),
-        missile: $checkedConvert(
-          'missile',
-          (v) => JsonMissileUpdate.fromJson(v as Map<String, dynamic>),
-        ),
-        resources: $checkedConvert(
-          'resources',
-          (v) => Map<String, num>.from(v as Map),
-        ),
         units: $checkedConvert(
           'units',
           (v) => (v as Map<String, dynamic>).map(
@@ -50,9 +33,6 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
     <String, dynamic>{
       'status': _$MatchStatusEnumMap[instance.status]!,
-      'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
-      'missile': instance.missile.toJson(),
-      'resources': instance.resources,
       'units': instance.units.map((k, e) => MapEntry(k, e.toJson())),
       'events': instance.events.map((e) => e.toJson()).toList(),
     };

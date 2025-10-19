@@ -50,7 +50,7 @@ class Launcher {
     return result;
   }
 
-  JsonLauncherStart toJsonStart() => JsonLauncherStart(
+  JsonLauncherStart toJson() => JsonLauncherStart(
     playerIndex: player.index,
     location: location.toJson(),
     position: position.toJson(),

@@ -59,7 +59,7 @@ class Pad {
     node: node,
   );
 
-  JsonPadStart toJsonStart() => JsonPadStart(
+  JsonPadStart toJson() => JsonPadStart(
     location: location.toJson(),
     position: position.toJson(),
   );

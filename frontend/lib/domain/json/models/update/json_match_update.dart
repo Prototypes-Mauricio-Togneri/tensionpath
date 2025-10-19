@@ -12,15 +12,6 @@ class JsonMatchUpdate {
   @JsonKey(name: 'status')
   final MatchStatus status;
 
-  @JsonKey(name: 'players')
-  final Map<String, JsonPlayerUpdate> players;
-
-  @JsonKey(name: 'missile')
-  final JsonMissileUpdate missile;
-
-  @JsonKey(name: 'resources')
-  final Map<String, num> resources;
-
   @JsonKey(name: 'units')
   final Map<String, JsonUnitUpdate> units;
 
@@ -29,9 +20,6 @@ class JsonMatchUpdate {
 
   JsonMatchUpdate({
     required this.status,
-    required this.players,
-    required this.missile,
-    required this.resources,
     required this.units,
     required this.events,
   });

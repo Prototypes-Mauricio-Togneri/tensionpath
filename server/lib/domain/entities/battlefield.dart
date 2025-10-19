@@ -224,20 +224,16 @@ class Battlefield {
     );
   }
 
-  Map<String, num> resourcesToJsonUpdate() => Map.fromEntries(
-    resources.list.map((r) => MapEntry(r.id, r.amountCurrent)),
-  );
-
   Map<String, JsonUnitUpdate> unitsToJsonUpdate() => Map.fromEntries(
     units.list.map((u) => MapEntry(u.id, u.toJsonUpdate())),
   );
 
-  JsonBattlefieldStart toJsonStart() => JsonBattlefieldStart(
+  JsonBattlefieldStart toJson() => JsonBattlefieldStart(
     mapSize: mapSize.toJson(),
     nodeSize: Constants.NODE_SIZE.toJson(),
-    missile: missile.toJsonStart(),
-    resources: resources.list.map((r) => r.toJsonStart()).toList(),
-    launchers: launchers.list.map((l) => l.toJsonStart()).toList(),
-    nodes: nodes.list.map((n) => n.toJsonStart()).toList(),
+    missile: missile.toJson(),
+    resources: resources.list.map((r) => r.toJson()).toList(),
+    launchers: launchers.list.map((l) => l.toJson()).toList(),
+    nodes: nodes.list.map((n) => n.toJson()).toList(),
   );
 }

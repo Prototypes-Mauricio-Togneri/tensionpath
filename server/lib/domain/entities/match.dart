@@ -1,5 +1,4 @@
 import 'package:tensionpath/domain/data/players.dart';
-import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
@@ -10,7 +9,6 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
-import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
@@ -170,31 +168,11 @@ class Match {
   void _sendMatchUpdate(List<JsonEvent> events) {
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
       status: status,
-      players: _getPlayersUpdate(),
-      missile: battlefield.missile.toJsonUpdate(),
-      resources: battlefield.resourcesToJsonUpdate(),
       units: battlefield.unitsToJsonUpdate(),
       events: events,
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
-  }
-
-  Map<String, JsonPlayerUpdate> _getPlayersUpdate() {
-    final Units units = battlefield.units;
-    final Map<String, JsonPlayerUpdate> result = {};
-
-    for (final Player player in players.list) {
-      result[player.index] = player.toJsonUpdate(
-        currentHarvesterCount: units.currentHarvesterCount(player.index),
-        maxHarvesterCount: units.maxHarvesterCount(player.index),
-        resourcesExtraRate:
-            units.currentHarvestersWorking(player.index) *
-            player.resourcesActiveRate,
-      );
-    }
-
-    return result;
   }
 
   String? get _winner {
@@ -218,6 +196,6 @@ class Match {
     players: players.list
         .map((player) => player.toJson(selfId == player.id))
         .toList(),
-    battlefield: battlefield.toJsonStart(),
+    battlefield: battlefield.toJson(),
   );
 }

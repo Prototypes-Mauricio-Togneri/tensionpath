@@ -63,7 +63,7 @@ class Resource {
     return result;
   }
 
-  JsonResourceStart toJsonStart() => JsonResourceStart(
+  JsonResourceStart toJson() => JsonResourceStart(
     id: id,
     location: location.toJson(),
     position: position.toJson(),

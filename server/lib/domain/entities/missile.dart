@@ -8,7 +8,6 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -146,15 +145,7 @@ class Missile {
     );
   }
 
-  JsonMissileUpdate toJsonUpdate() => JsonMissileUpdate(
-    charge: chargeCurrent,
-    owner: owner,
-    platforms: {
-      for (final Platform platform in platforms) platform.id: platform.owner,
-    },
-  );
-
-  JsonMissileStart toJsonStart() => JsonMissileStart(
+  JsonMissileStart toJson() => JsonMissileStart(
     location: location.toJson(),
     position: position.toJson(),
     chargeMax: chargeMax,
@@ -162,6 +153,6 @@ class Missile {
     chargeAlarm: chargeAlarm,
     chargeRate: chargeRate,
     damage: damage,
-    platforms: platforms.map((p) => p.toJsonStart()).toList(),
+    platforms: platforms.map((p) => p.toJson()).toList(),
   );
 }

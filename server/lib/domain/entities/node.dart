@@ -50,7 +50,7 @@ class Node {
     return Nodes(result);
   }
 
-  JsonNodeStart toJsonStart() => JsonNodeStart(
+  JsonNodeStart toJson() => JsonNodeStart(
     location: location.toJson(),
     position: position.toJson(),
     type: type,
