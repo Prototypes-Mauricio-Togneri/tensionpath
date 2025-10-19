@@ -6,6 +6,8 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
 
 part 'json_event.g.dart';
@@ -24,6 +26,12 @@ class JsonEvent {
   @JsonKey(name: 'unit_created')
   final JsonEventUnitCreated? unitCreated;
 
+  @JsonKey(name: 'unit_movement_started')
+  final JsonEventUnitMovementStarted? unitMovementStarted;
+
+  @JsonKey(name: 'unit_movement_ended')
+  final JsonEventUnitMovementEnded? unitMovementEnded;
+
   @JsonKey(name: 'unit_updated')
   final JsonEventUnitUpdated? unitUpdated;
 
@@ -38,6 +46,8 @@ class JsonEvent {
     this.player,
     this.resourceDepleted,
     this.unitCreated,
+    this.unitMovementStarted,
+    this.unitMovementEnded,
     this.unitUpdated,
     this.unitDestroyed,
     this.matchFinished,
