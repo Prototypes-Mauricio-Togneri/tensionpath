@@ -1,7 +1,7 @@
+import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 
 class Missile {
@@ -23,12 +23,12 @@ class Missile {
     required this.platforms,
   });
 
-  void update(MissileUpdate missileUpdate) {
-    owner = missileUpdate.owner;
-    chargeCurrent = missileUpdate.charge.clamp(0, chargeMax);
+  void update(EventMissile event) {
+    owner = event.owner;
+    chargeCurrent = event.charge.clamp(0, chargeMax);
 
     for (final Platform platform in platforms) {
-      platform.update(missileUpdate.platforms[platform.id]);
+      platform.update(event.platforms[platform.id]);
     }
   }
 

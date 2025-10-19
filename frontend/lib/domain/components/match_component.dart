@@ -92,21 +92,22 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void onMatchUpdated(MatchUpdate match) {
+  void onMatchUpdated(MatchUpdate matchUpdate) {
     battlefieldComponent.onBattlefieldUpdated(
-      missile: match.missile,
-      resources: match.resources,
-      units: match.units,
+      resources: matchUpdate.resources,
+      units: matchUpdate.units,
     );
 
-    for (final Event event in match.events) {
+    for (final Event event in matchUpdate.events) {
       if (event is EventPlayer) {
         if (event.id == self.id) {
           self.update(event);
         } else if (event.id == opponent.id) {
           opponent.update(event);
         }
-      } else if (event is EventMissile) {}
+      } else if (event is EventMissile) {
+        match.battlefield.missile.update(event);
+      }
     }
   }
 

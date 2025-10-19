@@ -2,7 +2,6 @@ import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
-import 'package:tensionpath/domain/json/models/update/json_missile_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
@@ -10,7 +9,6 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 
 class MatchUpdate {
   final MatchStatus status;
-  final MissileUpdate missile;
   final Map<String, num> resources;
   final Map<String, UnitUpdate> units;
   final String? winner;
@@ -18,7 +16,6 @@ class MatchUpdate {
 
   const MatchUpdate({
     required this.status,
-    required this.missile,
     required this.resources,
     required this.units,
     required this.winner,
@@ -27,7 +24,6 @@ class MatchUpdate {
 
   factory MatchUpdate.fromJson(JsonMatchUpdate json) => MatchUpdate(
     status: json.status,
-    missile: MissileUpdate.fromJson(json.missile),
     resources: Map<String, num>.from(json.resources),
     units: json.units.map(
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
@@ -55,24 +51,6 @@ class PlayerUpdate {
     resources: json.resources,
     resourcesRate: json.resourcesRate,
     currentHarvesterCount: json.currentHarvesterCount,
-  );
-}
-
-class MissileUpdate {
-  final num charge;
-  final String? owner;
-  final Map<String, String?> platforms;
-
-  const MissileUpdate({
-    required this.charge,
-    required this.owner,
-    required this.platforms,
-  });
-
-  factory MissileUpdate.fromJson(JsonMissileUpdate json) => MissileUpdate(
-    charge: json.charge,
-    owner: json.owner,
-    platforms: Map<String, String?>.from(json.platforms),
   );
 }
 

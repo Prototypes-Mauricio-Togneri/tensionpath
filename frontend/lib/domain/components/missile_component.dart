@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
-import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/audio/sound.dart';
@@ -21,8 +20,6 @@ class MissileComponent extends SpriteComponent {
          anchor: Anchor.center,
          priority: Priority.structure.value,
        );
-
-  void refresh(MissileUpdate missileUpdate) => missile.update(missileUpdate);
 
   @override
   void update(double dt) {

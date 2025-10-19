@@ -273,12 +273,9 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onBattlefieldUpdated({
-    required MissileUpdate missile,
     required Map<String, num> resources,
     required Map<String, UnitUpdate> units,
   }) {
-    missileComponent.refresh(missile);
-
     _updateExistingUnits(
       units: units,
       unitComponents: unitComponents,
