@@ -1,5 +1,4 @@
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
@@ -75,18 +74,6 @@ class Player {
 
     return result;
   }
-
-  JsonPlayerUpdate toJsonUpdate({
-    required int currentHarvesterCount,
-    required int maxHarvesterCount,
-    required num resourcesExtraRate,
-  }) => JsonPlayerUpdate(
-    baseHealth: baseHealth.ceil(),
-    resources: resources.floor(),
-    resourcesRate: resourcesPassiveRate + resourcesExtraRate,
-    currentHarvesterCount: currentHarvesterCount,
-    maxHarvesterCount: maxHarvesterCount,
-  );
 
   JsonPlayerStart toJson(bool isSelf) => JsonPlayerStart(
     id: id,

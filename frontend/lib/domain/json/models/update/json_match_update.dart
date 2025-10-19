@@ -11,7 +11,7 @@ class JsonMatchUpdate {
   final MatchStatus status;
 
   @JsonKey(name: 'units')
-  final Map<String, JsonUnitUpdate> units;
+  final Map<String, JsonUnitUpdate> units; // TODO(momo): remove field and type
 
   @JsonKey(name: 'events')
   final List<JsonEvent> events;

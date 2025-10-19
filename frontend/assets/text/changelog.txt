@@ -1,3 +1,9 @@
+# 19.10.2025
+- Implemented match events
+
+# 18.10.2025
+- Migrated server to new provider
+
 # 15.10.2025
 - Implemented ping test
 

@@ -2,7 +2,6 @@ import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
-import 'package:tensionpath/domain/json/models/update/json_player_update.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -24,27 +23,6 @@ class MatchUpdate {
       (key, value) => MapEntry(key, UnitUpdate.fromJson(value)),
     ),
     events: json.events.map(Event.fromJson).toList(),
-  );
-}
-
-class PlayerUpdate {
-  final int baseHealth;
-  final int resources;
-  final num resourcesRate;
-  final int currentHarvesterCount;
-
-  const PlayerUpdate({
-    required this.baseHealth,
-    required this.resources,
-    required this.resourcesRate,
-    required this.currentHarvesterCount,
-  });
-
-  factory PlayerUpdate.fromJson(JsonPlayerUpdate json) => PlayerUpdate(
-    baseHealth: json.baseHealth,
-    resources: json.resources,
-    resourcesRate: json.resourcesRate,
-    currentHarvesterCount: json.currentHarvesterCount,
   );
 }
 

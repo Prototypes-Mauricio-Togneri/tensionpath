@@ -372,21 +372,20 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void onBattlefieldUpdated({
-    required Map<String, UnitUpdate> units,
-  }) {
-    _updateExistingUnits(
-      units: units,
-      unitComponents: unitComponents,
-    );
+  void onUnitDestroyed(EventUnitDestroyed event) {
+    final UnitComponent? unitComponent = unitComponentById(event.id);
 
-    _removeDestroyedUnits(
-      units: units,
-      unitComponents: unitComponents,
-    );
+    if (unitComponent != null) {
+      unitComponent.destroy();
+      unitComponents.remove(unitComponent);
+
+      if (unitComponent.player.isSelf) {
+        Audio.get.playSound(Sound.EVA_UNIT_LOST);
+      }
+    }
   }
 
-  void _updateExistingUnits({
+  void onUpdateExistingUnits({
     required Map<String, UnitUpdate> units,
     required List<UnitComponent> unitComponents,
   }) {
@@ -417,33 +416,6 @@ class BattlefieldComponent extends PositionComponent {
               : null,
         );
       }
-    }
-  }
-
-  void _removeDestroyedUnits({
-    required Map<String, UnitUpdate> units,
-    required List<UnitComponent> unitComponents,
-  }) {
-    final List<UnitComponent> destroyedUnits = [];
-    bool selfUnitDestroyed = false;
-
-    for (final UnitComponent unitComponent in unitComponents) {
-      if (!units.containsKey(unitComponent.id)) {
-        destroyedUnits.add(unitComponent);
-
-        if (unitComponent.player.isSelf) {
-          selfUnitDestroyed = true;
-        }
-      }
-    }
-
-    for (final UnitComponent unitComponent in destroyedUnits) {
-      unitComponent.destroy();
-      unitComponents.remove(unitComponent);
-    }
-
-    if (selfUnitDestroyed) {
-      Audio.get.playSound(Sound.EVA_UNIT_LOST);
     }
   }
 
