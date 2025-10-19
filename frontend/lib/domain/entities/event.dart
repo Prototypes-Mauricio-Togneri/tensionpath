@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
@@ -18,6 +19,8 @@ class Event {
       return EventResourcesDepleted.fromJson(json.resourceDepleted!);
     } else if (json.unitCreated != null) {
       return EventUnitCreated.fromJson(json.unitCreated!);
+    } else if (json.unitMovementStarted != null) {
+      return EventUnitMovementStarted.fromJson(json.unitMovementStarted!);
     } else if (json.matchFinished != null) {
       return EventMatchFinished.fromJson(json.matchFinished!);
     } else {
@@ -143,6 +146,26 @@ class EventUnitCreated implements Event {
             : null,
         targetUnitId: json.targetUnitId,
       );
+}
+
+class EventUnitMovementStarted implements Event {
+  final String id;
+  final Position currentPosition;
+  final Position targetPosition;
+
+  const EventUnitMovementStarted({
+    required this.id,
+    required this.currentPosition,
+    required this.targetPosition,
+  });
+
+  factory EventUnitMovementStarted.fromJson(
+    JsonEventUnitMovementStarted json,
+  ) => EventUnitMovementStarted(
+    id: json.id,
+    currentPosition: Position.fromJson(json.currentPosition),
+    targetPosition: Position.fromJson(json.targetPosition),
+  );
 }
 
 class EventMatchFinished implements Event {

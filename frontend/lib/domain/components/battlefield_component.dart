@@ -339,6 +339,23 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
+  void onUnitMovementStarted(EventUnitMovementStarted event) {
+    final UnitComponent? unitComponent = unitComponentById(event.id);
+
+    if (unitComponent != null) {
+      unitComponent.onMovementStarted(
+        newCurrentPosition: event.currentPosition.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
+        ),
+        newTargetPosition: event.targetPosition.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
+        ),
+      );
+    }
+  }
+
   void onBattlefieldUpdated({
     required Map<String, UnitUpdate> units,
   }) {
@@ -423,6 +440,9 @@ class BattlefieldComponent extends PositionComponent {
       unitComponent.lockedNode?.lock(unitComponent);
     }
   }
+
+  UnitComponent? unitComponentById(String unitId) =>
+      unitComponents.where((u) => u.id == unitId).firstOrNull;
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {

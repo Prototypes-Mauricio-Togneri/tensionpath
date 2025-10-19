@@ -115,6 +115,9 @@ class MatchComponent extends World {
       } else if (event is EventUnitCreated) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitCreated(event);
+      } else if (event is EventUnitMovementStarted) {
+        updateNodeLocks = true;
+        battlefieldComponent.onUnitMovementStarted(event);
       }
     }
 

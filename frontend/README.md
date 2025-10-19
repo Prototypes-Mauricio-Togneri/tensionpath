@@ -1,6 +1,7 @@
 # TODO
 
 - Drive popcap from server
+- Play sounds based on events
 
 ### Phase 1
 
