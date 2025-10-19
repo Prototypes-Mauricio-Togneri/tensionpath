@@ -24,7 +24,7 @@ class JsonEvent {
   final JsonEventPlayer? player; // on update
 
   @JsonKey(name: 'resource_depleted')
-  final JsonEventResourceDepleted? resourceDepleted; // on update
+  final JsonEventResourceDepleted? resourceDepleted; // on update: OK
 
   @JsonKey(name: 'unit_created')
   final JsonEventUnitCreated? unitCreated; // on message: OK
