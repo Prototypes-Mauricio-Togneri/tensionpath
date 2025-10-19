@@ -1,6 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionpath/domain/entities/location.dart';
-import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
@@ -10,6 +8,8 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_event.g.dart';
@@ -78,10 +78,10 @@ class JsonEvent {
     required String playerIndex,
     required UnitType unitType,
     required num health,
-    required Position position,
-    required Position? targetPosition,
-    required Location? lockedLocation,
-    required Location? targetBase,
+    required JsonPosition position,
+    required JsonPosition? targetPosition,
+    required JsonLocation? lockedLocation,
+    required JsonLocation? targetBase,
     required String? targetUnitId,
   }) => JsonEvent(
     unitCreated: JsonEventUnitCreated(
@@ -89,35 +89,35 @@ class JsonEvent {
       playerIndex: playerIndex,
       type: unitType,
       health: health,
-      currentPosition: position.toJson(),
-      targetPosition: targetPosition?.toJson(),
-      lockedLocation: lockedLocation?.toJson(),
-      targetBase: targetBase?.toJson(),
+      currentPosition: position,
+      targetPosition: targetPosition,
+      lockedLocation: lockedLocation,
+      targetBase: targetBase,
       targetUnitId: targetUnitId,
     ),
   );
 
   factory JsonEvent.unitMovementStarted({
     required String unitId,
-    required Position currentPosition,
-    required Position targetPosition,
+    required JsonPosition currentPosition,
+    required JsonPosition targetPosition,
   }) => JsonEvent(
     unitMovementStarted: JsonEventUnitMovementStarted(
       id: unitId,
-      currentPosition: currentPosition.toJson(),
-      targetPosition: targetPosition.toJson(),
+      currentPosition: currentPosition,
+      targetPosition: targetPosition,
     ),
   );
 
   factory JsonEvent.unitMovementEnded({
     required String unitId,
-    required Position currentPosition,
-    required Location? lockedLocation,
+    required JsonPosition currentPosition,
+    required JsonLocation? lockedLocation,
   }) => JsonEvent(
     unitMovementEnded: JsonEventUnitMovementEnded(
       id: unitId,
-      currentPosition: currentPosition.toJson(),
-      lockedLocation: lockedLocation?.toJson(),
+      currentPosition: currentPosition,
+      lockedLocation: lockedLocation,
     ),
   );
 

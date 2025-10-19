@@ -80,8 +80,8 @@ class Unit {
 
     return JsonEvent.unitMovementStarted(
       unitId: id,
-      currentPosition: position,
-      targetPosition: targetNode!.position,
+      currentPosition: position.toJson(),
+      targetPosition: targetNode!.position.toJson(),
     );
   }
 
@@ -139,8 +139,8 @@ class Unit {
       targetNode = null;
       result = JsonEvent.unitMovementEnded(
         unitId: id,
-        currentPosition: position,
-        lockedLocation: lockedNode?.location,
+        currentPosition: position.toJson(),
+        lockedLocation: lockedNode?.location.toJson(),
       );
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
@@ -153,8 +153,8 @@ class Unit {
       );
       result = JsonEvent.unitMovementStarted(
         unitId: id,
-        currentPosition: position,
-        targetPosition: targetNode!.position,
+        currentPosition: position.toJson(),
+        targetPosition: targetNode!.position.toJson(),
       );
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&

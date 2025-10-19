@@ -99,10 +99,10 @@ class Battlefield {
       playerIndex: player.index,
       unitType: type,
       health: unit.health,
-      position: unit.position,
-      targetPosition: unit.targetNode?.position,
-      lockedLocation: unit.lockedNode?.location,
-      targetBase: unit.targetBase?.location,
+      position: unit.position.toJson(),
+      targetPosition: unit.targetNode?.position.toJson(),
+      lockedLocation: unit.lockedNode?.location.toJson(),
+      targetBase: unit.targetBase?.location.toJson(),
       targetUnitId: unit.targetUnit?.id,
     );
   }
