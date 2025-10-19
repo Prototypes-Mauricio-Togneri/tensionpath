@@ -15,10 +15,13 @@ class Event {
     } else if (json.matchFinished != null) {
       return EventMatchFinished.fromJson(json.matchFinished!);
     } else {
-      throw UnimplementedError('Unknown event type');
+      return FakeEvent(); // TODO(momo): remove once all events are implemented
+      // throw UnimplementedError('Unknown event type');
     }
   }
 }
+
+class FakeEvent implements Event {}
 
 /*
   @JsonKey(name: 'unit_created')
