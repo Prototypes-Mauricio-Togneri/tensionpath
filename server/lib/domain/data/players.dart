@@ -29,7 +29,7 @@ class Players {
     for (final Player player in _players) {
       result[player.index] = JsonEventPlayer(
         id: player.id,
-        health: player.baseHealth,
+        baseHealth: player.baseHealth,
         resources: player.resources,
         resourcesRate:
             units.currentHarvestersWorking(player.index) *
