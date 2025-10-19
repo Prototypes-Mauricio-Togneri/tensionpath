@@ -36,12 +36,6 @@ class Event {
 class FakeEvent implements Event {}
 
 /*
-  @JsonKey(name: 'unit_movement_started')
-  final JsonEventUnitMovementStarted? unitMovementStarted;
-
-  @JsonKey(name: 'unit_movement_ended')
-  final JsonEventUnitMovementEnded? unitMovementEnded;
-
   @JsonKey(name: 'unit_updated')
   final JsonEventUnitUpdated? unitUpdated;
 
