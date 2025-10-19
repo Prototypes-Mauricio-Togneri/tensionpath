@@ -17,7 +17,7 @@ part 'json_event.g.dart';
 @JsonSerializable()
 class JsonEvent {
   @JsonKey(name: 'missile')
-  final JsonEventMissile? missile; // on update: OK
+  final JsonEventMissile? missile;
 
   @JsonKey(name: 'player')
   final JsonEventPlayer? player; // on update: OK
@@ -26,10 +26,10 @@ class JsonEvent {
   final JsonEventResourceDepleted? resourceDepleted; // on update: OK
 
   @JsonKey(name: 'unit_created')
-  final JsonEventUnitCreated? unitCreated; // on message: OK
+  final JsonEventUnitCreated? unitCreated;
 
   @JsonKey(name: 'unit_movement_started')
-  final JsonEventUnitMovementStarted? unitMovementStarted; // on message: OK
+  final JsonEventUnitMovementStarted? unitMovementStarted;
 
   @JsonKey(name: 'unit_movement_ended')
   final JsonEventUnitMovementEnded? unitMovementEnded; // on update
