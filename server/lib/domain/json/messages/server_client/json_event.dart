@@ -30,7 +30,7 @@ class JsonEvent {
   final JsonEventUnitCreated? unitCreated; // on message: OK
 
   @JsonKey(name: 'unit_movement_started')
-  final JsonEventUnitMovementStarted? unitMovementStarted; // on message
+  final JsonEventUnitMovementStarted? unitMovementStarted; // on message: OK
 
   @JsonKey(name: 'unit_movement_ended')
   final JsonEventUnitMovementEnded? unitMovementEnded; // on update
@@ -88,15 +88,11 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitMovementStarted({
-    required String unitId,
-    required JsonPosition currentPosition,
-    required JsonPosition targetPosition,
-  }) => JsonEvent(
+  factory JsonEvent.unitMovementStarted(Unit unit) => JsonEvent(
     unitMovementStarted: JsonEventUnitMovementStarted(
-      id: unitId,
-      currentPosition: currentPosition,
-      targetPosition: targetPosition,
+      id: unit.id,
+      currentPosition: unit.position.toJson(),
+      targetPosition: unit.targetNode!.position.toJson(),
     ),
   );
 

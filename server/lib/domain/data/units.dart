@@ -93,16 +93,16 @@ class Units {
   }
 
   List<JsonEvent> removeDestroyed() {
-    final List<JsonEvent> events = [];
+    final List<JsonEvent> result = [];
     final List<Unit> unitsToRemove = _units.list
         .where((unit) => !unit.isAlive)
         .toList();
 
     for (final Unit unit in unitsToRemove) {
       _units.remove(unit.id);
-      events.add(JsonEvent.unitCreated(unit));
+      result.add(JsonEvent.unitCreated(unit));
     }
 
-    return events;
+    return result;
   }
 }

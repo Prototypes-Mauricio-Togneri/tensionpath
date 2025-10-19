@@ -41,7 +41,7 @@ class Battlefield {
   });
 
   List<JsonEvent> update(double dt) {
-    final List<JsonEvent> events = [];
+    final List<JsonEvent> result = [];
     final List<Resource> nonEmptyResources = resources.nonEmpty;
 
     for (final Unit unit in units.list) {
@@ -52,14 +52,14 @@ class Battlefield {
 
     for (final Resource resource in nonEmptyResources) {
       if (!resource.hasResources) {
-        events.add(JsonEvent.resourceDepleted(resource));
+        result.add(JsonEvent.resourceDepleted(resource));
       }
     }
 
-    events.addAll(units.removeDestroyed());
-    events.addAll([?missile.update(dt)]);
+    result.addAll(units.removeDestroyed());
+    result.addAll([?missile.update(dt)]);
 
-    return events;
+    return result;
   }
 
   JsonEvent deployUnit({
@@ -97,12 +97,14 @@ class Battlefield {
     return JsonEvent.unitCreated(unit);
   }
 
-  void unitAction({
+  List<JsonEvent> unitAction({
     required Player player,
     required String unitId,
     required Location? targetLocation,
     required String? targetUnitId,
   }) {
+    final List<JsonEvent> result = [];
+
     if ((targetLocation == null) && targetUnitId == null) {
       throw Exception('Either targetLocation or targetUnitId must be provided');
     }
@@ -130,18 +132,22 @@ class Battlefield {
           );
 
           if (alternativeNode != null) {
-            attackerUnit.move(
-              node: alternativeNode,
-              manual: true,
+            result.add(
+              attackerUnit.move(
+                node: alternativeNode,
+                manual: true,
+              ),
             );
           }
         }
 
         attackerUnit.attackBase(targetBase);
       } else {
-        attackerUnit.move(
-          node: targetNode,
-          manual: true,
+        result.add(
+          attackerUnit.move(
+            node: targetNode,
+            manual: true,
+          ),
         );
       }
     } else if (defenderUnit.isAlive) {
@@ -156,15 +162,19 @@ class Battlefield {
         );
 
         if (alternativeNode != null) {
-          attackerUnit.move(
-            node: alternativeNode,
-            manual: true,
+          result.add(
+            attackerUnit.move(
+              node: alternativeNode,
+              manual: true,
+            ),
           );
         }
       }
 
       attackerUnit.attackUnit(defenderUnit);
     }
+
+    return result;
   }
 
   factory Battlefield.fromJson({

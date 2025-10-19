@@ -8,6 +8,7 @@ import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/resource.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
@@ -66,7 +67,7 @@ class Unit {
       (lockedNode!.type == NodeType.resources) &&
       resources.get(lockedNode!.id).hasResources;
 
-  void move({
+  JsonEvent move({
     required Node node,
     required bool manual,
   }) {
@@ -76,6 +77,8 @@ class Unit {
     lockedNode = null;
     targetBase = null;
     targetUnit = null;
+
+    return JsonEvent.unitMovementStarted(this);
   }
 
   void attackUnit(Unit target) {
