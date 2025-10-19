@@ -23,7 +23,7 @@ class JsonEvent {
   final JsonEventPlayer? player; // on update: OK
 
   @JsonKey(name: 'resource_depleted')
-  final JsonEventResourceDepleted? resourceDepleted; // on update: OK
+  final JsonEventResourceDepleted? resourceDepleted;
 
   @JsonKey(name: 'unit_created')
   final JsonEventUnitCreated? unitCreated;
