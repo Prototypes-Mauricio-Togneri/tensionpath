@@ -40,21 +40,20 @@ class Battlefield {
     required this.units,
   });
 
-  bool update(double dt) {
-    bool result = false;
+  List<JsonEvent> update(double dt) {
+    final List<JsonEvent> events = [];
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
-        result |= unit.update(dt);
+        unit.update(dt);
       }
     }
 
-    result |= units.removeDestroyed();
+    units.removeDestroyed();
+    events.addAll([?missile.update(dt)]);
 
-    return missile.update(dt) || result;
+    return events;
   }
-
-  void updateMissile() => missile.update(0);
 
   JsonEvent deployUnit({
     required Player player,
@@ -178,6 +177,7 @@ class Battlefield {
         json: json.missile,
         nodes: nodes,
         units: units,
+        players: players,
       ),
       resources: Resources(
         Resource.list(

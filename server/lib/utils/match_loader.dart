@@ -145,6 +145,7 @@ class MatchLoader {
       position: node.position,
       chargeMax: config.missileMaxCharge,
       chargeBuffer: config.missileChargeBuffer,
+      chargeAlarm: config.missileChargeAlarm,
       chargeRate: config.missileChargeRate,
       damage: config.missileDamage,
       platforms: _getJsonPlatformStart(nodes),

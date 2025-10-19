@@ -43,7 +43,6 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
               .map((e) => JsonEvent.fromJson(e as Map<String, dynamic>))
               .toList(),
         ),
-        winner: $checkedConvert('winner', (v) => v as String?),
       );
       return val;
     });
@@ -56,7 +55,6 @@ Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
       'resources': instance.resources,
       'units': instance.units.map((k, e) => MapEntry(k, e.toJson())),
       'events': instance.events.map((e) => e.toJson()).toList(),
-      'winner': ?instance.winner,
     };
 
 const _$MatchStatusEnumMap = {

@@ -18,6 +18,9 @@ class JsonMissileStart {
   @JsonKey(name: 'chargeBuffer')
   final num chargeBuffer;
 
+  @JsonKey(name: 'chargeAlarm')
+  final num chargeAlarm;
+
   @JsonKey(name: 'chargeRate')
   final num chargeRate;
 
@@ -32,6 +35,7 @@ class JsonMissileStart {
     required this.position,
     required this.chargeMax,
     required this.chargeBuffer,
+    required this.chargeAlarm,
     required this.chargeRate,
     required this.damage,
     required this.platforms,

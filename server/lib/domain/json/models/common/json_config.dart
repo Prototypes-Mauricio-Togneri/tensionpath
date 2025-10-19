@@ -31,6 +31,9 @@ class JsonConfig {
   @JsonKey(name: 'missileChargeBuffer')
   final int missileChargeBuffer;
 
+  @JsonKey(name: 'missileChargeAlarm')
+  final int missileChargeAlarm;
+
   @JsonKey(name: 'missileChargeRate')
   final num missileChargeRate;
 
@@ -50,6 +53,7 @@ class JsonConfig {
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
+    required this.missileChargeAlarm,
     required this.missileChargeRate,
     required this.missileDamage,
     required this.baseHealth,

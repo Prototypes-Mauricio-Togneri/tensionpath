@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -33,6 +34,8 @@ class Match {
     required this.battlefield,
     required this.players,
   });
+
+  bool get _isPlaying => status == MatchStatus.playing;
 
   factory Match.fromJson({
     required Connection connection,
@@ -69,31 +72,33 @@ class Match {
     required Location location,
     required UnitType type,
   }) {
-    if ((type == UnitType.harvester) &&
-        battlefield.units.hasMaxHarvesters(playerIndex)) {
-      throw Exception('Max harvesters reached');
-    }
+    if (_isPlaying) {
+      if ((type == UnitType.harvester) &&
+          battlefield.units.hasMaxHarvesters(playerIndex)) {
+        throw Exception('Max harvesters reached');
+      }
 
-    final Player player = players.get(playerIndex);
-    final int currentAmountOfUnits = battlefield.units.ofPlayer(player);
-    final int popcapLimit = Popcap.fromElapsedTime(elapsedTime);
+      final Player player = players.get(playerIndex);
+      final int currentAmountOfUnits = battlefield.units.ofPlayer(player);
+      final int popcapLimit = Popcap.fromElapsedTime(elapsedTime);
 
-    if (currentAmountOfUnits >= popcapLimit) {
-      throw Exception('Popcap limit reached');
-    }
+      if (currentAmountOfUnits >= popcapLimit) {
+        throw Exception('Popcap limit reached');
+      }
 
-    final int cost = battlefield.units.unitCost(
-      type: type,
-      player: player,
-    );
-
-    if (player.removeResources(cost)) {
-      final JsonEvent event = battlefield.deployUnit(
-        player: player,
-        location: location,
+      final int cost = battlefield.units.unitCost(
         type: type,
+        player: player,
       );
-      _sendMatchUpdate([event]);
+
+      if (player.removeResources(cost)) {
+        final JsonEvent event = battlefield.deployUnit(
+          player: player,
+          location: location,
+          type: type,
+        );
+        _sendMatchUpdate([event]);
+      }
     }
   }
 
@@ -103,66 +108,60 @@ class Match {
     required Location? targetLocation,
     required String? targetUnitId,
   }) {
-    final Player player = players.get(playerIndex);
-    battlefield.unitAction(
-      player: player,
-      unitId: unitId,
-      targetLocation: targetLocation,
-      targetUnitId: targetUnitId,
-    );
-    _sendMatchUpdate([]);
+    if (_isPlaying) {
+      final Player player = players.get(playerIndex);
+      battlefield.unitAction(
+        player: player,
+        unitId: unitId,
+        targetLocation: targetLocation,
+        targetUnitId: targetUnitId,
+      );
+      _sendMatchUpdate([]);
+    }
   }
 
   void surrenderMatch(String playerIndex) {
-    final Player player = players.get(playerIndex);
-    player.surrender();
-    status = MatchStatus.finished;
-    Logger.debug('Player ${player.index} surrendered');
-    _sendMatchUpdate([]);
+    if (_isPlaying) {
+      final Player player = players.get(playerIndex);
+      player.surrender();
+      Logger.debug('Player $playerIndex surrendered');
+      status = MatchStatus.finished;
+      _sendMatchUpdate([
+        JsonEvent(
+          matchFinished: JsonEventMatchFinished(
+            winner: players.other(player).id,
+          ),
+        ),
+      ]);
+    }
   }
 
   void update(double dt) {
-    elapsedTime += dt;
+    if (_isPlaying) {
+      elapsedTime += dt;
 
-    if (status == MatchStatus.playing) {
-      bool sendUpdate = battlefield.update(dt);
-
-      if (battlefield.missile.isFullyCharged) {
-        _fireMissile();
-        sendUpdate = true;
-      }
+      final List<JsonEvent> events = battlefield.update(dt);
 
       for (final Player player in players.list) {
         player.addResources(player.resourcesPassiveRate * dt);
       }
 
-      if (sendUpdate) {
-        _sendMatchUpdate([]);
+      final String? winner = _winner;
+
+      if (winner != null) {
+        status = MatchStatus.finished;
+        events.add(
+          JsonEvent(matchFinished: JsonEventMatchFinished(winner: winner)),
+        );
+      }
+
+      if (events.isNotEmpty) {
+        _sendMatchUpdate(events);
       }
     }
-  }
-
-  void _fireMissile() {
-    for (final Player player in players.list) {
-      if (player.index != battlefield.missile.owner) {
-        player.removeHealth(player.baseMaxHealth * battlefield.missile.damage);
-        Logger.debug('Missile launched to ${player.index}');
-        break;
-      }
-    }
-
-    battlefield.missile.resetCharge();
   }
 
   void _sendMatchUpdate(List<JsonEvent> events) {
-    final String? winner = _winner;
-
-    if (winner != null) {
-      status = MatchStatus.finished;
-    } else {
-      battlefield.updateMissile();
-    }
-
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
       status: status,
       players: _getPlayersUpdate(),
@@ -170,7 +169,6 @@ class Match {
       resources: battlefield.resourcesToJsonUpdate(),
       units: battlefield.unitsToJsonUpdate(),
       events: events,
-      winner: winner,
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));

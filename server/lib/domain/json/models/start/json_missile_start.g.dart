@@ -19,6 +19,7 @@ JsonMissileStart _$JsonMissileStartFromJson(Map<String, dynamic> json) =>
         ),
         chargeMax: $checkedConvert('chargeMax', (v) => v as num),
         chargeBuffer: $checkedConvert('chargeBuffer', (v) => v as num),
+        chargeAlarm: $checkedConvert('chargeAlarm', (v) => v as num),
         chargeRate: $checkedConvert('chargeRate', (v) => v as num),
         damage: $checkedConvert('damage', (v) => v as num),
         platforms: $checkedConvert(
@@ -37,6 +38,7 @@ Map<String, dynamic> _$JsonMissileStartToJson(JsonMissileStart instance) =>
       'position': instance.position.toJson(),
       'chargeMax': instance.chargeMax,
       'chargeBuffer': instance.chargeBuffer,
+      'chargeAlarm': instance.chargeAlarm,
       'chargeRate': instance.chargeRate,
       'damage': instance.damage,
       'platforms': instance.platforms.map((e) => e.toJson()).toList(),

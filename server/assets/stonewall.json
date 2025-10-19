@@ -9,6 +9,7 @@
         "popcapRate": 1,
         "missileMaxCharge": 40,
         "missileChargeBuffer": 35,
+        "missileChargeAlarm": 32,
         "missileChargeRate": 1,
         "missileDamage": 0.5,
         "baseHealth": 30000

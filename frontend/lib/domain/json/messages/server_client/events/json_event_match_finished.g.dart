@@ -10,12 +10,11 @@ JsonEventMatchFinished _$JsonEventMatchFinishedFromJson(
   Map<String, dynamic> json,
 ) => $checkedCreate('JsonEventMatchFinished', json, ($checkedConvert) {
   final val = JsonEventMatchFinished(
-    winner: $checkedConvert('winner', (v) => v as String?),
-    loser: $checkedConvert('loser', (v) => v as String?),
+    winner: $checkedConvert('winner', (v) => v as String),
   );
   return val;
 });
 
 Map<String, dynamic> _$JsonEventMatchFinishedToJson(
   JsonEventMatchFinished instance,
-) => <String, dynamic>{'winner': ?instance.winner, 'loser': ?instance.loser};
+) => <String, dynamic>{'winner': instance.winner};

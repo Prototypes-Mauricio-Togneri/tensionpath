@@ -44,6 +44,10 @@ JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) => $checkedCreate(
         'missileChargeBuffer',
         (v) => (v as num).toInt(),
       ),
+      missileChargeAlarm: $checkedConvert(
+        'missileChargeAlarm',
+        (v) => (v as num).toInt(),
+      ),
       missileChargeRate: $checkedConvert('missileChargeRate', (v) => v as num),
       missileDamage: $checkedConvert('missileDamage', (v) => v as num),
       baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
@@ -63,6 +67,7 @@ Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
       'popcapRate': instance.popcapRate,
       'missileMaxCharge': instance.missileMaxCharge,
       'missileChargeBuffer': instance.missileChargeBuffer,
+      'missileChargeAlarm': instance.missileChargeAlarm,
       'missileChargeRate': instance.missileChargeRate,
       'missileDamage': instance.missileDamage,
       'baseHealth': instance.baseHealth,

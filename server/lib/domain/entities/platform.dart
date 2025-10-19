@@ -15,12 +15,16 @@ class Platform {
     required this.pads,
   });
 
-  void update(Units units) {
+  bool update(Units units) {
+    final String? previousOwner = owner;
+
     for (final Pad pad in pads) {
       pad.update(units);
     }
 
     owner = _newOwner;
+
+    return (owner != previousOwner);
   }
 
   /*

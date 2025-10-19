@@ -27,9 +27,6 @@ class JsonMatchUpdate {
   @JsonKey(name: 'events')
   final List<JsonEvent> events;
 
-  @JsonKey(name: 'winner')
-  final String? winner;
-
   JsonMatchUpdate({
     required this.status,
     required this.players,
@@ -37,7 +34,6 @@ class JsonMatchUpdate {
     required this.resources,
     required this.units,
     required this.events,
-    required this.winner,
   });
 
   factory JsonMatchUpdate.fromJson(Map<String, dynamic> json) =>

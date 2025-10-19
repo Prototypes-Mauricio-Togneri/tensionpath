@@ -10,6 +10,7 @@ class Config {
   final num popcapRate; // TODO(momo): use
   final int missileMaxCharge;
   final int missileChargeBuffer;
+  final int missileChargeAlarm;
   final num missileChargeRate;
   final num missileDamage;
   final int baseHealth;
@@ -24,6 +25,7 @@ class Config {
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
+    required this.missileChargeAlarm,
     required this.missileChargeRate,
     required this.missileDamage,
     required this.baseHealth,
@@ -39,6 +41,7 @@ class Config {
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,
+    missileChargeAlarm: json.missileChargeAlarm,
     missileChargeRate: json.missileChargeRate,
     missileDamage: json.missileDamage,
     baseHealth: json.baseHealth,
@@ -54,6 +57,7 @@ class Config {
     popcapRate: popcapRate,
     missileMaxCharge: missileMaxCharge,
     missileChargeBuffer: missileChargeBuffer,
+    missileChargeAlarm: missileChargeAlarm,
     missileChargeRate: missileChargeRate,
     missileDamage: missileDamage,
     baseHealth: baseHealth,
