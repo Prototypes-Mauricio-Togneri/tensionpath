@@ -10,8 +10,6 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/common/json_position.dart';
 
 part 'json_event.g.dart';
 
@@ -96,25 +94,18 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitMovementEnded({
-    required String unitId,
-    required JsonPosition currentPosition,
-    required JsonLocation? lockedLocation,
-  }) => JsonEvent(
+  factory JsonEvent.unitMovementEnded(Unit unit) => JsonEvent(
     unitMovementEnded: JsonEventUnitMovementEnded(
-      id: unitId,
-      currentPosition: currentPosition,
-      lockedLocation: lockedLocation,
+      id: unit.id,
+      currentPosition: unit.position.toJson(),
+      lockedLocation: unit.lockedNode?.location.toJson(),
     ),
   );
 
-  factory JsonEvent.unitUpdated({
-    required String unitId,
-    required num health,
-  }) => JsonEvent(
+  factory JsonEvent.unitUpdated(Unit unit) => JsonEvent(
     unitUpdated: JsonEventUnitUpdated(
-      id: unitId,
-      health: health,
+      id: unit.id,
+      health: unit.health,
     ),
   );
 

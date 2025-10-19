@@ -10,8 +10,6 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
-import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/common/json_position.dart';
 
 part 'json_event.g.dart';
 
@@ -21,16 +19,16 @@ class JsonEvent {
   final JsonEventMissile? missile; // on update: OK
 
   @JsonKey(name: 'player')
-  final JsonEventPlayer? player; // on update
+  final JsonEventPlayer? player; // on update: OK
 
   @JsonKey(name: 'resource_depleted')
-  final JsonEventResourceDepleted? resourceDepleted; // on update
+  final JsonEventResourceDepleted? resourceDepleted; // on update: OK
 
   @JsonKey(name: 'unit_created')
   final JsonEventUnitCreated? unitCreated; // on message: OK
 
   @JsonKey(name: 'unit_movement_started')
-  final JsonEventUnitMovementStarted? unitMovementStarted; // on message
+  final JsonEventUnitMovementStarted? unitMovementStarted; // on message: OK
 
   @JsonKey(name: 'unit_movement_ended')
   final JsonEventUnitMovementEnded? unitMovementEnded; // on update
@@ -88,37 +86,26 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitMovementStarted({
-    required String unitId,
-    required JsonPosition currentPosition,
-    required JsonPosition targetPosition,
-  }) => JsonEvent(
+  factory JsonEvent.unitMovementStarted(Unit unit) => JsonEvent(
     unitMovementStarted: JsonEventUnitMovementStarted(
-      id: unitId,
-      currentPosition: currentPosition,
-      targetPosition: targetPosition,
+      id: unit.id,
+      currentPosition: unit.position.toJson(),
+      targetPosition: unit.targetNode!.position.toJson(),
     ),
   );
 
-  factory JsonEvent.unitMovementEnded({
-    required String unitId,
-    required JsonPosition currentPosition,
-    required JsonLocation? lockedLocation,
-  }) => JsonEvent(
+  factory JsonEvent.unitMovementEnded(Unit unit) => JsonEvent(
     unitMovementEnded: JsonEventUnitMovementEnded(
-      id: unitId,
-      currentPosition: currentPosition,
-      lockedLocation: lockedLocation,
+      id: unit.id,
+      currentPosition: unit.position.toJson(),
+      lockedLocation: unit.lockedNode?.location.toJson(),
     ),
   );
 
-  factory JsonEvent.unitUpdated({
-    required String unitId,
-    required num health,
-  }) => JsonEvent(
+  factory JsonEvent.unitUpdated(Unit unit) => JsonEvent(
     unitUpdated: JsonEventUnitUpdated(
-      id: unitId,
-      health: health,
+      id: unit.id,
+      health: unit.health,
     ),
   );
 

@@ -97,8 +97,8 @@ class Unit {
     targetUnit = null;
   }
 
-  bool update(double dt) {
-    bool result = false;
+  JsonEvent? update(double dt) {
+    JsonEvent? result;
 
     if (isMoving) {
       result = _processMoving(dt);
@@ -112,8 +112,8 @@ class Unit {
     return result;
   }
 
-  bool _processMoving(double dt) {
-    bool result = false;
+  JsonEvent? _processMoving(double dt) {
+    JsonEvent? result;
     Logger.debug('----------------------------------------\nMoving unit $id');
 
     // Update position
@@ -133,7 +133,7 @@ class Unit {
       lockedNode = targetNode;
       lockedNode!.lock(this);
       targetNode = null;
-      result = true;
+      result = JsonEvent.unitMovementEnded(this);
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
         targetNode!.notLockedBy(this)) {
@@ -143,7 +143,7 @@ class Unit {
         position: position,
         unit: this,
       );
-      result = true;
+      result = JsonEvent.unitMovementStarted(this);
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
         targetNode!.isFree) {
@@ -155,8 +155,8 @@ class Unit {
     return result;
   }
 
-  bool _processStanding(double dt) {
-    bool result = false;
+  JsonEvent? _processStanding(double dt) {
+    JsonEvent? result;
 
     if (isHarvesting) {
       lastOrderManual = false;
@@ -174,19 +174,18 @@ class Unit {
 
       if (patchNode != null) {
         Logger.debug('Harvester $id automatically moving to ${patchNode.id}');
-        move(
+
+        return move(
           node: patchNode,
           manual: false,
         );
-
-        return true;
       }
     }
 
     // Target unit is no longer alive
     if (targetUnit != null && !targetUnit!.isAlive) {
       targetUnit = null;
-      result = true;
+      // TODO(momo): result = JsonEvent.unitUpdated(this);
     }
 
     // Assign the closest unit in range if there is not one assigned
@@ -194,7 +193,7 @@ class Unit {
       targetUnit = units.closestUnitInRange(this);
 
       if (targetUnit != null) {
-        result = true;
+        // TODO(momo): result = JsonEvent.unitUpdated(this);
         Logger.debug('Unit retargeted to unit ${targetUnit!.id}');
       }
 
@@ -203,7 +202,7 @@ class Unit {
         targetBase = launchers.closestEnemyBaseInRange(this);
 
         if (targetBase != null) {
-          result = true;
+          // TODO(momo): result = JsonEvent.unitUpdated(this);
           Logger.debug('Unit retargeted to base ${targetBase!.id}');
         }
       }
@@ -224,7 +223,7 @@ class Unit {
             player.addResources(config.harvesterReward);
           }
 
-          result = true;
+          // TODO(momo): result = JsonEvent.unitUpdated(this);
           Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
         }
       } else {
@@ -232,7 +231,7 @@ class Unit {
         targetUnit = units.closestUnitInRange(this);
 
         if (targetUnit != null) {
-          result = true;
+          // TODO(momo): result = JsonEvent.unitUpdated(this);
           Logger.debug('Unit retargeted to unit ${targetUnit!.id}');
         }
       }
@@ -245,7 +244,7 @@ class Unit {
           final num damage = type.damageAgainst(UnitClass.structure);
           currentAttackCooldown = type.attackCooldown;
           targetBase!.player.removeHealth(damage);
-          result = true;
+          // TODO(momo): result = JsonEvent.unitUpdated(this);
           Logger.debug('Attacked unit ${targetBase!.id} with $damage damage');
         }
       }
