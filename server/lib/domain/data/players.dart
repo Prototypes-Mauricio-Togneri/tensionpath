@@ -10,13 +10,13 @@ class Players {
 
   List<Player> get list => _players.list;
 
-  Player other(Player player) {
-    for (final Player currentPlayer in _players) {
-      if (currentPlayer.id != player.id) {
-        return currentPlayer;
+  Player other(String playerIndex) {
+    for (final Player player in _players) {
+      if (player.index != playerIndex) {
+        return player;
       }
     }
 
-    throw Exception('No other player found for id ${player.id}');
+    throw Exception('No other player found with index $playerIndex');
   }
 }

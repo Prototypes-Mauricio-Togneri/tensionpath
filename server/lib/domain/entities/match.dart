@@ -129,7 +129,7 @@ class Match {
       _sendMatchUpdate([
         JsonEvent(
           matchFinished: JsonEventMatchFinished(
-            winner: players.other(player).id,
+            winner: players.other(player.index).id,
           ),
         ),
       ]);
