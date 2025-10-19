@@ -94,7 +94,17 @@ class Battlefield {
       manual: true,
     );
 
-    return JsonEvent.unitCreated(unit);
+    return JsonEvent.unitCreated(
+      unitId: unit.id,
+      playerIndex: player.index,
+      unitType: type,
+      health: unit.health,
+      position: unit.position,
+      targetPosition: unit.targetNode?.position,
+      lockedLocation: unit.lockedNode?.location,
+      targetBase: unit.targetBase?.location,
+      targetUnitId: unit.targetUnit?.id,
+    );
   }
 
   List<JsonEvent> unitAction({

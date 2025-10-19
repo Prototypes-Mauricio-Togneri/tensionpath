@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
@@ -8,6 +10,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_event.g.dart';
 
@@ -70,49 +73,70 @@ class JsonEvent {
 
   factory JsonEvent.player(JsonEventPlayer player) => JsonEvent(player: player);
 
-  factory JsonEvent.unitCreated(Unit unit) => JsonEvent(
+  factory JsonEvent.unitCreated({
+    required String unitId,
+    required String playerIndex,
+    required UnitType unitType,
+    required num health,
+    required Position position,
+    required Position? targetPosition,
+    required Location? lockedLocation,
+    required Location? targetBase,
+    required String? targetUnitId,
+  }) => JsonEvent(
     unitCreated: JsonEventUnitCreated(
-      id: unit.id,
-      playerIndex: unit.player.id,
-      type: unit.type,
-      health: unit.health,
-      currentPosition: unit.position.toJson(),
-      targetPosition: unit.targetNode?.position.toJson(),
-      lockedLocation: unit.lockedNode?.location.toJson(),
-      targetBase: unit.targetBase?.location.toJson(),
-      targetUnitId: unit.targetUnit?.id,
+      id: unitId,
+      playerIndex: playerIndex,
+      type: unitType,
+      health: health,
+      currentPosition: position.toJson(),
+      targetPosition: targetPosition?.toJson(),
+      lockedLocation: lockedLocation?.toJson(),
+      targetBase: targetBase?.toJson(),
+      targetUnitId: targetUnitId,
     ),
   );
 
-  factory JsonEvent.unitMovementStarted(Unit unit) => JsonEvent(
+  factory JsonEvent.unitMovementStarted({
+    required String unitId,
+    required Position currentPosition,
+    required Position targetPosition,
+  }) => JsonEvent(
     unitMovementStarted: JsonEventUnitMovementStarted(
-      id: unit.id,
-      currentPosition: unit.position.toJson(),
-      targetPosition: unit.targetNode!.position.toJson(),
+      id: unitId,
+      currentPosition: currentPosition.toJson(),
+      targetPosition: targetPosition.toJson(),
     ),
   );
 
-  factory JsonEvent.unitMovementEnded(Unit unit) => JsonEvent(
+  factory JsonEvent.unitMovementEnded({
+    required String unitId,
+    required Position currentPosition,
+    required Location? lockedLocation,
+  }) => JsonEvent(
     unitMovementEnded: JsonEventUnitMovementEnded(
-      id: unit.id,
-      currentPosition: unit.position.toJson(),
-      lockedLocation: unit.lockedNode?.location.toJson(),
+      id: unitId,
+      currentPosition: currentPosition.toJson(),
+      lockedLocation: lockedLocation?.toJson(),
     ),
   );
 
-  factory JsonEvent.unitUpdated(Unit unit) => JsonEvent(
+  factory JsonEvent.unitUpdated({
+    required String unitId,
+    required num health,
+  }) => JsonEvent(
     unitUpdated: JsonEventUnitUpdated(
-      id: unit.id,
-      health: unit.health,
+      id: unitId,
+      health: health,
     ),
   );
 
-  factory JsonEvent.unitDestroyed(Unit unit) => JsonEvent(
-    unitDestroyed: JsonEventUnitDestroyed(id: unit.id),
+  factory JsonEvent.unitDestroyed(String unitId) => JsonEvent(
+    unitDestroyed: JsonEventUnitDestroyed(id: unitId),
   );
 
-  factory JsonEvent.resourceDepleted(Resource resource) => JsonEvent(
-    resourceDepleted: JsonEventResourceDepleted(id: resource.id),
+  factory JsonEvent.resourceDepleted(String resourceId) => JsonEvent(
+    resourceDepleted: JsonEventResourceDepleted(id: resourceId),
   );
 
   factory JsonEvent.matchFinished(String winner) => JsonEvent(

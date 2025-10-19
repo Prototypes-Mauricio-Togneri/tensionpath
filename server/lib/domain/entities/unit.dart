@@ -78,7 +78,11 @@ class Unit {
     targetBase = null;
     targetUnit = null;
 
-    return JsonEvent.unitMovementStarted(this);
+    return JsonEvent.unitMovementStarted(
+      unitId: id,
+      currentPosition: position,
+      targetPosition: targetNode!.position,
+    );
   }
 
   void attackUnit(Unit target) {
@@ -147,7 +151,11 @@ class Unit {
         position: position,
         unit: this,
       );
-      result = JsonEvent.unitMovementStarted(this);
+      result = JsonEvent.unitMovementStarted(
+        unitId: id,
+        currentPosition: position,
+        targetPosition: targetNode!.position,
+      );
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
         targetNode!.isFree) {
