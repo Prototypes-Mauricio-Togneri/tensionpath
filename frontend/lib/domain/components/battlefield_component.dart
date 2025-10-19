@@ -20,7 +20,6 @@ import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
-import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
@@ -385,7 +384,8 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void onUpdateExistingUnits({
+  // TODO(momo): update units health, attack targets, etc
+  /*void onUpdateExistingUnits({
     required Map<String, UnitUpdate> units,
     required List<UnitComponent> unitComponents,
   }) {
@@ -417,7 +417,7 @@ class BattlefieldComponent extends PositionComponent {
         );
       }
     }
-  }
+  }*/
 
   void updateNodesLocks() {
     for (final NodeComponent nodeComponent in nodeComponents) {
