@@ -11,8 +11,8 @@ class JsonEventUnitAttacked {
   @JsonKey(name: 'targetUnitId')
   final String? targetUnitId;
 
-  @JsonKey(name: 'targetBase')
-  final JsonLocation? targetBase;
+  @JsonKey(name: 'targetBaseLocation')
+  final JsonLocation? targetBaseLocation;
 
   @JsonKey(name: 'damage')
   final num damage;
@@ -20,7 +20,7 @@ class JsonEventUnitAttacked {
   const JsonEventUnitAttacked({
     required this.attackerId,
     required this.targetUnitId,
-    required this.targetBase,
+    required this.targetBaseLocation,
     required this.damage,
   });
 

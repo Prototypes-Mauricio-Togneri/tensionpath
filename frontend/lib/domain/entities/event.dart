@@ -4,11 +4,13 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attacked.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Event {
@@ -25,6 +27,8 @@ class Event {
       return EventUnitMovementStarted.fromJson(json.unitMovementStarted!);
     } else if (json.unitMovementEnded != null) {
       return EventUnitMovementEnded.fromJson(json.unitMovementEnded!);
+    } else if (json.unitAttack != null) {
+      return EventUnitAttack.fromJson(json.unitAttack!);
     } else if (json.unitDestroyed != null) {
       return EventUnitDestroyed.fromJson(json.unitDestroyed!);
     } else if (json.matchFinished != null) {
@@ -168,15 +172,36 @@ class EventUnitMovementEnded implements Event {
     required this.lockedLocation,
   });
 
-  factory EventUnitMovementEnded.fromJson(
-    JsonEventUnitMovementEnded json,
-  ) => EventUnitMovementEnded(
-    id: json.id,
-    currentPosition: Position.fromJson(json.currentPosition),
-    lockedLocation: (json.lockedLocation != null)
-        ? Location.fromJson(json.lockedLocation!)
-        : null,
-  );
+  factory EventUnitMovementEnded.fromJson(JsonEventUnitMovementEnded json) =>
+      EventUnitMovementEnded(
+        id: json.id,
+        currentPosition: Position.fromJson(json.currentPosition),
+        lockedLocation: (json.lockedLocation != null)
+            ? Location.fromJson(json.lockedLocation!)
+            : null,
+      );
+}
+
+class EventUnitAttack implements Event {
+  final String attackerId;
+  final String? targetUnitId;
+  final JsonLocation? targetBaseLocation;
+  final num damage;
+
+  const EventUnitAttack({
+    required this.attackerId,
+    required this.targetUnitId,
+    required this.targetBaseLocation,
+    required this.damage,
+  });
+
+  factory EventUnitAttack.fromJson(JsonEventUnitAttacked json) =>
+      EventUnitAttack(
+        attackerId: json.attackerId,
+        targetUnitId: json.targetUnitId,
+        targetBaseLocation: json.targetBaseLocation,
+        damage: json.damage,
+      );
 }
 
 class EventUnitDestroyed implements Event {
@@ -186,9 +211,8 @@ class EventUnitDestroyed implements Event {
     required this.id,
   });
 
-  factory EventUnitDestroyed.fromJson(
-    JsonEventUnitDestroyed json,
-  ) => EventUnitDestroyed(id: json.id);
+  factory EventUnitDestroyed.fromJson(JsonEventUnitDestroyed json) =>
+      EventUnitDestroyed(id: json.id);
 }
 
 class EventMatchFinished implements Event {

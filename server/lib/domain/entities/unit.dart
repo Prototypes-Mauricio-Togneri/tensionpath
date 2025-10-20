@@ -261,7 +261,7 @@ class Unit {
           result = JsonEvent.unitAttack(
             attackerId: id,
             damage: damage,
-            targetBase: targetBase!.location.toJson(),
+            targetBaseLocation: targetBase!.location.toJson(),
           );
           Logger.debug('Attacked base ${targetBase!.id} with $damage damage');
         }

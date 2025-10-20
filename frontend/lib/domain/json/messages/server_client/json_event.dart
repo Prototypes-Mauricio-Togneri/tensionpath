@@ -125,12 +125,12 @@ class JsonEvent {
     required String attackerId,
     required num damage,
     String? targetUnitId,
-    JsonLocation? targetBase,
+    JsonLocation? targetBaseLocation,
   }) => JsonEvent(
     unitAttack: JsonEventUnitAttacked(
       attackerId: attackerId,
       targetUnitId: targetUnitId,
-      targetBase: targetBase,
+      targetBaseLocation: targetBaseLocation,
       damage: damage,
     ),
   );

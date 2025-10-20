@@ -12,8 +12,8 @@ JsonEventUnitAttacked _$JsonEventUnitAttackedFromJson(
   final val = JsonEventUnitAttacked(
     attackerId: $checkedConvert('attackerId', (v) => v as String),
     targetUnitId: $checkedConvert('targetUnitId', (v) => v as String?),
-    targetBase: $checkedConvert(
-      'targetBase',
+    targetBaseLocation: $checkedConvert(
+      'targetBaseLocation',
       (v) =>
           v == null ? null : JsonLocation.fromJson(v as Map<String, dynamic>),
     ),
@@ -27,6 +27,6 @@ Map<String, dynamic> _$JsonEventUnitAttackedToJson(
 ) => <String, dynamic>{
   'attackerId': instance.attackerId,
   'targetUnitId': ?instance.targetUnitId,
-  'targetBase': ?instance.targetBase?.toJson(),
+  'targetBaseLocation': ?instance.targetBaseLocation?.toJson(),
   'damage': instance.damage,
 };
