@@ -15,6 +15,7 @@ import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
@@ -391,7 +392,18 @@ class BattlefieldComponent extends PositionComponent {
           }
         }
       } else if (event.targetBaseLocation != null) {
-        match.opponent.removeBaseHealth(event.damage);
+        final LauncherComponent? targetBase = launcherComponentByLocation(
+          Location.fromJson(event.targetBaseLocation!),
+        );
+
+        if (targetBase != null) {
+          if (targetBase.player.isSelf) {
+            match.self.removeBaseHealth(event.damage);
+            Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
+          } else {
+            match.opponent.removeBaseHealth(event.damage);
+          }
+        }
       }
     }
   }
@@ -421,6 +433,11 @@ class BattlefieldComponent extends PositionComponent {
 
   UnitComponent? unitComponentById(String unitId) =>
       unitComponents.where((u) => u.id == unitId).firstOrNull;
+
+  LauncherComponent? launcherComponentByLocation(Location location) =>
+      launcherComponents
+          .where((l) => l.nodeComponent.location == location)
+          .firstOrNull;
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {
