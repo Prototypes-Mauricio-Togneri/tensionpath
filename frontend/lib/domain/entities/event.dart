@@ -69,6 +69,7 @@ class EventPlayer implements Event {
   final num resources;
   final num resourcesRate;
   final int currentHarvesterCount;
+  final int maxHarvestersCount;
 
   const EventPlayer({
     required this.id,
@@ -76,6 +77,7 @@ class EventPlayer implements Event {
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,
+    required this.maxHarvestersCount,
   });
 
   factory EventPlayer.fromJson(JsonEventPlayer json) => EventPlayer(
@@ -84,6 +86,7 @@ class EventPlayer implements Event {
     resources: json.resources,
     resourcesRate: json.resourcesRate,
     currentHarvesterCount: json.currentHarvesterCount,
+    maxHarvestersCount: json.maxHarvestersCount,
   );
 }
 

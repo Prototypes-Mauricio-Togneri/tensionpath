@@ -17,6 +17,10 @@ JsonEventPlayer _$JsonEventPlayerFromJson(Map<String, dynamic> json) =>
           'currentHarvesterCount',
           (v) => (v as num).toInt(),
         ),
+        maxHarvestersCount: $checkedConvert(
+          'maxHarvestersCount',
+          (v) => (v as num).toInt(),
+        ),
       );
       return val;
     });
@@ -28,4 +32,5 @@ Map<String, dynamic> _$JsonEventPlayerToJson(JsonEventPlayer instance) =>
       'resources': instance.resources,
       'resourcesRate': instance.resourcesRate,
       'currentHarvesterCount': instance.currentHarvesterCount,
+      'maxHarvestersCount': instance.maxHarvestersCount,
     };

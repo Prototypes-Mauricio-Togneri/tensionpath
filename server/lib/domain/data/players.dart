@@ -35,6 +35,7 @@ class Players {
             units.currentHarvestersWorking(player.index) *
             player.resourcesActiveRate,
         currentHarvesterCount: units.currentHarvesterCount(player.index),
+        maxHarvestersCount: units.maxHarvesterCount(player.index),
       );
     }
 

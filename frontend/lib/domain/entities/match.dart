@@ -23,14 +23,7 @@ class Match {
   factory Match.fromJson(JsonMatchStart jsonMatch) => Match(
     createdAt: DateTime.parse(jsonMatch.createdAt),
     config: Config.fromJson(jsonMatch.config),
-    players: jsonMatch.players
-        .map(
-          (player) => Player.fromJson(
-            player: player,
-            maxHarvestersCount: jsonMatch.config.maxHarvestersCount,
-          ),
-        )
-        .toList(),
+    players: jsonMatch.players.map(Player.fromJson).toList(),
     battlefield: Battlefield.fromJson(jsonMatch.battlefield),
   );
 }

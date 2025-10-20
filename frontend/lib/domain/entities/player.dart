@@ -11,12 +11,12 @@ class Player {
   final String index;
   final bool isSelf;
   final num baseMaxHealth;
-  final int maxHarvestersCount;
   final List<UnitType> deck;
   num baseHealth;
   num resources;
   num resourcesRate;
   int currentHarvesterCount;
+  int maxHarvestersCount;
 
   Player({
     required this.id,
@@ -45,6 +45,7 @@ class Player {
     resources = event.resources;
     resourcesRate = event.resourcesRate;
     currentHarvesterCount = event.currentHarvesterCount;
+    maxHarvestersCount = event.maxHarvestersCount;
   }
 
   void addResources(num value) {
@@ -59,10 +60,7 @@ class Player {
     }
   }
 
-  factory Player.fromJson({
-    required JsonPlayerStart player,
-    required int maxHarvestersCount,
-  }) => Player(
+  factory Player.fromJson(JsonPlayerStart player) => Player(
     id: player.id,
     index: player.index,
     isSelf: player.isSelf,
@@ -72,7 +70,7 @@ class Player {
     resources: player.resources,
     resourcesRate: player.resourcesPassiveRate,
     currentHarvesterCount: 0,
-    maxHarvestersCount: maxHarvestersCount,
+    maxHarvestersCount: 0,
     deck: player.deck,
   );
 }

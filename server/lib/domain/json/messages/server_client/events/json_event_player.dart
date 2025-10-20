@@ -19,18 +19,23 @@ class JsonEventPlayer {
   @JsonKey(name: 'currentHarvesterCount')
   final int currentHarvesterCount;
 
+  @JsonKey(name: 'maxHarvestersCount')
+  final int maxHarvestersCount;
+
   const JsonEventPlayer({
     required this.id,
     required this.baseHealth,
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,
+    required this.maxHarvestersCount,
   });
 
   bool hasChanged(JsonEventPlayer other) {
     return baseHealth != other.baseHealth ||
         resourcesRate != other.resourcesRate ||
-        currentHarvesterCount != other.currentHarvesterCount;
+        currentHarvesterCount != other.currentHarvesterCount ||
+        maxHarvestersCount != other.maxHarvestersCount;
   }
 
   factory JsonEventPlayer.fromJson(Map<String, dynamic> json) =>
