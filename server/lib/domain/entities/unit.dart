@@ -27,14 +27,14 @@ class Unit {
   final UnitType type;
   final num radius;
   final num maxHealth;
-  late num health; // updated by frontend, corrected by server
+  late num health;
   late num currentAttackCooldown;
-  Position position; // updated by frontend, corrected by server
-  Node closestNode; // updated by frontend
-  Node? lockedNode; // set by server
-  Node? targetNode; // updated by frontend, corrected by server
-  Launcher? targetBase; // updated by frontend, corrected by server
-  Unit? targetUnit; // updated by frontend, corrected by server
+  Position position;
+  Node closestNode;
+  Node? lockedNode;
+  Node? targetNode;
+  Launcher? targetBase;
+  Unit? targetUnit;
   bool lastOrderManual = false;
 
   Unit({
@@ -196,8 +196,8 @@ class Unit {
 
     // Target unit is no longer alive
     if (targetUnit != null && !targetUnit!.isAlive) {
+      Logger.debug('Target unit no longer alive');
       targetUnit = null;
-      // TODO(momo): result = JsonEvent.unitUpdated(this);
     }
 
     // Assign the closest unit in range if there is not one assigned
@@ -205,8 +205,7 @@ class Unit {
       targetUnit = units.closestUnitInRange(this);
 
       if (targetUnit != null) {
-        // TODO(momo): result = JsonEvent.unitUpdated(this);
-        Logger.debug('Unit retargeted to unit ${targetUnit!.id}');
+        Logger.debug('Target unit retargeted to ${targetUnit!.id}');
       }
 
       // Assign the closest base in range if there is not one assigned
@@ -214,8 +213,7 @@ class Unit {
         targetBase = launchers.closestEnemyBaseInRange(this);
 
         if (targetBase != null) {
-          // TODO(momo): result = JsonEvent.unitUpdated(this);
-          Logger.debug('Unit retargeted to base ${targetBase!.id}');
+          Logger.debug('Target base retargeted to ${targetBase!.id}');
         }
       }
     }
@@ -235,7 +233,11 @@ class Unit {
             player.addResources(config.harvesterReward);
           }
 
-          // TODO(momo): result = JsonEvent.unitUpdated(this);
+          result = JsonEvent.unitAttack(
+            attackerId: id,
+            damage: damage,
+            targetUnitId: targetUnit!.id,
+          );
           Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
         }
       } else {
@@ -243,8 +245,7 @@ class Unit {
         targetUnit = units.closestUnitInRange(this);
 
         if (targetUnit != null) {
-          // TODO(momo): result = JsonEvent.unitUpdated(this);
-          Logger.debug('Unit retargeted to unit ${targetUnit!.id}');
+          Logger.debug('Target unit retargeted to ${targetUnit!.id}');
         }
       }
     } else if (targetBase != null) {
@@ -256,8 +257,13 @@ class Unit {
           final num damage = type.damageAgainst(UnitClass.structure);
           currentAttackCooldown = type.attackCooldown;
           targetBase!.player.removeHealth(damage);
-          // TODO(momo): result = JsonEvent.unitUpdated(this);
-          Logger.debug('Attacked unit ${targetBase!.id} with $damage damage');
+
+          result = JsonEvent.unitAttack(
+            attackerId: id,
+            damage: damage,
+            targetBase: targetBase!.location.toJson(),
+          );
+          Logger.debug('Attacked base ${targetBase!.id} with $damage damage');
         }
       }
     }

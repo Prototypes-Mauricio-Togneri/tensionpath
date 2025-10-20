@@ -3,11 +3,11 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attacked.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attacked.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -34,8 +34,8 @@ class JsonEvent {
   @JsonKey(name: 'unitMovementEnded')
   final JsonEventUnitMovementEnded? unitMovementEnded;
 
-  @JsonKey(name: 'unitAttacked')
-  final JsonEventUnitAttacked? unitAttacked;
+  @JsonKey(name: 'unitAttack')
+  final JsonEventUnitAttacked? unitAttack;
 
   @JsonKey(name: 'unitDestroyed')
   final JsonEventUnitDestroyed? unitDestroyed;
@@ -50,7 +50,7 @@ class JsonEvent {
     this.unitCreated,
     this.unitMovementStarted,
     this.unitMovementEnded,
-    this.unitAttacked,
+    this.unitAttack,
     this.unitDestroyed,
     this.matchFinished,
   });
@@ -121,13 +121,17 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitAttacked({
-    required String unitId,
-    required num health,
+  factory JsonEvent.unitAttack({
+    required String attackerId,
+    required num damage,
+    String? targetUnitId,
+    JsonLocation? targetBase,
   }) => JsonEvent(
-    unitAttacked: JsonEventUnitAttacked(
-      id: unitId,
-      health: health,
+    unitAttack: JsonEventUnitAttacked(
+      attackerId: attackerId,
+      targetUnitId: targetUnitId,
+      targetBase: targetBase,
+      damage: damage,
     ),
   );
 

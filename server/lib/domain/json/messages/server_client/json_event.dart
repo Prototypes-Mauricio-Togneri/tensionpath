@@ -34,8 +34,8 @@ class JsonEvent {
   @JsonKey(name: 'unitMovementEnded')
   final JsonEventUnitMovementEnded? unitMovementEnded;
 
-  @JsonKey(name: 'unitAttacked')
-  final JsonEventUnitAttacked? unitAttacked;
+  @JsonKey(name: 'unitAttack')
+  final JsonEventUnitAttacked? unitAttack;
 
   @JsonKey(name: 'unitDestroyed')
   final JsonEventUnitDestroyed? unitDestroyed;
@@ -50,7 +50,7 @@ class JsonEvent {
     this.unitCreated,
     this.unitMovementStarted,
     this.unitMovementEnded,
-    this.unitAttacked,
+    this.unitAttack,
     this.unitDestroyed,
     this.matchFinished,
   });
@@ -121,14 +121,16 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitAttacked({
+  factory JsonEvent.unitAttack({
     required String attackerId,
-    required String defenderId,
     required num damage,
+    String? targetUnitId,
+    JsonLocation? targetBase,
   }) => JsonEvent(
-    unitAttacked: JsonEventUnitAttacked(
+    unitAttack: JsonEventUnitAttacked(
       attackerId: attackerId,
-      defenderId: defenderId,
+      targetUnitId: targetUnitId,
+      targetBase: targetBase,
       damage: damage,
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/models/common/json_location.dart';
 
 part 'json_event_unit_attacked.g.dart';
 
@@ -7,15 +8,19 @@ class JsonEventUnitAttacked {
   @JsonKey(name: 'attackerId')
   final String attackerId;
 
-  @JsonKey(name: 'defenderId')
-  final String defenderId;
+  @JsonKey(name: 'targetUnitId')
+  final String? targetUnitId;
+
+  @JsonKey(name: 'targetBase')
+  final JsonLocation? targetBase;
 
   @JsonKey(name: 'damage')
   final num damage;
 
   const JsonEventUnitAttacked({
     required this.attackerId,
-    required this.defenderId,
+    required this.targetUnitId,
+    required this.targetBase,
     required this.damage,
   });
 
