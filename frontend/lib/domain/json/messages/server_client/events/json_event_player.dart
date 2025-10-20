@@ -34,7 +34,8 @@ class JsonEventPlayer {
   bool hasChanged(JsonEventPlayer other) {
     return baseHealth != other.baseHealth ||
         resourcesRate != other.resourcesRate ||
-        currentHarvesterCount != other.currentHarvesterCount;
+        currentHarvesterCount != other.currentHarvesterCount ||
+        maxHarvestersCount != other.maxHarvestersCount;
   }
 
   factory JsonEventPlayer.fromJson(Map<String, dynamic> json) =>

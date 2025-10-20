@@ -15,7 +15,6 @@ JsonEventMissile _$JsonEventMissileFromJson(Map<String, dynamic> json) =>
           'platforms',
           (v) => Map<String, String?>.from(v as Map),
         ),
-        alarm: $checkedConvert('alarm', (v) => v as bool),
         fired: $checkedConvert('fired', (v) => v as bool),
       );
       return val;
@@ -26,6 +25,5 @@ Map<String, dynamic> _$JsonEventMissileToJson(JsonEventMissile instance) =>
       'charge': instance.charge,
       'owner': ?instance.owner,
       'platforms': instance.platforms,
-      'alarm': instance.alarm,
       'fired': instance.fired,
     };

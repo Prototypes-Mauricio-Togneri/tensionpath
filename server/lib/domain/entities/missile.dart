@@ -44,7 +44,6 @@ class Missile {
   JsonEvent? update(double dt) {
     final num deltaCharge = dt * chargeRate;
     final String? previousOwner = owner;
-    final num previousCharge = chargeCurrent;
     bool platformsOwnershipChanged = false;
 
     for (final Platform platform in platforms) {
@@ -74,13 +73,8 @@ class Missile {
     }
 
     final bool missileOwnershipChanged = owner != previousOwner;
-    final bool alarm =
-        (previousCharge < chargeAlarm) && (chargeCurrent >= chargeAlarm);
 
-    if (alarm ||
-        fired ||
-        platformsOwnershipChanged ||
-        missileOwnershipChanged) {
+    if (fired || platformsOwnershipChanged || missileOwnershipChanged) {
       return JsonEvent.missile(
         charge: chargeCurrent,
         owner: owner,
@@ -88,7 +82,6 @@ class Missile {
           for (final Platform platform in platforms)
             platform.id: platform.owner,
         },
-        alarm: alarm,
         fired: fired,
       );
     } else {

@@ -11,9 +11,12 @@ class Missile {
   final Position position;
   final num chargeMax;
   final num chargeBuffer;
+  final num chargeAlarm;
+  final num chargeRate;
   final List<Platform> platforms;
   String? owner;
   num chargeCurrent = 0;
+  bool playingAlarm = false;
 
   static const num ALARM_THRESHOLD = 8;
 
@@ -22,6 +25,8 @@ class Missile {
     required this.position,
     required this.chargeMax,
     required this.chargeBuffer,
+    required this.chargeAlarm,
+    required this.chargeRate,
     required this.platforms,
   });
 
@@ -33,27 +38,33 @@ class Missile {
       platform.refresh(event.platforms[platform.id]);
     }
 
-    if (event.alarm) {
-      Audio.get.playSound(Sound.EFFECT_MISSILE_ALARM);
-    } else {
-      Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
-    }
-
     if (event.fired) {
       Audio.get.playSound(Sound.EVA_MISSILE_LAUNCHED);
     }
   }
 
   void charge(double dt) {
+    final num deltaCharge = dt * chargeRate;
+
     if (owner == '') {
       if (chargeCurrent > chargeBuffer) {
-        chargeCurrent -= dt;
+        chargeCurrent -= deltaCharge;
       }
     } else if (owner != null) {
-      chargeCurrent += dt;
+      chargeCurrent += deltaCharge;
     }
 
     chargeCurrent = chargeCurrent.clamp(0, chargeMax);
+
+    if (chargeCurrent >= chargeAlarm) {
+      if (!playingAlarm) {
+        playingAlarm = true;
+        Audio.get.playSound(Sound.EFFECT_MISSILE_ALARM);
+      }
+    } else {
+      playingAlarm = false;
+      Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
+    }
   }
 
   factory Missile.fromJson(JsonMissileStart json) => Missile(
@@ -61,6 +72,8 @@ class Missile {
     position: Position.fromJson(json.position),
     chargeMax: json.chargeMax,
     chargeBuffer: json.chargeBuffer,
+    chargeAlarm: json.chargeAlarm,
+    chargeRate: json.chargeRate,
     platforms: Platform.list(json.platforms),
   );
 }

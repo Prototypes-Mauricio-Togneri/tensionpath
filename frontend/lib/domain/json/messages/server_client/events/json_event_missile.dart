@@ -13,9 +13,6 @@ class JsonEventMissile {
   @JsonKey(name: 'platforms')
   final Map<String, String?> platforms;
 
-  @JsonKey(name: 'alarm')
-  final bool alarm;
-
   @JsonKey(name: 'fired')
   final bool fired;
 
@@ -23,7 +20,6 @@ class JsonEventMissile {
     required this.charge,
     required this.owner,
     required this.platforms,
-    required this.alarm,
     required this.fired,
   });
 

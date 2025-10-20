@@ -43,14 +43,12 @@ class EventMissile implements Event {
   final num charge;
   final String? owner;
   final Map<String, String?> platforms;
-  final bool alarm;
   final bool fired;
 
   const EventMissile({
     required this.charge,
     required this.owner,
     required this.platforms,
-    required this.alarm,
     required this.fired,
   });
 
@@ -58,7 +56,6 @@ class EventMissile implements Event {
     charge: json.charge,
     owner: json.owner,
     platforms: Map<String, String?>.from(json.platforms),
-    alarm: json.alarm,
     fired: json.fired,
   );
 }
