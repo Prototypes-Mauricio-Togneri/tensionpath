@@ -168,7 +168,6 @@ class Match {
   void _sendMatchUpdate(List<JsonEvent> events) {
     final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
       status: status,
-      units: battlefield.unitsToJsonUpdate(),
       events: events,
     );
 

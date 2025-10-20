@@ -14,7 +14,6 @@ import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/constants.dart';
@@ -223,10 +222,6 @@ class Battlefield {
       units: units,
     );
   }
-
-  Map<String, JsonUnitUpdate> unitsToJsonUpdate() => Map.fromEntries(
-    units.list.map((u) => MapEntry(u.id, u.toJsonUpdate())),
-  );
 
   JsonBattlefieldStart toJson() => JsonBattlefieldStart(
     mapSize: mapSize.toJson(),

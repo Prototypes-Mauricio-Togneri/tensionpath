@@ -13,13 +13,6 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
           'status',
           (v) => $enumDecode(_$MatchStatusEnumMap, v),
         ),
-        units: $checkedConvert(
-          'units',
-          (v) => (v as Map<String, dynamic>).map(
-            (k, e) =>
-                MapEntry(k, JsonUnitUpdate.fromJson(e as Map<String, dynamic>)),
-          ),
-        ),
         events: $checkedConvert(
           'events',
           (v) => (v as List<dynamic>)
@@ -33,7 +26,6 @@ JsonMatchUpdate _$JsonMatchUpdateFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
     <String, dynamic>{
       'status': _$MatchStatusEnumMap[instance.status]!,
-      'units': instance.units.map((k, e) => MapEntry(k, e.toJson())),
       'events': instance.events.map((e) => e.toJson()).toList(),
     };
 

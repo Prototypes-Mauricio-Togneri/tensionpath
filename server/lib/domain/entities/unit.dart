@@ -9,7 +9,6 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/resource.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
-import 'package:tensionpath/domain/json/models/update/json_unit_update.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -302,19 +301,6 @@ class Unit {
 
     Logger.debug('Unit $id has been destroyed');
   }
-
-  JsonUnitUpdate toJsonUpdate() => JsonUnitUpdate(
-    id: id,
-    playerIndex: player.index,
-    type: type,
-    maxHealth: maxHealth,
-    health: health,
-    currentPosition: position.toJson(),
-    lockedLocation: lockedNode?.location.toJson(),
-    targetPosition: targetNode?.position.toJson(),
-    targetBase: targetBase?.location.toJson(),
-    targetUnitId: targetUnit?.id,
-  );
 
   static String get newId =>
       const Uuid().v4().replaceAll('-', '').substring(0, 16);
