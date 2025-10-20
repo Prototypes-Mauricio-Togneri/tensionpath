@@ -409,41 +409,6 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  // TODO(momo): update units health, attack targets, etc
-  /*void onUpdateExistingUnits({
-    required Map<String, UnitUpdate> units,
-    required List<UnitComponent> unitComponents,
-  }) {
-    for (final UnitComponent unitComponent in unitComponents) {
-      final UnitUpdate? unitUpdate = units[unitComponent.id];
-
-      if (unitUpdate != null) {
-        unitComponent.refresh(
-          health: unitUpdate.health,
-          newCurrentPosition: unitUpdate.currentPosition.localPosition(
-            mapCenter: mapCenter,
-            nodeSizeRatio: nodeSizeRatio,
-          ),
-          newTargetPosition: unitUpdate.targetPosition?.localPosition(
-            mapCenter: mapCenter,
-            nodeSizeRatio: nodeSizeRatio,
-          ),
-          newLockedNode: (unitUpdate.lockedLocation != null)
-              ? match.getNodeById(unitUpdate.lockedLocation!.id)
-              : null,
-          newTargetUnit: unitUpdate.targetUnitId != null
-              ? unitComponents
-                    .where((unit) => unit.id == unitUpdate.targetUnitId)
-                    .firstOrNull
-              : null,
-          newTargetBase: (unitUpdate.targetBase != null)
-              ? match.getNodeById(unitUpdate.targetBase!.id)
-              : null,
-        );
-      }
-    }
-  }*/
-
   void updateNodesLocks() {
     for (final NodeComponent nodeComponent in nodeComponents) {
       nodeComponent.unlock();

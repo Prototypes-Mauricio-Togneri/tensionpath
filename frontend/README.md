@@ -8,6 +8,7 @@
 - Animations
   - Shooting
   - Unit destroyed
+- Remove target indicators after implementing animations
 - Sound effects
   - Missile launched (voice + explosion)
   - Base under attack
