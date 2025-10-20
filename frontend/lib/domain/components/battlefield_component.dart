@@ -275,7 +275,7 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onUnitCreated(EventUnitCreated event) {
-    final Player player = event.playerIndex == self.index ? self : opponent;
+    final Player player = (event.playerIndex == self.index) ? self : opponent;
     MovementPathComponent? movementOrderComponent;
     MovementPathComponent? movementCurrentComponent;
     AttackPathComponent? attackPathComponent;
@@ -335,7 +335,7 @@ class BattlefieldComponent extends PositionComponent {
     add(unitComponent);
     unitComponents.add(unitComponent);
 
-    if (event.playerIndex == self.index) {
+    if (player.isSelf) {
       Audio.get.playSound(Sound.EVA_UNIT_READY);
     }
   }
