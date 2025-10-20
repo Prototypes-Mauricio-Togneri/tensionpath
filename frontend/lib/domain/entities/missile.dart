@@ -38,6 +38,10 @@ class Missile {
     } else {
       Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
     }
+
+    if (event.fired) {
+      Audio.get.playSound(Sound.EVA_MISSILE_LAUNCHED);
+    }
   }
 
   void charge(double dt) {
