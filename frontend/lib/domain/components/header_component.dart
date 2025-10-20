@@ -72,6 +72,15 @@ class PlayerIndicatorComponent extends PositionComponent {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (game.matchState.isPlaying) {
+      player.update(dt);
+    }
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 

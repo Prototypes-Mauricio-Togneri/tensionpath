@@ -3,6 +3,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/utils/alert_timer.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class Player {
@@ -12,6 +13,7 @@ class Player {
   final bool isSelf;
   final num baseMaxHealth;
   final List<UnitType> deck;
+  final AlertTimer attackAlert = AlertTimer(10);
   num baseHealth;
   num resources;
   num resourcesRate;
@@ -40,7 +42,11 @@ class Player {
 
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
 
-  void update(EventPlayer event) {
+  void update(double dt) {
+    attackAlert.update(dt);
+  }
+
+  void refresh(EventPlayer event) {
     baseHealth = event.baseHealth;
     resources = event.resources;
     resourcesRate = event.resourcesRate;

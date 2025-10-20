@@ -13,7 +13,7 @@ class Platform {
     required this.pads,
   });
 
-  void update(String? newOwner) {
+  void refresh(String? newOwner) {
     if ((owner == null) && (newOwner != null) && (newOwner != '')) {
       Audio.get.playSound(Sound.EFFECT_PAD);
     } else if ((owner != null) && (owner != '') && (newOwner == null)) {

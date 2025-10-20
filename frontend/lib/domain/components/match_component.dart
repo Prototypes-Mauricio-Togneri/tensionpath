@@ -98,12 +98,12 @@ class MatchComponent extends World {
 
     for (final Event event in matchUpdate.events) {
       if (event is EventMissile) {
-        match.battlefield.missile.update(event);
+        match.battlefield.missile.refresh(event);
       } else if (event is EventPlayer) {
         if (event.id == self.id) {
-          self.update(event);
+          self.refresh(event);
         } else if (event.id == opponent.id) {
-          opponent.update(event);
+          opponent.refresh(event);
         }
       } else if (event is EventResourcesDepleted) {
         for (final Resources resources in match.battlefield.resources) {

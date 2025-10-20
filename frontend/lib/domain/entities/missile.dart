@@ -25,12 +25,12 @@ class Missile {
     required this.platforms,
   });
 
-  void update(EventMissile event) {
+  void refresh(EventMissile event) {
     owner = event.owner;
     chargeCurrent = event.charge.clamp(0, chargeMax);
 
     for (final Platform platform in platforms) {
-      platform.update(event.platforms[platform.id]);
+      platform.refresh(event.platforms[platform.id]);
     }
 
     if (event.alarm) {

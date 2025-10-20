@@ -399,7 +399,10 @@ class BattlefieldComponent extends PositionComponent {
         if (targetBase != null) {
           if (targetBase.player.isSelf) {
             match.self.removeBaseHealth(event.damage);
-            Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
+
+            if (targetBase.player.attackAlert.isReady) {
+              Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
+            }
           } else {
             match.opponent.removeBaseHealth(event.damage);
           }
