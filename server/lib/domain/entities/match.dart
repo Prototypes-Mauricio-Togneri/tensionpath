@@ -90,12 +90,16 @@ class Match {
       );
 
       if (player.removeResources(cost)) {
-        final JsonEvent event = battlefield.deployUnit(
+        final JsonEvent deploymentEvent = battlefield.deployUnit(
           player: player,
           location: location,
           type: type,
         );
-        _sendMatchUpdate([event]);
+        final List<JsonEvent> events = [deploymentEvent];
+        events.addAll(
+          players.events(battlefield.units).values.map(JsonEvent.player),
+        );
+        _sendMatchUpdate(events);
       }
     }
   }
