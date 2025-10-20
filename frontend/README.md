@@ -2,7 +2,6 @@
 
 - Drive popcap from server
 - Play sounds based on events
-- Record new match music
 
 ### Phase 1
 
