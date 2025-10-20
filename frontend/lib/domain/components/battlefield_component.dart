@@ -371,6 +371,31 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
+  void onUnitAttack(EventUnitAttack event) {
+    final UnitComponent? unitComponent = unitComponentById(event.attackerId);
+
+    if (unitComponent != null) {
+      if (event.targetUnitId != null) {
+        final UnitComponent? targetUnitComponent = unitComponentById(
+          event.targetUnitId!,
+        );
+        targetUnitComponent?.onUnitAttacked(event.damage);
+
+        // TODO(momo): play attack sound
+        /*
+        if ((type == UnitType.harvester) &&
+            player.isSelf &&
+            (health < healthBarComponent.health) &&
+            attackAlert.isReady) {
+          Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
+        }
+        */
+      } else if (event.targetBaseLocation != null) {
+        match.opponent.removeBaseHealth(event.damage);
+      }
+    }
+  }
+
   void onUnitDestroyed(EventUnitDestroyed event) {
     final UnitComponent? unitComponent = unitComponentById(event.id);
 

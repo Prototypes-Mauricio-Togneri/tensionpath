@@ -51,6 +51,14 @@ class Player {
     resources += value;
   }
 
+  void removeBaseHealth(num value) {
+    baseHealth -= value;
+
+    if (baseHealth < 0) {
+      baseHealth = 0;
+    }
+  }
+
   factory Player.fromJson({
     required JsonPlayerStart player,
     required int maxHarvestersCount,

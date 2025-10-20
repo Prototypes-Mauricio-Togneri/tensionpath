@@ -121,8 +121,9 @@ class MatchComponent extends World {
       } else if (event is EventUnitMovementEnded) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitMovementEnded(event);
+      } else if (event is EventUnitAttack) {
+        battlefieldComponent.onUnitAttack(event);
       } else if (event is EventUnitDestroyed) {
-        updateNodeLocks = true;
         battlefieldComponent.onUnitDestroyed(event);
       }
     }

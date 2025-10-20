@@ -68,29 +68,6 @@ class UnitComponent extends PositionComponent
 
   bool belongsTo(Player other) => player.id == other.id;
 
-  void refresh({
-    required num health,
-    required Vector2 newCurrentPosition,
-    required Vector2? newTargetPosition,
-    required NodeComponent? newLockedNode,
-    required NodeComponent? newTargetBase,
-    required UnitComponent? newTargetUnit,
-  }) {
-    if ((type == UnitType.harvester) &&
-        player.isSelf &&
-        (health < healthBarComponent.health) &&
-        attackAlert.isReady) {
-      Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
-    }
-
-    healthBarComponent.refresh(health);
-    position = newCurrentPosition;
-    targetPosition = newTargetPosition;
-    lockedNode = newLockedNode;
-    targetBase = newTargetBase;
-    targetUnit = newTargetUnit;
-  }
-
   void onMovementStarted({
     required Vector2 newCurrentPosition,
     required Vector2? newTargetPosition,
@@ -105,6 +82,10 @@ class UnitComponent extends PositionComponent
   }) {
     position = newCurrentPosition;
     lockedNode = newLockedNode;
+  }
+
+  void onUnitAttacked(num damage) {
+    healthBarComponent.removeHealth(damage);
   }
 
   bool get isRevealed => closestNodeComponent.isRevealed;
@@ -364,8 +345,12 @@ class HealthBarComponent extends PositionComponent with HasVisibility {
     rect = Rect.fromLTWH(rectX, rectY, rectWidth, rectHeight);
   }
 
-  void refresh(num newHealth) {
-    health = newHealth;
+  void removeHealth(num damage) {
+    health -= damage;
+
+    if (health < 0) {
+      health = 0;
+    }
   }
 
   @override
