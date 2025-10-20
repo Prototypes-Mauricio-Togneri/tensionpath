@@ -3,6 +3,8 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/platform.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 
 class Missile {
   final Location location;
@@ -30,10 +32,13 @@ class Missile {
     for (final Platform platform in platforms) {
       platform.update(event.platforms[platform.id]);
     }
-  }
 
-  bool get isAlarmActive =>
-      (chargeMax - chargeCurrent) < Missile.ALARM_THRESHOLD;
+    if (event.alarm) {
+      Audio.get.playSound(Sound.EFFECT_MISSILE_ALARM);
+    } else {
+      Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
+    }
+  }
 
   void charge(double dt) {
     if (owner == '') {

@@ -22,6 +22,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
@@ -379,17 +380,16 @@ class BattlefieldComponent extends PositionComponent {
         final UnitComponent? targetUnitComponent = unitComponentById(
           event.targetUnitId!,
         );
-        targetUnitComponent?.onUnitAttacked(event.damage);
 
-        // TODO(momo): play attack sound
-        /*
-        if ((type == UnitType.harvester) &&
-            player.isSelf &&
-            (health < healthBarComponent.health) &&
-            attackAlert.isReady) {
-          Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
+        if (targetUnitComponent != null) {
+          targetUnitComponent.onUnitAttacked(event.damage);
+
+          if ((targetUnitComponent.type == UnitType.harvester) &&
+              (targetUnitComponent.player.isSelf) &&
+              targetUnitComponent.attackAlert.isReady) {
+            Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
+          }
         }
-        */
       } else if (event.targetBaseLocation != null) {
         match.opponent.removeBaseHealth(event.damage);
       }
