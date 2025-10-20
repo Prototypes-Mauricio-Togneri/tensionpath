@@ -7,7 +7,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_updated.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attacked.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -22,25 +22,25 @@ class JsonEvent {
   @JsonKey(name: 'player')
   final JsonEventPlayer? player;
 
-  @JsonKey(name: 'resource_depleted')
+  @JsonKey(name: 'resourceDepleted')
   final JsonEventResourceDepleted? resourceDepleted;
 
-  @JsonKey(name: 'unit_created')
+  @JsonKey(name: 'unitCreated')
   final JsonEventUnitCreated? unitCreated;
 
-  @JsonKey(name: 'unit_movement_started')
+  @JsonKey(name: 'unitMovementStarted')
   final JsonEventUnitMovementStarted? unitMovementStarted;
 
-  @JsonKey(name: 'unit_movement_ended')
+  @JsonKey(name: 'unitMovementEnded')
   final JsonEventUnitMovementEnded? unitMovementEnded;
 
-  @JsonKey(name: 'unit_updated')
-  final JsonEventUnitUpdated? unitUpdated;
+  @JsonKey(name: 'unitAttacked')
+  final JsonEventUnitAttacked? unitAttacked;
 
-  @JsonKey(name: 'unit_destroyed')
+  @JsonKey(name: 'unitDestroyed')
   final JsonEventUnitDestroyed? unitDestroyed;
 
-  @JsonKey(name: 'match_finished')
+  @JsonKey(name: 'matchFinished')
   final JsonEventMatchFinished? matchFinished;
 
   const JsonEvent({
@@ -50,7 +50,7 @@ class JsonEvent {
     this.unitCreated,
     this.unitMovementStarted,
     this.unitMovementEnded,
-    this.unitUpdated,
+    this.unitAttacked,
     this.unitDestroyed,
     this.matchFinished,
   });
@@ -121,11 +121,11 @@ class JsonEvent {
     ),
   );
 
-  factory JsonEvent.unitUpdated({
+  factory JsonEvent.unitAttacked({
     required String unitId,
     required num health,
   }) => JsonEvent(
-    unitUpdated: JsonEventUnitUpdated(
+    unitAttacked: JsonEventUnitAttacked(
       id: unitId,
       health: health,
     ),

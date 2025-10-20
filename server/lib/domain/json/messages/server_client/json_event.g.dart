@@ -24,43 +24,43 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             : JsonEventPlayer.fromJson(v as Map<String, dynamic>),
       ),
       resourceDepleted: $checkedConvert(
-        'resource_depleted',
+        'resourceDepleted',
         (v) => v == null
             ? null
             : JsonEventResourceDepleted.fromJson(v as Map<String, dynamic>),
       ),
       unitCreated: $checkedConvert(
-        'unit_created',
+        'unitCreated',
         (v) => v == null
             ? null
             : JsonEventUnitCreated.fromJson(v as Map<String, dynamic>),
       ),
       unitMovementStarted: $checkedConvert(
-        'unit_movement_started',
+        'unitMovementStarted',
         (v) => v == null
             ? null
             : JsonEventUnitMovementStarted.fromJson(v as Map<String, dynamic>),
       ),
       unitMovementEnded: $checkedConvert(
-        'unit_movement_ended',
+        'unitMovementEnded',
         (v) => v == null
             ? null
             : JsonEventUnitMovementEnded.fromJson(v as Map<String, dynamic>),
       ),
-      unitUpdated: $checkedConvert(
-        'unit_updated',
+      unitAttacked: $checkedConvert(
+        'unitAttacked',
         (v) => v == null
             ? null
-            : JsonEventUnitUpdated.fromJson(v as Map<String, dynamic>),
+            : JsonEventUnitAttacked.fromJson(v as Map<String, dynamic>),
       ),
       unitDestroyed: $checkedConvert(
-        'unit_destroyed',
+        'unitDestroyed',
         (v) => v == null
             ? null
             : JsonEventUnitDestroyed.fromJson(v as Map<String, dynamic>),
       ),
       matchFinished: $checkedConvert(
-        'match_finished',
+        'matchFinished',
         (v) => v == null
             ? null
             : JsonEventMatchFinished.fromJson(v as Map<String, dynamic>),
@@ -68,25 +68,16 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
     );
     return val;
   },
-  fieldKeyMap: const {
-    'resourceDepleted': 'resource_depleted',
-    'unitCreated': 'unit_created',
-    'unitMovementStarted': 'unit_movement_started',
-    'unitMovementEnded': 'unit_movement_ended',
-    'unitUpdated': 'unit_updated',
-    'unitDestroyed': 'unit_destroyed',
-    'matchFinished': 'match_finished',
-  },
 );
 
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
-  'resource_depleted': ?instance.resourceDepleted?.toJson(),
-  'unit_created': ?instance.unitCreated?.toJson(),
-  'unit_movement_started': ?instance.unitMovementStarted?.toJson(),
-  'unit_movement_ended': ?instance.unitMovementEnded?.toJson(),
-  'unit_updated': ?instance.unitUpdated?.toJson(),
-  'unit_destroyed': ?instance.unitDestroyed?.toJson(),
-  'match_finished': ?instance.matchFinished?.toJson(),
+  'resourceDepleted': ?instance.resourceDepleted?.toJson(),
+  'unitCreated': ?instance.unitCreated?.toJson(),
+  'unitMovementStarted': ?instance.unitMovementStarted?.toJson(),
+  'unitMovementEnded': ?instance.unitMovementEnded?.toJson(),
+  'unitAttacked': ?instance.unitAttacked?.toJson(),
+  'unitDestroyed': ?instance.unitDestroyed?.toJson(),
+  'matchFinished': ?instance.matchFinished?.toJson(),
 };
