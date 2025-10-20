@@ -53,10 +53,12 @@ class Missile {
 
     owner = _newOwner;
 
-    if (owner != null) {
+    if (owner == '') {
+      if (chargeCurrent > chargeBuffer) {
+        chargeCurrent -= deltaCharge;
+      }
+    } else if (owner != null) {
       chargeCurrent += deltaCharge;
-    } else if ((owner == '') && (chargeCurrent > chargeBuffer)) {
-      chargeCurrent -= deltaCharge;
     }
 
     chargeCurrent = chargeCurrent.clamp(0, chargeMax);
