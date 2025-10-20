@@ -1,8 +1,6 @@
 # TODO
 
 - Drive popcap from server
-- Bug charging missile when it's yellow
-- Play sounds based on events
 
 ### Phase 1
 

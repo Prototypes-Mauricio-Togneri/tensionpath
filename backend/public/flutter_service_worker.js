@@ -3,9 +3,9 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "954bcf17e7434fb4eff5d647fffb95cc",
-"main.dart.js": "7bac907e5400b88ce1f77a7dcdd682f2",
-"assets/NOTICES": "0734c55eded78d52cd40876693e3d704",
+const RESOURCES = {"flutter_bootstrap.js": "211fc61c9d9ab4bf21105a8d5e328799",
+"main.dart.js": "83f6fc69e331323f59afe61a915f1c5a",
+"assets/NOTICES": "0a6c98928fc91e7d18fa8a991ed83fc9",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/audio/sound/voice/attack/fire_at_will.mp3": "f9ce958ea8a7792c43a8c0f00130672c",
 "assets/assets/audio/sound/voice/attack/target_locked.mp3": "e8674742f75a29d50a084c1f79c7e9bd",
@@ -95,7 +95,7 @@ const RESOURCES = {"flutter_bootstrap.js": "954bcf17e7434fb4eff5d647fffb95cc",
 "assets/assets/images/units/cards/vehicle/rhino.png": "d4ad936a49aae9e746a5b533a3de8808",
 "assets/assets/images/units/cards/vehicle/predator.png": "fbc6aab46d6296e671d52315f161af29",
 "assets/assets/images/battlefields/background.png": "faaa466ff0872e8db61bdcf5c98704ab",
-"assets/assets/text/changelog.txt": "19ffb72e3af2c4cfeae6895070b2c414",
+"assets/assets/text/changelog.txt": "9fc4ff4177f79811bf43f9711daa7b3c",
 "assets/fonts/MaterialIcons-Regular.otf": "c0ad29d56cfe3890223c02da3c6e0448",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
 "assets/AssetManifest.bin": "e91f2db4a27a4b4d7af58f7a151def8b",
