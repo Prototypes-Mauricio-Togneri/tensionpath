@@ -4,8 +4,8 @@ enum Priority {
   node(2),
   path(3),
   unit(4),
-  fog(5),
-  damage(6),
+  shot(5),
+  fog(6),
   header(7),
   controls(8);
 

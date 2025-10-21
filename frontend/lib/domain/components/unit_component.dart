@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/components/attack_path_component.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/shot_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
@@ -82,6 +83,20 @@ class UnitComponent extends PositionComponent
   }) {
     position = newCurrentPosition;
     lockedNode = newLockedNode;
+  }
+
+  void onAttackUnit({
+    required UnitComponent targetUnit,
+    required num damage,
+  }) {
+    final ShotComponent shotComponent = ShotComponent(
+      position: Vector2.zero(),
+      size: size / 20,
+      attackerUnit: this,
+      targetUnit: targetUnit,
+      damage: damage,
+    );
+    match.add(shotComponent);
   }
 
   void onUnitAttacked(num damage) {

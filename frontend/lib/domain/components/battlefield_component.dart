@@ -383,7 +383,10 @@ class BattlefieldComponent extends PositionComponent {
         );
 
         if (targetUnitComponent != null) {
-          targetUnitComponent.onUnitAttacked(event.damage);
+          unitComponent.onAttackUnit(
+            targetUnit: targetUnitComponent,
+            damage: event.damage,
+          );
 
           if ((targetUnitComponent.type == UnitType.harvester) &&
               (targetUnitComponent.player.isSelf) &&
