@@ -281,6 +281,7 @@ class BattlefieldComponent extends PositionComponent {
     if (player.isSelf) {
       movementOrderComponent = MovementPathComponent(
         position: mapCenter - absoluteCenter,
+        dashed: true,
         color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
         thickness: nodeSize.x / 30,
       );
@@ -288,7 +289,8 @@ class BattlefieldComponent extends PositionComponent {
 
       movementCurrentComponent = MovementPathComponent(
         position: mapCenter - absoluteCenter,
-        color: Palette.PATH_MOVEMENT_ORDER,
+        dashed: false,
+        color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
         thickness: nodeSize.x / 30,
       );
       add(movementCurrentComponent);

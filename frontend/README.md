@@ -1,7 +1,5 @@
 # TODO
 
-- Movement path non dotted dash
-- Remove attacker indicator lines
 - Drive popcap from server
 
 ### Phase 1

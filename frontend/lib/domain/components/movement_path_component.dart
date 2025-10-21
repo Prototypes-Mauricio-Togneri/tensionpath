@@ -5,14 +5,18 @@ import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class MovementPathComponent extends PositionComponent {
+  final bool dashed;
   final Paint targetPaint = Palette.paint(
     style: PaintingStyle.fill,
+    strokeCap: StrokeCap.round,
+    strokeJoin: StrokeJoin.round,
   );
   Offset? startPosition;
   Offset? endPosition;
 
   MovementPathComponent({
     required super.position,
+    required this.dashed,
     required Color color,
     required double thickness,
   }) : super(priority: Priority.path.value) {
@@ -38,13 +42,21 @@ class MovementPathComponent extends PositionComponent {
     super.render(canvas);
 
     if ((startPosition != null) && (endPosition != null)) {
-      canvas.drawDashedLine(
-        start: startPosition!,
-        end: endPosition!,
-        paint: targetPaint,
-        dashSpacing: targetPaint.strokeWidth * 1,
-        dashLength: targetPaint.strokeWidth * 2,
-      );
+      if (dashed) {
+        canvas.drawDashedLine(
+          start: startPosition!,
+          end: endPosition!,
+          paint: targetPaint,
+          dashSpacing: targetPaint.strokeWidth * 2,
+          dashLength: targetPaint.strokeWidth * 2,
+        );
+      } else {
+        canvas.drawLine(
+          startPosition!,
+          endPosition!,
+          targetPaint,
+        );
+      }
     }
   }
 }
