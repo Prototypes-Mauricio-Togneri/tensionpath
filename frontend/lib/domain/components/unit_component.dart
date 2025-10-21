@@ -91,7 +91,7 @@ class UnitComponent extends PositionComponent
   }) {
     final ShotComponent shotComponent = ShotComponent(
       position: Vector2.zero(),
-      size: size / 20,
+      size: size / 30,
       attackerUnit: this,
       targetUnit: targetUnit,
       damage: damage,

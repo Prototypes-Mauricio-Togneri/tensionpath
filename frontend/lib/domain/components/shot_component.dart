@@ -6,7 +6,6 @@ import 'package:tensionpath/utils/palette.dart';
 
 class ShotComponent extends PositionComponent {
   late Vector2 currentPosition;
-  late final Vector2 endPosition;
   final UnitComponent attackerUnit;
   final UnitComponent targetUnit;
   final num damage;
@@ -29,24 +28,34 @@ class ShotComponent extends PositionComponent {
        ) {
     fillPaint.color = attackerUnit.player.color;
     currentPosition = attackerUnit.absolutePosition;
-    endPosition = targetUnit.absolutePosition;
-    speed = size.x * 50;
-    threshold = 5;
-    print('ShotComponent speed: $speed');
+    speed = size.x * 80;
+    threshold = 0.03 * speed;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    final Vector2 direction = (endPosition - currentPosition).normalized();
-    currentPosition += direction * speed * dt;
+    if (targetUnit.isRemoved) {
+      onTargetUnitHit();
+    } else {
+      final Vector2 direction = (targetUnit.absolutePosition - currentPosition)
+          .normalized();
+      currentPosition += direction * speed * dt;
 
-    final num distance = currentPosition.distanceTo(endPosition);
+      final num distance = currentPosition.distanceTo(
+        targetUnit.absolutePosition,
+      );
 
-    if (distance < threshold) {
-      removeFromParent();
+      if (distance < threshold) {
+        onTargetUnitHit();
+      }
     }
+  }
+
+  void onTargetUnitHit() {
+    targetUnit.onUnitAttacked(damage);
+    removeFromParent();
   }
 
   @override
