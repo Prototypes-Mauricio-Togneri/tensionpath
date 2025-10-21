@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
-import 'package:tensionpath/domain/components/attack_path_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
@@ -278,7 +277,6 @@ class BattlefieldComponent extends PositionComponent {
     final Player player = (event.playerIndex == self.index) ? self : opponent;
     MovementPathComponent? movementOrderComponent;
     MovementPathComponent? movementCurrentComponent;
-    AttackPathComponent? attackPathComponent;
 
     if (player.isSelf) {
       movementOrderComponent = MovementPathComponent(
@@ -294,13 +292,6 @@ class BattlefieldComponent extends PositionComponent {
         thickness: nodeSize.x / 30,
       );
       add(movementCurrentComponent);
-
-      attackPathComponent = AttackPathComponent(
-        position: mapCenter - absoluteCenter,
-        color: player.color.withAlpha(128),
-        thickness: nodeSize.x / 30,
-      );
-      add(attackPathComponent);
     }
 
     final UnitComponent unitComponent = UnitComponent(
@@ -319,7 +310,6 @@ class BattlefieldComponent extends PositionComponent {
       battlefieldComponent: this,
       movementOrderComponent: movementOrderComponent,
       movementCurrentComponent: movementCurrentComponent,
-      attackPathComponent: attackPathComponent,
       targetPosition: event.targetPosition?.localPosition(
         mapCenter: mapCenter,
         nodeSizeRatio: nodeSizeRatio,

@@ -3,7 +3,6 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/components/attack_path_component.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
@@ -30,7 +29,6 @@ class UnitComponent extends PositionComponent
   late NodeComponent closestNodeComponent;
   final MovementPathComponent? movementOrderComponent;
   final MovementPathComponent? movementCurrentComponent;
-  final AttackPathComponent? attackPathComponent;
   final BattlefieldComponent battlefieldComponent;
   Vector2? endPosition;
   Vector2? targetPosition;
@@ -48,7 +46,6 @@ class UnitComponent extends PositionComponent
     required this.lockedNode,
     required this.movementOrderComponent,
     required this.movementCurrentComponent,
-    required this.attackPathComponent,
     required this.battlefieldComponent,
     required this.targetPosition,
     required this.targetBase,
@@ -231,25 +228,6 @@ class UnitComponent extends PositionComponent
         movementCurrentComponent?.hide();
       }
 
-      if ((targetPosition == null) &&
-          (targetUnit != null) &&
-          targetUnit!.isAlive &&
-          isInAttackRange(targetUnit!.position)) {
-        attackPathComponent?.show(
-          start: absolutePosition,
-          end: targetUnit!.absolutePosition,
-        );
-      } else if ((targetPosition == null) &&
-          (targetBase != null) &&
-          isInAttackRange(targetBase!.position)) {
-        attackPathComponent?.show(
-          start: absolutePosition,
-          end: targetBase!.absolutePosition,
-        );
-      } else {
-        attackPathComponent?.hide();
-      }
-
       closestNodeComponent = match.getClosestNodeAt(absolutePosition);
 
       isVisible = closestNodeComponent.isRevealed || player.isSelf;
@@ -279,7 +257,6 @@ class UnitComponent extends PositionComponent
     lockedNode?.unlock();
     movementOrderComponent?.removeFromParent();
     movementCurrentComponent?.removeFromParent();
-    attackPathComponent?.removeFromParent();
     removeFromParent();
   }
 }
