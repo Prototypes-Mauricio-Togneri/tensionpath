@@ -32,8 +32,9 @@ class Players {
         baseHealth: player.baseHealth,
         resources: player.resources,
         resourcesRate:
-            units.currentHarvestersWorking(player.index) *
-            player.resourcesActiveRate,
+            player.resourcesPassiveRate +
+            (units.currentHarvestersWorking(player.index) *
+                player.resourcesActiveRate),
         currentHarvesterCount: units.currentHarvesterCount(player.index),
         maxHarvestersCount: units.maxHarvesterCount(player.index),
       );

@@ -1,6 +1,5 @@
 # TODO
 
-- Bug with initial resourcesRate
 - Movement path non dotted dash
 - Remove attacker indicator lines
 - Drive popcap from server
