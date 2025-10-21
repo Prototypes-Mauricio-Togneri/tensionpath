@@ -1,7 +1,8 @@
 # TODO
 
 - Fix changelog in mobile
-- Fix last shot doesn't appear
+- Fix last shot doesn't appear (indicate that an attack is the last)
+- Remove unit destroyed event
 - Drive popcap from server
 
 ### Phase 1

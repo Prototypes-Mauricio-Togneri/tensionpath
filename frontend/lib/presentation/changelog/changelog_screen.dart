@@ -67,15 +67,14 @@ class Changes extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 600,
-            right: 600,
-            bottom: 50,
-          ),
-          child: Label(
-            text: state.text,
-            color: Palette.TEXT_COLOR_PRIMARY,
-            size: 14,
+          padding: const EdgeInsets.only(bottom: 50),
+          child: SizedBox(
+            width: 400,
+            child: Label(
+              text: state.text,
+              color: Palette.TEXT_COLOR_PRIMARY,
+              size: 14,
+            ),
           ),
         ),
       ),
