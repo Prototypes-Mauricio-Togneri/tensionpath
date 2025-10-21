@@ -1,5 +1,7 @@
 # TODO
 
+- Fix changelog in mobile
+- Fix last shot doesn't appear
 - Drive popcap from server
 
 ### Phase 1

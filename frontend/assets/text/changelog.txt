@@ -1,11 +1,14 @@
+# 21.10.2025
+- Attack animations
+
 # 20.10.2025
-- Implemented match events
+- Match events
 
 # 18.10.2025
 - Migrated server to new provider
 
 # 15.10.2025
-- Implemented ping test
+- Ping test
 
 # 14.10.2025
 
