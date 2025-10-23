@@ -8,7 +8,7 @@ class ExplosionComponent extends PositionComponent {
   late final double radiusLimit;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Colors.green, // Palette.EXPLOSION,
+    color: Palette.EXPLOSION,
   );
 
   ExplosionComponent({
@@ -37,7 +37,7 @@ class ExplosionComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawCircle(
-      position.toOffset(),
+      (size / 2).toOffset(),
       radius,
       fillPaint,
     );
