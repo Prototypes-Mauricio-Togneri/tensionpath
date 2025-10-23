@@ -5,17 +5,18 @@
 
 ### Medium
 
-- Ramping popcap and resources rate (see picture)
+- Select deck in a separate screen
+- After 5 minutes, bases take damage every turn
+- Drive popcap from server
 - More maps
 - Choose map
 - Show list of open matches to play knowing the map
-- Drive popcap from server
 
 ### Low
 
-- After 5 minutes, bases take damage every turn
 - Show match replay
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
+- Ramping popcap and resources rate (see picture)
 - Conquer structures
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
