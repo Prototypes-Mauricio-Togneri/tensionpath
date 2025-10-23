@@ -1,13 +1,14 @@
 ### High
 
-- Path finding
+- Select deck in a separate screen
+- After 5 minutes, bases take damage every turn (config.baseDamageAfterTimeout)
+- Set match timeout (config.matchTimeout)
+- Drive popcap from server
 - Build structures before making units
+- Path finding
 
 ### Medium
 
-- Select deck in a separate screen
-- After 5 minutes, bases take damage every turn
-- Drive popcap from server
 - More maps
 - Choose map
 - Show list of open matches to play knowing the map
