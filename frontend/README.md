@@ -1,20 +1,11 @@
-# TODO
-
 ### Phase 1
 
-- Show explosion for each bullet and when a unit is destroye
-- Drive popcap from server
 - Animations
-  - Shooting
+  - Bullet hit
   - Unit destroyed
-- Remove target indicators after implementing animations
-- Sound effects
-  - Missile launched (explosion)
-  - Base under attack
 
 ### Phase 2
 
-- Measure ping
 - More maps
 - Path finding
 - Toxic tiles that damage units
@@ -22,6 +13,7 @@
 - Ramping popcap and resources rate (see picture)
 - Choose map
 - Show list of open matches to play knowing the map
+- Drive popcap from server
 
 ### Phase 3
 
