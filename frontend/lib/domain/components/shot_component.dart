@@ -59,7 +59,7 @@ class ShotComponent extends PositionComponent {
   void onTargetUnitHit() {
     final ExplosionComponent explosionComponent = ExplosionComponent(
       position: targetUnit.absolutePosition,
-      size: size * 10,
+      size: size * 5,
     );
     match.add(explosionComponent);
 

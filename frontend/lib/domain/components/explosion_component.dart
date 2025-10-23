@@ -4,8 +4,7 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ExplosionComponent extends PositionComponent {
-  double radius = 0;
-  late final double radiusLimit;
+  double percentage = 1;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.EXPLOSION,
@@ -17,17 +16,18 @@ class ExplosionComponent extends PositionComponent {
   }) : super(
          anchor: Anchor.center,
          priority: Priority.explosion.value,
-       ) {
-    radiusLimit = size.x / 2;
-  }
+       );
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    radius += dt * radiusLimit * 3;
+    percentage -= dt * 3;
+    percentage = percentage.clamp(0, 1);
 
-    if (radius >= radiusLimit) {
+    fillPaint.color = fillPaint.color.withAlpha((percentage * 255).toInt());
+
+    if (percentage == 0) {
       removeFromParent();
     }
   }
@@ -38,7 +38,7 @@ class ExplosionComponent extends PositionComponent {
 
     canvas.drawCircle(
       (size / 2).toOffset(),
-      radius,
+      (size.x / 2) * percentage,
       fillPaint,
     );
   }
