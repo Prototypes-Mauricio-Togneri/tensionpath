@@ -2,7 +2,7 @@
 
 ## Environment Variables
 
-Create the files:
+Create the following files in teh folder `functions`:
 
 - .env.local
 - .env.remote
