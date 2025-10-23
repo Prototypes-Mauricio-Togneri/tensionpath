@@ -378,6 +378,7 @@ class BattlefieldComponent extends PositionComponent {
           unitComponent.onAttackUnit(
             targetUnit: targetUnitComponent,
             damage: event.damage,
+            targetDestroyed: event.targetDestroyed,
           );
 
           if ((targetUnitComponent.type == UnitType.harvester) &&
@@ -406,16 +407,12 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void onUnitDestroyed(EventUnitDestroyed event) {
-    final UnitComponent? unitComponent = unitComponentById(event.id);
+  void onUnitDestroyed(UnitComponent unitComponent) {
+    unitComponent.destroy();
+    unitComponents.remove(unitComponent);
 
-    if (unitComponent != null) {
-      unitComponent.destroy();
-      unitComponents.remove(unitComponent);
-
-      if (unitComponent.player.isSelf) {
-        Audio.get.playSound(Sound.EVA_UNIT_LOST);
-      }
+    if (unitComponent.player.isSelf) {
+      Audio.get.playSound(Sound.EVA_UNIT_LOST);
     }
   }
 

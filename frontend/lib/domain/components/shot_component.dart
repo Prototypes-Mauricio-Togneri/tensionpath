@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ShotComponent extends PositionComponent {
@@ -9,6 +10,7 @@ class ShotComponent extends PositionComponent {
   final UnitComponent attackerUnit;
   final UnitComponent targetUnit;
   final num damage;
+  final bool targetDestroyed;
   late final double speed;
   late final double threshold;
   final Paint fillPaint = Palette.paint(
@@ -22,6 +24,7 @@ class ShotComponent extends PositionComponent {
     required this.attackerUnit,
     required this.targetUnit,
     required this.damage,
+    required this.targetDestroyed,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.shot.value,
@@ -54,8 +57,12 @@ class ShotComponent extends PositionComponent {
   }
 
   void onTargetUnitHit() {
-    targetUnit.onUnitAttacked(damage);
     removeFromParent();
+    targetUnit.onUnitAttacked(damage);
+
+    if (targetDestroyed) {
+      match.onUnitDestroyed(targetUnit);
+    }
   }
 
   @override

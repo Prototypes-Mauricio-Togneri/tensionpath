@@ -123,8 +123,6 @@ class MatchComponent extends World {
         battlefieldComponent.onUnitMovementEnded(event);
       } else if (event is EventUnitAttack) {
         battlefieldComponent.onUnitAttack(event);
-      } else if (event is EventUnitDestroyed) {
-        battlefieldComponent.onUnitDestroyed(event);
       }
     }
 
@@ -132,6 +130,9 @@ class MatchComponent extends World {
       battlefieldComponent.updateNodesLocks();
     }
   }
+
+  void onUnitDestroyed(UnitComponent unitComponent) =>
+      battlefieldComponent.onUnitDestroyed(unitComponent);
 
   int unitsOfPlayer(Player player) => unitComponents
       .where((unit) => unit.isAlive && unit.belongsTo(player))

@@ -85,6 +85,7 @@ class UnitComponent extends PositionComponent
   void onAttackUnit({
     required UnitComponent targetUnit,
     required num damage,
+    required bool targetDestroyed,
   }) {
     final ShotComponent shotComponent = ShotComponent(
       position: Vector2.zero(),
@@ -92,6 +93,7 @@ class UnitComponent extends PositionComponent
       attackerUnit: this,
       targetUnit: targetUnit,
       damage: damage,
+      targetDestroyed: targetDestroyed,
     );
     match.add(shotComponent);
   }
