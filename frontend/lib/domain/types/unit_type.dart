@@ -307,17 +307,17 @@ enum UnitType {
   }
 
   String get stats {
-    String result = name.toUpperCase();
+    String result = '';
 
-    result += '\nCost: $cost';
+    result += 'Cost: $cost';
     result += '\nHealth: $health';
     result += '\nSpeed: $speed';
     result += '\nVisibility: $visibility';
-    result += '\nDamage infantry: $damageInfantry';
-    result += '\nDamage vehicle: $damageVehicle';
-    result += '\nDamage aircraft: $damageAircraft';
-    result += '\nDamage harvester: $damageHarvester';
-    result += '\nDamage structure: $damageStructure';
+    result += '\nDPS infantry: ${(damageInfantry / attackCooldown).floor()}';
+    result += '\nDPS vehicle: ${(damageVehicle / attackCooldown).floor()}';
+    result += '\nDPS aircraft: ${(damageAircraft / attackCooldown).floor()}';
+    result += '\nDPS harvester: ${(damageHarvester / attackCooldown).floor()}';
+    result += '\nDPS structure: ${(damageStructure / attackCooldown).floor()}';
     result += '\nAttack range: $attackRange';
     result += '\nAttack cooldown: $attackCooldown';
 
