@@ -1,28 +1,26 @@
-### Phase 1
+### High
 
 - Animations
   - Bullet hit
   - Unit destroyed
 
-### Phase 2
+### Medium
 
-- More maps
 - Path finding
-- Toxic tiles that damage units
 - Build structures before making units
 - Ramping popcap and resources rate (see picture)
+- More maps
 - Choose map
 - Show list of open matches to play knowing the map
 - Drive popcap from server
 
-### Phase 3
+### Low
 
+- After 5 minutes, bases take damage every turn
+- Show match replay
 - Shoot while moving but dealing half damage
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
-- Re-attach to an active match
-- After 5 minutes, bases take damage every turn
-- Show match replay
 - Commanders abilities
   - Paratroopers (only on revealed tiles)
   - Radar
@@ -32,10 +30,9 @@
     - Fire bomb (leaves a fire trail)
     - Single tile (jade missile)
     - Center tile and adjacents (ion cannon)
-    - Vertical (affects 2 tiles in a column)
     - Mine
   - Boost
-    - Increases HP
+    - Increases health
     - Increases range
     - Increases attack
     - Increases conquering rate
