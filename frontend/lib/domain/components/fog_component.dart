@@ -15,7 +15,7 @@ class FogComponent extends PositionComponent {
   );
   final Paint fogPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.NODE_FOG,
+    color: Palette.FOG,
   );
   final Paint clearPaint = Palette.paint(
     blendMode: BlendMode.clear,

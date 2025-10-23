@@ -19,11 +19,6 @@ class NodeComponent extends PositionComponent {
     strokeWidth: 5,
     color: Palette.NODE_HIGHLIGHTED,
   );
-  final Paint occupiedPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 5,
-    color: Palette.NODE_OCCUPIED,
-  );
   bool isRevealed = false;
   bool isHighlighted = false;
   UnitComponent? lockedUnit;

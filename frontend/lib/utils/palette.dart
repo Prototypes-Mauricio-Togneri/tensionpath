@@ -8,36 +8,6 @@ class Palette {
   static const Color SCREEN_BACKGROUND = Colors.white;
   static const Color GAME_BACKGROUND = Colors.black;
 
-  static const Color PLAYER_1 = Color(0xff2479ae);
-  static const Color PLAYER_2 = Color(0xffd54336);
-
-  static const Color CARD_UNSELECTED = Colors.grey;
-  static const Color CARD_SELECTED = Colors.blue;
-
-  static const Color HEADER_PLAYER_NAME = Colors.white;
-  static const Color HEADER_CENTER_BACKGROUND = Colors.grey;
-  static const Color HEADER_INDICATOR_BACKGROUND = Color(0xff555555);
-
-  static const Color CONTROLS_COST_FOREGROUND = Colors.white;
-
-  static const Color PATH_MOVEMENT_ORDER = Colors.white;
-
-  static const Color NODE_BORDER = Color(0x30aaaaaa);
-  static const Color NODE_HIGHLIGHTED = Colors.white;
-  static const Color NODE_OCCUPIED = Colors.green;
-  static const Color NODE_TARGET = Colors.white;
-  static const Color NODE_FOG = Color(0x88000000);
-
-  static const Color UNIT_HEALTH_BORDER = Colors.white;
-  static const Color UNIT_HEALTH_BACKGROUND = Color(0xff444444);
-
-  static const Color MISSILE_OWNER_NONE = Colors.grey;
-  static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);
-  static const Color MISSILE_INDICATOR_BACKGROUND = Colors.white;
-  static const Color MISSILE_INDICATOR_BORDERR = Color(0xffdddddd);
-
-  // ======================================================================== \\
-
   static const Color SEMANTIC_SUCCESS = Colors.green;
   static const Color SEMANTIC_ERROR = Colors.red;
 
@@ -51,6 +21,36 @@ class Palette {
   static const Color ICON_ENABLED = Colors.black38;
 
   static const Color SNACK_BACKGROUND = Colors.red;
+
+  // ======================================================================== \\
+
+  static const Color PLAYER_1 = Color(0xff2479ae);
+  static const Color PLAYER_2 = Color(0xffd54336);
+
+  static const Color CARD_UNSELECTED = Colors.grey;
+  static const Color CARD_SELECTED = Colors.blue;
+
+  static const Color HEADER_PLAYER_NAME = Colors.white;
+  static const Color HEADER_CENTER_BACKGROUND = Colors.grey;
+  static const Color HEADER_INDICATOR_BACKGROUND = Color(0xff555555);
+
+  static const Color CONTROLS_COST_FOREGROUND = Colors.white;
+
+  static final Color PATH_MOVEMENT = Colors.white.withAlpha(128);
+
+  static const Color NODE_HIGHLIGHTED = Colors.white;
+
+  static const Color UNIT_HEALTH_BORDER = Colors.white;
+  static const Color UNIT_HEALTH_BACKGROUND = Color(0xff444444);
+
+  static const Color MISSILE_OWNER_NONE = Colors.grey;
+  static const Color MISSILE_OWNER_CONTESTED = Color(0xffefaf09);
+  static const Color MISSILE_INDICATOR_BACKGROUND = Colors.white;
+  static const Color MISSILE_INDICATOR_BORDER = Color(0xffdddddd);
+
+  static const Color FOG = Color(0x88000000);
+
+  static const Color EXPLOSION = Colors.white;
 
   static Paint paint({
     PaintingStyle? style,

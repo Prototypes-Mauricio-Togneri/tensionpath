@@ -282,7 +282,7 @@ class BattlefieldComponent extends PositionComponent {
       movementOrderComponent = MovementPathComponent(
         position: mapCenter - absoluteCenter,
         dashed: true,
-        color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
+        color: Palette.PATH_MOVEMENT,
         thickness: nodeSize.x / 30,
       );
       add(movementOrderComponent);
@@ -290,7 +290,7 @@ class BattlefieldComponent extends PositionComponent {
       movementCurrentComponent = MovementPathComponent(
         position: mapCenter - absoluteCenter,
         dashed: false,
-        color: Palette.PATH_MOVEMENT_ORDER.withAlpha(128),
+        color: Palette.PATH_MOVEMENT,
         thickness: nodeSize.x / 30,
       );
       add(movementCurrentComponent);

@@ -5,9 +5,10 @@ enum Priority {
   path(3),
   unit(4),
   shot(5),
-  fog(6),
-  header(7),
-  controls(8);
+  explosion(6),
+  fog(7),
+  header(8),
+  controls(9);
 
   final int value;
 

@@ -15,7 +15,6 @@ class ShotComponent extends PositionComponent {
   late final double threshold;
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
-    color: Palette.NODE_HIGHLIGHTED,
   );
 
   ShotComponent({

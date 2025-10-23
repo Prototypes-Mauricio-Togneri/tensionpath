@@ -50,7 +50,7 @@ class MissileIndicatorComponent extends PositionComponent {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeWidth: 3,
-    color: Palette.MISSILE_INDICATOR_BORDERR,
+    color: Palette.MISSILE_INDICATOR_BORDER,
   );
   final Paint foregroundPaint = Palette.paint(
     style: PaintingStyle.fill,
