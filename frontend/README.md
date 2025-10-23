@@ -9,8 +9,7 @@
 
 ### Medium
 
-- More maps
-- Choose map
+- Choose map and config
 - Show list of open matches to play knowing the map
 
 ### Low
