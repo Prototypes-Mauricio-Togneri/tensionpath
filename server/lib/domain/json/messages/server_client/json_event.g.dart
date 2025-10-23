@@ -53,12 +53,6 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventUnitAttack.fromJson(v as Map<String, dynamic>),
       ),
-      unitDestroyed: $checkedConvert(
-        'unitDestroyed',
-        (v) => v == null
-            ? null
-            : JsonEventUnitDestroyed.fromJson(v as Map<String, dynamic>),
-      ),
       matchFinished: $checkedConvert(
         'matchFinished',
         (v) => v == null
@@ -78,6 +72,5 @@ Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'unitMovementStarted': ?instance.unitMovementStarted?.toJson(),
   'unitMovementEnded': ?instance.unitMovementEnded?.toJson(),
   'unitAttack': ?instance.unitAttack?.toJson(),
-  'unitDestroyed': ?instance.unitDestroyed?.toJson(),
   'matchFinished': ?instance.matchFinished?.toJson(),
 };

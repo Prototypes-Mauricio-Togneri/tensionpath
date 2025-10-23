@@ -6,7 +6,6 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attack.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
@@ -29,8 +28,6 @@ class Event {
       return EventUnitMovementEnded.fromJson(json.unitMovementEnded!);
     } else if (json.unitAttack != null) {
       return EventUnitAttack.fromJson(json.unitAttack!);
-    } else if (json.unitDestroyed != null) {
-      return EventUnitDestroyed.fromJson(json.unitDestroyed!);
     } else if (json.matchFinished != null) {
       return EventMatchFinished.fromJson(json.matchFinished!);
     } else {
@@ -204,17 +201,6 @@ class EventUnitAttack implements Event {
     damage: json.damage,
     targetDestroyed: json.targetDestroyed,
   );
-}
-
-class EventUnitDestroyed implements Event {
-  final String id;
-
-  const EventUnitDestroyed({
-    required this.id,
-  });
-
-  factory EventUnitDestroyed.fromJson(JsonEventUnitDestroyed json) =>
-      EventUnitDestroyed(id: json.id);
 }
 
 class EventMatchFinished implements Event {

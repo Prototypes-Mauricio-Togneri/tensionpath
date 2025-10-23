@@ -1,7 +1,5 @@
 # TODO
 
-- Fix last shot doesn't appear (indicate that an attack is the last)
-- Remove unit destroyed event
 - Show explosion for each bullet and when a unit is destroye
 - Drive popcap from server
 

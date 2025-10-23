@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attack.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
@@ -37,9 +36,6 @@ class JsonEvent {
   @JsonKey(name: 'unitAttack')
   final JsonEventUnitAttack? unitAttack;
 
-  @JsonKey(name: 'unitDestroyed')
-  final JsonEventUnitDestroyed? unitDestroyed;
-
   @JsonKey(name: 'matchFinished')
   final JsonEventMatchFinished? matchFinished;
 
@@ -51,7 +47,6 @@ class JsonEvent {
     this.unitMovementStarted,
     this.unitMovementEnded,
     this.unitAttack,
-    this.unitDestroyed,
     this.matchFinished,
   });
 
@@ -133,10 +128,6 @@ class JsonEvent {
       damage: damage,
       targetDestroyed: targetDestroyed,
     ),
-  );
-
-  factory JsonEvent.unitDestroyed(String unitId) => JsonEvent(
-    unitDestroyed: JsonEventUnitDestroyed(id: unitId),
   );
 
   factory JsonEvent.resourceDepleted(String resourceId) => JsonEvent(
