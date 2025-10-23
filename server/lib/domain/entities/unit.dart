@@ -122,7 +122,7 @@ class Unit {
     // Update position
     position = position.moveTowards(
       target: targetNode!.position,
-      distance: type.speed * dt,
+      distance: type.speed.value * dt,
     );
 
     final num distanceToTarget = position.distanceTo(targetNode!.position);

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:tensionpath/domain/types/unit_class.dart';
+import 'package:tensionpath/domain/types/unit_speed.dart';
 
 enum UnitType {
   // ============================== HARVESTER =============================== \\
@@ -7,7 +8,7 @@ enum UnitType {
     clazz: UnitClass.harvester,
     cost: 60,
     health: 3400,
-    speed: 2.52,
+    speed: UnitSpeed.slow,
     visibility: 1,
     damageInfantry: 0,
     damageVehicle: 0,
@@ -23,7 +24,7 @@ enum UnitType {
     clazz: UnitClass.infantry,
     cost: 10,
     health: 650,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 3,
     damageInfantry: 38,
     damageVehicle: 15,
@@ -37,7 +38,7 @@ enum UnitType {
     clazz: UnitClass.infantry,
     cost: 40,
     health: 1200,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 150,
     damageVehicle: 30,
@@ -51,7 +52,7 @@ enum UnitType {
     clazz: UnitClass.infantry,
     cost: 20,
     health: 880,
-    speed: 3.53,
+    speed: UnitSpeed.normal,
     visibility: 2,
     damageInfantry: 35,
     damageVehicle: 250,
@@ -65,7 +66,7 @@ enum UnitType {
     clazz: UnitClass.infantry,
     cost: 70,
     health: 1860,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 27,
     damageVehicle: 340,
@@ -79,7 +80,7 @@ enum UnitType {
     clazz: UnitClass.infantry,
     cost: 50,
     health: 750,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 152,
     damageVehicle: 20,
@@ -95,7 +96,7 @@ enum UnitType {
     clazz: UnitClass.vehicle,
     cost: 30,
     health: 1611,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 3,
     damageInfantry: 80,
     damageVehicle: 60,
@@ -109,7 +110,7 @@ enum UnitType {
     clazz: UnitClass.vehicle,
     cost: 40,
     health: 1611,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 35,
     damageVehicle: 250,
@@ -123,7 +124,7 @@ enum UnitType {
     clazz: UnitClass.vehicle,
     cost: 50,
     health: 1790,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 210,
     damageVehicle: 45,
@@ -137,7 +138,7 @@ enum UnitType {
     clazz: UnitClass.vehicle,
     cost: 70,
     health: 2823,
-    speed: 2.52,
+    speed: UnitSpeed.slow,
     visibility: 2,
     damageInfantry: 96,
     damageVehicle: 830,
@@ -151,7 +152,7 @@ enum UnitType {
     clazz: UnitClass.vehicle,
     cost: 70,
     health: 1500,
-    speed: 3.53,
+    speed: UnitSpeed.normal,
     visibility: 2,
     damageInfantry: 120,
     damageVehicle: 1998,
@@ -168,7 +169,7 @@ enum UnitType {
     clazz: UnitClass.aircraft,
     cost: 30,
     health: 909,
-    speed: 5.1,
+    speed: UnitSpeed.fastest,
     visibility: 2,
     damageInfantry: 57,
     damageVehicle: 20,
@@ -182,7 +183,7 @@ enum UnitType {
     clazz: UnitClass.aircraft,
     cost: 60,
     health: 1530,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 70,
     damageVehicle: 17,
@@ -196,7 +197,7 @@ enum UnitType {
     clazz: UnitClass.aircraft,
     cost: 70,
     health: 1210,
-    speed: 5.1,
+    speed: UnitSpeed.fastest,
     visibility: 2,
     damageInfantry: 300,
     damageVehicle: 2040,
@@ -210,7 +211,7 @@ enum UnitType {
     clazz: UnitClass.aircraft,
     cost: 50,
     health: 1650,
-    speed: 4.42,
+    speed: UnitSpeed.fast,
     visibility: 2,
     damageInfantry: 55,
     damageVehicle: 382,
@@ -224,7 +225,7 @@ enum UnitType {
     clazz: UnitClass.aircraft,
     cost: 90,
     health: 1950,
-    speed: 5.89,
+    speed: UnitSpeed.fastest,
     visibility: 2,
     damageInfantry: 0,
     damageVehicle: 0,
@@ -238,7 +239,7 @@ enum UnitType {
   final UnitClass clazz;
   final int cost;
   final int health;
-  final num speed; // Speed / 1.567
+  final UnitSpeed speed; // Speed / 1.567
   final int visibility;
   final num damageInfantry;
   final num damageVehicle;

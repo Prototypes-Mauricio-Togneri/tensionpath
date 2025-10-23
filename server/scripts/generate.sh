@@ -15,6 +15,7 @@ cp -r lib/domain/json/messages/ ../frontend/lib/domain/json/
 cp lib/domain/types/match_status.dart ../frontend/lib/domain/types/
 cp lib/domain/types/node_type.dart ../frontend/lib/domain/types/
 cp lib/domain/types/unit_class.dart ../frontend/lib/domain/types/
+cp lib/domain/types/unit_speed.dart ../frontend/lib/domain/types/
 cp lib/domain/types/unit_type.dart ../frontend/lib/domain/types/
 
 cp lib/domain/entities/location.dart ../frontend/lib/domain/entities/

@@ -215,7 +215,7 @@ class UnitComponent extends PositionComponent
 
         final Vector2 direction = targetPosition! - position;
         final num distance = direction.length;
-        final num speed = nodeSizeRatio * type.speed;
+        final num speed = nodeSizeRatio * type.speed.value;
 
         if (distance < 1) {
           position = targetPosition!;
