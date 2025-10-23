@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
@@ -56,6 +57,12 @@ class ShotComponent extends PositionComponent {
   }
 
   void onTargetUnitHit() {
+    final ExplosionComponent explosionComponent = ExplosionComponent(
+      position: absolutePosition,
+      size: size * 10,
+    );
+    match.add(explosionComponent);
+
     removeFromParent();
     targetUnit.onUnitAttacked(damage);
 
