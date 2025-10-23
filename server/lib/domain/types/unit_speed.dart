@@ -1,8 +1,8 @@
 enum UnitSpeed {
-  slow(2.52),
-  normal(3.53),
-  fast(4.42),
-  fastest(5.1);
+  slow(2.5),
+  normal(3.5),
+  fast(4.5),
+  fastest(5);
 
   final num value;
 
