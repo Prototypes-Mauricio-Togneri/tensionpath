@@ -1,33 +1,16 @@
 # TODO
 
-- Show explosion for each bullet and when a unit is destroye
-- Drive popcap from server
-
 ### Phase 1
 
+- Show explosion for each bullet and when a unit is destroye
+- Drive popcap from server
 - Animations
   - Shooting
   - Unit destroyed
 - Remove target indicators after implementing animations
 - Sound effects
-  - Missile launched (voice + explosion)
+  - Missile launched (explosion)
   - Base under attack
-- Nod faction
-  - Militants
-  - Laser
-  - Flames
-  - Mutant
-  - Fanatic
-  - Buggy
-  - Bikes
-  - Chuggy
-  - Scorpion
-  - Giga
-  - Banshee
-  - Venom
-  - Shade
-  - Catship
-  - Phantom
 
 ### Phase 2
 
@@ -65,40 +48,31 @@
     - Increases attack
     - Increases conquering rate
 
-## Combat
-
-- Face to face
-  - Pros: can hold a tile while fighting
-  - Cons: hard to implement (implies shooting?)
-- Same spot
-  - Pros: easy to implement
-  - Cons: can't hold a tile while fighting
-
-## Movement
-
-- Free movement
-  - Pros: more tactical
-  - Cons: harder to implement
-- Straight movement
-  - Pros: easy to implement
-  - Cons: less tactical
-
-## Map
-
-- Hex
-  - Pros: better diagonal movement, more tactical
-  - Cons: harder to implement
-- Square
-  - Pros: easier to implement
-  - Cons: less tactical
-
 ## Avoid
 
-- Squads (pop caping)
+- Squads (pop capping)
 - 2 range units
 - Shooting while moving
 
 ## Units
+
+### Nod faction
+
+- Militants
+- Laser
+- Flames
+- Mutant
+- Fanatic
+- Buggy
+- Bikes
+- Chuggy
+- Scorpion
+- Giga
+- Banshee
+- Venom
+- Shade
+- Catship
+- Phantom
 
 ### Barracks
 
