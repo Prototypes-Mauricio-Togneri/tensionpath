@@ -1,13 +1,10 @@
 ### High
 
-- Animations
-  - Bullet hit
-  - Unit destroyed
+- Path finding
+- Build structures before making units
 
 ### Medium
 
-- Path finding
-- Build structures before making units
 - Ramping popcap and resources rate (see picture)
 - More maps
 - Choose map
