@@ -15,7 +15,6 @@
 
 - After 5 minutes, bases take damage every turn
 - Show match replay
-- Shoot while moving but dealing half damage
 - Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Conquer structures
 - Commanders abilities
@@ -38,7 +37,7 @@
 
 - Squads (pop capping)
 - 2 range units
-- Shooting while moving
+- Shooting while moving (or only deal half damage)
 
 ## Units
 
