@@ -236,6 +236,7 @@ class Unit {
             attackerId: id,
             damage: damage,
             targetUnitId: targetUnit!.id,
+            targetDestroyed: !targetUnit!.isAlive,
           );
           Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
         }
@@ -260,6 +261,7 @@ class Unit {
           result = JsonEvent.unitAttack(
             attackerId: id,
             damage: damage,
+            targetDestroyed: !targetBase!.player.isAlive,
             targetBaseLocation: targetBase!.location.toJson(),
           );
           Logger.debug('Attacked base ${targetBase!.id} with $damage damage');

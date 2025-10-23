@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 
-part 'json_event_unit_attacked.g.dart';
+part 'json_event_unit_attack.g.dart';
 
 @JsonSerializable()
-class JsonEventUnitAttacked {
+class JsonEventUnitAttack {
   @JsonKey(name: 'attackerId')
   final String attackerId;
 
@@ -17,15 +17,19 @@ class JsonEventUnitAttacked {
   @JsonKey(name: 'damage')
   final num damage;
 
-  const JsonEventUnitAttacked({
+  @JsonKey(name: 'targetDestroyed')
+  final bool targetDestroyed;
+
+  const JsonEventUnitAttack({
     required this.attackerId,
     required this.targetUnitId,
     required this.targetBaseLocation,
     required this.damage,
+    required this.targetDestroyed,
   });
 
-  factory JsonEventUnitAttacked.fromJson(Map<String, dynamic> json) =>
-      _$JsonEventUnitAttackedFromJson(json);
+  factory JsonEventUnitAttack.fromJson(Map<String, dynamic> json) =>
+      _$JsonEventUnitAttackFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonEventUnitAttackedToJson(this);
+  Map<String, dynamic> toJson() => _$JsonEventUnitAttackToJson(this);
 }

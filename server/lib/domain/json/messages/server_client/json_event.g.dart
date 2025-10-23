@@ -51,7 +51,7 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
         'unitAttack',
         (v) => v == null
             ? null
-            : JsonEventUnitAttacked.fromJson(v as Map<String, dynamic>),
+            : JsonEventUnitAttack.fromJson(v as Map<String, dynamic>),
       ),
       unitDestroyed: $checkedConvert(
         'unitDestroyed',

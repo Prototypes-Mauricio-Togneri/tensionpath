@@ -3,7 +3,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attacked.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attack.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_destroyed.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
@@ -35,7 +35,7 @@ class JsonEvent {
   final JsonEventUnitMovementEnded? unitMovementEnded;
 
   @JsonKey(name: 'unitAttack')
-  final JsonEventUnitAttacked? unitAttack;
+  final JsonEventUnitAttack? unitAttack;
 
   @JsonKey(name: 'unitDestroyed')
   final JsonEventUnitDestroyed? unitDestroyed;
@@ -122,14 +122,16 @@ class JsonEvent {
   factory JsonEvent.unitAttack({
     required String attackerId,
     required num damage,
+    required bool targetDestroyed,
     String? targetUnitId,
     JsonLocation? targetBaseLocation,
   }) => JsonEvent(
-    unitAttack: JsonEventUnitAttacked(
+    unitAttack: JsonEventUnitAttack(
       attackerId: attackerId,
       targetUnitId: targetUnitId,
       targetBaseLocation: targetBaseLocation,
       damage: damage,
+      targetDestroyed: targetDestroyed,
     ),
   );
 
