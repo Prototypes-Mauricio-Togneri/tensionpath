@@ -54,11 +54,23 @@ class Players {
       final JsonEventPlayer previousEvent = entry.value;
       final JsonEventPlayer newEvent = newEvents[entry.key]!;
 
-      if (newEvent.hasChanged(previousEvent)) {
+      if (eventHasChanged(
+        previousEvent: previousEvent,
+        newEvent: newEvent,
+      )) {
         result.add(newEvent);
       }
     }
 
     return result.map(JsonEvent.player).toList();
   }
+
+  bool eventHasChanged({
+    required JsonEventPlayer previousEvent,
+    required JsonEventPlayer newEvent,
+  }) =>
+      previousEvent.baseHealth != newEvent.baseHealth ||
+      previousEvent.resourcesRate != newEvent.resourcesRate ||
+      previousEvent.currentHarvesterCount != newEvent.currentHarvesterCount ||
+      previousEvent.maxHarvestersCount != newEvent.maxHarvestersCount;
 }

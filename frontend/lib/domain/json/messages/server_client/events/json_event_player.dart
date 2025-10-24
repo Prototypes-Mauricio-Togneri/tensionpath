@@ -31,13 +31,6 @@ class JsonEventPlayer {
     required this.maxHarvestersCount,
   });
 
-  bool hasChanged(JsonEventPlayer other) {
-    return baseHealth != other.baseHealth ||
-        resourcesRate != other.resourcesRate ||
-        currentHarvesterCount != other.currentHarvesterCount ||
-        maxHarvestersCount != other.maxHarvestersCount;
-  }
-
   factory JsonEventPlayer.fromJson(Map<String, dynamic> json) =>
       _$JsonEventPlayerFromJson(json);
 

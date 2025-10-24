@@ -33,8 +33,6 @@ class NodeComponent extends PositionComponent {
          priority: Priority.node.value,
        );
 
-  bool get isFree => lockedUnit == null;
-
   void lock(UnitComponent unit) {
     lockedUnit = unit;
   }
