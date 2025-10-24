@@ -1,7 +1,5 @@
 ### High
 
-- Set match timeout (config.matchTimeout)
-- After 5 minutes, bases take damage every turn (config.baseDamageAfterTimeout)
 - Drive popcap from server
 - Build structures before making units
 - Path finding
