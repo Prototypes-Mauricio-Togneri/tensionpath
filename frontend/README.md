@@ -1,6 +1,5 @@
 ### High
 
-- Lower music volume
 - Set match timeout (config.matchTimeout)
 - After 5 minutes, bases take damage every turn (config.baseDamageAfterTimeout)
 - Drive popcap from server
