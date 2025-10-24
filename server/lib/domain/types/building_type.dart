@@ -7,4 +7,10 @@ enum BuildingType {
   final int cost;
 
   const BuildingType({required this.cost});
+
+  static List<BuildingType> get buildings => [
+    barracks,
+    factory,
+    airfield,
+  ];
 }
