@@ -29,6 +29,12 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventResourceDepleted.fromJson(v as Map<String, dynamic>),
       ),
+      buildingUnlocked: $checkedConvert(
+        'buildingUnlocked',
+        (v) => v == null
+            ? null
+            : JsonEventBuildingUnlocked.fromJson(v as Map<String, dynamic>),
+      ),
       unitCreated: $checkedConvert(
         'unitCreated',
         (v) => v == null
@@ -68,6 +74,7 @@ Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
   'resourceDepleted': ?instance.resourceDepleted?.toJson(),
+  'buildingUnlocked': ?instance.buildingUnlocked?.toJson(),
   'unitCreated': ?instance.unitCreated?.toJson(),
   'unitMovementStarted': ?instance.unitMovementStarted?.toJson(),
   'unitMovementEnded': ?instance.unitMovementEnded?.toJson(),

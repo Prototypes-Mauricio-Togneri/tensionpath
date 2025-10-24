@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_health_check
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_unlock_building.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/server/connection.dart';
@@ -55,6 +56,17 @@ class Dispatcher {
     } else {
       throw JsonMessage.error('Connection not linked with any match');
     }
+  }
+
+  void unlockBuilding({
+    required JsonUnlockBuilding json,
+    required WebSocket socket,
+  }) {
+    final Connection connection = _getConnection(json.matchId);
+    connection.unlockBuilding(
+      socket: socket,
+      type: json.type,
+    );
   }
 
   void deployUnit({

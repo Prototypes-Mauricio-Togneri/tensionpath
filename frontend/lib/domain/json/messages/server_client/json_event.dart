@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
@@ -9,6 +10,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_event.g.dart';
@@ -23,6 +25,9 @@ class JsonEvent {
 
   @JsonKey(name: 'resourceDepleted')
   final JsonEventResourceDepleted? resourceDepleted;
+
+  @JsonKey(name: 'buildingUnlocked')
+  final JsonEventBuildingUnlocked? buildingUnlocked;
 
   @JsonKey(name: 'unitCreated')
   final JsonEventUnitCreated? unitCreated;
@@ -43,6 +48,7 @@ class JsonEvent {
     this.missile,
     this.player,
     this.resourceDepleted,
+    this.buildingUnlocked,
     this.unitCreated,
     this.unitMovementStarted,
     this.unitMovementEnded,
@@ -65,6 +71,16 @@ class JsonEvent {
   );
 
   factory JsonEvent.player(JsonEventPlayer player) => JsonEvent(player: player);
+
+  factory JsonEvent.buildingUnlocked({
+    required String playerIndex,
+    required BuildingType buildingType,
+  }) => JsonEvent(
+    buildingUnlocked: JsonEventBuildingUnlocked(
+      playerIndex: playerIndex,
+      type: buildingType,
+    ),
+  );
 
   factory JsonEvent.unitCreated({
     required String unitId,

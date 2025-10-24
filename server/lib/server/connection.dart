@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/json/api/json_player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/utils/logger.dart';
@@ -99,6 +100,17 @@ class Connection {
     );
 
     _match?.start();
+  }
+
+  void unlockBuilding({
+    required WebSocket socket,
+    required BuildingType type,
+  }) {
+    final Participant participant = participantBySocket(socket);
+    _match?.unlockBuilding(
+      playerIndex: participant.playerIndex,
+      type: type,
+    );
   }
 
   void deployUnit({

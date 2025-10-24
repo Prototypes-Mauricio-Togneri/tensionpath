@@ -1,6 +1,10 @@
 enum BuildingType {
-  refinery,
-  barracks,
-  factory,
-  airfield,
+  refinery(cost: 0),
+  barracks(cost: 30),
+  factory(cost: 40),
+  airfield(cost: 50);
+
+  final int cost;
+
+  const BuildingType({required this.cost});
 }

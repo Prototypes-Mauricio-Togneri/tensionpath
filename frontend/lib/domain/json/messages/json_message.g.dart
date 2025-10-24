@@ -21,6 +21,12 @@ JsonMessage _$JsonMessageFromJson(
       (v) =>
           v == null ? null : JsonJoinMatch.fromJson(v as Map<String, dynamic>),
     ),
+    unlock: $checkedConvert(
+      'unlock',
+      (v) => v == null
+          ? null
+          : JsonUnlockBuilding.fromJson(v as Map<String, dynamic>),
+    ),
     deploy: $checkedConvert(
       'deploy',
       (v) =>
@@ -61,6 +67,7 @@ Map<String, dynamic> _$JsonMessageToJson(JsonMessage instance) =>
     <String, dynamic>{
       'check': ?instance.check?.toJson(),
       'join': ?instance.join?.toJson(),
+      'unlock': ?instance.unlock?.toJson(),
       'deploy': ?instance.deploy?.toJson(),
       'action': ?instance.action?.toJson(),
       'surrender': ?instance.surrender?.toJson(),

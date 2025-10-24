@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_health_check
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_unlock_building.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/extensions/web_socket_extension.dart';
 import 'package:tensionpath/server/dispatcher.dart';
@@ -27,6 +28,11 @@ class Handler {
         );
       } else if (message is JsonJoinMatch) {
         dispatcher.join(
+          json: message,
+          socket: socket,
+        );
+      } else if (message is JsonUnlockBuilding) {
+        dispatcher.unlockBuilding(
           json: message,
           socket: socket,
         );

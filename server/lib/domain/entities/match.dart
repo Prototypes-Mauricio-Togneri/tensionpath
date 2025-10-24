@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
@@ -62,6 +63,24 @@ class Match {
         playerIndex: player.index,
         json: JsonMessage.start(toJson(player.id)),
       );
+    }
+  }
+
+  void unlockBuilding({
+    required String playerIndex,
+    required BuildingType type,
+  }) {
+    final Player player = players.get(playerIndex);
+
+    if (!player.hasBuildingLocked(type)) {
+      throw Exception('Building has been already unlocked');
+    }
+
+    if (player.removeResources(type.cost)) {
+      final List<JsonEvent> events = [
+        player.unlockBuilding(type),
+      ];
+      _sendMatchUpdate(events);
     }
   }
 

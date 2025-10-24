@@ -1,3 +1,4 @@
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -58,10 +59,15 @@ class Player {
     }
   }
 
-  void unlockBuilding(BuildingType building) {
-    if (!buildings.contains(building)) {
-      buildings.add(building);
-    }
+  bool hasBuildingLocked(BuildingType type) => !buildings.contains(type);
+
+  JsonEvent unlockBuilding(BuildingType type) {
+    buildings.add(type);
+
+    return JsonEvent.buildingUnlocked(
+      playerIndex: index,
+      buildingType: type,
+    );
   }
 
   factory Player.fromJson(JsonPlayerStart json) => Player(

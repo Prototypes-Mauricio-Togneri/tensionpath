@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/json/messages/client_server/json_health_check
 import 'package:tensionpath/domain/json/messages/client_server/json_join_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_surrender_match.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
+import 'package:tensionpath/domain/json/messages/client_server/json_unlock_building.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
@@ -12,6 +13,7 @@ import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_message.g.dart';
@@ -25,6 +27,9 @@ class JsonMessage {
 
   @JsonKey(name: 'join')
   final JsonJoinMatch? join;
+
+  @JsonKey(name: 'unlock')
+  final JsonUnlockBuilding? unlock;
 
   @JsonKey(name: 'deploy')
   final JsonDeployUnit? deploy;
@@ -53,6 +58,7 @@ class JsonMessage {
     // Client -> Server
     this.check,
     this.join,
+    this.unlock,
     this.deploy,
     this.action,
     this.surrender,
@@ -106,6 +112,16 @@ class JsonMessage {
     join: JsonJoinMatch(
       matchId: matchId,
       playerId: playerId,
+    ),
+  );
+
+  factory JsonMessage.unlockBuilding({
+    required String matchId,
+    required BuildingType type,
+  }) => JsonMessage(
+    unlock: JsonUnlockBuilding(
+      matchId: matchId,
+      type: type,
     ),
   );
 
