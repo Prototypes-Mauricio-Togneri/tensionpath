@@ -6,6 +6,7 @@ class PrimaryButton extends StatelessWidget {
   final Color foregroundColor;
   final bool enabled;
   final VoidCallback onPressed;
+  final double fontSize;
   final double heigth;
   final bool fullWidth;
 
@@ -14,6 +15,7 @@ class PrimaryButton extends StatelessWidget {
     required this.enabled,
     required this.foregroundColor,
     required this.onPressed,
+    this.fontSize = 16,
     this.heigth = 30,
     this.fullWidth = false,
   });
@@ -36,6 +38,9 @@ class PrimaryButton extends StatelessWidget {
               return foregroundColor;
             }
           }),
+          textStyle: WidgetStateProperty.all<TextStyle>(
+            TextStyle(fontSize: fontSize),
+          ),
         ),
         child: Text(label.toUpperCase()),
       ),

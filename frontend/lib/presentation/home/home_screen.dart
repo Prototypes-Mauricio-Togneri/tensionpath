@@ -54,6 +54,7 @@ class Form extends StatelessWidget {
                       enabled: state.isDeckFull,
                       foregroundColor: Palette.PRIMARY,
                       onPressed: state.onPlay,
+                      fontSize: 20,
                       heigth: 40,
                     ),
                     const VBox(20),
