@@ -54,6 +54,14 @@ class Form extends StatelessWidget {
                       enabled: state.isDeckFull,
                       foregroundColor: Palette.PRIMARY,
                       onPressed: state.onPlay,
+                      heigth: 40,
+                    ),
+                    const VBox(20),
+                    PrimaryButton(
+                      label: 'Units',
+                      enabled: true,
+                      foregroundColor: Palette.PRIMARY,
+                      onPressed: state.onUnits,
                     ),
                     const VBox(20),
                     PrimaryButton(

@@ -4,7 +4,7 @@ import 'package:tensionpath/persistence/storage/deck_storage.dart';
 import 'package:tensionpath/platform/operations/set_fullscreen.dart';
 import 'package:tensionpath/utils/navigation.dart';
 
-class DeckState extends BaseState {
+class UnitsState extends BaseState {
   static const int MAX_CARDS = 6;
 
   final List<UnitType> deck = [];

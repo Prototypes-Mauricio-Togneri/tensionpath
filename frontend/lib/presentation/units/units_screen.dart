@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionpath/domain/state/deck/deck_state.dart';
+import 'package:tensionpath/domain/state/units/units_state.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -9,12 +9,12 @@ import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
 import 'package:tensionpath/utils/platform.dart';
 
-class DeckScreen extends StatelessWidget {
-  final DeckState state;
+class UnitsScreen extends StatelessWidget {
+  final UnitsState state;
 
-  const DeckScreen._(this.state);
+  const UnitsScreen._(this.state);
 
-  factory DeckScreen.instance() => DeckScreen._(DeckState());
+  factory UnitsScreen.instance() => UnitsScreen._(UnitsState());
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class DeckScreen extends StatelessWidget {
 }
 
 class Form extends StatelessWidget {
-  final DeckState state;
+  final UnitsState state;
 
   const Form(this.state);
 
@@ -33,7 +33,7 @@ class Form extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return StateProvider<DeckState>(
+        return StateProvider<UnitsState>(
           state: state,
           builder: (context, state) => Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,7 +97,7 @@ class Form extends StatelessWidget {
 }
 
 class Deck extends StatelessWidget {
-  final DeckState state;
+  final UnitsState state;
   final double cardHeight;
 
   const Deck({
@@ -149,7 +149,7 @@ class Deck extends StatelessWidget {
 }
 
 class DeckRow extends StatelessWidget {
-  final DeckState state;
+  final UnitsState state;
   final List<UnitType> types;
   final double cardHeight;
 
@@ -179,7 +179,7 @@ class DeckRow extends StatelessWidget {
 }
 
 class DeckCard extends StatelessWidget {
-  final DeckState state;
+  final UnitsState state;
   final UnitType unitType;
   final double cardHeight;
 

@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Palette {
-  static const MaterialColor PRIMARY = Colors.blue;
+  static const MaterialColor PRIMARY = Colors.green;
 
   static const Color SCREEN_BACKGROUND = Colors.white;
   static const Color GAME_BACKGROUND = Colors.black;
@@ -23,7 +23,7 @@ class Palette {
   static const Color PLAYER_2 = Color(0xffd54336);
 
   static const Color CARD_UNSELECTED = Colors.grey;
-  static const Color CARD_SELECTED = Colors.blue;
+  static const Color CARD_SELECTED = Colors.green;
 
   static const Color HEADER_PLAYER_NAME = Colors.white;
   static const Color HEADER_CENTER_BACKGROUND = Colors.grey;

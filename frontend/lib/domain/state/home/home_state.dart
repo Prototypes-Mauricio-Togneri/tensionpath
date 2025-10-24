@@ -17,20 +17,22 @@ class HomeState extends BaseState {
 
   bool get isDeckFull => deck.length == MAX_CARDS;
 
-  void onSettings() => Navigation.settingsScreen();
-
-  void onChangelog() => Navigation.changelogScreen();
-
-  void onPingTest() => Navigation.pingTestScreen();
-
   void onPlay() {
     DeckStorage.save(deck);
     Navigation.lobbyScreen(deck);
   }
+
+  void onUnits() => Navigation.unitsScreen();
+
+  void onSettings() => Navigation.settingsScreen();
 
   Future onFullscreen() async {
     SetFullscreen.set();
     await Future.delayed(const Duration(seconds: 1));
     Navigation.homeScreen();
   }
+
+  void onChangelog() => Navigation.changelogScreen();
+
+  void onPingTest() => Navigation.pingTestScreen();
 }

@@ -8,6 +8,7 @@ import 'package:tensionpath/presentation/lobby/lobby_screen.dart';
 import 'package:tensionpath/presentation/match/match_screen.dart';
 import 'package:tensionpath/presentation/settings/settings_screen.dart';
 import 'package:tensionpath/presentation/setup/setup_screen.dart';
+import 'package:tensionpath/presentation/units/units_screen.dart';
 import 'package:tensionpath/utils/locator.dart';
 
 class Navigation {
@@ -27,6 +28,9 @@ class Navigation {
 
   static void settingsScreen() =>
       get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
+
+  static void unitsScreen() =>
+      get.routes.push(BasicRoute(UnitsScreen.instance(), name: 'units'));
 
   static void changelogScreen() => get.routes.push(
     BasicRoute(ChangelogScreen.instance(), name: 'changelog'),
