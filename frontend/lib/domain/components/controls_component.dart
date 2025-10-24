@@ -172,7 +172,8 @@ class UnitSelectorComponent extends PositionComponent {
   }
 
   bool get underPopcap =>
-      match.unitsOfPlayer(player) < Popcap.fromElapsedTime(match.timeElapsed);
+      match.unitsOfPlayer(player) <
+      Popcap.fromElapsedTime(match.match.timeElapsed);
 
   @override
   void update(double dt) {

@@ -9,6 +9,8 @@ class Match {
   final Config config;
   final List<Player> players;
   final Battlefield battlefield;
+  late final DateTime startedAt;
+  DateTime? endedAt;
   MatchStatus _matchStatus = MatchStatus.playing;
 
   Match({
@@ -16,7 +18,9 @@ class Match {
     required this.config,
     required this.players,
     required this.battlefield,
-  });
+  }) {
+    startedAt = createdAt.toLocal();
+  }
 
   Player get self => players.firstWhere((player) => player.isSelf);
 
@@ -24,8 +28,20 @@ class Match {
 
   bool get isPlaying => _matchStatus == MatchStatus.playing;
 
+  int get timeElapsed {
+    if (isPlaying) {
+      return DateTime.now().difference(startedAt).inSeconds;
+    } else {
+      return endedAt!.difference(startedAt).inSeconds;
+    }
+  }
+
   void updateStatus(MatchStatus status) {
     _matchStatus = status;
+
+    if (status == MatchStatus.finished) {
+      endedAt = DateTime.now();
+    }
   }
 
   factory Match.fromJson(JsonMatchStart jsonMatch) => Match(

@@ -27,7 +27,6 @@ class MatchComponent extends World {
   late final Player self;
   late final Player opponent;
   late final Vector2 nodeSize;
-  late final DateTime startedAt;
   late final BattlefieldComponent battlefieldComponent;
 
   MatchComponent({
@@ -37,10 +36,7 @@ class MatchComponent extends World {
     MatchComponentRef.instance = this;
     self = match.self;
     opponent = match.opponent;
-    startedAt = match.createdAt.toLocal();
   }
-
-  int get timeElapsed => DateTime.now().difference(startedAt).inSeconds;
 
   @override
   FutureOr onLoad() {
