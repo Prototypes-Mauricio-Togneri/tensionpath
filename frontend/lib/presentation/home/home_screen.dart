@@ -32,6 +32,8 @@ class Form extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        final double gap = constraints.maxHeight / 40;
+
         return StateProvider<HomeState>(
           state: state,
           builder: (context, state) => Center(
@@ -39,12 +41,12 @@ class Form extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                VBox(constraints.maxHeight / 40),
+                VBox(gap),
                 Deck(
                   state: state,
                   cardHeight: constraints.maxHeight / 3.6,
                 ),
-                VBox(constraints.maxHeight / 40),
+                VBox(gap),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
@@ -57,14 +59,14 @@ class Form extends StatelessWidget {
                       fontSize: 20,
                       heigth: 40,
                     ),
-                    const VBox(20),
+                    VBox(gap),
                     PrimaryButton(
                       label: 'Units',
                       enabled: true,
                       foregroundColor: Palette.PRIMARY,
                       onPressed: state.onUnits,
                     ),
-                    const VBox(20),
+                    VBox(gap),
                     PrimaryButton(
                       label: 'Settings',
                       enabled: true,
@@ -73,7 +75,7 @@ class Form extends StatelessWidget {
                     ),
                     if (Platform.isMobile)
                       Padding(
-                        padding: const EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.only(top: gap),
                         child: PrimaryButton(
                           label: 'Full screen',
                           enabled: true,
@@ -81,14 +83,14 @@ class Form extends StatelessWidget {
                           onPressed: state.onFullscreen,
                         ),
                       ),
-                    const VBox(20),
+                    VBox(gap),
                     PrimaryButton(
                       label: 'Changelog',
                       enabled: true,
                       foregroundColor: Palette.PRIMARY,
                       onPressed: state.onChangelog,
                     ),
-                    const VBox(20),
+                    VBox(gap),
                     PrimaryButton(
                       label: 'Ping test',
                       enabled: true,
