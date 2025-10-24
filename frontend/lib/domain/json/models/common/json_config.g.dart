@@ -51,6 +51,15 @@ JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) => $checkedCreate(
       missileChargeRate: $checkedConvert('missileChargeRate', (v) => v as num),
       missileDamage: $checkedConvert('missileDamage', (v) => v as num),
       baseHealth: $checkedConvert('baseHealth', (v) => (v as num).toInt()),
+      matchTimeout: $checkedConvert('matchTimeout', (v) => (v as num).toInt()),
+      suddenDeathTimeout: $checkedConvert(
+        'suddenDeathTimeout',
+        (v) => (v as num).toInt(),
+      ),
+      suddenDeathDamage: $checkedConvert(
+        'suddenDeathDamage',
+        (v) => (v as num).toInt(),
+      ),
     );
     return val;
   },
@@ -71,4 +80,7 @@ Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
       'missileChargeRate': instance.missileChargeRate,
       'missileDamage': instance.missileDamage,
       'baseHealth': instance.baseHealth,
+      'matchTimeout': instance.matchTimeout,
+      'suddenDeathTimeout': instance.suddenDeathTimeout,
+      'suddenDeathDamage': instance.suddenDeathDamage,
     };

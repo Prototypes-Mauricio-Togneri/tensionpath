@@ -43,6 +43,15 @@ class JsonConfig {
   @JsonKey(name: 'baseHealth')
   final int baseHealth;
 
+  @JsonKey(name: 'matchTimeout')
+  final int matchTimeout;
+
+  @JsonKey(name: 'suddenDeathTimeout')
+  final int suddenDeathTimeout;
+
+  @JsonKey(name: 'suddenDeathDamage')
+  final int suddenDeathDamage;
+
   const JsonConfig({
     required this.resourcesStart,
     required this.resourcesPerPatch,
@@ -57,6 +66,9 @@ class JsonConfig {
     required this.missileChargeRate,
     required this.missileDamage,
     required this.baseHealth,
+    required this.matchTimeout,
+    required this.suddenDeathTimeout,
+    required this.suddenDeathDamage,
   });
 
   factory JsonConfig.fromJson(Map<String, dynamic> json) =>

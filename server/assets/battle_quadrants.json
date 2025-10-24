@@ -12,7 +12,10 @@
         "missileChargeAlarm": 32,
         "missileChargeRate": 1,
         "missileDamage": 0.5,
-        "baseHealth": 30000
+        "baseHealth": 30000,
+        "matchTimeout": 480,
+        "suddenDeathTimeout": 360,
+        "suddenDeathDamage": 100
     },
     "battlefield": {
         "mapSize": {

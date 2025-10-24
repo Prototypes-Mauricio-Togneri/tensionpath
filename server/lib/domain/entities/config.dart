@@ -14,6 +14,9 @@ class Config {
   final num missileChargeRate;
   final num missileDamage;
   final int baseHealth;
+  final int matchTimeout;
+  final int suddenDeathTimeout;
+  final int suddenDeathDamage;
 
   const Config({
     required this.resourcesStart,
@@ -29,6 +32,9 @@ class Config {
     required this.missileChargeRate,
     required this.missileDamage,
     required this.baseHealth,
+    required this.matchTimeout,
+    required this.suddenDeathTimeout,
+    required this.suddenDeathDamage,
   });
 
   factory Config.fromJson(JsonConfig json) => Config(
@@ -45,6 +51,9 @@ class Config {
     missileChargeRate: json.missileChargeRate,
     missileDamage: json.missileDamage,
     baseHealth: json.baseHealth,
+    matchTimeout: json.matchTimeout,
+    suddenDeathTimeout: json.suddenDeathTimeout,
+    suddenDeathDamage: json.suddenDeathDamage,
   );
 
   JsonConfig toJson() => JsonConfig(
@@ -61,5 +70,8 @@ class Config {
     missileChargeRate: missileChargeRate,
     missileDamage: missileDamage,
     baseHealth: baseHealth,
+    matchTimeout: matchTimeout,
+    suddenDeathTimeout: suddenDeathTimeout,
+    suddenDeathDamage: suddenDeathDamage,
   );
 }
