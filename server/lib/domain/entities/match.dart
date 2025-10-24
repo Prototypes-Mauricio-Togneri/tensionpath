@@ -96,6 +96,11 @@ class Match {
       }
 
       final Player player = players.get(playerIndex);
+
+      if (player.hasBuildingLocked(type.buildingType)) {
+        throw Exception('Building for unit $type is locked');
+      }
+
       final int currentAmountOfUnits = battlefield.units.ofPlayer(player);
       final int popcapLimit = Popcap.fromElapsedTime(elapsedTime);
 
