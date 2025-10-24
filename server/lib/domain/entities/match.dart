@@ -80,6 +80,9 @@ class Match {
       final List<JsonEvent> events = [
         player.unlockBuilding(type),
       ];
+      events.addAll(
+        players.events(battlefield.units).values.map(JsonEvent.player),
+      );
       _sendMatchUpdate(events);
     }
   }
