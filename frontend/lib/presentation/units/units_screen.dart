@@ -4,10 +4,9 @@ import 'package:tensionpath/domain/state/units/units_state.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
-import 'package:tensionpath/presentation/common/buttons/primary_button.dart';
+import 'package:tensionpath/presentation/common/buttons/top_button.dart';
 import 'package:tensionpath/presentation/common/container/game_container.dart';
 import 'package:tensionpath/utils/palette.dart';
-import 'package:tensionpath/utils/platform.dart';
 
 class UnitsScreen extends StatelessWidget {
   final UnitsState state;
@@ -18,8 +17,39 @@ class UnitsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameContainer(
-      child: Center(child: Form(state)),
+    return GameContainer(child: Content(state));
+  }
+}
+
+class Content extends StatelessWidget {
+  final UnitsState state;
+
+  const Content(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return StateProvider<UnitsState>(
+      state: state,
+      builder: (context, state) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TopButtons(state),
+          Form(state),
+        ],
+      ),
+    );
+  }
+}
+
+class TopButtons extends StatelessWidget {
+  final UnitsState state;
+
+  const TopButtons(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [TopButton(icon: Icons.arrow_back, onPressed: state.onClose)],
     );
   }
 }
@@ -31,67 +61,27 @@ class Form extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return StateProvider<UnitsState>(
-          state: state,
-          builder: (context, state) => Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              VBox(constraints.maxHeight / 40),
-              Deck(
-                state: state,
-                cardHeight: constraints.maxHeight / 3.6,
-              ),
-              VBox(constraints.maxHeight / 40),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  PrimaryButton(
-                    label: 'Play',
-                    enabled: state.isDeckFull,
-                    foregroundColor: Palette.PRIMARY,
-                    onPressed: state.onPlay,
-                  ),
-                  const HBox(20),
-                  PrimaryButton(
-                    label: 'Settings',
-                    enabled: true,
-                    foregroundColor: Palette.PRIMARY,
-                    onPressed: state.onSettings,
-                  ),
-                  if (Platform.isMobile)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: PrimaryButton(
-                        label: 'Full screen',
-                        enabled: true,
-                        foregroundColor: Palette.PRIMARY,
-                        onPressed: state.onFullscreen,
-                      ),
-                    ),
-                  const HBox(20),
-                  PrimaryButton(
-                    label: 'Changelog',
-                    enabled: true,
-                    foregroundColor: Palette.PRIMARY,
-                    onPressed: state.onChangelog,
-                  ),
-                  const HBox(20),
-                  PrimaryButton(
-                    label: 'Ping test',
-                    enabled: true,
-                    foregroundColor: Palette.PRIMARY,
-                    onPressed: state.onPingTest,
-                  ),
-                ],
-              ),
-              VBox(constraints.maxHeight / 40),
-            ],
-          ),
-        );
-      },
+    return Expanded(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final double gap = constraints.maxHeight / 30;
+
+          return StateProvider<UnitsState>(
+            state: state,
+            builder: (context, state) => Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Deck(
+                  state: state,
+                  cardHeight: (constraints.maxHeight - gap) / 3,
+                ),
+                VBox(gap),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
