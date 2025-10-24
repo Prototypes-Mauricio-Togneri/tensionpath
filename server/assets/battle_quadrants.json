@@ -13,8 +13,8 @@
         "missileChargeRate": 1,
         "missileDamage": 0.5,
         "baseHealth": 30000,
-        "matchTimeout": 60,
-        "suddenDeathTimeout": 30,
+        "matchTimeout": 480,
+        "suddenDeathTimeout": 300,
         "suddenDeathDamage": 100
     },
     "battlefield": {
