@@ -16,6 +16,7 @@ import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
 
@@ -73,7 +74,7 @@ class ControlsComponent extends PositionComponent {
         size: Dimensions.controlsBuildingCardSize(
           size: size,
           cardSize: cardSize,
-          cards: 3,
+          cards: 1,
         ),
       ),
     );
@@ -105,8 +106,7 @@ class BuildingComponent extends PositionComponent {
   final Player player;
   final BuildingType buildingType;
   final Paint backgroundPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    strokeWidth: 1,
+    style: PaintingStyle.fill,
   );
   bool isEnabled = false;
 
@@ -115,9 +115,24 @@ class BuildingComponent extends PositionComponent {
     required this.buildingType,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.topLeft) {
-    backgroundPaint.color =
-        Colors.yellow; // TODO(momo): player.color.darken(0.3);
+  }) : super(anchor: Anchor.topLeft);
+
+  @override
+  FutureOr onLoad() {
+    backgroundPaint.color = player.color.darken(0.3);
+
+    final Vector2 spriteSize = size / 2;
+    final double minSize = min(spriteSize.x, spriteSize.y);
+
+    add(
+      BuildingImageComponent(
+        buildingType: buildingType,
+        position: size / 2,
+        size: Vector2(minSize, minSize),
+      ),
+    );
+
+    return super.onLoad();
   }
 
   @override
@@ -141,6 +156,29 @@ class BuildingComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(size.toRect(), backgroundPaint);
+  }
+}
+
+class BuildingImageComponent extends SpriteComponent {
+  final BuildingType buildingType;
+
+  BuildingImageComponent({
+    required this.buildingType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() async {
+    if (buildingType == BuildingType.barracks) {
+      sprite = await Sprite.load(Assets.IMAGES_UNITS_COUNTER_INFANTRY_NORMAL);
+    } else if (buildingType == BuildingType.factory) {
+      sprite = await Sprite.load(Assets.IMAGES_UNITS_COUNTER_VEHICLE_NORMAL);
+    } else if (buildingType == BuildingType.airfield) {
+      sprite = await Sprite.load(Assets.IMAGES_UNITS_COUNTER_AIRCRAFT_NORMAL);
+    }
+
+    return super.onLoad();
   }
 }
 
