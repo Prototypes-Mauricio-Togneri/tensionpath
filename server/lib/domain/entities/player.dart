@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
@@ -10,6 +11,7 @@ class Player {
   final num resourcesPassiveRate;
   final num resourcesActiveRate;
   final List<UnitType> deck;
+  final List<BuildingType> buildings = [];
   num baseHealth;
   num resources;
 
@@ -23,7 +25,11 @@ class Player {
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
     required this.deck,
-  });
+  }) {
+    if (deck.contains(UnitType.harvester)) {
+      buildings.add(BuildingType.refinery);
+    }
+  }
 
   bool get isAlive => baseHealth > 0;
 
@@ -49,6 +55,12 @@ class Player {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void unlockBuilding(BuildingType building) {
+    if (!buildings.contains(building)) {
+      buildings.add(building);
     }
   }
 

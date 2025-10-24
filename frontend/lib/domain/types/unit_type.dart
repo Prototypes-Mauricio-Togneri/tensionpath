@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_speed.dart';
 
@@ -6,6 +7,7 @@ enum UnitType {
   // ============================== HARVESTER =============================== \\
   harvester(
     clazz: UnitClass.harvester,
+    buildingType: BuildingType.refinery,
     cost: 60,
     health: 3400,
     speed: UnitSpeed.slow,
@@ -22,6 +24,7 @@ enum UnitType {
   // =============================== INFANTRY =============================== \\
   riflemen(
     clazz: UnitClass.infantry,
+    buildingType: BuildingType.barracks,
     cost: 10,
     health: 650,
     speed: UnitSpeed.fast,
@@ -36,6 +39,7 @@ enum UnitType {
   ),
   shocks(
     clazz: UnitClass.infantry,
+    buildingType: BuildingType.barracks,
     cost: 40,
     health: 1200,
     speed: UnitSpeed.fast,
@@ -50,6 +54,7 @@ enum UnitType {
   ),
   missiles(
     clazz: UnitClass.infantry,
+    buildingType: BuildingType.barracks,
     cost: 20,
     health: 880,
     speed: UnitSpeed.normal,
@@ -64,6 +69,7 @@ enum UnitType {
   ),
   grenadier(
     clazz: UnitClass.infantry,
+    buildingType: BuildingType.barracks,
     cost: 70,
     health: 1860,
     speed: UnitSpeed.fast,
@@ -78,6 +84,7 @@ enum UnitType {
   ),
   sniper(
     clazz: UnitClass.infantry,
+    buildingType: BuildingType.barracks,
     cost: 50,
     health: 750,
     speed: UnitSpeed.fast,
@@ -94,6 +101,7 @@ enum UnitType {
   // =============================== VEHICLE ================================ \\
   rhino(
     clazz: UnitClass.vehicle,
+    buildingType: BuildingType.factory,
     cost: 30,
     health: 1611,
     speed: UnitSpeed.fast,
@@ -108,6 +116,7 @@ enum UnitType {
   ),
   pitbull(
     clazz: UnitClass.vehicle,
+    buildingType: BuildingType.factory,
     cost: 40,
     health: 1611,
     speed: UnitSpeed.fast,
@@ -122,6 +131,7 @@ enum UnitType {
   ),
   shatterer(
     clazz: UnitClass.vehicle,
+    buildingType: BuildingType.factory,
     cost: 50,
     health: 1790,
     speed: UnitSpeed.fast,
@@ -136,6 +146,7 @@ enum UnitType {
   ),
   predator(
     clazz: UnitClass.vehicle,
+    buildingType: BuildingType.factory,
     cost: 70,
     health: 2823,
     speed: UnitSpeed.slow,
@@ -150,6 +161,7 @@ enum UnitType {
   ),
   mlrs(
     clazz: UnitClass.vehicle,
+    buildingType: BuildingType.factory,
     cost: 70,
     health: 1500,
     speed: UnitSpeed.normal,
@@ -167,6 +179,7 @@ enum UnitType {
 
   talon(
     clazz: UnitClass.aircraft,
+    buildingType: BuildingType.airfield,
     cost: 30,
     health: 909,
     speed: UnitSpeed.fastest,
@@ -181,6 +194,7 @@ enum UnitType {
   ),
   razorback(
     clazz: UnitClass.aircraft,
+    buildingType: BuildingType.airfield,
     cost: 60,
     health: 1530,
     speed: UnitSpeed.fast,
@@ -195,6 +209,7 @@ enum UnitType {
   ),
   orca(
     clazz: UnitClass.aircraft,
+    buildingType: BuildingType.airfield,
     cost: 70,
     health: 1210,
     speed: UnitSpeed.fastest,
@@ -209,6 +224,7 @@ enum UnitType {
   ),
   mohawk(
     clazz: UnitClass.aircraft,
+    buildingType: BuildingType.airfield,
     cost: 50,
     health: 1650,
     speed: UnitSpeed.fast,
@@ -223,6 +239,7 @@ enum UnitType {
   ),
   hammerhead(
     clazz: UnitClass.aircraft,
+    buildingType: BuildingType.airfield,
     cost: 90,
     health: 1950,
     speed: UnitSpeed.fastest,
@@ -237,6 +254,7 @@ enum UnitType {
   );
 
   final UnitClass clazz;
+  final BuildingType buildingType;
   final int cost;
   final int health;
   final UnitSpeed speed; // Speed / 1.567
@@ -251,6 +269,7 @@ enum UnitType {
 
   const UnitType({
     required this.clazz,
+    required this.buildingType,
     required this.cost,
     required this.health,
     required this.speed,
