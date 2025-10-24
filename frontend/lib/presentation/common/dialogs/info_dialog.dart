@@ -31,6 +31,9 @@ class InfoDialog extends StatelessWidget {
   static DialogController lost(VoidCallback onAccept) =>
       _show(text: 'You lost!', onAccept: onAccept);
 
+  static DialogController draw(VoidCallback onAccept) =>
+      _show(text: "It's a draw!", onAccept: onAccept);
+
   static DialogController error({
     required String text,
     required VoidCallback? onAccept,

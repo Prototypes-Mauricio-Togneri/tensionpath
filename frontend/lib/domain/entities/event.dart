@@ -204,12 +204,14 @@ class EventUnitAttack implements Event {
 }
 
 class EventMatchFinished implements Event {
-  final String winner;
+  final String? winner;
+  final String? loser;
 
   const EventMatchFinished({
     required this.winner,
+    required this.loser,
   });
 
   factory EventMatchFinished.fromJson(JsonEventMatchFinished json) =>
-      EventMatchFinished(winner: json.winner);
+      EventMatchFinished(winner: json.winner, loser: json.loser);
 }

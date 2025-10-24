@@ -93,7 +93,7 @@ class MatchState extends BaseState {
 
     for (final Event event in matchUpdate.events) {
       if (event is EventMatchFinished) {
-        _onMatchFinished(event.winner == selfId);
+        _onMatchFinished(winner: event.winner, loser: event.loser);
         break;
       }
     }
@@ -134,13 +134,20 @@ class MatchState extends BaseState {
     ),
   );
 
-  void _onMatchFinished(bool hasWon) {
-    if (hasWon) {
-      Audio.get.playSound(Sound.EVA_MISSION_ACCOMPLISHED);
-      InfoDialog.won(Navigation.pop);
-    } else {
-      Audio.get.playSound(Sound.EVA_MISSION_FAILED);
-      InfoDialog.lost(Navigation.pop);
+  void _onMatchFinished({
+    required String? winner,
+    required String? loser,
+  }) {
+    if ((winner != null) && (loser != null)) {
+      if (winner == selfId) {
+        Audio.get.playSound(Sound.EVA_MISSION_ACCOMPLISHED);
+        InfoDialog.won(Navigation.pop);
+      } else {
+        Audio.get.playSound(Sound.EVA_MISSION_FAILED);
+        InfoDialog.lost(Navigation.pop);
+      }
+    } else if ((winner == null) && (loser == null)) {
+      InfoDialog.draw(Navigation.pop);
     }
   }
 
