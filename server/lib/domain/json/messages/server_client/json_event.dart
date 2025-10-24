@@ -134,8 +134,11 @@ class JsonEvent {
     resourceDepleted: JsonEventResourceDepleted(id: resourceId),
   );
 
-  factory JsonEvent.matchFinished(String winner) => JsonEvent(
-    matchFinished: JsonEventMatchFinished(winner: winner),
+  factory JsonEvent.matchFinished({
+    required String? winner,
+    required String? loser,
+  }) => JsonEvent(
+    matchFinished: JsonEventMatchFinished(winner: winner, loser: loser),
   );
 
   factory JsonEvent.fromJson(Map<String, dynamic> json) =>

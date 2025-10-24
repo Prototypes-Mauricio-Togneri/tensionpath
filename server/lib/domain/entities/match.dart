@@ -130,7 +130,10 @@ class Match {
       Logger.debug('Player $playerIndex surrendered');
       status = MatchStatus.finished;
       _sendMatchUpdate([
-        JsonEvent.matchFinished(players.other(player.index).id),
+        JsonEvent.matchFinished(
+          winner: players.other(player.index).id,
+          loser: player.id,
+        ),
       ]);
     }
   }
@@ -139,22 +142,49 @@ class Match {
     if (_isPlaying) {
       elapsedTime += dt;
 
+      // Check for timeout
+      if (elapsedTime > config.matchTimeout) {
+        status = MatchStatus.finished;
+        final Player? winner = _playerAhead;
+
+        if (winner != null) {
+          _sendMatchUpdate([
+            JsonEvent.matchFinished(
+              winner: winner.id,
+              loser: players.other(winner.index).id,
+            ),
+          ]);
+        } else {
+          _sendMatchUpdate([
+            JsonEvent.matchFinished(
+              winner: null,
+              loser: null,
+            ),
+          ]);
+        }
+      }
+
+      // Calculate current player events
       final Map<String, JsonEventPlayer> previousEvents = players.events(
         battlefield.units,
       );
 
+      // Update battlefield
       final List<JsonEvent> events = battlefield.update(dt);
 
+      // Check for sudden death
       if (elapsedTime >= config.suddenDeathTimeout) {
         for (final Player player in players.list) {
           player.removeHealth(config.suddenDeathDamage * dt);
         }
       }
 
+      // Add resources to players
       for (final Player player in players.list) {
         player.addResources(player.resourcesPassiveRate * dt);
       }
 
+      // Calculate new player events
       events.addAll(
         players.newEvents(
           previousEvents: previousEvents,
@@ -162,13 +192,20 @@ class Match {
         ),
       );
 
-      final String? winner = _winner;
+      // Check for winner
+      final Player? winner = _winner;
 
       if (winner != null) {
         status = MatchStatus.finished;
-        events.add(JsonEvent.matchFinished(winner));
+        events.add(
+          JsonEvent.matchFinished(
+            winner: winner.id,
+            loser: players.other(winner.index).id,
+          ),
+        );
       }
 
+      // Send updates if there are any events
       if (events.isNotEmpty) {
         _sendMatchUpdate(events);
       }
@@ -184,16 +221,31 @@ class Match {
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
   }
 
-  String? get _winner {
+  Player? get _winner {
     final Player player1 = players.get(Constants.PLAYER_1);
     final Player player2 = players.get(Constants.PLAYER_2);
 
     if (!player2.isAlive && player1.isAlive) {
       Logger.debug('Player 1 wins!');
-      return player1.id;
+      return player1;
     } else if (!player1.isAlive && player2.isAlive) {
       Logger.debug('Player 2 wins!');
-      return player2.id;
+      return player2;
+    } else {
+      return null;
+    }
+  }
+
+  Player? get _playerAhead {
+    final Player player1 = players.get(Constants.PLAYER_1);
+    final Player player2 = players.get(Constants.PLAYER_2);
+
+    if (player1.baseHealth > player2.baseHealth) {
+      Logger.debug('Player 1 is ahead!');
+      return player1;
+    } else if (player2.baseHealth > player1.baseHealth) {
+      Logger.debug('Player 2 is ahead!');
+      return player2;
     } else {
       return null;
     }
