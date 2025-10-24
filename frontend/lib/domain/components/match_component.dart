@@ -149,18 +149,6 @@ class MatchComponent extends World {
     return null;
   }
 
-  LauncherComponent? getLauncherAt(Vector2 position) {
-    for (final LauncherComponent launcherComponent in launcherComponents) {
-      if (launcherComponent.containsPoint(position) &&
-          launcherComponent.belongsTo(self) &&
-          launcherComponent.nodeComponent.isFree) {
-        return launcherComponent;
-      }
-    }
-
-    return null;
-  }
-
   NodeComponent? getActionNodeAt({
     required Vector2 position,
     required UnitType unitType,

@@ -7,7 +7,6 @@ class Palette {
   static const Color SCREEN_BACKGROUND = Colors.white;
   static const Color GAME_BACKGROUND = Colors.black;
 
-  static const Color SEMANTIC_SUCCESS = Colors.green;
   static const Color SEMANTIC_ERROR = Colors.red;
 
   static const Color TEXT_COLOR_PRIMARY = Color(0xff444444);
@@ -17,8 +16,6 @@ class Palette {
   static const Color BUTTON_DISABLED = Colors.black26;
 
   static const Color ICON_ENABLED = Colors.black38;
-
-  static const Color SNACK_BACKGROUND = Colors.red;
 
   // ======================================================================== \\
 
