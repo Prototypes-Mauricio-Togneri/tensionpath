@@ -15,6 +15,8 @@ class HomeState extends BaseState {
     notify();
   }
 
+  bool get isDeckFull => deck.length == MAX_CARDS;
+
   void onSettings() => Navigation.settingsScreen();
 
   void onChangelog() => Navigation.changelogScreen();
@@ -30,19 +32,5 @@ class HomeState extends BaseState {
     SetFullscreen.set();
     await Future.delayed(const Duration(seconds: 1));
     Navigation.homeScreen();
-  }
-
-  bool get isDeckFull => deck.length == MAX_CARDS;
-
-  bool isSelected(UnitType unitType) => deck.contains(unitType);
-
-  void onCardSelected(UnitType unitType) {
-    if (isSelected(unitType)) {
-      deck.remove(unitType);
-    } else if (deck.length < MAX_CARDS) {
-      deck.add(unitType);
-    }
-
-    notify();
   }
 }
