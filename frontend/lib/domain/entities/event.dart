@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/json/messages/server_client/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
@@ -10,6 +11,7 @@ import 'package:tensionpath/domain/json/messages/server_client/events/json_event
 import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Event {
@@ -20,6 +22,8 @@ class Event {
       return EventPlayer.fromJson(json.player!);
     } else if (json.resourceDepleted != null) {
       return EventResourcesDepleted.fromJson(json.resourceDepleted!);
+    } else if (json.buildingUnlocked != null) {
+      return EventBuildingUnlocked.fromJson(json.buildingUnlocked!);
     } else if (json.unitCreated != null) {
       return EventUnitCreated.fromJson(json.unitCreated!);
     } else if (json.unitMovementStarted != null) {
@@ -93,6 +97,22 @@ class EventResourcesDepleted implements Event {
 
   factory EventResourcesDepleted.fromJson(JsonEventResourceDepleted json) =>
       EventResourcesDepleted(id: json.id);
+}
+
+class EventBuildingUnlocked implements Event {
+  final String playerIndex;
+  final BuildingType type;
+
+  const EventBuildingUnlocked({
+    required this.playerIndex,
+    required this.type,
+  });
+
+  factory EventBuildingUnlocked.fromJson(JsonEventBuildingUnlocked json) =>
+      EventBuildingUnlocked(
+        playerIndex: json.playerIndex,
+        type: json.type,
+      );
 }
 
 class EventUnitCreated implements Event {

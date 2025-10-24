@@ -28,6 +28,7 @@ class MatchComponent extends World {
   late final Player opponent;
   late final Vector2 nodeSize;
   late final BattlefieldComponent battlefieldComponent;
+  late final ControlsComponent controlsComponent;
 
   MatchComponent({
     required this.resolution,
@@ -74,17 +75,17 @@ class MatchComponent extends World {
       ),
     );
 
-    add(
-      ControlsComponent(
-        player: self,
-        maxHarvestersCount: match.config.maxHarvestersCount,
-        position: Dimensions.controlsPosition(
-          resolution: resolution,
-          isPlayer1: self.isPlayer1,
-        ),
-        size: Dimensions.controlsSize(resolution),
+    controlsComponent = ControlsComponent(
+      player: self,
+      maxHarvestersCount: match.config.maxHarvestersCount,
+      position: Dimensions.controlsPosition(
+        resolution: resolution,
+        isPlayer1: self.isPlayer1,
       ),
+      size: Dimensions.controlsSize(resolution),
     );
+
+    add(controlsComponent);
 
     return super.onLoad();
   }
@@ -108,6 +109,10 @@ class MatchComponent extends World {
             resources.deplete();
             break;
           }
+        }
+      } else if (event is EventBuildingUnlocked) {
+        if (event.playerIndex == self.index) {
+          controlsComponent.unlockBuilding(event.type);
         }
       } else if (event is EventUnitCreated) {
         updateNodeLocks = true;

@@ -16,6 +16,8 @@ import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -24,6 +26,7 @@ class ControlsComponent extends PositionComponent {
   final Player player;
   final int maxHarvestersCount;
   final Paint backgroundPaint = Palette.paint(style: PaintingStyle.fill);
+  final Map<BuildingType, BuildingComponent> buildingComponents = {};
 
   ControlsComponent({
     required this.player,
@@ -62,11 +65,13 @@ class ControlsComponent extends PositionComponent {
       );
     }
 
-    final int previousCards = player.deck.contains(UnitType.harvester) ? 1 : 0;
+    int previousCards = player.deck.contains(UnitType.harvester) ? 1 : 0;
 
     for (final BuildingType buildingType in BuildingType.buildings) {
-      add(
-        BuildingComponent(
+      final int numberOfUnits = player.unitsInBuilding(buildingType);
+
+      if (numberOfUnits > 0) {
+        final BuildingComponent buildingComponent = BuildingComponent(
           player: player,
           buildingType: buildingType,
           position: Dimensions.controlsBuildingCardPosition(
@@ -77,10 +82,15 @@ class ControlsComponent extends PositionComponent {
           size: Dimensions.controlsBuildingCardSize(
             size: size,
             cardSize: cardSize,
-            cards: player.unitsInBuilding(buildingType),
+            cards: numberOfUnits,
           ),
-        ),
-      );
+        );
+
+        add(buildingComponent);
+        buildingComponents[buildingType] = buildingComponent;
+
+        previousCards += numberOfUnits;
+      }
     }
 
     add(
@@ -96,6 +106,17 @@ class ControlsComponent extends PositionComponent {
     );
 
     return super.onLoad();
+  }
+
+  void unlockBuilding(BuildingType buildingType) {
+    final BuildingComponent? buildingComponent =
+        buildingComponents[buildingType];
+
+    if (buildingComponent != null) {
+      buildingComponent.removeFromParent();
+      buildingComponents.remove(buildingType);
+      Audio.get.playSound(Sound.EVA_BUILDING_ONLINE);
+    }
   }
 
   @override
