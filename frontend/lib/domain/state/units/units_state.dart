@@ -10,7 +10,8 @@ class UnitsState extends BaseState {
 
   @override
   Future onLoad() async {
-    deck.addAll(await DeckStorage.load());
+    final List<UnitType> list = await DeckStorage.load();
+    deck.addAll(list);
     notify();
   }
 

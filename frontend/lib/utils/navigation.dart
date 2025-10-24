@@ -29,7 +29,7 @@ class Navigation {
   static void settingsScreen() =>
       get.routes.push(BasicRoute(SettingsScreen.instance(), name: 'settings'));
 
-  static void unitsScreen() =>
+  static Future? unitsScreen() =>
       get.routes.push(BasicRoute(UnitsScreen.instance(), name: 'units'));
 
   static void changelogScreen() => get.routes.push(

@@ -10,16 +10,25 @@ class HomeState extends BaseState {
   final List<UnitType> deck = [];
 
   @override
-  Future onLoad() async {
-    deck.addAll(await DeckStorage.load());
-    notify();
+  void onLoad() {
+    loadDeck();
   }
 
   bool get isDeckFull => deck.length == MAX_CARDS;
 
+  Future loadDeck() async {
+    final List<UnitType> list = await DeckStorage.load();
+    deck.clear();
+    deck.addAll(list);
+    notify();
+  }
+
   void onPlay() => Navigation.lobbyScreen(deck);
 
-  void onUnits() => Navigation.unitsScreen();
+  Future onUnits() async {
+    await Navigation.unitsScreen();
+    await loadDeck();
+  }
 
   void onSettings() => Navigation.settingsScreen();
 
