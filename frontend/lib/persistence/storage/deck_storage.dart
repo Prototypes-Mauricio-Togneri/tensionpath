@@ -33,6 +33,8 @@ class DeckStorage extends Storage {
       }
     }
 
+    result.sort((a, b) => a.index - b.index);
+
     return result;
   }
 
