@@ -25,7 +25,6 @@ class MatchState extends BaseState {
   final String selfId;
   late final Connection connection;
   GameComponent? gameComponent;
-  Match? match;
 
   MatchState({
     required this.host,
@@ -57,14 +56,12 @@ class MatchState extends BaseState {
   }
 
   void _onMessage(dynamic json) {
-    if (match!.isPlaying) {
-      if (json is JsonWelcome) {
-        _onWelcome();
-      } else if (json is JsonStart) {
-        _onStart(Match.fromJson(json.match));
-      } else if (json is JsonUpdate) {
-        _onUpdate(MatchUpdate.fromJson(json.match));
-      }
+    if (json is JsonWelcome) {
+      _onWelcome();
+    } else if (json is JsonStart) {
+      _onStart(Match.fromJson(json.match));
+    } else if (json is JsonUpdate) {
+      _onUpdate(MatchUpdate.fromJson(json.match));
     }
   }
 
@@ -76,7 +73,6 @@ class MatchState extends BaseState {
   );
 
   void _onStart(Match match) {
-    this.match = match;
     gameComponent = GameComponent(
       match: match,
       matchState: this,
@@ -95,14 +91,10 @@ class MatchState extends BaseState {
     }
   }
 
-  void _onDisconnected() {
-    if (match!.isPlaying) {
-      InfoDialog.error(
-        text: 'Server disconnection',
-        onAccept: Navigation.pop,
-      );
-    }
-  }
+  void _onDisconnected() => InfoDialog.error(
+    text: 'Server disconnection',
+    onAccept: Navigation.pop,
+  );
 
   void _onError(dynamic error) => ErrorHandler.process(error);
 
@@ -149,7 +141,6 @@ class MatchState extends BaseState {
 
   void onOpenMenu() => ConfirmationDialog.quitMatch(_onSurrender);
 
-  void _onSurrender() {
-    connection.send(JsonMessage.surrenderMatch(matchId: matchId));
-  }
+  void _onSurrender() =>
+      connection.send(JsonMessage.surrenderMatch(matchId: matchId));
 }
