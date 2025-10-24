@@ -28,5 +28,6 @@ class UnitsState extends BaseState {
     }
 
     notify();
+    DeckStorage.save(deck);
   }
 }

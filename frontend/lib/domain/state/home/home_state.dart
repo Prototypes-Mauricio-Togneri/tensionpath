@@ -17,10 +17,7 @@ class HomeState extends BaseState {
 
   bool get isDeckFull => deck.length == MAX_CARDS;
 
-  void onPlay() {
-    DeckStorage.save(deck);
-    Navigation.lobbyScreen(deck);
-  }
+  void onPlay() => Navigation.lobbyScreen(deck);
 
   void onUnits() => Navigation.unitsScreen();
 
