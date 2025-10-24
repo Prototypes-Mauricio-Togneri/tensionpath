@@ -75,7 +75,7 @@ class PlayerIndicatorComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    if (game.matchState.isPlaying) {
+    if (match.match.isPlaying) {
       player.update(dt);
     }
   }

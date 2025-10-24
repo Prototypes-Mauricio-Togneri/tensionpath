@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -421,7 +422,7 @@ class ResourcesComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    if (game.matchState.isPlaying) {
+    if (match.match.isPlaying) {
       player.addResources(dt * player.resourcesRate);
     }
   }

@@ -202,7 +202,7 @@ class UnitComponent extends PositionComponent
   void update(double dt) {
     super.update(dt);
 
-    if (game.matchState.isPlaying) {
+    if (match.match.isPlaying) {
       attackAlert.update(dt);
 
       if (targetPosition != null) {

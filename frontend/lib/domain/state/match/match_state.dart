@@ -9,7 +9,6 @@ import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
-import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/audio/music.dart';
@@ -25,8 +24,8 @@ class MatchState extends BaseState {
   final String matchId;
   final String selfId;
   late final Connection connection;
-  MatchStatus matchStatus = MatchStatus.playing;
   GameComponent? gameComponent;
+  Match? match;
 
   MatchState({
     required this.host,
@@ -43,8 +42,6 @@ class MatchState extends BaseState {
 
   bool get isLoading => gameComponent == null;
 
-  bool get isPlaying => matchStatus == MatchStatus.playing;
-
   @override
   Future onLoad() {
     Audio.get.playMusic(Music.MUSIC);
@@ -60,7 +57,7 @@ class MatchState extends BaseState {
   }
 
   void _onMessage(dynamic json) {
-    if (isPlaying) {
+    if (match!.isPlaying) {
       if (json is JsonWelcome) {
         _onWelcome();
       } else if (json is JsonStart) {
@@ -79,6 +76,7 @@ class MatchState extends BaseState {
   );
 
   void _onStart(Match match) {
+    this.match = match;
     gameComponent = GameComponent(
       match: match,
       matchState: this,
@@ -89,8 +87,6 @@ class MatchState extends BaseState {
   void _onUpdate(MatchUpdate matchUpdate) {
     MatchComponentRef.instance.onMatchUpdated(matchUpdate);
 
-    matchStatus = matchUpdate.status;
-
     for (final Event event in matchUpdate.events) {
       if (event is EventMatchFinished) {
         _onMatchFinished(winner: event.winner, loser: event.loser);
@@ -100,7 +96,7 @@ class MatchState extends BaseState {
   }
 
   void _onDisconnected() {
-    if (isPlaying) {
+    if (match!.isPlaying) {
       InfoDialog.error(
         text: 'Server disconnection',
         onAccept: Navigation.pop,

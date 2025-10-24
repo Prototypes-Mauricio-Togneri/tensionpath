@@ -2,14 +2,16 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 
 class Match {
   final DateTime createdAt;
   final Config config;
   final List<Player> players;
   final Battlefield battlefield;
+  MatchStatus _matchStatus = MatchStatus.playing;
 
-  const Match({
+  Match({
     required this.createdAt,
     required this.config,
     required this.players,
@@ -19,6 +21,12 @@ class Match {
   Player get self => players.firstWhere((player) => player.isSelf);
 
   Player get opponent => players.firstWhere((player) => !player.isSelf);
+
+  bool get isPlaying => _matchStatus == MatchStatus.playing;
+
+  void updateStatus(MatchStatus status) {
+    _matchStatus = status;
+  }
 
   factory Match.fromJson(JsonMatchStart jsonMatch) => Match(
     createdAt: DateTime.parse(jsonMatch.createdAt),

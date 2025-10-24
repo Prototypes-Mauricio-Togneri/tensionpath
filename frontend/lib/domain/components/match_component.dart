@@ -94,6 +94,7 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(MatchUpdate matchUpdate) {
+    match.updateStatus(matchUpdate.status);
     bool updateNodeLocks = false;
 
     for (final Event event in matchUpdate.events) {
