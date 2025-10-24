@@ -1,3 +1,8 @@
+# 24.10.2025
+- New screen to select units
+- Match timeout
+- Sudden death
+
 # 21.10.2025
 - Attack animations
 
