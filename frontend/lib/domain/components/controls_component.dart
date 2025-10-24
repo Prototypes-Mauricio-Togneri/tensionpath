@@ -62,22 +62,26 @@ class ControlsComponent extends PositionComponent {
       );
     }
 
-    add(
-      BuildingComponent(
-        player: player,
-        buildingType: BuildingType.barracks,
-        position: Dimensions.controlsBuildingCardPosition(
-          size: size,
-          cardSize: cardSize,
-          previousCards: 3,
+    final int previousCards = player.deck.contains(UnitType.harvester) ? 1 : 0;
+
+    for (final BuildingType buildingType in BuildingType.buildings) {
+      add(
+        BuildingComponent(
+          player: player,
+          buildingType: buildingType,
+          position: Dimensions.controlsBuildingCardPosition(
+            size: size,
+            cardSize: cardSize,
+            previousCards: previousCards,
+          ),
+          size: Dimensions.controlsBuildingCardSize(
+            size: size,
+            cardSize: cardSize,
+            cards: player.unitsInBuilding(buildingType),
+          ),
         ),
-        size: Dimensions.controlsBuildingCardSize(
-          size: size,
-          cardSize: cardSize,
-          cards: 1,
-        ),
-      ),
-    );
+      );
+    }
 
     add(
       ResourcesComponent(

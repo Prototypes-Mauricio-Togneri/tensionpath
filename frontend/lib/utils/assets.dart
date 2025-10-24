@@ -18,6 +18,8 @@ class Assets {
       'assets/audio/sound/voice/attack/target_locked.mp3';
   static const String AUDIO_SOUND_VOICE_EVA_BASE_UNDER_ATTACK =
       'assets/audio/sound/voice/eva/base_under_attack.mp3';
+  static const String AUDIO_SOUND_VOICE_EVA_BUILDING_ONLINE =
+      'assets/audio/sound/voice/eva/building_online.mp3';
   static const String AUDIO_SOUND_VOICE_EVA_CANNOT_DEPLOY =
       'assets/audio/sound/voice/eva/cannot_deploy.mp3';
   static const String AUDIO_SOUND_VOICE_EVA_HARVESTER_UNDER_ATTACK =

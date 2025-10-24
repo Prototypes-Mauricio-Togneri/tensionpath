@@ -27,6 +27,9 @@ mixin Sound {
   static const AudioSpec EVA_CANNOT_DEPLOY = AudioSpec(
     path: Assets.AUDIO_SOUND_VOICE_EVA_CANNOT_DEPLOY,
   );
+  static const AudioSpec EVA_BUILDING_ONLINE = AudioSpec(
+    path: Assets.AUDIO_SOUND_VOICE_EVA_BUILDING_ONLINE,
+  );
   static const AudioSpec EVA_MISSILE_LAUNCHED = AudioSpec(
     path: Assets.AUDIO_SOUND_VOICE_EVA_MISSILE_LAUNCHED,
   );
@@ -111,6 +114,7 @@ mixin Sound {
     EVA_BASE_UNDER_ATTACK,
     EVA_HARVESTER_UNDER_ATTACK,
     EVA_CANNOT_DEPLOY,
+    EVA_BUILDING_ONLINE,
     EVA_MISSILE_LAUNCHED,
     EVA_MISSION_ACCOMPLISHED,
     EVA_MISSION_FAILED,

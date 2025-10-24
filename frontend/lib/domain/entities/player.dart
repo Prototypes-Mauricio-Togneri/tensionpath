@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/alert_timer.dart';
 import 'package:tensionpath/utils/palette.dart';
@@ -39,6 +40,9 @@ class Player {
   bool get isPlayer2 => index == Constants.PLAYER_2;
 
   Color get color => isPlayer1 ? Palette.PLAYER_1 : Palette.PLAYER_2;
+
+  int unitsInBuilding(BuildingType buildingType) =>
+      deck.where((unit) => unit.buildingType == buildingType).length;
 
   void update(double dt) {
     attackAlert.update(dt);
