@@ -145,6 +145,12 @@ class Match {
 
       final List<JsonEvent> events = battlefield.update(dt);
 
+      if (elapsedTime >= config.suddenDeathTimeout) {
+        for (final Player player in players.list) {
+          player.removeHealth(config.suddenDeathDamage * dt);
+        }
+      }
+
       for (final Player player in players.list) {
         player.addResources(player.resourcesPassiveRate * dt);
       }
