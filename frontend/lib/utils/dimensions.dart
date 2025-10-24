@@ -150,6 +150,32 @@ class Dimensions {
     );
   }
 
+  static Vector2 controlsBuildingCardPosition({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int previousCards,
+  }) {
+    final double gapSize = Dimensions._controlsGapSize(size);
+
+    return Vector2(
+      gapSize,
+      (previousCards * cardSize.y) + ((previousCards + 1) * gapSize),
+    );
+  }
+
+  static Vector2 controlsBuildingCardSize({
+    required Vector2 size,
+    required Vector2 cardSize,
+    required int cards,
+  }) {
+    final double gapSize = Dimensions._controlsGapSize(size);
+
+    return Vector2(
+      cardSize.x,
+      (cards * cardSize.y) + ((cards - 1) * gapSize),
+    );
+  }
+
   static bool pointInCircle({
     required Vector2 point,
     required Vector2 size,

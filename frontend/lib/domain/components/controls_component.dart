@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -10,6 +9,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
@@ -62,6 +62,23 @@ class ControlsComponent extends PositionComponent {
     }
 
     add(
+      BuildingComponent(
+        player: player,
+        buildingType: BuildingType.barracks,
+        position: Dimensions.controlsBuildingCardPosition(
+          size: size,
+          cardSize: cardSize,
+          previousCards: 3,
+        ),
+        size: Dimensions.controlsBuildingCardSize(
+          size: size,
+          cardSize: cardSize,
+          cards: 3,
+        ),
+      ),
+    );
+
+    add(
       ResourcesComponent(
         player: player,
         position: Dimensions.controlsResourcesCardPosition(
@@ -81,6 +98,49 @@ class ControlsComponent extends PositionComponent {
     super.render(canvas);
 
     canvas.drawRect(Rect.fromLTWH(0, 0, width, height), backgroundPaint);
+  }
+}
+
+class BuildingComponent extends PositionComponent {
+  final Player player;
+  final BuildingType buildingType;
+  final Paint backgroundPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+    strokeWidth: 1,
+  );
+  bool isEnabled = false;
+
+  BuildingComponent({
+    required this.player,
+    required this.buildingType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft) {
+    backgroundPaint.color =
+        Colors.yellow; // TODO(momo): player.color.darken(0.3);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    final bool before = isEnabled;
+    isEnabled = player.resources >= buildingType.cost;
+
+    if (before != isEnabled) {
+      if (isEnabled) {
+        decorator.removeLast();
+      } else {
+        decorator.addLast(PaintDecorator.tint(const Color(0x50000000)));
+      }
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawRect(size.toRect(), backgroundPaint);
   }
 }
 
