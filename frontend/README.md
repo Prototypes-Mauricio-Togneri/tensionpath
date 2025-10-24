@@ -1,7 +1,7 @@
 ### High
 
+- Show shots when attacking enemy base
 - Drive popcap from server
-- Build structures before making units
 - Path finding
 
 ### Medium

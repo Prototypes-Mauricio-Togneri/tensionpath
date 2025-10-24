@@ -1,4 +1,5 @@
 # 24.10.2025
+- Unlocking buildings
 - New screen to select units
 - Match timeout
 - Sudden death
