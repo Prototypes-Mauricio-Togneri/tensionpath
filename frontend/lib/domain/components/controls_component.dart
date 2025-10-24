@@ -102,7 +102,7 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class BuildingComponent extends PositionComponent {
+class BuildingComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final BuildingType buildingType;
   final Paint backgroundPaint = Palette.paint(
@@ -132,7 +132,26 @@ class BuildingComponent extends PositionComponent {
       ),
     );
 
+    final double bottomPartSize = size.x / 6;
+
+    add(
+      BuildingCostComponent(
+        buildingType: buildingType,
+        position: Vector2(
+          size.x - (bottomPartSize * 1.5),
+          size.y - bottomPartSize,
+        ),
+        size: Vector2(bottomPartSize * 1.5, bottomPartSize),
+      ),
+    );
+
     return super.onLoad();
+  }
+
+  @override
+  bool onTapDown(TapDownEvent event) {
+    game.matchState.onUnlockBuilding(buildingType);
+    return true;
   }
 
   @override
@@ -179,6 +198,29 @@ class BuildingImageComponent extends SpriteComponent {
     }
 
     return super.onLoad();
+  }
+}
+
+class BuildingCostComponent extends PositionComponent {
+  final BuildingType buildingType;
+
+  BuildingCostComponent({
+    required this.buildingType,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.topLeft);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawText(
+      text: '${buildingType.cost}${Constants.RESOURCE_ICON}',
+      position: Vector2(size.x * 0.9, size.y * 0.5),
+      size: size.x / 2.5,
+      color: Palette.CONTROLS_COST_FOREGROUND,
+      anchor: Anchor.centerRight,
+    );
   }
 }
 

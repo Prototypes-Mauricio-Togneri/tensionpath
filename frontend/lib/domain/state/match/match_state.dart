@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/audio/music.dart';
@@ -101,6 +102,13 @@ class MatchState extends BaseState {
   }
 
   void _onError(dynamic error) => ErrorHandler.process(error);
+
+  void onUnlockBuilding(BuildingType buildingType) => connection.send(
+    JsonMessage.unlockBuilding(
+      matchId: matchId,
+      type: buildingType,
+    ),
+  );
 
   void onDeployUnit({
     required Location location,
