@@ -18,8 +18,6 @@ class Missile {
   num chargeCurrent = 0;
   bool playingAlarm = false;
 
-  static const num ALARM_THRESHOLD = 8;
-
   Missile({
     required this.location,
     required this.position,

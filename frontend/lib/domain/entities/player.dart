@@ -34,8 +34,6 @@ class Player {
     required this.deck,
   });
 
-  bool get isOpponent => !isSelf;
-
   bool get isPlayer1 => index == Constants.PLAYER_1;
 
   bool get isPlayer2 => index == Constants.PLAYER_2;

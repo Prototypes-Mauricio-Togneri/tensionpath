@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class Palette {
   static const MaterialColor PRIMARY = Colors.blue;
-  static const Color TRANSPARENT = Colors.transparent;
 
   static const Color SCREEN_BACKGROUND = Colors.white;
   static const Color GAME_BACKGROUND = Colors.black;
@@ -12,7 +11,6 @@ class Palette {
   static const Color SEMANTIC_ERROR = Colors.red;
 
   static const Color TEXT_COLOR_PRIMARY = Color(0xff444444);
-  static const Color TEXT_COLOR_SECONDARY = Color(0xffaaaaaa);
   static const Color TEXT_COLOR_TERTIARY = Color(0xffffffff);
   static const Color TEXT_DEBUG = Colors.white;
 

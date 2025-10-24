@@ -82,31 +82,6 @@ extension CanvasExtension on Canvas {
     return path;
   }
 
-  void drawArc2({
-    required Vector2 center,
-    required double radius,
-    required double thickness,
-    required double sweepDegrees,
-    required Paint paint,
-  }) {
-    final Rect rect = Rect.fromCircle(
-      center: center.toOffset(),
-      radius: radius - (thickness / 2),
-    );
-    const double startAngle = -pi / 2;
-    final double sweepAngle = sweepDegrees * pi / 180;
-
-    paint.strokeWidth = thickness;
-
-    drawArc(
-      rect,
-      startAngle,
-      -sweepAngle,
-      false,
-      paint,
-    );
-  }
-
   Vector2 translate({
     required Anchor anchor,
     required Vector2 point,

@@ -234,13 +234,6 @@ class UnitComponent extends PositionComponent
     }
   }
 
-  bool isInAttackRange(Vector2 position) {
-    final double radius = size.x / 2;
-    final double distance = position.distanceTo(position) - radius;
-
-    return distance < (radius * (type.attackRange + 0.5));
-  }
-
   @override
   void render(Canvas canvas) {
     super.render(canvas);

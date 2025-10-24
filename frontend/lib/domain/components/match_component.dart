@@ -203,27 +203,6 @@ class MatchComponent extends World {
     return closestNode;
   }
 
-  LauncherComponent getClosestLauncherAt(Vector2 position) {
-    LauncherComponent? closestLauncher;
-    double closestDistance = double.infinity;
-
-    for (final LauncherComponent launcherComponent in launcherComponents) {
-      final double distance =
-          (launcherComponent.absolutePosition - position).length;
-
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestLauncher = launcherComponent;
-      }
-    }
-
-    if (closestLauncher == null) {
-      throw Exception('No closest launcher found');
-    }
-
-    return closestLauncher;
-  }
-
   NodeComponent getNodeById(String id) {
     for (final NodeComponent nodeComponent in nodeComponents) {
       if (nodeComponent.location.id == id) {
@@ -232,13 +211,6 @@ class MatchComponent extends World {
     }
 
     throw Exception('Node not found');
-  }
-
-  void highlightLauncherAt(Vector2 position) {
-    unhighlightNodes();
-
-    final LauncherComponent? launcherComponent = getLauncherAt(position);
-    launcherComponent?.nodeComponent.highlight(true);
   }
 
   void highlightActionNodeAt({
