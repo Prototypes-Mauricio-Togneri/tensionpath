@@ -91,10 +91,14 @@ class MatchState extends BaseState {
     }
   }
 
-  void _onDisconnected() => InfoDialog.error(
-    text: 'Server disconnection',
-    onAccept: Navigation.pop,
-  );
+  void _onDisconnected() {
+    if (MatchComponentRef.instance.match.isPlaying) {
+      InfoDialog.error(
+        text: 'Server disconnection',
+        onAccept: Navigation.pop,
+      );
+    }
+  }
 
   void _onError(dynamic error) => ErrorHandler.process(error);
 
