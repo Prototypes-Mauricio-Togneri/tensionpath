@@ -22,8 +22,6 @@ class Node {
 
   bool get isFree => lockedUnit == null;
 
-  bool get isLocked => lockedUnit != null;
-
   bool notLockedBy(Unit unit) => (lockedUnit != null) && (lockedUnit != unit);
 
   void lock(Unit unit) {

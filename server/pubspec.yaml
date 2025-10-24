@@ -13,7 +13,7 @@ dependencies:
 
 dev_dependencies:
   lints: ^6.0.0
-  daunused: ^1.6.1
+  daunused: ^1.7.4
   dapublock: ^1.1.0
-  build_runner: ^2.9.0
+  build_runner: ^2.7.1
   json_serializable: ^6.11.1
