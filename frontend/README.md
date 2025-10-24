@@ -1,9 +1,8 @@
 ### High
 
-- Select deck in a separate screen
-- After 5 minutes, bases take damage every turn (config.baseDamageAfterTimeout)
-- Set match timeout (config.matchTimeout)
 - Lower music volume
+- Set match timeout (config.matchTimeout)
+- After 5 minutes, bases take damage every turn (config.baseDamageAfterTimeout)
 - Drive popcap from server
 - Build structures before making units
 - Path finding
