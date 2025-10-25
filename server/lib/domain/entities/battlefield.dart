@@ -48,8 +48,8 @@ class Battlefield {
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
-        final (JsonEvent?, bool) unitUpdate = unit.update(dt);
-        result.addAll([?unitUpdate.$1]);
+        final (List<JsonEvent>, bool) unitUpdate = unit.update(dt);
+        result.addAll(unitUpdate.$1);
         updatePlayers |= unitUpdate.$2;
       }
     }

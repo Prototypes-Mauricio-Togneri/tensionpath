@@ -102,8 +102,8 @@ class Unit {
     targetUnit = null;
   }
 
-  (JsonEvent?, bool) update(double dt) {
-    (JsonEvent?, bool) result;
+  (List<JsonEvent>, bool) update(double dt) {
+    (List<JsonEvent>, bool) result;
 
     if (isMoving) {
       result = _processMoving(dt);
@@ -117,8 +117,9 @@ class Unit {
     return result;
   }
 
-  (JsonEvent?, bool) _processMoving(double dt) {
-    (JsonEvent?, bool) result = (null, false);
+  (List<JsonEvent>, bool) _processMoving(double dt) {
+    final List<JsonEvent> events = [];
+    bool updatePlayers = false;
     Logger.debug('----------------------------------------\nMoving unit $id');
 
     // Update position
@@ -138,14 +139,14 @@ class Unit {
       lockedNode = targetNode;
       lockedNode!.lock(this);
       targetNode = null;
-      result = (
+      events.add(
         JsonEvent.unitMovementEnded(
           unitId: id,
           currentPosition: position.toJson(),
           lockedLocation: lockedNode?.location.toJson(),
         ),
-        isHarvester,
       );
+      updatePlayers = isHarvester;
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
         targetNode!.notLockedBy(this)) {
@@ -155,13 +156,12 @@ class Unit {
         position: position,
         unit: this,
       );
-      result = (
+      events.add(
         JsonEvent.unitMovementStarted(
           unitId: id,
           currentPosition: position.toJson(),
           targetPosition: targetNode!.position.toJson(),
         ),
-        false,
       );
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
@@ -171,11 +171,11 @@ class Unit {
       lockedNode!.lock(this);
     }
 
-    return result;
+    return (events, updatePlayers);
   }
 
-  (JsonEvent?, bool) _processStanding(double dt) {
-    (JsonEvent?, bool) result = (null, false);
+  (List<JsonEvent>, bool) _processStanding(double dt) {
+    final List<JsonEvent> events = [];
 
     if (isHarvesting) {
       lastOrderManual = false;
@@ -195,10 +195,12 @@ class Unit {
         Logger.debug('Harvester $id automatically moving to ${patchNode.id}');
 
         return (
-          move(
-            node: patchNode,
-            manual: false,
-          ),
+          [
+            move(
+              node: patchNode,
+              manual: false,
+            ),
+          ],
           true,
         );
       }
@@ -243,14 +245,13 @@ class Unit {
             player.addResources(config.harvesterReward);
           }
 
-          result = (
+          events.add(
             JsonEvent.unitAttack(
               attackerId: id,
               damage: damage,
               targetUnitId: targetUnit!.id,
               targetDestroyed: !targetUnit!.isAlive,
             ),
-            false,
           );
           Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
         }
@@ -271,22 +272,20 @@ class Unit {
           final num damage = type.damageAgainst(UnitClass.structure);
           currentAttackCooldown = type.attackCooldown;
           targetBase!.player.removeHealth(damage);
-
-          result = (
+          events.add(
             JsonEvent.unitAttack(
               attackerId: id,
               damage: damage,
               targetDestroyed: !targetBase!.player.isAlive,
               targetBaseLocation: targetBase!.location.toJson(),
             ),
-            false,
           );
           Logger.debug('Attacked base ${targetBase!.id} with $damage damage');
         }
       }
     }
 
-    return result;
+    return (events, false);
   }
 
   bool canAttack(Unit unit) => type.damageAgainst(unit.type.clazz) > 0;
