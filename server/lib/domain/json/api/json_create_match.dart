@@ -20,6 +20,9 @@ class JsonCreateMatch {
   @JsonKey(name: 'matchType')
   final String matchType;
 
+  @JsonKey(name: 'playerIds')
+  final List<String> playerIds;
+
   @JsonKey(name: 'players')
   final Map<String, JsonPlayer> players;
 
@@ -29,6 +32,7 @@ class JsonCreateMatch {
     required this.createdAt,
     required this.numberOfPlayers,
     required this.matchType,
+    required this.playerIds,
     required this.players,
   });
 

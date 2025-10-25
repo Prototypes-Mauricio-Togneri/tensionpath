@@ -1,6 +1,5 @@
 ### High
 
-- Second player to join is always player 2
 - Bug retargeting node to rocks when attacking an enemy unit
 - Drive popcap from server
 - Path finding

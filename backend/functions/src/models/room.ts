@@ -64,10 +64,7 @@ export class Room implements IRoom {
     name: string,
     deck: string[],
   }): Room {
-    this.userIds = [
-      ...this.userIds,
-      params.userId,
-    ]
+    this.userIds.push(params.userId)
     this.users = {
       ...this.users,
       [params.userId]: {

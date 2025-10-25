@@ -132,12 +132,8 @@ const createMatch = async (params: {
     'createdAt': new Date().toISOString(),
     'numberOfPlayers': params.room.userIds.length,
     'matchType': 'pvp',
+    'playerIds': params.room.userIds,
     'players': params.room.users,
-  }
-
-  if (IS_EMULATOR) {
-    const sortedEntries = Object.entries(data.players).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-    data.players = Object.fromEntries(sortedEntries)
   }
 
   const config = {

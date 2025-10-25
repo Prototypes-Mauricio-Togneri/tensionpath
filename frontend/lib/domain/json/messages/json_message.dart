@@ -76,6 +76,8 @@ class JsonMessage {
       return check;
     } else if (join != null) {
       return join;
+    } else if (unlock != null) {
+      return unlock;
     } else if (deploy != null) {
       return deploy;
     } else if (action != null) {

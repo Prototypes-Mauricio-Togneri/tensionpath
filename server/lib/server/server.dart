@@ -140,6 +140,7 @@ class Server {
         createdAt: DateTime.now(),
         numberOfPlayers: 2,
         matchType: 'pvp',
+        playerIds: ['AAA', 'ZZZ'],
         players: {
           'AAA': const JsonPlayer(
             name: 'Alice',

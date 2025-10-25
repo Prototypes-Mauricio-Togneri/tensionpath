@@ -20,6 +20,10 @@ JsonCreateMatch _$JsonCreateMatchFromJson(Map<String, dynamic> json) =>
           (v) => (v as num).toInt(),
         ),
         matchType: $checkedConvert('matchType', (v) => v as String),
+        playerIds: $checkedConvert(
+          'playerIds',
+          (v) => (v as List<dynamic>).map((e) => e as String).toList(),
+        ),
         players: $checkedConvert(
           'players',
           (v) => (v as Map<String, dynamic>).map(
@@ -38,5 +42,6 @@ Map<String, dynamic> _$JsonCreateMatchToJson(JsonCreateMatch instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'numberOfPlayers': instance.numberOfPlayers,
       'matchType': instance.matchType,
+      'playerIds': instance.playerIds,
       'players': instance.players.map((k, e) => MapEntry(k, e.toJson())),
     };

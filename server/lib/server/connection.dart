@@ -34,10 +34,8 @@ class Connection {
     final Map<String, Participant> participants = {};
     int index = 1;
 
-    for (final MapEntry<String, JsonPlayer> player in json.players.entries) {
-      final String playerId = player.key;
-      final JsonPlayer playerData = player.value;
-
+    for (final String playerId in json.playerIds) {
+      final JsonPlayer playerData = json.players[playerId]!;
       participants[playerId] = Participant(
         playerId: playerId,
         playerIndex: index.toString(),
