@@ -18,5 +18,5 @@ class Trace {
   num get average => (count == 0) ? 0 : (sum / count);
 
   @override
-  String toString() => 'Trace($name): avg=${average ~/ 1000}ms';
+  String toString() => 'Trace($name): avg=${average.ceil()}μs';
 }

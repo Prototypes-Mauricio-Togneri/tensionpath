@@ -82,6 +82,7 @@ abstract class ShotComponent extends PositionComponent {
   final Paint fillPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
+  bool hit = false;
 
   ShotComponent({
     required super.position,
@@ -106,7 +107,7 @@ abstract class ShotComponent extends PositionComponent {
     super.update(dt);
 
     if (targetComponent.isRemoved) {
-      onTargetHit();
+      _onHit();
     } else {
       final Vector2 direction =
           (targetComponent.absolutePosition - currentPosition).normalized();
@@ -117,8 +118,15 @@ abstract class ShotComponent extends PositionComponent {
       );
 
       if (distance < threshold) {
-        onTargetHit();
+        _onHit();
       }
+    }
+  }
+
+  void _onHit() {
+    if (!hit) {
+      hit = true;
+      onTargetHit();
     }
   }
 
