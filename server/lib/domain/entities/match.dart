@@ -14,6 +14,7 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/server/connection.dart';
 import 'package:tensionpath/utils/constants.dart';
 import 'package:tensionpath/utils/logger.dart';
+import 'package:tensionpath/utils/trace.dart';
 
 class Match {
   final Connection connection;
@@ -21,6 +22,7 @@ class Match {
   final Config config;
   final Battlefield battlefield;
   final Players players;
+  final Trace updateTrace = Trace(name: 'match_update');
   num elapsedTime = 0;
   MatchStatus status;
 
@@ -150,7 +152,7 @@ class Match {
       final Player player = players.get(playerIndex);
       player.surrender();
       Logger.debug('Player $playerIndex surrendered');
-      status = MatchStatus.finished;
+      _onMatchFinished();
       _sendMatchUpdate([
         JsonEvent.matchFinished(
           winner: players.other(player.index).id,
@@ -162,13 +164,13 @@ class Match {
 
   void update(double dt) {
     if (_isPlaying) {
-      final DateTime startTime = DateTime.now();
+      updateTrace.start();
       elapsedTime += dt;
 
       // Check for timeout
       if (elapsedTime >= config.matchTimeout) {
         Logger.debug('Match timed out');
-        status = MatchStatus.finished;
+        _onMatchFinished();
         final Player? winner = _playerAhead;
 
         if (winner != null) {
@@ -216,7 +218,7 @@ class Match {
       final Player? winner = _winner;
 
       if (winner != null) {
-        status = MatchStatus.finished;
+        _onMatchFinished();
         events.add(
           JsonEvent.matchFinished(
             winner: winner.id,
@@ -230,9 +232,7 @@ class Match {
         _sendMatchUpdate(events);
       }
 
-      final DateTime endTime = DateTime.now();
-      final num updateDuration = endTime.difference(startTime).inMilliseconds;
-      Logger.info('Match update took ${updateDuration}ms');
+      updateTrace.stop();
     }
   }
 
@@ -243,6 +243,11 @@ class Match {
     );
 
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
+  }
+
+  void _onMatchFinished() {
+    status = MatchStatus.finished;
+    Logger.info(updateTrace.toString());
   }
 
   Player? get _winner {
