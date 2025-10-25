@@ -91,7 +91,7 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(MatchUpdate matchUpdate) {
-    match.updateStatus(matchUpdate.status);
+    match.refresh(matchUpdate);
     bool updateNodeLocks = false;
 
     for (final Event event in matchUpdate.events) {
@@ -139,6 +139,13 @@ class MatchComponent extends World {
   int unitsOfPlayer(Player player) => unitComponents
       .where((unit) => unit.isAlive && unit.belongsTo(player))
       .length;
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    match.update(dt);
+  }
 
   UnitComponent? getEnemyUnitAt(Vector2 position) {
     for (final UnitComponent unitComponent in unitComponents) {

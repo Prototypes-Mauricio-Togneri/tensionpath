@@ -1,6 +1,7 @@
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 
@@ -9,8 +10,7 @@ class Match {
   final Config config;
   final List<Player> players;
   final Battlefield battlefield;
-  late final DateTime startedAt;
-  DateTime? endedAt;
+  num elapsedTime = 0;
   MatchStatus _matchStatus = MatchStatus.playing;
 
   Match({
@@ -18,9 +18,7 @@ class Match {
     required this.config,
     required this.players,
     required this.battlefield,
-  }) {
-    startedAt = createdAt.toLocal();
-  }
+  });
 
   Player get self => players.firstWhere((player) => player.isSelf);
 
@@ -28,19 +26,13 @@ class Match {
 
   bool get isPlaying => _matchStatus == MatchStatus.playing;
 
-  int get timeElapsed {
-    if (isPlaying) {
-      return DateTime.now().difference(startedAt).inSeconds;
-    } else {
-      return endedAt!.difference(startedAt).inSeconds;
-    }
+  void refresh(MatchUpdate matchUpdate) {
+    _matchStatus = matchUpdate.status;
   }
 
-  void updateStatus(MatchStatus status) {
-    _matchStatus = status;
-
-    if (status == MatchStatus.finished) {
-      endedAt = DateTime.now();
+  void update(double dt) {
+    if (isPlaying) {
+      elapsedTime += dt;
     }
   }
 
