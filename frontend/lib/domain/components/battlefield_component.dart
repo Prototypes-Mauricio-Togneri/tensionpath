@@ -244,7 +244,7 @@ class BattlefieldComponent extends PositionComponent {
       final LauncherComponent launcherComponent = LauncherComponent(
         position: nodePosition,
         size: nodeSize,
-        player: self.index == launcher.playerIndex ? self : opponent,
+        player: playerByIndex(launcher.playerIndex),
         nodeComponent: match.getNodeById(launcher.location.id),
       );
       add(launcherComponent);
@@ -273,7 +273,7 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onUnitCreated(EventUnitCreated event) {
-    final Player player = (event.playerIndex == self.index) ? self : opponent;
+    final Player player = playerByIndex(event.playerIndex);
     MovementPathComponent? movementOrderComponent;
     MovementPathComponent? movementCurrentComponent;
 
@@ -423,6 +423,16 @@ class BattlefieldComponent extends PositionComponent {
       launcherComponents
           .where((l) => l.nodeComponent.location == location)
           .firstOrNull;
+
+  Player playerByIndex(String index) {
+    if (self.index == index) {
+      return self;
+    } else if (opponent.index == index) {
+      return opponent;
+    } else {
+      throw Exception('Player not found');
+    }
+  }
 }
 
 class BattlefieldBackgroundComponent extends SpriteComponent {

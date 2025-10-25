@@ -102,22 +102,16 @@ class MatchComponent extends World {
     // Update players
     matchUpdate.eventsOfType<EventPlayer>().forEach(
       (event) {
-        if (event.index == self.index) {
-          self.refresh(event);
-        } else if (event.index == opponent.index) {
-          opponent.refresh(event);
-        }
+        final Player player = playerByIndex(event.index);
+        player.refresh(event);
       },
     );
 
     // Update base damage
     matchUpdate.eventsOfType<EventBaseDamage>().forEach(
       (event) {
-        if (event.playerIndex == self.index) {
-          self.onHit(event.damage);
-        } else if (event.playerIndex == opponent.index) {
-          opponent.onHit(event.damage);
-        }
+        final Player player = playerByIndex(event.playerIndex);
+        player.onHit(event.damage);
       },
     );
 
@@ -173,6 +167,16 @@ class MatchComponent extends World {
 
     if (updateNodeLocks) {
       battlefieldComponent.updateNodesLocks();
+    }
+  }
+
+  Player playerByIndex(String index) {
+    if (self.index == index) {
+      return self;
+    } else if (opponent.index == index) {
+      return opponent;
+    } else {
+      throw Exception('Player not found');
     }
   }
 
