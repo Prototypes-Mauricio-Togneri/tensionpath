@@ -73,7 +73,7 @@ class Missile {
       fired = true;
       chargeCurrent = 0;
       events.add(
-        JsonEvent.baseDamage(
+        JsonEvent.baseDamaged(
           playerIndex: otherPlayer.index,
           damage: totalDamage,
         ),

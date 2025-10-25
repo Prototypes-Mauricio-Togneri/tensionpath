@@ -203,7 +203,7 @@ class Match {
           final num damage = config.suddenDeathDamage * dt;
           player.removeHealth(damage);
           events.add(
-            JsonEvent.baseDamage(
+            JsonEvent.baseDamaged(
               playerIndex: player.index,
               damage: damage,
             ),

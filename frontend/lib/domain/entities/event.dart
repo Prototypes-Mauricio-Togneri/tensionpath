@@ -2,7 +2,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
-import 'package:tensionpath/domain/json/models/events/json_event_base_damage.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_base_damaged.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
@@ -21,8 +21,8 @@ class Event {
       return EventMissile.fromJson(json.missile!);
     } else if (json.player != null) {
       return EventPlayer.fromJson(json.player!);
-    } else if (json.baseDamage != null) {
-      return EventBaseDamage.fromJson(json.baseDamage!);
+    } else if (json.baseDamaged != null) {
+      return EventBaseDamaged.fromJson(json.baseDamaged!);
     } else if (json.resourceDepleted != null) {
       return EventResourcesDepleted.fromJson(json.resourceDepleted!);
     } else if (json.buildingUnlocked != null) {
@@ -88,19 +88,20 @@ class EventPlayer implements Event {
   );
 }
 
-class EventBaseDamage implements Event {
+class EventBaseDamaged implements Event {
   final String playerIndex;
   final num damage;
 
-  const EventBaseDamage({
+  const EventBaseDamaged({
     required this.playerIndex,
     required this.damage,
   });
 
-  factory EventBaseDamage.fromJson(JsonEventBaseDamage json) => EventBaseDamage(
-    playerIndex: json.playerIndex,
-    damage: json.damage,
-  );
+  factory EventBaseDamaged.fromJson(JsonEventBaseDamaged json) =>
+      EventBaseDamaged(
+        playerIndex: json.playerIndex,
+        damage: json.damage,
+      );
 }
 
 class EventResourcesDepleted implements Event {

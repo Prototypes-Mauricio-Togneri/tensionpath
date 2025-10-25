@@ -108,7 +108,7 @@ class MatchComponent extends World {
     );
 
     // Update base damage
-    matchUpdate.eventsOfType<EventBaseDamage>().forEach(
+    matchUpdate.eventsOfType<EventBaseDamaged>().forEach(
       (event) {
         final Player player = playerByIndex(event.playerIndex);
         player.onHit(event.damage);

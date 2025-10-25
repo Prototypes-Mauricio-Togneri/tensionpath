@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
-import 'package:tensionpath/domain/json/models/events/json_event_base_damage.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_base_damaged.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
@@ -9,6 +9,7 @@ import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_attack.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_created.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_unit_damaged.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
@@ -24,8 +25,8 @@ class JsonEvent {
   @JsonKey(name: 'player')
   final JsonEventPlayer? player;
 
-  @JsonKey(name: 'baseDamage')
-  final JsonEventBaseDamage? baseDamage;
+  @JsonKey(name: 'baseDamaged')
+  final JsonEventBaseDamaged? baseDamaged;
 
   @JsonKey(name: 'resourceDepleted')
   final JsonEventResourceDepleted? resourceDepleted;
@@ -45,19 +46,23 @@ class JsonEvent {
   @JsonKey(name: 'unitAttack')
   final JsonEventUnitAttack? unitAttack;
 
+  @JsonKey(name: 'unitDamaged')
+  final JsonEventUnitDamaged? unitDamaged;
+
   @JsonKey(name: 'matchFinished')
   final JsonEventMatchFinished? matchFinished;
 
   const JsonEvent({
     this.missile,
     this.player,
-    this.baseDamage,
+    this.baseDamaged,
     this.resourceDepleted,
     this.buildingUnlocked,
     this.unitCreated,
     this.unitMovementStarted,
     this.unitMovementEnded,
     this.unitAttack,
+    this.unitDamaged,
     this.matchFinished,
   });
 
@@ -77,11 +82,11 @@ class JsonEvent {
 
   factory JsonEvent.player(JsonEventPlayer player) => JsonEvent(player: player);
 
-  factory JsonEvent.baseDamage({
+  factory JsonEvent.baseDamaged({
     required String playerIndex,
     required num damage,
   }) => JsonEvent(
-    baseDamage: JsonEventBaseDamage(
+    baseDamaged: JsonEventBaseDamaged(
       playerIndex: playerIndex,
       damage: damage,
     ),
@@ -158,6 +163,18 @@ class JsonEvent {
       targetBaseLocation: targetBaseLocation,
       damage: damage,
       targetDestroyed: targetDestroyed,
+    ),
+  );
+
+  factory JsonEvent.unitDamaged({
+    required String unitId,
+    required num damage,
+    required bool unitDestroyed,
+  }) => JsonEvent(
+    unitDamaged: JsonEventUnitDamaged(
+      unitId: unitId,
+      damage: damage,
+      unitDestroyed: unitDestroyed,
     ),
   );
 

@@ -23,11 +23,11 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventPlayer.fromJson(v as Map<String, dynamic>),
       ),
-      baseDamage: $checkedConvert(
-        'baseDamage',
+      baseDamaged: $checkedConvert(
+        'baseDamaged',
         (v) => v == null
             ? null
-            : JsonEventBaseDamage.fromJson(v as Map<String, dynamic>),
+            : JsonEventBaseDamaged.fromJson(v as Map<String, dynamic>),
       ),
       resourceDepleted: $checkedConvert(
         'resourceDepleted',
@@ -65,6 +65,12 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventUnitAttack.fromJson(v as Map<String, dynamic>),
       ),
+      unitDamaged: $checkedConvert(
+        'unitDamaged',
+        (v) => v == null
+            ? null
+            : JsonEventUnitDamaged.fromJson(v as Map<String, dynamic>),
+      ),
       matchFinished: $checkedConvert(
         'matchFinished',
         (v) => v == null
@@ -79,12 +85,13 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
-  'baseDamage': ?instance.baseDamage?.toJson(),
+  'baseDamaged': ?instance.baseDamaged?.toJson(),
   'resourceDepleted': ?instance.resourceDepleted?.toJson(),
   'buildingUnlocked': ?instance.buildingUnlocked?.toJson(),
   'unitCreated': ?instance.unitCreated?.toJson(),
   'unitMovementStarted': ?instance.unitMovementStarted?.toJson(),
   'unitMovementEnded': ?instance.unitMovementEnded?.toJson(),
   'unitAttack': ?instance.unitAttack?.toJson(),
+  'unitDamaged': ?instance.unitDamaged?.toJson(),
   'matchFinished': ?instance.matchFinished?.toJson(),
 };

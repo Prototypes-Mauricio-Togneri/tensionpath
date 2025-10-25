@@ -1,7 +1,6 @@
 ### High
 
 - Take dame in tiberium field
-- Sudden death damage not working
 - Drive popcap from server
 - Path finding
 
