@@ -183,13 +183,15 @@ class UnitComponent extends PositionComponent
           unitType: type,
         );
 
-        Audio.get.playSound(Sound.randomMovementSound());
+        if (nodeComponent != null) {
+          Audio.get.playSound(Sound.randomMovementSound());
 
-        match.onUnitAction(
-          unitComponent: this,
-          targetNodeComponent: nodeComponent,
-          targetUnitComponent: null,
-        );
+          match.onUnitAction(
+            unitComponent: this,
+            targetNodeComponent: nodeComponent,
+            targetUnitComponent: null,
+          );
+        }
       }
 
       endPosition = null;
