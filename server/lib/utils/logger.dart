@@ -18,7 +18,7 @@ class Logger {
   }
 
   static void debug(String text) {
-    if (environment.isLocal) {
+    if (environment.isDebug) {
       print('[${DateTime.now()}] $text');
     }
   }

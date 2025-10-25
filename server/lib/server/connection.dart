@@ -74,7 +74,7 @@ class Connection {
       Logger.log(socket, 'Player $playerId joined match $matchId');
 
       if (connectedParticipants == numberOfPlayers) {
-        Logger.info('Match $matchId started');
+        Logger.log(socket, 'Match $matchId started');
         _onMatchStart();
       }
     } else {

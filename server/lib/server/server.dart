@@ -30,7 +30,7 @@ class Server {
     server.listen(_handleRequest);
     Logger.info('Server running on port ${environment.port}');
 
-    if (environment.isLocal) {
+    if (environment.isDebug) {
       await _startTestMatch();
     }
   }

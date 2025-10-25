@@ -162,6 +162,7 @@ class Match {
 
   void update(double dt) {
     if (_isPlaying) {
+      final DateTime startTime = DateTime.now();
       elapsedTime += dt;
 
       // Check for timeout
@@ -228,6 +229,10 @@ class Match {
       if (events.isNotEmpty) {
         _sendMatchUpdate(events);
       }
+
+      final DateTime endTime = DateTime.now();
+      final num updateDuration = endTime.difference(startTime).inMilliseconds;
+      Logger.info('Match update took ${updateDuration}ms');
     }
   }
 
