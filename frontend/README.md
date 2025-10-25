@@ -1,9 +1,7 @@
 ### High
 
-- Improve players events
 - Second player to join is always player 2
 - Bug retargeting node to rocks when attacking an enemy unit
-- Bug not receiving harvester reward
 - Drive popcap from server
 - Path finding
 

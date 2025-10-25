@@ -11,12 +11,12 @@ class Trace {
   }
 
   void stop() {
-    sum += DateTime.now().difference(startTime).inMilliseconds;
+    sum += DateTime.now().difference(startTime).inMicroseconds;
     count++;
   }
 
   num get average => (count == 0) ? 0 : (sum / count);
 
   @override
-  String toString() => 'Trace($name): avg=${average}ms';
+  String toString() => 'Trace($name): avg=${average ~/ 1000}ms';
 }
