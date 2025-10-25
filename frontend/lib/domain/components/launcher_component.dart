@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
+import 'package:tensionpath/domain/components/shot_component.dart';
+import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
@@ -37,5 +40,19 @@ class LauncherComponent extends SpriteComponent {
     }
 
     return super.onLoad();
+  }
+
+  void onUnitAttack({
+    required UnitComponent attackerUnit,
+    required num damage,
+  }) {
+    final ShotToBaseComponent shotComponent = ShotToBaseComponent(
+      position: Vector2.zero(),
+      size: attackerUnit.size / 30,
+      attackerUnit: attackerUnit,
+      targetBase: this,
+      damage: damage,
+    );
+    match.add(shotComponent);
   }
 }

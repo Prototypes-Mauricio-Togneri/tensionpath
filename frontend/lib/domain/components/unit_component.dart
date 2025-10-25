@@ -82,12 +82,12 @@ class UnitComponent extends PositionComponent
     lockedNode = newLockedNode;
   }
 
-  void onAttackUnit({
+  void onUnitAttack({
     required UnitComponent targetUnit,
     required num damage,
     required bool targetDestroyed,
   }) {
-    final ShotComponent shotComponent = ShotComponent(
+    final ShotToUnitComponent shotComponent = ShotToUnitComponent(
       position: Vector2.zero(),
       size: size / 30,
       attackerUnit: this,

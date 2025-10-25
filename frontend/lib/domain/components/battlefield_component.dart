@@ -375,7 +375,7 @@ class BattlefieldComponent extends PositionComponent {
         );
 
         if (targetUnitComponent != null) {
-          unitComponent.onAttackUnit(
+          unitComponent.onUnitAttack(
             targetUnit: targetUnitComponent,
             damage: event.damage,
             targetDestroyed: event.targetDestroyed,
@@ -393,6 +393,11 @@ class BattlefieldComponent extends PositionComponent {
         );
 
         if (targetBase != null) {
+          targetBase.onUnitAttack(
+            attackerUnit: unitComponent,
+            damage: event.damage,
+          );
+
           if (targetBase.player.isSelf) {
             match.self.removeBaseHealth(event.damage);
 
