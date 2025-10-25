@@ -14,7 +14,7 @@
         "missileDamage": 0.5,
         "baseHealth": 30000,
         "matchTimeout": 480,
-        "suddenDeathTimeout": 300,
+        "suddenDeathTimeout": 30,
         "suddenDeathDamage": 100
     },
     "battlefield": {
