@@ -61,6 +61,8 @@ class Unit {
 
   bool get isHarvester => type == UnitType.harvester;
 
+  bool get isInfantry => type.clazz == UnitClass.infantry;
+
   bool get isHarvesting =>
       isHarvester &&
       !isMoving &&
@@ -113,6 +115,23 @@ class Unit {
 
     currentAttackCooldown -= dt;
     closestNode = nodes.atPosition(position);
+
+    // Check if infantry is on resource patch
+    if (isAlive && isInfantry && (closestNode.type == NodeType.resources)) {
+      final Resource resource = resources.get(closestNode.id);
+
+      if (resource.hasResources) {
+        final num damage = config.resourcesDamage * dt;
+        hit(damage);
+        result.$1.add(
+          JsonEvent.unitDamaged(
+            unitId: id,
+            damage: damage,
+            unitDestroyed: !isAlive,
+          ),
+        );
+      }
+    }
 
     return result;
   }
@@ -202,24 +221,6 @@ class Unit {
             ),
           ],
           true,
-        );
-      }
-    }
-
-    // Check if infantry is on resource patch
-    if ((type.clazz == UnitClass.infantry) &&
-        (closestNode.type == NodeType.resources)) {
-      final Resource resource = resources.get(closestNode.id);
-
-      if (resource.hasResources) {
-        final num damage = config.resourcesDamage * dt;
-        hit(damage);
-        events.add(
-          JsonEvent.unitDamaged(
-            unitId: id,
-            damage: damage,
-            unitDestroyed: !isAlive,
-          ),
         );
       }
     }

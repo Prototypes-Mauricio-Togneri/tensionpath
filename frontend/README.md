@@ -1,6 +1,5 @@
 ### High
 
-- Take dame in tiberium field
 - Drive popcap from server
 - Path finding
 
