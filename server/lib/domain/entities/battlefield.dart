@@ -25,6 +25,7 @@ class Battlefield {
   final Missile missile;
   final Resources resources;
   final Launchers launchers;
+  final Players players;
   final Units units;
   final Nodes nodes;
 
@@ -35,13 +36,15 @@ class Battlefield {
     required this.missile,
     required this.resources,
     required this.launchers,
-    required this.nodes,
+    required this.players,
     required this.units,
+    required this.nodes,
   });
 
-  List<JsonEvent> update(double dt) {
+  (List<JsonEvent>, bool) update(double dt) {
     final List<JsonEvent> result = [];
     final List<Resource> nonEmptyResources = resources.nonEmpty;
+    final Map<String, int> harvestersWorkingBefore = _harvestersWorking();
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
@@ -55,11 +58,47 @@ class Battlefield {
       }
     }
 
-    units.removeDestroyed();
+    final JsonEvent? missileEvent = missile.update(dt);
+    result.addAll([?missileEvent]);
 
-    result.addAll([?missile.update(dt)]);
+    final Map<String, int> harvestersWorkingAfter = _harvestersWorking();
+
+    bool updatePlayers = _baseAttacked(result);
+    updatePlayers |= units.removeDestroyed();
+    updatePlayers |= _harvestersHaveChanged(
+      before: harvestersWorkingBefore,
+      after: harvestersWorkingAfter,
+    );
+    updatePlayers |= missileEvent?.missile?.fired ?? false;
+
+    return (result, updatePlayers);
+  }
+
+  bool _baseAttacked(List<JsonEvent> list) => list.any(
+    (e) => (e.unitAttack != null) && (e.unitAttack?.targetBaseLocation != null),
+  );
+
+  Map<String, int> _harvestersWorking() {
+    final Map<String, int> result = {};
+
+    for (final Player player in players.list) {
+      result[player.index] = units.currentHarvestersWorking(player.index);
+    }
 
     return result;
+  }
+
+  bool _harvestersHaveChanged({
+    required Map<String, int> before,
+    required Map<String, int> after,
+  }) {
+    for (final String playerIndex in before.keys) {
+      if (before[playerIndex] != after[playerIndex]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   JsonEvent deployUnit({
@@ -219,8 +258,9 @@ class Battlefield {
           radius: nodeSize.radius,
         ),
       ),
-      nodes: nodes,
+      players: players,
       units: units,
+      nodes: nodes,
     );
   }
 

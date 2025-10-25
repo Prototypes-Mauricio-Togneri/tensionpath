@@ -23,54 +23,27 @@ class Players {
     throw Exception('No other player found with index $playerIndex');
   }
 
-  Map<String, JsonEventPlayer> events(Units units) {
-    final Map<String, JsonEventPlayer> result = {};
+  List<JsonEvent> events(Units units) {
+    final List<JsonEvent> result = [];
 
     for (final Player player in _players) {
-      result[player.index] = JsonEventPlayer(
-        id: player.id,
-        baseHealth: player.baseHealth,
-        resources: player.resources,
-        resourcesRate:
-            player.resourcesPassiveRate +
-            (units.currentHarvestersWorking(player.index) *
-                player.resourcesActiveRate),
-        currentHarvesterCount: units.currentHarvesterCount(player.index),
-        maxHarvestersCount: units.maxHarvesterCount(player.index),
+      result.add(
+        JsonEvent.player(
+          JsonEventPlayer(
+            id: player.id,
+            baseHealth: player.baseHealth,
+            resources: player.resources,
+            resourcesRate:
+                player.resourcesPassiveRate +
+                (units.currentHarvestersWorking(player.index) *
+                    player.resourcesActiveRate),
+            currentHarvesterCount: units.currentHarvesterCount(player.index),
+            maxHarvestersCount: units.maxHarvesterCount(player.index),
+          ),
+        ),
       );
     }
 
     return result;
   }
-
-  List<JsonEvent> newEvents({
-    required Map<String, JsonEventPlayer> previousEvents,
-    required Map<String, JsonEventPlayer> newEvents,
-  }) {
-    final List<JsonEventPlayer> result = [];
-
-    for (final MapEntry<String, JsonEventPlayer> entry
-        in previousEvents.entries) {
-      final JsonEventPlayer previousEvent = entry.value;
-      final JsonEventPlayer newEvent = newEvents[entry.key]!;
-
-      if (eventHasChanged(
-        previousEvent: previousEvent,
-        newEvent: newEvent,
-      )) {
-        result.add(newEvent);
-      }
-    }
-
-    return result.map(JsonEvent.player).toList();
-  }
-
-  bool eventHasChanged({
-    required JsonEventPlayer previousEvent,
-    required JsonEventPlayer newEvent,
-  }) =>
-      previousEvent.baseHealth != newEvent.baseHealth ||
-      previousEvent.resourcesRate != newEvent.resourcesRate ||
-      previousEvent.currentHarvesterCount != newEvent.currentHarvesterCount ||
-      previousEvent.maxHarvestersCount != newEvent.maxHarvestersCount;
 }

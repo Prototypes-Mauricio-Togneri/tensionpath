@@ -32,7 +32,7 @@ class Units {
 
   int currentHarvestersWorking(String playerIndex) => _units.list
       .where(
-        (unit) => (unit.player.index == playerIndex) && (unit.isHarvesting),
+        (unit) => (unit.player.index == playerIndex) && unit.isHarvesting,
       )
       .length;
 
@@ -91,7 +91,7 @@ class Units {
     return result;
   }
 
-  void removeDestroyed() {
+  bool removeDestroyed() {
     final List<Unit> unitsToRemove = _units.list
         .where((unit) => !unit.isAlive)
         .toList();
@@ -99,5 +99,7 @@ class Units {
     for (final Unit unit in unitsToRemove) {
       _units.remove(unit.id);
     }
+
+    return unitsToRemove.isNotEmpty;
   }
 }

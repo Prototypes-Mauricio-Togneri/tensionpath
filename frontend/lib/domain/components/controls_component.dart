@@ -14,6 +14,7 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
 import 'package:tensionpath/domain/types/unit_sprite.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
+import 'package:tensionpath/environments/environment.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
@@ -604,11 +605,13 @@ class ResourcesComponent extends PositionComponent {
       color: Palette.CONTROLS_COST_FOREGROUND,
     );
 
-    /*canvas.drawText(
-      text: '${player.resourcesRate}${Constants.RESOURCE_ICON} / s',
-      position: Vector2(size.x * 0.5, size.y * 0.7),
-      size: size.x / 10,
-      color: Palette.CONTROLS_COST_FOREGROUND,
-    );*/
+    if (Environment.get.isLocal) {
+      canvas.drawText(
+        text: '${player.resourcesRate}${Constants.RESOURCE_ICON} / s',
+        position: Vector2(size.x * 0.5, size.y * 0.7),
+        size: size.x / 10,
+        color: Palette.CONTROLS_COST_FOREGROUND,
+      );
+    }
   }
 }

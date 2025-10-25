@@ -5,7 +5,6 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
@@ -80,9 +79,7 @@ class Match {
       final List<JsonEvent> events = [
         player.unlockBuilding(type),
       ];
-      events.addAll(
-        players.events(battlefield.units).values.map(JsonEvent.player),
-      );
+      events.addAll(players.events(battlefield.units));
       _sendMatchUpdate(events);
     }
   }
@@ -123,9 +120,7 @@ class Match {
           type: type,
         );
         final List<JsonEvent> events = [deploymentEvent];
-        events.addAll(
-          players.events(battlefield.units).values.map(JsonEvent.player),
-        );
+        events.addAll(players.events(battlefield.units));
         _sendMatchUpdate(events);
       }
     }
@@ -170,7 +165,8 @@ class Match {
       elapsedTime += dt;
 
       // Check for timeout
-      if (elapsedTime > config.matchTimeout) {
+      if (elapsedTime >= config.matchTimeout) {
+        Logger.debug('Match timed out');
         status = MatchStatus.finished;
         final Player? winner = _playerAhead;
 
@@ -191,16 +187,15 @@ class Match {
         }
       }
 
-      // Calculate current player events
-      final Map<String, JsonEventPlayer> previousEvents = players.events(
-        battlefield.units,
-      );
-
       // Update battlefield
-      final List<JsonEvent> events = battlefield.update(dt);
+      final (List<JsonEvent>, bool) battlefieldUpdate = battlefield.update(dt);
+      final List<JsonEvent> events = battlefieldUpdate.$1;
+      bool sendPlayerUpdates = battlefieldUpdate.$2;
 
       // Check for sudden death
       if (elapsedTime >= config.suddenDeathTimeout) {
+        sendPlayerUpdates = true;
+
         for (final Player player in players.list) {
           player.removeHealth(config.suddenDeathDamage * dt);
         }
@@ -211,13 +206,10 @@ class Match {
         player.addResources(player.resourcesPassiveRate * dt);
       }
 
-      // Calculate new player events
-      events.addAll(
-        players.newEvents(
-          previousEvents: previousEvents,
-          newEvents: players.events(battlefield.units),
-        ),
-      );
+      // Add player updates
+      if (sendPlayerUpdates) {
+        events.addAll(players.events(battlefield.units));
+      }
 
       // Check for winner
       final Player? winner = _winner;
