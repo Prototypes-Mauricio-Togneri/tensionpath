@@ -60,7 +60,7 @@ class Player {
     resources += value;
   }
 
-  void removeBaseHealth(num value) {
+  void onHit(num value) {
     baseHealth -= value;
 
     if (baseHealth < 0) {

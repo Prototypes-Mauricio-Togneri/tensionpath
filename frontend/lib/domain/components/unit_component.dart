@@ -98,7 +98,7 @@ class UnitComponent extends PositionComponent
     match.add(shotComponent);
   }
 
-  void onUnitAttacked(num damage) {
+  void onHit(num damage) {
     healthBarComponent.removeHealth(damage);
   }
 

@@ -10,10 +10,71 @@ import 'package:tensionpath/presentation/audio/audio.dart';
 import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class ShotToUnitComponent extends PositionComponent {
-  late Vector2 currentPosition;
-  final UnitComponent attackerUnit;
+class ShotToUnitComponent extends ShotComponent {
   final UnitComponent targetUnit;
+
+  ShotToUnitComponent({
+    required super.position,
+    required super.size,
+    required UnitComponent attackerUnit,
+    required this.targetUnit,
+    required num damage,
+    required bool targetDestroyed,
+  }) : super(
+         sourceComponent: attackerUnit,
+         targetComponent: targetUnit,
+         damage: damage,
+         targetDestroyed: targetDestroyed,
+         color: attackerUnit.player.color,
+       );
+
+  @override
+  void onTargetHit() {
+    createExplosion();
+    targetUnit.onHit(damage);
+
+    if (targetDestroyed) {
+      match.onUnitDestroyed(targetUnit);
+    } else if ((targetUnit.type == UnitType.harvester) &&
+        targetUnit.player.isSelf &&
+        targetUnit.attackAlert.isReady) {
+      Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
+    }
+  }
+}
+
+class ShotToBaseComponent extends ShotComponent {
+  final LauncherComponent targetBase;
+
+  ShotToBaseComponent({
+    required super.position,
+    required super.size,
+    required UnitComponent attackerUnit,
+    required this.targetBase,
+    required num damage,
+  }) : super(
+         sourceComponent: attackerUnit,
+         targetComponent: targetBase,
+         damage: damage,
+         targetDestroyed: false,
+         color: attackerUnit.player.color,
+       );
+
+  @override
+  void onTargetHit() {
+    createExplosion();
+    targetBase.player.onHit(damage);
+
+    if (targetBase.player.isSelf && targetBase.player.attackAlert.isReady) {
+      Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
+    }
+  }
+}
+
+abstract class ShotComponent extends PositionComponent {
+  late Vector2 currentPosition;
+  final PositionComponent sourceComponent;
+  final PositionComponent targetComponent;
   final num damage;
   final bool targetDestroyed;
   late final double speed;
@@ -22,19 +83,20 @@ class ShotToUnitComponent extends PositionComponent {
     style: PaintingStyle.fill,
   );
 
-  ShotToUnitComponent({
+  ShotComponent({
     required super.position,
     required super.size,
-    required this.attackerUnit,
-    required this.targetUnit,
+    required this.sourceComponent,
+    required this.targetComponent,
     required this.damage,
     required this.targetDestroyed,
+    required Color color,
   }) : super(
          anchor: Anchor.center,
          priority: Priority.shot.value,
        ) {
-    fillPaint.color = attackerUnit.player.color;
-    currentPosition = attackerUnit.absolutePosition;
+    fillPaint.color = color;
+    currentPosition = sourceComponent.absolutePosition;
     speed = size.x * 80;
     threshold = 0.03 * speed;
   }
@@ -43,115 +105,32 @@ class ShotToUnitComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    if (targetUnit.isRemoved) {
-      onTargetUnitHit();
+    if (targetComponent.isRemoved) {
+      onTargetHit();
     } else {
-      final Vector2 direction = (targetUnit.absolutePosition - currentPosition)
-          .normalized();
+      final Vector2 direction =
+          (targetComponent.absolutePosition - currentPosition).normalized();
       currentPosition += direction * speed * dt;
 
       final num distance = currentPosition.distanceTo(
-        targetUnit.absolutePosition,
+        targetComponent.absolutePosition,
       );
 
       if (distance < threshold) {
-        onTargetUnitHit();
+        onTargetHit();
       }
     }
   }
 
-  void onTargetUnitHit() {
+  void onTargetHit();
+
+  void createExplosion() {
     final ExplosionComponent explosionComponent = ExplosionComponent(
-      position: targetUnit.absolutePosition,
-      size: targetDestroyed ? targetUnit.size * 0.5 : size * 3,
+      position: targetComponent.absolutePosition,
+      size: targetDestroyed ? targetComponent.size * 0.5 : size * 3,
     );
     match.add(explosionComponent);
-
     removeFromParent();
-    targetUnit.onUnitAttacked(damage);
-
-    if (targetDestroyed) {
-      match.onUnitDestroyed(targetUnit);
-    } else if ((targetUnit.type == UnitType.harvester) &&
-        (targetUnit.player.isSelf) &&
-        targetUnit.attackAlert.isReady) {
-      Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
-    }
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawCircle(
-      currentPosition.toOffset(),
-      size.x / 2,
-      fillPaint,
-    );
-  }
-}
-
-class ShotToBaseComponent extends PositionComponent {
-  late Vector2 currentPosition;
-  final UnitComponent attackerUnit;
-  final LauncherComponent targetBase;
-  final num damage;
-  late final double speed;
-  late final double threshold;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-  );
-
-  ShotToBaseComponent({
-    required super.position,
-    required super.size,
-    required this.attackerUnit,
-    required this.targetBase,
-    required this.damage,
-  }) : super(
-         anchor: Anchor.center,
-         priority: Priority.shot.value,
-       ) {
-    fillPaint.color = attackerUnit.player.color;
-    currentPosition = attackerUnit.absolutePosition;
-    speed = size.x * 80;
-    threshold = 0.03 * speed;
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    if (targetBase.isRemoved) {
-      onTargetBaseHit();
-    } else {
-      final Vector2 direction = (targetBase.absolutePosition - currentPosition)
-          .normalized();
-      currentPosition += direction * speed * dt;
-
-      final num distance = currentPosition.distanceTo(
-        targetBase.absolutePosition,
-      );
-
-      if (distance < threshold) {
-        onTargetBaseHit();
-      }
-    }
-  }
-
-  void onTargetBaseHit() {
-    final ExplosionComponent explosionComponent = ExplosionComponent(
-      position: targetBase.absolutePosition,
-      size: size * 3,
-    );
-    match.add(explosionComponent);
-
-    removeFromParent();
-    targetBase.player.removeBaseHealth(damage);
-
-    if (targetBase.player.isSelf && targetBase.player.attackAlert.isReady) {
-      Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
-    }
   }
 
   @override
