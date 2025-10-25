@@ -2,6 +2,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_base_damage.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
@@ -20,6 +21,8 @@ class Event {
       return EventMissile.fromJson(json.missile!);
     } else if (json.player != null) {
       return EventPlayer.fromJson(json.player!);
+    } else if (json.baseDamage != null) {
+      return EventBaseDamage.fromJson(json.baseDamage!);
     } else if (json.resourceDepleted != null) {
       return EventResourcesDepleted.fromJson(json.resourceDepleted!);
     } else if (json.buildingUnlocked != null) {
@@ -62,16 +65,14 @@ class EventMissile implements Event {
 }
 
 class EventPlayer implements Event {
-  final String id;
-  final num baseHealth;
+  final String index;
   final num resources;
   final num resourcesRate;
   final int currentHarvesterCount;
   final int maxHarvestersCount;
 
   const EventPlayer({
-    required this.id,
-    required this.baseHealth,
+    required this.index,
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,
@@ -79,12 +80,26 @@ class EventPlayer implements Event {
   });
 
   factory EventPlayer.fromJson(JsonEventPlayer json) => EventPlayer(
-    id: json.id,
-    baseHealth: json.baseHealth,
+    index: json.index,
     resources: json.resources,
     resourcesRate: json.resourcesRate,
     currentHarvesterCount: json.currentHarvesterCount,
     maxHarvestersCount: json.maxHarvestersCount,
+  );
+}
+
+class EventBaseDamage implements Event {
+  final String playerIndex;
+  final num damage;
+
+  const EventBaseDamage({
+    required this.playerIndex,
+    required this.damage,
+  });
+
+  factory EventBaseDamage.fromJson(JsonEventBaseDamage json) => EventBaseDamage(
+    playerIndex: json.playerIndex,
+    damage: json.damage,
   );
 }
 

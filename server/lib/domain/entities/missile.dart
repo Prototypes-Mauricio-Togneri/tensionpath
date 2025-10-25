@@ -41,7 +41,8 @@ class Missile {
 
   bool get isFullyCharged => (chargeCurrent >= chargeMax) && (owner != null);
 
-  JsonEvent? update(double dt) {
+  List<JsonEvent> update(double dt) {
+    final List<JsonEvent> events = [];
     final num deltaCharge = dt * chargeRate;
     final String? previousOwner = owner;
     bool platformsOwnershipChanged = false;
@@ -66,27 +67,36 @@ class Missile {
 
     if (isFullyCharged) {
       final Player otherPlayer = players.other(owner!);
-      otherPlayer.removeHealth(otherPlayer.baseMaxHealth * damage);
+      final num totalDamage = otherPlayer.baseMaxHealth * damage;
+      otherPlayer.removeHealth(totalDamage);
       Logger.debug('Missile launched to ${otherPlayer.index}');
       fired = true;
       chargeCurrent = 0;
+      events.add(
+        JsonEvent.baseDamage(
+          playerIndex: otherPlayer.index,
+          damage: totalDamage,
+        ),
+      );
     }
 
     final bool missileOwnershipChanged = owner != previousOwner;
 
     if (fired || platformsOwnershipChanged || missileOwnershipChanged) {
-      return JsonEvent.missile(
-        charge: chargeCurrent,
-        owner: owner,
-        platforms: {
-          for (final Platform platform in platforms)
-            platform.id: platform.owner,
-        },
-        fired: fired,
+      events.add(
+        JsonEvent.missile(
+          charge: chargeCurrent,
+          owner: owner,
+          platforms: {
+            for (final Platform platform in platforms)
+              platform.id: platform.owner,
+          },
+          fired: fired,
+        ),
       );
-    } else {
-      return null;
     }
+
+    return events;
   }
 
   String? get _newOwner {

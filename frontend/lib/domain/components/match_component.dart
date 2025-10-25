@@ -93,9 +93,6 @@ class MatchComponent extends World {
   void onMatchUpdated(MatchUpdate matchUpdate) {
     match.refresh(matchUpdate);
     bool updateNodeLocks = false;
-    final bool hasMissileEvent = matchUpdate
-        .eventsOfType<EventMissile>()
-        .isNotEmpty;
 
     // Update missile
     matchUpdate.eventsOfType<EventMissile>().forEach(
@@ -105,16 +102,21 @@ class MatchComponent extends World {
     // Update players
     matchUpdate.eventsOfType<EventPlayer>().forEach(
       (event) {
-        if (event.id == self.id) {
-          self.refresh(
-            event: event,
-            updateHealth: hasMissileEvent,
-          );
-        } else if (event.id == opponent.id) {
-          opponent.refresh(
-            event: event,
-            updateHealth: hasMissileEvent,
-          );
+        if (event.index == self.index) {
+          self.refresh(event);
+        } else if (event.index == opponent.index) {
+          opponent.refresh(event);
+        }
+      },
+    );
+
+    // Update base damage
+    matchUpdate.eventsOfType<EventBaseDamage>().forEach(
+      (event) {
+        if (event.playerIndex == self.index) {
+          self.onHit(event.damage);
+        } else if (event.playerIndex == opponent.index) {
+          opponent.onHit(event.damage);
         }
       },
     );

@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_base_damage.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
@@ -22,6 +23,9 @@ class JsonEvent {
 
   @JsonKey(name: 'player')
   final JsonEventPlayer? player;
+
+  @JsonKey(name: 'baseDamage')
+  final JsonEventBaseDamage? baseDamage;
 
   @JsonKey(name: 'resourceDepleted')
   final JsonEventResourceDepleted? resourceDepleted;
@@ -47,6 +51,7 @@ class JsonEvent {
   const JsonEvent({
     this.missile,
     this.player,
+    this.baseDamage,
     this.resourceDepleted,
     this.buildingUnlocked,
     this.unitCreated,
@@ -71,6 +76,16 @@ class JsonEvent {
   );
 
   factory JsonEvent.player(JsonEventPlayer player) => JsonEvent(player: player);
+
+  factory JsonEvent.baseDamage({
+    required String playerIndex,
+    required num damage,
+  }) => JsonEvent(
+    baseDamage: JsonEventBaseDamage(
+      playerIndex: playerIndex,
+      damage: damage,
+    ),
+  );
 
   factory JsonEvent.buildingUnlocked({
     required String playerIndex,

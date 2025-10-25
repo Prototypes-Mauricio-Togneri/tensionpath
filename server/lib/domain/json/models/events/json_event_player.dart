@@ -4,11 +4,8 @@ part 'json_event_player.g.dart';
 
 @JsonSerializable()
 class JsonEventPlayer {
-  @JsonKey(name: 'id')
-  final String id;
-
-  @JsonKey(name: 'baseHealth')
-  final num baseHealth;
+  @JsonKey(name: 'index')
+  final String index;
 
   @JsonKey(name: 'resources')
   final num resources;
@@ -23,8 +20,7 @@ class JsonEventPlayer {
   final int maxHarvestersCount;
 
   const JsonEventPlayer({
-    required this.id,
-    required this.baseHealth,
+    required this.index,
     required this.resources,
     required this.resourcesRate,
     required this.currentHarvesterCount,

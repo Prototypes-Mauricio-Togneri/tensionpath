@@ -42,37 +42,30 @@ class Battlefield {
   });
 
   (List<JsonEvent>, bool) update(double dt) {
-    final List<JsonEvent> result = [];
+    final List<JsonEvent> events = [];
     final List<Resource> nonEmptyResources = resources.nonEmpty;
     bool updatePlayers = false;
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
         final (List<JsonEvent>, bool) unitUpdate = unit.update(dt);
-        result.addAll(unitUpdate.$1);
+        events.addAll(unitUpdate.$1);
         updatePlayers |= unitUpdate.$2;
       }
     }
 
     for (final Resource resource in nonEmptyResources) {
       if (!resource.hasResources) {
-        result.add(JsonEvent.resourceDepleted(resource.id));
+        events.add(JsonEvent.resourceDepleted(resource.id));
       }
     }
 
-    final JsonEvent? missileEvent = missile.update(dt);
-    result.addAll([?missileEvent]);
+    events.addAll(missile.update(dt));
 
-    updatePlayers |= _baseAttacked(result);
     updatePlayers |= units.removeDestroyed();
-    updatePlayers |= missileEvent?.missile?.fired ?? false;
 
-    return (result, updatePlayers);
+    return (events, updatePlayers);
   }
-
-  bool _baseAttacked(List<JsonEvent> list) => list.any(
-    (e) => (e.unitAttack != null) && (e.unitAttack?.targetBaseLocation != null),
-  );
 
   JsonEvent deployUnit({
     required Player player,

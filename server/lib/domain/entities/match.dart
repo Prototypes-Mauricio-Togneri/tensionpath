@@ -200,7 +200,14 @@ class Match {
         sendPlayerUpdates = true;
 
         for (final Player player in players.list) {
-          player.removeHealth(config.suddenDeathDamage * dt);
+          final num damage = config.suddenDeathDamage * dt;
+          player.removeHealth(damage);
+          events.add(
+            JsonEvent.baseDamage(
+              playerIndex: player.index,
+              damage: damage,
+            ),
+          );
         }
       }
 

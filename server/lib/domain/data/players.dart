@@ -30,8 +30,7 @@ class Players {
       result.add(
         JsonEvent.player(
           JsonEventPlayer(
-            id: player.id,
-            baseHealth: player.baseHealth,
+            index: player.index,
             resources: player.resources,
             resourcesRate:
                 player.resourcesPassiveRate +
