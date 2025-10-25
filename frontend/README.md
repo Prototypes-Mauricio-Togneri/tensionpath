@@ -6,7 +6,7 @@
 ### Medium
 
 - Choose map and config
-- Show list of open matches to play knowing the map
+- Show list of open matches to play
 
 ### Low
 
