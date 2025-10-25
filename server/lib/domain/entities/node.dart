@@ -24,6 +24,8 @@ class Node {
 
   bool notLockedBy(Unit unit) => (lockedUnit != null) && (lockedUnit != unit);
 
+  bool canMove(Unit unit) => isFree && type.canMove(unit.type);
+
   void lock(Unit unit) {
     lockedUnit = unit;
   }

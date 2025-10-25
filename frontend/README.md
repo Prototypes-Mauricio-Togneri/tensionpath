@@ -1,5 +1,6 @@
 ### High
 
+- Sudden death damage not working
 - Bug retargeting node to rocks when attacking an enemy unit
 - Drive popcap from server
 - Path finding

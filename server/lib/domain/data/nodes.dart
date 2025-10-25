@@ -60,7 +60,7 @@ class Nodes {
     required Unit unit,
   }) {
     final List<Node> availableNodes = _nodes.list
-        .where((n) => n.isFree && n.type.canMove(unit.type))
+        .where((n) => n.canMove(unit))
         .toList();
 
     return closestFromList(
@@ -111,22 +111,22 @@ class Nodes {
       '${node.location.x - 1},${node.location.y}',
     );
 
-    final num distanceUpLeft = upLeft != null
+    final num distanceUpLeft = (upLeft != null) && upLeft.canMove(unit)
         ? unit.position.distanceTo(upLeft.position)
         : double.infinity;
-    final num distanceUpRight = upRight != null
+    final num distanceUpRight = (upRight != null) && upRight.canMove(unit)
         ? unit.position.distanceTo(upRight.position)
         : double.infinity;
-    final num distanceRight = right != null
+    final num distanceRight = (right != null) && right.canMove(unit)
         ? unit.position.distanceTo(right.position)
         : double.infinity;
-    final num distanceDownRight = downRight != null
+    final num distanceDownRight = (downRight != null) && downRight.canMove(unit)
         ? unit.position.distanceTo(downRight.position)
         : double.infinity;
-    final num distanceDownLeft = downLeft != null
+    final num distanceDownLeft = (downLeft != null) && downLeft.canMove(unit)
         ? unit.position.distanceTo(downLeft.position)
         : double.infinity;
-    final num distanceLeft = left != null
+    final num distanceLeft = (left != null) && left.canMove(unit)
         ? unit.position.distanceTo(left.position)
         : double.infinity;
 
