@@ -11,6 +11,8 @@ class MatchUpdate {
     required this.events,
   });
 
+  List<T> eventsOfType<T extends Event>() => events.whereType<T>().toList();
+
   factory MatchUpdate.fromJson(JsonMatchUpdate json) => MatchUpdate(
     status: json.status,
     events: json.events.map(Event.fromJson).toList(),

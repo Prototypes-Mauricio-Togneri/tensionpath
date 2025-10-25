@@ -48,8 +48,14 @@ class Player {
     attackAlert.update(dt);
   }
 
-  void refresh(EventPlayer event) {
-    baseHealth = event.baseHealth;
+  void refresh({
+    required EventPlayer event,
+    required bool updateHealth,
+  }) {
+    if (updateHealth) {
+      baseHealth = event.baseHealth;
+    }
+
     resources = event.resources;
     resourcesRate = event.resourcesRate;
     currentHarvesterCount = event.currentHarvesterCount;

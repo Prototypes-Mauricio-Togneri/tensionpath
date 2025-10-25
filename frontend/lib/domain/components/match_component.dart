@@ -93,40 +93,81 @@ class MatchComponent extends World {
   void onMatchUpdated(MatchUpdate matchUpdate) {
     match.refresh(matchUpdate);
     bool updateNodeLocks = false;
+    final bool hasMissileEvent = matchUpdate
+        .eventsOfType<EventMissile>()
+        .isNotEmpty;
 
-    for (final Event event in matchUpdate.events) {
-      if (event is EventMissile) {
-        match.battlefield.missile.refresh(event);
-      } else if (event is EventPlayer) {
+    // Update missile
+    matchUpdate.eventsOfType<EventMissile>().forEach(
+      match.battlefield.missile.refresh,
+    );
+
+    // Update players
+    matchUpdate.eventsOfType<EventPlayer>().forEach(
+      (event) {
         if (event.id == self.id) {
-          self.refresh(event);
+          self.refresh(
+            event: event,
+            updateHealth: hasMissileEvent,
+          );
         } else if (event.id == opponent.id) {
-          opponent.refresh(event);
+          opponent.refresh(
+            event: event,
+            updateHealth: hasMissileEvent,
+          );
         }
-      } else if (event is EventResourcesDepleted) {
+      },
+    );
+
+    // Update resources depleted
+    matchUpdate.eventsOfType<EventResourcesDepleted>().forEach(
+      (event) {
         for (final Resources resources in match.battlefield.resources) {
           if (event.id == resources.id) {
             resources.deplete();
             break;
           }
         }
-      } else if (event is EventBuildingUnlocked) {
+      },
+    );
+
+    // Update building unlocked
+    matchUpdate.eventsOfType<EventBuildingUnlocked>().forEach(
+      (event) {
         if (event.playerIndex == self.index) {
           controlsComponent.unlockBuilding(event.type);
         }
-      } else if (event is EventUnitCreated) {
+      },
+    );
+
+    // Update unit created
+    matchUpdate.eventsOfType<EventUnitCreated>().forEach(
+      (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitCreated(event);
-      } else if (event is EventUnitMovementStarted) {
+      },
+    );
+
+    // Update unit movement started
+    matchUpdate.eventsOfType<EventUnitMovementStarted>().forEach(
+      (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitMovementStarted(event);
-      } else if (event is EventUnitMovementEnded) {
+      },
+    );
+
+    // Update unit movement ended
+    matchUpdate.eventsOfType<EventUnitMovementEnded>().forEach(
+      (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitMovementEnded(event);
-      } else if (event is EventUnitAttack) {
-        battlefieldComponent.onUnitAttack(event);
-      }
-    }
+      },
+    );
+
+    // Update unit attack
+    matchUpdate.eventsOfType<EventUnitAttack>().forEach(
+      battlefieldComponent.onUnitAttack,
+    );
 
     if (updateNodeLocks) {
       battlefieldComponent.updateNodesLocks();
