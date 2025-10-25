@@ -136,14 +136,14 @@ class Match {
   }) {
     if (_isPlaying) {
       final Player player = players.get(playerIndex);
-      _sendMatchUpdate(
-        battlefield.unitAction(
-          player: player,
-          unitId: unitId,
-          targetLocation: targetLocation,
-          targetUnitId: targetUnitId,
-        ),
+      final List<JsonEvent> events = battlefield.unitAction(
+        player: player,
+        unitId: unitId,
+        targetLocation: targetLocation,
+        targetUnitId: targetUnitId,
       );
+      events.addAll(players.events(battlefield.units));
+      _sendMatchUpdate(events);
     }
   }
 

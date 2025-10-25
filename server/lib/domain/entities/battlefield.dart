@@ -44,11 +44,13 @@ class Battlefield {
   (List<JsonEvent>, bool) update(double dt) {
     final List<JsonEvent> result = [];
     final List<Resource> nonEmptyResources = resources.nonEmpty;
-    final Map<String, int> harvestersWorkingBefore = _harvestersWorking();
+    bool updatePlayers = false;
 
     for (final Unit unit in units.list) {
       if (unit.isAlive) {
-        result.addAll([?unit.update(dt)]);
+        final (JsonEvent?, bool) unitUpdate = unit.update(dt);
+        result.addAll([?unitUpdate.$1]);
+        updatePlayers |= unitUpdate.$2;
       }
     }
 
@@ -61,14 +63,8 @@ class Battlefield {
     final JsonEvent? missileEvent = missile.update(dt);
     result.addAll([?missileEvent]);
 
-    final Map<String, int> harvestersWorkingAfter = _harvestersWorking();
-
-    bool updatePlayers = _baseAttacked(result);
+    updatePlayers |= _baseAttacked(result);
     updatePlayers |= units.removeDestroyed();
-    updatePlayers |= _harvestersHaveChanged(
-      before: harvestersWorkingBefore,
-      after: harvestersWorkingAfter,
-    );
     updatePlayers |= missileEvent?.missile?.fired ?? false;
 
     return (result, updatePlayers);
@@ -77,29 +73,6 @@ class Battlefield {
   bool _baseAttacked(List<JsonEvent> list) => list.any(
     (e) => (e.unitAttack != null) && (e.unitAttack?.targetBaseLocation != null),
   );
-
-  Map<String, int> _harvestersWorking() {
-    final Map<String, int> result = {};
-
-    for (final Player player in players.list) {
-      result[player.index] = units.currentHarvestersWorking(player.index);
-    }
-
-    return result;
-  }
-
-  bool _harvestersHaveChanged({
-    required Map<String, int> before,
-    required Map<String, int> after,
-  }) {
-    for (final String playerIndex in before.keys) {
-      if (before[playerIndex] != after[playerIndex]) {
-        return true;
-      }
-    }
-
-    return false;
-  }
 
   JsonEvent deployUnit({
     required Player player,

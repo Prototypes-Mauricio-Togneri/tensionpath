@@ -59,8 +59,10 @@ class Unit {
 
   bool get isAlive => health > 0;
 
+  bool get isHarvester => type == UnitType.harvester;
+
   bool get isHarvesting =>
-      (type == UnitType.harvester) &&
+      isHarvester &&
       !isMoving &&
       (lockedNode != null) &&
       (lockedNode!.type == NodeType.resources) &&
@@ -100,8 +102,8 @@ class Unit {
     targetUnit = null;
   }
 
-  JsonEvent? update(double dt) {
-    JsonEvent? result;
+  (JsonEvent?, bool) update(double dt) {
+    (JsonEvent?, bool) result;
 
     if (isMoving) {
       result = _processMoving(dt);
@@ -115,8 +117,8 @@ class Unit {
     return result;
   }
 
-  JsonEvent? _processMoving(double dt) {
-    JsonEvent? result;
+  (JsonEvent?, bool) _processMoving(double dt) {
+    (JsonEvent?, bool) result = (null, false);
     Logger.debug('----------------------------------------\nMoving unit $id');
 
     // Update position
@@ -136,10 +138,13 @@ class Unit {
       lockedNode = targetNode;
       lockedNode!.lock(this);
       targetNode = null;
-      result = JsonEvent.unitMovementEnded(
-        unitId: id,
-        currentPosition: position.toJson(),
-        lockedLocation: lockedNode?.location.toJson(),
+      result = (
+        JsonEvent.unitMovementEnded(
+          unitId: id,
+          currentPosition: position.toJson(),
+          lockedLocation: lockedNode?.location.toJson(),
+        ),
+        isHarvester,
       );
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
@@ -150,10 +155,13 @@ class Unit {
         position: position,
         unit: this,
       );
-      result = JsonEvent.unitMovementStarted(
-        unitId: id,
-        currentPosition: position.toJson(),
-        targetPosition: targetNode!.position.toJson(),
+      result = (
+        JsonEvent.unitMovementStarted(
+          unitId: id,
+          currentPosition: position.toJson(),
+          targetPosition: targetNode!.position.toJson(),
+        ),
+        false,
       );
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
@@ -166,8 +174,8 @@ class Unit {
     return result;
   }
 
-  JsonEvent? _processStanding(double dt) {
-    JsonEvent? result;
+  (JsonEvent?, bool) _processStanding(double dt) {
+    (JsonEvent?, bool) result = (null, false);
 
     if (isHarvesting) {
       lastOrderManual = false;
@@ -176,7 +184,7 @@ class Unit {
         player.resourcesActiveRate * dt,
       );
       player.addResources(amount);
-    } else if ((type == UnitType.harvester) && !lastOrderManual) {
+    } else if (isHarvester && !lastOrderManual) {
       final Node? patchNode = nodes.closestNodeToHarvest(
         resources: resources,
         position: position,
@@ -186,9 +194,12 @@ class Unit {
       if (patchNode != null) {
         Logger.debug('Harvester $id automatically moving to ${patchNode.id}');
 
-        return move(
-          node: patchNode,
-          manual: false,
+        return (
+          move(
+            node: patchNode,
+            manual: false,
+          ),
+          true,
         );
       }
     }
@@ -232,11 +243,14 @@ class Unit {
             player.addResources(config.harvesterReward);
           }
 
-          result = JsonEvent.unitAttack(
-            attackerId: id,
-            damage: damage,
-            targetUnitId: targetUnit!.id,
-            targetDestroyed: !targetUnit!.isAlive,
+          result = (
+            JsonEvent.unitAttack(
+              attackerId: id,
+              damage: damage,
+              targetUnitId: targetUnit!.id,
+              targetDestroyed: !targetUnit!.isAlive,
+            ),
+            false,
           );
           Logger.debug('Attacked unit ${targetUnit!.id} with $damage damage');
         }
@@ -258,11 +272,14 @@ class Unit {
           currentAttackCooldown = type.attackCooldown;
           targetBase!.player.removeHealth(damage);
 
-          result = JsonEvent.unitAttack(
-            attackerId: id,
-            damage: damage,
-            targetDestroyed: !targetBase!.player.isAlive,
-            targetBaseLocation: targetBase!.location.toJson(),
+          result = (
+            JsonEvent.unitAttack(
+              attackerId: id,
+              damage: damage,
+              targetDestroyed: !targetBase!.player.isAlive,
+              targetBaseLocation: targetBase!.location.toJson(),
+            ),
+            false,
           );
           Logger.debug('Attacked base ${targetBase!.id} with $damage damage');
         }
