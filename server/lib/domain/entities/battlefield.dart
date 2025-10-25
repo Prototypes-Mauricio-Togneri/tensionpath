@@ -148,8 +148,8 @@ class Battlefield {
         final num distanceToTarget = attackerUnit.distanceToBase(targetBase);
 
         if (!attackerUnit.isInAttackRange(distanceToTarget)) {
-          final Node? alternativeNode = nodes.closestAlternative(
-            node: targetNode,
+          final Node? alternativeNode = nodes.closestNodeToMove(
+            position: targetNode.position,
             unit: attackerUnit,
           );
 
@@ -178,8 +178,8 @@ class Battlefield {
       if (!attackerUnit.isInAttackRange(distanceToTarget)) {
         final Node targetNode =
             defenderUnit.lockedNode ?? defenderUnit.closestNode;
-        final Node? alternativeNode = nodes.closestAlternative(
-          node: targetNode,
+        final Node? alternativeNode = nodes.closestNodeToMove(
+          position: targetNode.position,
           unit: attackerUnit,
         );
 
