@@ -1,16 +1,16 @@
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_building_unlocked.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_match_finished.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_missile.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_resource_depleted.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_attack.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_created.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_ended.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_resource_depleted.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_unit_attack.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_unit_created.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_ended.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 

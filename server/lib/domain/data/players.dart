@@ -1,7 +1,7 @@
 import 'package:tensionpath/domain/data/units.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/json/messages/server_client/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Players {
