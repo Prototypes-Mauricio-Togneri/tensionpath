@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/json/models/common/json_config.dart';
 class Config {
   final int resourcesStart;
   final int resourcesPerPatch;
+  final num resourcesDamage;
   final num resourcesPassiveRate;
   final num resourcesActiveRate;
   final int maxHarvestersCount;
@@ -21,6 +22,7 @@ class Config {
   const Config({
     required this.resourcesStart,
     required this.resourcesPerPatch,
+    required this.resourcesDamage,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
     required this.maxHarvestersCount,
@@ -40,6 +42,7 @@ class Config {
   factory Config.fromJson(JsonConfig json) => Config(
     resourcesStart: json.resourcesStart,
     resourcesPerPatch: json.resourcesPerPatch,
+    resourcesDamage: json.resourcesDamage,
     resourcesPassiveRate: json.resourcesPassiveRate,
     resourcesActiveRate: json.resourcesActiveRate,
     maxHarvestersCount: json.maxHarvestersCount,
@@ -59,6 +62,7 @@ class Config {
   JsonConfig toJson() => JsonConfig(
     resourcesStart: resourcesStart,
     resourcesPerPatch: resourcesPerPatch,
+    resourcesDamage: resourcesDamage,
     resourcesPassiveRate: resourcesPassiveRate,
     resourcesActiveRate: resourcesActiveRate,
     maxHarvestersCount: maxHarvestersCount,

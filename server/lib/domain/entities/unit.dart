@@ -206,6 +206,24 @@ class Unit {
       }
     }
 
+    // Check if infantry is on resource patch
+    if ((type.clazz == UnitClass.infantry) &&
+        (closestNode.type == NodeType.resources)) {
+      final Resource resource = resources.get(closestNode.id);
+
+      if (resource.hasResources) {
+        final num damage = config.resourcesDamage * dt;
+        hit(damage);
+        events.add(
+          JsonEvent.unitDamaged(
+            unitId: id,
+            damage: damage,
+            unitDestroyed: !isAlive,
+          ),
+        );
+      }
+    }
+
     // Target unit is no longer alive
     if (targetUnit != null && !targetUnit!.isAlive) {
       Logger.debug('Target unit no longer alive');

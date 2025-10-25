@@ -165,6 +165,14 @@ class MatchComponent extends World {
       battlefieldComponent.onUnitAttack,
     );
 
+    // Update unit damaged
+    matchUpdate.eventsOfType<EventUnitDamaged>().forEach(
+      (event) {
+        updateNodeLocks = true;
+        battlefieldComponent.onUnitDamaged(event);
+      },
+    );
+
     if (updateNodeLocks) {
       battlefieldComponent.updateNodesLocks();
     }

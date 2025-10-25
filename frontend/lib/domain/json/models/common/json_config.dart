@@ -10,6 +10,9 @@ class JsonConfig {
   @JsonKey(name: 'resourcesPerPatch')
   final int resourcesPerPatch;
 
+  @JsonKey(name: 'resourcesDamage')
+  final num resourcesDamage;
+
   @JsonKey(name: 'resourcesPassiveRate')
   final num resourcesPassiveRate;
 
@@ -55,6 +58,7 @@ class JsonConfig {
   const JsonConfig({
     required this.resourcesStart,
     required this.resourcesPerPatch,
+    required this.resourcesDamage,
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
     required this.maxHarvestersCount,

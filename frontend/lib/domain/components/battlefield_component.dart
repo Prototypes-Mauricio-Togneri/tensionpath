@@ -397,6 +397,18 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
+  void onUnitDamaged(EventUnitDamaged event) {
+    final UnitComponent? unitComponent = unitComponentById(event.unitId);
+
+    if (unitComponent != null) {
+      unitComponent.onHit(event.damage);
+
+      if (event.unitDestroyed) {
+        onUnitDestroyed(unitComponent);
+      }
+    }
+  }
+
   void onUnitDestroyed(UnitComponent unitComponent) {
     unitComponent.destroy();
     unitComponents.remove(unitComponent);

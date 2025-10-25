@@ -19,6 +19,7 @@ JsonConfig _$JsonConfigFromJson(Map<String, dynamic> json) => $checkedCreate(
         'resourcesPerPatch',
         (v) => (v as num).toInt(),
       ),
+      resourcesDamage: $checkedConvert('resourcesDamage', (v) => v as num),
       resourcesPassiveRate: $checkedConvert(
         'resourcesPassiveRate',
         (v) => v as num,
@@ -69,6 +70,7 @@ Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
     <String, dynamic>{
       'resourcesStart': instance.resourcesStart,
       'resourcesPerPatch': instance.resourcesPerPatch,
+      'resourcesDamage': instance.resourcesDamage,
       'resourcesPassiveRate': instance.resourcesPassiveRate,
       'resourcesActiveRate': instance.resourcesActiveRate,
       'maxHarvestersCount': instance.maxHarvestersCount,
