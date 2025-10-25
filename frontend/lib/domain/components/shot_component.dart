@@ -4,7 +4,10 @@ import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class ShotToUnitComponent extends PositionComponent {
@@ -69,6 +72,10 @@ class ShotToUnitComponent extends PositionComponent {
 
     if (targetDestroyed) {
       match.onUnitDestroyed(targetUnit);
+    } else if ((targetUnit.type == UnitType.harvester) &&
+        (targetUnit.player.isSelf) &&
+        targetUnit.attackAlert.isReady) {
+      Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
     }
   }
 
@@ -141,6 +148,10 @@ class ShotToBaseComponent extends PositionComponent {
 
     removeFromParent();
     targetBase.player.removeBaseHealth(damage);
+
+    if (targetBase.player.isSelf && targetBase.player.attackAlert.isReady) {
+      Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
+    }
   }
 
   @override

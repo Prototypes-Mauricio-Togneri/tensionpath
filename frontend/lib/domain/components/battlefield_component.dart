@@ -22,7 +22,6 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
@@ -366,26 +365,22 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onUnitAttack(EventUnitAttack event) {
-    final UnitComponent? unitComponent = unitComponentById(event.attackerId);
+    final UnitComponent? attackerUnitComponent = unitComponentById(
+      event.attackerId,
+    );
 
-    if (unitComponent != null) {
+    if (attackerUnitComponent != null) {
       if (event.targetUnitId != null) {
         final UnitComponent? targetUnitComponent = unitComponentById(
           event.targetUnitId!,
         );
 
         if (targetUnitComponent != null) {
-          unitComponent.onUnitAttack(
+          attackerUnitComponent.onUnitAttack(
             targetUnit: targetUnitComponent,
             damage: event.damage,
             targetDestroyed: event.targetDestroyed,
           );
-
-          if ((targetUnitComponent.type == UnitType.harvester) &&
-              (targetUnitComponent.player.isSelf) &&
-              targetUnitComponent.attackAlert.isReady) {
-            Audio.get.playSound(Sound.EVA_HARVESTER_UNDER_ATTACK);
-          }
         }
       } else if (event.targetBaseLocation != null) {
         final LauncherComponent? targetBase = launcherComponentByLocation(
@@ -394,19 +389,9 @@ class BattlefieldComponent extends PositionComponent {
 
         if (targetBase != null) {
           targetBase.onUnitAttack(
-            attackerUnit: unitComponent,
+            attackerUnit: attackerUnitComponent,
             damage: event.damage,
           );
-
-          if (targetBase.player.isSelf) {
-            match.self.removeBaseHealth(event.damage);
-
-            if (targetBase.player.attackAlert.isReady) {
-              Audio.get.playSound(Sound.EVA_BASE_UNDER_ATTACK);
-            }
-          } else {
-            match.opponent.removeBaseHealth(event.damage);
-          }
         }
       }
     }

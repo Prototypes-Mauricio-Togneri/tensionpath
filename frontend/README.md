@@ -1,6 +1,6 @@
 ### High
 
-- Show shots when attacking enemy base
+- Show shots when attacking enemy base (CHANGELOG)
 - Drive popcap from server
 - Path finding
 
