@@ -135,7 +135,7 @@ abstract class ShotComponent extends PositionComponent {
   void createExplosion() {
     final ExplosionComponent explosionComponent = ExplosionComponent(
       position: targetComponent.absolutePosition,
-      size: targetDestroyed ? targetComponent.size * 0.5 : size * 3,
+      size: size * 3,
     );
     match.add(explosionComponent);
     removeFromParent();

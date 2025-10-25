@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
@@ -410,6 +411,12 @@ class BattlefieldComponent extends PositionComponent {
   }
 
   void onUnitDestroyed(UnitComponent unitComponent) {
+    final ExplosionComponent explosionComponent = ExplosionComponent(
+      position: unitComponent.absolutePosition,
+      size: unitComponent.size * 0.5,
+    );
+    match.add(explosionComponent);
+
     unitComponent.destroy();
     unitComponents.remove(unitComponent);
 
