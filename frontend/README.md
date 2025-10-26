@@ -20,9 +20,11 @@
     - Reveal map
     - Increase units visibility
   - Bomb (only on revealed tiles)
-    - Fire bomb (leaves a fire trail)
+    - Napalm strike (leaves a fire trail)
+    - B-52 carpet bomb (drops multiple bombs in a horizontal line)
     - Single tile (jade missile)
     - Center tile and adjacents (ion cannon)
+    - EMP bomb (slows down units)
     - Mine
   - Boost
     - Increases health
