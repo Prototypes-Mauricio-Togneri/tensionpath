@@ -199,10 +199,17 @@ class Unit {
     if (isHarvesting) {
       lastOrderManual = false;
       final Resource resource = resources.get(lockedNode!.id);
-      final num amount = resource.removeResources(
-        player.resourcesActiveRate * dt,
-      );
-      player.addResources(amount);
+
+      if (resource.hasResources) {
+        final num amount = resource.removeResources(
+          player.resourcesActiveRate * dt,
+        );
+        player.addResources(amount);
+
+        if (!resource.hasResources) {
+          events.add(JsonEvent.resourceDepleted(resource.id));
+        }
+      }
     } else if (isHarvester && !lastOrderManual) {
       final Node? patchNode = nodes.closestNodeToHarvest(
         resources: resources,

@@ -14,7 +14,6 @@
 ### Low
 
 - Show match replay
-- Use variable tick rate (the more simultaneous matches, the slower the tick rate)
 - Ramping popcap and resources rate (see picture)
 - Conquer structures
 - Commanders abilities

@@ -1,7 +1,7 @@
 {
     "config": {
         "resourcesStart": 100,
-        "resourcesPerPatch": 150,
+        "resourcesPerPatch": 10,
         "resourcesDamage": 10,
         "resourcesPassiveRate": 2,
         "resourcesActiveRate": 1.5,

@@ -43,7 +43,6 @@ class Battlefield {
 
   (List<JsonEvent>, bool) update(double dt) {
     final List<JsonEvent> events = [];
-    final List<Resource> nonEmptyResources = resources.nonEmpty;
     bool updatePlayers = false;
 
     for (final Unit unit in units.list) {
@@ -51,12 +50,6 @@ class Battlefield {
         final (List<JsonEvent>, bool) unitUpdate = unit.update(dt);
         events.addAll(unitUpdate.$1);
         updatePlayers |= unitUpdate.$2;
-      }
-    }
-
-    for (final Resource resource in nonEmptyResources) {
-      if (!resource.hasResources) {
-        events.add(JsonEvent.resourceDepleted(resource.id));
       }
     }
 
