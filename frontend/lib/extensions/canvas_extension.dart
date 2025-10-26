@@ -44,16 +44,21 @@ extension CanvasExtension on Canvas {
     Paint? fillPaint,
     Paint? borderPaint,
   }) {
-    final Path hexagonPath = _createHexagonPath(
-      center: center,
-      size: size,
-    );
-
     if (fillPaint != null) {
+      final Path hexagonPath = _createHexagonPath(
+        center: center,
+        size: size,
+      );
       drawPath(hexagonPath, fillPaint);
     }
 
     if (borderPaint != null) {
+      final double borderSizeRatio = 1 - (borderPaint.strokeWidth / size.x);
+      final Path hexagonPath = _createHexagonPath(
+        center: center,
+        size: size * borderSizeRatio,
+      );
+      borderPaint.strokeWidth = size.x * 0.04;
       drawPath(hexagonPath, borderPaint);
     }
   }

@@ -56,8 +56,8 @@ class MissileBackgroundComponent extends PositionComponent {
     color: Palette.MISSILE_OWNER_NONE,
   );
   final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.MISSILE_OWNER_NONE.darken(0.5),
+    style: PaintingStyle.stroke,
+    color: Palette.MISSILE_OWNER_NONE.darken(0.1),
   );
 
   MissileBackgroundComponent({

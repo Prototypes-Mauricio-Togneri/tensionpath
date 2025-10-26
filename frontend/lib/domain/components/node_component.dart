@@ -15,7 +15,6 @@ class NodeComponent extends PositionComponent {
   final Position remotePosition;
   final Paint highlightedPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    strokeWidth: 5,
     color: Palette.NODE_HIGHLIGHTED,
   );
   bool isRevealed = false;
