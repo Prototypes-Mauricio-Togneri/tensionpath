@@ -26,8 +26,10 @@
     - Mine
   - Boost
     - Increases health
+    - Increases speed
+    - Increases damage
     - Increases range
-    - Increases attack
+    - Decrease cooldown
     - Increases conquering rate
 
 ## Avoid
