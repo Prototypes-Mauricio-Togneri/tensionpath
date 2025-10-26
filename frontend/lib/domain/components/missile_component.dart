@@ -113,7 +113,6 @@ class MissileIndicatorComponent extends PositionComponent {
   );
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
-    strokeWidth: 3,
     color: Palette.MISSILE_INDICATOR_BORDER,
   );
   final Paint foregroundPaint = Palette.paint(
@@ -125,7 +124,9 @@ class MissileIndicatorComponent extends PositionComponent {
     required super.position,
     required super.size,
     required this.missile,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.center) {
+    borderPaint.strokeWidth = size.y * 0.2;
+  }
 
   @override
   void update(double dt) {

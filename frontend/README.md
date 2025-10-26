@@ -1,6 +1,5 @@
 ### High
 
-- Search for: strokeWidth
 - Missile animation (CHANGELOG)
 - Drive popcap from server
 - Path finding

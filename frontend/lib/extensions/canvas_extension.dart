@@ -53,12 +53,12 @@ extension CanvasExtension on Canvas {
     }
 
     if (borderPaint != null) {
+      borderPaint.strokeWidth = size.x * 0.04;
       final double borderSizeRatio = 1 - (borderPaint.strokeWidth / size.x);
       final Path hexagonPath = _createHexagonPath(
         center: center,
         size: size * borderSizeRatio,
       );
-      borderPaint.strokeWidth = size.x * 0.04;
       drawPath(hexagonPath, borderPaint);
     }
   }
