@@ -51,20 +51,47 @@ class MissileComponent extends PositionComponent {
 
 class MissileBackgroundComponent extends PositionComponent {
   final Missile missile;
-  final Paint fillPaint = Palette.paint(
-    style: PaintingStyle.fill,
-    color: Palette.MISSILE_OWNER_NONE,
-  );
-  final Paint borderPaint = Palette.paint(
-    style: PaintingStyle.stroke,
-    color: Palette.MISSILE_OWNER_NONE.darken(0.1),
-  );
+  final double darkenFactor = 0.3;
+  final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
+  final Paint borderPaint = Palette.paint(style: PaintingStyle.stroke);
+  String? lastOwner = '';
 
   MissileBackgroundComponent({
     required super.position,
     required super.size,
     required this.missile,
-  }) : super(anchor: Anchor.center);
+  }) : super(anchor: Anchor.center) {
+    _checkOwnership();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    _checkOwnership();
+  }
+
+  void _checkOwnership() {
+    if (lastOwner != missile.owner) {
+      lastOwner = missile.owner;
+
+      if (missile.owner == '') {
+        fillPaint.color = Palette.MISSILE_OWNER_CONTESTED;
+        borderPaint.color = Palette.MISSILE_OWNER_CONTESTED.darken(
+          darkenFactor,
+        );
+      } else if (missile.owner == Constants.PLAYER_1) {
+        fillPaint.color = Palette.PLAYER_1;
+        borderPaint.color = Palette.PLAYER_1.darken(darkenFactor);
+      } else if (missile.owner == Constants.PLAYER_2) {
+        fillPaint.color = Palette.PLAYER_2;
+        borderPaint.color = Palette.PLAYER_2.darken(darkenFactor);
+      } else {
+        fillPaint.color = Palette.MISSILE_OWNER_NONE;
+        borderPaint.color = Palette.MISSILE_OWNER_NONE.darken(darkenFactor);
+      }
+    }
+  }
 
   @override
   void render(Canvas canvas) {
