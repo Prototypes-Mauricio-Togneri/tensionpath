@@ -46,6 +46,7 @@ class Assets {
       'assets/audio/sound/voice/movement/orders-received.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
+  static const String IMAGES_OTHER_MISSILE = 'other/missile.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_1 =
       'structures/launcher_1.png';
   static const String IMAGES_STRUCTURES_LAUNCHER_2 =
