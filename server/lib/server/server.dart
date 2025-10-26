@@ -28,9 +28,13 @@ class Server {
       environment.port,
     );
     server.listen(_handleRequest);
-    Logger.info('Server running on port ${environment.port}');
+    Logger.info('Server running...');
+    Logger.info('· API Key: ${environment.maskedApiKey}');
+    Logger.info('· Port: ${environment.port}');
+    Logger.info('· Create Test Match: ${environment.createTestMatch}');
+    Logger.info('· Show Logs: ${environment.showLogs}');
 
-    if (environment.isDebug) {
+    if (environment.createTestMatch) {
       await _startTestMatch();
     }
   }

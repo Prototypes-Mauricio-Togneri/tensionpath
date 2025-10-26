@@ -7,8 +7,9 @@
             "type": "dart",
             "program": "lib/main/main.dart",
             "args": [
-                "foo",
+                "test-api-key",
                 "3000",
+                "true",
                 "true"
             ]
         },
@@ -18,9 +19,10 @@
             "type": "dart",
             "program": "lib/main/main.dart",
             "args": [
-                "foo",
+                "test-api-key",
                 "3000",
-                "false"
+                "false",
+                "true"
             ]
         }
     ]
