@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/types/priority.dart';
-import 'package:tensionpath/utils/assets.dart';
+import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class MissileComponent extends SpriteComponent {
+class MissileComponent extends PositionComponent {
   final Missile missile;
 
   MissileComponent({
@@ -28,7 +29,13 @@ class MissileComponent extends SpriteComponent {
 
   @override
   FutureOr onLoad() async {
-    sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_MISSILE);
+    add(
+      MissileBackgroundComponent(
+        position: size / 2,
+        size: size,
+        missile: missile,
+      ),
+    );
 
     add(
       MissileIndicatorComponent(
@@ -39,6 +46,36 @@ class MissileComponent extends SpriteComponent {
     );
 
     return super.onLoad();
+  }
+}
+
+class MissileBackgroundComponent extends PositionComponent {
+  final Missile missile;
+  final Paint fillPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_OWNER_NONE,
+  );
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.fill,
+    color: Palette.MISSILE_OWNER_NONE.darken(0.5),
+  );
+
+  MissileBackgroundComponent({
+    required super.position,
+    required super.size,
+    required this.missile,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawHexagon(
+      center: size / 2,
+      size: size,
+      fillPaint: fillPaint,
+      borderPaint: borderPaint,
+    );
   }
 }
 
