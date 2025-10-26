@@ -38,6 +38,14 @@
 
 ## Units
 
+### Tech units
+
+- Wolverine
+- Kodiak
+- Zone Trooper
+- Titan
+- Mammoth
+
 ### Nod faction
 
 - Militants
@@ -129,24 +137,3 @@
 - To move a unit, drag and drop it into another tile
 - Only units of one player can occupy a given tile
 - Units can only shoot if they are stationary on a tile
-
-Tech
-
-- Good against infantry:
-  - Wolverine/Widowmaker/Confesor
-  - Disruptor/Flame Tank
-  - Juggernaut/Artillery
-  - Mammoth/Avatar
-- Good against vehicles:
-  - Juggernaut/Artillery
-  - Zone Trooper/Cyborg
-  - Kodiak
-  - Sandstorm
-  - Titan/Centurion
-  - Basilisk
-  - Rockworm
-- Good against aircraft:
-  - Wolverine/Widowmaker/Confesor
-  - Zone Trooper/Cyborg
-  - Sandstorm
-  - Mammoth/Avatar
