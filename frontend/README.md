@@ -1,5 +1,9 @@
 ### High
 
+- Add optional flag CREATE_TEST_MATCH
+- Improve resource depleted event
+- Missile animation
+
 - Drive popcap from server
 - Path finding
 
