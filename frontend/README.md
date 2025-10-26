@@ -1,8 +1,6 @@
 ### High
 
-- Improve resource depleted event
 - Missile animation (CHANGELOG)
-
 - Drive popcap from server
 - Path finding
 
