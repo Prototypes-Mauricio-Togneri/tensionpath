@@ -8,10 +8,10 @@ import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
-class MissileComponent extends PositionComponent {
+class SiloComponent extends PositionComponent {
   final Missile missile;
 
-  MissileComponent({
+  SiloComponent({
     required super.position,
     required super.size,
     required this.missile,
@@ -30,7 +30,7 @@ class MissileComponent extends PositionComponent {
   @override
   FutureOr onLoad() async {
     add(
-      MissileBackgroundComponent(
+      SiloBackgroundComponent(
         position: size / 2,
         size: size,
         missile: missile,
@@ -38,7 +38,7 @@ class MissileComponent extends PositionComponent {
     );
 
     add(
-      MissileIndicatorComponent(
+      SiloIndicatorComponent(
         position: size / 2,
         size: Vector2(size.x * 0.7, size.y * 0.08),
         missile: missile,
@@ -49,14 +49,14 @@ class MissileComponent extends PositionComponent {
   }
 }
 
-class MissileBackgroundComponent extends PositionComponent {
+class SiloBackgroundComponent extends PositionComponent {
   final Missile missile;
   final double darkenFactor = 0.3;
   final Paint fillPaint = Palette.paint(style: PaintingStyle.fill);
   final Paint borderPaint = Palette.paint(style: PaintingStyle.stroke);
   String? lastOwner = '';
 
-  MissileBackgroundComponent({
+  SiloBackgroundComponent({
     required super.position,
     required super.size,
     required this.missile,
@@ -106,7 +106,7 @@ class MissileBackgroundComponent extends PositionComponent {
   }
 }
 
-class MissileIndicatorComponent extends PositionComponent {
+class SiloIndicatorComponent extends PositionComponent {
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
     color: Palette.MISSILE_INDICATOR_BACKGROUND,
@@ -120,7 +120,7 @@ class MissileIndicatorComponent extends PositionComponent {
   );
   final Missile missile;
 
-  MissileIndicatorComponent({
+  SiloIndicatorComponent({
     required super.position,
     required super.size,
     required this.missile,

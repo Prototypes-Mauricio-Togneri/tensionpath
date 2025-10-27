@@ -35,10 +35,6 @@ class Missile {
     for (final Platform platform in platforms) {
       platform.refresh(event.platforms[platform.id]);
     }
-
-    if (event.fired) {
-      Audio.get.playSound(Sound.EVA_MISSILE_LAUNCHED);
-    }
   }
 
   void charge(double dt) {

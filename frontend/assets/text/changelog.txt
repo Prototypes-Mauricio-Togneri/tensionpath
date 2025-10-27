@@ -1,5 +1,6 @@
 # 25.10.2025
 - Attack animations against bases
+- Resource patch removes health of infantry
 
 # 24.10.2025
 - Unlocking buildings

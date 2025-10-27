@@ -5,12 +5,12 @@ import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
-import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/rocks_low_component.dart';
+import 'package:tensionpath/domain/components/silo_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/event.dart';
@@ -39,7 +39,6 @@ class BattlefieldComponent extends PositionComponent {
   final List<ResourceComponent> resourceComponents;
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
-  late final MissileComponent missileComponent;
   late final Vector2 mapCenter;
   late final Vector2 nodeSize;
   late final num nodeSizeRatio;
@@ -202,15 +201,16 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    missileComponent = MissileComponent(
-      position: battlefield.missile.position.localPosition(
-        mapCenter: mapCenter,
-        nodeSizeRatio: nodeSizeRatio,
+    add(
+      SiloComponent(
+        position: battlefield.missile.position.localPosition(
+          mapCenter: mapCenter,
+          nodeSizeRatio: nodeSizeRatio,
+        ),
+        size: nodeSize,
+        missile: battlefield.missile,
       ),
-      size: nodeSize,
-      missile: battlefield.missile,
     );
-    add(missileComponent);
   }
 
   void _addPadComponents({

@@ -15,6 +15,8 @@ import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
+import 'package:tensionpath/presentation/audio/audio.dart';
+import 'package:tensionpath/presentation/audio/sound.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
 class MatchComponent extends World {
@@ -96,13 +98,19 @@ class MatchComponent extends World {
 
     // Update missile
     matchUpdate.eventsOfType<EventMissile>().forEach(
-      match.battlefield.missile.refresh,
+      (event) {
+        match.battlefield.missile.refresh(event);
+
+        if (event.fired) {
+          _fireMissile(event);
+        }
+      },
     );
 
     // Update players
     matchUpdate.eventsOfType<EventPlayer>().forEach(
       (event) {
-        final Player player = playerByIndex(event.index);
+        final Player player = _playerByIndex(event.index);
         player.refresh(event);
       },
     );
@@ -110,7 +118,7 @@ class MatchComponent extends World {
     // Update base damage
     matchUpdate.eventsOfType<EventBaseDamaged>().forEach(
       (event) {
-        final Player player = playerByIndex(event.playerIndex);
+        final Player player = _playerByIndex(event.playerIndex);
         player.onHit(event.damage);
       },
     );
@@ -178,14 +186,18 @@ class MatchComponent extends World {
     }
   }
 
-  Player playerByIndex(String index) {
+  Player _playerByIndex(String index) {
     if (self.index == index) {
       return self;
     } else if (opponent.index == index) {
       return opponent;
     } else {
-      throw Exception('Player not found');
+      throw Exception('Player not found with index: $index');
     }
+  }
+
+  void _fireMissile(EventMissile event) {
+    Audio.get.playSound(Sound.EVA_MISSILE_LAUNCHED);
   }
 
   void onUnitDestroyed(UnitComponent unitComponent) =>
