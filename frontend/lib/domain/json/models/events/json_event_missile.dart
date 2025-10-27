@@ -16,11 +16,19 @@ class JsonEventMissile {
   @JsonKey(name: 'fired')
   final bool fired;
 
+  @JsonKey(name: 'playerIndex')
+  final String? playerIndex;
+
+  @JsonKey(name: 'damage')
+  final num? damage;
+
   const JsonEventMissile({
     required this.charge,
     required this.owner,
     required this.platforms,
     required this.fired,
+    required this.playerIndex,
+    required this.damage,
   });
 
   factory JsonEventMissile.fromJson(Map<String, dynamic> json) =>

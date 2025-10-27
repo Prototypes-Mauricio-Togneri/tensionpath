@@ -64,6 +64,8 @@ class Missile {
     chargeCurrent = chargeCurrent.clamp(0, chargeMax);
 
     bool fired = false;
+    String? playerIndex;
+    num? missileDamage;
 
     if (isFullyCharged) {
       final Player otherPlayer = players.other(owner!);
@@ -72,12 +74,8 @@ class Missile {
       Logger.debug('Missile launched to ${otherPlayer.index}');
       fired = true;
       chargeCurrent = 0;
-      events.add(
-        JsonEvent.baseDamaged(
-          playerIndex: otherPlayer.index,
-          damage: totalDamage,
-        ),
-      );
+      playerIndex = otherPlayer.index;
+      missileDamage = totalDamage;
     }
 
     final bool missileOwnershipChanged = owner != previousOwner;
@@ -92,6 +90,8 @@ class Missile {
               platform.id: platform.owner,
           },
           fired: fired,
+          playerIndex: playerIndex,
+          damage: missileDamage,
         ),
       );
     }

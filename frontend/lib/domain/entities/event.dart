@@ -51,12 +51,16 @@ class EventMissile implements Event {
   final String? owner;
   final Map<String, String?> platforms;
   final bool fired;
+  final String? playerIndex;
+  final num? damage;
 
   const EventMissile({
     required this.charge,
     required this.owner,
     required this.platforms,
     required this.fired,
+    required this.playerIndex,
+    required this.damage,
   });
 
   factory EventMissile.fromJson(JsonEventMissile json) => EventMissile(
@@ -64,6 +68,8 @@ class EventMissile implements Event {
     owner: json.owner,
     platforms: Map<String, String?>.from(json.platforms),
     fired: json.fired,
+    playerIndex: json.playerIndex,
+    damage: json.damage,
   );
 }
 

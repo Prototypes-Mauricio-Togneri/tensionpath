@@ -71,12 +71,16 @@ class JsonEvent {
     required String? owner,
     required Map<String, String?> platforms,
     required bool fired,
+    required String? playerIndex,
+    required num? damage,
   }) => JsonEvent(
     missile: JsonEventMissile(
       charge: charge,
       owner: owner,
       platforms: platforms,
       fired: fired,
+      playerIndex: playerIndex,
+      damage: damage,
     ),
   );
 
