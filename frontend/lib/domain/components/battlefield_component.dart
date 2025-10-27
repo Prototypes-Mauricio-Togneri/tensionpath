@@ -39,6 +39,7 @@ class BattlefieldComponent extends PositionComponent {
   final List<ResourceComponent> resourceComponents;
   final List<LauncherComponent> launcherComponents;
   final List<UnitComponent> unitComponents;
+  late final SiloComponent siloComponent;
   late final Vector2 mapCenter;
   late final Vector2 nodeSize;
   late final num nodeSizeRatio;
@@ -201,16 +202,15 @@ class BattlefieldComponent extends PositionComponent {
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    add(
-      SiloComponent(
-        position: battlefield.missile.position.localPosition(
-          mapCenter: mapCenter,
-          nodeSizeRatio: nodeSizeRatio,
-        ),
-        size: nodeSize,
-        missile: battlefield.missile,
+    siloComponent = SiloComponent(
+      position: battlefield.missile.position.localPosition(
+        mapCenter: mapCenter,
+        nodeSizeRatio: nodeSizeRatio,
       ),
+      size: nodeSize,
+      missile: battlefield.missile,
     );
+    add(siloComponent);
   }
 
   void _addPadComponents({

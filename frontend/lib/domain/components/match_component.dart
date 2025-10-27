@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/components/battlefield_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
 import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
@@ -198,6 +199,22 @@ class MatchComponent extends World {
 
   void _fireMissile(EventMissile event) {
     Audio.get.playSound(Sound.EVA_MISSILE_LAUNCHED);
+
+    final Player player = _playerByIndex(event.playerIndex!);
+    final List<LauncherComponent> launchers = launcherComponents
+        .where((launcher) => launcher.belongsTo(player))
+        .toList();
+
+    if (launchers.isNotEmpty) {
+      final MissileComponent missileComponent = MissileComponent(
+        position: battlefieldComponent.siloComponent.absolutePosition,
+        size: nodeSize / 2,
+        player: player,
+        damage: event.damage!,
+        targetPosition: launchers[0].absolutePosition,
+      );
+      add(missileComponent);
+    }
   }
 
   void onUnitDestroyed(UnitComponent unitComponent) =>
