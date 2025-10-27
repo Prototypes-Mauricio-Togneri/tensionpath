@@ -4,6 +4,8 @@ class Assets {
       'assets/audio/sound/effects/missile_alarm.mp3';
   static const String AUDIO_SOUND_EFFECTS_MISSILE_IMPACT =
       'assets/audio/sound/effects/missile_impact.mp3';
+  static const String AUDIO_SOUND_EFFECTS_MISSILE_LAUNCHED =
+      'assets/audio/sound/effects/missile_launched.mp3';
   static const String AUDIO_SOUND_EFFECTS_MISSION_ACCOMPLISHED =
       'assets/audio/sound/effects/mission_accomplished.mp3';
   static const String AUDIO_SOUND_EFFECTS_PAD =
@@ -45,7 +47,7 @@ class Assets {
   static const String AUDIO_SOUND_VOICE_MOVEMENT_ON_MY_WAY =
       'assets/audio/sound/voice/movement/on_my_way.mp3';
   static const String AUDIO_SOUND_VOICE_MOVEMENT_ORDERS_RECEIVED =
-      'assets/audio/sound/voice/movement/orders-received.mp3';
+      'assets/audio/sound/voice/movement/orders_received.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
   static const String IMAGES_OTHER_MISSILE = 'other/missile.png';

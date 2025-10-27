@@ -199,19 +199,20 @@ class MatchComponent extends World {
 
   void _fireMissile(EventMissile event) {
     Audio.get.playSound(Sound.EVA_MISSILE_LAUNCHED);
+    Audio.get.playSound(Sound.EFFECT_MISSILE_LAUNCHED);
 
     final Player player = _playerByIndex(event.playerIndex!);
     final List<LauncherComponent> launchers = launcherComponents
         .where((launcher) => launcher.belongsTo(player))
         .toList();
 
-    if (launchers.isNotEmpty) {
+    if (launchers.length > 1) {
       final MissileComponent missileComponent = MissileComponent(
         position: battlefieldComponent.siloComponent.absolutePosition,
         size: nodeSize / 2,
         player: player,
         damage: event.damage!,
-        targetPosition: launchers[0].absolutePosition,
+        targetPosition: launchers[1].absolutePosition,
       );
       add(missileComponent);
     }

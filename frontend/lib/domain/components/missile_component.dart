@@ -56,9 +56,10 @@ class MissileComponent extends SpriteComponent {
     final num distance = absolutePosition.distanceTo(targetPosition);
 
     if (distance < (deltaDistance * 2)) {
+      final double maxSize = max(size.x, size.y);
       final ExplosionComponent explosionComponent = ExplosionComponent(
         position: targetPosition,
-        size: size,
+        size: Vector2(maxSize, maxSize),
       );
       match.add(explosionComponent);
       player.onHit(damage);
