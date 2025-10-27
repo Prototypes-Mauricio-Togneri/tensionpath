@@ -1,5 +1,18 @@
+# 27.10.2025
+- Missile launch animation
+
+# 25.10.2025
+- Attack animations against bases
+- Resource patch removes health of infantry
+
+# 24.10.2025
+- Unlocking buildings
+- New screen to select units
+- Match timeout
+- Sudden death
+
 # 21.10.2025
-- Attack animations
+- Attack animations against units
 
 # 20.10.2025
 - Match events
