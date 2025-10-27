@@ -1,6 +1,5 @@
 ### High
 
-- Missile animation (CHANGELOG)
 - Drive popcap from server
 - Path finding
 
