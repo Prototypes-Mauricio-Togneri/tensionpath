@@ -31,5 +31,6 @@ Map<String, dynamic> _$JsonMatchUpdateToJson(JsonMatchUpdate instance) =>
 
 const _$MatchStatusEnumMap = {
   MatchStatus.playing: 'playing',
+  MatchStatus.over: 'over',
   MatchStatus.finished: 'finished',
 };

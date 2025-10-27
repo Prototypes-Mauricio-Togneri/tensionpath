@@ -24,7 +24,9 @@ class Match {
   final Players players;
   final Trace updateTrace = Trace(name: 'match_update');
   num elapsedTime = 0;
+  num matchOverTimeout = 0;
   MatchStatus status;
+  JsonEvent? matchFinishedEvent;
 
   Match._({
     required this.connection,
@@ -36,6 +38,8 @@ class Match {
   });
 
   bool get _isPlaying => status == MatchStatus.playing;
+
+  bool get _isOver => status == MatchStatus.over;
 
   factory Match.fromJson({
     required Connection connection,
@@ -152,13 +156,12 @@ class Match {
       final Player player = players.get(playerIndex);
       player.surrender();
       Logger.debug('Player $playerIndex surrendered');
-      _onMatchFinished();
-      _sendMatchUpdate([
+      _onMatchOver(
         JsonEvent.matchFinished(
           winner: players.other(player.index).id,
           loser: player.id,
         ),
-      ]);
+      );
     }
   }
 
@@ -170,23 +173,22 @@ class Match {
       // Check for timeout
       if (elapsedTime >= config.matchTimeout) {
         Logger.debug('Match timed out');
-        _onMatchFinished();
         final Player? winner = _playerAhead;
 
         if (winner != null) {
-          _sendMatchUpdate([
+          _onMatchOver(
             JsonEvent.matchFinished(
               winner: winner.id,
               loser: players.other(winner.index).id,
             ),
-          ]);
+          );
         } else {
-          _sendMatchUpdate([
+          _onMatchOver(
             JsonEvent.matchFinished(
               winner: null,
               loser: null,
             ),
-          ]);
+          );
         }
       }
 
@@ -225,8 +227,7 @@ class Match {
       final Player? winner = _winner;
 
       if (winner != null) {
-        _onMatchFinished();
-        events.add(
+        _onMatchOver(
           JsonEvent.matchFinished(
             winner: winner.id,
             loser: players.other(winner.index).id,
@@ -240,6 +241,16 @@ class Match {
       }
 
       updateTrace.stop();
+    } else if (_isOver) {
+      matchOverTimeout += dt;
+
+      if (matchOverTimeout >= Constants.MATCH_OVER_TIMEOUT) {
+        status = MatchStatus.finished;
+
+        if (matchFinishedEvent != null) {
+          _sendMatchUpdate([matchFinishedEvent!]);
+        }
+      }
     }
   }
 
@@ -252,8 +263,9 @@ class Match {
     connection.broadcast(JsonMessage.update(jsonMatchUpdate));
   }
 
-  void _onMatchFinished() {
-    status = MatchStatus.finished;
+  void _onMatchOver(JsonEvent event) {
+    status = MatchStatus.over;
+    matchFinishedEvent = event;
     Logger.info(updateTrace.toString());
   }
 
