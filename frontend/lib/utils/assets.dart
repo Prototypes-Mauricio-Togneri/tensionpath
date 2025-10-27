@@ -2,6 +2,8 @@ class Assets {
   static const String AUDIO_MUSIC_MUSIC = 'assets/audio/music/music.mp3';
   static const String AUDIO_SOUND_EFFECTS_MISSILE_ALARM =
       'assets/audio/sound/effects/missile_alarm.mp3';
+  static const String AUDIO_SOUND_EFFECTS_MISSILE_IMPACT =
+      'assets/audio/sound/effects/missile_impact.mp3';
   static const String AUDIO_SOUND_EFFECTS_MISSION_ACCOMPLISHED =
       'assets/audio/sound/effects/mission_accomplished.mp3';
   static const String AUDIO_SOUND_EFFECTS_PAD =

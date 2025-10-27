@@ -16,6 +16,9 @@ mixin Sound {
     path: Assets.AUDIO_SOUND_EFFECTS_MISSILE_ALARM,
     loop: true,
   );
+  static const AudioSpec EFFECT_MISSILE_IMPACT = AudioSpec(
+    path: Assets.AUDIO_SOUND_EFFECTS_MISSILE_IMPACT,
+  );
 
   // Voices (Eva)
   static const AudioSpec EVA_BASE_UNDER_ATTACK = AudioSpec(
@@ -109,6 +112,7 @@ mixin Sound {
     // Effects
     EFFECT_PAD,
     EFFECT_MISSILE_ALARM,
+    EFFECT_MISSILE_IMPACT,
 
     // Voices (Eva)
     EVA_BASE_UNDER_ATTACK,
