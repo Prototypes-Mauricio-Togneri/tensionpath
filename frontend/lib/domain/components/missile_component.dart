@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -25,6 +26,13 @@ class MissileComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     sprite = await Sprite.load(Assets.IMAGES_OTHER_MISSILE);
+    final Image image = sprite!.image;
+
+    if (image.width > image.height) {
+      size.y = size.x * (image.height.toDouble() / image.width.toDouble());
+    } else {
+      size.x = size.y * (image.width.toDouble() / image.height.toDouble());
+    }
 
     return super.onLoad();
   }
@@ -34,7 +42,7 @@ class MissileComponent extends SpriteComponent {
     super.update(dt);
 
     final Vector2 direction = (targetPosition - absolutePosition).normalized();
-    const double speed = 300;
+    final double speed = size.x * 10;
     final double deltaDistance = speed * dt;
     position += direction * deltaDistance;
     angle = direction.angleTo(targetPosition);

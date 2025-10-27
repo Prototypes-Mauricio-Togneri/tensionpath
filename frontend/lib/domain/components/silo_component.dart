@@ -6,6 +6,7 @@ import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
+import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/palette.dart';
 
 class SiloComponent extends PositionComponent {
@@ -24,7 +25,9 @@ class SiloComponent extends PositionComponent {
   void update(double dt) {
     super.update(dt);
 
-    missile.charge(dt);
+    if (match.match.isPlaying) {
+      missile.charge(dt);
+    }
   }
 
   @override
