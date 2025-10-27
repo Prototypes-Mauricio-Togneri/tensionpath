@@ -134,6 +134,9 @@ class BuildingComponent extends PositionComponent with TapCallbacks {
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
+  final Paint borderPaint = Palette.paint(
+    style: PaintingStyle.stroke,
+  );
   bool isEnabled = false;
 
   BuildingComponent({
@@ -146,6 +149,8 @@ class BuildingComponent extends PositionComponent with TapCallbacks {
   @override
   FutureOr onLoad() {
     backgroundPaint.color = player.color.darken(0.3);
+    borderPaint.color = player.color.darken(0.5);
+    borderPaint.strokeWidth = size.x / 30;
 
     final Vector2 spriteSize = size / 2;
     final double minSize = min(spriteSize.x, spriteSize.y);
@@ -164,8 +169,8 @@ class BuildingComponent extends PositionComponent with TapCallbacks {
       BuildingCostComponent(
         buildingType: buildingType,
         position: Vector2(
-          size.x - (bottomPartSize * 1.5),
-          size.y - bottomPartSize,
+          size.x - (bottomPartSize * 1.7),
+          size.y - (bottomPartSize * 1.2),
         ),
         size: Vector2(bottomPartSize * 1.5, bottomPartSize),
       ),
@@ -201,6 +206,7 @@ class BuildingComponent extends PositionComponent with TapCallbacks {
     super.render(canvas);
 
     canvas.drawRect(size.toRect(), backgroundPaint);
+    canvas.drawRect(size.toRect(), borderPaint);
   }
 }
 
