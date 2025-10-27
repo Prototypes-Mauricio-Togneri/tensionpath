@@ -1,5 +1,6 @@
 ### High
 
+- Show border building block
 - Missile animation (CHANGELOG)
 - Drive popcap from server
 - Path finding
@@ -38,6 +39,7 @@
 
 - Squads (pop capping)
 - 2 range units
+- Raider units
 - Shooting while moving (or only deal half damage)
 
 ## Units
