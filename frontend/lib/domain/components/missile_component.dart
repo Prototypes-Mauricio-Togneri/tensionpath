@@ -41,7 +41,6 @@ class MissileComponent extends SpriteComponent {
 
     direction = (targetPosition - absolutePosition).normalized();
     speed = size.x * 10;
-    angle = absolutePosition.angleTo(targetPosition);
 
     return super.onLoad();
   }
