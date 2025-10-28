@@ -212,10 +212,20 @@ class MatchComponent extends World {
         size: nodeSize / 2,
         player: player,
         damage: event.damage!,
-        targetPosition: launchers[1].absolutePosition,
+        targetPosition: _centerLauncher(launchers),
       );
       add(missileComponent);
     }
+  }
+
+  Vector2 _centerLauncher(List<LauncherComponent> launchers) {
+    Vector2 center = Vector2.zero();
+
+    for (final LauncherComponent launcher in launchers) {
+      center += launcher.absolutePosition;
+    }
+
+    return center /= launchers.length.toDouble();
   }
 
   void onUnitDestroyed(UnitComponent unitComponent) =>

@@ -1,7 +1,6 @@
 ### High
 
 - Interview questions
-- Shoot to center point of launchers
 - Stop missile alarm once the missile is launched
 - Bug moving unit after it's destroyed (preload path before )
 - Drive popcap from server

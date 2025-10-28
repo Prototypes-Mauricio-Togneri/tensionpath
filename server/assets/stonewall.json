@@ -8,7 +8,7 @@
         "maxHarvestersCount": 2,
         "harvesterReward": 80,
         "popcapRate": 1,
-        "missileMaxCharge": 40,
+        "missileMaxCharge": 4,
         "missileChargeBuffer": 35,
         "missileChargeAlarm": 32,
         "missileChargeRate": 1,
