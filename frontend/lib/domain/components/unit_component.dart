@@ -162,7 +162,7 @@ class UnitComponent extends PositionComponent
   void onDragEnd(DragEndEvent event) {
     super.onDragEnd(event);
 
-    if (player.isSelf) {
+    if (player.isSelf && isAlive) {
       final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
 
       if ((unitComponent != null) && (unitComponent.isRevealed)) {
@@ -193,11 +193,11 @@ class UnitComponent extends PositionComponent
           );
         }
       }
-
-      endPosition = null;
-      movementOrderComponent?.hide();
-      match.unhighlightNodes();
     }
+
+    endPosition = null;
+    movementOrderComponent?.hide();
+    match.unhighlightNodes();
   }
 
   @override

@@ -1,8 +1,6 @@
 ### High
 
-- Bug moving unit after it's destroyed (preload path before)
 - Shoot missile vertically
-
 - Drive popcap from server
 - Path finding
 
