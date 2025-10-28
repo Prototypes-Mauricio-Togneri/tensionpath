@@ -35,6 +35,11 @@ class Missile {
     for (final Platform platform in platforms) {
       platform.refresh(event.platforms[platform.id]);
     }
+
+    if (event.fired) {
+      playingAlarm = false;
+      Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
+    }
   }
 
   void charge(double dt) {
@@ -50,14 +55,9 @@ class Missile {
 
     chargeCurrent = chargeCurrent.clamp(0, chargeMax);
 
-    if (chargeCurrent >= chargeAlarm) {
-      if (!playingAlarm) {
-        playingAlarm = true;
-        Audio.get.playSound(Sound.EFFECT_MISSILE_ALARM);
-      }
-    } else {
-      playingAlarm = false;
-      Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
+    if ((chargeCurrent >= chargeAlarm) && !playingAlarm) {
+      playingAlarm = true;
+      Audio.get.playSound(Sound.EFFECT_MISSILE_ALARM);
     }
   }
 
