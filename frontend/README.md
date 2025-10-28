@@ -2,7 +2,8 @@
 
 - Interview questions
 - Stop missile alarm once the missile is launched
-- Bug moving unit after it's destroyed (preload path before )
+- Bug moving unit after it's destroyed (preload path before)
+
 - Drive popcap from server
 - Path finding
 
@@ -29,10 +30,8 @@
     - EMP bomb (slows down units)
     - Mine
   - Boost
-    - Increases health
     - Increases speed
     - Increases damage
-    - Increases range
     - Decrease cooldown
     - Increases conquering rate
 

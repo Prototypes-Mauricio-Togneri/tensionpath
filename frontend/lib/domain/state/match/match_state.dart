@@ -138,6 +138,8 @@ class MatchState extends BaseState {
     required String? winner,
     required String? loser,
   }) {
+    Audio.get.stopSound(Sound.EFFECT_MISSILE_ALARM);
+
     if ((winner != null) && (loser != null)) {
       if (winner == selfId) {
         Audio.get.playSound(Sound.EVA_MISSION_ACCOMPLISHED);
