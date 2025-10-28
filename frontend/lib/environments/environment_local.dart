@@ -10,7 +10,7 @@ class LocalEnvironment extends Environment {
   String get serverHost => 'ws://localhost:3000';
 
   @override
-  bool get audioEnabled => true;
+  bool get audioEnabled => false;
 
   @override
   bool get joinTestMatch =>

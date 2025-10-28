@@ -1,6 +1,5 @@
 ### High
 
-- Shoot missile vertically
 - Drive popcap from server
 - Path finding
 

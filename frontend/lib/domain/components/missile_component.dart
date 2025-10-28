@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/types/priority.dart';
@@ -14,8 +15,8 @@ class MissileComponent extends SpriteComponent {
   final Player player;
   final num damage;
   final Vector2 targetPosition;
-  late final Vector2 direction;
   late final double speed;
+  MissilePhase phase = MissilePhase.goingUp;
 
   MissileComponent({
     required super.position,
@@ -39,8 +40,7 @@ class MissileComponent extends SpriteComponent {
       size.x = size.y * (image.width.toDouble() / image.height.toDouble());
     }
 
-    direction = (targetPosition - absolutePosition).normalized();
-    speed = size.x * 10;
+    speed = size.x * 15;
 
     return super.onLoad();
   }
@@ -50,19 +50,38 @@ class MissileComponent extends SpriteComponent {
     super.update(dt);
 
     final double deltaDistance = speed * dt;
-    position += direction * deltaDistance;
-    final num distance = absolutePosition.distanceTo(targetPosition);
 
-    if (distance < (deltaDistance * 2)) {
-      final double maxSize = max(size.x, size.y);
-      final ExplosionComponent explosionComponent = ExplosionComponent(
-        position: targetPosition,
-        size: Vector2(maxSize, maxSize),
-      );
-      match.add(explosionComponent);
-      player.onHit(damage);
-      Audio.get.playSound(Sound.EFFECT_MISSILE_IMPACT);
-      removeFromParent();
+    if (phase == MissilePhase.goingUp) {
+      if (position.y <= -Constants.UI_HEIGHT * 0.6) {
+        phase = MissilePhase.goingDown;
+        position.x = targetPosition.x;
+        angle = pi;
+      } else {
+        final Vector2 direction = Vector2(0, -1);
+        position += direction * deltaDistance;
+      }
+    } else if (phase == MissilePhase.goingDown) {
+      final num distance = absolutePosition.distanceTo(targetPosition);
+
+      if (distance < (deltaDistance * 2)) {
+        final double maxSize = max(size.x, size.y);
+        final ExplosionComponent explosionComponent = ExplosionComponent(
+          position: targetPosition,
+          size: Vector2(maxSize, maxSize),
+        );
+        match.add(explosionComponent);
+        player.onHit(damage);
+        Audio.get.playSound(Sound.EFFECT_MISSILE_IMPACT);
+        removeFromParent();
+      } else {
+        final Vector2 direction = Vector2(0, 1);
+        position += direction * deltaDistance;
+      }
     }
   }
+}
+
+enum MissilePhase {
+  goingUp,
+  goingDown,
 }
