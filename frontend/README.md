@@ -1,6 +1,5 @@
 ### High
 
-- Interview questions
 - Bug moving unit after it's destroyed (preload path before)
 
 - Drive popcap from server
