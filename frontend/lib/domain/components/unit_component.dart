@@ -166,11 +166,7 @@ class UnitComponent extends PositionComponent
       final UnitComponent? unitComponent = match.getEnemyUnitAt(endPosition!);
 
       if ((unitComponent != null) && (unitComponent.isRevealed)) {
-        if (unitComponent.player == player) {
-          Audio.get.playSound(Sound.randomMovementSound());
-        } else {
-          Audio.get.playSound(Sound.randomAttackSound());
-        }
+        Audio.get.playSound(Sound.randomAttackSound());
 
         match.onUnitAction(
           unitComponent: this,
