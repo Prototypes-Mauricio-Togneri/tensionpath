@@ -179,7 +179,12 @@ class UnitComponent extends PositionComponent
           unitType: type,
         );
 
-        if (nodeComponent != null) {
+        final bool movingToNewPosition =
+            (targetPosition == null) && (nodeComponent != closestNodeComponent);
+        final bool retargetingToNewPosition = (targetPosition != null);
+
+        if ((nodeComponent != null) &&
+            (movingToNewPosition || retargetingToNewPosition)) {
           Audio.get.playSound(Sound.randomMovementSound());
 
           match.onUnitAction(

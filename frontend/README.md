@@ -1,7 +1,6 @@
 ### High
 
 - Bug moving to a launcher
-- Moving to the same tile -> avoid
 - Drive popcap from server
 - Path finding
 
