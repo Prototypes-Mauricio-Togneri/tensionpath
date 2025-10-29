@@ -611,7 +611,7 @@ class ResourcesComponent extends PositionComponent {
     if (Environment.get.isLocal) {
       canvas.drawText(
         text:
-            '${player.resourcesRate}${Constants.RESOURCE_ICON} / s  -  ${match.match.popcap}',
+            '${player.resourcesRate}${Constants.RESOURCE_ICON} / s  -  Popcap: ${match.match.popcap}',
         position: Vector2(size.x * 0.5, size.y * 0.7),
         size: size.x / 10,
         color: Palette.CONTROLS_COST_FOREGROUND,

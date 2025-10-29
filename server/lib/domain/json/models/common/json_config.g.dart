@@ -36,6 +36,7 @@ JsonConfig _$JsonConfigFromJson(
       (v) => (v as num).toInt(),
     ),
     popcapInitial: $checkedConvert('popcapInitial', (v) => (v as num).toInt()),
+    popcapMax: $checkedConvert('popcapMax', (v) => (v as num).toInt()),
     popcapRate: $checkedConvert('popcapRate', (v) => v as num),
     missileMaxCharge: $checkedConvert(
       'missileMaxCharge',
@@ -75,6 +76,7 @@ Map<String, dynamic> _$JsonConfigToJson(JsonConfig instance) =>
       'maxHarvestersCount': instance.maxHarvestersCount,
       'harvesterReward': instance.harvesterReward,
       'popcapInitial': instance.popcapInitial,
+      'popcapMax': instance.popcapMax,
       'popcapRate': instance.popcapRate,
       'missileMaxCharge': instance.missileMaxCharge,
       'missileChargeBuffer': instance.missileChargeBuffer,

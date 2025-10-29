@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:tensionpath/domain/json/models/common/json_config.dart';
 
 class Config {
@@ -9,6 +10,7 @@ class Config {
   final int maxHarvestersCount;
   final int harvesterReward;
   final int popcapInitial;
+  final int popcapMax;
   final num popcapRate;
   final int missileMaxCharge;
   final int missileChargeBuffer;
@@ -29,6 +31,7 @@ class Config {
     required this.maxHarvestersCount,
     required this.harvesterReward,
     required this.popcapInitial,
+    required this.popcapMax,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
@@ -44,7 +47,7 @@ class Config {
   int popcapAtTime(num elapsedTime) {
     final int extraPopcap = (elapsedTime / popcapRate).floor();
 
-    return popcapInitial + extraPopcap;
+    return min(popcapInitial + extraPopcap, popcapMax);
   }
 
   factory Config.fromJson(JsonConfig json) => Config(
@@ -56,6 +59,7 @@ class Config {
     maxHarvestersCount: json.maxHarvestersCount,
     harvesterReward: json.harvesterReward,
     popcapInitial: json.popcapInitial,
+    popcapMax: json.popcapMax,
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,
@@ -77,6 +81,7 @@ class Config {
     maxHarvestersCount: maxHarvestersCount,
     harvesterReward: harvesterReward,
     popcapInitial: popcapInitial,
+    popcapMax: popcapMax,
     popcapRate: popcapRate,
     missileMaxCharge: missileMaxCharge,
     missileChargeBuffer: missileChargeBuffer,
