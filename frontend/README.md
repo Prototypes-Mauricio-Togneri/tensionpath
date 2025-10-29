@@ -1,5 +1,7 @@
 ### High
 
+- Bug moving to a launcher
+- Add missile thrust
 - Moving to the same tile -> avoid
 - Drive popcap from server
 - Path finding
