@@ -209,7 +209,7 @@ class MatchComponent extends World {
     if (launchers.length > 1) {
       final MissileComponent missileComponent = MissileComponent(
         position: battlefieldComponent.siloComponent.absolutePosition,
-        size: nodeSize / 2,
+        size: nodeSize,
         player: player,
         damage: event.damage!,
         targetPosition: _centerLauncher(launchers),

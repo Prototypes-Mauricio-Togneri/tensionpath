@@ -40,7 +40,7 @@ class MissileComponent extends SpriteComponent {
       size.x = size.y * (image.width.toDouble() / image.height.toDouble());
     }
 
-    speed = size.x * 15;
+    speed = size.x * 10;
 
     return super.onLoad();
   }
