@@ -1,6 +1,5 @@
 ### High
 
-- Bug moving to a launcher
 - Drive popcap from server
 - Path finding
 
