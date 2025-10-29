@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:tensionpath/app/constants.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
@@ -343,9 +342,7 @@ class UnitSelectorComponent extends PositionComponent {
     }
   }
 
-  bool get underPopcap =>
-      match.unitsOfPlayer(player) <
-      Popcap.fromElapsedTime(match.match.elapsedTime);
+  bool get underPopcap => match.unitsOfPlayer(player) < match.match.popcap;
 
   @override
   void update(double dt) {
@@ -613,7 +610,8 @@ class ResourcesComponent extends PositionComponent {
 
     if (Environment.get.isLocal) {
       canvas.drawText(
-        text: '${player.resourcesRate}${Constants.RESOURCE_ICON} / s',
+        text:
+            '${player.resourcesRate}${Constants.RESOURCE_ICON} / s  -  ${match.match.popcap}',
         position: Vector2(size.x * 0.5, size.y * 0.7),
         size: size.x / 10,
         color: Palette.CONTROLS_COST_FOREGROUND,

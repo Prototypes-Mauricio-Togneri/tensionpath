@@ -1,6 +1,5 @@
 ### High
 
-- Drive popcap from server
 - Path finding
 
 ### Medium

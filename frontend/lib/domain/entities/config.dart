@@ -7,7 +7,8 @@ class Config {
   final num resourcesActiveRate;
   final int maxHarvestersCount;
   final int harvesterReward;
-  final num popcapRate; // TODO(momo): use
+  final int popcapInitial;
+  final num popcapRate;
   final int missileMaxCharge;
   final int missileChargeBuffer;
   final num missileChargeRate;
@@ -21,6 +22,7 @@ class Config {
     required this.resourcesActiveRate,
     required this.maxHarvestersCount,
     required this.harvesterReward,
+    required this.popcapInitial,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
@@ -36,6 +38,7 @@ class Config {
     resourcesActiveRate: json.resourcesActiveRate,
     maxHarvestersCount: json.maxHarvestersCount,
     harvesterReward: json.harvesterReward,
+    popcapInitial: json.popcapInitial,
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,

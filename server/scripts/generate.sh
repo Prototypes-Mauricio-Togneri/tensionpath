@@ -20,4 +20,3 @@ cp lib/domain/types/unit_speed.dart ../frontend/lib/domain/types/
 cp lib/domain/types/unit_type.dart ../frontend/lib/domain/types/
 
 cp lib/domain/entities/location.dart ../frontend/lib/domain/entities/
-cp lib/domain/entities/popcap.dart ../frontend/lib/domain/entities/

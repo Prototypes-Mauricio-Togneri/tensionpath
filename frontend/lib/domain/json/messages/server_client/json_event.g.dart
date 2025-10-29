@@ -23,6 +23,12 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
             ? null
             : JsonEventPlayer.fromJson(v as Map<String, dynamic>),
       ),
+      popcap: $checkedConvert(
+        'popcap',
+        (v) => v == null
+            ? null
+            : JsonEventPopcap.fromJson(v as Map<String, dynamic>),
+      ),
       baseDamaged: $checkedConvert(
         'baseDamaged',
         (v) => v == null
@@ -85,6 +91,7 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
+  'popcap': ?instance.popcap?.toJson(),
   'baseDamaged': ?instance.baseDamaged?.toJson(),
   'resourceDepleted': ?instance.resourceDepleted?.toJson(),
   'buildingUnlocked': ?instance.buildingUnlocked?.toJson(),

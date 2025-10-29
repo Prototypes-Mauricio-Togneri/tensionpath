@@ -8,7 +8,8 @@ class Config {
   final num resourcesActiveRate;
   final int maxHarvestersCount;
   final int harvesterReward;
-  final num popcapRate; // TODO(momo): use
+  final int popcapInitial;
+  final num popcapRate;
   final int missileMaxCharge;
   final int missileChargeBuffer;
   final int missileChargeAlarm;
@@ -27,6 +28,7 @@ class Config {
     required this.resourcesActiveRate,
     required this.maxHarvestersCount,
     required this.harvesterReward,
+    required this.popcapInitial,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,
@@ -39,6 +41,12 @@ class Config {
     required this.suddenDeathDamage,
   });
 
+  int popcapAtTime(num elapsedTime) {
+    final int extraPopcap = (elapsedTime / popcapRate).floor();
+
+    return popcapInitial + extraPopcap;
+  }
+
   factory Config.fromJson(JsonConfig json) => Config(
     resourcesStart: json.resourcesStart,
     resourcesPerPatch: json.resourcesPerPatch,
@@ -47,6 +55,7 @@ class Config {
     resourcesActiveRate: json.resourcesActiveRate,
     maxHarvestersCount: json.maxHarvestersCount,
     harvesterReward: json.harvesterReward,
+    popcapInitial: json.popcapInitial,
     popcapRate: json.popcapRate,
     missileMaxCharge: json.missileMaxCharge,
     missileChargeBuffer: json.missileChargeBuffer,
@@ -67,6 +76,7 @@ class Config {
     resourcesActiveRate: resourcesActiveRate,
     maxHarvestersCount: maxHarvestersCount,
     harvesterReward: harvesterReward,
+    popcapInitial: popcapInitial,
     popcapRate: popcapRate,
     missileMaxCharge: missileMaxCharge,
     missileChargeBuffer: missileChargeBuffer,

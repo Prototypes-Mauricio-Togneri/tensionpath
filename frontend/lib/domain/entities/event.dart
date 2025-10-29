@@ -7,6 +7,7 @@ import 'package:tensionpath/domain/json/models/events/json_event_building_unlock
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_popcap.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_attack.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_created.dart';
@@ -22,6 +23,8 @@ class Event {
       return EventMissile.fromJson(json.missile!);
     } else if (json.player != null) {
       return EventPlayer.fromJson(json.player!);
+    } else if (json.popcap != null) {
+      return EventPopcap.fromJson(json.popcap!);
     } else if (json.baseDamaged != null) {
       return EventBaseDamaged.fromJson(json.baseDamaged!);
     } else if (json.resourceDepleted != null) {
@@ -94,6 +97,18 @@ class EventPlayer implements Event {
     resourcesRate: json.resourcesRate,
     currentHarvesterCount: json.currentHarvesterCount,
     maxHarvestersCount: json.maxHarvestersCount,
+  );
+}
+
+class EventPopcap implements Event {
+  final int popcap;
+
+  const EventPopcap({
+    required this.popcap,
+  });
+
+  factory EventPopcap.fromJson(JsonEventPopcap json) => EventPopcap(
+    popcap: json.popcap,
   );
 }
 

@@ -3,7 +3,6 @@ import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/entities/popcap.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
@@ -23,6 +22,7 @@ class Match {
   final Battlefield battlefield;
   final Players players;
   final Trace updateTrace = Trace(name: 'match_update');
+  int popcap = 0;
   num elapsedTime = 0;
   num matchOverTimeout = 0;
   MatchStatus status;
@@ -108,7 +108,7 @@ class Match {
       }
 
       final int currentAmountOfUnits = battlefield.units.ofPlayer(player);
-      final int popcapLimit = Popcap.fromElapsedTime(elapsedTime);
+      final int popcapLimit = config.popcapAtTime(elapsedTime);
 
       if (currentAmountOfUnits >= popcapLimit) {
         throw Exception('Popcap limit reached');
@@ -196,6 +196,13 @@ class Match {
       final (List<JsonEvent>, bool) battlefieldUpdate = battlefield.update(dt);
       final List<JsonEvent> events = battlefieldUpdate.$1;
       bool sendPlayerUpdates = battlefieldUpdate.$2;
+
+      final int previousPopcap = popcap;
+      popcap = config.popcapAtTime(elapsedTime);
+
+      if (popcap != previousPopcap) {
+        events.add(JsonEvent.popcap(popcap));
+      }
 
       // Check for sudden death
       if (elapsedTime >= config.suddenDeathTimeout) {

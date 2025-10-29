@@ -94,7 +94,7 @@ class MatchComponent extends World {
   }
 
   void onMatchUpdated(MatchUpdate matchUpdate) {
-    match.refresh(matchUpdate);
+    match.setStatus(matchUpdate.status);
     bool updateNodeLocks = false;
 
     // Update missile
@@ -114,6 +114,11 @@ class MatchComponent extends World {
         final Player player = _playerByIndex(event.index);
         player.refresh(event);
       },
+    );
+
+    // Update popcap
+    matchUpdate.eventsOfType<EventPopcap>().forEach(
+      (event) => match.setPopcap(event.popcap),
     );
 
     // Update base damage

@@ -25,6 +25,9 @@ class JsonConfig {
   @JsonKey(name: 'harvesterReward')
   final int harvesterReward;
 
+  @JsonKey(name: 'popcapInitial')
+  final int popcapInitial;
+
   @JsonKey(name: 'popcapRate')
   final num popcapRate;
 
@@ -63,6 +66,7 @@ class JsonConfig {
     required this.resourcesActiveRate,
     required this.maxHarvestersCount,
     required this.harvesterReward,
+    required this.popcapInitial,
     required this.popcapRate,
     required this.missileMaxCharge,
     required this.missileChargeBuffer,

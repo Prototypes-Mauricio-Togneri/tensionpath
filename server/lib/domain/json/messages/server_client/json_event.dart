@@ -6,6 +6,7 @@ import 'package:tensionpath/domain/json/models/events/json_event_building_unlock
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_popcap.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_resource_depleted.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_attack.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_created.dart';
@@ -24,6 +25,9 @@ class JsonEvent {
 
   @JsonKey(name: 'player')
   final JsonEventPlayer? player;
+
+  @JsonKey(name: 'popcap')
+  final JsonEventPopcap? popcap;
 
   @JsonKey(name: 'baseDamaged')
   final JsonEventBaseDamaged? baseDamaged;
@@ -55,6 +59,7 @@ class JsonEvent {
   const JsonEvent({
     this.missile,
     this.player,
+    this.popcap,
     this.baseDamaged,
     this.resourceDepleted,
     this.buildingUnlocked,
@@ -85,6 +90,10 @@ class JsonEvent {
   );
 
   factory JsonEvent.player(JsonEventPlayer player) => JsonEvent(player: player);
+
+  factory JsonEvent.popcap(int popcap) => JsonEvent(
+    popcap: JsonEventPopcap(popcap: popcap),
+  );
 
   factory JsonEvent.baseDamaged({
     required String playerIndex,
