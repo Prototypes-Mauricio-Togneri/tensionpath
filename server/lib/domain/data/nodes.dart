@@ -121,25 +121,6 @@ class Nodes {
       result.add(node);
     }
 
-    /*for (int x = currentX; x <= to.location.x; x += directionX) {
-      currentX = x;
-      final Location location = Location(
-        x: currentX,
-        y: from.location.y,
-      );
-      final Node node = atLocation(location);
-      result.add(node);
-    }
-
-    for (int y = from.location.y; y != to.location.y; y += directionY) {
-      final Location location = Location(
-        x: currentX,
-        y: y,
-      );
-      final Node node = atLocation(location);
-      result.add(node);
-    }*/
-
     for (final Node node in result) {
       print(node.location.id);
     }
