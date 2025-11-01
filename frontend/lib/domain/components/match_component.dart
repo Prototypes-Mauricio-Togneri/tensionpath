@@ -13,6 +13,7 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
@@ -197,30 +198,31 @@ class MatchComponent extends World {
     Audio.get.playSound(Sound.EFFECT_MISSILE_LAUNCHED);
 
     final Player player = _playerByIndex(event.playerIndex!);
-    final List<BuildingComponent> buildings = buildingComponents
-        .where((building) => building.belongsTo(player))
-        .toList();
-
-    if (buildings.length > 1) {
-      final MissileComponent missileComponent = MissileComponent(
-        position: battlefieldComponent.siloComponent.absolutePosition,
-        size: nodeSize,
+    final MissileComponent missileComponent = MissileComponent(
+      position: battlefieldComponent.siloComponent.absolutePosition,
+      size: nodeSize,
+      player: player,
+      damage: event.damage!,
+      targetPosition: _mainBuildingPosition(
+        buildings: buildingComponents,
         player: player,
-        damage: event.damage!,
-        targetPosition: _centerBuilding(buildings),
-      );
-      add(missileComponent);
-    }
+      ),
+    );
+    add(missileComponent);
   }
 
-  Vector2 _centerBuilding(List<BuildingComponent> buildings) {
-    Vector2 center = Vector2.zero();
-
+  Vector2 _mainBuildingPosition({
+    required List<BuildingComponent> buildings,
+    required Player player,
+  }) {
     for (final BuildingComponent building in buildings) {
-      center += building.absolutePosition;
+      if (building.belongsTo(player) &&
+          building.building.type == BuildingType.main) {
+        return building.absolutePosition;
+      }
     }
 
-    return center /= buildings.length.toDouble();
+    throw Exception('Main building not found for player: ${player.index}');
   }
 
   void _unlockBuilding(EventBuildingUnlocked event) {
