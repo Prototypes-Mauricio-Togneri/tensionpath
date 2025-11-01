@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:tensionpath/domain/components/building_component.dart';
 import 'package:tensionpath/domain/components/explosion_component.dart';
 import 'package:tensionpath/domain/components/fog_component.dart';
-import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
@@ -13,8 +13,8 @@ import 'package:tensionpath/domain/components/rocks_low_component.dart';
 import 'package:tensionpath/domain/components/silo_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/event.dart';
-import 'package:tensionpath/domain/entities/launchers.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/pad.dart';
@@ -37,7 +37,7 @@ class BattlefieldComponent extends PositionComponent {
   final Player opponent;
   final List<NodeComponent> nodeComponents;
   final List<ResourceComponent> resourceComponents;
-  final List<LauncherComponent> launcherComponents;
+  final List<BuildingComponent> buildingComponents;
   final List<UnitComponent> unitComponents;
   late final SiloComponent siloComponent;
   late final Vector2 mapCenter;
@@ -52,7 +52,7 @@ class BattlefieldComponent extends PositionComponent {
     required this.opponent,
     required this.nodeComponents,
     required this.resourceComponents,
-    required this.launcherComponents,
+    required this.buildingComponents,
     required this.unitComponents,
   }) : super(
          anchor: Anchor.topLeft,
@@ -101,7 +101,7 @@ class BattlefieldComponent extends PositionComponent {
       mapCenter: mapCenter,
     );
 
-    _addLauncherComponents(
+    _addBuildingComponents(
       nodeSize: nodeSize,
       mapCenter: mapCenter,
     );
@@ -233,23 +233,23 @@ class BattlefieldComponent extends PositionComponent {
     }
   }
 
-  void _addLauncherComponents({
+  void _addBuildingComponents({
     required Vector2 nodeSize,
     required Vector2 mapCenter,
   }) {
-    for (final Launcher launcher in battlefield.launchers) {
-      final Vector2 nodePosition = launcher.position.localPosition(
+    for (final Building building in battlefield.buildings) {
+      final Vector2 nodePosition = building.position.localPosition(
         mapCenter: mapCenter,
         nodeSizeRatio: nodeSizeRatio,
       );
-      final LauncherComponent launcherComponent = LauncherComponent(
+      final BuildingComponent buildingComponent = BuildingComponent(
         position: nodePosition,
         size: nodeSize,
-        player: playerByIndex(launcher.playerIndex),
-        nodeComponent: match.getNodeById(launcher.location.id),
+        player: playerByIndex(building.playerIndex),
+        nodeComponent: match.getNodeById(building.location.id),
       );
-      add(launcherComponent);
-      launcherComponents.add(launcherComponent);
+      add(buildingComponent);
+      buildingComponents.add(buildingComponent);
     }
   }
 
@@ -263,8 +263,8 @@ class BattlefieldComponent extends PositionComponent {
         size: size,
         self: self,
         unitComponents: unitComponents,
-        launcherComponents: launcherComponents
-            .where((launcher) => launcher.player.isSelf)
+        buildingComponents: buildingComponents
+            .where((building) => building.player.isSelf)
             .toList(),
         nodeComponents: nodeComponents,
         nodeSize: nodeSize,
@@ -384,7 +384,7 @@ class BattlefieldComponent extends PositionComponent {
           );
         }
       } else if (event.targetBaseLocation != null) {
-        final LauncherComponent? targetBase = launcherComponentByLocation(
+        final BuildingComponent? targetBase = buildingComponentByLocation(
           Location.fromJson(event.targetBaseLocation!),
         );
 
@@ -438,8 +438,8 @@ class BattlefieldComponent extends PositionComponent {
   UnitComponent? unitComponentById(String unitId) =>
       unitComponents.where((u) => u.id == unitId).firstOrNull;
 
-  LauncherComponent? launcherComponentByLocation(Location location) =>
-      launcherComponents
+  BuildingComponent? buildingComponentByLocation(Location location) =>
+      buildingComponents
           .where((l) => l.nodeComponent.location == location)
           .firstOrNull;
 

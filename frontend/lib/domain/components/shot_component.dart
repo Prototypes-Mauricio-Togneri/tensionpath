@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionpath/domain/components/building_component.dart';
 import 'package:tensionpath/domain/components/explosion_component.dart';
-import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -44,7 +44,7 @@ class ShotToUnitComponent extends ShotComponent {
 }
 
 class ShotToBaseComponent extends ShotComponent {
-  final LauncherComponent targetBase;
+  final BuildingComponent targetBase;
 
   ShotToBaseComponent({
     required super.position,

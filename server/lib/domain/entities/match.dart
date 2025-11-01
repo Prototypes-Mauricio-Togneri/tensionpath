@@ -106,7 +106,7 @@ class Match {
 
       final Player player = players.get(playerIndex);
 
-      if (type.buildingType != BuildingType.none) {
+      if (type.buildingType != BuildingType.main) {
         final Building building = battlefield.buildings.ofPlayer(
           player: player,
           type: type.buildingType,

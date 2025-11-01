@@ -24,7 +24,7 @@ Map<String, dynamic> _$JsonEventBuildingUnlockedToJson(
 };
 
 const _$BuildingTypeEnumMap = {
-  BuildingType.none: 'none',
+  BuildingType.main: 'main',
   BuildingType.barracks: 'barracks',
   BuildingType.factory: 'factory',
   BuildingType.airfield: 'airfield',

@@ -7,7 +7,7 @@ enum UnitType {
   // ============================== HARVESTER =============================== \\
   harvester(
     clazz: UnitClass.harvester,
-    buildingType: BuildingType.refinery,
+    buildingType: BuildingType.main,
     cost: 60,
     health: 3400,
     speed: UnitSpeed.slow,

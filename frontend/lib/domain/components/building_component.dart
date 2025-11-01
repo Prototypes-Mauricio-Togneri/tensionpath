@@ -9,11 +9,11 @@ import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
 import 'package:tensionpath/utils/dimensions.dart';
 
-class LauncherComponent extends SpriteComponent {
+class BuildingComponent extends SpriteComponent {
   final Player player;
   final NodeComponent nodeComponent;
 
-  LauncherComponent({
+  BuildingComponent({
     required super.position,
     required super.size,
     required this.player,
@@ -34,9 +34,9 @@ class LauncherComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     if (player.isPlayer1) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_1);
+      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_BUILDING_1);
     } else if (player.isPlayer2) {
-      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_LAUNCHER_2);
+      sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_BUILDING_2);
     }
 
     return super.onLoad();

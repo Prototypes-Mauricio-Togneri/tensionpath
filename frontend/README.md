@@ -1,6 +1,9 @@
 ### High
 
 - Show building in launcher
+- Add main base building
+- Launch units from proper building
+- Launch missile to main building
 - Path finding
   - If attacking to an enemy unit at distance, move to the closest node that is in between the unit and the enemy
 

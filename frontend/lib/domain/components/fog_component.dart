@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:tensionpath/app/constants.dart';
-import 'package:tensionpath/domain/components/launcher_component.dart';
+import 'package:tensionpath/domain/components/building_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -22,7 +22,7 @@ class FogComponent extends PositionComponent {
   );
   final Player self;
   final List<UnitComponent> unitComponents;
-  final List<LauncherComponent> launcherComponents;
+  final List<BuildingComponent> buildingComponents;
   final List<NodeComponent> nodeComponents;
   final Vector2 nodeSize;
   final Vector2 offset;
@@ -32,7 +32,7 @@ class FogComponent extends PositionComponent {
     required super.size,
     required this.self,
     required this.unitComponents,
-    required this.launcherComponents,
+    required this.buildingComponents,
     required this.nodeComponents,
     required this.nodeSize,
     required this.offset,
@@ -65,9 +65,9 @@ class FogComponent extends PositionComponent {
       nodeComponent.isRevealed = false;
     }
 
-    for (final LauncherComponent launcherComponent in launcherComponents) {
-      launcherComponent.nodeComponent.revealedNodes(
-        visibilityRange: Constants.LAUNCHER_VISIBILITY,
+    for (final BuildingComponent buildingComponent in buildingComponents) {
+      buildingComponent.nodeComponent.revealedNodes(
+        visibilityRange: Constants.BASE_VISIBILITY,
         nodes: nodeComponents,
         revealedNodes: revealedNodes,
       );

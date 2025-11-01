@@ -1,4 +1,4 @@
-import 'package:tensionpath/domain/entities/launchers.dart';
+import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
@@ -10,7 +10,7 @@ class Battlefield {
   final Size nodeSize;
   final Missile missile;
   final List<Resources> resources;
-  final List<Launcher> launchers;
+  final List<Building> buildings;
   final List<Node> nodes;
 
   const Battlefield({
@@ -18,7 +18,7 @@ class Battlefield {
     required this.nodeSize,
     required this.missile,
     required this.resources,
-    required this.launchers,
+    required this.buildings,
     required this.nodes,
   });
 
@@ -27,7 +27,7 @@ class Battlefield {
     nodeSize: Size.fromJson(json.nodeSize),
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
-    launchers: Launcher.list(json.launchers),
+    buildings: Building.list(json.buildings),
     nodes: Node.list(json.nodes),
   );
 }

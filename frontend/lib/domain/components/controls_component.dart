@@ -26,7 +26,7 @@ class ControlsComponent extends PositionComponent {
   final Player player;
   final int maxHarvestersCount;
   final Paint backgroundPaint = Palette.paint(style: PaintingStyle.fill);
-  final Map<BuildingType, BuildingComponent> buildingComponents = {};
+  final Map<BuildingType, BuildingBlockComponent> buildingComponents = {};
 
   ControlsComponent({
     required this.player,
@@ -71,7 +71,7 @@ class ControlsComponent extends PositionComponent {
       final int numberOfUnits = player.unitsInBuilding(buildingType);
 
       if (numberOfUnits > 0) {
-        final BuildingComponent buildingComponent = BuildingComponent(
+        final BuildingBlockComponent buildingComponent = BuildingBlockComponent(
           player: player,
           buildingType: buildingType,
           position: Dimensions.controlsBuildingCardPosition(
@@ -109,7 +109,7 @@ class ControlsComponent extends PositionComponent {
   }
 
   void unlockBuilding(BuildingType buildingType) {
-    final BuildingComponent? buildingComponent =
+    final BuildingBlockComponent? buildingComponent =
         buildingComponents[buildingType];
 
     if (buildingComponent != null) {
@@ -127,7 +127,7 @@ class ControlsComponent extends PositionComponent {
   }
 }
 
-class BuildingComponent extends PositionComponent with TapCallbacks {
+class BuildingBlockComponent extends PositionComponent with TapCallbacks {
   final Player player;
   final BuildingType buildingType;
   final Paint backgroundPaint = Palette.paint(
@@ -138,7 +138,7 @@ class BuildingComponent extends PositionComponent with TapCallbacks {
   );
   bool isEnabled = false;
 
-  BuildingComponent({
+  BuildingBlockComponent({
     required this.player,
     required this.buildingType,
     required super.position,

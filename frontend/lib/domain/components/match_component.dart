@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionpath/domain/components/battlefield_component.dart';
+import 'package:tensionpath/domain/components/building_component.dart';
 import 'package:tensionpath/domain/components/controls_component.dart';
 import 'package:tensionpath/domain/components/header_component.dart';
-import 'package:tensionpath/domain/components/launcher_component.dart';
 import 'package:tensionpath/domain/components/missile_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
@@ -25,7 +25,7 @@ class MatchComponent extends World {
   final Match match;
   final List<NodeComponent> nodeComponents = [];
   final List<ResourceComponent> resourceComponents = [];
-  final List<LauncherComponent> launcherComponents = [];
+  final List<BuildingComponent> buildingComponents = [];
   final List<UnitComponent> unitComponents = [];
   late final Player self;
   late final Player opponent;
@@ -60,7 +60,7 @@ class MatchComponent extends World {
       opponent: opponent,
       nodeComponents: nodeComponents,
       resourceComponents: resourceComponents,
-      launcherComponents: launcherComponents,
+      buildingComponents: buildingComponents,
       unitComponents: unitComponents,
     );
 
@@ -207,30 +207,30 @@ class MatchComponent extends World {
     Audio.get.playSound(Sound.EFFECT_MISSILE_LAUNCHED);
 
     final Player player = _playerByIndex(event.playerIndex!);
-    final List<LauncherComponent> launchers = launcherComponents
-        .where((launcher) => launcher.belongsTo(player))
+    final List<BuildingComponent> buildings = buildingComponents
+        .where((building) => building.belongsTo(player))
         .toList();
 
-    if (launchers.length > 1) {
+    if (buildings.length > 1) {
       final MissileComponent missileComponent = MissileComponent(
         position: battlefieldComponent.siloComponent.absolutePosition,
         size: nodeSize,
         player: player,
         damage: event.damage!,
-        targetPosition: _centerLauncher(launchers),
+        targetPosition: _centerBuilding(buildings),
       );
       add(missileComponent);
     }
   }
 
-  Vector2 _centerLauncher(List<LauncherComponent> launchers) {
+  Vector2 _centerBuilding(List<BuildingComponent> buildings) {
     Vector2 center = Vector2.zero();
 
-    for (final LauncherComponent launcher in launchers) {
-      center += launcher.absolutePosition;
+    for (final BuildingComponent building in buildings) {
+      center += building.absolutePosition;
     }
 
-    return center /= launchers.length.toDouble();
+    return center /= buildings.length.toDouble();
   }
 
   void onUnitDestroyed(UnitComponent unitComponent) =>
@@ -269,10 +269,10 @@ class MatchComponent extends World {
       }
     }
 
-    for (final LauncherComponent launcherComponent in launcherComponents) {
-      if (launcherComponent.containsPoint(position) &&
-          launcherComponent.belongsTo(opponent)) {
-        return launcherComponent.nodeComponent;
+    for (final BuildingComponent buildingComponent in buildingComponents) {
+      if (buildingComponent.containsPoint(position) &&
+          buildingComponent.belongsTo(opponent)) {
+        return buildingComponent.nodeComponent;
       }
     }
 

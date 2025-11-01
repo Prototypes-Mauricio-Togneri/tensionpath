@@ -51,10 +51,10 @@ class Assets {
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
   static const String IMAGES_OTHER_MISSILE = 'other/missile.png';
-  static const String IMAGES_STRUCTURES_LAUNCHER_1 =
-      'structures/launcher_1.png';
-  static const String IMAGES_STRUCTURES_LAUNCHER_2 =
-      'structures/launcher_2.png';
+  static const String IMAGES_STRUCTURES_BUILDING_1 =
+      'structures/building_1.png';
+  static const String IMAGES_STRUCTURES_BUILDING_2 =
+      'structures/building_2.png';
   static const String IMAGES_STRUCTURES_PAD_CONTESTED =
       'structures/pad_contested.png';
   static const String IMAGES_STRUCTURES_PAD_NEUTRAL =

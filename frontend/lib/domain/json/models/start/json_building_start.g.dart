@@ -35,7 +35,7 @@ Map<String, dynamic> _$JsonBuildingStartToJson(JsonBuildingStart instance) =>
     };
 
 const _$BuildingTypeEnumMap = {
-  BuildingType.none: 'none',
+  BuildingType.main: 'main',
   BuildingType.barracks: 'barracks',
   BuildingType.factory: 'factory',
   BuildingType.airfield: 'airfield',
