@@ -9,13 +9,17 @@ part of 'json_update.dart';
 JsonUpdate _$JsonUpdateFromJson(Map<String, dynamic> json) =>
     $checkedCreate('JsonUpdate', json, ($checkedConvert) {
       final val = JsonUpdate(
-        match: $checkedConvert(
-          'match',
-          (v) => JsonMatchUpdate.fromJson(v as Map<String, dynamic>),
+        events: $checkedConvert(
+          'events',
+          (v) => (v as List<dynamic>)
+              .map((e) => JsonEvent.fromJson(e as Map<String, dynamic>))
+              .toList(),
         ),
       );
       return val;
     });
 
 Map<String, dynamic> _$JsonUpdateToJson(JsonUpdate instance) =>
-    <String, dynamic>{'match': instance.match.toJson()};
+    <String, dynamic>{
+      'events': instance.events.map((e) => e.toJson()).toList(),
+    };

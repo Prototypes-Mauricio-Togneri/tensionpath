@@ -7,12 +7,12 @@ import 'package:tensionpath/domain/json/messages/client_server/json_surrender_ma
 import 'package:tensionpath/domain/json/messages/client_server/json_unit_action.dart';
 import 'package:tensionpath/domain/json/messages/client_server/json_unlock_building.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_error.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_welcome.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
@@ -167,8 +167,8 @@ class JsonMessage {
     start: JsonStart(match: match),
   );
 
-  factory JsonMessage.update(JsonMatchUpdate match) => JsonMessage(
-    update: JsonUpdate(match: match),
+  factory JsonMessage.update(List<JsonEvent> events) => JsonMessage(
+    update: JsonUpdate(events: events),
   );
 
   factory JsonMessage.error(String message) => JsonMessage(

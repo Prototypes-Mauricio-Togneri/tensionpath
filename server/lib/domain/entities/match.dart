@@ -7,7 +7,6 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
-import 'package:tensionpath/domain/json/models/update/json_match_update.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
@@ -172,6 +171,7 @@ class Match {
           loser: player.id,
         ),
       );
+      _sendMatchUpdate([JsonEvent.matchStatus(status)]);
     }
   }
 
@@ -179,6 +179,7 @@ class Match {
     if (_isPlaying) {
       updateTrace.start();
       elapsedTime += dt;
+      final List<JsonEvent> events = [];
 
       // Check for timeout
       if (elapsedTime >= config.matchTimeout) {
@@ -200,11 +201,13 @@ class Match {
             ),
           );
         }
+
+        events.add(JsonEvent.matchStatus(status));
       }
 
       // Update battlefield
       final (List<JsonEvent>, bool) battlefieldUpdate = battlefield.update(dt);
-      final List<JsonEvent> events = battlefieldUpdate.$1;
+      events.addAll(battlefieldUpdate.$1);
       bool sendPlayerUpdates = battlefieldUpdate.$2;
 
       final int previousPopcap = popcap;
@@ -250,6 +253,7 @@ class Match {
             loser: players.other(winner.index).id,
           ),
         );
+        events.add(JsonEvent.matchStatus(status));
       }
 
       // Send updates if there are any events
@@ -271,14 +275,8 @@ class Match {
     }
   }
 
-  void _sendMatchUpdate(List<JsonEvent> events) {
-    final JsonMatchUpdate jsonMatchUpdate = JsonMatchUpdate(
-      status: status,
-      events: events,
-    );
-
-    connection.broadcast(JsonMessage.update(jsonMatchUpdate));
-  }
+  void _sendMatchUpdate(List<JsonEvent> events) =>
+      connection.broadcast(JsonMessage.update(events));
 
   void _onMatchOver(JsonEvent event) {
     status = MatchStatus.over;

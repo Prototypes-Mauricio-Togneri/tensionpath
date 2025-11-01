@@ -4,6 +4,7 @@ import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_base_damaged.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_match_status.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_popcap.dart';
@@ -14,12 +15,16 @@ import 'package:tensionpath/domain/json/models/events/json_event_unit_damaged.da
 import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 part 'json_event.g.dart';
 
 @JsonSerializable()
 class JsonEvent {
+  @JsonKey(name: 'status')
+  final JsonEventMatchStatus? status;
+
   @JsonKey(name: 'missile')
   final JsonEventMissile? missile;
 
@@ -57,6 +62,7 @@ class JsonEvent {
   final JsonEventMatchFinished? matchFinished;
 
   const JsonEvent({
+    this.status,
     this.missile,
     this.player,
     this.popcap,
@@ -70,6 +76,10 @@ class JsonEvent {
     this.unitDamaged,
     this.matchFinished,
   });
+
+  factory JsonEvent.matchStatus(MatchStatus status) => JsonEvent(
+    status: JsonEventMatchStatus(status: status),
+  );
 
   factory JsonEvent.missile({
     required num charge,

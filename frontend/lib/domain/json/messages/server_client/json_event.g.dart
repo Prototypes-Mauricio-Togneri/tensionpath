@@ -11,6 +11,12 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
   json,
   ($checkedConvert) {
     final val = JsonEvent(
+      status: $checkedConvert(
+        'status',
+        (v) => v == null
+            ? null
+            : JsonEventMatchStatus.fromJson(v as Map<String, dynamic>),
+      ),
       missile: $checkedConvert(
         'missile',
         (v) => v == null
@@ -89,6 +95,7 @@ JsonEvent _$JsonEventFromJson(Map<String, dynamic> json) => $checkedCreate(
 );
 
 Map<String, dynamic> _$JsonEventToJson(JsonEvent instance) => <String, dynamic>{
+  'status': ?instance.status?.toJson(),
   'missile': ?instance.missile?.toJson(),
   'player': ?instance.player?.toJson(),
   'popcap': ?instance.popcap?.toJson(),
