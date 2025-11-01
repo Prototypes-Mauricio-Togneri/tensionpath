@@ -48,7 +48,7 @@ class BuildingComponent extends SpriteComponent {
         building: building,
         nodeComponent: nodeComponent,
         position: size / 2,
-        size: size * 0.6,
+        size: size * 0.4,
       ),
     );
 

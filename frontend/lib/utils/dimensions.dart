@@ -182,7 +182,7 @@ class Dimensions {
   }) {
     final Vector2 fromCenter = point - (size / 2);
 
-    return fromCenter.length < (size.x * 0.5);
+    return fromCenter.length < (size.x * 0.6);
   }
 
   static Vector2 fpsPosition({

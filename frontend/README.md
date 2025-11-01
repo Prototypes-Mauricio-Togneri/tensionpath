@@ -1,6 +1,5 @@
 ### High
 
-- Show building in launcher
 - Launch units from proper building
 - Add main base building
 - Launch missile to main building
