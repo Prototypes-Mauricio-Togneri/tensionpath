@@ -6,7 +6,7 @@ import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 import 'package:tensionpath/domain/json/models/common/json_size.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
-import 'package:tensionpath/domain/json/models/start/json_launcher_start.dart';
+import 'package:tensionpath/domain/json/models/start/json_building_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_match_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
@@ -107,7 +107,7 @@ class MatchLoader {
         config: config,
         nodes: jsonNodeStart,
       ),
-      launchers: _getJsonLaunchersStart(jsonNodeStart),
+      buildings: _getJsonBuildingsStart(jsonNodeStart),
     );
   }
 
@@ -216,15 +216,15 @@ class MatchLoader {
     return result;
   }
 
-  static List<JsonLauncherStart> _getJsonLaunchersStart(
+  static List<JsonBuildingStart> _getJsonBuildingsStart(
     List<JsonNodeStart> nodes,
   ) {
-    final List<JsonLauncherStart> result = [];
+    final List<JsonBuildingStart> result = [];
 
     for (final JsonNodeStart node in nodes) {
-      if (node.type == NodeType.launcher) {
+      if (node.type == NodeType.building) {
         result.add(
-          JsonLauncherStart(
+          JsonBuildingStart(
             playerIndex: node.playerIndex!,
             location: node.location,
             position: node.position,

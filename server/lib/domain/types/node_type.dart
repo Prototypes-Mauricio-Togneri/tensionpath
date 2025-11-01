@@ -4,7 +4,7 @@ import 'package:tensionpath/domain/types/unit_type.dart';
 enum NodeType {
   empty,
   resources,
-  launcher,
+  building,
   pad,
   rocks_low,
   missile;

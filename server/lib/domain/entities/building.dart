@@ -2,16 +2,16 @@ import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
-import 'package:tensionpath/domain/json/models/start/json_launcher_start.dart';
+import 'package:tensionpath/domain/json/models/start/json_building_start.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
-class Launcher {
+class Building {
   final Player player;
   final Location location;
   final Position position;
   final num radius;
 
-  const Launcher({
+  const Building({
     required this.player,
     required this.location,
     required this.position,
@@ -20,37 +20,37 @@ class Launcher {
 
   String get id => location.id;
 
-  factory Launcher.fromJson({
-    required JsonLauncherStart json,
+  factory Building.fromJson({
+    required JsonBuildingStart json,
     required Player player,
     required num radius,
-  }) => Launcher(
+  }) => Building(
     player: player,
     location: Location.fromJson(json.location),
     position: Position.fromJson(json.position),
     radius: radius,
   );
 
-  static IterableMap<String, Launcher> list({
-    required List<JsonLauncherStart> json,
+  static IterableMap<String, Building> list({
+    required List<JsonBuildingStart> json,
     required Players players,
     required num radius,
   }) {
-    final IterableMap<String, Launcher> result = IterableMap();
+    final IterableMap<String, Building> result = IterableMap();
 
-    for (final JsonLauncherStart jsonLauncher in json) {
-      final Launcher launcher = Launcher.fromJson(
-        json: jsonLauncher,
-        player: players.get(jsonLauncher.playerIndex),
+    for (final JsonBuildingStart jsonBuilding in json) {
+      final Building building = Building.fromJson(
+        json: jsonBuilding,
+        player: players.get(jsonBuilding.playerIndex),
         radius: radius,
       );
-      result.add(launcher.location.id, launcher);
+      result.add(building.location.id, building);
     }
 
     return result;
   }
 
-  JsonLauncherStart toJson() => JsonLauncherStart(
+  JsonBuildingStart toJson() => JsonBuildingStart(
     playerIndex: player.index,
     location: location.toJson(),
     position: position.toJson(),

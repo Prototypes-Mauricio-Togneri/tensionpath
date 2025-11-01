@@ -1,10 +1,10 @@
-import 'package:tensionpath/domain/data/launchers.dart';
+import 'package:tensionpath/domain/data/buildings.dart';
 import 'package:tensionpath/domain/data/nodes.dart';
 import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/data/resources.dart';
 import 'package:tensionpath/domain/data/units.dart';
+import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -24,7 +24,7 @@ class Battlefield {
   final Size nodeSize;
   final Missile missile;
   final Resources resources;
-  final Launchers launchers;
+  final Buildings buildings;
   final Players players;
   final Units units;
   final Nodes nodes;
@@ -35,7 +35,7 @@ class Battlefield {
     required this.nodeSize,
     required this.missile,
     required this.resources,
-    required this.launchers,
+    required this.buildings,
     required this.players,
     required this.units,
     required this.nodes,
@@ -66,17 +66,17 @@ class Battlefield {
     required UnitType type,
   }) {
     final Node targetNode = nodes.atLocation(location);
-    final Launcher? launcher = launchers.closestLauncher(
+    final Building? building = buildings.closestBuilding(
       position: targetNode.position,
       player: player,
     );
-    final Node originNode = nodes.get(launcher!.id);
+    final Node originNode = nodes.get(building!.id);
 
     final Unit unit = Unit(
       config: config,
       nodes: nodes,
       resources: resources,
-      launchers: launchers,
+      buildings: buildings,
       units: units,
       id: Unit.newId,
       player: player,
@@ -129,8 +129,8 @@ class Battlefield {
     if (defenderUnit == null) {
       final Node targetNode = nodes.atLocation(targetLocation!);
 
-      if (targetNode.type == NodeType.launcher) {
-        final Launcher targetBase = launchers.get(targetNode.id);
+      if (targetNode.type == NodeType.building) {
+        final Building targetBase = buildings.get(targetNode.id);
         final num distanceToTarget = attackerUnit.distanceToBase(targetBase);
 
         if (!attackerUnit.isInAttackRange(distanceToTarget)) {
@@ -210,9 +210,9 @@ class Battlefield {
           nodes: nodes,
         ),
       ),
-      launchers: Launchers(
-        Launcher.list(
-          json: json.launchers,
+      buildings: Buildings(
+        Building.list(
+          json: json.buildings,
           players: players,
           radius: nodeSize.radius,
         ),
@@ -228,7 +228,7 @@ class Battlefield {
     nodeSize: Constants.NODE_SIZE.toJson(),
     missile: missile.toJson(),
     resources: resources.list.map((r) => r.toJson()).toList(),
-    launchers: launchers.list.map((l) => l.toJson()).toList(),
+    buildings: buildings.list.map((l) => l.toJson()).toList(),
     nodes: nodes.list.map((n) => n.toJson()).toList(),
   );
 }

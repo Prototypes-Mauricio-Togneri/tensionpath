@@ -27,7 +27,7 @@
         },
         "nodes": [
             {
-                "type": "launcher",
+                "type": "building",
                 "location": {
                     "x": -3,
                     "y": -3
@@ -93,7 +93,7 @@
                 }
             },
             {
-                "type": "launcher",
+                "type": "building",
                 "location": {
                     "x": 6,
                     "y": -3
@@ -101,7 +101,7 @@
                 "playerIndex": "2"
             },
             {
-                "type": "launcher",
+                "type": "building",
                 "location": {
                     "x": -3,
                     "y": -2
@@ -159,7 +159,7 @@
                 }
             },
             {
-                "type": "launcher",
+                "type": "building",
                 "location": {
                     "x": 5,
                     "y": -2
@@ -167,7 +167,7 @@
                 "playerIndex": "2"
             },
             {
-                "type": "launcher",
+                "type": "building",
                 "location": {
                     "x": -4,
                     "y": -1
@@ -231,7 +231,7 @@
                 }
             },
             {
-                "type": "launcher",
+                "type": "building",
                 "location": {
                     "x": 5,
                     "y": -1

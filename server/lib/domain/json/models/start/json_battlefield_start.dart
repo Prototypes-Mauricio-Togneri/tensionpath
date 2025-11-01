@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_size.dart';
-import 'package:tensionpath/domain/json/models/start/json_launcher_start.dart';
+import 'package:tensionpath/domain/json/models/start/json_building_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_missile_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
 import 'package:tensionpath/domain/json/models/start/json_resource_start.dart';
@@ -21,8 +21,8 @@ class JsonBattlefieldStart {
   @JsonKey(name: 'resources')
   final List<JsonResourceStart> resources;
 
-  @JsonKey(name: 'launchers')
-  final List<JsonLauncherStart> launchers;
+  @JsonKey(name: 'buildings')
+  final List<JsonBuildingStart> buildings;
 
   @JsonKey(name: 'nodes')
   final List<JsonNodeStart> nodes;
@@ -32,7 +32,7 @@ class JsonBattlefieldStart {
     required this.nodeSize,
     required this.missile,
     required this.resources,
-    required this.launchers,
+    required this.buildings,
     required this.nodes,
   });
 

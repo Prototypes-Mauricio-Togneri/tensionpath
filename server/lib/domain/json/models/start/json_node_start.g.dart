@@ -36,7 +36,7 @@ Map<String, dynamic> _$JsonNodeStartToJson(JsonNodeStart instance) =>
 const _$NodeTypeEnumMap = {
   NodeType.empty: 'empty',
   NodeType.resources: 'resources',
-  NodeType.launcher: 'launcher',
+  NodeType.building: 'building',
   NodeType.pad: 'pad',
   NodeType.rocks_low: 'rocks_low',
   NodeType.missile: 'missile',

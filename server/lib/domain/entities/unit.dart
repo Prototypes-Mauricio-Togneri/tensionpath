@@ -1,9 +1,9 @@
-import 'package:tensionpath/domain/data/launchers.dart';
+import 'package:tensionpath/domain/data/buildings.dart';
 import 'package:tensionpath/domain/data/nodes.dart';
 import 'package:tensionpath/domain/data/resources.dart';
 import 'package:tensionpath/domain/data/units.dart';
+import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/config.dart';
-import 'package:tensionpath/domain/entities/launcher.dart';
 import 'package:tensionpath/domain/entities/node.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
@@ -19,7 +19,7 @@ class Unit {
   final Config config;
   final Nodes nodes;
   final Resources resources;
-  final Launchers launchers;
+  final Buildings buildings;
   final Units units;
   final String id;
   final Player player;
@@ -32,7 +32,7 @@ class Unit {
   Node closestNode;
   Node? lockedNode;
   Node? targetNode;
-  Launcher? targetBase;
+  Building? targetBase;
   Unit? targetUnit;
   bool lastOrderManual = false;
 
@@ -40,7 +40,7 @@ class Unit {
     required this.config,
     required this.nodes,
     required this.resources,
-    required this.launchers,
+    required this.buildings,
     required this.units,
     required this.id,
     required this.player,
@@ -96,7 +96,7 @@ class Unit {
     }
   }
 
-  void attackBase(Launcher base) {
+  void attackBase(Building base) {
     if (canAttackStructures) {
       targetBase = base;
     }
@@ -248,7 +248,7 @@ class Unit {
 
       // Assign the closest base in range if there is not one assigned
       if ((targetBase == null) && canAttackStructures) {
-        targetBase = launchers.closestEnemyBaseInRange(this);
+        targetBase = buildings.closestEnemyBaseInRange(this);
 
         if (targetBase != null) {
           Logger.debug('Target base retargeted to ${targetBase!.id}');
@@ -324,8 +324,8 @@ class Unit {
   num distanceToUnit(Unit unit) =>
       position.distanceTo(unit.position) - unit.radius;
 
-  num distanceToBase(Launcher launcher) =>
-      position.distanceTo(launcher.position) - launcher.radius;
+  num distanceToBase(Building building) =>
+      position.distanceTo(building.position) - building.radius;
 
   void hit(num damage) {
     health -= damage;

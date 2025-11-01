@@ -2,10 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/common/json_position.dart';
 
-part 'json_launcher_start.g.dart';
+part 'json_building_start.g.dart';
 
 @JsonSerializable()
-class JsonLauncherStart {
+class JsonBuildingStart {
   @JsonKey(name: 'playerIndex')
   final String playerIndex;
 
@@ -15,14 +15,14 @@ class JsonLauncherStart {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  const JsonLauncherStart({
+  const JsonBuildingStart({
     required this.playerIndex,
     required this.location,
     required this.position,
   });
 
-  factory JsonLauncherStart.fromJson(Map<String, dynamic> json) =>
-      _$JsonLauncherStartFromJson(json);
+  factory JsonBuildingStart.fromJson(Map<String, dynamic> json) =>
+      _$JsonBuildingStartFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonLauncherStartToJson(this);
+  Map<String, dynamic> toJson() => _$JsonBuildingStartToJson(this);
 }

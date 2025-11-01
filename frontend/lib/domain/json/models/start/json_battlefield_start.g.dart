@@ -28,10 +28,10 @@ JsonBattlefieldStart _$JsonBattlefieldStartFromJson(
           .map((e) => JsonResourceStart.fromJson(e as Map<String, dynamic>))
           .toList(),
     ),
-    launchers: $checkedConvert(
-      'launchers',
+    buildings: $checkedConvert(
+      'buildings',
       (v) => (v as List<dynamic>)
-          .map((e) => JsonLauncherStart.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonBuildingStart.fromJson(e as Map<String, dynamic>))
           .toList(),
     ),
     nodes: $checkedConvert(
@@ -51,6 +51,6 @@ Map<String, dynamic> _$JsonBattlefieldStartToJson(
   'nodeSize': instance.nodeSize.toJson(),
   'missile': instance.missile.toJson(),
   'resources': instance.resources.map((e) => e.toJson()).toList(),
-  'launchers': instance.launchers.map((e) => e.toJson()).toList(),
+  'buildings': instance.buildings.map((e) => e.toJson()).toList(),
   'nodes': instance.nodes.map((e) => e.toJson()).toList(),
 };

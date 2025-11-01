@@ -9,6 +9,6 @@ void main(List<String> args) {
     showLogs: (args.length > 3) && (args[3] == 'true'),
   );
 
-  final Starter launcher = Starter(environment);
-  launcher.start();
+  final Starter starter = Starter(environment);
+  starter.start();
 }
