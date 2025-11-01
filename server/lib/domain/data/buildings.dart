@@ -27,22 +27,6 @@ class Buildings {
     throw Exception('Building $type for player ${player.name} not found');
   }
 
-  Building? closestBuilding({
-    required Position position,
-    required Player player,
-  }) {
-    final List<Building> availableBuildings = _buildings.list
-        .where(
-          (building) => building.player == player,
-        )
-        .toList();
-
-    return closestFromList(
-      position: position,
-      availableBuildings: availableBuildings,
-    );
-  }
-
   Building? closestEnemyBaseInRange(Unit unit) {
     Building? result;
     num closestDistance = double.infinity;

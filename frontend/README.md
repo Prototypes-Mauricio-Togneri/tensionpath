@@ -1,6 +1,5 @@
 ### High
 
-- Launch units from proper building
 - Add main base building
 - Launch missile to main building
 - Path finding
