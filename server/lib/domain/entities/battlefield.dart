@@ -65,11 +65,11 @@ class Battlefield {
     required Location location,
     required UnitType type,
   }) {
-    final Building? building = buildings.ofPlayer(
+    final Building building = buildings.ofPlayer(
       player: player,
       type: type.buildingType,
     );
-    final Node originNode = nodes.get(building!.id);
+    final Node originNode = nodes.get(building.id);
     final Node targetNode = nodes.atLocation(location);
 
     final Unit unit = Unit(
