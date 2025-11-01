@@ -22,7 +22,7 @@
     },
     "battlefield": {
         "mapSize": {
-            "width": 9,
+            "width": 10,
             "height": 7
         },
         "nodes": [
@@ -314,6 +314,15 @@
             },
             {
                 "type": "building",
+                "building": "main",
+                "location": {
+                    "x": 5,
+                    "y": 1
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "building",
                 "building": "barracks",
                 "location": {
                     "x": 5,
@@ -408,6 +417,15 @@
                     "x": -3,
                     "y": -1
                 }
+            },
+            {
+                "type": "building",
+                "building": "main",
+                "location": {
+                    "x": -5,
+                    "y": 1
+                },
+                "playerIndex": "1"
             },
             {
                 "type": "building",

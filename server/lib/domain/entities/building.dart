@@ -13,7 +13,7 @@ class Building {
   final Location location;
   final Position position;
   final num radius;
-  bool isUnlocked = false;
+  late bool isUnlocked;
 
   Building({
     required this.type,
@@ -21,7 +21,9 @@ class Building {
     required this.location,
     required this.position,
     required this.radius,
-  });
+  }) {
+    isUnlocked = type == BuildingType.main;
+  }
 
   String get id => location.id;
 

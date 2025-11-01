@@ -61,6 +61,7 @@ class Assets {
   static const String IMAGES_BUILDINGS_FACTORY_OFF =
       'buildings/factory_off.png';
   static const String IMAGES_BUILDINGS_FACTORY_ON = 'buildings/factory_on.png';
+  static const String IMAGES_BUILDINGS_MAIN_ON = 'buildings/main_on.png';
   static const String IMAGES_OTHER_MISSILE = 'other/missile.png';
   static const String IMAGES_STRUCTURES_BUILDING_1 =
       'structures/building_1.png';

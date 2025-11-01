@@ -83,7 +83,9 @@ class BuildingImageComponent extends SpriteComponent with HasVisibility {
 
   @override
   FutureOr onLoad() async {
-    if (building.type == BuildingType.barracks) {
+    if (building.type == BuildingType.main) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_MAIN_ON);
+    } else if (building.type == BuildingType.barracks) {
       sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_BARRACKS_ON);
     } else if (building.type == BuildingType.factory) {
       sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_FACTORY_ON);

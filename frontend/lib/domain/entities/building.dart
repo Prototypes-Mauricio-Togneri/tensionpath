@@ -9,14 +9,16 @@ class Building {
   final Location location;
   final Position position;
   final BuildingType type;
-  bool isUnlocked = false;
+  late bool isUnlocked;
 
   Building({
     required this.player,
     required this.location,
     required this.position,
     required this.type,
-  });
+  }) {
+    isUnlocked = type == BuildingType.main;
+  }
 
   void unlock() {
     isUnlocked = true;

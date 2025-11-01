@@ -105,15 +105,13 @@ class Match {
 
       final Player player = players.get(playerIndex);
 
-      if (type.buildingType != BuildingType.main) {
-        final Building building = battlefield.buildings.ofPlayer(
-          player: player,
-          type: type.buildingType,
-        );
+      final Building building = battlefield.buildings.ofPlayer(
+        player: player,
+        type: type.buildingType,
+      );
 
-        if (!building.isUnlocked) {
-          throw Exception('Building for unit $type is locked');
-        }
+      if (!building.isUnlocked) {
+        throw Exception('Building for unit $type is locked');
       }
 
       final int currentAmountOfUnits = battlefield.units.ofPlayer(player);
