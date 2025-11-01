@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/components/shot_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/player.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/utils/assets.dart';
@@ -42,6 +43,15 @@ class BuildingComponent extends SpriteComponent {
       sprite = await Sprite.load(Assets.IMAGES_STRUCTURES_BUILDING_2);
     }
 
+    add(
+      BuildingImageComponent(
+        building: building,
+        nodeComponent: nodeComponent,
+        position: size / 2,
+        size: size * 0.6,
+      ),
+    );
+
     return super.onLoad();
   }
 
@@ -57,5 +67,37 @@ class BuildingComponent extends SpriteComponent {
       damage: damage,
     );
     match.add(shotComponent);
+  }
+}
+
+class BuildingImageComponent extends SpriteComponent with HasVisibility {
+  final Building building;
+  final NodeComponent nodeComponent;
+
+  BuildingImageComponent({
+    required this.building,
+    required this.nodeComponent,
+    required super.position,
+    required super.size,
+  }) : super(anchor: Anchor.center);
+
+  @override
+  FutureOr onLoad() async {
+    if (building.type == BuildingType.barracks) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_BARRACKS_ON);
+    } else if (building.type == BuildingType.factory) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_FACTORY_ON);
+    } else if (building.type == BuildingType.airfield) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_AIRFIELD_ON);
+    }
+
+    return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    isVisible = building.isUnlocked && nodeComponent.isRevealed;
   }
 }

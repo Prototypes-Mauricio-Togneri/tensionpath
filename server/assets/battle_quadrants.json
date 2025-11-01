@@ -314,6 +314,7 @@
             },
             {
                 "type": "building",
+                "building": "barracks",
                 "location": {
                     "x": 5,
                     "y": -2
@@ -322,6 +323,7 @@
             },
             {
                 "type": "building",
+                "building": "factory",
                 "location": {
                     "x": 4,
                     "y": -1
@@ -330,6 +332,7 @@
             },
             {
                 "type": "building",
+                "building": "airfield",
                 "location": {
                     "x": 4,
                     "y": 0
@@ -408,6 +411,7 @@
             },
             {
                 "type": "building",
+                "building": "barracks",
                 "location": {
                     "x": -4,
                     "y": 0
@@ -416,9 +420,19 @@
             },
             {
                 "type": "building",
+                "building": "factory",
                 "location": {
                     "x": -4,
                     "y": 1
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "building",
+                "building": "airfield",
+                "location": {
+                    "x": -5,
+                    "y": 2
                 },
                 "playerIndex": "1"
             },
@@ -428,14 +442,6 @@
                     "x": -4,
                     "y": 2
                 }
-            },
-            {
-                "type": "building",
-                "location": {
-                    "x": -5,
-                    "y": 2
-                },
-                "playerIndex": "1"
             },
             {
                 "type": "empty",
