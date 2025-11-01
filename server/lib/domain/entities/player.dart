@@ -1,6 +1,4 @@
-import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_player_start.dart';
-import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
@@ -12,7 +10,6 @@ class Player {
   final num resourcesPassiveRate;
   final num resourcesActiveRate;
   final List<UnitType> deck;
-  final List<BuildingType> buildings = [];
   num baseHealth;
   num resources;
 
@@ -26,11 +23,7 @@ class Player {
     required this.resourcesPassiveRate,
     required this.resourcesActiveRate,
     required this.deck,
-  }) {
-    if (deck.contains(UnitType.harvester)) {
-      buildings.add(BuildingType.refinery);
-    }
-  }
+  });
 
   bool get isAlive => baseHealth > 0;
 
@@ -57,17 +50,6 @@ class Player {
     } else {
       return false;
     }
-  }
-
-  bool hasBuildingLocked(BuildingType type) => !buildings.contains(type);
-
-  JsonEvent unlockBuilding(BuildingType type) {
-    buildings.add(type);
-
-    return JsonEvent.buildingUnlocked(
-      playerIndex: index,
-      buildingType: type,
-    );
   }
 
   factory Player.fromJson(JsonPlayerStart json) => Player(

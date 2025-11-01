@@ -1,5 +1,5 @@
 enum BuildingType {
-  refinery(cost: 0),
+  none(cost: 0),
   barracks(cost: 30),
   factory(cost: 40),
   airfield(cost: 50);

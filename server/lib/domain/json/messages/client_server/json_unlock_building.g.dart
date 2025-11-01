@@ -25,7 +25,7 @@ Map<String, dynamic> _$JsonUnlockBuildingToJson(JsonUnlockBuilding instance) =>
     };
 
 const _$BuildingTypeEnumMap = {
-  BuildingType.refinery: 'refinery',
+  BuildingType.none: 'none',
   BuildingType.barracks: 'barracks',
   BuildingType.factory: 'factory',
   BuildingType.airfield: 'airfield',

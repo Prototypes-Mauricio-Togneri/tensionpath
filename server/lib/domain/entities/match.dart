@@ -1,5 +1,6 @@
 import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
+import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
@@ -76,15 +77,17 @@ class Match {
     required BuildingType type,
   }) {
     final Player player = players.get(playerIndex);
+    final Building building = battlefield.buildings.ofPlayer(
+      player: player,
+      type: type,
+    );
 
-    if (!player.hasBuildingLocked(type)) {
+    if (building.isUnlocked) {
       throw Exception('Building has been already unlocked');
     }
 
     if (player.removeResources(type.cost)) {
-      final List<JsonEvent> events = [
-        player.unlockBuilding(type),
-      ];
+      final List<JsonEvent> events = [building.unlock()];
       events.addAll(players.events(battlefield.units));
       _sendMatchUpdate(events);
     }
@@ -103,8 +106,15 @@ class Match {
 
       final Player player = players.get(playerIndex);
 
-      if (player.hasBuildingLocked(type.buildingType)) {
-        throw Exception('Building for unit $type is locked');
+      if (type.buildingType != BuildingType.none) {
+        final Building building = battlefield.buildings.ofPlayer(
+          player: player,
+          type: type.buildingType,
+        );
+
+        if (!building.isUnlocked) {
+          throw Exception('Building for unit $type is locked');
+        }
       }
 
       final int currentAmountOfUnits = battlefield.units.ofPlayer(player);

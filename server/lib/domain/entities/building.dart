@@ -2,6 +2,7 @@ import 'package:tensionpath/domain/data/players.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
+import 'package:tensionpath/domain/json/messages/server_client/json_event.dart';
 import 'package:tensionpath/domain/json/models/start/json_building_start.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
@@ -12,7 +13,7 @@ class Building {
   final Location location;
   final Position position;
   final num radius;
-  bool unlocked = false;
+  bool isUnlocked = false;
 
   Building({
     required this.type,
@@ -23,6 +24,15 @@ class Building {
   });
 
   String get id => location.id;
+
+  JsonEvent unlock() {
+    isUnlocked = true;
+
+    return JsonEvent.buildingUnlocked(
+      playerIndex: player.index,
+      buildingType: type,
+    );
+  }
 
   factory Building.fromJson({
     required JsonBuildingStart json,

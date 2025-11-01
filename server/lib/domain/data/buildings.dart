@@ -2,6 +2,7 @@ import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Buildings {
@@ -12,6 +13,19 @@ class Buildings {
   Building get(String id) => _buildings.get(id);
 
   List<Building> get list => _buildings.list;
+
+  Building ofPlayer({
+    required Player player,
+    required BuildingType type,
+  }) {
+    for (final Building building in _buildings.list) {
+      if ((building.player == player) && (building.type == type)) {
+        return building;
+      }
+    }
+
+    throw Exception('Building $type for player ${player.name} not found');
+  }
 
   Building? closestBuilding({
     required Position position,
