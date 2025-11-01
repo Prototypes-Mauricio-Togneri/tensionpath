@@ -1,5 +1,3 @@
-# include: package:flutter_lints/flutter.yaml
-
 formatter:
   trailing_commas: preserve
 
@@ -50,7 +48,6 @@ linter:
     - empty_constructor_bodies
     - empty_statements
     - file_names
-    - flutter_style_todos
     - hash_and_equals
     - implementation_imports
     - collection_methods_unrelated_type
@@ -111,7 +108,6 @@ linter:
     - unnecessary_string_interpolations
     - unnecessary_this
     - unrelated_type_equality_checks
-    - use_full_hex_values_for_flutter_colors
     - use_function_type_syntax_for_parameters
     - use_rethrow_when_possible
     - valid_regexps
