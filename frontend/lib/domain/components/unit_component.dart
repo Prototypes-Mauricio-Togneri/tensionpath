@@ -30,11 +30,11 @@ class UnitComponent extends PositionComponent
   final MovementPathComponent? movementOrderComponent;
   final MovementPathComponent? movementCurrentComponent;
   final BattlefieldComponent battlefieldComponent;
-  Vector2? endPosition;
-  Vector2? targetPosition;
+  List<Vector2> targetPositions;
   NodeComponent? lockedNode;
   NodeComponent? targetBase;
   UnitComponent? targetUnit;
+  Vector2? endPosition;
 
   UnitComponent({
     required super.position,
@@ -47,7 +47,7 @@ class UnitComponent extends PositionComponent
     required this.movementOrderComponent,
     required this.movementCurrentComponent,
     required this.battlefieldComponent,
-    required this.targetPosition,
+    required this.targetPositions,
     required this.targetBase,
     required this.targetUnit,
   }) : super(
@@ -68,10 +68,10 @@ class UnitComponent extends PositionComponent
 
   void onMovementStarted({
     required Vector2 newCurrentPosition,
-    required Vector2? newTargetPosition,
+    required List<Vector2> newTargetPositions,
   }) {
     position = newCurrentPosition;
-    targetPosition = newTargetPosition;
+    targetPositions = newTargetPositions;
   }
 
   void onMovementEnded({
@@ -180,8 +180,9 @@ class UnitComponent extends PositionComponent
         );
 
         final bool standingToMoving =
-            (targetPosition == null) && (nodeComponent != closestNodeComponent);
-        final bool movingToMoving = targetPosition != null;
+            (targetPositions.isEmpty) &&
+            (nodeComponent != closestNodeComponent);
+        final bool movingToMoving = targetPositions.isNotEmpty;
 
         if ((nodeComponent != null) && (standingToMoving || movingToMoving)) {
           Audio.get.playSound(Sound.randomMovementSound());
@@ -207,21 +208,23 @@ class UnitComponent extends PositionComponent
     if (match.match.isPlaying) {
       attackAlert.update(dt);
 
-      if (targetPosition != null) {
+      if (targetPositions.isNotEmpty) {
+        final Vector2 targetPosition = targetPositions.first;
+
         if (player.isSelf) {
           movementCurrentComponent?.show(
             start: absolutePosition,
-            end: targetPosition! + battlefieldComponent.position,
+            end: targetPosition + battlefieldComponent.position,
           );
         }
 
-        final Vector2 direction = targetPosition! - position;
+        final Vector2 direction = targetPosition - position;
         final num distance = direction.length;
         final num speed = nodeSizeRatio * type.speed.value;
 
         if (distance < 1) {
-          position = targetPosition!;
-          targetPosition = null;
+          position = targetPosition;
+          targetPositions = [];
         } else {
           direction.normalize();
           position += direction * (speed * dt);

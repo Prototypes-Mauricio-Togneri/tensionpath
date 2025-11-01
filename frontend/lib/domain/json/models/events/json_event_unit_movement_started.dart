@@ -11,13 +11,13 @@ class JsonEventUnitMovementStarted {
   @JsonKey(name: 'currentPosition')
   final JsonPosition currentPosition;
 
-  @JsonKey(name: 'targetPosition')
-  final JsonPosition targetPosition;
+  @JsonKey(name: 'targetPositions')
+  final List<JsonPosition> targetPositions;
 
   const JsonEventUnitMovementStarted({
     required this.id,
     required this.currentPosition,
-    required this.targetPosition,
+    required this.targetPositions,
   });
 
   factory JsonEventUnitMovementStarted.fromJson(Map<String, dynamic> json) =>

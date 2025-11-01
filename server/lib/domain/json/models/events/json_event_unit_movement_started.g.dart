@@ -15,9 +15,11 @@ JsonEventUnitMovementStarted _$JsonEventUnitMovementStartedFromJson(
       'currentPosition',
       (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
     ),
-    targetPosition: $checkedConvert(
-      'targetPosition',
-      (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
+    targetPositions: $checkedConvert(
+      'targetPositions',
+      (v) => (v as List<dynamic>)
+          .map((e) => JsonPosition.fromJson(e as Map<String, dynamic>))
+          .toList(),
     ),
   );
   return val;
@@ -28,5 +30,5 @@ Map<String, dynamic> _$JsonEventUnitMovementStartedToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'currentPosition': instance.currentPosition.toJson(),
-  'targetPosition': instance.targetPosition.toJson(),
+  'targetPositions': instance.targetPositions.map((e) => e.toJson()).toList(),
 };

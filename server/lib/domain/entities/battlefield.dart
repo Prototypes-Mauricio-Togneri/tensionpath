@@ -98,7 +98,9 @@ class Battlefield {
       unitType: type,
       health: unit.health,
       position: unit.position.toJson(),
-      targetPosition: unit.targetNode?.position.toJson(),
+      targetPositions: unit.targetNodes
+          .map((node) => node.position.toJson())
+          .toList(),
       lockedLocation: unit.lockedNode?.location.toJson(),
       targetBase: unit.targetBase?.location.toJson(),
       targetUnitId: unit.targetUnit?.id,

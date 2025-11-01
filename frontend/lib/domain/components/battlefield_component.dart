@@ -312,10 +312,14 @@ class BattlefieldComponent extends PositionComponent {
       battlefieldComponent: this,
       movementOrderComponent: movementOrderComponent,
       movementCurrentComponent: movementCurrentComponent,
-      targetPosition: event.targetPosition?.localPosition(
-        mapCenter: mapCenter,
-        nodeSizeRatio: nodeSizeRatio,
-      ),
+      targetPositions: event.targetPositions
+          .map(
+            (position) => position.localPosition(
+              mapCenter: mapCenter,
+              nodeSizeRatio: nodeSizeRatio,
+            ),
+          )
+          .toList(),
       targetUnit: event.targetUnitId != null
           ? unitComponents.where((u) => u.id == event.targetUnitId).firstOrNull
           : null,
@@ -341,10 +345,14 @@ class BattlefieldComponent extends PositionComponent {
           mapCenter: mapCenter,
           nodeSizeRatio: nodeSizeRatio,
         ),
-        newTargetPosition: event.targetPosition.localPosition(
-          mapCenter: mapCenter,
-          nodeSizeRatio: nodeSizeRatio,
-        ),
+        newTargetPositions: event.targetPositions
+            .map(
+              (position) => position.localPosition(
+                mapCenter: mapCenter,
+                nodeSizeRatio: nodeSizeRatio,
+              ),
+            )
+            .toList(),
       );
     }
   }

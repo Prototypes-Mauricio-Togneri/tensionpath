@@ -131,7 +131,7 @@ class JsonEvent {
     required UnitType unitType,
     required num health,
     required JsonPosition position,
-    required JsonPosition? targetPosition,
+    required List<JsonPosition> targetPositions,
     required JsonLocation? lockedLocation,
     required JsonLocation? targetBase,
     required String? targetUnitId,
@@ -142,7 +142,7 @@ class JsonEvent {
       type: unitType,
       health: health,
       currentPosition: position,
-      targetPosition: targetPosition,
+      targetPositions: targetPositions,
       lockedLocation: lockedLocation,
       targetBase: targetBase,
       targetUnitId: targetUnitId,
@@ -152,12 +152,12 @@ class JsonEvent {
   factory JsonEvent.unitMovementStarted({
     required String unitId,
     required JsonPosition currentPosition,
-    required JsonPosition targetPosition,
+    required List<JsonPosition> targetPositions,
   }) => JsonEvent(
     unitMovementStarted: JsonEventUnitMovementStarted(
       id: unitId,
       currentPosition: currentPosition,
-      targetPosition: targetPosition,
+      targetPositions: targetPositions,
     ),
   );
 

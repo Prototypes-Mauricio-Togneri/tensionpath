@@ -22,8 +22,8 @@ class JsonEventUnitCreated {
   @JsonKey(name: 'currentPosition')
   final JsonPosition currentPosition;
 
-  @JsonKey(name: 'targetPosition')
-  final JsonPosition? targetPosition;
+  @JsonKey(name: 'targetPositions')
+  final List<JsonPosition> targetPositions;
 
   @JsonKey(name: 'lockedLocation')
   final JsonLocation? lockedLocation;
@@ -40,7 +40,7 @@ class JsonEventUnitCreated {
     required this.type,
     required this.health,
     required this.currentPosition,
-    required this.targetPosition,
+    required this.targetPositions,
     required this.lockedLocation,
     required this.targetBase,
     required this.targetUnitId,

@@ -31,7 +31,7 @@ class Unit {
   Position position;
   Node closestNode;
   Node? lockedNode;
-  Node? targetNode;
+  List<Node> targetNodes = [];
   Building? targetBase;
   Unit? targetUnit;
   bool lastOrderManual = false;
@@ -55,7 +55,9 @@ class Unit {
     lockedNode = closestNode;
   }
 
-  bool get isMoving => targetNode != null;
+  bool get isMoving => targetNodes.isNotEmpty;
+
+  Node get nextTargetNode => targetNodes.first;
 
   bool get isAlive => health > 0;
 
@@ -75,7 +77,10 @@ class Unit {
     required bool manual,
   }) {
     lastOrderManual = manual;
-    targetNode = node;
+    targetNodes = nodes.path(
+      from: closestNode,
+      to: node,
+    );
     lockedNode?.unlock();
     lockedNode = null;
     targetBase = null;
@@ -84,7 +89,9 @@ class Unit {
     return JsonEvent.unitMovementStarted(
       unitId: id,
       currentPosition: position.toJson(),
-      targetPosition: targetNode!.position.toJson(),
+      targetPositions: targetNodes
+          .map((node) => node.position.toJson())
+          .toList(),
     );
   }
 
@@ -140,24 +147,25 @@ class Unit {
     final List<JsonEvent> events = [];
     bool updatePlayers = false;
     Logger.debug('----------------------------------------\nMoving unit $id');
+    final Node targetNode = nextTargetNode;
 
     // Update position
     position = position.moveTowards(
-      target: targetNode!.position,
+      target: targetNode.position,
       distance: type.speed.value * dt,
     );
 
-    final num distanceToTarget = position.distanceTo(targetNode!.position);
-    Logger.debug('Target ${targetNode!.location.id} / ${targetNode!.position}');
+    final num distanceToTarget = position.distanceTo(targetNode.position);
+    Logger.debug('Target ${targetNode.location.id} / ${targetNode.position}');
     Logger.debug('Position $position');
     Logger.debug('Distance: $distanceToTarget');
 
     if (distanceToTarget < 0.5) {
-      Logger.debug('Unit has arrived at the target node ${targetNode!.id}');
-      position = targetNode!.position;
+      Logger.debug('Unit has arrived at the target node ${targetNode.id}');
+      position = targetNode.position;
       lockedNode = targetNode;
       lockedNode!.lock(this);
-      targetNode = null;
+      targetNodes = []; // TODO: move to next target node if multiple
       events.add(
         JsonEvent.unitMovementEnded(
           unitId: id,
@@ -168,24 +176,32 @@ class Unit {
       updatePlayers = isHarvester;
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
-        targetNode!.notLockedBy(this)) {
-      Logger.debug('Target node re-assigned to ${targetNode!.id}');
+        targetNode.notLockedBy(this)) {
+      Logger.debug('Target node re-assigned to ${targetNode.id}');
+
       // Target node is already locked. Re-assign node
-      targetNode = nodes.closestNodeToMove(
+      final Node? newTargetNode = nodes.closestNodeToMove(
         position: position,
         unit: this,
       );
-      events.add(
-        JsonEvent.unitMovementStarted(
-          unitId: id,
-          currentPosition: position.toJson(),
-          targetPosition: targetNode!.position.toJson(),
-        ),
-      );
+
+      if (newTargetNode != null) {
+        targetNodes = [newTargetNode];
+
+        events.add(
+          JsonEvent.unitMovementStarted(
+            unitId: id,
+            currentPosition: position.toJson(),
+            targetPositions: targetNodes
+                .map((node) => node.position.toJson())
+                .toList(),
+          ),
+        );
+      }
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
-        targetNode!.isFree) {
-      Logger.debug('Unit has locked the target node ${targetNode!.id}');
+        targetNode.isFree) {
+      Logger.debug('Unit has locked the target node ${targetNode.id}');
       lockedNode = targetNode;
       lockedNode!.lock(this);
     }
@@ -338,7 +354,7 @@ class Unit {
   void destroy() {
     lockedNode?.unlock();
     lockedNode = null;
-    targetNode = null;
+    targetNodes = [];
     targetBase = null;
     targetUnit = null;
     health = 0;

@@ -87,4 +87,12 @@ class Nodes {
 
     return result;
   }
+
+  // TODO: implement
+  List<Node> path({
+    required Node from,
+    required Node to,
+  }) {
+    return [to];
+  }
 }

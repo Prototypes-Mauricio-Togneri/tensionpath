@@ -176,7 +176,7 @@ class EventUnitCreated implements Event {
   final UnitType type;
   final num health;
   final Position currentPosition;
-  final Position? targetPosition;
+  final List<Position> targetPositions;
   final Location? lockedLocation;
   final Location? targetBase;
   final String? targetUnitId;
@@ -187,7 +187,7 @@ class EventUnitCreated implements Event {
     required this.type,
     required this.health,
     required this.currentPosition,
-    required this.targetPosition,
+    required this.targetPositions,
     required this.lockedLocation,
     required this.targetBase,
     required this.targetUnitId,
@@ -200,9 +200,7 @@ class EventUnitCreated implements Event {
         type: json.type,
         health: json.health,
         currentPosition: Position.fromJson(json.currentPosition),
-        targetPosition: json.targetPosition != null
-            ? Position.fromJson(json.targetPosition!)
-            : null,
+        targetPositions: json.targetPositions.map(Position.fromJson).toList(),
         lockedLocation: json.lockedLocation != null
             ? Location.fromJson(json.lockedLocation!)
             : null,
@@ -216,12 +214,12 @@ class EventUnitCreated implements Event {
 class EventUnitMovementStarted implements Event {
   final String id;
   final Position currentPosition;
-  final Position targetPosition;
+  final List<Position> targetPositions;
 
   const EventUnitMovementStarted({
     required this.id,
     required this.currentPosition,
-    required this.targetPosition,
+    required this.targetPositions,
   });
 
   factory EventUnitMovementStarted.fromJson(
@@ -229,7 +227,7 @@ class EventUnitMovementStarted implements Event {
   ) => EventUnitMovementStarted(
     id: json.id,
     currentPosition: Position.fromJson(json.currentPosition),
-    targetPosition: Position.fromJson(json.targetPosition),
+    targetPositions: json.targetPositions.map(Position.fromJson).toList(),
   );
 }
 

@@ -18,10 +18,11 @@ JsonEventUnitCreated _$JsonEventUnitCreatedFromJson(
       'currentPosition',
       (v) => JsonPosition.fromJson(v as Map<String, dynamic>),
     ),
-    targetPosition: $checkedConvert(
-      'targetPosition',
-      (v) =>
-          v == null ? null : JsonPosition.fromJson(v as Map<String, dynamic>),
+    targetPositions: $checkedConvert(
+      'targetPositions',
+      (v) => (v as List<dynamic>)
+          .map((e) => JsonPosition.fromJson(e as Map<String, dynamic>))
+          .toList(),
     ),
     lockedLocation: $checkedConvert(
       'lockedLocation',
@@ -46,7 +47,7 @@ Map<String, dynamic> _$JsonEventUnitCreatedToJson(
   'type': _$UnitTypeEnumMap[instance.type]!,
   'health': instance.health,
   'currentPosition': instance.currentPosition.toJson(),
-  'targetPosition': ?instance.targetPosition?.toJson(),
+  'targetPositions': instance.targetPositions.map((e) => e.toJson()).toList(),
   'lockedLocation': ?instance.lockedLocation?.toJson(),
   'targetBase': ?instance.targetBase?.toJson(),
   'targetUnitId': ?instance.targetUnitId,
