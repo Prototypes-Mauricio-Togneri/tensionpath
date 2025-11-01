@@ -245,7 +245,7 @@ class BattlefieldComponent extends PositionComponent {
       final BuildingComponent buildingComponent = BuildingComponent(
         position: nodePosition,
         size: nodeSize,
-        player: playerByIndex(building.playerIndex),
+        building: building,
         nodeComponent: match.getNodeById(building.location.id),
       );
       add(buildingComponent);

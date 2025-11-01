@@ -1,6 +1,7 @@
 import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/missile.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
@@ -22,12 +23,18 @@ class Battlefield {
     required this.nodes,
   });
 
-  factory Battlefield.fromJson(JsonBattlefieldStart json) => Battlefield(
+  factory Battlefield.fromJson({
+    required JsonBattlefieldStart json,
+    required List<Player> players,
+  }) => Battlefield(
     mapSize: Size.fromJson(json.mapSize),
     nodeSize: Size.fromJson(json.nodeSize),
     missile: Missile.fromJson(json.missile),
     resources: Resources.list(json.resources),
-    buildings: Building.list(json.buildings),
+    buildings: Building.list(
+      json: json.buildings,
+      players: players,
+    ),
     nodes: Node.list(json.nodes),
   );
 }

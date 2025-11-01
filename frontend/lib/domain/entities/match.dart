@@ -42,10 +42,19 @@ class Match {
     }
   }
 
-  factory Match.fromJson(JsonMatchStart jsonMatch) => Match(
-    createdAt: DateTime.parse(jsonMatch.createdAt),
-    config: Config.fromJson(jsonMatch.config),
-    players: jsonMatch.players.map(Player.fromJson).toList(),
-    battlefield: Battlefield.fromJson(jsonMatch.battlefield),
-  );
+  factory Match.fromJson(JsonMatchStart jsonMatch) {
+    final List<Player> players = jsonMatch.players
+        .map(Player.fromJson)
+        .toList();
+
+    return Match(
+      createdAt: DateTime.parse(jsonMatch.createdAt),
+      config: Config.fromJson(jsonMatch.config),
+      players: players,
+      battlefield: Battlefield.fromJson(
+        json: jsonMatch.battlefield,
+        players: players,
+      ),
+    );
+  }
 }
