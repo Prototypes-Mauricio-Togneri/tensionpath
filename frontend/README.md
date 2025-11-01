@@ -1,7 +1,5 @@
 ### High
 
-- Bug moving unit to launcher
-- Play with 4 cards
 - Show building in launcher
 - Path finding
   - If attacking to an enemy unit at distance, move to the closest node that is in between the unit and the enemy
