@@ -4,7 +4,6 @@ import 'package:tensionpath/domain/components/match_component.dart';
 import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
-import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/json/messages/json_message.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_start.dart';
 import 'package:tensionpath/domain/json/messages/server_client/json_update.dart';
@@ -62,7 +61,7 @@ class MatchState extends BaseState {
     } else if (json is JsonStart) {
       _onStart(Match.fromJson(json.match));
     } else if (json is JsonUpdate) {
-      _onUpdate(MatchUpdate.fromJson(json.match));
+      _onUpdate(json.events.map(Event.fromJson).toList());
     }
   }
 
@@ -81,10 +80,10 @@ class MatchState extends BaseState {
     Delayed.post(notify);
   }
 
-  void _onUpdate(MatchUpdate matchUpdate) {
-    MatchComponentRef.instance.onMatchUpdated(matchUpdate);
+  void _onUpdate(List<Event> events) {
+    MatchComponentRef.instance.onMatchUpdated(events);
 
-    for (final Event event in matchUpdate.events) {
+    for (final Event event in events) {
       if (event is EventMatchFinished) {
         _onMatchFinished(winner: event.winner, loser: event.loser);
         break;

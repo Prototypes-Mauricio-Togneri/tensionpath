@@ -13,7 +13,6 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/match.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
-import 'package:tensionpath/domain/entities/update.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
@@ -93,12 +92,16 @@ class MatchComponent extends World {
     return super.onLoad();
   }
 
-  void onMatchUpdated(MatchUpdate matchUpdate) {
-    match.setStatus(matchUpdate.status);
+  void onMatchUpdated(List<Event> events) {
     bool updateNodeLocks = false;
 
+    // Update status
+    events.whereType<EventMatchStatus>().forEach(
+      (event) => match.setStatus(event.status),
+    );
+
     // Update missile
-    matchUpdate.eventsOfType<EventMissile>().forEach(
+    events.whereType<EventMissile>().forEach(
       (event) {
         match.battlefield.missile.refresh(event);
 
@@ -109,7 +112,7 @@ class MatchComponent extends World {
     );
 
     // Update players
-    matchUpdate.eventsOfType<EventPlayer>().forEach(
+    events.whereType<EventPlayer>().forEach(
       (event) {
         final Player player = _playerByIndex(event.index);
         player.refresh(event);
@@ -117,12 +120,12 @@ class MatchComponent extends World {
     );
 
     // Update popcap
-    matchUpdate.eventsOfType<EventPopcap>().forEach(
+    events.whereType<EventPopcap>().forEach(
       (event) => match.setPopcap(event.popcap),
     );
 
     // Update base damage
-    matchUpdate.eventsOfType<EventBaseDamaged>().forEach(
+    events.whereType<EventBaseDamaged>().forEach(
       (event) {
         final Player player = _playerByIndex(event.playerIndex);
         player.onHit(event.damage);
@@ -130,15 +133,15 @@ class MatchComponent extends World {
     );
 
     // Update resources depleted
-    matchUpdate.eventsOfType<EventResourcesDepleted>().forEach(
+    events.whereType<EventResourcesDepleted>().forEach(
       _resourcesDepleted,
     );
 
     // Update building unlocked
-    matchUpdate.eventsOfType<EventBuildingUnlocked>().forEach(_unlockBuilding);
+    events.whereType<EventBuildingUnlocked>().forEach(_unlockBuilding);
 
     // Update unit created
-    matchUpdate.eventsOfType<EventUnitCreated>().forEach(
+    events.whereType<EventUnitCreated>().forEach(
       (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitCreated(event);
@@ -146,7 +149,7 @@ class MatchComponent extends World {
     );
 
     // Update unit movement started
-    matchUpdate.eventsOfType<EventUnitMovementStarted>().forEach(
+    events.whereType<EventUnitMovementStarted>().forEach(
       (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitMovementStarted(event);
@@ -154,7 +157,7 @@ class MatchComponent extends World {
     );
 
     // Update unit movement ended
-    matchUpdate.eventsOfType<EventUnitMovementEnded>().forEach(
+    events.whereType<EventUnitMovementEnded>().forEach(
       (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitMovementEnded(event);
@@ -162,12 +165,12 @@ class MatchComponent extends World {
     );
 
     // Update unit attack
-    matchUpdate.eventsOfType<EventUnitAttack>().forEach(
+    events.whereType<EventUnitAttack>().forEach(
       battlefieldComponent.onUnitAttack,
     );
 
     // Update unit damaged
-    matchUpdate.eventsOfType<EventUnitDamaged>().forEach(
+    events.whereType<EventUnitDamaged>().forEach(
       (event) {
         updateNodeLocks = true;
         battlefieldComponent.onUnitDamaged(event);

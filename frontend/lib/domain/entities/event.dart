@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/json/models/common/json_location.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_base_damaged.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_building_unlocked.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_match_finished.dart';
+import 'package:tensionpath/domain/json/models/events/json_event_match_status.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_missile.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_player.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_popcap.dart';
@@ -15,11 +16,14 @@ import 'package:tensionpath/domain/json/models/events/json_event_unit_damaged.da
 import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_ended.dart';
 import 'package:tensionpath/domain/json/models/events/json_event_unit_movement_started.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
+import 'package:tensionpath/domain/types/match_status.dart';
 import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Event {
   static Event fromJson(JsonEvent json) {
-    if (json.missile != null) {
+    if (json.status != null) {
+      return EventMatchStatus.fromJson(json.status!);
+    } else if (json.missile != null) {
       return EventMissile.fromJson(json.missile!);
     } else if (json.player != null) {
       return EventPlayer.fromJson(json.player!);
@@ -47,6 +51,17 @@ class Event {
       throw UnimplementedError('Unknown event type');
     }
   }
+}
+
+class EventMatchStatus implements Event {
+  final MatchStatus status;
+
+  const EventMatchStatus({
+    required this.status,
+  });
+
+  factory EventMatchStatus.fromJson(JsonEventMatchStatus json) =>
+      EventMatchStatus(status: json.status);
 }
 
 class EventMissile implements Event {
