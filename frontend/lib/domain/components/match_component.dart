@@ -226,11 +226,12 @@ class MatchComponent extends World {
   void _unlockBuilding(EventBuildingUnlocked event) {
     if (event.playerIndex == self.index) {
       controlsComponent.unlockBuilding(event.type);
-      match.battlefield.onBuildingUnlocked(
-        player: self,
-        type: event.type,
-      );
     }
+
+    match.battlefield.onBuildingUnlocked(
+      player: _playerByIndex(event.playerIndex),
+      type: event.type,
+    );
   }
 
   void _resourcesDepleted(EventResourcesDepleted event) {
