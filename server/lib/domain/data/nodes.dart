@@ -105,7 +105,7 @@ class Nodes {
       currentX += directionX;
       final Location location = Location(
         x: currentX,
-        y: from.location.y,
+        y: currentY,
       );
       final Node node = atLocation(location);
       result.add(node);
@@ -114,7 +114,7 @@ class Nodes {
     for (int i = 0; i < diffY; i++) {
       currentY += directionY;
       final Location location = Location(
-        x: to.location.x,
+        x: currentX,
         y: currentY,
       );
       final Node node = atLocation(location);

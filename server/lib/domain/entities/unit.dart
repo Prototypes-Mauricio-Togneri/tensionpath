@@ -59,6 +59,8 @@ class Unit {
 
   Node get nextTargetNode => targetNodes.first;
 
+  bool get isLastTargetNode => targetNodes.length == 1;
+
   bool get isAlive => health > 0;
 
   bool get isHarvester => type == UnitType.harvester;
@@ -161,22 +163,33 @@ class Unit {
     Logger.debug('Distance: $distanceToTarget');
 
     if (distanceToTarget < 0.5) {
-      Logger.debug('Unit has arrived at the target node ${targetNode.id}');
       position = targetNode.position;
-      lockedNode = targetNode;
-      lockedNode!.lock(this);
-      targetNodes = []; // TODO: move to next target node if multiple
-      events.add(
-        JsonEvent.unitMovementEnded(
-          unitId: id,
-          currentPosition: position.toJson(),
-          lockedLocation: lockedNode?.location.toJson(),
-        ),
-      );
-      updatePlayers = isHarvester;
+
+      if (targetNodes.isNotEmpty) {
+        targetNodes.removeAt(0);
+      }
+
+      if (targetNodes.isEmpty) {
+        Logger.debug('Unit has arrived to final target node ${targetNode.id}');
+        lockedNode = targetNode;
+        lockedNode!.lock(this);
+        events.add(
+          JsonEvent.unitMovementEnded(
+            unitId: id,
+            currentPosition: position.toJson(),
+            lockedLocation: lockedNode?.location.toJson(),
+          ),
+        );
+        updatePlayers = isHarvester;
+      } else {
+        Logger.debug('Unit has arrived to next target node ${targetNode.id}');
+      }
     } else if ((lockedNode == null) &&
         (distanceToTarget < (radius * 2)) &&
         targetNode.notLockedBy(this)) {
+      // TODO: re-target only if:
+      // * Node is closest to an enemy unit (but is not air unit over land unit)
+      // * Node locked by friendly unit and is last target node in the list
       Logger.debug('Target node re-assigned to ${targetNode.id}');
 
       // Target node is already locked. Re-assign node
@@ -200,7 +213,8 @@ class Unit {
       }
     } else if ((lockedNode == null) &&
         (distanceToTarget < radius) &&
-        targetNode.isFree) {
+        targetNode.isFree &&
+        isLastTargetNode) {
       Logger.debug('Unit has locked the target node ${targetNode.id}');
       lockedNode = targetNode;
       lockedNode!.lock(this);
