@@ -93,6 +93,57 @@ class Nodes {
     required Node from,
     required Node to,
   }) {
-    return [to];
+    final List<Node> result = [];
+    final int directionX = (to.location.x - from.location.x).sign;
+    final int directionY = (to.location.y - from.location.y).sign;
+    final int diffX = (to.location.x - from.location.x).abs();
+    final int diffY = (to.location.y - from.location.y).abs();
+    int currentX = from.location.x;
+    int currentY = from.location.y;
+
+    for (int i = 0; i < diffX; i++) {
+      currentX += directionX;
+      final Location location = Location(
+        x: currentX,
+        y: from.location.y,
+      );
+      final Node node = atLocation(location);
+      result.add(node);
+    }
+
+    for (int i = 0; i < diffY; i++) {
+      currentY += directionY;
+      final Location location = Location(
+        x: to.location.x,
+        y: currentY,
+      );
+      final Node node = atLocation(location);
+      result.add(node);
+    }
+
+    /*for (int x = currentX; x <= to.location.x; x += directionX) {
+      currentX = x;
+      final Location location = Location(
+        x: currentX,
+        y: from.location.y,
+      );
+      final Node node = atLocation(location);
+      result.add(node);
+    }
+
+    for (int y = from.location.y; y != to.location.y; y += directionY) {
+      final Location location = Location(
+        x: currentX,
+        y: y,
+      );
+      final Node node = atLocation(location);
+      result.add(node);
+    }*/
+
+    for (final Node node in result) {
+      print(node.location.id);
+    }
+
+    return result;
   }
 }
