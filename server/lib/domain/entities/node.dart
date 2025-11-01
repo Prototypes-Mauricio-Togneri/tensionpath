@@ -56,6 +56,7 @@ class Node {
     type: type,
     playerIndex: null,
     platformId: null,
+    building: null,
   );
 
   @override

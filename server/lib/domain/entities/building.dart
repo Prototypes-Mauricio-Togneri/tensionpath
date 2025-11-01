@@ -3,15 +3,19 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_building_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 class Building {
+  final BuildingType type;
   final Player player;
   final Location location;
   final Position position;
   final num radius;
+  bool unlocked = false;
 
-  const Building({
+  Building({
+    required this.type,
     required this.player,
     required this.location,
     required this.position,
@@ -25,6 +29,7 @@ class Building {
     required Player player,
     required num radius,
   }) => Building(
+    type: json.type,
     player: player,
     location: Location.fromJson(json.location),
     position: Position.fromJson(json.position),
@@ -51,6 +56,7 @@ class Building {
   }
 
   JsonBuildingStart toJson() => JsonBuildingStart(
+    type: type,
     playerIndex: player.index,
     location: location.toJson(),
     position: position.toJson(),

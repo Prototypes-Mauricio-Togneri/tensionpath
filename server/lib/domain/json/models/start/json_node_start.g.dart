@@ -20,6 +20,10 @@ JsonNodeStart _$JsonNodeStartFromJson(Map<String, dynamic> json) =>
         ),
         playerIndex: $checkedConvert('playerIndex', (v) => v as String?),
         platformId: $checkedConvert('platformId', (v) => v as String?),
+        building: $checkedConvert(
+          'building',
+          (v) => $enumDecodeNullable(_$BuildingTypeEnumMap, v),
+        ),
       );
       return val;
     });
@@ -31,6 +35,7 @@ Map<String, dynamic> _$JsonNodeStartToJson(JsonNodeStart instance) =>
       'position': instance.position.toJson(),
       'playerIndex': ?instance.playerIndex,
       'platformId': ?instance.platformId,
+      'building': ?_$BuildingTypeEnumMap[instance.building],
     };
 
 const _$NodeTypeEnumMap = {
@@ -40,4 +45,11 @@ const _$NodeTypeEnumMap = {
   NodeType.pad: 'pad',
   NodeType.rocks_low: 'rocks_low',
   NodeType.missile: 'missile',
+};
+
+const _$BuildingTypeEnumMap = {
+  BuildingType.refinery: 'refinery',
+  BuildingType.barracks: 'barracks',
+  BuildingType.factory: 'factory',
+  BuildingType.airfield: 'airfield',
 };

@@ -127,6 +127,7 @@ class MatchLoader {
           ),
           playerIndex: jsonNode.playerIndex,
           platformId: jsonNode.platformId,
+          building: jsonNode.building,
         ),
       );
     }
@@ -225,6 +226,7 @@ class MatchLoader {
       if (node.type == NodeType.building) {
         result.add(
           JsonBuildingStart(
+            type: node.building!,
             playerIndex: node.playerIndex!,
             location: node.location,
             position: node.position,
