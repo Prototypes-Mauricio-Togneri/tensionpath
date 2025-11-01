@@ -1,5 +1,6 @@
 ### High
 
+- Auto enter name player xxx
 - Show structure in launcher
 - Bug moving unit to launcher
 - Play with 4 cards
