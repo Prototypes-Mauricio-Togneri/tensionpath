@@ -2,18 +2,25 @@ import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/json/models/start/json_building_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 
 class Building {
   final Player player;
   final Location location;
   final Position position;
+  final BuildingType type;
   bool isUnlocked = false;
 
   Building({
     required this.player,
     required this.location,
     required this.position,
+    required this.type,
   });
+
+  void unlock() {
+    isUnlocked = true;
+  }
 
   factory Building.fromJson({
     required JsonBuildingStart json,
@@ -22,6 +29,7 @@ class Building {
     player: player,
     location: Location.fromJson(json.location),
     position: Position.fromJson(json.position),
+    type: json.type,
   );
 
   static List<Building> list({

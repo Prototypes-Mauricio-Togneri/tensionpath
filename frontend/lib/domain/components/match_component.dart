@@ -131,24 +131,11 @@ class MatchComponent extends World {
 
     // Update resources depleted
     matchUpdate.eventsOfType<EventResourcesDepleted>().forEach(
-      (event) {
-        for (final Resources resources in match.battlefield.resources) {
-          if (event.id == resources.id) {
-            resources.deplete();
-            break;
-          }
-        }
-      },
+      _resourcesDepleted,
     );
 
     // Update building unlocked
-    matchUpdate.eventsOfType<EventBuildingUnlocked>().forEach(
-      (event) {
-        if (event.playerIndex == self.index) {
-          controlsComponent.unlockBuilding(event.type);
-        }
-      },
-    );
+    matchUpdate.eventsOfType<EventBuildingUnlocked>().forEach(_unlockBuilding);
 
     // Update unit created
     matchUpdate.eventsOfType<EventUnitCreated>().forEach(
@@ -231,6 +218,25 @@ class MatchComponent extends World {
     }
 
     return center /= buildings.length.toDouble();
+  }
+
+  void _unlockBuilding(EventBuildingUnlocked event) {
+    if (event.playerIndex == self.index) {
+      controlsComponent.unlockBuilding(event.type);
+      match.battlefield.onBuildingUnlocked(
+        player: self,
+        type: event.type,
+      );
+    }
+  }
+
+  void _resourcesDepleted(EventResourcesDepleted event) {
+    for (final Resources resources in match.battlefield.resources) {
+      if (event.id == resources.id) {
+        resources.deplete();
+        break;
+      }
+    }
   }
 
   void onUnitDestroyed(UnitComponent unitComponent) =>

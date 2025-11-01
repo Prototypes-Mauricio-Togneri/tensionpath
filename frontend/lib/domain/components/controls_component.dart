@@ -221,11 +221,11 @@ class BuildingImageComponent extends SpriteComponent {
   @override
   FutureOr onLoad() async {
     if (buildingType == BuildingType.barracks) {
-      sprite = await Sprite.load(Assets.IMAGES_UNITS_COUNTER_INFANTRY_NORMAL);
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_BARRACKS_OFF);
     } else if (buildingType == BuildingType.factory) {
-      sprite = await Sprite.load(Assets.IMAGES_UNITS_COUNTER_VEHICLE_NORMAL);
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_FACTORY_OFF);
     } else if (buildingType == BuildingType.airfield) {
-      sprite = await Sprite.load(Assets.IMAGES_UNITS_COUNTER_AIRCRAFT_NORMAL);
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_AIRFIELD_OFF);
     }
 
     return super.onLoad();

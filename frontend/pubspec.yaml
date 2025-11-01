@@ -49,6 +49,7 @@ flutter:
     - assets/audio/sound/voice/eva/
     - assets/audio/sound/voice/movement/
     - assets/images/battlefields/
+    - assets/images/buildings/
     - assets/images/other/
     - assets/images/structures/
     - assets/images/units/counter/

@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/entities/size.dart';
 import 'package:tensionpath/domain/json/models/start/json_battlefield_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 
 class Battlefield {
   final Size mapSize;
@@ -22,6 +23,17 @@ class Battlefield {
     required this.buildings,
     required this.nodes,
   });
+
+  void onBuildingUnlocked({
+    required Player player,
+    required BuildingType type,
+  }) {
+    for (final Building building in buildings) {
+      if (building.player.id == player.id && building.type == type) {
+        building.unlock();
+      }
+    }
+  }
 
   factory Battlefield.fromJson({
     required JsonBattlefieldStart json,

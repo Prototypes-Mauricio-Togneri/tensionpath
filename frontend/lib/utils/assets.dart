@@ -50,6 +50,17 @@ class Assets {
       'assets/audio/sound/voice/movement/orders_received.mp3';
   static const String IMAGES_BATTLEFIELDS_BACKGROUND =
       'battlefields/background.png';
+  static const String IMAGES_BUILDINGS_AIRFIELD_OFF =
+      'buildings/airfield_off.png';
+  static const String IMAGES_BUILDINGS_AIRFIELD_ON =
+      'buildings/airfield_on.png';
+  static const String IMAGES_BUILDINGS_BARRACKS_OFF =
+      'buildings/barracks_off.png';
+  static const String IMAGES_BUILDINGS_BARRACKS_ON =
+      'buildings/barracks_on.png';
+  static const String IMAGES_BUILDINGS_FACTORY_OFF =
+      'buildings/factory_off.png';
+  static const String IMAGES_BUILDINGS_FACTORY_ON = 'buildings/factory_on.png';
   static const String IMAGES_OTHER_MISSILE = 'other/missile.png';
   static const String IMAGES_STRUCTURES_BUILDING_1 =
       'structures/building_1.png';
