@@ -15,6 +15,7 @@ class SetupState extends BaseState {
       nameController.text =
           'Player ${DateTime.now().millisecondsSinceEpoch % 100}';
       notify();
+      onSave();
     }
   }
 
