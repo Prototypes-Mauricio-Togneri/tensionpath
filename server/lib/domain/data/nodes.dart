@@ -7,6 +7,14 @@ import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
+// Helper class for A* pathfinding
+class _PathNode {
+  final Node node;
+  final num fScore;
+
+  const _PathNode(this.node, this.fScore);
+}
+
 class Nodes {
   final IterableMap<String, Node> _nodes;
 
@@ -89,44 +97,89 @@ class Nodes {
     return result;
   }
 
-  // TODO: implement
+  // A* pathfinding algorithm
   List<Node> path({
     required Node from,
     required Node to,
   }) {
-    final List<Node> result = [];
-    final int directionX = (to.location.x - from.location.x).sign;
-    final int directionY = (to.location.y - from.location.y).sign;
-    final int diffX = (to.location.x - from.location.x).abs();
-    final int diffY = (to.location.y - from.location.y).abs();
-    int currentX = from.location.x;
-    int currentY = from.location.y;
-
-    for (int i = 0; i < diffX; i++) {
-      currentX += directionX;
-      final Location location = Location(
-        x: currentX,
-        y: currentY,
-      );
-      final Node node = atLocation(location);
-      result.add(node);
+    if (from == to) {
+      return [from];
     }
 
-    for (int i = 0; i < diffY; i++) {
-      currentY += directionY;
-      final Location location = Location(
-        x: currentX,
-        y: currentY,
-      );
-      final Node node = atLocation(location);
-      result.add(node);
+    // Priority queue for open set (nodes to explore)
+    final List<_PathNode> openSet = [];
+    // Set of already evaluated nodes
+    final Set<Node> closedSet = {};
+    // Map to track came from relationships
+    final Map<Node, Node> cameFrom = {};
+    // Cost from start to each node
+    final Map<Node, num> gScore = {from: 0};
+    // Estimated total cost from start to goal through each node
+    final Map<Node, num> fScore = {from: _heuristic(from, to)};
+
+    // Add starting node to open set
+    openSet.add(_PathNode(from, fScore[from]!));
+
+    while (openSet.isNotEmpty) {
+      // Get node with lowest fScore
+      openSet.sort((a, b) => a.fScore.compareTo(b.fScore));
+      final _PathNode current = openSet.removeAt(0);
+      final Node currentNode = current.node;
+
+      // If we reached the goal, reconstruct path
+      if (currentNode == to) {
+        return _reconstructPath(cameFrom, currentNode);
+      }
+
+      closedSet.add(currentNode);
+
+      // Explore neighbors
+      for (final Node neighbor in currentNode.neighbors) {
+        if (closedSet.contains(neighbor)) {
+          continue; // Already evaluated
+        }
+
+        // Calculate tentative gScore
+        final num tentativeGScore =
+            gScore[currentNode]! + _distance(currentNode, neighbor);
+
+        // If this path to neighbor is better than any previous one
+        if (!gScore.containsKey(neighbor) ||
+            tentativeGScore < gScore[neighbor]!) {
+          // Record this path
+          cameFrom[neighbor] = currentNode;
+          gScore[neighbor] = tentativeGScore;
+          fScore[neighbor] = tentativeGScore + _heuristic(neighbor, to);
+
+          // Add to open set if not already there
+          if (!openSet.any((pathNode) => pathNode.node == neighbor)) {
+            openSet.add(_PathNode(neighbor, fScore[neighbor]!));
+          }
+        }
+      }
     }
 
-    for (final Node node in result) {
-      print(node.location.id);
+    // No path found
+    return [];
+  }
+
+  // Heuristic function (Euclidean distance)
+  num _heuristic(Node a, Node b) => a.position.distanceTo(b.position);
+
+  // Distance between two adjacent nodes
+  num _distance(Node a, Node b) => a.position.distanceTo(b.position);
+
+  // Reconstruct path from cameFrom map
+  List<Node> _reconstructPath(Map<Node, Node> cameFrom, Node current) {
+    Node currentNode = current;
+    final List<Node> totalPath = [currentNode];
+
+    while (cameFrom.containsKey(currentNode)) {
+      currentNode = cameFrom[currentNode]!;
+      totalPath.insert(0, currentNode);
     }
 
-    return result;
+    return totalPath;
   }
 
   factory Nodes.load(List<JsonNodeStart> nodes) {
