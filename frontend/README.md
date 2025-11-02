@@ -1,7 +1,6 @@
 ### High
 
 - Path finding
-  - Avoid moving back when changing target node
   - Fix logic to regarget node
   - If attacking to an enemy unit at distance, move to the closest node that is in between the unit and the enemy
 

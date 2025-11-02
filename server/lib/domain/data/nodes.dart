@@ -104,7 +104,7 @@ class Nodes {
     required Node to,
   }) {
     if (from == to) {
-      return [from];
+      return [];
     }
 
     // Priority queue for open set (nodes to explore)
@@ -182,7 +182,7 @@ class Nodes {
       totalPath.insert(0, currentNode);
     }
 
-    return totalPath;
+    return totalPath.sublist(1);
   }
 
   factory Nodes.load(List<JsonNodeStart> nodes) {
