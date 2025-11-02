@@ -6,7 +6,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class MovementPathComponent extends PositionComponent {
   final bool dashed;
-  final Paint targetPaint = Palette.paint(
+  final Paint pathPaint = Palette.paint(
     style: PaintingStyle.stroke,
     strokeCap: StrokeCap.round,
     strokeJoin: StrokeJoin.round,
@@ -19,8 +19,8 @@ class MovementPathComponent extends PositionComponent {
     required Color color,
     required double thickness,
   }) : super(priority: Priority.path.value) {
-    targetPaint.color = color;
-    targetPaint.strokeWidth = thickness;
+    pathPaint.color = color;
+    pathPaint.strokeWidth = thickness;
   }
 
   void show(List<Vector2> newPositions) {
@@ -36,25 +36,24 @@ class MovementPathComponent extends PositionComponent {
     super.render(canvas);
 
     if (positions.length > 1) {
+      final Path path = Path();
+      path.moveTo(positions[0].x, positions[0].y);
+
+      for (int i = 1; i < positions.length; i++) {
+        path.lineTo(positions[i].x, positions[i].y);
+      }
+
       if (dashed) {
-        for (int i = 1; i < positions.length; i++) {
-          canvas.drawDashedLine(
-            start: positions[i - 1].toOffset(),
-            end: positions[i].toOffset(),
-            paint: targetPaint,
-            dashSpacing: targetPaint.strokeWidth * 2,
-            dashLength: targetPaint.strokeWidth * 2,
-          );
-        }
+        canvas.drawPath(
+          canvas.dashedPath(
+            source: path,
+            dashWidth: pathPaint.strokeWidth * 2,
+            dashSpace: pathPaint.strokeWidth * 2,
+          ),
+          pathPaint,
+        );
       } else {
-        final Path path = Path();
-        path.moveTo(positions[0].x, positions[0].y);
-
-        for (int i = 1; i < positions.length; i++) {
-          path.lineTo(positions[i].x, positions[i].y);
-        }
-
-        canvas.drawPath(path, targetPaint);
+        canvas.drawPath(path, pathPaint);
       }
     }
   }

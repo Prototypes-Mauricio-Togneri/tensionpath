@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flame/game.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
@@ -93,41 +94,26 @@ extension CanvasExtension on Canvas {
     required Vector2 size,
   }) => point - (Vector2(anchor.x, anchor.y)..multiply(size));
 
-  void drawDashedLine({
-    required Offset start,
-    required Offset end,
-    required Paint paint,
-    required double dashSpacing,
-    required double dashLength,
+  Path dashedPath({
+    required Path source,
+    required double dashWidth,
+    required double dashSpace,
   }) {
-    final double totalDistance = (end - start).distance;
-    final Vector2 direction = Vector2(end.dx - start.dx, end.dy - start.dy)
-      ..normalize();
+    final Path result = Path();
 
-    double currentDistance = 0;
-    bool drawDash = true;
+    for (final PathMetric metric in source.computeMetrics()) {
+      double distance = 0;
 
-    while (currentDistance < totalDistance) {
-      final double segmentLength = drawDash ? dashLength : dashSpacing;
-      final double nextDistance = currentDistance + segmentLength;
-
-      if (drawDash) {
-        final Offset segmentStart = Offset(
-          start.dx + direction.x * currentDistance,
-          start.dy + direction.y * currentDistance,
+      while (distance < metric.length) {
+        final double nextDistance = distance + dashWidth;
+        result.addPath(
+          metric.extractPath(distance, nextDistance.clamp(0, metric.length)),
+          Offset.zero,
         );
-        final Offset segmentEnd = nextDistance >= totalDistance
-            ? end
-            : Offset(
-                start.dx + direction.x * nextDistance,
-                start.dy + direction.y * nextDistance,
-              );
-
-        drawLine(segmentStart, segmentEnd, paint);
+        distance += dashWidth + dashSpace;
       }
-
-      currentDistance = nextDistance;
-      drawDash = !drawDash;
     }
+
+    return result;
   }
 }
