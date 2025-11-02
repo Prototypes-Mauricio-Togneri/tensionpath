@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "b772897f5b77b7545fbb0a38e4f180f5",
-"main.dart.js": "556b53a1971c5759508ee47c28106f2b",
+const RESOURCES = {"flutter_bootstrap.js": "46471994f5f9ab5dac2d18de90cf2d3b",
+"main.dart.js": "a2b4587ceed4ce4b6f80d82e86a4f80a",
 "assets/NOTICES": "2a2407b8c4edc47f7c177618189dcf72",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/assets/audio/sound/voice/attack/fire_at_will.mp3": "f9ce958ea8a7792c43a8c0f00130672c",
@@ -105,7 +105,7 @@ const RESOURCES = {"flutter_bootstrap.js": "b772897f5b77b7545fbb0a38e4f180f5",
 "assets/assets/images/buildings/barracks_off.png": "c0df11d827798912e52fa67ef0abf570",
 "assets/assets/images/other/missile.png": "ed5b6a1706f8af3a29fddccf2efca7f6",
 "assets/assets/images/battlefields/background.png": "faaa466ff0872e8db61bdcf5c98704ab",
-"assets/assets/text/changelog.txt": "799c9795148f977be877fee3c8ae193b",
+"assets/assets/text/changelog.txt": "1b939df1f898a47cea154d097fff29b9",
 "assets/fonts/MaterialIcons-Regular.otf": "c0ad29d56cfe3890223c02da3c6e0448",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
 "assets/AssetManifest.bin": "dbc503481e53bd9ca413778829dd2353",
