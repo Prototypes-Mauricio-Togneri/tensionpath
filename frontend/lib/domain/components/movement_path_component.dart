@@ -7,7 +7,7 @@ import 'package:tensionpath/utils/palette.dart';
 class MovementPathComponent extends PositionComponent {
   final bool dashed;
   final Paint targetPaint = Palette.paint(
-    style: PaintingStyle.fill,
+    style: PaintingStyle.stroke,
     strokeCap: StrokeCap.round,
     strokeJoin: StrokeJoin.round,
   );
@@ -47,13 +47,14 @@ class MovementPathComponent extends PositionComponent {
           );
         }
       } else {
+        final Path path = Path();
+        path.moveTo(positions[0].x, positions[0].y);
+
         for (int i = 1; i < positions.length; i++) {
-          canvas.drawLine(
-            positions[i - 1].toOffset(),
-            positions[i].toOffset(),
-            targetPaint,
-          );
+          path.lineTo(positions[i].x, positions[i].y);
         }
+
+        canvas.drawPath(path, targetPaint);
       }
     }
   }
