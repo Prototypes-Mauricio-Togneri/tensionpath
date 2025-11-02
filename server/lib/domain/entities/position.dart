@@ -7,7 +7,7 @@ class Position {
 
   Position({required this.x, required this.y});
 
-  Position moveTowards({
+  (Position, bool) moveTowards({
     required Position target,
     required num distance,
   }) {
@@ -17,15 +17,9 @@ class Position {
       final num newX = x + ((target.x - x) * distance / remainingDistance);
       final num newY = y + ((target.y - y) * distance / remainingDistance);
 
-      return Position(
-        x: newX,
-        y: newY,
-      );
+      return (Position(x: newX, y: newY), false);
     } else {
-      return Position(
-        x: target.x,
-        y: target.y,
-      );
+      return (target, true);
     }
   }
 

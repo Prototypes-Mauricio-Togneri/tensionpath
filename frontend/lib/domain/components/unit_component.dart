@@ -218,16 +218,17 @@ class UnitComponent extends PositionComponent
           );
         }
 
-        final Vector2 direction = targetPosition - position;
-        final num distance = direction.length;
         final num speed = nodeSizeRatio * type.speed.value;
+        final double distance = speed * dt;
+        final (Vector2, bool) movement = _moveTowards(
+          origin: position,
+          target: targetPosition,
+          distance: distance,
+        );
+        position = movement.$1;
 
-        if (distance < 1) {
-          position = targetPosition;
-          targetPositions = [];
-        } else {
-          direction.normalize();
-          position += direction * (speed * dt);
+        if (movement.$2) {
+          targetPositions.removeAt(0);
         }
       } else {
         movementCurrentComponent?.hide();
@@ -236,6 +237,22 @@ class UnitComponent extends PositionComponent
       closestNodeComponent = match.getClosestNodeAt(absolutePosition);
 
       isVisible = closestNodeComponent.isRevealed || player.isSelf;
+    }
+  }
+
+  (Vector2, bool) _moveTowards({
+    required Vector2 origin,
+    required Vector2 target,
+    required double distance,
+  }) {
+    final Vector2 direction = target - origin;
+
+    if (distance < direction.length) {
+      direction.normalize();
+
+      return (origin + (direction * distance), false);
+    } else {
+      return (target, true);
     }
   }
 

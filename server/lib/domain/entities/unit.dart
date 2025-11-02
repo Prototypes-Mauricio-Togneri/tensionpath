@@ -154,17 +154,18 @@ class Unit {
     // Update position
     final num distance = type.speed.value * dt;
     Logger.debug('Distance $distance, speed ${type.speed.value}, dt $dt');
-    position = position.moveTowards(
+    final (Position, bool) movement = position.moveTowards(
       target: targetNode.position,
       distance: distance,
     );
+    position = movement.$1;
 
     final num distanceToTarget = position.distanceTo(targetNode.position);
     Logger.debug('Target ${targetNode.location.id} / ${targetNode.position}');
     Logger.debug('Position $position');
     Logger.debug('Distance: $distanceToTarget');
 
-    if (distanceToTarget < 0.5) {
+    if (movement.$2) {
       position = targetNode.position;
 
       if (targetNodes.isNotEmpty) {
