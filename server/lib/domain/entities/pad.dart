@@ -24,7 +24,7 @@ class Pad {
     '2': player 2
   */
   void update(Units units) {
-    if (node.lockedUnit != null) {
+    if (node.isLocked) {
       owner = node.lockedUnit?.player.index;
     } else {
       int player1 = 0;

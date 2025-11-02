@@ -1,4 +1,5 @@
 import 'package:tensionpath/domain/entities/location.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
@@ -22,7 +23,10 @@ class Node {
 
   bool get isFree => lockedUnit == null;
 
-  bool notLockedBy(Unit unit) => (lockedUnit != null) && (lockedUnit != unit);
+  bool get isLocked => lockedUnit != null;
+
+  bool notLockedByPlayer(Player player) =>
+      isLocked && (lockedUnit!.player != player);
 
   bool canMove(Unit unit) => isFree && type.canMove(unit.type);
 
@@ -37,7 +41,7 @@ class Node {
   num movementCost(Unit unit) {
     final UnitClass unitClass = unit.type.clazz;
 
-    if ((lockedUnit != null) && (lockedUnit!.player != unit.player)) {
+    if (notLockedByPlayer(unit.player)) {
       if (lockedUnit!.type.clazz.isLand && unitClass.isAir) {
         return unitClass.movingCost(type);
       } else {

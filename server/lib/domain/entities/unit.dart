@@ -352,7 +352,9 @@ class Unit {
     required Node targetNode,
   }) {
     if ((lockedNode == null) && (distanceToTarget < (radius * 2))) {
-      //targetNode.notLockedBy(this);
+      if (targetNode.notLockedByPlayer(player)) {
+        return true;
+      }
     }
 
     return false;
