@@ -7,6 +7,14 @@ enum UnitClass {
   vehicle,
   aircraft;
 
+  bool get isLand =>
+      (this == UnitClass.structure) ||
+      (this == UnitClass.infantry) ||
+      (this == UnitClass.harvester) ||
+      (this == UnitClass.vehicle);
+
+  bool get isAir => this == UnitClass.aircraft;
+
   num movingCost(NodeType nodeType) {
     switch (this) {
       case UnitClass.structure:

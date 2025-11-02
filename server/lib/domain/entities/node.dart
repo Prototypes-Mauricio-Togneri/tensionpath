@@ -3,6 +3,7 @@ import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/domain/types/unit_class.dart';
 
 class Node {
   final String id;
@@ -34,11 +35,22 @@ class Node {
   }
 
   num cost(Unit unit) {
-    if ((lockedUnit != null) && (lockedUnit!.player != unit.player)) {
-      // The node is occupied by an enemy unit
-      return double.infinity;
+    final UnitClass unitClass = unit.type.clazz;
+
+    if (lockedUnit != null) {
+      final Unit unitInNode = lockedUnit!;
+
+      if (unitInNode.player == unit.player) {
+        return unitClass.movingCost(type);
+      } else {
+        if (unitInNode.type.clazz.isLand && unitClass.isAir) {
+          return unitClass.movingCost(type);
+        } else {
+          return double.infinity;
+        }
+      }
     } else {
-      return unit.type.clazz.movingCost(type);
+      return unitClass.movingCost(type);
     }
   }
 

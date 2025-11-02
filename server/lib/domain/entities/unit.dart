@@ -192,7 +192,6 @@ class Unit {
       distanceToTarget: distanceToTarget,
       targetNode: targetNode,
     )) {
-      // Target node is already locked. Re-assign node
       final Node? newTargetNode = nodes.closestNodeToMove(
         position: position,
         unit: this,
