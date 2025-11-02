@@ -104,7 +104,7 @@ class Nodes {
     required Node to,
   }) {
     if (from == to) {
-      return [];
+      return [to];
     }
 
     // Priority queue for open set (nodes to explore)

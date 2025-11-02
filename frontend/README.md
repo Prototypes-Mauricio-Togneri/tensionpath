@@ -1,10 +1,7 @@
 ### High
 
 - Path finding
-  - Unlock node when leaving it when moving from node to node in a path
-  - Check aircraft can go over land units
-  - Fix logic to re-target node
-  - If attacking to an enemy unit at distance, move to the closest node that is in between the unit and the enemy
+  - Fix bug shortcutting path
 
 ### Medium
 
