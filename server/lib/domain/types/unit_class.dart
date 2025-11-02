@@ -7,8 +7,6 @@ enum UnitClass {
   vehicle,
   aircraft;
 
-  static const num MOVEMENT_PENALTY = 1000;
-
   num movingCost(NodeType nodeType) {
     switch (this) {
       case UnitClass.structure:
@@ -30,7 +28,7 @@ enum UnitClass {
       case NodeType.rocks_low:
         return double.infinity;
       case NodeType.resources:
-        return MOVEMENT_PENALTY;
+        return 1;
       case NodeType.pad:
       case NodeType.empty:
         return 0;
