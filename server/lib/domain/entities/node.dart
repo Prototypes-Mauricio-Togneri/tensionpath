@@ -42,7 +42,7 @@ class Node {
     final UnitClass unitClass = unit.type.clazz;
 
     if (notLockedByPlayer(unit.player)) {
-      if (lockedUnit!.type.clazz.isLand && unitClass.isAir) {
+      if (unitClass.canGoOver(lockedUnit!.type.clazz)) {
         return unitClass.movingCost(type);
       } else {
         return double.infinity;

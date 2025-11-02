@@ -345,14 +345,15 @@ class Unit {
   }
 
   // TODO: re-target only if:
-  // * Node is closest to an enemy unit (but is not air unit over land unit)
   // * Node locked by friendly unit and is last target node in the list
   bool _shouldRetarget({
     required num distanceToTarget,
     required Node targetNode,
   }) {
     if ((lockedNode == null) && (distanceToTarget < (radius * 2))) {
-      if (targetNode.notLockedByPlayer(player)) {
+      if (targetNode.notLockedByPlayer(player) &&
+          !type.clazz.canGoOver(targetNode.lockedUnit!.type.clazz)) {
+        // Node is occupied by an enemy unit and cannot go over it
         return true;
       }
     }

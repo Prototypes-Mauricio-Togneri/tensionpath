@@ -15,6 +15,8 @@ enum UnitClass {
 
   bool get isAir => this == UnitClass.aircraft;
 
+  bool canGoOver(UnitClass otherClazz) => otherClazz.isLand && isAir;
+
   num movingCost(NodeType nodeType) {
     switch (this) {
       case UnitClass.structure:
