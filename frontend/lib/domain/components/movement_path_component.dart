@@ -11,8 +11,7 @@ class MovementPathComponent extends PositionComponent {
     strokeCap: StrokeCap.round,
     strokeJoin: StrokeJoin.round,
   );
-  Offset? startPosition;
-  Offset? endPosition;
+  List<Vector2> positions = [];
 
   MovementPathComponent({
     required super.position,
@@ -24,38 +23,37 @@ class MovementPathComponent extends PositionComponent {
     targetPaint.strokeWidth = thickness;
   }
 
-  void show({
-    required Vector2 start,
-    required Vector2 end,
-  }) {
-    startPosition = start.toOffset();
-    endPosition = end.toOffset();
+  void show(List<Vector2> newPositions) {
+    positions = newPositions;
   }
 
   void hide() {
-    startPosition = null;
-    endPosition = null;
+    positions = [];
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
 
-    if ((startPosition != null) && (endPosition != null)) {
+    if (positions.length > 1) {
       if (dashed) {
-        canvas.drawDashedLine(
-          start: startPosition!,
-          end: endPosition!,
-          paint: targetPaint,
-          dashSpacing: targetPaint.strokeWidth * 2,
-          dashLength: targetPaint.strokeWidth * 2,
-        );
+        for (int i = 1; i < positions.length; i++) {
+          canvas.drawDashedLine(
+            start: positions[i - 1].toOffset(),
+            end: positions[i].toOffset(),
+            paint: targetPaint,
+            dashSpacing: targetPaint.strokeWidth * 2,
+            dashLength: targetPaint.strokeWidth * 2,
+          );
+        }
       } else {
-        canvas.drawLine(
-          startPosition!,
-          endPosition!,
-          targetPaint,
-        );
+        for (int i = 1; i < positions.length; i++) {
+          canvas.drawLine(
+            positions[i - 1].toOffset(),
+            positions[i].toOffset(),
+            targetPaint,
+          );
+        }
       }
     }
   }

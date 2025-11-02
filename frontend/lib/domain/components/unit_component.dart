@@ -213,8 +213,11 @@ class UnitComponent extends PositionComponent
 
         if (player.isSelf) {
           movementCurrentComponent?.show(
-            start: absolutePosition,
-            end: targetPosition + battlefieldComponent.position,
+            [
+              absolutePosition,
+              for (final Vector2 position in targetPositions)
+                position + battlefieldComponent.position,
+            ],
           );
         }
 
@@ -261,10 +264,7 @@ class UnitComponent extends PositionComponent
     super.render(canvas);
 
     if (endPosition != null) {
-      movementOrderComponent?.show(
-        start: absolutePosition,
-        end: endPosition!,
-      );
+      movementOrderComponent?.show([absolutePosition, endPosition!]);
     }
   }
 
