@@ -99,6 +99,7 @@ class Nodes {
 
   // A* pathfinding algorithm
   List<Node> path({
+    required Unit unit,
     required Node from,
     required Node to,
   }) {
@@ -139,9 +140,11 @@ class Nodes {
           continue; // Already evaluated
         }
 
-        // Calculate tentative gScore
+        // Calculate tentative gScore including node cost
         final num tentativeGScore =
-            gScore[currentNode]! + _distance(currentNode, neighbor);
+            gScore[currentNode]! +
+            _distance(currentNode, neighbor) +
+            neighbor.cost(unit);
 
         // If this path to neighbor is better than any previous one
         if (!gScore.containsKey(neighbor) ||

@@ -33,6 +33,20 @@ class Node {
     lockedUnit = null;
   }
 
+  num cost(Unit unit) {
+    switch (type) {
+      case NodeType.building:
+      case NodeType.missile:
+        return double.infinity;
+      case NodeType.resources:
+      case NodeType.pad:
+      case NodeType.empty:
+        return 0;
+      case NodeType.rocks_low:
+        return double.infinity;
+    }
+  }
+
   JsonNodeStart toJson() => JsonNodeStart(
     location: location.toJson(),
     position: position.toJson(),

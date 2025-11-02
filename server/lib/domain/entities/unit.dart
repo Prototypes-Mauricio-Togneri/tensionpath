@@ -80,6 +80,7 @@ class Unit {
   }) {
     lastOrderManual = manual;
     targetNodes = nodes.path(
+      unit: this,
       from: closestNode,
       to: node,
     );
