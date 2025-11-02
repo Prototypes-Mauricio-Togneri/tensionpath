@@ -19,7 +19,7 @@ class Nodes {
   Node atLocation(Location location) => get(location.id);
 
   Node atPosition(Position position) {
-    final Node? result = closestFromList(
+    final Node? result = _closestFromList(
       position: position,
       availableNodes: _nodes.list,
     );
@@ -50,7 +50,7 @@ class Nodes {
         )
         .toList();
 
-    return closestFromList(
+    return _closestFromList(
       position: position,
       availableNodes: availableNodes,
     );
@@ -64,13 +64,13 @@ class Nodes {
         .where((n) => n.canMove(unit))
         .toList();
 
-    return closestFromList(
+    return _closestFromList(
       position: position,
       availableNodes: availableNodes,
     );
   }
 
-  Node? closestFromList({
+  Node? _closestFromList({
     required Position position,
     required List<Node> availableNodes,
   }) {
@@ -140,6 +140,17 @@ class Nodes {
         position: Position.fromJson(jsonNode.position),
       );
       result.add(node.id, node);
+    }
+
+    for (final Node node in result.list) {
+      for (final Location location in node.location.neighborLocations) {
+        try {
+          final Node neighborNode = result.get(location.id);
+          node.neighbors.add(neighborNode);
+        } catch (_) {
+          // Neighbor node not found, ignore
+        }
+      }
     }
 
     return Nodes(result);
