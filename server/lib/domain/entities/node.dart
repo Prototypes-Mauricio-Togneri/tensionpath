@@ -37,17 +37,11 @@ class Node {
   num cost(Unit unit) {
     final UnitClass unitClass = unit.type.clazz;
 
-    if (lockedUnit != null) {
-      final Unit unitInNode = lockedUnit!;
-
-      if (unitInNode.player == unit.player) {
+    if ((lockedUnit != null) && (lockedUnit!.player == unit.player)) {
+      if (lockedUnit!.type.clazz.isLand && unitClass.isAir) {
         return unitClass.movingCost(type);
       } else {
-        if (unitInNode.type.clazz.isLand && unitClass.isAir) {
-          return unitClass.movingCost(type);
-        } else {
-          return double.infinity;
-        }
+        return double.infinity;
       }
     } else {
       return unitClass.movingCost(type);
