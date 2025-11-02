@@ -144,7 +144,7 @@ class Nodes {
         final num tentativeGScore =
             gScore[currentNode]! +
             _distance(currentNode, neighbor) +
-            neighbor.cost(unit);
+            neighbor.movementCost(unit);
 
         // If this path to neighbor is better than any previous one
         if (!gScore.containsKey(neighbor) ||

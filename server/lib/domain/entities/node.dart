@@ -34,7 +34,7 @@ class Node {
     lockedUnit = null;
   }
 
-  num cost(Unit unit) {
+  num movementCost(Unit unit) {
     final UnitClass unitClass = unit.type.clazz;
 
     if ((lockedUnit != null) && (lockedUnit!.player != unit.player)) {
