@@ -152,9 +152,11 @@ class Unit {
     final Node targetNode = nextTargetNode;
 
     // Update position
+    final num distance = type.speed.value * dt;
+    Logger.debug('Distance $distance, speed ${type.speed.value}, dt $dt');
     position = position.moveTowards(
       target: targetNode.position,
-      distance: type.speed.value * dt,
+      distance: distance,
     );
 
     final num distanceToTarget = position.distanceTo(targetNode.position);
@@ -184,14 +186,10 @@ class Unit {
       } else {
         Logger.debug('Unit has arrived to next target node ${targetNode.id}');
       }
-    } else if ((lockedNode == null) &&
-        (distanceToTarget < (radius * 2)) &&
-        targetNode.notLockedBy(this)) {
-      // TODO: re-target only if:
-      // * Node is closest to an enemy unit (but is not air unit over land unit)
-      // * Node locked by friendly unit and is last target node in the list
-      Logger.debug('Target node re-assigned to ${targetNode.id}');
-
+    } else if (_shouldRetarget(
+      distanceToTarget: distanceToTarget,
+      targetNode: targetNode,
+    )) {
       // Target node is already locked. Re-assign node
       final Node? newTargetNode = nodes.closestNodeToMove(
         position: position,
@@ -199,6 +197,7 @@ class Unit {
       );
 
       if (newTargetNode != null) {
+        Logger.debug('Target node re-assigned to ${newTargetNode.id}');
         targetNodes = [newTargetNode];
 
         events.add(
@@ -211,10 +210,10 @@ class Unit {
           ),
         );
       }
-    } else if ((lockedNode == null) &&
-        (distanceToTarget < radius) &&
-        targetNode.isFree &&
-        isLastTargetNode) {
+    } else if (_shouldLockNode(
+      distanceToTarget: distanceToTarget,
+      targetNode: targetNode,
+    )) {
       Logger.debug('Unit has locked the target node ${targetNode.id}');
       lockedNode = targetNode;
       lockedNode!.lock(this);
@@ -343,6 +342,26 @@ class Unit {
 
     return (events, false);
   }
+
+  // TODO: re-target only if:
+  // * Node is closest to an enemy unit (but is not air unit over land unit)
+  // * Node locked by friendly unit and is last target node in the list
+  bool _shouldRetarget({
+    required num distanceToTarget,
+    required Node targetNode,
+  }) =>
+      (lockedNode == null) &&
+      (distanceToTarget < (radius * 2)) &&
+      targetNode.notLockedBy(this);
+
+  bool _shouldLockNode({
+    required num distanceToTarget,
+    required Node targetNode,
+  }) =>
+      (lockedNode == null) &&
+      (distanceToTarget < radius) &&
+      targetNode.isFree &&
+      isLastTargetNode;
 
   bool canAttack(Unit unit) => type.damageAgainst(unit.type.clazz) > 0;
 
