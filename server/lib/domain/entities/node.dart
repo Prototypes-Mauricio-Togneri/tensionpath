@@ -34,16 +34,11 @@ class Node {
   }
 
   num cost(Unit unit) {
-    switch (type) {
-      case NodeType.building:
-      case NodeType.missile:
-        return double.infinity;
-      case NodeType.resources:
-      case NodeType.pad:
-      case NodeType.empty:
-        return 0;
-      case NodeType.rocks_low:
-        return double.infinity;
+    if ((lockedUnit != null) && (lockedUnit!.player != unit.player)) {
+      // The node is occupied by an enemy unit
+      return double.infinity;
+    } else {
+      return unit.type.clazz.movingCost(type);
     }
   }
 
