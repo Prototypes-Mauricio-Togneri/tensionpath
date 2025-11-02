@@ -186,7 +186,10 @@ class Unit {
         );
         updatePlayers = isHarvester;
       } else {
-        Logger.debug('Unit has arrived to next target node ${targetNode.id}');
+        Logger.debug('Unit has arrived to next node in path: ${targetNode.id}');
+
+        lockedNode?.unlock();
+        lockedNode = null;
       }
     } else if (_shouldRetarget(
       distanceToTarget: distanceToTarget,
