@@ -1,16 +1,15 @@
-import 'package:tensionpath/domain/data/nodes.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
-import 'package:tensionpath/utils/iterable_map.dart';
 
 class Node {
   final String id;
   final NodeType type;
   final Location location;
   final Position position;
+  final List<Node> neighbors = [];
   Unit? lockedUnit;
 
   Node({
@@ -32,22 +31,6 @@ class Node {
 
   void unlock() {
     lockedUnit = null;
-  }
-
-  static Nodes load(List<JsonNodeStart> nodes) {
-    final IterableMap<String, Node> result = IterableMap();
-
-    for (final JsonNodeStart jsonNode in nodes) {
-      final Node node = Node(
-        id: jsonNode.location.id,
-        type: jsonNode.type,
-        location: Location.fromJson(jsonNode.location),
-        position: Position.fromJson(jsonNode.position),
-      );
-      result.add(node.id, node);
-    }
-
-    return Nodes(result);
   }
 
   JsonNodeStart toJson() => JsonNodeStart(

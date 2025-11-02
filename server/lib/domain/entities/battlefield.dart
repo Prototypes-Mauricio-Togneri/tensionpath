@@ -192,7 +192,7 @@ class Battlefield {
     required Config config,
     required Players players,
   }) {
-    final Nodes nodes = Node.load(json.nodes);
+    final Nodes nodes = Nodes.load(json.nodes);
     final Size nodeSize = Size.fromJson(json.nodeSize);
     final Units units = Units(maxHarvestersCount: config.maxHarvestersCount);
 
