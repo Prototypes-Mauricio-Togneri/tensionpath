@@ -191,6 +191,7 @@ class Unit {
     } else if (_shouldRetarget(
       distanceToTarget: distanceToTarget,
       targetNode: targetNode,
+      isLastNode: isLastTargetNode,
     )) {
       final Node? newTargetNode = nodes.closestNodeToMove(
         position: position,
@@ -345,15 +346,19 @@ class Unit {
   }
 
   // TODO: re-target only if:
-  // * Node locked by friendly unit and is last target node in the list
+  // *
   bool _shouldRetarget({
     required num distanceToTarget,
     required Node targetNode,
+    required bool isLastNode,
   }) {
     if ((lockedNode == null) && (distanceToTarget < (radius * 2))) {
       if (targetNode.notLockedByPlayer(player) &&
           !type.clazz.canGoOver(targetNode.lockedUnit!.type.clazz)) {
-        // Node is occupied by an enemy unit and cannot go over it
+        // Node is locked by an enemy unit and cannot go over it
+        return true;
+      } else if (targetNode.lockedByPlayer(player) && isLastNode) {
+        // Node is locked by a friendly unit and is last target node in the path
         return true;
       }
     }

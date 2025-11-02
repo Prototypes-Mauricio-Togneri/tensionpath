@@ -25,6 +25,9 @@ class Node {
 
   bool get isLocked => lockedUnit != null;
 
+  bool lockedByPlayer(Player player) =>
+      isLocked && (lockedUnit!.player == player);
+
   bool notLockedByPlayer(Player player) =>
       isLocked && (lockedUnit!.player != player);
 
