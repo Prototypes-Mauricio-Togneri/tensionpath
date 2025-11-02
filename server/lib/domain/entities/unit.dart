@@ -350,10 +350,13 @@ class Unit {
   bool _shouldRetarget({
     required num distanceToTarget,
     required Node targetNode,
-  }) =>
-      (lockedNode == null) &&
-      (distanceToTarget < (radius * 2)) &&
-      targetNode.notLockedBy(this);
+  }) {
+    if ((lockedNode == null) && (distanceToTarget < (radius * 2))) {
+      //targetNode.notLockedBy(this);
+    }
+
+    return false;
+  }
 
   bool _shouldLockNode({
     required num distanceToTarget,
