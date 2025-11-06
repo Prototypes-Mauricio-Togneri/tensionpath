@@ -1,5 +1,7 @@
 ### High
 
+- Bug air unit over land unit
+- Increase units speed (fix tooltip)
 - Path finding
   - Fix bug shortcutting path
 
