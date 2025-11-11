@@ -1,6 +1,5 @@
 import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/player.dart';
-import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
@@ -38,25 +37,6 @@ class Buildings {
       final num distance = unit.distanceToBase(building);
 
       if (unit.isInAttackRange(distance) && (distance < closestDistance)) {
-        closestDistance = distance;
-        result = building;
-      }
-    }
-
-    return result;
-  }
-
-  Building? closestFromList({
-    required Position position,
-    required List<Building> availableBuildings,
-  }) {
-    Building? result;
-    num closestDistance = double.infinity;
-
-    for (final Building building in availableBuildings) {
-      final num distance = position.distanceTo(building.position);
-
-      if (distance < closestDistance) {
         closestDistance = distance;
         result = building;
       }

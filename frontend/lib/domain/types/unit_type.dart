@@ -331,7 +331,7 @@ enum UnitType {
 
     result += '\nCost: $cost';
     result += '\nHealth: $health';
-    result += '\nSpeed: $speed';
+    result += '\nSpeed: ${speed.name}';
     result += '\nVisibility: $visibility';
     result += '\nDamage infantry: $damageInfantry';
     result += '\nDamage vehicle: $damageVehicle';

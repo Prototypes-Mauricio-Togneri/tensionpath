@@ -8,6 +8,15 @@ class Location {
 
   String get id => '$x,$y';
 
+  List<Location> get neighborLocations => [
+    Location(x: x + 1, y: y),
+    Location(x: x - 1, y: y),
+    Location(x: x, y: y + 1),
+    Location(x: x, y: y - 1),
+    Location(x: x + 1, y: y - 1),
+    Location(x: x - 1, y: y + 1),
+  ];
+
   int distanceTo(Location other) {
     final num distance =
         ((x - other.x).abs() +

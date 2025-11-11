@@ -11,6 +11,8 @@ class PingStateState extends BaseState {
   DateTime start = DateTime.now();
   bool isRunning = false;
   int lastPing = 0;
+  int min = double.maxFinite.toInt();
+  int max = 0;
   int sum = 0;
   int count = 0;
   String result = '';
@@ -54,9 +56,21 @@ class PingStateState extends BaseState {
   Future receivePing() async {
     final DateTime end = DateTime.now();
     lastPing = end.difference(start).inMilliseconds;
+
+    if (lastPing < min) {
+      min = lastPing;
+    }
+
+    if (lastPing > max) {
+      max = lastPing;
+    }
+
     sum += lastPing;
     count++;
-    result = 'Last ping: ${lastPing}ms\nAvg. ping: ${sum ~/ count}ms';
+    result = 'Last ping: ${lastPing}ms\n';
+    result += 'Min. ping: ${min}ms\n';
+    result += 'Max. ping: ${max}ms\n';
+    result += 'Avg. ping: ${sum ~/ count}ms';
     notify();
 
     await Future.delayed(const Duration(seconds: 1));
@@ -65,6 +79,8 @@ class PingStateState extends BaseState {
 
   void onStart() {
     lastPing = 0;
+    min = double.maxFinite.toInt();
+    max = 0;
     sum = 0;
     count = 0;
     isRunning = true;
