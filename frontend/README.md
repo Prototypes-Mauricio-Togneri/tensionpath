@@ -1,7 +1,8 @@
 ### High
 
-- Bug air unit over land unit
 - Increase units speed (fix tooltip)
+- Min/max ping test
+- Bug air unit over land unit
 - Path finding
   - Fix bug shortcutting path
 
