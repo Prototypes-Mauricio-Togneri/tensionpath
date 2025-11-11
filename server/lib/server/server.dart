@@ -55,9 +55,9 @@ class Server {
       } else if ((request.method == 'GET') && (request.uri.toString() == '/')) {
         await _handleGreeting(request);
       } else {
-        Logger.info(
+        /*Logger.info(
           'Unhandled HTTP request: ${request.method} ${request.requestedUri} ${request.uri}\n${request.headers}',
-        );
+        );*/
 
         request.response.statusCode = HttpStatus.forbidden;
         await request.response.close();
