@@ -73,6 +73,7 @@ class BuildingComponent extends SpriteComponent {
 class BuildingImageComponent extends SpriteComponent with HasVisibility {
   final Building building;
   final NodeComponent nodeComponent;
+  bool isUnlocked = false;
 
   BuildingImageComponent({
     required this.building,
@@ -83,17 +84,8 @@ class BuildingImageComponent extends SpriteComponent with HasVisibility {
 
   @override
   FutureOr onLoad() async {
-    if (building.type == BuildingType.main) {
-      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_MAIN_ON);
-    } else if (building.type == BuildingType.barracks) {
-      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_BARRACKS_ON);
-    } else if (building.type == BuildingType.factory) {
-      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_FACTORY_ON);
-    } else if (building.type == BuildingType.airfield) {
-      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_AIRFIELD_ON);
-    } else if (building.type == BuildingType.tech) {
-      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_TECH_ON);
-    }
+    isUnlocked = building.isUnlocked;
+    await _setSprite();
 
     return super.onLoad();
   }
@@ -102,6 +94,41 @@ class BuildingImageComponent extends SpriteComponent with HasVisibility {
   void update(double dt) {
     super.update(dt);
 
-    isVisible = building.isUnlocked && nodeComponent.isRevealed;
+    if (building.isUnlocked && !isUnlocked) {
+      isUnlocked = true;
+      _setSprite();
+    }
+
+    isVisible = nodeComponent.isRevealed;
+  }
+
+  Future _setSprite() async {
+    if (building.type == BuildingType.main) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_MAIN_ON);
+    } else if (building.type == BuildingType.barracks) {
+      sprite = await Sprite.load(
+        isUnlocked
+            ? Assets.IMAGES_BUILDINGS_BARRACKS_ON
+            : Assets.IMAGES_BUILDINGS_BARRACKS_OFF,
+      );
+    } else if (building.type == BuildingType.factory) {
+      sprite = await Sprite.load(
+        isUnlocked
+            ? Assets.IMAGES_BUILDINGS_FACTORY_ON
+            : Assets.IMAGES_BUILDINGS_FACTORY_OFF,
+      );
+    } else if (building.type == BuildingType.airfield) {
+      sprite = await Sprite.load(
+        isUnlocked
+            ? Assets.IMAGES_BUILDINGS_AIRFIELD_ON
+            : Assets.IMAGES_BUILDINGS_AIRFIELD_OFF,
+      );
+    } else if (building.type == BuildingType.tech) {
+      sprite = await Sprite.load(
+        isUnlocked
+            ? Assets.IMAGES_BUILDINGS_TECH_ON
+            : Assets.IMAGES_BUILDINGS_TECH_OFF,
+      );
+    }
   }
 }

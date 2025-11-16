@@ -1,6 +1,7 @@
 # 16.11.2025
 - Fixed bugs moving units
 - Unit shots size are proportional to their damage
+- Added tech units
 
 # 02.11.2025
 - Move units from node to node
