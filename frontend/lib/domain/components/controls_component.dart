@@ -136,7 +136,7 @@ class BuildingBlockComponent extends PositionComponent with TapCallbacks {
   final Paint borderPaint = Palette.paint(
     style: PaintingStyle.stroke,
   );
-  bool isEnabled = false;
+  bool isEnabled = true;
 
   BuildingBlockComponent({
     required this.player,
@@ -264,7 +264,7 @@ class UnitSelectorComponent extends PositionComponent {
   final Paint backgroundPaint = Palette.paint(
     style: PaintingStyle.fill,
   );
-  bool isEnabled = false;
+  bool isEnabled = true;
 
   UnitSelectorComponent({
     required this.player,
