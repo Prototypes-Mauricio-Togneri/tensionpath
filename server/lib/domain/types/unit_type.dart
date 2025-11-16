@@ -344,7 +344,7 @@ enum UnitType {
   final num damageHarvester;
   final num damageStructure;
   final num attackRange;
-  final num attackCooldown; // Cooldown / squad size
+  final num attackCooldown; // Damage per shot / Damage per second
 
   const UnitType({
     required this.clazz,
