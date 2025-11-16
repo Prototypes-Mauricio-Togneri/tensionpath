@@ -40,14 +40,6 @@
 
 ## Units
 
-### Tech units
-
-- Wolverine
-- Kodiak
-- Zone Trooper
-- Titan
-- Mammoth
-
 ### Nod faction
 
 - Militants
