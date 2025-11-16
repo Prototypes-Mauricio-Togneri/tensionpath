@@ -348,8 +348,6 @@ class Unit {
     return (events, false);
   }
 
-  // TODO: re-target only if:
-  // *
   bool _shouldRetarget({
     required num distanceToTarget,
     required Node targetNode,
@@ -360,8 +358,8 @@ class Unit {
           !type.clazz.canGoOver(targetNode.lockedUnit!.type.clazz)) {
         // Node is locked by an enemy unit and cannot go over it
         return true;
-      } else if (targetNode.lockedByPlayer(player) && isLastNode) {
-        // Node is locked by a friendly unit and is last target node in the path
+      } else if (targetNode.isLocked && isLastNode) {
+        // Node is locked by another unit and is last target node in the path
         return true;
       }
     }

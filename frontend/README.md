@@ -1,6 +1,5 @@
 ### High
 
-- Bug air unit over land unit
 - Proportional bullet size
 - Add tech units
 - Talk to blade
