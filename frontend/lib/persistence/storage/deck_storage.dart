@@ -12,11 +12,11 @@ class DeckStorage extends Storage {
     final List<String> defaultValue = Environment.get.isLocal
         ? [
             UnitType.missiles.name,
-            UnitType.shocks.name,
             UnitType.rhino.name,
-            UnitType.pitbull.name,
             UnitType.orca.name,
-            UnitType.hammerhead.name,
+            UnitType.wolverine.name,
+            UnitType.disruptor.name,
+            UnitType.zone.name,
           ]
         : [];
     final List<String> data = await Storage.getStringList(

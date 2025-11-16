@@ -74,7 +74,7 @@ class Form extends StatelessWidget {
               children: [
                 Deck(
                   state: state,
-                  cardHeight: (constraints.maxHeight - gap) / 3,
+                  cardHeight: (constraints.maxHeight - gap) / 4,
                 ),
                 VBox(gap),
               ],
@@ -130,6 +130,17 @@ class Deck extends StatelessWidget {
             UnitType.orca,
             UnitType.mohawk,
             UnitType.hammerhead,
+          ],
+          cardHeight: cardHeight,
+        ),
+        DeckRow(
+          state: state,
+          types: const [
+            UnitType.wolverine,
+            UnitType.disruptor,
+            UnitType.zone,
+            UnitType.titan,
+            UnitType.mammoth,
           ],
           cardHeight: cardHeight,
         ),

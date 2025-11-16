@@ -1,6 +1,5 @@
 ### High
 
-- Add tech units
 - Talk to blade
 - Fix bug shortcutting path
 
