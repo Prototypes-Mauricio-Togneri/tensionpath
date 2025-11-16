@@ -284,6 +284,11 @@ enum UnitType {
     required this.attackCooldown,
   });
 
+  double get maxDamage => max(
+    max(damageInfantry.toDouble(), damageVehicle.toDouble()),
+    max(damageAircraft.toDouble(), damageHarvester.toDouble()),
+  );
+
   num damageAgainst(UnitClass unitClass) {
     switch (unitClass) {
       case UnitClass.structure:

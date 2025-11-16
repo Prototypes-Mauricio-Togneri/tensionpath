@@ -87,9 +87,10 @@ class UnitComponent extends PositionComponent
     required num damage,
     required bool targetDestroyed,
   }) {
+    final double sizeMultiplier = 0.03 * (1 + type.maxDamage / 1000);
     final ShotToUnitComponent shotComponent = ShotToUnitComponent(
       position: Vector2.zero(),
-      size: size / 30,
+      size: size * sizeMultiplier,
       attackerUnit: this,
       targetUnit: targetUnit,
       damage: damage,

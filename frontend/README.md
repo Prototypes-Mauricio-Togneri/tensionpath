@@ -1,6 +1,5 @@
 ### High
 
-- Proportional bullet size
 - Add tech units
 - Talk to blade
 - Fix bug shortcutting path
