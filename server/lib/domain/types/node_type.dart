@@ -7,7 +7,8 @@ enum NodeType {
   building,
   pad,
   rocks_low,
-  missile;
+  missile
+  ;
 
   bool canMove(UnitType type) {
     if ((type.clazz == UnitClass.harvester) ||

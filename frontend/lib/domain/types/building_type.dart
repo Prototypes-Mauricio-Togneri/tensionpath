@@ -2,7 +2,8 @@ enum BuildingType {
   main(cost: 0),
   barracks(cost: 30),
   factory(cost: 40),
-  airfield(cost: 50);
+  airfield(cost: 50)
+  ;
 
   final int cost;
 

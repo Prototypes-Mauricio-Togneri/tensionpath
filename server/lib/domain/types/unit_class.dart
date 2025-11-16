@@ -5,7 +5,8 @@ enum UnitClass {
   harvester,
   infantry,
   vehicle,
-  aircraft;
+  aircraft
+  ;
 
   bool get isLand =>
       (this == UnitClass.structure) ||

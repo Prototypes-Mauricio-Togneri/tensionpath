@@ -251,7 +251,8 @@ enum UnitType {
     damageStructure: 425,
     attackRange: 1,
     attackCooldown: 1.6,
-  );
+  )
+  ;
 
   final UnitClass clazz;
   final BuildingType buildingType;

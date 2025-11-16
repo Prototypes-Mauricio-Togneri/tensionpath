@@ -1,6 +1,11 @@
 ### High
 
+- Fix drag bug
+- Fix enemy unit in base bug
 - Bug air unit over land unit
+- Proportional bullet size
+- Add tech units
+- Talk to blade
 - Path finding
   - Fix bug shortcutting path
 

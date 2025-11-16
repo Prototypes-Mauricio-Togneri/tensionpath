@@ -251,7 +251,8 @@ enum UnitType {
     damageStructure: 425,
     attackRange: 1,
     attackCooldown: 1.6,
-  );
+  )
+  ;
 
   final UnitClass clazz;
   final BuildingType buildingType;
@@ -331,7 +332,7 @@ enum UnitType {
 
     result += '\nCost: $cost';
     result += '\nHealth: $health';
-    result += '\nSpeed: ${speed.name}';
+    result += '\nSpeed: $speed';
     result += '\nVisibility: $visibility';
     result += '\nDamage infantry: $damageInfantry';
     result += '\nDamage vehicle: $damageVehicle';
