@@ -91,6 +91,8 @@ class BuildingImageComponent extends SpriteComponent with HasVisibility {
       sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_FACTORY_ON);
     } else if (building.type == BuildingType.airfield) {
       sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_AIRFIELD_ON);
+    } else if (building.type == BuildingType.tech) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_TECH_ON);
     }
 
     return super.onLoad();

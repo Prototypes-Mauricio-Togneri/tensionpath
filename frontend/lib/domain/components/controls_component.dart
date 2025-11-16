@@ -226,6 +226,8 @@ class BuildingImageComponent extends SpriteComponent {
       sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_FACTORY_OFF);
     } else if (buildingType == BuildingType.airfield) {
       sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_AIRFIELD_OFF);
+    } else if (buildingType == BuildingType.tech) {
+      sprite = await Sprite.load(Assets.IMAGES_BUILDINGS_TECH_OFF);
     }
 
     return super.onLoad();
