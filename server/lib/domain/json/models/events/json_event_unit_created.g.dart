@@ -70,4 +70,9 @@ const _$UnitTypeEnumMap = {
   UnitType.orca: 'orca',
   UnitType.mohawk: 'mohawk',
   UnitType.hammerhead: 'hammerhead',
+  UnitType.wolverine: 'wolverine',
+  UnitType.disruptor: 'disruptor',
+  UnitType.zone: 'zone',
+  UnitType.titan: 'titan',
+  UnitType.mammoth: 'mammoth',
 };

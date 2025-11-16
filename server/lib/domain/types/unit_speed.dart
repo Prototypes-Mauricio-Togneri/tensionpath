@@ -6,7 +6,7 @@ enum UnitSpeed {
   fastest(5.5) // 5
   ;
 
-  final num value;
+  final num value; // Speed / 1.567
 
   const UnitSpeed(this.value);
 }

@@ -336,7 +336,7 @@ enum UnitType {
   final BuildingType buildingType;
   final int cost;
   final int health;
-  final UnitSpeed speed; // Speed / 1.567
+  final UnitSpeed speed;
   final int visibility;
   final num damageInfantry;
   final num damageVehicle;
@@ -361,6 +361,11 @@ enum UnitType {
     required this.attackRange,
     required this.attackCooldown,
   });
+
+  double get maxDamage => max(
+    max(damageInfantry.toDouble(), damageVehicle.toDouble()),
+    max(damageAircraft.toDouble(), damageHarvester.toDouble()),
+  );
 
   num damageAgainst(UnitClass unitClass) {
     switch (unitClass) {

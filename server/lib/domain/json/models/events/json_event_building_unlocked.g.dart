@@ -28,4 +28,5 @@ const _$BuildingTypeEnumMap = {
   BuildingType.barracks: 'barracks',
   BuildingType.factory: 'factory',
   BuildingType.airfield: 'airfield',
+  BuildingType.tech: 'tech',
 };

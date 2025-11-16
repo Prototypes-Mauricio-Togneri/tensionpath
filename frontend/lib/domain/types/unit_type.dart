@@ -251,6 +251,84 @@ enum UnitType {
     damageStructure: 425,
     attackRange: 1,
     attackCooldown: 1.6,
+  ),
+
+  // ================================= TECH ================================= \\
+
+  wolverine(
+    clazz: UnitClass.vehicle,
+    buildingType: BuildingType.tech,
+    cost: 80,
+    health: 2800,
+    speed: UnitSpeed.normal,
+    visibility: 2,
+    damageInfantry: 100,
+    damageVehicle: 38,
+    damageAircraft: 100,
+    damageHarvester: 38,
+    damageStructure: 100,
+    attackRange: 1,
+    attackCooldown: 0.4,
+  ),
+  disruptor(
+    clazz: UnitClass.vehicle,
+    buildingType: BuildingType.tech,
+    cost: 120,
+    health: 3300,
+    speed: UnitSpeed.slow,
+    visibility: 2,
+    damageInfantry: 52,
+    damageVehicle: 26,
+    damageAircraft: 0,
+    damageHarvester: 26,
+    damageStructure: 600,
+    attackRange: 2,
+    attackCooldown: 0.4,
+  ),
+  zone(
+    clazz: UnitClass.infantry,
+    buildingType: BuildingType.tech,
+    cost: 120,
+    health: 2000,
+    speed: UnitSpeed.normal,
+    visibility: 2,
+    damageInfantry: 90,
+    damageVehicle: 620,
+    damageAircraft: 620,
+    damageHarvester: 620,
+    damageStructure: 620,
+    attackRange: 1,
+    attackCooldown: 1.5,
+  ),
+  titan(
+    clazz: UnitClass.vehicle,
+    buildingType: BuildingType.tech,
+    cost: 130,
+    health: 5500,
+    speed: UnitSpeed.normal,
+    visibility: 2,
+    damageInfantry: 180,
+    damageVehicle: 2000,
+    damageAircraft: 0,
+    damageHarvester: 2000,
+    damageStructure: 2000,
+    attackRange: 1,
+    attackCooldown: 5,
+  ),
+  mammoth(
+    clazz: UnitClass.vehicle,
+    buildingType: BuildingType.tech,
+    cost: 230,
+    health: 6900,
+    speed: UnitSpeed.slowest,
+    visibility: 2,
+    damageInfantry: 1065,
+    damageVehicle: 1065,
+    damageAircraft: 200,
+    damageHarvester: 1065,
+    damageStructure: 1065,
+    attackRange: 1,
+    attackCooldown: 2,
   )
   ;
 
@@ -258,7 +336,7 @@ enum UnitType {
   final BuildingType buildingType;
   final int cost;
   final int health;
-  final UnitSpeed speed; // Speed / 1.567
+  final UnitSpeed speed;
   final int visibility;
   final num damageInfantry;
   final num damageVehicle;
@@ -266,7 +344,7 @@ enum UnitType {
   final num damageHarvester;
   final num damageStructure;
   final num attackRange;
-  final num attackCooldown; // Cooldown / squad size
+  final num attackCooldown; // Damage per shot / Damage per second
 
   const UnitType({
     required this.clazz,
