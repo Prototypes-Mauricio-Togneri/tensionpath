@@ -99,6 +99,12 @@ class Assets {
       'units/cards/infantry/shocks.png';
   static const String IMAGES_UNITS_CARDS_INFANTRY_SNIPER =
       'units/cards/infantry/sniper.png';
+  static const String IMAGES_UNITS_CARDS_INFANTRY_ZONE =
+      'units/cards/infantry/zone.png';
+  static const String IMAGES_UNITS_CARDS_VEHICLE_DISRUPTOR =
+      'units/cards/vehicle/disruptor.png';
+  static const String IMAGES_UNITS_CARDS_VEHICLE_MAMMOTH =
+      'units/cards/vehicle/mammoth.png';
   static const String IMAGES_UNITS_CARDS_VEHICLE_MLRS =
       'units/cards/vehicle/mlrs.png';
   static const String IMAGES_UNITS_CARDS_VEHICLE_PITBULL =
@@ -109,6 +115,10 @@ class Assets {
       'units/cards/vehicle/rhino.png';
   static const String IMAGES_UNITS_CARDS_VEHICLE_SHATTERER =
       'units/cards/vehicle/shatterer.png';
+  static const String IMAGES_UNITS_CARDS_VEHICLE_TITAN =
+      'units/cards/vehicle/titan.png';
+  static const String IMAGES_UNITS_CARDS_VEHICLE_WOLVERINE =
+      'units/cards/vehicle/wolverine.png';
   static const String IMAGES_UNITS_COUNTER_AIRCRAFT_BAD =
       'units/counter/aircraft_bad.png';
   static const String IMAGES_UNITS_COUNTER_AIRCRAFT_GOOD =
@@ -149,6 +159,12 @@ class Assets {
       'units/player_1/infantry/shocks.png';
   static const String IMAGES_UNITS_PLAYER_1_INFANTRY_SNIPER =
       'units/player_1/infantry/sniper.png';
+  static const String IMAGES_UNITS_PLAYER_1_INFANTRY_ZONE =
+      'units/player_1/infantry/zone.png';
+  static const String IMAGES_UNITS_PLAYER_1_VEHICLE_DISRUPTOR =
+      'units/player_1/vehicle/disruptor.png';
+  static const String IMAGES_UNITS_PLAYER_1_VEHICLE_MAMMOTH =
+      'units/player_1/vehicle/mammoth.png';
   static const String IMAGES_UNITS_PLAYER_1_VEHICLE_MLRS =
       'units/player_1/vehicle/mlrs.png';
   static const String IMAGES_UNITS_PLAYER_1_VEHICLE_PITBULL =
@@ -159,6 +175,10 @@ class Assets {
       'units/player_1/vehicle/rhino.png';
   static const String IMAGES_UNITS_PLAYER_1_VEHICLE_SHATTERER =
       'units/player_1/vehicle/shatterer.png';
+  static const String IMAGES_UNITS_PLAYER_1_VEHICLE_TITAN =
+      'units/player_1/vehicle/titan.png';
+  static const String IMAGES_UNITS_PLAYER_1_VEHICLE_WOLVERINE =
+      'units/player_1/vehicle/wolverine.png';
   static const String IMAGES_UNITS_PLAYER_2_AIRCRAFT_HAMMERHEAD =
       'units/player_2/aircraft/hammerhead.png';
   static const String IMAGES_UNITS_PLAYER_2_AIRCRAFT_MOHAWK =
@@ -181,6 +201,12 @@ class Assets {
       'units/player_2/infantry/shocks.png';
   static const String IMAGES_UNITS_PLAYER_2_INFANTRY_SNIPER =
       'units/player_2/infantry/sniper.png';
+  static const String IMAGES_UNITS_PLAYER_2_INFANTRY_ZONE =
+      'units/player_2/infantry/zone.png';
+  static const String IMAGES_UNITS_PLAYER_2_VEHICLE_DISRUPTOR =
+      'units/player_2/vehicle/disruptor.png';
+  static const String IMAGES_UNITS_PLAYER_2_VEHICLE_MAMMOTH =
+      'units/player_2/vehicle/mammoth.png';
   static const String IMAGES_UNITS_PLAYER_2_VEHICLE_MLRS =
       'units/player_2/vehicle/mlrs.png';
   static const String IMAGES_UNITS_PLAYER_2_VEHICLE_PITBULL =
@@ -191,5 +217,9 @@ class Assets {
       'units/player_2/vehicle/rhino.png';
   static const String IMAGES_UNITS_PLAYER_2_VEHICLE_SHATTERER =
       'units/player_2/vehicle/shatterer.png';
+  static const String IMAGES_UNITS_PLAYER_2_VEHICLE_TITAN =
+      'units/player_2/vehicle/titan.png';
+  static const String IMAGES_UNITS_PLAYER_2_VEHICLE_WOLVERINE =
+      'units/player_2/vehicle/wolverine.png';
   static const String TEXT_CHANGELOG = 'assets/text/changelog.txt';
 }
