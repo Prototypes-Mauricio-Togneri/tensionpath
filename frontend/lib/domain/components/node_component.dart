@@ -89,7 +89,7 @@ class NodeComponent extends PositionComponent {
       );
     }
 
-    /*final double fontSize = size.x / 12;
+    final double fontSize = size.x / 12;
     const double gap = 1 / 9;
 
     canvas.drawText(
@@ -128,6 +128,6 @@ class NodeComponent extends PositionComponent {
       position: Vector2(size.x / 2, size.y * gap * 6),
       size: fontSize,
       color: Palette.TEXT_DEBUG,
-    );*/
+    );
   }
 }
