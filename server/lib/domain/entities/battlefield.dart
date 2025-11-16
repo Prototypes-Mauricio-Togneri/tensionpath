@@ -87,10 +87,29 @@ class Battlefield {
       maxHealth: type.health,
     );
     units.add(unit);
-    unit.move(
-      node: targetNode,
-      manual: true,
-    );
+
+    if (targetNode.type == NodeType.building) {
+      final Building targetBase = buildings.get(targetNode.id);
+
+      final Node? alternativeNode = nodes.closestNodeToMove(
+        position: targetNode.position,
+        unit: unit,
+      );
+
+      if (alternativeNode != null) {
+        unit.move(
+          node: alternativeNode,
+          manual: true,
+        );
+      }
+
+      unit.attackBase(targetBase);
+    } else {
+      unit.move(
+        node: targetNode,
+        manual: true,
+      );
+    }
 
     return JsonEvent.unitCreated(
       unitId: unit.id,
