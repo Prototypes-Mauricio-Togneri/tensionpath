@@ -51,14 +51,14 @@ Vector2 battlefieldUnitScale(UnitType type) {
       return Vector2(0.5, 0.5);
 
     case UnitType.wolverine:
-      return Vector2(0.6, 0.6); // TODO(momo): adjust
+      return Vector2(0.5, 0.5);
     case UnitType.disruptor:
-      return Vector2(0.5, 0.6); // TODO(momo): adjust
+      return Vector2(0.5, 0.6);
     case UnitType.zone:
-      return Vector2(0.6, 0.6); // TODO(momo): adjust
+      return Vector2(0.55, 0.55);
     case UnitType.titan:
-      return Vector2(0.8, 0.8); // TODO(momo): adjust
+      return Vector2(0.55, 0.55);
     case UnitType.mammoth:
-      return Vector2(0.8, 0.8); // TODO(momo): adjust
+      return Vector2(0.7, 0.7);
   }
 }
