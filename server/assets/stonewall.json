@@ -22,7 +22,7 @@
     },
     "battlefield": {
         "mapSize": {
-            "width": 10,
+            "width": 12,
             "height": 7
         },
         "nodes": [
@@ -121,6 +121,22 @@
                 "playerIndex": "1"
             },
             {
+                "type": "building",
+                "building": "tech",
+                "location": {
+                    "x": -5,
+                    "y": -1
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -5,
+                    "y": 0
+                }
+            },
+            {
                 "type": "empty",
                 "location": {
                     "x": -2,
@@ -205,6 +221,22 @@
                     "y": -1
                 },
                 "playerIndex": "2"
+            },
+            {
+                "type": "building",
+                "building": "tech",
+                "location": {
+                    "x": 6,
+                    "y": -1
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 5,
+                    "y": 0
+                }
             },
             {
                 "type": "empty",
