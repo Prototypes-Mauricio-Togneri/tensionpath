@@ -397,16 +397,9 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
       ),
     );
 
+    initialPosition.setFrom(position);
+
     return super.onLoad();
-  }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
-
-    if (enabled) {
-      initialPosition.setFrom(position);
-    }
   }
 
   @override
