@@ -6,8 +6,7 @@
 - Proportional bullet size
 - Add tech units
 - Talk to blade
-- Path finding
-  - Fix bug shortcutting path
+- Fix bug shortcutting path
 
 ### Medium
 

@@ -417,6 +417,8 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
         position: absolutePosition,
         unitType: unitType,
       );
+    } else {
+      position = initialPosition;
     }
   }
 
@@ -438,9 +440,9 @@ class UnitDraggableComponent extends PositionComponent with DragCallbacks {
           type: unitType,
         );
       }
-
-      position = initialPosition;
     }
+
+    position = initialPosition;
   }
 }
 
