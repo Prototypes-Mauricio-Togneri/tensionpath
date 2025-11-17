@@ -1,4 +1,9 @@
-# 02.11.202
+# 16.11.2025
+- Fixed bugs moving units
+- Unit shots size are proportional to their damage
+- Added tech units
+
+# 02.11.2025
 - Move units from node to node
 
 # 01.11.2025
@@ -9,7 +14,7 @@
 
 # 25.10.2025
 - Attack animations against bases
-- Resource patch removes health of infantry
+- Resource patch reduces health of infantry
 
 # 24.10.2025
 - Unlocking buildings
