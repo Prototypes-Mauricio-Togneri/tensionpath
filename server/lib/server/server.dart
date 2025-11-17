@@ -52,9 +52,9 @@ class Server {
       } else if ((request.method == 'POST') &&
           (request.uri.toString() == '/matches')) {
         await _handleMatchCreation(request);
-      } else if ((request.method == 'GET') && (request.uri.toString() == '/')) {
+      } /*else if ((request.method == 'GET') && (request.uri.toString() == '/')) {
         await _handleGreeting(request);
-      } else {
+      } */ else {
         /*Logger.info(
           'Unhandled HTTP request: ${request.method} ${request.requestedUri} ${request.uri}\n${request.headers}',
         );*/
@@ -96,7 +96,7 @@ class Server {
     Logger.error(socket, error);
   }
 
-  Future _handleGreeting(HttpRequest request) async {
+  /*Future _handleGreeting(HttpRequest request) async {
     Logger.info(
       'HTTP request: ${request.method} ${request.requestedUri}\n${request.headers}',
     );
@@ -105,7 +105,7 @@ class Server {
     request.response.write('Server up and running!');
 
     await request.response.close();
-  }
+  }*/
 
   Future _handleMatchCreation(HttpRequest request) async {
     Logger.info(
