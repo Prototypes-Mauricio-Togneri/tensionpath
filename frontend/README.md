@@ -1,6 +1,5 @@
 ### High
 
-- Talk to blade
 - Fix bug shortcutting path
 
 ### Medium
