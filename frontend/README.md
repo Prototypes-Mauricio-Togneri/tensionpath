@@ -1,5 +1,6 @@
 ### High
 
+- Harvester reward animation
 - Fix bug shortcutting path
 
 ### Medium
