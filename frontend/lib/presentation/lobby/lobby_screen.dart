@@ -49,7 +49,7 @@ class Content extends StatelessWidget {
           PrimaryButton(
             label: 'Cancel',
             enabled: !state.isLoading && !state.isCanceling,
-            foregroundColor: Palette.SEMANTIC_ERROR,
+            backgroundColor: Palette.SEMANTIC_ERROR,
             onPressed: state.onCancel,
           ),
         ],

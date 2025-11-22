@@ -114,7 +114,7 @@ class Form extends StatelessWidget {
               PrimaryButton(
                 label: 'Save',
                 enabled: state.canSave,
-                foregroundColor: Palette.PRIMARY,
+                backgroundColor: Palette.PRIMARY,
                 onPressed: state.onSave,
               ),
             ],

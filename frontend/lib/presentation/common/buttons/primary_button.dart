@@ -3,7 +3,7 @@ import 'package:tensionpath/utils/palette.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
-  final Color foregroundColor;
+  final Color backgroundColor;
   final bool enabled;
   final VoidCallback onPressed;
   final double fontSize;
@@ -13,7 +13,7 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     required this.label,
     required this.enabled,
-    required this.foregroundColor,
+    required this.backgroundColor,
     required this.onPressed,
     this.fontSize = 14,
     this.height = 30,
@@ -35,7 +35,7 @@ class PrimaryButton extends StatelessWidget {
             if (states.contains(WidgetState.disabled)) {
               return Palette.BUTTON_DISABLED;
             } else {
-              return foregroundColor;
+              return backgroundColor;
             }
           }),
           textStyle: WidgetStateProperty.all<TextStyle>(

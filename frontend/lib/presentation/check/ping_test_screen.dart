@@ -81,14 +81,14 @@ class Form extends StatelessWidget {
               PrimaryButton(
                 label: 'Start',
                 enabled: true,
-                foregroundColor: Palette.PRIMARY,
+                backgroundColor: Palette.PRIMARY,
                 onPressed: state.onStart,
               )
             else
               PrimaryButton(
                 label: 'Stop',
                 enabled: true,
-                foregroundColor: Palette.SEMANTIC_ERROR,
+                backgroundColor: Palette.SEMANTIC_ERROR,
                 onPressed: state.onStop,
               ),
           ],

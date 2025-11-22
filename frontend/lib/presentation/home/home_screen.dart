@@ -54,7 +54,7 @@ class Form extends StatelessWidget {
                     PrimaryButton(
                       label: 'Play',
                       enabled: state.isDeckFull,
-                      foregroundColor: Palette.PRIMARY,
+                      backgroundColor: Palette.PRIMARY,
                       onPressed: state.onPlay,
                       fontSize: 20,
                       height: 40,
@@ -63,14 +63,14 @@ class Form extends StatelessWidget {
                     PrimaryButton(
                       label: 'Units',
                       enabled: true,
-                      foregroundColor: Palette.PRIMARY,
+                      backgroundColor: Palette.PRIMARY,
                       onPressed: state.onUnits,
                     ),
                     VBox(gap),
                     PrimaryButton(
                       label: 'Settings',
                       enabled: true,
-                      foregroundColor: Palette.PRIMARY,
+                      backgroundColor: Palette.PRIMARY,
                       onPressed: state.onSettings,
                     ),
                     if (Platform.isMobile)
@@ -79,7 +79,7 @@ class Form extends StatelessWidget {
                         child: PrimaryButton(
                           label: 'Full screen',
                           enabled: true,
-                          foregroundColor: Palette.PRIMARY,
+                          backgroundColor: Palette.PRIMARY,
                           onPressed: state.onFullscreen,
                         ),
                       ),
@@ -87,14 +87,14 @@ class Form extends StatelessWidget {
                     PrimaryButton(
                       label: 'Changelog',
                       enabled: true,
-                      foregroundColor: Palette.PRIMARY,
+                      backgroundColor: Palette.PRIMARY,
                       onPressed: state.onChangelog,
                     ),
                     VBox(gap),
                     PrimaryButton(
                       label: 'Ping test',
                       enabled: true,
-                      foregroundColor: Palette.PRIMARY,
+                      backgroundColor: Palette.PRIMARY,
                       onPressed: state.onPingTest,
                     ),
                   ],
