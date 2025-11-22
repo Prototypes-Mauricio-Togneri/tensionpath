@@ -7,7 +7,7 @@ class PrimaryButton extends StatelessWidget {
   final bool enabled;
   final VoidCallback onPressed;
   final double fontSize;
-  final double heigth;
+  final double height;
   final bool fullWidth;
 
   const PrimaryButton({
@@ -16,7 +16,7 @@ class PrimaryButton extends StatelessWidget {
     required this.foregroundColor,
     required this.onPressed,
     this.fontSize = 14,
-    this.heigth = 30,
+    this.height = 30,
     this.fullWidth = false,
   });
 
@@ -24,7 +24,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: fullWidth ? double.infinity : null,
-      height: heigth,
+      height: height,
       child: ElevatedButton(
         onPressed: enabled ? onPressed : null,
         style: ButtonStyle(

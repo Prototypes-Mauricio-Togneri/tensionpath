@@ -57,7 +57,7 @@ class Form extends StatelessWidget {
                       foregroundColor: Palette.PRIMARY,
                       onPressed: state.onPlay,
                       fontSize: 20,
-                      heigth: 40,
+                      height: 40,
                     ),
                     VBox(gap),
                     PrimaryButton(
