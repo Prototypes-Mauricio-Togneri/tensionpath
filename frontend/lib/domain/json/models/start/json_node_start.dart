@@ -26,6 +26,9 @@ class JsonNodeStart {
   @JsonKey(name: 'building')
   final BuildingType? building;
 
+  @JsonKey(name: 'spawnPoint')
+  final String? spawnPoint;
+
   JsonNodeStart({
     required this.type,
     required this.location,
@@ -33,6 +36,7 @@ class JsonNodeStart {
     required this.playerIndex,
     required this.platformId,
     required this.building,
+    required this.spawnPoint,
   });
 
   factory JsonNodeStart.fromJson(Map<String, dynamic> json) =>

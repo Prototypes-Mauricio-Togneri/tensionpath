@@ -22,12 +22,16 @@ class JsonNodeTemplate {
   @JsonKey(name: 'building')
   final BuildingType? building;
 
+  @JsonKey(name: 'spawnPoint')
+  final String? spawnPoint;
+
   JsonNodeTemplate({
     required this.type,
     required this.location,
     required this.playerIndex,
     required this.platformId,
     required this.building,
+    required this.spawnPoint,
   });
 
   factory JsonNodeTemplate.fromJson(Map<String, dynamic> json) =>

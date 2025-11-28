@@ -128,6 +128,7 @@ class MatchLoader {
           playerIndex: jsonNode.playerIndex,
           platformId: jsonNode.platformId,
           building: jsonNode.building,
+          spawnPoint: jsonNode.spawnPoint,
         ),
       );
     }

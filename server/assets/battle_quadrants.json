@@ -203,7 +203,8 @@
                 "location": {
                     "x": 3,
                     "y": -1
-                }
+                },
+                "spawnPoint": "2"
             },
             {
                 "type": "empty",
@@ -267,7 +268,8 @@
                 "location": {
                     "x": -3,
                     "y": 1
-                }
+                },
+                "spawnPoint": "1"
             },
             {
                 "type": "empty",

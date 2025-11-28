@@ -24,6 +24,7 @@ JsonNodeStart _$JsonNodeStartFromJson(Map<String, dynamic> json) =>
           'building',
           (v) => $enumDecodeNullable(_$BuildingTypeEnumMap, v),
         ),
+        spawnPoint: $checkedConvert('spawnPoint', (v) => v as String?),
       );
       return val;
     });
@@ -36,6 +37,7 @@ Map<String, dynamic> _$JsonNodeStartToJson(JsonNodeStart instance) =>
       'playerIndex': ?instance.playerIndex,
       'platformId': ?instance.platformId,
       'building': ?_$BuildingTypeEnumMap[instance.building],
+      'spawnPoint': ?instance.spawnPoint,
     };
 
 const _$NodeTypeEnumMap = {

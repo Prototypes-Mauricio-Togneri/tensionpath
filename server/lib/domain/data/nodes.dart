@@ -1,10 +1,15 @@
+import 'package:tensionpath/domain/data/buildings.dart';
 import 'package:tensionpath/domain/data/resources.dart';
+import 'package:tensionpath/domain/entities/building.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
+import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/position.dart';
 import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
+import 'package:tensionpath/domain/types/building_type.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/utils/iterable_map.dart';
 
 // Helper class for A* pathfinding
@@ -39,6 +44,44 @@ class Nodes {
     return result;
   }
 
+  Node spawnPointForPlayer({
+    required UnitType unitType,
+    required Player player,
+    required Buildings buildings,
+  }) {
+    Node? result;
+
+    for (final Node node in _nodes.list) {
+      if (node.spawnPointForPlayer == player.index) {
+        result = node;
+        break;
+      }
+    }
+
+    if ((result != null) && result.isFree) {
+      return result;
+    } else {
+      final Building building = buildings.ofPlayer(
+        player: player,
+        type: BuildingType.main,
+      );
+      final List<Node> availableNodes = _nodes.list
+          .where((n) => n.isFree && n.canMove(unitType))
+          .toList();
+
+      result = _closestFromList(
+        position: building.position,
+        availableNodes: availableNodes,
+      );
+
+      if (result != null) {
+        return result;
+      }
+    }
+
+    throw Exception('No spawn point found for player ${player.index}');
+  }
+
   Node? closestNodeToHarvest({
     required Resources resources,
     required Position position,
@@ -69,7 +112,7 @@ class Nodes {
     required Unit unit,
   }) {
     final List<Node> availableNodes = _nodes.list
-        .where((n) => n.canMove(unit))
+        .where((n) => n.canMove(unit.type))
         .toList();
 
     return _closestFromList(
@@ -194,6 +237,7 @@ class Nodes {
         type: jsonNode.type,
         location: Location.fromJson(jsonNode.location),
         position: Position.fromJson(jsonNode.position),
+        spawnPointForPlayer: jsonNode.spawnPoint,
       );
       result.add(node.id, node);
     }

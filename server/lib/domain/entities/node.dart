@@ -5,6 +5,7 @@ import 'package:tensionpath/domain/entities/unit.dart';
 import 'package:tensionpath/domain/json/models/start/json_node_start.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/unit_class.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 
 class Node {
   final String id;
@@ -12,6 +13,7 @@ class Node {
   final Location location;
   final Position position;
   final List<Node> neighbors = [];
+  final String? spawnPointForPlayer;
   Unit? lockedUnit;
 
   Node({
@@ -19,6 +21,7 @@ class Node {
     required this.type,
     required this.location,
     required this.position,
+    required this.spawnPointForPlayer,
   });
 
   bool get isFree => lockedUnit == null;
@@ -31,7 +34,7 @@ class Node {
   bool notLockedByPlayer(Player player) =>
       isLocked && (lockedUnit!.player != player);
 
-  bool canMove(Unit unit) => isFree && type.canMove(unit.type);
+  bool canMove(UnitType unitType) => isFree && type.canMove(unitType);
 
   void lock(Unit unit) {
     lockedUnit = unit;
@@ -62,6 +65,7 @@ class Node {
     playerIndex: null,
     platformId: null,
     building: null,
+    spawnPoint: null,
   );
 
   @override
