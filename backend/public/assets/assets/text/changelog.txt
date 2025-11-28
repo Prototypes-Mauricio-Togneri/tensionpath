@@ -1,3 +1,8 @@
+# 28.11.2025
+- Update unit spawn location
+- Update home screen mobile layout
+- Harvester kill reward animation
+
 # 16.11.2025
 - Fixed bugs moving units
 - Unit shots size are proportional to their damage
