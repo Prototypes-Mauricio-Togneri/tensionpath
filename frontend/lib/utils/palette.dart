@@ -47,6 +47,8 @@ class Palette {
 
   static const Color EXPLOSION = Colors.white;
 
+  static const Color REWARD = Colors.white;
+
   static Paint paint({
     PaintingStyle? style,
     Color? color,

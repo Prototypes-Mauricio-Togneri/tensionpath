@@ -9,11 +9,13 @@ import 'package:tensionpath/domain/components/movement_path_component.dart';
 import 'package:tensionpath/domain/components/node_component.dart';
 import 'package:tensionpath/domain/components/pad_component.dart';
 import 'package:tensionpath/domain/components/resource_component.dart';
+import 'package:tensionpath/domain/components/reward_component.dart';
 import 'package:tensionpath/domain/components/rocks_low_component.dart';
 import 'package:tensionpath/domain/components/silo_component.dart';
 import 'package:tensionpath/domain/components/unit_component.dart';
 import 'package:tensionpath/domain/entities/battlefield.dart';
 import 'package:tensionpath/domain/entities/building.dart';
+import 'package:tensionpath/domain/entities/config.dart';
 import 'package:tensionpath/domain/entities/event.dart';
 import 'package:tensionpath/domain/entities/location.dart';
 import 'package:tensionpath/domain/entities/node.dart';
@@ -23,6 +25,7 @@ import 'package:tensionpath/domain/entities/player.dart';
 import 'package:tensionpath/domain/entities/resources.dart';
 import 'package:tensionpath/domain/types/node_type.dart';
 import 'package:tensionpath/domain/types/priority.dart';
+import 'package:tensionpath/domain/types/unit_type.dart';
 import 'package:tensionpath/extensions/canvas_extension.dart';
 import 'package:tensionpath/extensions/component_extension.dart';
 import 'package:tensionpath/presentation/audio/audio.dart';
@@ -35,6 +38,7 @@ class BattlefieldComponent extends PositionComponent {
   final Battlefield battlefield;
   final Player self;
   final Player opponent;
+  final Config config;
   final List<NodeComponent> nodeComponents;
   final List<ResourceComponent> resourceComponents;
   final List<BuildingComponent> buildingComponents;
@@ -50,6 +54,7 @@ class BattlefieldComponent extends PositionComponent {
     required this.battlefield,
     required this.self,
     required this.opponent,
+    required this.config,
     required this.nodeComponents,
     required this.resourceComponents,
     required this.buildingComponents,
@@ -424,6 +429,16 @@ class BattlefieldComponent extends PositionComponent {
       size: unitComponent.size * 0.5,
     );
     match.add(explosionComponent);
+
+    if ((unitComponent.type == UnitType.harvester) &&
+        !unitComponent.player.isSelf) {
+      final RewardComponent rewardComponent = RewardComponent(
+        position: unitComponent.absolutePosition,
+        size: unitComponent.size * 0.2,
+        reward: config.harvesterReward,
+      );
+      match.add(rewardComponent);
+    }
 
     unitComponent.destroy();
     unitComponents.remove(unitComponent);

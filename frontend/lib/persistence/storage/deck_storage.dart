@@ -11,12 +11,12 @@ class DeckStorage extends Storage {
   static Future<List<UnitType>> load() async {
     final List<String> defaultValue = Environment.get.isLocal
         ? [
+            UnitType.riflemen.name,
             UnitType.missiles.name,
             UnitType.rhino.name,
+            UnitType.pitbull.name,
+            UnitType.talon.name,
             UnitType.orca.name,
-            UnitType.wolverine.name,
-            UnitType.disruptor.name,
-            UnitType.zone.name,
           ]
         : [];
     final List<String> data = await Storage.getStringList(

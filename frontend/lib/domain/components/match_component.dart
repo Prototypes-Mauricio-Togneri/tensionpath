@@ -58,6 +58,7 @@ class MatchComponent extends World {
       battlefield: match.battlefield,
       self: self,
       opponent: opponent,
+      config: match.config,
       nodeComponents: nodeComponents,
       resourceComponents: resourceComponents,
       buildingComponents: buildingComponents,
