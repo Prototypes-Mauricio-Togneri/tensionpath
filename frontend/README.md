@@ -1,5 +1,7 @@
 ### High
 
+- New spawn tile
+- New layout for main menu in mobile
 - Harvester reward animation
 - Fix bug shortcutting path
 
