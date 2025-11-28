@@ -18,15 +18,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GameContainer(
-      child: Center(child: Form(state)),
+      child: Center(
+        child: Platform.isMobile ? FormMobile(state) : FormDesktop(state),
+      ),
     );
   }
 }
 
-class Form extends StatelessWidget {
+class FormDesktop extends StatelessWidget {
   final HomeState state;
 
-  const Form(this.state);
+  const FormDesktop(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -42,62 +44,15 @@ class Form extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 VBox(gap),
-                Deck(
+                DeckRow(
                   state: state,
+                  types: state.deck,
                   cardHeight: constraints.maxHeight / 3.6,
                 ),
                 VBox(gap),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    PrimaryButton(
-                      label: 'Play',
-                      enabled: state.isDeckFull,
-                      backgroundColor: Palette.PRIMARY,
-                      onPressed: state.onPlay,
-                      fontSize: 20,
-                      height: 40,
-                    ),
-                    VBox(gap),
-                    PrimaryButton(
-                      label: 'Units',
-                      enabled: true,
-                      backgroundColor: Palette.PRIMARY,
-                      onPressed: state.onUnits,
-                    ),
-                    VBox(gap),
-                    PrimaryButton(
-                      label: 'Settings',
-                      enabled: true,
-                      backgroundColor: Palette.PRIMARY,
-                      onPressed: state.onSettings,
-                    ),
-                    if (Platform.isMobile)
-                      Padding(
-                        padding: EdgeInsets.only(top: gap),
-                        child: PrimaryButton(
-                          label: 'Full screen',
-                          enabled: true,
-                          backgroundColor: Palette.PRIMARY,
-                          onPressed: state.onFullscreen,
-                        ),
-                      ),
-                    VBox(gap),
-                    PrimaryButton(
-                      label: 'Changelog',
-                      enabled: true,
-                      backgroundColor: Palette.PRIMARY,
-                      onPressed: state.onChangelog,
-                    ),
-                    VBox(gap),
-                    PrimaryButton(
-                      label: 'Ping test',
-                      enabled: true,
-                      backgroundColor: Palette.PRIMARY,
-                      onPressed: state.onPingTest,
-                    ),
-                  ],
+                ButtonsSection(
+                  state: state,
+                  gap: gap,
                 ),
               ],
             ),
@@ -108,21 +63,56 @@ class Form extends StatelessWidget {
   }
 }
 
-class Deck extends StatelessWidget {
+class FormMobile extends StatelessWidget {
   final HomeState state;
-  final double cardHeight;
 
-  const Deck({
-    required this.state,
-    required this.cardHeight,
-  });
+  const FormMobile(this.state);
 
   @override
   Widget build(BuildContext context) {
-    return DeckRow(
+    return StateProvider<HomeState>(
       state: state,
-      types: state.deck,
-      cardHeight: cardHeight,
+      builder: (context, state) => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SizedBox(
+                  height: constraints.maxHeight,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        DeckRow(
+                          state: state,
+                          types: state.deck.sublist(0, 3),
+                          cardHeight: constraints.maxHeight / 2.1,
+                        ),
+                        DeckRow(
+                          state: state,
+                          types: state.deck.sublist(3, 6),
+                          cardHeight: constraints.maxHeight / 2.1,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 100,
+              left: 20,
+            ),
+            child: ButtonsSection(
+              state: state,
+              gap: 10,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -154,6 +144,70 @@ class DeckRow extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+class ButtonsSection extends StatelessWidget {
+  final HomeState state;
+  final double gap;
+
+  const ButtonsSection({
+    required this.state,
+    required this.gap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PrimaryButton(
+          label: 'Play',
+          enabled: state.isDeckFull,
+          backgroundColor: Palette.PRIMARY,
+          onPressed: state.onPlay,
+        ),
+        VBox(gap),
+        PrimaryButton(
+          label: 'Units',
+          enabled: true,
+          backgroundColor: Palette.PRIMARY,
+          onPressed: state.onUnits,
+        ),
+        VBox(gap),
+        PrimaryButton(
+          label: 'Settings',
+          enabled: true,
+          backgroundColor: Palette.PRIMARY,
+          onPressed: state.onSettings,
+        ),
+        if (Platform.isMobile)
+          Padding(
+            padding: EdgeInsets.only(top: gap),
+            child: PrimaryButton(
+              label: 'Full screen',
+              enabled: true,
+              backgroundColor: Palette.PRIMARY,
+              onPressed: state.onFullscreen,
+            ),
+          ),
+        VBox(gap),
+        PrimaryButton(
+          label: 'Changelog',
+          enabled: true,
+          backgroundColor: Palette.PRIMARY,
+          onPressed: state.onChangelog,
+        ),
+        VBox(gap),
+        PrimaryButton(
+          label: 'Ping test',
+          enabled: true,
+          backgroundColor: Palette.PRIMARY,
+          onPressed: state.onPingTest,
+        ),
+      ],
     );
   }
 }
