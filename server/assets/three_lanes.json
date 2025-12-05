@@ -179,8 +179,7 @@
                 "location": {
                     "x": -4,
                     "y": -1
-                },
-                "spawnPoint": "2"
+                }
             },
             {
                 "type": "empty",
@@ -239,7 +238,8 @@
                 "location": {
                     "x": 4,
                     "y": -1
-                }
+                },
+                "spawnPoint": "2"
             },
             {
                 "type": "building",
