@@ -140,7 +140,7 @@ class Server {
     dispatcher.create(
       JsonCreateMatch(
         matchId: 'test-match-id',
-        mapId: 'stonewall',
+        mapId: 'three_lanes',
         createdAt: DateTime.now(),
         numberOfPlayers: 2,
         matchType: 'pvp',

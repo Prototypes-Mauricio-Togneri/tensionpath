@@ -1,0 +1,569 @@
+{
+    "config": {
+        "resourcesStart": 100,
+        "resourcesPerPatch": 150,
+        "resourcesDamage": 10,
+        "resourcesPassiveRate": 2,
+        "resourcesActiveRate": 1.5,
+        "maxHarvestersCount": 2,
+        "harvesterReward": 80,
+        "popcapInitial": 3,
+        "popcapMax": 7,
+        "popcapRate": 30,
+        "missileMaxCharge": 40,
+        "missileChargeBuffer": 35,
+        "missileChargeAlarm": 32,
+        "missileChargeRate": 1,
+        "missileDamage": 0.5,
+        "baseHealth": 30000,
+        "matchTimeout": 480,
+        "suddenDeathTimeout": 300,
+        "suddenDeathDamage": 100
+    },
+    "battlefield": {
+        "mapSize": {
+            "width": 12,
+            "height": 7
+        },
+        "nodes": [
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": -3
+                }
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": 2,
+                    "y": -3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 3,
+                    "y": -3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 4,
+                    "y": -3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 5,
+                    "y": -3
+                }
+            },
+            {
+                "type": "building",
+                "building": "tech",
+                "location": {
+                    "x": 6,
+                    "y": -3
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -3,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": -2
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -1,
+                    "y": -2
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": -2
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": -2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": -2
+                }
+            },
+            {
+                "type": "building",
+                "building": "airfield",
+                "location": {
+                    "x": 5,
+                    "y": -2
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "building",
+                "building": "main",
+                "location": {
+                    "x": 6,
+                    "y": -2
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -4,
+                    "y": -1
+                },
+                "spawnPoint": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": -1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -2,
+                    "y": -1
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": -1,
+                    "y": -1
+                },
+                "platformId": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": -1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": -1
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": -1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": -1
+                }
+            },
+            {
+                "type": "building",
+                "building": "factory",
+                "location": {
+                    "x": 5,
+                    "y": -1
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "building",
+                "building": "barracks",
+                "location": {
+                    "x": 6,
+                    "y": -1
+                },
+                "playerIndex": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -4,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 0
+                }
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": -1,
+                    "y": 0
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": 0
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": 0
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "rocks_low",
+                "location": {
+                    "x": 2,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": 0
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 5,
+                    "y": 0
+                }
+            },
+            {
+                "type": "building",
+                "building": "barracks",
+                "location": {
+                    "x": -5,
+                    "y": 1
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "building",
+                "building": "factory",
+                "location": {
+                    "x": -4,
+                    "y": 1
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 1
+                },
+                "spawnPoint": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 1
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 0,
+                    "y": 1
+                },
+                "platformId": "2"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 1
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 2,
+                    "y": 1
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 3,
+                    "y": 1
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": 1
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 5,
+                    "y": 1
+                }
+            },
+            {
+                "type": "building",
+                "building": "main",
+                "location": {
+                    "x": -5,
+                    "y": 2
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "building",
+                "building": "airfield",
+                "location": {
+                    "x": -4,
+                    "y": 2
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -3,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -2,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -1,
+                    "y": 2
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": 2
+                }
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 1,
+                    "y": 2
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "pad",
+                "location": {
+                    "x": 2,
+                    "y": 2
+                },
+                "platformId": "3"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": 2
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": 4,
+                    "y": 2
+                }
+            },
+            {
+                "type": "building",
+                "building": "tech",
+                "location": {
+                    "x": -5,
+                    "y": 3
+                },
+                "playerIndex": "1"
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": -4,
+                    "y": 3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -3,
+                    "y": 3
+                }
+            },
+            {
+                "type": "resources",
+                "location": {
+                    "x": -2,
+                    "y": 3
+                }
+            },
+            {
+                "type": "missile",
+                "location": {
+                    "x": -1,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 0,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 1,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 2,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 3,
+                    "y": 3
+                }
+            },
+            {
+                "type": "empty",
+                "location": {
+                    "x": 4,
+                    "y": 3
+                }
+            }
+        ]
+    }
+}
