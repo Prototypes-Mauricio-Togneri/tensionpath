@@ -1,9 +1,9 @@
 import * as functions from 'firebase-functions/v2'
-import {AuthData} from 'firebase-functions/lib/common/providers/tasks'
 import {Logger} from '../utils/logger'
 import {CallableOptions} from 'firebase-functions/v2/https'
 import {CustomInternalError} from '../utils/custom-internal-error'
 import {callableResponseFromArray, callableResponseFromObject} from '../utils/callable-mapper'
+import {AuthData} from 'firebase-functions/tasks'
 
 type CallableHandler = (data: any, context?: Context) => any
 
