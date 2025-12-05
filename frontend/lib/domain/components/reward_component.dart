@@ -38,7 +38,7 @@ class RewardComponent extends PositionComponent {
 
     canvas.drawText(
       text: '$reward${Constants.RESOURCE_ICON}',
-      position: size/2,
+      position: size / 2,
       size: size.x,
       color: Palette.REWARD.withAlpha((percentage * 255).toInt()),
     );
