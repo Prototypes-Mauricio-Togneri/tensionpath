@@ -179,9 +179,8 @@ class BuildingBlockComponent extends PositionComponent with TapCallbacks {
   }
 
   @override
-  bool onTapDown(TapDownEvent event) {
+  void onTapDown(TapDownEvent event) {
     game.matchState.onUnlockBuilding(buildingType);
-    return true;
   }
 
   @override

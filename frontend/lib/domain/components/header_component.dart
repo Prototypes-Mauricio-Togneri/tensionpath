@@ -124,9 +124,8 @@ class CenterIndicatorComponent extends PositionComponent with TapCallbacks {
     : super(anchor: Anchor.topLeft);
 
   @override
-  bool onTapDown(TapDownEvent event) {
+  void onTapDown(TapDownEvent event) {
     game.matchState.onOpenMenu();
-    return true;
   }
 
   @override
