@@ -12,7 +12,7 @@
 
 ### Session server
 
-Firebase app that manages authentication, lobbies, and matchmaking logic..
+Firebase app that manages authentication, lobbies, and matchmaking logic.
 
 Install the dependencies:
 
