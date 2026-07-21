@@ -34,6 +34,15 @@
 - Unit generator
 - Checkpoint
 
+## Commands
+
+- Deploy unit
+- Stop unit movement
+- Resume unit movement
+- Switch unit target
+- Switch lane
+- Activate unit ability
+
 ## UI
 
 - Top:
