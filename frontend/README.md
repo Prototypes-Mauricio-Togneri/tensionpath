@@ -43,62 +43,11 @@
 - Units can be stopped (cost 1)?
 - Units can switch lanes (cost 1)?
 - Units cannot be stopped in a node
-
-## Cooldown
-
-- Each unit has a separate cooldown once it's deployed. For example, I create a tank. After deployment, the tank unit has a cooldown of 5 seconds. This cooldown is independent and it doesn't apply to other units. After 5 seconds I can build another tank. The cooldown automatically resets if the tank is destroyed before 5 seconds passed.
+- Limitations
+  - Cooldown: a unit type can be deployed every X seconds
+  - Popcap: limit the total number of units on the battlefield
 
 ## Economy
 
 - Base income starts at 2 T/s and accelerates by +0.2 T/s every 30 seconds up to a max of 3 T/s
 - Income per harvester increases from 1.5 T/s at the start of the game to a max of 4 T/s at 150 seconds, an increase of 0.7 T/s every 30 seconds
-
-## Goal
-
-- The goal of the game is to destroy the enemy's base
-- This is your base and this is your enemy's base
-- The bases' hit points are indicated on the top bar
-- There are 2 ways to destroy an enemy's base
-- The first one (and most common), is to shoot the missile in the center
-- I'll explain later how to do that
-- The second way is to use your units to attack the enemy's base directly
-- These two ways are not mutually exclusive
-- The difference is that the missile takes half of the enemy's base hit point
-- And the units damage it little by little
-
-## Map
-
-- Let's see other things that appear in the map
-- The yellow tiles are empty
-- The black tiles are resource patches
-- I'll explain how to get resources later
-- And then we have 2 platforms
-- Each platform has 3 pads
-- A platform can be in 3 states:
-  1. Neutral (when none of the pads have units on them)
-  2. Captured (when only units of one player are on it)
-  3. Contested (when units of both players are on it)
-- The number of units on a platform is irrelevant
-- The ownership of a platform can change over time
-- A missile is captured when a player holds the majority of the platforms
-- If the missile is captured, it will increase its charge
-- If it's not captured or contested, the charge stops
-- When the missile reaches its maximum charge, it's fired
-- After firing, the missile restarts its charge
-
-## Control panel
-
-- On the left you have the control panel
-- First we have the money you have
-- There are 2 ways to get money:
-  1. There is a fixed amount of money each player gets per second
-  2. Money can be collected by placing a fuel truck in a resource patch
-
-## Units
-
-- Each unit costs money
-- To deploy a unit, drag and drop it in on of your launchers
-- Units have a range of visibility, which removes the fog of war
-- To move a unit, drag and drop it into another tile
-- Only units of one player can occupy a given tile
-- Units can only shoot if they are stationary on a tile
