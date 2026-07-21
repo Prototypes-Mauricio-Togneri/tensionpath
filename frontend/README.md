@@ -1,5 +1,29 @@
 ### TODO
 
+## Unit properties
+
+- Deployment cost
+- Health
+- Attack type
+- Damage
+- Damage effect: single/splash
+- Armor type: light/medium/heavy
+- Visibility range
+- Attack range
+
+## Nodes
+
+- Launcher
+- Platform
+- Missile
+- Resources
+- Obstacle: slows down or removes health
+- Victory
+- Chest
+- Resource generator
+- Unit generator
+- Checkpoint
+
 ## Cooldown
 
 - Each unit has a separate cooldown once it's deployed. For example, I create a tank. After deployment, the tank unit has a cooldown of 5 seconds. This cooldown is independent and it doesn't apply to other units. After 5 seconds I can build another tank. The cooldown automatically resets if the tank is destroyed before 5 seconds passed.
