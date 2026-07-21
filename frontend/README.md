@@ -24,6 +24,26 @@
 - Unit generator
 - Checkpoint
 
+## UI
+
+- Top:
+  - Player name
+  - Base health
+- Middle
+  - Map
+- Bottom
+  - Unit selector
+  - Resource indicator
+  - Player name
+  - Base health
+
+## Questions
+
+- Fog of war?
+- Units can be stopped (cost 1)?
+- Units can switch lanes (cost 1)?
+- Units cannot be stopped in a node
+
 ## Cooldown
 
 - Each unit has a separate cooldown once it's deployed. For example, I create a tank. After deployment, the tank unit has a cooldown of 5 seconds. This cooldown is independent and it doesn't apply to other units. After 5 seconds I can build another tank. The cooldown automatically resets if the tank is destroyed before 5 seconds passed.
