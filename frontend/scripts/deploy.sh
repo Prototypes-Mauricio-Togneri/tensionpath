@@ -9,13 +9,6 @@ OUTPUT="../backend/public"
 rm -r ${OUTPUT}
 mkdir ${OUTPUT}
 
-# Fix for assets in wrong folder
-mkdir -p build/web/assets/images
-cp -r build/web/assets/assets/images/** build/web/assets/images
-
-mkdir -p build/web/assets/audio
-cp -r build/web/assets/assets/audio/** build/web/assets/audio
-
 cp -r build/web/** ${OUTPUT}
 
 cd ../backend

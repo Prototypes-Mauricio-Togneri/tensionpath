@@ -1,4 +1,0 @@
-enum RoomStatus {
-  open,
-  close,
-}
