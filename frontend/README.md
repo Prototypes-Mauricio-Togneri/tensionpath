@@ -1,5 +1,15 @@
 ### TODO
 
+- Vue project
+- No testing
+- Home + match screens
+- Architecture
+  - Input: receives the player input and sends it to the engine
+  - Engine: runs the game logic (loop) and sends the updated state to the renderer
+  - Renderer: receives the updated state and renders it to the screen
+- Vector graphics
+- Keep specs.md updated (CLAUDE.md rule)
+
 ## Unit properties
 
 - Deployment cost
