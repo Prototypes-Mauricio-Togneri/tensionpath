@@ -39,6 +39,7 @@
 
 ## Questions
 
+- Can units overlap?
 - Fog of war?
 - Units can be stopped (cost 1)?
 - Units can switch lanes (cost 1)?
