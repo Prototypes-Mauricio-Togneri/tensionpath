@@ -43,6 +43,17 @@ player input ──▶ Input ──▶ Engine ──▶ Renderer ──▶ scree
 
 The match screen is not built yet. History mode requires the catch-all rewrite in `../backend/firebase.json`.
 
+## TypeScript projects
+
+`tsconfig.json` holds no sources of its own — it references two projects so browser and build-tooling code get different globals:
+
+| File                 | Covers                       | `types`        |
+| -------------------- | ---------------------------- | -------------- |
+| `tsconfig.app.json`  | `src/**/*.ts`, `src/**/*.vue` | `vite/client`  |
+| `tsconfig.node.json` | `vite.config.ts`             | `node`         |
+
+Keeping them apart is what stops Node globals such as `process` from typechecking inside `src/`. Compiler options that should apply everywhere have to be set in both files.
+
 ## Build & deploy
 
-`npm run build` typechecks with `vue-tsc` and writes straight into `../backend/public`, the directory Firebase Hosting serves. `npm run deploy` runs the build, then deploys hosting from `../backend` against the `remote` Firebase project.
+`npm run build` typechecks both projects with `vue-tsc --build` and writes straight into `../backend/public`, the directory Firebase Hosting serves. `npm run deploy` runs the build, then deploys hosting from `../backend` against the `remote` Firebase project.

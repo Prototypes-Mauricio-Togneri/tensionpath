@@ -17,7 +17,8 @@
 
 ## Types
 
-- `strict` is on and stays on. Do not add `any` to silence an error — this project has no test suite, so the type checker is the only automated safety net.
+- `strict` and `noUncheckedIndexedAccess` are on and stay on. Do not add `any` to silence an error — this project has no test suite, so the type checker and the type-aware lint rules are the only automated safety net.
+- Indexing a `Record` or array yields `T | undefined`. Handle the miss (`?? fallback`) rather than asserting it away with `!`.
 - Protocol DTOs in `src/domain/json/` must mirror `../server/lib/domain/json/` field for field. When the server's JSON changes, change them here in the same commit.
 - Use `import type` for type-only imports (enforced by `@typescript-eslint/consistent-type-imports` and required by `verbatimModuleSyntax`).
 

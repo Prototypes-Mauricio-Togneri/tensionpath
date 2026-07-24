@@ -1,20 +1,19 @@
 import js from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
+import {vueTsConfigs, withVueTs} from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
-import tseslint from 'typescript-eslint'
+import globals from 'globals'
 
-export default [
+// withVueTs wires up vue-eslint-parser and resolves .vue types for the
+// type-aware rules, which read the projects referenced by tsconfig.json
+export default withVueTs(
   js.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...pluginVue.configs['flat/recommended'],
+  vueTsConfigs.recommendedTypeChecked,
+  pluginVue.configs['flat/recommended'],
   {
-    // Vue SFCs are parsed by vue-eslint-parser, which delegates <script lang="ts"> blocks
-    files: ['**/*.vue'],
-    languageOptions: {
-      parserOptions: {
-        parser: tseslint.parser,
-      },
-    },
+    // This config file is the only JS source and belongs to no tsconfig project
+    files: ['**/*.js'],
+    extends: [vueTsConfigs.disableTypeChecked],
   },
   {
     plugins: {
@@ -22,19 +21,7 @@ export default [
     },
     languageOptions: {
       globals: {
-        // Browser globals
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly',
-        requestAnimationFrame: 'readonly',
-        cancelAnimationFrame: 'readonly',
-        navigator: 'readonly',
-        performance: 'readonly',
-        WebSocket: 'readonly',
+        ...globals.browser,
         __APP_VERSION__: 'readonly',
       },
     },
@@ -152,7 +139,7 @@ export default [
         },
       ],
 
-      // Pairs with verbatimModuleSyntax in tsconfig.json
+      // Pairs with verbatimModuleSyntax in tsconfig.app.json
       '@typescript-eslint/consistent-type-imports': 'error',
 
       // Disable formatting-only Vue rules
@@ -162,4 +149,4 @@ export default [
       'vue/multi-word-component-names': 'off',
     },
   },
-]
+)
