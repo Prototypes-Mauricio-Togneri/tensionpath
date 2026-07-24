@@ -2,8 +2,6 @@
 
 The frontend of Tension Path — a real-time tactical strategy game (Vite + Vue 3, TypeScript, Composition API with `<script setup>`, ESLint + @stylistic + typescript-eslint).
 
-The game is **server-authoritative**: the Dart match server (`../server`) runs the simulation and pushes state over websockets. This app receives input, forwards commands, and renders the state it is given. It does not simulate.
-
 ## Reference Docs
 
 - `docs/specs.md` — game specs: units, nodes, commands, economy, UI. Read when working on game rules.
