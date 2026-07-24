@@ -18,28 +18,28 @@ player input ──▶ Input ──▶ Engine ──▶ Renderer ──▶ scree
 
 ## Source layout
 
-| Path                      | Contents                                                          |
-|---------------------------|-------------------------------------------------------------------|
-| `src/main.ts`             | Entry point — creates the app, installs the router, mounts         |
-| `src/app.vue`             | Root shell, renders `<RouterView />`                               |
-| `src/router.ts`           | Route table                                                        |
-| `src/components/screens/` | One component per screen                                           |
-| `src/domain/entities/`    | Game entities, mirroring `../server/lib/domain/entities/`          |
-| `src/domain/json/`        | Websocket protocol DTOs, mirroring `../server/lib/domain/json/`    |
-| `src/domain/types/`       | Enums and unions, mirroring `../server/lib/domain/types/`          |
-| `src/engine/`             | Connection, match state, frame loop                                |
-| `src/input/`              | Player input → server commands                                     |
-| `src/renderer/`           | Drawing                                                            |
-| `src/i18n/`               | Locale tables and the `t()` helper                                 |
-| `src/assets/`             | Global stylesheet and static assets                                |
+| Path                      | Contents                                                        |
+| ------------------------- | --------------------------------------------------------------- |
+| `src/main.ts`             | Entry point — creates the app, installs the router, mounts      |
+| `src/app.vue`             | Root shell, renders `<RouterView />`                            |
+| `src/router.ts`           | Route table                                                     |
+| `src/components/screens/` | One component per screen                                        |
+| `src/domain/entities/`    | Game entities, mirroring `../server/lib/domain/entities/`       |
+| `src/domain/json/`        | Websocket protocol DTOs, mirroring `../server/lib/domain/json/` |
+| `src/domain/types/`       | Enums and unions, mirroring `../server/lib/domain/types/`       |
+| `src/engine/`             | Connection, match state, frame loop                             |
+| `src/input/`              | Player input → server commands                                  |
+| `src/renderer/`           | Drawing                                                         |
+| `src/i18n/`               | Locale tables and the `t()` helper                              |
+| `src/assets/`             | Global stylesheet and static assets                             |
 
 `src/domain/` deliberately mirrors the Dart server's `lib/domain/` layout so a protocol change has an obvious counterpart file on each side.
 
 ## Screens
 
-| Route | Component        | Status                    |
-|-------|------------------|---------------------------|
-| `/`   | `home_screen.vue`| Empty placeholder         |
+| Route | Component         | Status            |
+| ----- | ----------------- | ----------------- |
+| `/`   | `home_screen.vue` | Empty placeholder |
 
 The match screen is not built yet. History mode requires the catch-all rewrite in `../backend/firebase.json`.
 

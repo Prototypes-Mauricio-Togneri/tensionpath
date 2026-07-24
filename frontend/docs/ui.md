@@ -8,14 +8,14 @@ Repeated CSS across `.vue` files gets extracted into `src/assets/styles.css`. Co
 
 Cold gunmetal instrumentation with amber telemetry. Design tokens are CSS custom properties on `:root` in `src/assets/styles.css`:
 
-| Token                                  | Purpose                                    |
-|----------------------------------------|--------------------------------------------|
-| `--color-bg` / `-raised` / `-surface`  | Background depth levels                    |
-| `--color-text`, `--color-text-rgb`     | Body text                                  |
-| `--color-accent`, `--color-accent-rgb` | Amber — telemetry, warnings, emphasis      |
-| `--color-border`                       | Hairline separators                        |
-| `--color-ally`, `--color-ally-rgb`     | The local player's faction                 |
-| `--color-enemy`, `--color-enemy-rgb`   | The opposing faction                       |
+| Token                                  | Purpose                               |
+| -------------------------------------- | ------------------------------------- |
+| `--color-bg` / `-raised` / `-surface`  | Background depth levels               |
+| `--color-text`, `--color-text-rgb`     | Body text                             |
+| `--color-accent`, `--color-accent-rgb` | Amber — telemetry, warnings, emphasis |
+| `--color-border`                       | Hairline separators                   |
+| `--color-ally`, `--color-ally-rgb`     | The local player's faction            |
+| `--color-enemy`, `--color-enemy-rgb`   | The opposing faction                  |
 
 Ally and enemy are never used decoratively — they only ever mean faction ownership, so a glance at the battlefield reads unambiguously.
 
@@ -41,6 +41,7 @@ Always use the `frontend-design` skill when changing the UI.
 ## Comment Conventions
 
 **Section Dividers** — Major sections use decorated block comments:
+
 ```css
 /* ============================================
    Section Name
@@ -48,12 +49,14 @@ Always use the `frontend-design` skill when changing the UI.
 ```
 
 **Rule Comments** — Single-line comment above the rule:
+
 ```css
 /* Animated background */
 .background-element::before {
 ```
 
 **Guidelines:**
+
 - Place comments above the rule they describe
 - Use short, descriptive phrases (not full sentences)
 - Focus on visual/functional purpose, not technical implementation

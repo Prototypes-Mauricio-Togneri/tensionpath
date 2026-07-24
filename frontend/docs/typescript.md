@@ -36,6 +36,7 @@ Numeric balancing values go in `src/engine/balancing.ts`. Structural constants (
 ## Comment Conventions
 
 **Class Level** — JSDoc block describing purpose:
+
 ```typescript
 /**
  * Brief description of class purpose.
@@ -45,6 +46,7 @@ class ClassName {
 ```
 
 **Function Level** — JSDoc with parameters and return description (no types; TypeScript already declares them):
+
 ```typescript
 /**
  * Brief description of what the method does.
@@ -55,12 +57,14 @@ methodName(paramName: string): number {
 ```
 
 **Field Level** — Inline end-of-line comment on first declaration:
+
 ```typescript
-this.x = 0                // Current X position
-this.speed = config.speed // Movement speed in units/second
+this.x = 0; // Current X position
+this.speed = config.speed; // Movement speed in units/second
 ```
 
 **Code Block Level** — Plain comments for complex logic:
+
 ```typescript
 // Interpolate toward the server's authoritative position
 ```
