@@ -2,14 +2,8 @@
 
 set -e
 
-flutter clean
-flutter build web -t lib/main/main_remote.dart --release
-
-OUTPUT="../backend/public"
-rm -r ${OUTPUT}
-mkdir ${OUTPUT}
-
-cp -r build/web/** ${OUTPUT}
+# Vite writes straight into ../backend/public (see vite.config.ts)
+npm run build
 
 cd ../backend
 
