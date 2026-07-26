@@ -81,6 +81,6 @@ Keeping them apart is what stops Node globals such as `process` from typecheckin
 
 ## Build & deploy
 
-`npm run dev` serves the app with `vite-plugin-vue-devtools` attached — component inspector and timeline, toggled with `Alt+Shift+D` or opened standalone at `/__devtools__/`. It is dev-only and leaves no trace in the production bundle.
+`npm run dev` serves the app with Vite's dev server and nothing else attached — no devtools overlay or component inspector. Use the Vue DevTools browser extension when component inspection is needed.
 
 `npm run build` typechecks both projects with `vue-tsc --build` and writes straight into `../backend/public`, the directory Firebase Hosting serves. `npm run deploy` runs the build, then deploys hosting from `../backend` against the `remote` Firebase project.
