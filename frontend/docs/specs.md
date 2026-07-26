@@ -2,7 +2,7 @@
 
 This document contains the specifications of the game, divided into sections.
 
-The simulation is owned by the match server (`../server`). This document describes the game rules; the frontend renders and sends input against them.
+The simulation is owned by the local engine (`src/engine/`), which is authoritative. This document describes the game rules; clients render the snapshots it broadcasts and send commands against them. See `docs/architecture.md`.
 
 ## Units
 

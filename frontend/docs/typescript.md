@@ -19,7 +19,7 @@
 
 - `strict` and `noUncheckedIndexedAccess` are on and stay on. Do not add `any` to silence an error — this project has no test suite, so the type checker and the type-aware lint rules are the only automated safety net.
 - Indexing a `Record` or array yields `T | undefined`. Handle the miss (`?? fallback`) rather than asserting it away with `!`.
-- Protocol DTOs in `src/domain/json/` must mirror `../server/lib/domain/json/` field for field. When the server's JSON changes, change them here in the same commit.
+- Everything in `src/domain/` crosses the client/engine boundary and must stay wire-safe plain data: no `Map`, `Set`, `Date`, class instance or optional-`undefined` field. Reference other entities by id, never by object reference. `LocalTransport` JSON round-trips every payload, so anything that is not wire-safe is stripped in transit and breaks immediately instead of surviving until a socket exists.
 - Use `import type` for type-only imports (enforced by `@typescript-eslint/consistent-type-imports` and required by `verbatimModuleSyntax`).
 
 ## Imports
@@ -32,7 +32,9 @@ Prefer getters over methods for parameterless functions that only read instance 
 
 ## Centralized Constants
 
-Numeric balancing values go in `src/engine/balancing.ts`. Structural constants (maps, sets, factory functions) go in `src/engine/constants.ts`. Pure string enums and unions go in `src/domain/types/`. Do not hardcode values in other files.
+Numeric balancing values go in `src/engine/balancing.ts`. Structural constants (maps, sets, factory functions) and engine configuration such as the tick rate go in `src/engine/constants.ts`. Pure string enums, unions and id aliases go in `src/domain/types/`. Do not hardcode values in other files.
+
+Both constant files are engine-owned and the client may not import them (enforced in `eslint.config.js`). The subset a client needs — costs, ranges, sizes — travels in the `start` message as `MatchConfig`.
 
 ## Comment Conventions
 
@@ -67,5 +69,5 @@ this.speed = config.speed; // Movement speed in units/second
 **Code Block Level** — Plain comments for complex logic:
 
 ```typescript
-// Interpolate toward the server's authoritative position
+// Interpolate toward the engine's authoritative position
 ```

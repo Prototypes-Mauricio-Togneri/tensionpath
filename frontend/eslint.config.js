@@ -149,4 +149,63 @@ export default withVueTs(
       'vue/multi-word-component-names': 'off',
     },
   },
+  {
+    // The engine is the authority and has to stay hostable outside a browser,
+    // so it may not reach for the DOM, for Vue, or for any client module.
+    // Math.random would break replay determinism. See docs/architecture.md
+    files: ['src/engine/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            '@/bot/*',
+            '@/components/*',
+            '@/i18n/*',
+            '@/input/*',
+            '@/renderer/*',
+            '@/session/*',
+            'vue',
+            'vue-router',
+          ],
+        },
+      ],
+      'no-restricted-globals': [
+        'error',
+        'document',
+        'window',
+        'localStorage',
+        'sessionStorage',
+        'navigator',
+        'requestAnimationFrame',
+      ],
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'Math',
+          property: 'random',
+          message: 'Use nextRandom from @/engine/random so matches stay replayable',
+        },
+      ],
+    },
+  },
+  {
+    // Clients hold a Transport, never the engine. src/session/ is deliberately
+    // absent: it is the composition root and imports both sides
+    files: [
+      'src/bot/**/*.ts',
+      'src/components/**/*.ts',
+      'src/components/**/*.vue',
+      'src/input/**/*.ts',
+      'src/renderer/**/*.ts',
+    ],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['@/engine/*'],
+        },
+      ],
+    },
+  },
 )
