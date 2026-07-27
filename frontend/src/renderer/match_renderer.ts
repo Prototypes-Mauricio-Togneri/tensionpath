@@ -3,7 +3,7 @@ import type {MatchConfig} from '@/domain/entities/match_config'
 import type {MatchState} from '@/domain/entities/match_state'
 import type {Position} from '@/domain/entities/position'
 import type {NodeId, PlayerId} from '@/domain/types/ids'
-import {BRACKET_WIDTH, CENTRE_AXIS_ALPHA, CENTRE_AXIS_DASH, FIELD_BRACKET_ALPHA, FIELD_BRACKET_LENGTH, FIELD_EDGE_ALPHA, GRID_ALPHA, GRID_SPACING, GRID_TICK_ALPHA, GRID_TICK_LENGTH, HAIRLINE_WIDTH, NODE_CORE_ALPHA, NODE_CORE_FRACTION, NODE_FILL_ALPHA, NODE_RADIUS_BY_TYPE, NODE_RADIUS_DEFAULT, NODE_RING_ALPHA, PREVIEW_ALPHA, PREVIEW_CROSS_REACH, PREVIEW_DASH, TAU, UNIT_FILL_ALPHA, UNIT_HEALTH_BAR_HEIGHT, UNIT_HEALTH_BAR_OFFSET, UNIT_HEALTH_BAR_WIDTH, UNIT_HEALTH_TRACK_ALPHA, UNIT_NOTCH_DEPTH, UNIT_OUTLINE_WIDTH, UNIT_TAIL_LENGTH, UNIT_TAIL_SPREAD} from '@/renderer/constants'
+import {BRACKET_WIDTH, CENTRE_AXIS_ALPHA, CENTRE_AXIS_DASH, FIELD_BRACKET_ALPHA, FIELD_BRACKET_LENGTH, FIELD_EDGE_ALPHA, FRAME_RATE_SAMPLE_MILLIS, GRID_ALPHA, GRID_SPACING, GRID_TICK_ALPHA, GRID_TICK_LENGTH, HAIRLINE_WIDTH, MILLIS_PER_SECOND, NODE_CORE_ALPHA, NODE_CORE_FRACTION, NODE_FILL_ALPHA, NODE_RADIUS_BY_TYPE, NODE_RADIUS_DEFAULT, NODE_RING_ALPHA, PREVIEW_ALPHA, PREVIEW_CROSS_REACH, PREVIEW_DASH, TAU, UNIT_FILL_ALPHA, UNIT_HEALTH_BAR_HEIGHT, UNIT_HEALTH_BAR_OFFSET, UNIT_HEALTH_BAR_WIDTH, UNIT_HEALTH_TRACK_ALPHA, UNIT_NOTCH_DEPTH, UNIT_OUTLINE_WIDTH, UNIT_TAIL_LENGTH, UNIT_TAIL_SPREAD} from '@/renderer/constants'
 import type {InterpolatedUnit} from '@/renderer/snapshot_buffer'
 import {SnapshotBuffer} from '@/renderer/snapshot_buffer'
 import type {RendererTheme} from '@/renderer/theme'
@@ -39,6 +39,9 @@ export class MatchRenderer {
   private localPlayerId: PlayerId | null = null
   private preview: DeployPreview | null = null
   private frame: number | null = null
+  private frameRateHandler: ((framesPerSecond: number) => void) | null = null
+  private sampleStartMillis = 0 // Timestamp the open frame rate sample began at
+  private sampledFrames = 0
 
   constructor(canvas: HTMLCanvasElement) {
     this.context = canvas.getContext('2d')
@@ -63,6 +66,15 @@ export class MatchRenderer {
    */
   set deployPreview(preview: DeployPreview | null) {
     this.preview = preview
+  }
+
+  /**
+   * Receives the averaged frame rate, or null to stop reporting it. The rAF
+   * loop is the only thing that knows how often a frame actually lands, so
+   * the readout is measured here and displayed elsewhere.
+   */
+  set onFrameRate(handler: ((framesPerSecond: number) => void) | null) {
+    this.frameRateHandler = handler
   }
 
   /**
@@ -103,9 +115,35 @@ export class MatchRenderer {
 
   private schedule(): void {
     this.frame = requestAnimationFrame((nowMillis) => {
+      this.sampleFrameRate(nowMillis)
       this.draw(nowMillis)
       this.schedule()
     })
+  }
+
+  /**
+   * Counts frames and reports the average once the sample window closes.
+   * @param nowMillis - Frame timestamp
+   */
+  private sampleFrameRate(nowMillis: number): void {
+    // The first frame only opens the window: it has no interval behind it
+    if (this.sampleStartMillis === 0) {
+      this.sampleStartMillis = nowMillis
+
+      return
+    }
+
+    this.sampledFrames += 1
+
+    const elapsedMillis = nowMillis - this.sampleStartMillis
+
+    if (elapsedMillis < FRAME_RATE_SAMPLE_MILLIS) {
+      return
+    }
+
+    this.frameRateHandler?.(Math.round((this.sampledFrames * MILLIS_PER_SECOND) / elapsedMillis))
+    this.sampleStartMillis = nowMillis
+    this.sampledFrames = 0
   }
 
   /**

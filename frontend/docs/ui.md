@@ -14,6 +14,7 @@ Cold gunmetal instrumentation with amber telemetry. Design tokens are CSS custom
 | `--color-text`, `--color-text-rgb`     | Body text                             |
 | `--color-accent`, `--color-accent-rgb` | Amber — telemetry, warnings, emphasis |
 | `--color-border`                       | Hairline separators                   |
+| `--color-track`                        | Neutral ground a meter uncovers as it drains |
 | `--color-ally`, `--color-ally-rgb`     | The local player's faction            |
 | `--color-enemy`, `--color-enemy-rgb`   | The opposing faction                  |
 
@@ -39,6 +40,8 @@ Use `rem` for all `border-radius` values. No `px` (exception: `50%` for circles)
 ## UI/UX
 
 Always use the `frontend-design` skill when changing the UI.
+
+The match screen is landscape only, and deployment is drag-only: there is no keyboard path onto the battlefield. A keyboard player would need a cursor they can drive over the field, which is a feature in its own right rather than a detail of the roster rail — until it exists, a match cannot be played without a pointer.
 
 ## Comment Conventions
 

@@ -10,6 +10,13 @@ export const MILLIS_PER_SECOND = 1000
 
 export const TAU = Math.PI * 2
 
+/**
+ * Window the frame rate is averaged over, in milliseconds. A per-frame figure
+ * jitters far too much to read; this is long enough to settle and short enough
+ * that a stall shows while it is still happening.
+ */
+export const FRAME_RATE_SAMPLE_MILLIS = 500
+
 /** Breathing room around the battlefield so the frame clears the HUD rails */
 export const FIELD_PADDING = 4
 

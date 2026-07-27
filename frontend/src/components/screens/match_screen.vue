@@ -5,7 +5,9 @@
  * It holds a Transport, never the engine — createLocalSession is the only
  * thing that knows an engine is running in this tab at all.
  */
-import {computed, onBeforeUnmount, onMounted, ref, shallowRef, watch} from 'vue'
+import {computed, onBeforeUnmount, onMounted, ref, shallowRef} from 'vue'
+import FpsMeter from '@/components/match/fps_meter.vue'
+import MatchTimer from '@/components/match/match_timer.vue'
 import PlayerBar from '@/components/match/player_bar.vue'
 import ResourceIndicator from '@/components/match/resource_indicator.vue'
 import UnitSelector from '@/components/match/unit_selector.vue'
@@ -25,7 +27,8 @@ const canvasElement = ref<HTMLCanvasElement | null>(null)
 const matchConfig = shallowRef<MatchConfig | null>(null)
 const matchState = shallowRef<MatchState | null>(null)
 const localPlayerId = ref<PlayerId | null>(null)
-const selectedUnitType = ref<UnitType | null>(null)
+const draggedUnitType = ref<UnitType | null>(null)
+const framesPerSecond = ref(0)
 
 let session: Session | null = null
 let renderer: MatchRenderer | null = null
@@ -41,30 +44,19 @@ const enemyPlayer = computed(() => {
 
 const maxBaseHealth = computed(() => matchConfig.value?.baseHealth ?? 0)
 
+const elapsedSeconds = computed(() => matchState.value?.elapsedSeconds ?? 0)
+
 const roster = computed(() => matchConfig.value?.units ?? {})
 
-watch(selectedUnitType, (unitType) => {
-  if (controller !== null) {
-    controller.selectedUnitType = unitType
-  }
-})
-
-// Drop a held unit the moment it stops being affordable, so a placement can
-// never be sent that the authority is bound to refuse
-watch(localPlayer, (player) => {
-  const config = matchConfig.value
-  const unitType = selectedUnitType.value
-
-  if (player === null || config === null || unitType === null) {
-    return
-  }
-
-  const stats = config.units[unitType]
-
-  if (stats !== undefined && player.resources < stats.deploymentCost) {
-    selectedUnitType.value = null
-  }
-})
+/**
+ * Hands a press on a roster card to the input layer.
+ * @param unitType - The unit being picked up
+ * @param source - The card element, which captures the pointer
+ * @param event - The pointer down that started the drag
+ */
+function beginDrag(unitType: UnitType, source: HTMLElement, event: PointerEvent): void {
+  controller?.beginDrag(unitType, source, event)
+}
 
 onMounted(() => {
   const canvas = canvasElement.value
@@ -82,7 +74,14 @@ onMounted(() => {
     onPreview: (preview) => {
       matchRenderer.deployPreview = preview
     },
+    onDragChange: (unitType) => {
+      draggedUnitType.value = unitType
+    },
   })
+
+  matchRenderer.onFrameRate = (measured) => {
+    framesPerSecond.value = measured
+  }
 
   created.transport.onMessage((message) => {
     switch (message.kind) {
@@ -124,50 +123,81 @@ onBeforeUnmount(() => {
 
 <template>
   <main class="match-screen">
-    <PlayerBar
-      v-if="enemyPlayer !== null"
-      faction="enemy"
-      :name="enemyPlayer.name"
-      :base-health="enemyPlayer.baseHealth"
-      :max-base-health="maxBaseHealth"
-    />
-    <div class="match-field">
-      <canvas
-        ref="canvasElement"
-        class="match-canvas"
-        :class="{'match-canvas-armed': selectedUnitType !== null}"
-      ></canvas>
+    <aside class="control-rail">
+      <template v-if="localPlayer !== null">
+        <UnitSelector
+          :units="roster"
+          :resources="localPlayer.resources"
+          :dragged="draggedUnitType"
+          @drag-start="beginDrag"
+        />
+        <ResourceIndicator :amount="localPlayer.resources" />
+      </template>
+    </aside>
+    <div class="match-console">
+      <header class="match-top-bar">
+        <PlayerBar
+          v-if="localPlayer !== null"
+          faction="ally"
+          :name="localPlayer.name"
+          :base-health="localPlayer.baseHealth"
+          :max-base-health="maxBaseHealth"
+        />
+        <MatchTimer :elapsed-seconds="elapsedSeconds" />
+        <PlayerBar
+          v-if="enemyPlayer !== null"
+          faction="enemy"
+          :name="enemyPlayer.name"
+          :base-health="enemyPlayer.baseHealth"
+          :max-base-health="maxBaseHealth"
+        />
+      </header>
+      <div class="match-field">
+        <canvas ref="canvasElement" class="match-canvas"></canvas>
+        <FpsMeter class="match-fps" :frames-per-second="framesPerSecond" />
+      </div>
     </div>
-    <PlayerBar
-      v-if="localPlayer !== null"
-      faction="ally"
-      :name="localPlayer.name"
-      :base-health="localPlayer.baseHealth"
-      :max-base-health="maxBaseHealth"
-    >
-      <UnitSelector
-        :units="roster"
-        :resources="localPlayer.resources"
-        :selected="selectedUnitType"
-        @select="selectedUnitType = $event"
-      />
-      <ResourceIndicator :amount="localPlayer.resources" />
-    </PlayerBar>
   </main>
 </template>
 
 <style scoped>
-/* Full-height console: rail, field, rail */
+/* Full-height console: roster rail beside the match itself */
 .match-screen {
     height: 100vh;
     height: 100dvh;
     display: flex;
-    flex-direction: column;
     background: var(--color-bg);
     overflow: hidden;
 }
 
-/* The battlefield takes every pixel the rails leave */
+/* Everything the player spends from, in one column */
+.control-rail {
+    flex: none;
+    width: 11rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0.75rem;
+    background: var(--color-bg-raised);
+    border-right: 0.0625rem solid var(--color-border);
+}
+
+.match-console {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Both bases and the clock, as one continuous band */
+.match-top-bar {
+    flex: none;
+    display: flex;
+    align-items: stretch;
+    height: 2.25rem;
+}
+
+/* The battlefield takes every pixel the rail and the band leave */
 .match-field {
     flex: 1;
     min-height: 0;
@@ -180,8 +210,9 @@ onBeforeUnmount(() => {
     height: 100%;
 }
 
-/* A held unit turns the field into a placement surface */
-.match-canvas-armed {
-    cursor: crosshair;
+.match-fps {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.7rem;
 }
 </style>

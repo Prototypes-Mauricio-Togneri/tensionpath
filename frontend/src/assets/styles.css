@@ -17,6 +17,9 @@
     --color-border: rgba(120, 160, 190, 0.16);
     --color-shadow-rgb: 0, 0, 0;
 
+    /* Neutral ground a meter uncovers as it drains — never owned by anyone */
+    --color-track: rgba(138, 152, 166, 1);
+
     /* Faction colors — must read instantly at a glance during a match */
     --color-ally: rgba(64, 190, 214, 1);
     --color-ally-rgb: 64, 190, 214;

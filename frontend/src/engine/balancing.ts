@@ -8,7 +8,11 @@ import type {UnitType} from '@/domain/types/unit_type'
  */
 export const BASE_HEALTH = 100
 
-export const STARTING_RESOURCES = 10
+/**
+ * Enough in hand to afford the cheapest unit at the whistle. Without it the
+ * opening of every match is spent watching an empty field wait for income.
+ */
+export const STARTING_RESOURCES = 30
 
 export const BATTLEFIELD_WIDTH = 100
 
@@ -34,13 +38,16 @@ export const BASE_INCOME_MAX = 3
 export const DEPLOY_MARGIN = 3
 
 /**
- * Placeholder roster of two contrasting units — enough to exercise deployment,
- * the economy and the renderer. docs/specs.md defines the attributes a unit
- * has but not the roster itself, so this is replaced wholesale once it does.
+ * Placeholder roster of three contrasting units — enough to exercise
+ * deployment, the economy and the renderer. Each is a different reason to
+ * spend rather than three points on one power curve: the scout is speed, the
+ * ranger is reach, the lancer is weight. docs/specs.md defines the attributes
+ * a unit has but not the roster itself, so this is replaced wholesale once it
+ * does.
  */
 export const UNIT_ROSTER: Record<UnitType, UnitStats> = {
   scout: {
-    deploymentCost: 3,
+    deploymentCost: 30,
     health: 40,
     attackType: 'kinetic',
     damage: 4,
@@ -51,8 +58,20 @@ export const UNIT_ROSTER: Record<UnitType, UnitStats> = {
     size: 1.1,
     speed: 6,
   },
+  ranger: {
+    deploymentCost: 40,
+    health: 70,
+    attackType: 'kinetic',
+    damage: 8,
+    damageEffect: 'single',
+    armorType: 'medium',
+    visibilityRange: 22,
+    attackRange: 14,
+    size: 1.4,
+    speed: 4.5,
+  },
   lancer: {
-    deploymentCost: 7,
+    deploymentCost: 50,
     health: 120,
     attackType: 'kinetic',
     damage: 14,

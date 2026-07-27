@@ -1,11 +1,14 @@
 <script setup lang="ts">
 /**
  * The roster the player deploys from.
- * Cards are machined keys rather than buttons, ordered by cost. A card the
- * player cannot pay for is inert — the client greys out what it can predict,
- * so the authority only ever has to refuse a genuine race.
+ * The cards are handles, not buttons: a unit reaches the field by being
+ * carried there, so pressing one starts a drag and nothing else. Ordered by
+ * cost, and a card the player cannot pay for is inert — the client greys out
+ * what it can predict, so the authority only ever has to refuse a genuine
+ * race.
  */
 import {computed} from 'vue'
+import CoinIcon from '@/components/match/coin_icon.vue'
 import type {UnitStats} from '@/domain/entities/unit_stats'
 import type {UnitType} from '@/domain/types/unit_type'
 import {t} from '@/i18n/localized'
@@ -20,11 +23,11 @@ type UnitEntry = {
 const props = defineProps<{
   units: Record<UnitType, UnitStats>
   resources: number
-  selected: UnitType | null
+  dragged: UnitType | null
 }>()
 
 const emit = defineEmits<{
-  select: [unitType: UnitType | null]
+  dragStart: [unitType: UnitType, source: HTMLElement, event: PointerEvent]
 }>()
 
 const entries = computed(() => {
@@ -49,56 +52,67 @@ const entries = computed(() => {
 })
 
 /**
- * Selects a unit, or clears the selection when it is already held.
- * @param unitType - The card that was pressed
+ * Hands a press on an affordable card to the input layer, which owns the drag
+ * from there.
+ * @param entry - The card that was pressed
+ * @param event - The pointer down on it
  */
-function toggle(unitType: UnitType): void {
-  emit('select', props.selected === unitType ? null : unitType)
+function handlePointerDown(entry: UnitEntry, event: PointerEvent): void {
+  const source = event.currentTarget
+
+  if (!entry.affordable || !(source instanceof HTMLElement)) {
+    return
+  }
+
+  emit('dragStart', entry.type, source, event)
 }
 </script>
 
 <template>
   <div class="unit-selector">
-    <button
+    <div
       v-for="entry in entries"
       :key="entry.type"
-      type="button"
       class="unit-card"
       :class="{
-        'unit-card-selected': entry.type === selected,
+        'unit-card-held': entry.type === dragged,
         'unit-card-locked': !entry.affordable,
       }"
-      :disabled="!entry.affordable"
-      @click="toggle(entry.type)"
+      @pointerdown="handlePointerDown(entry, $event)"
     >
       <span class="unit-name">{{ entry.label }}</span>
-      <span class="unit-cost">{{ entry.cost }}</span>
-    </button>
+      <span class="unit-art"></span>
+      <span class="unit-cost">
+        {{ entry.cost }}
+        <CoinIcon />
+      </span>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .unit-selector {
     display: flex;
-    align-items: stretch;
-    gap: 0.5rem;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 0.6rem;
 }
 
 /* Machined key — chamfered top-right corner, no rounded chip */
 .unit-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-    min-width: 5.25rem;
-    padding: 0.4rem 0.7rem 0.35rem;
+    flex: 1;
+    min-height: 0;
+    padding: 0.5rem 0.6rem;
     background: var(--color-bg-surface);
     border: 0.0625rem solid var(--color-border);
     border-radius: 0.125rem;
     clip-path: polygon(0 0, calc(100% - 0.5rem) 0, 100% 0.5rem, 100% 100%, 0 100%);
     color: var(--color-text);
-    font-family: var(--font-display);
-    cursor: pointer;
+    cursor: grab;
+    touch-action: none;
     transition: background 0.12s ease, border-color 0.12s ease;
 }
 
@@ -106,41 +120,46 @@ function toggle(unitType: UnitType): void {
     border-color: rgba(var(--color-text-rgb), 0.28);
 }
 
-/* Held unit — armed and waiting for a placement */
-.unit-card-selected {
+/* In hand — carried, and waiting to be put down somewhere legal */
+.unit-card-held {
     background: rgba(var(--color-accent-rgb), 0.14);
     border-color: rgba(var(--color-accent-rgb), 0.65);
+    cursor: grabbing;
 }
 
-.unit-card-selected .unit-name {
+.unit-card-held .unit-name {
     color: var(--color-accent);
 }
 
 /* Unaffordable — inert rather than hidden, so the roster stays learnable */
 .unit-card-locked {
     opacity: 0.35;
-    cursor: not-allowed;
+    cursor: default;
 }
 
 .unit-name {
-    font-size: 0.7rem;
+    font-family: var(--font-display);
     font-weight: 600;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
 }
 
+/* Reserved for the unit's artwork */
+.unit-art {
+    flex: 1;
+    min-height: 0;
+}
+
 .unit-cost {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.3rem;
     font-family: var(--font-numeric);
     font-size: 0.95rem;
     line-height: 1;
     color: var(--color-accent);
-}
-
-/* Narrow viewports drop the cards to icons' width */
-@media (max-width: 40rem) {
-    .unit-card {
-        min-width: 4rem;
-        padding: 0.35rem 0.5rem 0.3rem;
-    }
+    font-variant-numeric: tabular-nums;
 }
 </style>

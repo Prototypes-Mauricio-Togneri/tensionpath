@@ -1,13 +1,12 @@
 <script setup lang="ts">
 /**
- * One player's rail: who they are and what their base has left.
- * The hairline dividing the rail from the battlefield is the base health
- * meter, draining from the outer edge inward — readable out of the corner of
- * an eye during a match, and it costs the map no room. The numeric readout
- * stays for precision.
+ * One player's base, drawn as the share of the top bar they still hold.
+ * The two bars drain inward toward the timer, so the neutral ground between
+ * them widens as the match wears on and the two remaining lengths can be
+ * compared directly across the middle. The name sits at the outer end, on
+ * colour the player keeps until the last of it is gone.
  */
 import {computed} from 'vue'
-import {t} from '@/i18n/localized'
 
 const props = defineProps<{
   faction: 'ally' | 'enemy'
@@ -27,140 +26,61 @@ const healthFraction = computed(() => {
 
 <template>
   <section class="player-bar" :class="`player-bar-${faction}`">
-    <div class="player-identity">
-      <span class="player-mark"></span>
-      <span class="player-name">{{ name }}</span>
-    </div>
-    <div class="player-controls">
-      <slot />
-    </div>
-    <div class="player-base">
-      <span class="player-base-label">{{ t('screen.match.base') }}</span>
-      <span class="player-base-value">{{ Math.max(Math.round(baseHealth), 0) }}</span>
-    </div>
-    <div class="player-rail">
-      <div class="player-rail-fill" :style="{'--health-fraction': healthFraction}"></div>
-    </div>
+    <div class="player-bar-fill" :style="{'--health-fraction': healthFraction}"></div>
+    <span class="player-name">{{ name }}</span>
   </section>
 </template>
 
 <style scoped>
-/* Instrument rail — flat console, never a floating card */
+/* Depleted ground, uncovered as the base takes damage */
 .player-bar {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 0.6rem 1.5rem;
-    background: var(--color-bg-raised);
-    flex: none;
+    flex: 1;
+    min-width: 0;
+    background: var(--color-track);
+    overflow: hidden;
 }
 
-/* Faction identity drives every accent in the rail */
+/* Faction identity drives the fill; ally reads left to right, enemy mirrors it */
 .player-bar-ally {
     --faction-color: var(--color-ally);
-    --faction-rgb: var(--color-ally-rgb);
+    justify-content: flex-start;
+    padding-left: 1.25rem;
 }
 
 .player-bar-enemy {
     --faction-color: var(--color-enemy);
-    --faction-rgb: var(--color-enemy-rgb);
-    flex-direction: row-reverse;
+    justify-content: flex-end;
+    padding-right: 1.25rem;
 }
 
-/* Player identity */
-.player-identity {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-}
-
-/* Chamfered faction chip */
-.player-mark {
-    width: 0.5rem;
-    height: 0.5rem;
-    background: var(--faction-color);
-    clip-path: polygon(0 0, 100% 0, 100% 60%, 60% 100%, 0 100%);
-}
-
-.player-name {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-/* Controls sit centred between the two readouts */
-.player-controls {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    min-width: 0;
-}
-
-/* Base health readout */
-.player-base {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-}
-
-.player-base-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(var(--color-text-rgb), 0.45);
-}
-
-.player-base-value {
-    font-family: var(--font-numeric);
-    font-size: 1.5rem;
-    line-height: 1;
-    color: var(--faction-color);
-}
-
-/* Base health as the hairline bordering the battlefield */
-.player-rail {
+/* Base health remaining, retreating toward the outer edge */
+.player-bar-fill {
     position: absolute;
-    left: 0;
-    right: 0;
-    height: 0.125rem;
-    background: rgba(var(--color-text-rgb), 0.07);
-}
-
-.player-bar-ally .player-rail {
-    top: 0;
-}
-
-.player-bar-enemy .player-rail {
-    bottom: 0;
-}
-
-.player-rail-fill {
-    height: 100%;
+    inset: 0;
     background: var(--faction-color);
-    box-shadow: 0 0 0.75rem rgba(var(--faction-rgb), 0.6);
     transform: scaleX(var(--health-fraction, 1));
     transform-origin: left;
     transition: transform 0.2s linear;
 }
 
-.player-bar-enemy .player-rail-fill {
+.player-bar-enemy .player-bar-fill {
     transform-origin: right;
 }
 
-/* Narrow viewports drop the label and tighten the rail */
-@media (max-width: 40rem) {
-    .player-bar {
-        gap: 0.75rem;
-        padding: 0.5rem 0.75rem;
-    }
-
-    .player-base-label {
-        display: none;
-    }
+/* Stamped into the bar rather than laid over it */
+.player-name {
+    position: relative;
+    color: var(--color-bg);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>
