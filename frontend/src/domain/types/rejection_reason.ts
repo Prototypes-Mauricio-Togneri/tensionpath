@@ -8,3 +8,4 @@ export type RejectionReason =
   | 'insufficient_resources'
   | 'unknown_unit'
   | 'not_owner'
+  | 'invalid_position'

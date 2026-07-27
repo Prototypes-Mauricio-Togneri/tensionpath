@@ -16,6 +16,10 @@ Each unit type is defined by:
 - Armor type: light/medium/heavy
 - Visibility range
 - Attack range
+- Size: radius in battlefield units — the renderer draws it and the client previews a deployment with it
+- Speed: battlefield units per second
+
+The roster itself is undecided. `scout` and `lancer` exist as placeholders so deployment, the economy and the renderer have something to work with, and are replaced wholesale once the real roster lands.
 
 ## Nodes
 
@@ -45,8 +49,8 @@ Actions a player can issue:
 
 ## Economy
 
-- Base income starts at 2 T/s and accelerates by +0.2 T/s every 30 seconds, up to a max of 3 T/s
-- Income per harvester increases from 1.5 T/s at the start of the game to a max of 4 T/s at 150 seconds — an increase of 0.7 T/s every 30 seconds
+- Base income starts at 2 T/s and accelerates by +0.2 T/s every 30 seconds, up to a max of 3 T/s — implemented
+- Income per harvester increases from 1.5 T/s at the start of the game to a max of 4 T/s at 150 seconds — an increase of 0.7 T/s every 30 seconds — not implemented; it waits on a harvester existing in the roster
 
 ## UI
 
@@ -54,7 +58,7 @@ Actions a player can issue:
   - Player name
   - Base health
 - **Middle**
-  - Map
+  - Map — a canvas battlefield; clicking it with a unit held deploys that unit
 - **Bottom**
   - Unit selector
   - Resource indicator

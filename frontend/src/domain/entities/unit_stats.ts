@@ -16,4 +16,6 @@ export type UnitStats = {
   armorType: ArmorType
   visibilityRange: number
   attackRange: number
+  size: number // Radius in battlefield units
+  speed: number // Battlefield units per second
 }

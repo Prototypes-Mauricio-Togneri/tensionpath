@@ -1,0 +1,101 @@
+import type {NodeType} from '@/domain/types/node_type'
+
+/**
+ * Visual constants for the canvas renderer.
+ * Client-owned: the engine's balancing values never reach here and these never
+ * reach the engine. Lengths are in battlefield units unless the name says
+ * pixels, and alphas apply to the design tokens read in theme.ts.
+ */
+export const MILLIS_PER_SECOND = 1000
+
+export const TAU = Math.PI * 2
+
+/** Breathing room around the battlefield so the frame clears the HUD rails */
+export const FIELD_PADDING = 4
+
+/* Survey grid */
+export const GRID_SPACING = 10
+
+export const GRID_TICK_LENGTH = 0.9
+
+export const GRID_ALPHA = 0.05
+
+export const GRID_TICK_ALPHA = 0.14
+
+/* Battlefield frame */
+export const FIELD_EDGE_ALPHA = 0.12
+
+export const FIELD_BRACKET_LENGTH = 5
+
+export const FIELD_BRACKET_ALPHA = 0.4
+
+export const CENTRE_AXIS_ALPHA = 0.16
+
+export const CENTRE_AXIS_DASH = [
+  1.2,
+  2.2,
+]
+
+/* Nodes */
+export const NODE_RADIUS_DEFAULT = 2
+
+/**
+ * Node footprint by kind. Size is the only thing separating one node from
+ * another until docs/specs.md describes how each should read, so it carries
+ * importance: objectives are large, pickups small.
+ */
+export const NODE_RADIUS_BY_TYPE: Record<NodeType, number> = {
+  launcher: 2.2,
+  platform: 2.2,
+  missile: 1.6,
+  resources: 1.6,
+  obstacle: 2,
+  victory: 3.4,
+  chest: 1.6,
+  resource_generator: 2.6,
+  unit_generator: 2.6,
+  checkpoint: 2,
+}
+
+export const NODE_CORE_FRACTION = 0.32
+
+export const NODE_FILL_ALPHA = 0.1
+
+export const NODE_RING_ALPHA = 0.45
+
+export const NODE_CORE_ALPHA = 0.7
+
+/* Units */
+export const UNIT_TAIL_LENGTH = 0.7 // Fraction of the radius behind the centre
+
+export const UNIT_TAIL_SPREAD = 0.75
+
+export const UNIT_NOTCH_DEPTH = 0.35
+
+export const UNIT_FILL_ALPHA = 0.35
+
+export const UNIT_HEALTH_BAR_WIDTH = 2.6
+
+export const UNIT_HEALTH_BAR_HEIGHT = 0.5
+
+export const UNIT_HEALTH_BAR_OFFSET = 2.2
+
+export const UNIT_HEALTH_TRACK_ALPHA = 0.25
+
+/* Deployment preview */
+export const PREVIEW_ALPHA = 0.55
+
+export const PREVIEW_CROSS_REACH = 1.7 // Multiple of the unit radius
+
+export const PREVIEW_DASH = [
+  0.6,
+  0.9,
+]
+
+/* Line widths, in CSS pixels — kept off the battlefield scale so a hairline
+   stays a hairline at any zoom */
+export const HAIRLINE_WIDTH = 1
+
+export const BRACKET_WIDTH = 1.5
+
+export const UNIT_OUTLINE_WIDTH = 1.5

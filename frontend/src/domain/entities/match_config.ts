@@ -10,5 +10,7 @@ import type {UnitType} from '@/domain/types/unit_type'
 export type MatchConfig = {
   baseHealth: number
   startingResources: number
+  ticksPerSecond: number // Snapshot cadence; the renderer interpolates over it
+  deployMargin: number // Battlefield units from the edge that refuse a deployment
   units: Record<UnitType, UnitStats>
 }

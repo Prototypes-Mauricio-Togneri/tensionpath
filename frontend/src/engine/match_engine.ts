@@ -1,13 +1,26 @@
 import type {Battlefield} from '@/domain/entities/battlefield'
 import type {MatchConfig} from '@/domain/entities/match_config'
 import type {MatchState} from '@/domain/entities/match_state'
-import type {Command} from '@/domain/protocol/command'
+import type {Player} from '@/domain/entities/player'
+import type {Position} from '@/domain/entities/position'
+import type {Command, DeployUnitCommand} from '@/domain/protocol/command'
 import type {MatchEvent} from '@/domain/protocol/message'
 import type {Transport} from '@/domain/protocol/transport'
 import type {PlayerId} from '@/domain/types/ids'
 import type {RejectionReason} from '@/domain/types/rejection_reason'
+import {BASE_INCOME_MAX, BASE_INCOME_START, BASE_INCOME_STEP, BASE_INCOME_STEP_SECONDS, DEPLOY_MARGIN} from '@/engine/balancing'
 import {MILLIS_PER_SECOND, TICK_INTERVAL_MILLIS, TICK_INTERVAL_SECONDS} from '@/engine/constants'
 import {LocalTransport} from '@/engine/local_transport'
+
+/**
+ * Wraps an angle into (-π, π] so a bouncing heading cannot accumulate turns
+ * and the renderer never has to unwind one.
+ * @param heading - Angle in radians
+ * @returns The equivalent angle in (-π, π]
+ */
+function normalizeHeading(heading: number): number {
+  return Math.atan2(Math.sin(heading), Math.cos(heading))
+}
 
 /**
  * Identity a player is created with when a match is set up.
@@ -47,6 +60,7 @@ export class MatchEngine {
   private readonly queue: QueuedCommand[] = []
   private readonly state: MatchState
   private ticks = 0
+  private nextUnitNumber = 1 // Source of unit ids; deterministic, so replays match
   private accumulatedSeconds = 0
   private previousMillis = 0
   private timer: ReturnType<typeof setInterval> | null = null
@@ -142,7 +156,10 @@ export class MatchEngine {
     this.state.elapsedSeconds += TICK_INTERVAL_SECONDS
     this.ticks += 1
 
-    // Movement, combat and economy run here once docs/specs.md is settled
+    this.applyIncome()
+    this.moveUnits()
+
+    // Combat and node capture run here once docs/specs.md is settled
 
     this.broadcast(events)
   }
@@ -190,9 +207,10 @@ export class MatchEngine {
           command: entry.command,
           reason: reason,
         })
+        continue
       }
 
-      // Accepted commands mutate state here once the rules land
+      this.apply(entry)
     }
   }
 
@@ -206,13 +224,176 @@ export class MatchEngine {
       return 'match_not_running'
     }
 
-    const player = this.state.players.find((candidate) => candidate.id === entry.playerId)
+    const player = this.playerFor(entry.playerId)
 
     if (player === undefined) {
       return 'not_owner'
     }
 
+    if (entry.command.kind === 'deploy_unit') {
+      return this.validateDeploy(player, entry.command)
+    }
+
     return null
+  }
+
+  /**
+   * Checks a deployment against the roster, the player's purse and the
+   * battlefield bounds — the three things a client can predict and therefore
+   * should already have prevented.
+   * @param player - The player the command arrived from
+   * @param command - The deployment being checked
+   * @returns Why to refuse it, or null when it is allowed
+   */
+  private validateDeploy(player: Player, command: DeployUnitCommand): RejectionReason | null {
+    const stats = this.config.units[command.unitType]
+
+    if (stats === undefined) {
+      return 'unknown_unit'
+    }
+
+    if (player.resources < stats.deploymentCost) {
+      return 'insufficient_resources'
+    }
+
+    if (!this.isDeployable(command.position)) {
+      return 'invalid_position'
+    }
+
+    return null
+  }
+
+  /**
+   * Whether a position is far enough inside the battlefield to deploy onto.
+   * @param position - Where the unit would appear
+   * @returns True when the position is legal
+   */
+  private isDeployable(position: Position): boolean {
+    const insideX = position.x >= DEPLOY_MARGIN && position.x <= this.battlefield.size.width - DEPLOY_MARGIN
+    const insideY = position.y >= DEPLOY_MARGIN && position.y <= this.battlefield.size.height - DEPLOY_MARGIN
+
+    return insideX && insideY
+  }
+
+  /**
+   * Mutates state for a command that passed validation.
+   * @param entry - The queued command and the player it arrived from
+   */
+  private apply(entry: QueuedCommand): void {
+    const player = this.playerFor(entry.playerId)
+
+    if (player === undefined) {
+      return
+    }
+
+    switch (entry.command.kind) {
+      case 'deploy_unit': {
+        this.deploy(player, entry.command)
+        break
+      }
+      default: {
+        // Stopping, targeting, lanes and abilities land with their rules
+        break
+      }
+    }
+  }
+
+  /**
+   * Charges the deployment cost and puts the unit on the battlefield.
+   * @param player - The owner, already known to afford it
+   * @param command - The validated deployment
+   */
+  private deploy(player: Player, command: DeployUnitCommand): void {
+    const stats = this.config.units[command.unitType]
+
+    if (stats === undefined) {
+      return
+    }
+
+    player.resources -= stats.deploymentCost
+    this.state.units.push({
+      id: `unit-${this.nextUnitNumber}`,
+      type: command.unitType,
+      ownerId: player.id,
+      position: {
+        x: command.position.x,
+        y: command.position.y,
+      },
+      heading: this.headingFor(player.id),
+      health: stats.health,
+      moving: true,
+      targetUnitId: null,
+    })
+    this.nextUnitNumber += 1
+  }
+
+  /**
+   * Which way a player's units set off.
+   * Placeholder rule: the first player advances along +x and everyone else
+   * against it, which is enough to give the two sides opposing fronts.
+   * @param playerId - The owner of the unit
+   * @returns Initial heading in radians
+   */
+  private headingFor(playerId: PlayerId): number {
+    const index = this.state.players.findIndex((candidate) => candidate.id === playerId)
+
+    return index === 0 ? 0 : Math.PI
+  }
+
+  /**
+   * Credits every player the base income earned in one tick.
+   * The schedule is docs/specs.md: 2 T/s rising by 0.2 T/s every 30 seconds up
+   * to a 3 T/s ceiling. Harvester income waits on a harvester in the roster.
+   */
+  private applyIncome(): void {
+    const steps = Math.floor(this.state.elapsedSeconds / BASE_INCOME_STEP_SECONDS)
+    const rate = Math.min(BASE_INCOME_MAX, BASE_INCOME_START + (steps * BASE_INCOME_STEP))
+
+    for (const player of this.state.players) {
+      player.resources += rate * TICK_INTERVAL_SECONDS
+    }
+  }
+
+  /**
+   * Advances every moving unit along its heading.
+   * Placeholder movement: units travel in a straight line and turn back at the
+   * battlefield edge, so the field stays populated until pathing, lanes and
+   * combat are specified in docs/specs.md.
+   */
+  private moveUnits(): void {
+    for (const unit of this.state.units) {
+      const stats = this.config.units[unit.type]
+
+      if (!unit.moving || stats === undefined) {
+        continue
+      }
+
+      const distance = stats.speed * TICK_INTERVAL_SECONDS
+      const limitX = this.battlefield.size.width - stats.size
+      const limitY = this.battlefield.size.height - stats.size
+
+      unit.position.x += Math.cos(unit.heading) * distance
+      unit.position.y += Math.sin(unit.heading) * distance
+
+      if (unit.position.x < stats.size || unit.position.x > limitX) {
+        unit.position.x = Math.min(Math.max(unit.position.x, stats.size), limitX)
+        unit.heading = normalizeHeading(Math.PI - unit.heading)
+      }
+
+      if (unit.position.y < stats.size || unit.position.y > limitY) {
+        unit.position.y = Math.min(Math.max(unit.position.y, stats.size), limitY)
+        unit.heading = normalizeHeading(-unit.heading)
+      }
+    }
+  }
+
+  /**
+   * Looks up a player in authoritative state.
+   * @param playerId - The player to find
+   * @returns The player, or undefined when no such player is in the match
+   */
+  private playerFor(playerId: PlayerId): Player | undefined {
+    return this.state.players.find((candidate) => candidate.id === playerId)
   }
 
   private broadcast(events: MatchEvent[]): void {

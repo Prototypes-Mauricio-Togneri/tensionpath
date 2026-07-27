@@ -19,6 +19,8 @@ Cold gunmetal instrumentation with amber telemetry. Design tokens are CSS custom
 
 Ally and enemy are never used decoratively — they only ever mean faction ownership, so a glance at the battlefield reads unambiguously.
 
+The canvas obeys the same tokens. It cannot resolve `var()`, so `src/renderer/theme.ts` reads them off `:root` once at startup and `withAlpha()` builds `rgba()` from the `-rgb` variants. Never write a colour literal into the renderer.
+
 ## Typography
 
 - **Display/headings**: `Chakra Petch` — weights 600, 700

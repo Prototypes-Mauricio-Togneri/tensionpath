@@ -4,6 +4,7 @@
  */
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeScreen from '@/components/screens/home_screen.vue'
+import MatchScreen from '@/components/screens/match_screen.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeScreen,
+    },
+    {
+      path: '/match',
+      name: 'match',
+      component: MatchScreen,
     },
   ],
 })

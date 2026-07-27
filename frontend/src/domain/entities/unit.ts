@@ -14,6 +14,7 @@ export type Unit = {
   type: UnitType
   ownerId: PlayerId
   position: Position
+  heading: number // Facing in radians; 0 points along +x
   health: number
   moving: boolean
   targetUnitId: UnitId | null
