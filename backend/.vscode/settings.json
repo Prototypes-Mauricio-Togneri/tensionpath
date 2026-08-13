@@ -1,17 +1,6 @@
 {
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.editor.enablePreview": false,
-    "editor.minimap.enabled": false,
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
-    "editor.fontSize": 16,
-    "editor.detectIndentation": false,
-    "editor.formatOnSave": true,
-    "editor.fontFamily": "'Source Code Pro'",
-    "files.autoSave": "afterDelay",
     "typescript.updateImportsOnFileMove.enabled": "always",
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-    "eslint.enable": true,
     "eslint.validate": [
         "javascript",
         "typescript"
@@ -20,9 +9,6 @@
         "functions"
     ],
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
-    },
-    "eslint.format.enable": true,
-    "eslint.run": "onSave",
-    "cSpell.words": [],
+        "source.fixAll.eslint": "explicit"
+    }
 }
