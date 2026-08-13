@@ -1,14 +1,5 @@
 {
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-    "eslint.validate": [
-        "javascript",
-        "typescript"
-    ],
     "eslint.workingDirectories": [
         "functions"
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-    }
+    ]
 }
