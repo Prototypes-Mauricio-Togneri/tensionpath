@@ -14,9 +14,6 @@ const browserLang = navigator.language.slice(0, 2) // Two-letter language code
 const resolvedLang = browserLang in LOCALES ? browserLang : 'en' // Resolved locale (falls back to English)
 const strings = LOCALES[resolvedLang] ?? LOCALIZED_EN // Active string table
 
-// Set HTML lang attribute for accessibility
-document.documentElement.lang = resolvedLang
-
 /**
  * Returns the localized string for the given key.
  * Supports positional parameters: t('key', 'val0', 'val1') replaces {0}, {1}, etc.

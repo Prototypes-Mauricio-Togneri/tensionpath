@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <svg class="coin-icon" viewBox="0 0 16 16" aria-hidden="true">
+  <svg class="coin-icon" viewBox="0 0 16 16">
     <circle class="coin-face" cx="8" cy="8" r="7" />
     <circle class="coin-rim" cx="8" cy="8" r="7" />
     <circle class="coin-core" cx="8" cy="8" r="1.6" />

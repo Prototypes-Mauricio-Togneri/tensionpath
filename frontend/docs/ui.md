@@ -42,7 +42,13 @@ Use `rem` for all `border-radius` values. No `px` (exception: `50%` for circles)
 
 Always use the `frontend-design` skill when changing the UI.
 
-The match screen is landscape only, and deployment is drag-only: there is no keyboard path onto the battlefield. A keyboard player would need a cursor they can drive over the field, which is a feature in its own right rather than a detail of the roster rail — until it exists, a match cannot be played without a pointer.
+The match screen is landscape only, and deployment is drag-only — a match needs a pointer.
+
+## Accessibility
+
+Not handled for the moment. The prototype assumes a sighted player with a pointer, so there are no ARIA attributes, focus styles, keyboard paths, reduced-motion handling, or screen-reader affordances anywhere in the app.
+
+Do not add any unless it is explicitly asked for — this overrides the accessibility floor the `frontend-design` skill builds to.
 
 ## Comment Conventions
 
