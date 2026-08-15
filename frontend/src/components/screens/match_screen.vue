@@ -172,10 +172,14 @@ onBeforeUnmount(() => {
 }
 
 /* Everything the player spends from, in one column: the roster at the top,
-   what is left to spend on it held at the bottom */
+   what is left to spend on it held at the bottom. The rail is one card wide,
+   and a card's side is whatever the viewport height leaves once the rail's
+   padding, the gaps between six of them and the readout are paid for */
 .control-rail {
+    --unit-card-size: clamp(4rem, (100dvh - 9.5rem) / 6, 8.5rem);
+
     flex: none;
-    width: 15rem;
+    width: calc(var(--unit-card-size) + 1.5rem);
     display: flex;
     flex-direction: column;
     gap: 1rem;

@@ -94,26 +94,27 @@ function handlePointerDown(entry: UnitEntry, event: PointerEvent): void {
 </template>
 
 <style scoped>
-/* Two columns, because six square keys will not stack in one and stay legible.
-   Reading order is cost order: cheapest top-left, dearest bottom-right */
+/* One column, read top to bottom in cost order: cheapest first, dearest last */
 .unit-selector {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    flex: none;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    min-height: 0;
     gap: 0.5rem;
 }
 
-/* Machined key — chamfered top-right corner, no rounded chip */
+/* Machined key — square, as tall as the rail is wide. Shrinks off square only
+   on a viewport too short to stack six, which beats clipping the readout */
 .unit-card {
     display: flex;
     flex-direction: column;
     aspect-ratio: 1;
+    flex: 0 1 auto;
     min-height: 0;
     padding: 0.45rem 0.5rem;
     background: var(--color-bg-surface);
     border: 0.0625rem solid var(--color-border);
     border-radius: 0.125rem;
-    clip-path: polygon(0 0, calc(100% - 0.5rem) 0, 100% 0.5rem, 100% 100%, 0 100%);
     color: var(--color-text);
     cursor: grab;
     touch-action: none;
