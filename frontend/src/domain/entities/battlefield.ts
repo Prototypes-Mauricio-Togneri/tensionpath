@@ -1,4 +1,5 @@
 import type {BattlefieldNode} from '@/domain/entities/battlefield_node'
+import type {Launcher} from '@/domain/entities/launcher'
 import type {Size} from '@/domain/entities/size'
 
 /**
@@ -8,5 +9,7 @@ import type {Size} from '@/domain/entities/size'
  */
 export type Battlefield = {
   size: Size
+  laneCount: number // Horizontal lanes the field is divided into, top to bottom
+  launchers: Launcher[] // Two per lane, one at each end
   nodes: BattlefieldNode[]
 }

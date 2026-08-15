@@ -1,7 +1,9 @@
 import type {Battlefield} from '@/domain/entities/battlefield'
+import type {Launcher} from '@/domain/entities/launcher'
 import type {MatchConfig} from '@/domain/entities/match_config'
 import type {Position} from '@/domain/entities/position'
 import type {Transport} from '@/domain/protocol/transport'
+import type {PlayerId} from '@/domain/types/ids'
 import type {UnitType} from '@/domain/types/unit_type'
 import type {DeployPreview} from '@/renderer/match_renderer'
 import type {Viewport} from '@/renderer/viewport'
@@ -44,6 +46,7 @@ export class DeployController {
   private readonly onDragChange: (unitType: UnitType | null) => void
   private config: MatchConfig | null = null
   private battlefield: Battlefield | null = null
+  private localPlayerId: PlayerId | null = null
   private drag: Drag | null = null
 
   constructor(options: DeployControllerOptions) {
@@ -52,6 +55,14 @@ export class DeployController {
     this.transport = options.transport
     this.onPreview = options.onPreview
     this.onDragChange = options.onDragChange
+  }
+
+  /**
+   * Identifies the player this client speaks for, which is what decides whose
+   * launchers accept a drop.
+   */
+  set playerId(playerId: PlayerId) {
+    this.localPlayerId = playerId
   }
 
   /**
@@ -182,11 +193,14 @@ export class DeployController {
     }
 
     const position = this.viewport.toBattlefield(event.clientX, event.clientY)
+    const launcher = this.launcherAt(position)
 
+    // Snapping to the launcher shows where the unit will actually appear: the
+    // drop only picks a lane, and the engine centres the unit in its gate
     return {
-      position: position,
+      position: launcher?.position ?? position,
       radius: stats.size,
-      valid: this.isDeployable(position, config.deployMargin),
+      valid: launcher !== undefined,
     }
   }
 
@@ -207,23 +221,19 @@ export class DeployController {
 
   /**
    * Mirrors the authority's placement rule so a refusal shows under the
-   * pointer instead of arriving as a rejected event. The margin travels in
-   * MatchConfig for exactly this: the client predicts what it can, and the
+   * pointer instead of arriving as a rejected event: a unit may only be
+   * deployed from one of its own player's launchers. The layout travels in the
+   * start message for exactly this — the client predicts what it can, and the
    * engine still decides.
    * @param position - Where the unit would land
-   * @param margin - Unplayable strip along each edge, in battlefield units
-   * @returns True when the placement is worth sending
+   * @returns The launcher the drop would use, or undefined when there is none
    */
-  private isDeployable(position: Position, margin: number): boolean {
-    const battlefield = this.battlefield
+  private launcherAt(position: Position): Launcher | undefined {
+    return this.battlefield?.launchers.find((launcher) => {
+      const insideX = Math.abs(position.x - launcher.position.x) <= launcher.size.width / 2
+      const insideY = Math.abs(position.y - launcher.position.y) <= launcher.size.height / 2
 
-    if (battlefield === null) {
-      return false
-    }
-
-    const insideX = position.x >= margin && position.x <= battlefield.size.width - margin
-    const insideY = position.y >= margin && position.y <= battlefield.size.height - margin
-
-    return insideX && insideY
+      return launcher.ownerId === this.localPlayerId && insideX && insideY
+    })
   }
 }

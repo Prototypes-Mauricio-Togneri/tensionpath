@@ -88,6 +88,7 @@ onMounted(() => {
       case 'welcome': {
         localPlayerId.value = message.playerId
         matchRenderer.playerId = message.playerId
+        deployController.playerId = message.playerId
         break
       }
       case 'start': {

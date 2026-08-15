@@ -3,7 +3,7 @@ import type {MatchConfig} from '@/domain/entities/match_config'
 import type {MatchState} from '@/domain/entities/match_state'
 import type {Position} from '@/domain/entities/position'
 import type {NodeId, PlayerId} from '@/domain/types/ids'
-import {BRACKET_WIDTH, CENTRE_AXIS_ALPHA, CENTRE_AXIS_DASH, FIELD_BRACKET_ALPHA, FIELD_BRACKET_LENGTH, FIELD_EDGE_ALPHA, FRAME_RATE_SAMPLE_MILLIS, GRID_ALPHA, GRID_SPACING, GRID_TICK_ALPHA, GRID_TICK_LENGTH, HAIRLINE_WIDTH, MILLIS_PER_SECOND, NODE_CORE_ALPHA, NODE_CORE_FRACTION, NODE_FILL_ALPHA, NODE_RADIUS_BY_TYPE, NODE_RADIUS_DEFAULT, NODE_RING_ALPHA, PREVIEW_ALPHA, PREVIEW_CROSS_REACH, PREVIEW_DASH, TAU, UNIT_FILL_ALPHA, UNIT_HEALTH_BAR_HEIGHT, UNIT_HEALTH_BAR_OFFSET, UNIT_HEALTH_BAR_WIDTH, UNIT_HEALTH_TRACK_ALPHA, UNIT_NOTCH_DEPTH, UNIT_OUTLINE_WIDTH, UNIT_TAIL_LENGTH, UNIT_TAIL_SPREAD} from '@/renderer/constants'
+import {FRAME_RATE_SAMPLE_MILLIS, HAIRLINE_WIDTH, LANE_EDGE_ALPHA, LAUNCHER_EDGE_ALPHA, LAUNCHER_EDGE_WIDTH, LAUNCHER_FILL_ALPHA, LAUNCHER_GLYPH_ALPHA, LAUNCHER_GLYPH_FRACTION, LAUNCHER_GLYPH_WIDTH, MILLIS_PER_SECOND, NODE_CORE_ALPHA, NODE_CORE_FRACTION, NODE_FILL_ALPHA, NODE_RADIUS_BY_TYPE, NODE_RADIUS_DEFAULT, NODE_RING_ALPHA, PREVIEW_ALPHA, PREVIEW_CROSS_REACH, PREVIEW_DASH, TAU, UNIT_FILL_ALPHA, UNIT_HEALTH_BAR_HEIGHT, UNIT_HEALTH_BAR_OFFSET, UNIT_HEALTH_BAR_WIDTH, UNIT_HEALTH_TRACK_ALPHA, UNIT_NOTCH_DEPTH, UNIT_OUTLINE_WIDTH, UNIT_TAIL_LENGTH, UNIT_TAIL_SPREAD} from '@/renderer/constants'
 import type {InterpolatedUnit} from '@/renderer/snapshot_buffer'
 import {SnapshotBuffer} from '@/renderer/snapshot_buffer'
 import type {RendererTheme} from '@/renderer/theme'
@@ -165,8 +165,8 @@ export class MatchRenderer {
     ctx.fillStyle = this.theme.background
     ctx.fillRect(0, 0, this.viewport.width, this.viewport.height)
 
-    this.drawGrid(ctx, battlefield)
-    this.drawFrame(ctx, battlefield)
+    this.drawLanes(ctx, battlefield)
+    this.drawLaunchers(ctx, battlefield)
 
     if (state !== null) {
       this.drawNodes(ctx, battlefield, state)
@@ -177,92 +177,74 @@ export class MatchRenderer {
   }
 
   /**
-   * Survey lines with a tick cross at every intersection — a reference for
-   * reading distance off the field, not decoration.
+   * The lane stack: a recessed panel divided into the corridors units run down.
+   * The lanes are the field's only structure, so the outer rectangle of the
+   * stack is also its frame — every line is drawn once so no shared boundary
+   * comes out heavier than the edges around it.
    * @param ctx - Target context, already scaled to CSS pixels
    * @param battlefield - Layout being drawn
    */
-  private drawGrid(ctx: CanvasRenderingContext2D, battlefield: Battlefield): void {
-    const width = battlefield.size.width
-    const height = battlefield.size.height
+  private drawLanes(ctx: CanvasRenderingContext2D, battlefield: Battlefield): void {
+    const left = this.viewport.toCanvasX(0)
+    const right = this.viewport.toCanvasX(battlefield.size.width)
+    const top = this.viewport.toCanvasY(0)
+    const bottom = this.viewport.toCanvasY(battlefield.size.height)
+    const laneHeight = battlefield.size.height / battlefield.laneCount
+
+    ctx.fillStyle = this.theme.backgroundDeep
+    ctx.fillRect(left, top, right - left, bottom - top)
 
     ctx.lineWidth = HAIRLINE_WIDTH
-    ctx.strokeStyle = withAlpha(this.theme.textRgb, GRID_ALPHA)
+    ctx.strokeStyle = withAlpha(this.theme.textRgb, LANE_EDGE_ALPHA)
     ctx.beginPath()
+    ctx.rect(left, top, right - left, bottom - top)
 
-    for (let x = GRID_SPACING; x < width; x += GRID_SPACING) {
-      ctx.moveTo(this.viewport.toCanvasX(x), this.viewport.toCanvasY(0))
-      ctx.lineTo(this.viewport.toCanvasX(x), this.viewport.toCanvasY(height))
-    }
+    for (let lane = 1; lane < battlefield.laneCount; lane += 1) {
+      const canvasY = this.viewport.toCanvasY(lane * laneHeight)
 
-    for (let y = GRID_SPACING; y < height; y += GRID_SPACING) {
-      ctx.moveTo(this.viewport.toCanvasX(0), this.viewport.toCanvasY(y))
-      ctx.lineTo(this.viewport.toCanvasX(width), this.viewport.toCanvasY(y))
-    }
-
-    ctx.stroke()
-
-    const reach = this.viewport.toCanvasLength(GRID_TICK_LENGTH / 2)
-
-    ctx.strokeStyle = withAlpha(this.theme.textRgb, GRID_TICK_ALPHA)
-    ctx.beginPath()
-
-    for (let x = GRID_SPACING; x < width; x += GRID_SPACING) {
-      for (let y = GRID_SPACING; y < height; y += GRID_SPACING) {
-        const canvasX = this.viewport.toCanvasX(x)
-        const canvasY = this.viewport.toCanvasY(y)
-
-        ctx.moveTo(canvasX - reach, canvasY)
-        ctx.lineTo(canvasX + reach, canvasY)
-        ctx.moveTo(canvasX, canvasY - reach)
-        ctx.lineTo(canvasX, canvasY + reach)
-      }
+      ctx.moveTo(left, canvasY)
+      ctx.lineTo(right, canvasY)
     }
 
     ctx.stroke()
   }
 
   /**
-   * The field edge, corner brackets and the centre axis the two fronts meet on.
+   * The gates at both ends of every lane, each holding a triangle aimed the way
+   * its units leave. Colour says whose it is, so the pair facing each other
+   * across a lane reads as where your units come from and where they are going.
    * @param ctx - Target context, already scaled to CSS pixels
    * @param battlefield - Layout being drawn
    */
-  private drawFrame(ctx: CanvasRenderingContext2D, battlefield: Battlefield): void {
-    const left = this.viewport.toCanvasX(0)
-    const right = this.viewport.toCanvasX(battlefield.size.width)
-    const top = this.viewport.toCanvasY(0)
-    const bottom = this.viewport.toCanvasY(battlefield.size.height)
+  private drawLaunchers(ctx: CanvasRenderingContext2D, battlefield: Battlefield): void {
+    for (const launcher of battlefield.launchers) {
+      const triplet = this.factionTriplet(launcher.ownerId)
+      const left = this.viewport.toCanvasX(launcher.position.x - (launcher.size.width / 2))
+      const top = this.viewport.toCanvasY(launcher.position.y - (launcher.size.height / 2))
+      const width = this.viewport.toCanvasLength(launcher.size.width)
+      const height = this.viewport.toCanvasLength(launcher.size.height)
 
-    ctx.lineWidth = HAIRLINE_WIDTH
-    ctx.strokeStyle = withAlpha(this.theme.textRgb, FIELD_EDGE_ALPHA)
-    ctx.strokeRect(left, top, right - left, bottom - top)
+      ctx.fillStyle = withAlpha(triplet, LAUNCHER_FILL_ALPHA)
+      ctx.fillRect(left, top, width, height)
+      ctx.lineWidth = LAUNCHER_EDGE_WIDTH
+      ctx.strokeStyle = withAlpha(triplet, LAUNCHER_EDGE_ALPHA)
+      ctx.strokeRect(left, top, width, height)
 
-    ctx.setLineDash(CENTRE_AXIS_DASH.map((segment) => this.viewport.toCanvasLength(segment)))
-    ctx.strokeStyle = withAlpha(this.theme.accentRgb, CENTRE_AXIS_ALPHA)
-    ctx.beginPath()
-    ctx.moveTo(this.viewport.toCanvasX(battlefield.size.width / 2), top)
-    ctx.lineTo(this.viewport.toCanvasX(battlefield.size.width / 2), bottom)
-    ctx.stroke()
-    ctx.setLineDash([])
+      const reach = this.viewport.toCanvasLength(launcher.size.width * LAUNCHER_GLYPH_FRACTION) / 2
 
-    const bracket = this.viewport.toCanvasLength(FIELD_BRACKET_LENGTH)
-
-    ctx.lineWidth = BRACKET_WIDTH
-    ctx.strokeStyle = withAlpha(this.theme.accentRgb, FIELD_BRACKET_ALPHA)
-    ctx.beginPath()
-    ctx.moveTo(left, top + bracket)
-    ctx.lineTo(left, top)
-    ctx.lineTo(left + bracket, top)
-    ctx.moveTo(right - bracket, top)
-    ctx.lineTo(right, top)
-    ctx.lineTo(right, top + bracket)
-    ctx.moveTo(right, bottom - bracket)
-    ctx.lineTo(right, bottom)
-    ctx.lineTo(right - bracket, bottom)
-    ctx.moveTo(left + bracket, bottom)
-    ctx.lineTo(left, bottom)
-    ctx.lineTo(left, bottom - bracket)
-    ctx.stroke()
+      ctx.save()
+      ctx.translate(this.viewport.toCanvasX(launcher.position.x), this.viewport.toCanvasY(launcher.position.y))
+      ctx.rotate(launcher.heading)
+      ctx.beginPath()
+      ctx.moveTo(reach, 0)
+      ctx.lineTo(-reach, reach)
+      ctx.lineTo(-reach, -reach)
+      ctx.closePath()
+      ctx.lineWidth = LAUNCHER_GLYPH_WIDTH
+      ctx.strokeStyle = withAlpha(triplet, LAUNCHER_GLYPH_ALPHA)
+      ctx.stroke()
+      ctx.restore()
+    }
   }
 
   /**

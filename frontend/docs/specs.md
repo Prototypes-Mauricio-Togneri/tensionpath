@@ -21,6 +21,16 @@ Each unit type is defined by:
 
 The roster itself is undecided. `scout`, `ranger` and `lancer` exist as placeholders so deployment, the economy and the renderer have something to work with, and are replaced wholesale once the real roster lands. Each is a different reason to spend rather than three points on one power curve: the scout is speed, the ranger is reach, the lancer is weight.
 
+## Lanes and launchers
+
+The battlefield is a stack of 7 horizontal lanes, and every lane is gated at both ends by a **launcher** — a square the height of its lane, flush against the field edge, owned by the player on that side. The two facing each other across a lane are where its traffic comes from and where it is going.
+
+- A player may only deploy from their own launchers. A deployment names a position; the engine resolves it to the launcher underneath and refuses anything else with `invalid_position`
+- A unit lands on its launcher's centre, not under the pointer: the lane is the whole of the choice
+- A unit travels in a straight line down its lane at the opposing launcher and halts the moment it touches that launcher's near face. Nothing takes it off the board there yet, so arrivals accumulate against the gate until combat lands
+
+A launcher is not a `BattlefieldNode`: it is structural, belongs to one side from the whistle, and carries its own extent, whereas a node is a map feature that changes hands. The node kinds below include a `launcher`, which is a different thing — a map feature, unplaced like every other.
+
 ## Nodes
 
 Points on the battlefield that units interact with:
@@ -64,7 +74,7 @@ Actions a player can issue:
   - Both bases, drawn as the share of the bar each player still holds. They drain inward toward the clock, so the neutral ground between them widens as the match wears on and the two remaining lengths can be compared across the middle
   - Match clock, counting up — nothing ends a match on time, so it is a reference for the economy rather than a deadline
 - **Battlefield**
-  - The canvas the match is played on
+  - The canvas the match is played on, drawn as the stack of lanes and their launchers
   - Frame rate, in the bottom right corner
 
 ## Open questions

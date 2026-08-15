@@ -11,9 +11,6 @@ import type {UnitType} from '@/domain/types/unit_type'
 /** How long the bot waits between deployments */
 const DEPLOY_INTERVAL_SECONDS = 2
 
-/** How far past the legal margin the bot places a unit, in battlefield units */
-const DEPLOY_INSET = 2
-
 /**
  * The computer opponent.
  * A client like any other: it observes snapshots and issues commands through a
@@ -58,9 +55,10 @@ export class BotClient {
 
   /**
    * Chooses commands for the current snapshot.
-   * No strategy yet — it spends what it has on a random affordable unit at a
-   * steady interval, which is enough to keep a front on the board. Targeting
-   * and composition land once docs/specs.md settles the rules.
+   * No strategy yet — it spends what it has on a random affordable unit in a
+   * random lane at a steady interval, which is enough to keep a front on the
+   * board. Targeting, lane choice and composition land once docs/specs.md
+   * settles the rules.
    */
   private decide(): void {
     const config = this.config
@@ -77,8 +75,7 @@ export class BotClient {
       return
     }
 
-    const index = state.players.findIndex((candidate) => candidate.id === this.playerId)
-    const player = state.players[index]
+    const player = state.players.find((candidate) => candidate.id === this.playerId)
 
     if (player === undefined) {
       return
@@ -87,15 +84,16 @@ export class BotClient {
     this.ticksUntilDeploy = Math.round(config.ticksPerSecond * DEPLOY_INTERVAL_SECONDS)
 
     const unitType = this.chooseUnit(config, player)
+    const position = this.choosePosition(battlefield)
 
-    if (unitType === undefined) {
+    if (unitType === undefined || position === undefined) {
       return
     }
 
     this.transport.send({
       kind: 'deploy_unit',
       unitType: unitType,
-      position: this.choosePosition(config, battlefield, index),
+      position: position,
     })
   }
 
@@ -118,20 +116,14 @@ export class BotClient {
   }
 
   /**
-   * Places the unit just inside the bot's own edge, at a random offset across
-   * the field.
-   * @param config - Tuning from the start message
+   * Picks one of the bot's own launchers to deploy from, which is the same as
+   * picking a lane.
    * @param battlefield - Layout from the start message
-   * @param index - The bot's seat in the match, which decides its edge
-   * @returns Where to deploy
+   * @returns Where to deploy, or undefined when the bot gates no lane
    */
-  private choosePosition(config: MatchConfig, battlefield: Battlefield, index: number): Position {
-    const inset = config.deployMargin + DEPLOY_INSET
-    const span = battlefield.size.height - (inset * 2)
+  private choosePosition(battlefield: Battlefield): Position | undefined {
+    const own = battlefield.launchers.filter((launcher) => launcher.ownerId === this.playerId)
 
-    return {
-      x: index === 0 ? inset : battlefield.size.width - inset,
-      y: inset + (Math.random() * span),
-    }
+    return own[Math.floor(Math.random() * own.length)]?.position
   }
 }

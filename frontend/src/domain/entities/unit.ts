@@ -13,6 +13,7 @@ export type Unit = {
   id: UnitId
   type: UnitType
   ownerId: PlayerId
+  lane: number // The lane it was deployed into and travels down
   position: Position
   heading: number // Facing in radians; 0 points along +x
   health: number

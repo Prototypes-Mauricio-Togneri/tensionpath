@@ -19,7 +19,7 @@ const BOT_ID = 'bot'
 export function createLocalSession(randomSeed: number): Session {
   const engine = new MatchEngine({
     config: createDefaultConfig(),
-    battlefield: createDefaultBattlefield(),
+    battlefield: createDefaultBattlefield(PLAYER_ID, BOT_ID),
     // Names are placeholders until there is a profile or lobby to supply them
     players: [
       {

@@ -16,7 +16,24 @@ export const STARTING_RESOURCES = 30
 
 export const BATTLEFIELD_WIDTH = 100
 
-export const BATTLEFIELD_HEIGHT = 60
+/**
+ * The field is a stack of lanes and nothing else: a unit is deployed into one,
+ * travels down it, and never leaves it. The height follows from the lanes
+ * rather than the other way round, so a lane is always a whole number of
+ * battlefield units and the two rows never have to share a rounded remainder.
+ */
+export const LANE_COUNT = 7
+
+export const LANE_HEIGHT = 8
+
+export const BATTLEFIELD_HEIGHT = LANE_COUNT * LANE_HEIGHT
+
+/**
+ * A launcher is a square the height of its lane, flush against the field edge.
+ * Keeping it square means the corridor a unit crosses is the same length in
+ * every lane.
+ */
+export const LAUNCHER_SIZE = LANE_HEIGHT
 
 /**
  * Base income as specified in docs/specs.md: 2 T/s at the start, gaining
@@ -30,12 +47,6 @@ export const BASE_INCOME_STEP = 0.2
 export const BASE_INCOME_STEP_SECONDS = 30
 
 export const BASE_INCOME_MAX = 3
-
-/**
- * How far from the battlefield edge a unit may be deployed, in battlefield
- * units. Placeholder: docs/specs.md does not restrict deployment yet.
- */
-export const DEPLOY_MARGIN = 3
 
 /**
  * Placeholder roster of three contrasting units — enough to exercise

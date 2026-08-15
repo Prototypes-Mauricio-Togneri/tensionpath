@@ -1,4 +1,5 @@
 import type {Battlefield} from '@/domain/entities/battlefield'
+import type {Launcher} from '@/domain/entities/launcher'
 import type {MatchConfig} from '@/domain/entities/match_config'
 import type {MatchState} from '@/domain/entities/match_state'
 import type {Player} from '@/domain/entities/player'
@@ -8,18 +9,21 @@ import type {MatchEvent} from '@/domain/protocol/message'
 import type {Transport} from '@/domain/protocol/transport'
 import type {PlayerId} from '@/domain/types/ids'
 import type {RejectionReason} from '@/domain/types/rejection_reason'
-import {BASE_INCOME_MAX, BASE_INCOME_START, BASE_INCOME_STEP, BASE_INCOME_STEP_SECONDS, DEPLOY_MARGIN} from '@/engine/balancing'
+import {BASE_INCOME_MAX, BASE_INCOME_START, BASE_INCOME_STEP, BASE_INCOME_STEP_SECONDS} from '@/engine/balancing'
 import {MILLIS_PER_SECOND, TICK_INTERVAL_MILLIS, TICK_INTERVAL_SECONDS} from '@/engine/constants'
 import {LocalTransport} from '@/engine/local_transport'
 
 /**
- * Wraps an angle into (-π, π] so a bouncing heading cannot accumulate turns
- * and the renderer never has to unwind one.
- * @param heading - Angle in radians
- * @returns The equivalent angle in (-π, π]
+ * Whether a point falls inside a launcher's square.
+ * @param launcher - The gate being tested
+ * @param position - The point to test
+ * @returns True when the point is inside the gate
  */
-function normalizeHeading(heading: number): number {
-  return Math.atan2(Math.sin(heading), Math.cos(heading))
+function covers(launcher: Launcher, position: Position): boolean {
+  const insideX = Math.abs(position.x - launcher.position.x) <= launcher.size.width / 2
+  const insideY = Math.abs(position.y - launcher.position.y) <= launcher.size.height / 2
+
+  return insideX && insideY
 }
 
 /**
@@ -238,9 +242,9 @@ export class MatchEngine {
   }
 
   /**
-   * Checks a deployment against the roster, the player's purse and the
-   * battlefield bounds — the three things a client can predict and therefore
-   * should already have prevented.
+   * Checks a deployment against the roster, the player's purse and their own
+   * launchers — the three things a client can predict and therefore should
+   * already have prevented.
    * @param player - The player the command arrived from
    * @param command - The deployment being checked
    * @returns Why to refuse it, or null when it is allowed
@@ -256,7 +260,7 @@ export class MatchEngine {
       return 'insufficient_resources'
     }
 
-    if (!this.isDeployable(command.position)) {
+    if (this.launcherAt(command.position, player.id) === undefined) {
       return 'invalid_position'
     }
 
@@ -264,15 +268,29 @@ export class MatchEngine {
   }
 
   /**
-   * Whether a position is far enough inside the battlefield to deploy onto.
+   * The player's own launcher a position falls inside — the only place they
+   * may deploy.
    * @param position - Where the unit would appear
-   * @returns True when the position is legal
+   * @param ownerId - The player the launcher must belong to
+   * @returns The launcher, or undefined when the position gates nothing of theirs
    */
-  private isDeployable(position: Position): boolean {
-    const insideX = position.x >= DEPLOY_MARGIN && position.x <= this.battlefield.size.width - DEPLOY_MARGIN
-    const insideY = position.y >= DEPLOY_MARGIN && position.y <= this.battlefield.size.height - DEPLOY_MARGIN
+  private launcherAt(position: Position, ownerId: PlayerId): Launcher | undefined {
+    return this.battlefield.launchers.find((launcher) => {
+      return launcher.ownerId === ownerId && covers(launcher, position)
+    })
+  }
 
-    return insideX && insideY
+  /**
+   * The launcher at the far end of a lane — where a unit deployed from the
+   * near end is headed.
+   * @param lane - The lane in question
+   * @param ownerId - The player whose own launcher is at the near end
+   * @returns The opposing launcher, or undefined when the lane has none
+   */
+  private opposingLauncher(lane: number, ownerId: PlayerId): Launcher | undefined {
+    return this.battlefield.launchers.find((launcher) => {
+      return launcher.lane === lane && launcher.ownerId !== ownerId
+    })
   }
 
   /**
@@ -299,14 +317,19 @@ export class MatchEngine {
   }
 
   /**
-   * Charges the deployment cost and puts the unit on the battlefield.
+   * Charges the deployment cost and puts the unit in the launcher it was
+   * dropped on.
+   * The unit lands on the launcher's centre rather than under the pointer: a
+   * lane is the whole of the choice, so the position in the command only picks
+   * which one.
    * @param player - The owner, already known to afford it
    * @param command - The validated deployment
    */
   private deploy(player: Player, command: DeployUnitCommand): void {
     const stats = this.config.units[command.unitType]
+    const launcher = this.launcherAt(command.position, player.id)
 
-    if (stats === undefined) {
+    if (stats === undefined || launcher === undefined) {
       return
     }
 
@@ -315,29 +338,17 @@ export class MatchEngine {
       id: `unit-${this.nextUnitNumber}`,
       type: command.unitType,
       ownerId: player.id,
+      lane: launcher.lane,
       position: {
-        x: command.position.x,
-        y: command.position.y,
+        x: launcher.position.x,
+        y: launcher.position.y,
       },
-      heading: this.headingFor(player.id),
+      heading: launcher.heading,
       health: stats.health,
       moving: true,
       targetUnitId: null,
     })
     this.nextUnitNumber += 1
-  }
-
-  /**
-   * Which way a player's units set off.
-   * Placeholder rule: the first player advances along +x and everyone else
-   * against it, which is enough to give the two sides opposing fronts.
-   * @param playerId - The owner of the unit
-   * @returns Initial heading in radians
-   */
-  private headingFor(playerId: PlayerId): number {
-    const index = this.state.players.findIndex((candidate) => candidate.id === playerId)
-
-    return index === 0 ? 0 : Math.PI
   }
 
   /**
@@ -355,35 +366,34 @@ export class MatchEngine {
   }
 
   /**
-   * Advances every moving unit along its heading.
-   * Placeholder movement: units travel in a straight line and turn back at the
-   * battlefield edge, so the field stays populated until pathing, lanes and
-   * combat are specified in docs/specs.md.
+   * Advances every moving unit down its lane.
+   * A unit runs straight at the launcher gating the far end and halts the
+   * moment it touches that launcher's near face. Nothing takes it off the
+   * board there yet, so arrivals accumulate against the gate until combat
+   * lands (docs/specs.md).
    */
   private moveUnits(): void {
     for (const unit of this.state.units) {
       const stats = this.config.units[unit.type]
+      const target = this.opposingLauncher(unit.lane, unit.ownerId)
 
-      if (!unit.moving || stats === undefined) {
+      if (!unit.moving || stats === undefined || target === undefined) {
         continue
       }
 
-      const distance = stats.speed * TICK_INTERVAL_SECONDS
-      const limitX = this.battlefield.size.width - stats.size
-      const limitY = this.battlefield.size.height - stats.size
+      const advancing = target.position.x > unit.position.x
+      const direction = advancing ? 1 : -1
+      // Where the unit's leading edge comes to rest against the launcher
+      const limit = target.position.x - (direction * ((target.size.width / 2) + stats.size))
+      const advanced = unit.position.x + (direction * stats.speed * TICK_INTERVAL_SECONDS)
 
-      unit.position.x += Math.cos(unit.heading) * distance
-      unit.position.y += Math.sin(unit.heading) * distance
-
-      if (unit.position.x < stats.size || unit.position.x > limitX) {
-        unit.position.x = Math.min(Math.max(unit.position.x, stats.size), limitX)
-        unit.heading = normalizeHeading(Math.PI - unit.heading)
+      if (advancing ? advanced >= limit : advanced <= limit) {
+        unit.position.x = limit
+        unit.moving = false
+        continue
       }
 
-      if (unit.position.y < stats.size || unit.position.y > limitY) {
-        unit.position.y = Math.min(Math.max(unit.position.y, stats.size), limitY)
-        unit.heading = normalizeHeading(-unit.heading)
-      }
+      unit.position.x = advanced
     }
   }
 

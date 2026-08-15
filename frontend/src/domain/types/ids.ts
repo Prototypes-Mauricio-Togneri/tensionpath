@@ -8,3 +8,5 @@ export type PlayerId = string
 export type UnitId = string
 
 export type NodeId = string
+
+export type LauncherId = string

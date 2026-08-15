@@ -34,7 +34,7 @@ Prefer getters over methods for parameterless functions that only read instance 
 
 Numeric balancing values go in `src/engine/balancing.ts`. Structural constants (maps, sets, factory functions) and engine configuration such as the tick rate go in `src/engine/constants.ts`. Pure string enums, unions and id aliases go in `src/domain/types/`. Do not hardcode values in other files.
 
-Both constant files are engine-owned and the client may not import them (enforced in `eslint.config.js`). The subset a client needs — costs, ranges, sizes, the tick rate, the deploy margin — travels in the `start` message as `MatchConfig`.
+Both constant files are engine-owned and the client may not import them (enforced in `eslint.config.js`). The subset a client needs — costs, ranges, sizes, the tick rate — travels in the `start` message as `MatchConfig`, and the layout it needs, lanes and launchers included, travels alongside it as `Battlefield`.
 
 Purely visual constants are the client's own and belong to the module that draws with them: `src/renderer/constants.ts` for the canvas, and a `const` at the top of the file for anything used by one client alone. They never travel on the wire and the engine never sees them.
 

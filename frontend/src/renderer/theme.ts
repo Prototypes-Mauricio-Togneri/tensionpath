@@ -7,6 +7,7 @@
  */
 export type RendererTheme = {
   background: string
+  backgroundDeep: string
   border: string
   text: string
   textRgb: string
@@ -35,6 +36,7 @@ export function readTheme(): RendererTheme {
 
   return {
     background: readToken(styles, '--color-bg'),
+    backgroundDeep: readToken(styles, '--color-bg-deep'),
     border: readToken(styles, '--color-border'),
     text: readToken(styles, '--color-text'),
     textRgb: readToken(styles, '--color-text-rgb'),

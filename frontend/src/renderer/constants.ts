@@ -20,28 +20,18 @@ export const FRAME_RATE_SAMPLE_MILLIS = 500
 /** Breathing room around the battlefield so the frame clears the HUD rails */
 export const FIELD_PADDING = 4
 
-/* Survey grid */
-export const GRID_SPACING = 10
+/* Lanes — the field's only structure, so the stack of them is the frame too */
+export const LANE_EDGE_ALPHA = 0.38
 
-export const GRID_TICK_LENGTH = 0.9
+/* Launchers */
+export const LAUNCHER_FILL_ALPHA = 0.07
 
-export const GRID_ALPHA = 0.05
+export const LAUNCHER_EDGE_ALPHA = 0.8
 
-export const GRID_TICK_ALPHA = 0.14
+/** Side of the direction triangle, as a fraction of the launcher square */
+export const LAUNCHER_GLYPH_FRACTION = 0.56
 
-/* Battlefield frame */
-export const FIELD_EDGE_ALPHA = 0.12
-
-export const FIELD_BRACKET_LENGTH = 5
-
-export const FIELD_BRACKET_ALPHA = 0.4
-
-export const CENTRE_AXIS_ALPHA = 0.16
-
-export const CENTRE_AXIS_DASH = [
-  1.2,
-  2.2,
-]
+export const LAUNCHER_GLYPH_ALPHA = 0.95
 
 /* Nodes */
 export const NODE_RADIUS_DEFAULT = 2
@@ -103,6 +93,8 @@ export const PREVIEW_DASH = [
    stays a hairline at any zoom */
 export const HAIRLINE_WIDTH = 1
 
-export const BRACKET_WIDTH = 1.5
+export const LAUNCHER_EDGE_WIDTH = 1.5
+
+export const LAUNCHER_GLYPH_WIDTH = 2
 
 export const UNIT_OUTLINE_WIDTH = 1.5
