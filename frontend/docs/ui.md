@@ -10,8 +10,9 @@ Cold gunmetal instrumentation with amber telemetry. Design tokens are CSS custom
 
 | Token                                  | Purpose                               |
 | -------------------------------------- | ------------------------------------- |
-| `--color-bg` / `-raised` / `-surface`  | Background depth levels               |
+| `--color-bg-deep` / `--color-bg` / `-raised` / `-surface` | Background depth levels  |
 | `--color-text`, `--color-text-rgb`     | Body text                             |
+| `--color-text-strong`                  | White — text on faction colour or on `--color-bg-deep` |
 | `--color-accent`, `--color-accent-rgb` | Amber — telemetry, warnings, emphasis |
 | `--color-border`                       | Hairline separators                   |
 | `--color-track`                        | Neutral ground a meter uncovers as it drains |

@@ -36,16 +36,16 @@ const clock = computed(() => {
 </template>
 
 <style scoped>
-/* Neutral ground between the two bases, and the seed the drained parts of
-   them grow out of */
+/* Black seam between the two bases, holding the clock clear of either
+   faction's colour and of the ground they drain into */
 .match-timer {
     display: flex;
     align-items: center;
     flex: none;
     padding: 0 1rem;
     align-self: stretch;
-    background: var(--color-track);
-    color: var(--color-bg);
+    background: var(--color-bg-deep);
+    color: var(--color-text-strong);
     font-family: var(--font-numeric);
     font-size: 1.05rem;
     line-height: 1;

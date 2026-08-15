@@ -7,11 +7,15 @@
 
 /* Theme design tokens — cold gunmetal instrumentation with amber telemetry */
 :root {
+    --color-bg-deep: rgba(0, 0, 0, 1);
     --color-bg: rgba(13, 17, 23, 1);
     --color-bg-raised: rgba(20, 26, 34, 1);
     --color-bg-surface: rgba(28, 36, 46, 1);
     --color-text: rgba(214, 225, 235, 1);
     --color-text-rgb: 214, 225, 235;
+
+    /* Brightest text — reads on faction colour and on the deepest background */
+    --color-text-strong: rgba(255, 255, 255, 1);
     --color-accent: rgba(232, 160, 58, 1);
     --color-accent-rgb: 232, 160, 58;
     --color-border: rgba(120, 160, 190, 0.16);
@@ -21,8 +25,8 @@
     --color-track: rgba(138, 152, 166, 1);
 
     /* Faction colors — must read instantly at a glance during a match */
-    --color-ally: rgba(64, 190, 214, 1);
-    --color-ally-rgb: 64, 190, 214;
+    --color-ally: rgba(48, 112, 208, 1);
+    --color-ally-rgb: 48, 112, 208;
     --color-enemy: rgba(224, 82, 72, 1);
     --color-enemy-rgb: 224, 82, 72;
 

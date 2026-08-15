@@ -73,7 +73,7 @@ const healthFraction = computed(() => {
 /* Stamped into the bar rather than laid over it */
 .player-name {
     position: relative;
-    color: var(--color-bg);
+    color: var(--color-text-strong);
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 0.8rem;
