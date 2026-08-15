@@ -37,12 +37,16 @@ const clock = computed(() => {
 
 <style scoped>
 /* Black seam between the two bases, holding the clock clear of either
-   faction's colour and of the ground they drain into */
+   faction's colour and of the ground they drain into.
+   The width is fixed rather than fitted to the digits: Electrolize has no
+   tabular figures to hold them to one advance, so a seam sized by content
+   would shove both bases sideways on every tick */
 .match-timer {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex: none;
-    padding: 0 1rem;
+    width: 5rem;
     align-self: stretch;
     background: var(--color-bg-deep);
     color: var(--color-text-strong);

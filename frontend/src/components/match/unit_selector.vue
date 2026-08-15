@@ -9,6 +9,7 @@
  */
 import {computed} from 'vue'
 import CoinIcon from '@/components/match/coin_icon.vue'
+import UnitIcon from '@/components/match/unit_icon.vue'
 import type {UnitStats} from '@/domain/entities/unit_stats'
 import type {UnitType} from '@/domain/types/unit_type'
 import {t} from '@/i18n/localized'
@@ -81,7 +82,9 @@ function handlePointerDown(entry: UnitEntry, event: PointerEvent): void {
       @pointerdown="handlePointerDown(entry, $event)"
     >
       <span class="unit-name">{{ entry.label }}</span>
-      <span class="unit-art"></span>
+      <span class="unit-art">
+        <UnitIcon :unit-type="entry.type" />
+      </span>
       <span class="unit-cost">
         {{ entry.cost }}
         <CoinIcon />
@@ -91,21 +94,22 @@ function handlePointerDown(entry: UnitEntry, event: PointerEvent): void {
 </template>
 
 <style scoped>
+/* Two columns, because six square keys will not stack in one and stay legible.
+   Reading order is cost order: cheapest top-left, dearest bottom-right */
 .unit-selector {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-    gap: 0.6rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex: none;
+    gap: 0.5rem;
 }
 
 /* Machined key — chamfered top-right corner, no rounded chip */
 .unit-card {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    aspect-ratio: 1;
     min-height: 0;
-    padding: 0.5rem 0.6rem;
+    padding: 0.45rem 0.5rem;
     background: var(--color-bg-surface);
     border: 0.0625rem solid var(--color-border);
     border-radius: 0.125rem;
@@ -140,24 +144,26 @@ function handlePointerDown(entry: UnitEntry, event: PointerEvent): void {
 .unit-name {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
-/* Reserved for the unit's artwork */
+/* The silhouette, given every pixel the name and the price leave */
 .unit-art {
+    display: block;
     flex: 1;
     min-height: 0;
+    padding: 0.2rem 0;
 }
 
 .unit-cost {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.3rem;
+    gap: 0.25rem;
     font-family: var(--font-numeric);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     line-height: 1;
     color: var(--color-accent);
     font-variant-numeric: tabular-nums;

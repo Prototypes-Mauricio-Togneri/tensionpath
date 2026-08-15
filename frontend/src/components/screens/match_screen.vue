@@ -132,7 +132,7 @@ onBeforeUnmount(() => {
           :dragged="draggedUnitType"
           @drag-start="beginDrag"
         />
-        <ResourceIndicator :amount="localPlayer.resources" />
+        <ResourceIndicator class="resource-readout" :amount="localPlayer.resources" />
       </template>
     </aside>
     <div class="match-console">
@@ -171,16 +171,22 @@ onBeforeUnmount(() => {
     overflow: hidden;
 }
 
-/* Everything the player spends from, in one column */
+/* Everything the player spends from, in one column: the roster at the top,
+   what is left to spend on it held at the bottom */
 .control-rail {
     flex: none;
-    width: 11rem;
+    width: 15rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 0.75rem;
     background: var(--color-bg-raised);
     border-right: 0.0625rem solid var(--color-border);
+}
+
+/* Held at the foot of the rail, under everything it has to pay for */
+.resource-readout {
+    margin-top: auto;
 }
 
 .match-console {

@@ -19,7 +19,9 @@ Each unit type is defined by:
 - Size: radius in battlefield units — the renderer draws it and the client previews a deployment with it
 - Speed: battlefield units per second
 
-The roster itself is undecided. `scout`, `ranger` and `lancer` exist as placeholders so deployment, the economy and the renderer have something to work with, and are replaced wholesale once the real roster lands. Each is a different reason to spend rather than three points on one power curve: the scout is speed, the ranger is reach, the lancer is weight.
+The roster itself is undecided. `scout`, `talon`, `ranger`, `salvo`, `lancer` and `bastion` exist as placeholders so deployment, the economy and the renderer have something to work with, and are replaced wholesale once the real roster lands. Each is a different reason to spend rather than six points on one power curve, and each is best at exactly one thing: the scout is speed, the talon is a single hard hit, the ranger is reach, the salvo is splash from further out than anything can answer, the lancer is weight, the bastion is the wall that soaks and barely hits back.
+
+Every unit type has its own silhouette (`src/renderer/unit_shapes.ts`), drawn from one vocabulary on both the roster card and the battlefield, so a lane can be read by shape before colour or position says anything.
 
 ## Lanes and launchers
 
@@ -68,11 +70,11 @@ Actions a player can issue:
 ## UI
 
 - **Left rail**
-  - Unit selector — one card per unit in the roster, ordered by cost. A card is a handle, not a button: a unit reaches the field by being dragged onto it, and the cards are not clickable
-  - Resource indicator — what is in hand, in the same coin every card is priced in
+  - Unit selector — one square card per unit in the roster, in two columns ordered by cost, cheapest top-left. A card is a handle, not a button: a unit reaches the field by being dragged onto it, and the cards are not clickable
+  - Resource indicator — what is in hand, boxed at the foot of the rail, in the same coin every card is priced in
 - **Top bar**
   - Both bases, drawn as the share of the bar each player still holds. They drain inward toward the clock, so the neutral ground between them widens as the match wears on and the two remaining lengths can be compared across the middle
-  - Match clock, counting up — nothing ends a match on time, so it is a reference for the economy rather than a deadline
+  - Match clock, counting up — nothing ends a match on time, so it is a reference for the economy rather than a deadline. Its width is fixed, so a tick never moves either base
 - **Battlefield**
   - The canvas the match is played on, drawn as the stack of lanes and their launchers
   - Frame rate, in the bottom right corner

@@ -3,11 +3,12 @@ import type {MatchConfig} from '@/domain/entities/match_config'
 import type {MatchState} from '@/domain/entities/match_state'
 import type {Position} from '@/domain/entities/position'
 import type {NodeId, PlayerId} from '@/domain/types/ids'
-import {FRAME_RATE_SAMPLE_MILLIS, HAIRLINE_WIDTH, LANE_EDGE_ALPHA, LAUNCHER_EDGE_ALPHA, LAUNCHER_EDGE_WIDTH, LAUNCHER_FILL_ALPHA, LAUNCHER_GLYPH_ALPHA, LAUNCHER_GLYPH_FRACTION, LAUNCHER_GLYPH_WIDTH, MILLIS_PER_SECOND, NODE_CORE_ALPHA, NODE_CORE_FRACTION, NODE_FILL_ALPHA, NODE_RADIUS_BY_TYPE, NODE_RADIUS_DEFAULT, NODE_RING_ALPHA, PREVIEW_ALPHA, PREVIEW_CROSS_REACH, PREVIEW_DASH, TAU, UNIT_FILL_ALPHA, UNIT_HEALTH_BAR_HEIGHT, UNIT_HEALTH_BAR_OFFSET, UNIT_HEALTH_BAR_WIDTH, UNIT_HEALTH_TRACK_ALPHA, UNIT_NOTCH_DEPTH, UNIT_OUTLINE_WIDTH, UNIT_TAIL_LENGTH, UNIT_TAIL_SPREAD} from '@/renderer/constants'
+import {FRAME_RATE_SAMPLE_MILLIS, HAIRLINE_WIDTH, LANE_EDGE_ALPHA, LAUNCHER_EDGE_ALPHA, LAUNCHER_EDGE_WIDTH, LAUNCHER_FILL_ALPHA, MILLIS_PER_SECOND, NODE_CORE_ALPHA, NODE_CORE_FRACTION, NODE_FILL_ALPHA, NODE_RADIUS_BY_TYPE, NODE_RADIUS_DEFAULT, NODE_RING_ALPHA, PREVIEW_ALPHA, PREVIEW_CROSS_REACH, PREVIEW_DASH, TAU, UNIT_FILL_ALPHA, UNIT_HEALTH_BAR_HEIGHT, UNIT_HEALTH_BAR_OFFSET, UNIT_HEALTH_BAR_WIDTH, UNIT_HEALTH_TRACK_ALPHA, UNIT_OUTLINE_WIDTH} from '@/renderer/constants'
 import type {InterpolatedUnit} from '@/renderer/snapshot_buffer'
 import {SnapshotBuffer} from '@/renderer/snapshot_buffer'
 import type {RendererTheme} from '@/renderer/theme'
 import {readTheme, withAlpha} from '@/renderer/theme'
+import {shapeFor} from '@/renderer/unit_shapes'
 import {Viewport} from '@/renderer/viewport'
 
 /**
@@ -210,9 +211,9 @@ export class MatchRenderer {
   }
 
   /**
-   * The gates at both ends of every lane, each holding a triangle aimed the way
-   * its units leave. Colour says whose it is, so the pair facing each other
-   * across a lane reads as where your units come from and where they are going.
+   * The gates at both ends of every lane. Colour is the whole of the reading:
+   * the pair facing each other across a lane says where your units come from
+   * and where they are going, without a mark inside either one.
    * @param ctx - Target context, already scaled to CSS pixels
    * @param battlefield - Layout being drawn
    */
@@ -229,21 +230,6 @@ export class MatchRenderer {
       ctx.lineWidth = LAUNCHER_EDGE_WIDTH
       ctx.strokeStyle = withAlpha(triplet, LAUNCHER_EDGE_ALPHA)
       ctx.strokeRect(left, top, width, height)
-
-      const reach = this.viewport.toCanvasLength(launcher.size.width * LAUNCHER_GLYPH_FRACTION) / 2
-
-      ctx.save()
-      ctx.translate(this.viewport.toCanvasX(launcher.position.x), this.viewport.toCanvasY(launcher.position.y))
-      ctx.rotate(launcher.heading)
-      ctx.beginPath()
-      ctx.moveTo(reach, 0)
-      ctx.lineTo(-reach, reach)
-      ctx.lineTo(-reach, -reach)
-      ctx.closePath()
-      ctx.lineWidth = LAUNCHER_GLYPH_WIDTH
-      ctx.strokeStyle = withAlpha(triplet, LAUNCHER_GLYPH_ALPHA)
-      ctx.stroke()
-      ctx.restore()
     }
   }
 
@@ -283,8 +269,10 @@ export class MatchRenderer {
   }
 
   /**
-   * Units as darts pointing where they are headed, with a health bar only once
-   * they have been hurt — a full bar over every unit would be noise.
+   * Units as their own silhouette, pointing where they are headed, with a
+   * health bar only once they have been hurt — a full bar over every unit would
+   * be noise. The outline is the one the roster card showed, so a lane can be
+   * read by shape before colour or position says anything.
    * @param ctx - Target context, already scaled to CSS pixels
    * @param units - Units sampled for this frame
    */
@@ -311,10 +299,12 @@ export class MatchRenderer {
       ctx.translate(canvasX, canvasY)
       ctx.rotate(rendered.heading)
       ctx.beginPath()
-      ctx.moveTo(radius, 0)
-      ctx.lineTo(-radius * UNIT_TAIL_LENGTH, radius * UNIT_TAIL_SPREAD)
-      ctx.lineTo(-radius * UNIT_NOTCH_DEPTH, 0)
-      ctx.lineTo(-radius * UNIT_TAIL_LENGTH, -radius * UNIT_TAIL_SPREAD)
+
+      // The first lineTo opens the subpath, so the polygon needs no moveTo
+      for (const point of shapeFor(rendered.unit.type)) {
+        ctx.lineTo(point.x * radius, point.y * radius)
+      }
+
       ctx.closePath()
       ctx.fillStyle = withAlpha(triplet, UNIT_FILL_ALPHA)
       ctx.fill()

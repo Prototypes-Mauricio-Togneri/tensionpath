@@ -28,11 +28,6 @@ export const LAUNCHER_FILL_ALPHA = 0.07
 
 export const LAUNCHER_EDGE_ALPHA = 0.8
 
-/** Side of the direction triangle, as a fraction of the launcher square */
-export const LAUNCHER_GLYPH_FRACTION = 0.56
-
-export const LAUNCHER_GLYPH_ALPHA = 0.95
-
 /* Nodes */
 export const NODE_RADIUS_DEFAULT = 2
 
@@ -62,13 +57,7 @@ export const NODE_RING_ALPHA = 0.45
 
 export const NODE_CORE_ALPHA = 0.7
 
-/* Units */
-export const UNIT_TAIL_LENGTH = 0.7 // Fraction of the radius behind the centre
-
-export const UNIT_TAIL_SPREAD = 0.75
-
-export const UNIT_NOTCH_DEPTH = 0.35
-
+/* Units — the silhouettes themselves live in unit_shapes.ts */
 export const UNIT_FILL_ALPHA = 0.35
 
 export const UNIT_HEALTH_BAR_WIDTH = 2.6
@@ -94,7 +83,5 @@ export const PREVIEW_DASH = [
 export const HAIRLINE_WIDTH = 1
 
 export const LAUNCHER_EDGE_WIDTH = 1.5
-
-export const LAUNCHER_GLYPH_WIDTH = 2
 
 export const UNIT_OUTLINE_WIDTH = 1.5
